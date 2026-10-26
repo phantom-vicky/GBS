@@ -1,0 +1,58 @@
+<div class="loader-new" ng-if="vm.loader"></div>
+<dc-left-menu></dc-left-menu>
+<div class="container from_wrapper new_form_wrapper">
+
+    <h4 class="form_heading">{{vm.screenModule}} TOC Sharing Maintenance - Modify</h4>
+    <sol-header></sol-header>
+    <form name="tocSharingMaintenanceForm" role="form">
+
+        <div class="row">
+            <div class="form-group required">
+                <div class="col-sm-3"></div>
+                <div class="col-sm-3">
+                    <label for="moduleName" class="control-label">Module</label>
+                </div>
+                <div class="col-sm-2">
+                    <select class="form-control" id="moduleName" name="moduleName"
+                            ng-model="vm.moduleId"
+                            ng-change="vm.getVersionEffFromDateForModify(); vm.effeFromDate = '';" required>
+                        <option value="" hidden="true">Select</option>
+                        <option ng-repeat="item in vm.moduleList" ng-hide="item.subCode == 'ALL'" value="{{item.subCode}}">{{item.subCodeDescription}}</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="row">
+            <div class="form-group required">
+                <div class="col-sm-3"></div>
+                <div class="col-sm-3">
+                    <label for="effFromDate" class="control-label">Effective From Date</label>
+                </div>
+                <div class="col-sm-2">
+                    <input type="text" class="form-control" id="effFromDate"
+                           ng-model="vm.effeFromDate" readonly required>
+                </div>
+            </div>
+        </div>
+
+        <div class="text-center form_submit">
+            <button type="submit" id="submitbutton" class="btn btn-default"
+                    ng-click="vm.goNextState({
+                                    moduleId: vm.moduleId,
+                                    versionNo: vm.versionNo,
+                                    screenModule : vm.screenModule,
+                                    effeFromDate: vm.effeFromDate
+								})"
+                    ng-disabled="tocSharingMaintenanceForm.$invalid">Next</button>
+            <button type="button" class="btn btn-cancel" id="cancelButton"
+                    ng-click="vm.goPreviousState()">Cancel</button>
+        </div>
+
+        <div class="text-center">
+            <notice-message-directive></notice-message-directive>
+        </div>
+    </form>
+</div>
+

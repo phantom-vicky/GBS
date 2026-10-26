@@ -1,0 +1,200 @@
+<div class="loader-new" ng-if="vm.loader"></div>
+<div class="container from_wrapper new_form_wrapper">
+	<cbs-left-menu></cbs-left-menu>
+	<h4 class="form_heading  feature-heading">Maintenance of Calendar Entries - Modify</h4>
+	<form name="maintenanceOfCalendarEntriesForm" role="form"  novalidate>
+		<div class="col-sm-6 col-sm-offset-3">
+			<div class="row">
+				<div class="form-group required">
+					<div class="col-sm-6">
+						<label for="calendarType" class ="control-label">Type</label>
+					</div>
+					<div class="col-sm-4">
+						<select class="form-control"  ng-change="vm.cbsMaintenanceOfCalendarEntries.calendarCode=vm.monthYear =vm.cbsMaintenanceOfCalendarEntries.dayOrder= vm.cbsMaintenanceOfCalendarEntries.option=vm.cbsMaintenanceOfCalendarEntries.optionNew=vm.model='';" id="calendarType" name="calendarType" ng-model="vm.cbsMaintenanceOfCalendarEntries.calendarType"  required >
+							<option ng-selected= "{{maintenanceOfCalendarEntries.calendarType == ''}}" value="">Select</option>
+							<option ng-selected= "{{maintenanceOfCalendarEntries.calendarType== 'Branch'}}" value="Branch">Branch</option>
+							<option ng-selected= "{{maintenanceOfCalendarEntries.calendarType == 'DC'}}" value="DC">DC</option>
+						</select>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="form-group required">
+					<div class="col-sm-6">
+						<label for="calendarCode" class ="control-label">Branch Code or Data Center Code</label>
+					</div>
+					<div class="col-sm-4">
+						<input type="text"  chars="alpha-numeric" ng-change="vm.monthYear =vm.cbsMaintenanceOfCalendarEntries.dayOrder= vm.cbsMaintenanceOfCalendarEntries.option=vm.cbsMaintenanceOfCalendarEntries.optionNew=vm.model='';" class="form-control" id="calendarCode" name="calendarCode" ng-model="vm.cbsMaintenanceOfCalendarEntries.calendarCode" maxlength="12"  required  oninput="this.value = this.value.replace(/\s+/g, '')">
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="form-group required">
+					<div class="col-sm-6">
+						<label for="monthYear" class="control-label">MM/YYYY</label>
+					</div>
+					<div class="col-sm-4">
+						<input type="text" class="form-control" name="monthYear" id="monthYear"
+							   ng-init="vm.cbsMaintenanceOfCalendarEntries.dayOrder =vm.monthYear = ''" ng-model="vm.monthYear"  readonly required>
+					</div>
+					<div class="col-sm-2"  ng-if="((vm.cbsMaintenanceOfCalendarEntries.calendarCode && vm.cbsMaintenanceOfCalendarEntries.calendarType)&& !vm.monthYear)">
+						<i class="glyphicon glyphicon-search cp" data-bs-toggle="modal" ng-click="vm.modifySelect('get',vm.monthYear);"
+						   id="customerIdSearch"  ></i> <i
+							class="glyphicon glyphicon-remove clear cp"
+							ng-click="vm.cbsMaintenanceOfCalendarEntries.option = vm.monthYear = vm.cbsMaintenanceOfCalendarEntries.calendarCode = vm.cbsMaintenanceOfCalendarEntries.calendarType = '';"></i>
+					</div>
+				</div>
+			</div>
+            <div class="row" ng-if="vm.monthYear">
+                <div class="form-group">
+                    <div class="col-sm-6">
+                        <label for="calendarCode" class ="control-label">Rejection Remarks</label>
+                    </div>
+                    <div class="col-sm-4">
+                        <input type="text" class="form-control" id="rejectionRemarks" name="rejectionRemarks" ng-model="vm.model[0].rejectionRemarks" disabled>
+                    </div>
+                </div>
+            </div></div>
+        <div class="row">
+			<div class="form-group required">
+				<div class="col-md-12" ng-if="vm.monthYear">
+                    <table class="table table-bordered" style="width : 100% !important; max-width : initial ! important">
+                        <thead>
+                        <tr class="thalign">
+                            <th colspan="4" class="text-center">Holiday Calender</th>
+                        </tr>
+                        <tr>
+                            <th class="text-center">Date (DD/MM/YYYY)</th>
+                            <th class="text-center">Weekday Name</th>
+                            <th class="text-center">Holiday (Yes/No)</th>
+                            <th class="text-center">Remarks</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="item in vm.dataList">
+                            <td class="text-center">{{item.scrollDate | date:'dd/MM/yyyy'}}</td>
+                            <td class="text-center">{{item.scrollDay}}</td>
+                            <td>
+                                <select class="form-control"  name="holiday" ng-model="item.holiday" ng-init="item.cashRemittance" ng-change="vm.clearRemarks({{$index}},item.holiday)"
+                                        required >
+                                    <option value="">Select</option>
+                                    <option value="Y">Yes</option>
+                                    <option value="N">No</option>
+                                </select>
+                            </td>
+                            <td ng-if="item.holiday=='Y'">
+                                <input type="text" class="form-control" id="remarks" chars="alpha-numeric" leading-space name="remarks{{$index}}"
+                                       ng-model="item.remarks" required>
+                            </td></tr>
+                        </tbody>
+                    </table>
+			</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-sm-offset-5 col-sm-8 form_submit">
+				<button type="submit" class="btn btn-default" id="submitButton"
+						ng-click="vm.modifySubmit();"
+						ng-disabled="maintenanceOfCalendarEntriesForm.$invalid">
+					Modify
+				</button>
+				<button type="button" class="btn btn-cancel" id="cancelButton"  onclick="window.location.href= '#!/cbs_maintenance_of_calendar_entries/action/inquiry';" >Cancel</button>
+			</div>
+		</div>
+    </form>
+		<div class="col-sm-12" ng-if="vm.model[0].createdBy">
+			<div class="audit-details">
+				<div class="row">
+					<div class="col-md-3">
+						<span> <b> Created By </b> : {{vm.model[0].createdBy}} </span>
+					</div>
+					<div class="col-md-3">
+						<span> <b> Last Modified By </b> : {{(vm.model[0].modifiedBy) ? ( vm.model[0].modifiedBy) : ('None')}}</span>
+					</div>
+					<div class="col-md-3">
+						<span> <b> Last Verified By </b> : {{(vm.model[0].verifiedBy) ? ( vm.model[0].verifiedBy) : ('None')}}</span>
+					</div>
+					<div class="col-md-3">
+						<span> <b> Verify Status </b> : {{ vm.model[0].verfiedStatus  | getLabelFromValuesArray : vm.commonYesNoMetaData}}</span>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-3">
+						<span> <b> Created On </b> : {{vm.model[0].createdDate | date : 'dd/MM/yyyy'}}</span>
+					</div>
+
+					<div class="col-md-3">
+						<span> <b> Last Modified On </b> : {{(vm.model[0].modifiedDate) ? ( vm.model[0].modifiedDate | date : 'dd/MM/yyyy') : ('None')}}</span>
+					</div>
+					<div class="col-md-3">
+						<span> <b> Last Verified On </b> : {{(vm.model[0].verifiedDate) ? ( vm.model[0].verifiedDate | date : 'dd/MM/yyyy') : ('None')}}</span>
+					</div>
+					<div class="col-md-3">
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-sm-12">
+			<div class="text-center notice-message text-danger" style="text-align: left;">
+				<b>Note :</b>
+				<ul>
+					<li>Y – Holiday.</li>
+					<li>(*) - indicates mandatory fields. Submit/Update button will be enabled, once all the mandatory fields are filled.</li>
+				</ul>
+			</div>
+		</div>
+</div>
+
+
+<!-- month / year Details -->
+<div class="modal" id="monthYearDetailModal" role="dialog">
+	<div class="modal-dialog">
+		<!-- Modal content-->
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-bs-dismiss="modal">&times;</button>
+				<h4 class="modal-title">Month/Year Details</h4>
+			</div>
+			<div class="modal-body">
+				<div class="loader_popup"></div>
+				<div class="list_wrapper" ng-if="vm.model.length>0">
+					<div class="col-sm-8 form_submit">
+						<div class="form-group">
+							<div class="input-group">
+								<div class="input-group-addon">
+									<i class="glyphicon glyphicon-search"></i>
+								</div>
+								<input type="text" class="form-control"
+									   ng-model="vm.modalSearch" chars="alpha-numeric" ng-init="vm.modalSearch = ''"
+									   placeholder="Search">
+							</div>
+						</div>
+					</div>
+					<div class="col-sm-4 form_submit"></div>
+					<div class="row">
+						<div class="col-sm-12">
+							<table class="table table-bordered list scroll sort">
+								<thead ng-init="reverseOrder=false; sortedColumn = 'mmyyyy'">
+								<tr>
+									<th ng-click="(sortedColumn == 'mmyyyy')?(reverseOrder=(!reverseOrder)): (reverseOrder = false);sortedColumn = 'mmyyyy';" ng-class="(sortedColumn == 'mmyyyy')?((reverseOrder)?('arrow-down') : ('arrow-up') ) : ('')">MM/YYYY</th>
+								</tr>
+								</thead>
+								<tbody>
+								<tr class="cp"
+									ng-repeat="x in vm.model | filter:vm.modalSearch | orderBy:sortedColumn:reverseOrder"
+									ng-click="vm.monthYear = x.MMYYYY;vm.modifySelect('all',vm.monthYear);"  data-bs-dismiss="modal">
+									<td>{{x.MMYYYY}}</td>
+								</tr>
+								</tbody>
+							</table>
+						</div>
+
+					</div>
+				</div>
+				<div class="list_wrapper" ng-if="vm.model.length==0">No records found to display.</div>
+			</div>
+
+		</div>
+	</div>
+</div>
+<!-- Month / Year  Details - End -->

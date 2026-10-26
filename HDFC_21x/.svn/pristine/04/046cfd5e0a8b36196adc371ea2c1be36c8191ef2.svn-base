@@ -1,0 +1,75 @@
+<div class="loader-new" ng-if="vm.loader"></div>
+<dc-left-menu></dc-left-menu>
+<div class="container from_wrapper new_form_wrapper">
+
+    <h4 class="form_heading">Drop Down Master - ADD</h4>
+    <sol-header></sol-header>
+
+    <form name="vm.bondNominationsForm" role="form">
+        <table class="table table-bordered">
+            <tbody>
+            <tr>
+                <td width="15%">Name of the Module</td>
+                <td width="20%">
+                    <label class="data-bind" id="moduleName">RBI Bond</label>
+                </td>
+                <td width="20%">Drop Down Selected</td>
+                <td width="40%">
+                    <label class="data-bind" id="dropDownSelected">
+                        {{ vm.dropDownType ? vm.dropDownType.DESCRIPTION : 'No selection' }}
+                    </label>
+
+
+                </td>
+            </tr>
+
+            </tbody>
+        </table>
+
+        <div class="text-right form_submit mb-3">
+            <a data-href="#" type="button" name="addBtn" class="btn btn-primary" ng-click="vm.addRange()">
+                <span class="glyphicon glyphicon-plus"></span>&nbsp;ADD
+            </a>
+        </div>
+
+        <table class="table table-bordered table-striped">
+            <tbody ng-repeat="item in vm.dropDownListElements">
+            <tr>
+                <td colspan="4"><h4 class="form_heading">   {{ vm.dropDownType ? vm.dropDownType.DESCRIPTION : 'No selection' }} {{$index+1}}</h4></td>
+            </tr>
+            <tr>
+                <td width="25%" class="form-group required">
+                    <label for="nomineeFName[$index]" class="required control-label">Drop down Field Name</label>
+                </td>
+                <td colspan="3" class="form-group">
+                    <input type="text" class="form-control" id="nomineeFName[$index]"
+                           limit-to="20" name="dropDownFieldName"
+                           ng-model="item.fieldName"
+                           oninput="this.value = this.value.replace(/[^a-zA-Z0-9\s]/g, '').replace(/^\s/, '')" required leading-space>
+                </td>
+                <td colspan="1" class="text-right" style="width: 10%;">
+                    <a data-href="#" type="button" name="removeBtn" class="btn btn-danger"
+                       ng-if="vm.enableDelete"
+                       ng-click="vm.removeRange($index)">
+                        <span class="glyphicon glyphicon-trash"></span>
+                    </a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+
+
+        <div class="text-center form_submit mt-4">
+            <button type="submit" class="btn btn-default" id="submitButton"
+                    ng-disabled="!vm.enableSubmit || vm.bondNominationsForm.$invalid"
+                    ng-click="vm.addSubmit()">Submit
+            </button>
+            <button type="button" class="btn btn-cancel" id="cancelButton"
+                    onclick="window.location.href= '#!/drop_down_master/add';">Cancel
+            </button>
+        </div>
+        <div class="text-center">
+            <notice-message-directive></notice-message-directive>
+        </div>
+    </form>
+</div>

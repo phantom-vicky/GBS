@@ -1,0 +1,80 @@
+<div class="loader-new" ng-if="vm.loader"></div>
+<dc-left-menu></dc-left-menu>
+<div class="container from_wrapper new_form_wrapper">
+
+    <h4 class="form_heading">Bond Subscription - Reversal - change of Account number  - Inquiry</h4>
+    <sol-header></sol-header>
+    <form name="tocSharingMaintenanceForm" role="form">
+
+        <table class="table table-bordered table-striped list old-new-value-table" aria-label="">
+            <tr>
+                <td width="50">Name of the Module</td>
+                <td width="50">RBI Bond</td>
+            </tr>
+            <tr>
+                <td width="50%">Name of the Bond Scheme</td>
+                <td width="50%" style="text-transform: initial;">{{vm.schemeName}}</td>
+            </tr>
+        </table>
+
+        <table  class="table table-bordered" style="margin-bottom : 0px !important" aria-label="">
+          <tbody>
+            <tr>
+                <td width="70%">From BLA Account Number</td>
+                <td>{{vm.dataList.fromBlaNo}}</td>
+            </tr>
+            <tr>
+                <td width="70%">Subscription ID</td>
+                <td>{{vm.dataList.subscriptionId}}</td>
+            </tr>
+            <tr>
+                <td width="70%">Subscription Date</td>
+                <td >{{vm.dataList.subscriptionDate}}</td>
+            </tr>
+            <tr >
+                <td width="70%">Subscription Amount</td>
+                <td>{{vm.indianNumberFormat(vm.dataList.subscriptionAmt)}}</td>
+            </tr>
+            <tr>
+                <td width="70%">To BLA Account Number</td>
+                <td>{{vm.dataList.toBlaNo}}</td>
+            </tr>
+            <tr>
+                <td width="70%">Remarks</td>
+                <td>{{vm.dataList.remarks}}</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="audit-details">
+            <div class="row">
+                <div class="col-md-3">
+                    <span> <strong style="margin-right: 1px;"> Created By </strong> : {{vm.auditInfo.createdBy}} </span>
+                </div>
+
+                <div class="col-md-3">
+                    <span> <strong style="margin-right: 1px;"> Last Verified By </strong> : {{(vm.auditInfo.verifyBy) ? (vm.auditInfo.verifyBy) : ('None')}}</span>
+                </div>
+                <div class="col-md-3">
+                    <span> <strong> Verify Status </strong> : <span style="text-transform: initial;">{{vm.auditInfo.verifyStatus  | getLabelFromValuesArray : vm.commonYesNoMetaData}}</span></span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3">
+                    <span> <strong> Created On </strong> : {{ vm.auditInfo.createDate | date : 'dd/MM/yyyy'}}</span>
+                </div>
+
+                <div class="col-md-3">
+                    <span> <strong> Last Verified On </strong> : {{(vm.auditInfo.verifyDate) ? (vm.auditInfo.verifyDate | date : 'dd/MM/yyyy') : ('None')}}</span>
+                </div>
+                <div class="col-md-3">
+                </div>
+            </div>
+        </div>
+
+        <div class="text-center form_submit">
+            <button type="button" class="btn btn-cancel" id="cancelButton"
+                    onclick="window.location.href= '#!/bond_subs_reversal_change_acc_no/action/inquiry';">Cancel</button>
+        </div>
+    </form>
+</div>

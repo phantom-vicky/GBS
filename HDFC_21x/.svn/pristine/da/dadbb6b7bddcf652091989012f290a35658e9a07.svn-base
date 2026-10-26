@@ -1,0 +1,116 @@
+<div class="loader-new" ng-if="vm.loader"></div>
+<dc-left-menu></dc-left-menu>
+<div class="container from_wrapper new_form_wrapper">
+
+    <form name="blaDodfrm" role="form">
+        <h4 class="form_heading">Deceased Marking for BLA - Inquiry</h4>
+        <sol-header></sol-header>
+        <div class="col-sm-12">
+
+            <table class="table table-bordered table-striped list">
+                <thead>
+                <tr>
+                    <td width="50%">Customer  Name</td>
+                    <td width="50%">
+                        <label class="data-bind" id="blaNo" ng-model="vm.addList.bondHolderName">{{vm.addList.bondHolderName}}</label>
+                    </td>
+                </tr>
+                <tr>
+                    <td width="50%">PAN No</td>
+                    <td width="50%">
+                        <label class="data-bind" id="panNo" ng-model="vm.addList.panNo">{{vm.addList.panNo}}</label>
+                    </td>
+                </tr>
+                <tr>
+                    <td width="50%">Deceased Date of Bond Holder (dd/mm/yyyy)</td>
+                    <td width="50%">
+                        <label class="data-bind" id="dodDate" ng-model="vm.dodDate">{{vm.addList.dodDate}}</label>
+                    </td>
+                </tr>
+                <tr>
+                    <td width="50%">Date of Receipt of Inward Request(dd/mm/yyyy)</td>
+                    <td width="50%">
+                        <label class="data-bind" id="certDate" ng-model="vm.certDate">{{vm.addList.certDate}}</label>
+                    </td>
+
+                </tr>
+                <tr>
+                    <td width="50%">BLA Deceased Marking Date (dd/mm/yyyy)</td>
+                    <td width="50%">
+                        <label class="data-bind" id="dateFrom" ng-model="vm.dateFrom">{{vm.addList.markingDate}}</label>
+                    </td>
+
+                </tr>
+                <tr>
+                    <td width="50%">BLA Deceased Marking Remarks </td>
+
+                    <td width="50%">
+                    <textarea class="form-control" rows="3" maxlength="50" id="remarks" name="remarks" readonly
+                              ng-model="vm.remarks">{{vm.remarks}}</textarea>
+                    </td>
+                </tr>
+            </table>
+            <table class="table table-bordered table-striped list">
+                <thead>
+
+                <th>S.No</th>
+                <th>Scheme Name</th>
+                <th>Mode of Holding</th>
+                <th>BLA No</th>
+                <th>Bond Subscription Id</th>
+                <th>Joint Holder As</th>
+                <th>Customer Name</th>
+                <th>Pan No</th>
+
+
+                </thead>
+                <!-- </thead>-->
+                <tbody>
+                <tr ng-repeat="items in vm.addResList" ng-init="parentIndex=$index;">
+                    <td>{{vm.itemsPerPage*(vm.currentPage-1)+$index+1}} </td>
+
+                    <td>{{items.schemeName}}</td>
+                    <td>{{items.modeOfHolding}}</td>
+                    <td>{{items.blaNo}}</td>
+                    <td>{{items.bondSubscriptionId}}</td>
+                    <td>{{items.holderType}}</td>
+                    <td>{{items.bondHolderName}}</td>
+                    <td>{{items.panNo}}</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="audit-details">
+            <div class="row">
+                <div class="col-md-3">
+                    <span> <b> Created By </b> : {{vm.addList.createdBy}} </span>
+                </div>
+                <div class="col-md-3">
+                    <span> <b> Last Verified By </b> : {{(vm.addList.verifiedBy) ? (vm.addList.verifiedBy) : ('None')}}</span>
+                </div>
+                <div class="col-md-3">
+                    <span> <b> Verify Status </b> : {{vm.addList.verifiedStatus}}</span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3">
+                    <span> <b> Created On </b> : {{ vm.addList.createdDate | date : 'dd-MM-yyyy'}}</span>
+                </div>
+                 <div class="col-md-3">
+                    <span> <b> Last Verified On </b> : {{(vm.addList.verifiedDate) ? (vm.addList.verifiedDate | date : 'dd-MM-yyyy') : ('None')}}</span>
+                </div>
+                <div class="col-md-3">
+                </div>
+            </div>
+        </div>
+
+        <div class="text-center form_submit">
+            <button type="button" class="btn btn-cancel" id="cancelButton"
+                    onclick="window.location.href= '#!/death_marking_for_bla/action/inquiry';">Close
+            </button>
+        </div>
+        <div class="text-center">
+            <notice-message-directive></notice-message-directive>
+        </div>
+    </form>
+</div>

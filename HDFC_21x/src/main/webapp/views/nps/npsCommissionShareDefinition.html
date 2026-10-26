@@ -1,0 +1,95 @@
+<left-menu-directive></left-menu-directive>
+<div class="container from_wrapper" ng-show="displayForm == true">
+	   <h4 class="form_heading  feature-heading">NPS Commission Share Definition - {{action}}</h4>
+	 
+	   <notice-message-directive ></notice-message-directive>
+	    <form name="commissionShareDefinitionForm" role="form" ng-submit="submitForm(commissionShareDefinitionForm.$valid)" novalidate>
+	    	<div class="row">
+				<div class="form-group required">
+				  <div class="col-sm-3"></div>
+				  <label for="effectiveDate" class ="control-label col-sm-4">Effective From date</label>
+					<div class="col-sm-2">
+						 <input type="text" class="form-control" id="effectiveDate" name="effectiveDate" ng-model="commisionShareDefinition.effectiveDate" required onkeydown="return false;">
+					</div>
+				 </div>
+			 </div>
+			 <div class="row">
+				 <div class="form-group required">
+				    <div class="col-sm-3"></div>
+					  <label for="terminalBranchShare" class ="control-label col-sm-4">Share of Terminal Branch</label>
+						<div class="col-sm-2">
+						  <input type="text" class="form-control" id="terminalBranchShare" name="terminalBranchShare" maxlength="2" ng-model="commisionShareDefinition.terminalBranchShare" required allow-only-numbers string-to-integer ng-change="validate()">
+						</div>
+					</div>
+				</div>
+				<div class="row">
+				 	<div class="form-group required">
+					<div class="col-sm-3"></div>				
+					   <label for="nodalBranchShare" class ="control-label col-sm-4">Share of Nodal Branch</label>
+						<div class="col-sm-2">
+						  <input type="text" class="form-control" id="nodalBranchShare" name="nodalBranchShare" maxlength="2" ng-model="commisionShareDefinition.nodalBranchShare" required allow-only-numbers string-to-integer ng-change="validate()">
+						  <div ng-show="commissionShareDefinitionForm.nodalBranchShare.$valid && commissionShareDefinitionForm.terminalBranchShare.$valid">
+					  		  <div ng-show="showMaxValueError" class="help-block alert alert-danger">
+							  	Sum of "Share of Terminal & Nodal Branch" should be 100%
+							  </div>
+						  </div>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-sm-offset-5 col-sm-8 form_submit">
+						<button type="submit" class="btn btn-default" id="submitButton" ng-disabled="commissionShareDefinitionForm.$invalid || showMaxValueError" ng-if="action == 'add'">Submit</button>
+						 <button type="submit" class="btn btn-default" id="submitButton" ng-disabled="branchIfscCodeForm.$invalid || showMaxValueError" ng-if="action == 'modify'">Update</button>
+						<button type="submit" class="btn btn-cancel" id="cancelButton" onclick="cancelFn()">Cancel</button>
+					</div>
+					</div>
+				
+	</form>
+</div>
+</div>
+<div class="col-sm-1"></div>		
+
+
+	<div class="container list_wrapper" ng-show="recordsList.length>0">
+	<h4 class="feature-heading">NPS Commission Share Definition - {{action}} </h4>
+	<!-- <h3 style="text-align:center;color:#1f629a;">NPS Commission Share Definition - {{action}}</h3> -->
+		
+	<div class="col-sm-4">
+		<div class="form-group">
+		    <div class="input-group">
+		      <div class="input-group-addon"><i class="glyphicon glyphicon-search"></i></div>
+		      <input type="text" class="form-control" ng-model="searchInquiry" placeholder="Search">
+		    </div>
+	  	</div>
+	</div>
+
+<div style="float:right;">  The number of Records: <b>{{recordsList.length}}</b> </div>
+	
+		<table class="table table-bordered table-striped list">
+		    <thead>
+		      <tr>
+		      	<th>Sl.No</th>
+		      	<th>Effective From Date</th>
+		      	<th>Share of Terminal Branch</th>
+		      	<th>Share of Nodal Branch</th>
+		      	<th ng-if="action=='modify' || action=='delete'" class="capitalize">{{action}}</th>
+		      </tr>
+		    </thead>
+		    <tbody>
+		     <tr ng-repeat="x in recordsList | filter:searchInquiry">
+		        <td>{{$index+1}}</td>
+		        <td>{{x.effectiveDate | date : "dd/MM/y"}}</td>
+		       
+		        <td>{{x.terminalBranchShare}}</td>
+		        <td>{{x.nodalBranchShare}}</td>
+		        <td ng-if="action=='delete'"><i class="glyphicon glyphicon-remove cp" ng-click="delete(x.id)"></i></td>
+		         <td ng-if="action=='modify'"><i class="glyphicon glyphicon-edit cp" ng-click="modifyForm(x.id)"></i></td>
+		      </tr>
+		    </tbody>
+	 	</table>
+	 </div>
+
+
+				
+	<div class="list_wrapper no_records_message" ng-if="commissionShareDefinitionList.length==0">No records found to display.</div>						
+				

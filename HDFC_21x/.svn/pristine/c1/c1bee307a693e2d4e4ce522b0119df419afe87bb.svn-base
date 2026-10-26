@@ -1,0 +1,172 @@
+<div class="loader-new" ng-if="vm.loader"></div>
+<cbs-left-menu></cbs-left-menu>
+<div class="container from_wrapper new_form_wrapper">
+
+    <h4 class="form_heading">Other Bank Details - Inquiry</h4>
+    <sol-header></sol-header>
+    <form name="otherBankDetailsForm" role="form">
+
+        <table class="table table-bordered table-striped list old-new-value-table">
+            <thead>
+            <tr>
+                <th>Particular</th>
+                <th>{{(vm.resultInquiry.previousOperationType == 'M')?('Old Value'): ('Value')}}</th>
+                <th ng-if="vm.resultInquiry.previousOperationType == 'M'">New Value</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>Bank Code</td>
+                <td class="old-value">{{(vm.resultInquiry.cbsOtherBankDetailsOldNewValue && vm.resultInquiry.cbsOtherBankDetailsOldNewValue.C001)?
+                    (vm.resultInquiry.cbsOtherBankDetailsOldNewValue.C001.oldValue) : ('')}}
+                </td>
+                <td ng-if="vm.resultInquiry.previousOperationType == 'M'" class="new-value">{{(vm.resultInquiry.cbsOtherBankDetailsOldNewValue &&
+                    vm.resultInquiry.cbsOtherBankDetailsOldNewValue.C001)? (vm.resultInquiry.cbsOtherBankDetailsOldNewValue.C001.newValue) : ('')}}
+                </td>
+            </tr>
+            <tr>
+                <td>Bank Name</td>
+                <td class="old-value">{{(vm.resultInquiry.cbsOtherBankDetailsOldNewValue && vm.resultInquiry.cbsOtherBankDetailsOldNewValue.C002)?
+                    (vm.resultInquiry.cbsOtherBankDetailsOldNewValue.C002.oldValue) : ('')}}
+                </td>
+                <td ng-if="vm.resultInquiry.previousOperationType == 'M'" class="new-value">
+                    {{(vm.resultInquiry.cbsOtherBankDetailsOldNewValue && vm.resultInquiry.cbsOtherBankDetailsOldNewValue.C002)?
+                    (vm.resultInquiry.cbsOtherBankDetailsOldNewValue.C002.newValue) : ('')}}
+                </td>
+            </tr>
+            <tr>
+                <td>Bank Short Name</td>
+                <td class="old-value">{{(vm.resultInquiry.cbsOtherBankDetailsOldNewValue && vm.resultInquiry.cbsOtherBankDetailsOldNewValue.C003)?
+                    (vm.resultInquiry.cbsOtherBankDetailsOldNewValue.C003.oldValue) : ('')}}
+                </td>
+                <td ng-if="vm.resultInquiry.previousOperationType == 'M'" class="new-value">
+                    {{(vm.resultInquiry.cbsOtherBankDetailsOldNewValue && vm.resultInquiry.cbsOtherBankDetailsOldNewValue.C003)?
+                    (vm.resultInquiry.cbsOtherBankDetailsOldNewValue.C003.newValue) : ('')}}
+                </td>
+            </tr>
+<!--            <tr>-->
+<!--                <td>Additional Text1</td>-->
+<!--                <td class="old-value">{{(vm.resultInquiry.cbsOtherBankDetailsOldNewValue && vm.resultInquiry.cbsOtherBankDetailsOldNewValue.C005)?-->
+<!--                    (vm.resultInquiry.cbsOtherBankDetailsOldNewValue.C005.oldValue) : ('')}}-->
+<!--                </td>-->
+<!--                <td ng-if="vm.resultInquiry.previousOperationType == 'M'" class="new-value">-->
+<!--                    {{(vm.resultInquiry.cbsOtherBankDetailsOldNewValue && vm.resultInquiry.cbsOtherBankDetailsOldNewValue.C005)?-->
+<!--                    (vm.resultInquiry.cbsOtherBankDetailsOldNewValue.C005.newValue) : ('')}}-->
+<!--                </td>-->
+<!--            </tr>-->
+<!--            <tr>-->
+<!--                <td>Additional Text2</td>-->
+<!--                <td class="old-value">{{(vm.resultInquiry.cbsOtherBankDetailsOldNewValue && vm.resultInquiry.cbsOtherBankDetailsOldNewValue.C006)?-->
+<!--                    (vm.resultInquiry.cbsOtherBankDetailsOldNewValue.C006.oldValue) : ('')}}-->
+<!--                </td>-->
+<!--                <td ng-if="vm.resultInquiry.previousOperationType == 'M'" class="new-value">-->
+<!--                    {{(vm.resultInquiry.cbsOtherBankDetailsOldNewValue && vm.resultInquiry.cbsOtherBankDetailsOldNewValue.C006)?-->
+<!--                    (vm.resultInquiry.cbsOtherBankDetailsOldNewValue.C006.newValue) : ('')}}-->
+<!--                </td>-->
+<!--            </tr>-->
+<!--            <tr>-->
+<!--                <td>Additional Text3</td>-->
+<!--                <td class="old-value">{{(vm.resultInquiry.cbsOtherBankDetailsOldNewValue && vm.resultInquiry.cbsOtherBankDetailsOldNewValue.C007)?-->
+<!--                    (vm.resultInquiry.cbsOtherBankDetailsOldNewValue.C007.oldValue) : ('')}}-->
+<!--                </td>-->
+<!--                <td ng-if="vm.resultInquiry.previousOperationType == 'M'" class="new-value">-->
+<!--                    {{(vm.resultInquiry.cbsOtherBankDetailsOldNewValue && vm.resultInquiry.cbsOtherBankDetailsOldNewValue.C007)?-->
+<!--                    (vm.resultInquiry.cbsOtherBankDetailsOldNewValue.C007.newValue) : ('')}}-->
+<!--                </td>-->
+<!--            </tr>-->
+            <tr>
+                <td>Addr1</td>
+                <td class="old-value">{{(vm.resultInquiry.cbsOtherBankDetailsOldNewValue && vm.resultInquiry.cbsOtherBankDetailsOldNewValue.C008)?
+                    (vm.resultInquiry.cbsOtherBankDetailsOldNewValue.C008.oldValue) : ('')}}
+                </td>
+                <td ng-if="vm.resultInquiry.previousOperationType == 'M'" class="new-value">
+                    {{(vm.resultInquiry.cbsOtherBankDetailsOldNewValue && vm.resultInquiry.cbsOtherBankDetailsOldNewValue.C008)?
+                    (vm.resultInquiry.cbsOtherBankDetailsOldNewValue.C008.newValue) : ('')}}
+                </td>
+            </tr>
+            <tr>
+                <td>Addr2</td>
+                <td class="old-value">{{(vm.resultInquiry.cbsOtherBankDetailsOldNewValue && vm.resultInquiry.cbsOtherBankDetailsOldNewValue.C009)?
+                    (vm.resultInquiry.cbsOtherBankDetailsOldNewValue.C009.oldValue) : ('')}}
+                </td>
+                <td ng-if="vm.resultInquiry.previousOperationType == 'M'" class="new-value">
+                    {{(vm.resultInquiry.cbsOtherBankDetailsOldNewValue && vm.resultInquiry.cbsOtherBankDetailsOldNewValue.C009)?
+                    (vm.resultInquiry.cbsOtherBankDetailsOldNewValue.C009.newValue) : ('')}}
+                </td>
+            </tr>
+            <tr>
+                <td>City</td>
+                <td class="old-value">{{(vm.resultInquiry.cbsOtherBankDetailsOldNewValue && vm.resultInquiry.cbsOtherBankDetailsOldNewValue.C010)?
+                    (vm.resultInquiry.cbsOtherBankDetailsOldNewValue.C010.oldValue) : ('')}}
+                </td>
+                <td ng-if="vm.resultInquiry.previousOperationType == 'M'" class="new-value">
+                    {{(vm.resultInquiry.cbsOtherBankDetailsOldNewValue && vm.resultInquiry.cbsOtherBankDetailsOldNewValue.C010)?
+                    (vm.resultInquiry.cbsOtherBankDetailsOldNewValue.C010.newValue) : ('')}}
+                </td>
+            </tr>
+            <tr>
+                <td>PinCode</td>
+                <td class="old-value">{{(vm.resultInquiry.cbsOtherBankDetailsOldNewValue && vm.resultInquiry.cbsOtherBankDetailsOldNewValue.C011)?
+                    (vm.resultInquiry.cbsOtherBankDetailsOldNewValue.C011.oldValue) : ('')}}
+                </td>
+                <td ng-if="vm.resultInquiry.previousOperationType == 'M'" class="new-value">
+                    {{(vm.resultInquiry.cbsOtherBankDetailsOldNewValue && vm.resultInquiry.cbsOtherBankDetailsOldNewValue.C011)?
+                    (vm.resultInquiry.cbsOtherBankDetailsOldNewValue.C011.newValue) : ('')}}
+                </td>
+            </tr>
+
+            </tbody>
+        </table>
+
+
+        <table class="table table-bordered table-striped">
+            <tbody width="100%">
+            <tr>
+                <th width="50%">Rejection Remarks</th>
+                <td width="50%" class="ng-binding">{{vm.resultInquiry.rejectionRemarks}}</td>
+
+            </tr>
+
+
+            </tbody>
+        </table>
+        <div class="audit-details">
+            <div class="row">
+                <div class="col-md-3">
+                    <span> <b> Created By </b> : {{vm.resultInquiry.createdBy}} </span>
+                </div>
+                <div class="col-md-3">
+                    <span> <b> Last Modified By </b> : {{(vm.resultInquiry.modifiedBy) ? (vm.resultInquiry.lastModifiedBy) : ('None')}}</span>
+                </div>
+                <div class="col-md-3">
+                    <span> <b> Last Verified By </b> : {{(vm.resultInquiry.verifiedBy) ? (vm.resultInquiry.verifiedBy) : ('None')}}</span>
+                </div>
+                <div class="col-md-3">
+                    <span> <b> Verify Status </b> : {{vm.resultInquiry.verifiedFlag  | getLabelFromValuesArray : vm.commonYesNoMetaData}}</span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3">
+                    <span> <b> Created On </b> : {{ vm.resultInquiry.creatDate | date : 'dd/MM/yyyy'}}</span>
+                </div>
+                <div class="col-md-3">
+                    <span> <b> Last Modified On</b> : {{ (vm.resultInquiry.modDate) ? (vm.resultInquiry.modDate | date : 'dd/MM/yyyy') : ('None')}}</span>
+                </div>
+                <div class="col-md-3">
+                    <span> <b> Last Verified On </b> : {{(vm.resultInquiry.verDate) ? (vm.resultInquiry.verDate | date : 'dd/MM/yyyy') : ('None')}}</span>
+                </div>
+                <div class="col-md-3">
+                </div>
+            </div>
+        </div>
+
+        <div class="text-center form_submit">
+            <button type="button" class="btn btn-cancel" id="cancelButton"
+                    ng-click="vm.showCancelConfirmation('cbs_other_bank_details.list');">Cancel</button>
+        </div>
+
+        <div class="text-center">
+            <notice-message-directive></notice-message-directive>
+        </div>
+    </form>
+</div>

@@ -1,0 +1,627 @@
+<div class="loader-new" ng-if="vm.loader"></div>
+<dc-left-menu></dc-left-menu>
+<div class="container from_wrapper new_form_wrapper">
+    <h4 class="form_heading">BOND Subscription Account Closure On Maturity Death - Add</h4>
+
+
+    <form name="vm.bondClosureBefMaturForm" role="form">
+        <table class="table table-bordered">
+            <h5 class="form_heading">BOND HOLDER DETAILS</h5>
+
+            <tbody>
+            <tr>
+                <td width="25%">Name of the Bond Scheme</td>
+                <td width="25%">
+                    <label class="data-bind" id="bondScheme">{{vm.schemeName}}</label>
+                </td>
+                <td width="25%">Mode of Holding</td>
+                <td width="25%">
+                    <label class="data-bind" id="modeOfHolding">{{vm.blaDetails[0].modeOfHolding}}</label>
+                </td>
+            </tr>
+            <tr>
+                <td width="25%">BLA Number</td>
+                <td width="25%">
+                    <label class="data-bind" id="blaNo">{{vm.blaNo}}</label>
+                </td>
+
+                <td width="25%"> Holder Type</td>
+                <td width="25%">
+                    <label class="data-bind" id="holderType">{{vm.blaDetails[0].holderType}}</label>
+                </td>
+
+            </tr>
+
+
+            <tr ng-if="vm.blaDetails[0].modeOfHoldingCode=='MH003' || vm.blaDetails[0].modeOfHoldingCode=='MH002'">
+                <td width="25%">First Joint Bond Holder BLA No</td>
+                <td width="25%">
+                    <label class="data-bind" id="joinBlaNo">{{vm.blaDetails[0].firstJointBondHolderBLA}}</label>
+                </td>
+                <td width="25%">First Joint Bond Holder Name</td>
+                <td width="25%">
+                    <label class="data-bind" id="firstJointHolderName">{{vm.blaDetails[0].firstJointBondHolderName}}</label>
+                </td>
+            </tr>
+            <tr ng-if="vm.blaDetails[0].modeOfHoldingCode=='MH003' || vm.blaDetails[0].modeOfHoldingCode=='MH002'">
+                <td width="25%">Second Joint Bond Holder BLA No</td>
+                <td width="25%" >
+                    <label class="data-bind" id="secJointHolderBlaNo">{{vm.blaDetails[0].secondJointBondHolderBLA}}</label>
+                </td>
+                <td width="25%">Second Joint Bond Holder Name</td>
+                <td width="25%">
+                    <label class="data-bind" id="secJointHolderName">{{vm.blaDetails[0].secondJointBondHolderName}}</label>
+                </td>
+            </tr>
+
+            <tr>
+
+                <td width="25%" ng-if="vm.blaDetails[0].modeOfHoldingCode=='MH001' || vm.blaDetails[0].modeOfHoldingCode=='MH004' || vm.blaDetails[0].modeOfHoldingCode=='MH005'">Bond Holder Name</td>
+                <td width="25%" ng-if="vm.blaDetails[0].modeOfHoldingCode=='MH001' || vm.blaDetails[0].modeOfHoldingCode=='MH004' || vm.blaDetails[0].modeOfHoldingCode=='MH005'">
+                    <label class="data-bind" id="holderName">{{vm.blaDetails[0].bondHolderName}}</label>
+                </td>
+
+
+
+            </tr>
+
+
+
+
+
+            </tbody>
+        </table>
+
+        <!--BOND SUBSCRIPTION DETAILS:-->
+        <table class="table table-bordered">
+            <h5 class="form_heading">BOND SUBSCRIPTION DETAILS</h5>
+            <tbody>
+
+            <tr>
+                <td width="25%" ><label>Subscription Date</label></td>
+                <td width="25%" ><label>{{vm.bondDetails[0].subsDate | uppercase}}</label>
+                </td>
+                <td width="25%" ><label>Subscription ID</label></td>
+                <td width="25%" ><label>{{vm.bondDetails[0].boSubsId}}</label></td>
+            </tr>
+
+
+            <tr>
+
+                <td width="25%" ><label>Subscription  Amount</label></td>
+                <td width="25%" ><label>{{vm.bondDetails[0].subsAmt}}</label></td>
+
+                <td width="25%" ><label>Bond Type</label></td>
+                <td width="25%" ><label>{{vm.bondDetails[0].bondType}}</label></td>
+
+            </tr>
+
+
+            <tr>
+
+                <td width="25%" ><label>Maturity Date</label></td>
+                <td width="25%" ><label>{{vm.bondDetails[0].maturityDate |uppercase}}</label></td>
+
+            </tr>
+
+            <tr>
+                <td align="center" colspan="4"><label><h3><b>OTHER SCHEMES INTEREST RELATED INFO</b></h3></label></td>
+            </tr>
+
+            <tr>
+                <td width="25%" ><label>Pan No</label></td>
+                <td width="25%" ><label>{{vm.bondDetails[0].panNo}}</label></td>
+
+                <td width="25%" ><label>8% Interest Payout</label></td>
+                <td width="25%" ><label>{{vm.bondDetails[0].interestPayOut8Per}}</label></td>
+            </tr>
+
+            <tr>
+                <td width="25%" ><label>Non Cumulative Int</label></td>
+                <td width="25%" ><label>{{vm.bondDetails[0].nonCumulativeInt}}</label></td>
+
+                <td width="25%" ><label>Cumulative Int</label></td>
+                <td width="25%" ><label>{{vm.bondDetails[0].cumulativeInt}}</label></td>
+            </tr>
+
+            <tr>
+                <td width="25%" ><label>7.75% interest payout</label></td>
+                <td width="25%" ><label>{{vm.bondDetails[0].interestPayOut7Per}}</label></td>
+
+                <td width="25%" ><label>Non Cumulative Int 775</label></td>
+                <td width="25%" ><label>{{vm.bondDetails[0].nonCumulativeIntFor7}}</label></td>
+            </tr>
+
+            <tr>
+
+                <td width="25%" ><label>Cumulative Int 775</label></td>
+                <td width="25%" ><label>{{vm.bondDetails[0].cumulativeIntFor7}}</label></td>
+
+                <td width="25%" ><label>8.05% interest payout</label></td>
+                <td width="25%" ><label>{{vm.bondDetails[0].interestPayOut85Per}}</label></td>
+
+            </tr>
+
+
+
+            <tr>
+                <td width="25%" ><label>Non Cumulative Int 8.05%</label></td>
+                <td width="25%" ><label>{{vm.bondDetails[0].nonCumulativeIntFor85}}</label></td>
+
+                <td width="25%" ><label>Cumulative Int 8.05%</label></td>
+                <td width="25%" ><label>{{vm.bondDetails[0].cumulativeIntFor85}}</label></td>
+
+
+            </tr>
+
+            <tr>
+
+
+
+                <td width="25%" ><label>TOtal</label></td>
+                <td width="25%" ><label>{{vm.bondDetails[0].total}}</label></td>
+
+                <td width="25%" ><label>totalPayoutOfTheYear</label></td>
+                <td width="25%" ><label>{{vm.bondDetails[0].totalPayoutOfTheYear}}</label></td>
+
+
+            </tr>
+
+
+
+
+            <tr>
+                <td align="center" colspan="4"><label><h3><b>PAN STATUS</b></h3></label></td>
+            </tr>
+
+            <tr>
+                <td width="25%" ><label>In-operative PAN</label></td>
+                <td width="25%" ><label>{{vm.bondDetails[0].inOperativePAN}}</label></td>
+
+                <td width="25%" ><label>Non- filers</label></td>
+                <td width="25%" ><label>{{vm.bondDetails[0].nonFilers}}</label></td>
+            </tr>
+
+
+
+
+
+            <tr>
+                <td align="center" colspan="4"><label><h3><b>TDS EXCEMPTION DETAILS</b></h3></label></td>
+            </tr>
+            <tr>
+                <td width="25%" ><label>Age</label></td>
+                <td width="25%" ><label>{{vm.bondDetails[0].age}}</label></td>
+
+                <td width="25%" ><label>Taxable Limit</label></td>
+                <td width="25%" ><label>{{vm.bondDetails[0].taxableLimit}}</label></td>
+            </tr>
+            <tr>
+
+                <td width="25%" ><label>Waiver Document</label></td>
+                <td width="25%" ><label>{{vm.bondDetails[0].waiverDocument}}</label></td>
+                <td width="25%" ><label>Waiver Document Ref No</label></td>
+                <td width="25%" ><label>{{vm.bondDetails[0].waiverDocumentRefNo}}</label></td>
+            </tr>
+
+            <tr>
+
+
+
+                <td width="25%" ><label>Threshold_Exceed_Amount</label></td>
+                <td width="25%" ><label>{{vm.bondDetails[0].thresholdExceedAmount}}</label></td>
+
+            </tr>
+
+            <tr>
+
+                <td width="25%" ><label>Threshold_Exceed_TDS_Amount</label></td>
+                <td width="25%" ><label>{{vm.bondDetails[0].thresholdExceedTDSAmount}}</label></td>
+                <td width="25%" ><label>Excemption Rate %</label></td>
+                <td width="25%" ><label>{{vm.bondDetails[0].exemptionRate}}</label></td>
+
+
+            </tr>
+
+
+            <tr>
+
+                <td width="25%" ><label>Excemption_Amount</label></td>
+                <td width="25%" ><label>{{vm.bondDetails[0].exemptionAmount}}</label></td>
+                <td width="25%" ><label>Excemption_TDS_Amount</label></td>
+                <td width="25%" ><label>{{vm.bondDetails[0].exemptionTDSAmount}}</label></td>
+
+            </tr>
+
+            <tr>
+
+                <td width="25%" ><label>Surcharge %</label></td>
+                <td width="25%" ><label>{{vm.bondDetails[0].surcharge}}</label></td>
+                <td width="25%" ><label>Edu Cess %</label></td>
+                <td width="25%" ><label>{{vm.bondDetails[0].eduCess}}</label></td>
+
+            </tr>
+
+            <tr>
+
+                <td width="25%" ><label>Base Rate Amt</label></td>
+                <td width="25%" ><label>{{vm.bondDetails[0].baseRateAmount}}</label></td>
+                <td width="25%" ><label>Surcharge Amt</label></td>
+                <td width="25%" ><label>{{vm.bondDetails[0].surchargeAmount}}</label></td>
+
+            </tr>
+
+
+            <tr>
+
+                <td width="25%" ><label>Edu Cess Amt</label></td>
+                <td width="25%" ><label>{{vm.bondDetails[0].eduCessAmount}}</label></td>
+                <td width="25%" ><label>TDS Amount</label></td>
+                <td width="25%" ><label>{{vm.bondDetails[0].tdsAmount}}</label></td>
+
+            </tr>
+
+            <tr>
+
+                <td width="25%" ><label>TDS Recovery  Amount</label></td>
+                <td width="25%" ><label>{{vm.bondDetails[0].tdsRecoveryAmount}}</label></td>
+                <td width="25%" ><label>TDS Refund  Amount</label></td>
+                <td width="25%" ><label>{{vm.bondDetails[0].tdsRefundAmount}}</label></td>
+
+            </tr>
+
+            <tr>
+
+                <td width="25%" ><label></label></td>
+                <td width="25%" ><label></label></td>
+                <td width="25%" ></td>
+                <td width="25%" ></td>
+
+            </tr>
+
+            </tbody>
+        </table>
+
+
+        <!--ACCOUNT CLOSURE  DETAILS-->
+
+        <table class="table table-bordered">
+            <h5 class="form_heading">ACCOUNT CLOSURE  DETAILS</h5>
+            <tbody>
+
+
+
+
+            <tr>
+
+                <td width="25%" ><label>Closure Type</label></td>
+                <td width="25%" > <label>{{vm.closureType }}</label> </td>
+
+                <td width="25%" ><label>Account Closed Date</label></td>
+                <td width="25%" > <label>{{vm.subsDate | uppercase}}</label> </td>
+
+
+
+            </tr>
+
+
+
+            <tr>
+
+                <td width="25%" ><label>Proceeds to be Paid to</label></td>
+                <td width="25%" > <label>{{vm.proceedsToBePaidDetail}}</label> </td>
+
+
+                <td width="25%" ><label>Interest Paid up to</label></td>
+                <td width="25%" > <label>{{vm.bondDetails[0].intPaid }}</label> </td>
+            </tr>
+            <tr>
+
+                <td width="25%" ><label>Date of Death of Bond Holder</label></td>
+                <td width="25%" > <label>{{vm.bondDetails[0].dod}}</label> </td>
+
+
+                <td width="25%" ><label>Date of Receipt of Death Certificate</label></td>
+                <td width="25%" > <label>{{vm.bondDetails[0].dodCertReceiptDate }}</label> </td>
+            </tr>
+            <tr>
+                <td width="25%" ><label>Interest Calculation From Date</label></td>
+                <td width="25%" ><label>{{vm.bondDetails[0].intCalFromDate | uppercase }}</label>
+                </td>
+
+                <td width="25%" ><label>Interest Calculation to Date</label></td>
+                <td width="25%" > <label>{{vm.bondDetails[0].intCalToDate | uppercase}}</label></td>
+            </tr>
+
+            <tr>
+                <td width="25%" ><label>Current Half Yearly Interest Rate</label></td>
+                <td width="25%" ><label>{{vm.bondDetails[0].brokenIntRate}}</label>
+                </td>
+
+                <td width="25%" ><label>Current Half Yearly Interest Amount</label></td>
+                <td width="25%" > <label>{{vm.bondDetails[0].brokenIntAmt}}</label></td>
+            </tr>
+
+
+            <tr>
+                <td width="25%" ><label>Pending Interest</label></td>
+                <td width="25%" ><label>{{vm.bondDetails[0].pendingInterest}}</label></td>
+
+                <td width="25%" ><label>Total Interest before TDS</label></td>
+                <td width="25%" ><label>{{vm.bondDetails[0].totIntBefTDS }}</label></td>
+
+            </tr>
+
+            <tr>
+                <td width="25%" ><label>TDS Amount</label></td>
+                <td width="25%" ><label>{{vm.bondDetails[0].tdsAmount}}</label></td>
+
+                <td width="25%" ><label>Total Interest after TDS</label></td>
+                <td width="25%" ><label>{{vm.bondDetails[0].totIntAftTDS}}</label></td>
+
+            </tr>
+
+
+            <tr>
+                <td width="25%" ><label>Total Amount to be paid</label></td>
+                <td width="25%" ><label>{{vm.bondDetails[0].totalAmtToBePaid}}</label></td>
+
+                <td width="25%" >
+                    <div class="row">
+                        <div class="form-group required">
+                            <div class="col-sm-6">
+                                <label for="closeRemarks" class="control-label">Closure Remarks</label>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </td>
+                <td width="25%" ><input type="text" class="form-control" id="closeRemarks"
+                                        chars="alpha-numeric"
+                                        limit-to="100" name="closeRemarks"
+                                        ng-model="vm.bondDetails.closureRemarks" required>
+                </td>
+
+            </tr>
+
+
+            </tbody>
+        </table>
+
+
+        <div  ng-if="vm.proceedsToBePaid=='N'">
+            <h5 class="form_heading">NOMINEE  DETAILS</h5>
+            <div style="max-height: 400px; overflow-x: auto;">
+
+            <table class="table table-bordered"  ng-if="vm.proceedsToBePaid=='N'" ng-repeat="x in vm.nomineeDetailsList" >
+                <!--                <table class="table table-bordered table-striped list table-textWrap">-->
+                <thead>
+                <tr align="center">
+                    <th>Nominee {{$index+1}}</th>
+                </tr>
+                </thead>
+
+                <thead>
+                <tr>
+                    <th>Nominee ID</th>
+                    <th>Nominee Name</th>
+                    <th>D.O.B</th>
+                    <th>PAN No</th>
+                    <th>Relation</th>
+                    <th>Share %</th>
+                    <th>Amount Settled Rs.</th>
+                    <th>TDS Rate</th>
+                    <th>TDS Amount</th>
+                    <th>Payment Mode</th>
+                    <th ng-if="x.modeOfInterestPay">Credit Account Number</th>
+                    <th>Remarks</th>
+                </tr>
+                </thead>
+
+                <tbody   ng-init="vm.getTotalSharePer()">
+                <tr>
+
+                    <td>{{vm.itemsPerPage *(vm.currentPage-1)+$index+1}}</td>
+
+                    <td>{{x.nomineeName}}</td>
+
+                    <td>{{x.nomineeDOB}}</td>
+
+                    <td>{{x.panNo}}</td>
+
+                     <td>
+                        <select class="form-control" id="relationWithMinor" ng-init=""
+                                name="relationWithMinor" ng-model="x.relationShip"
+                                required>
+                            <option value="" hidden="true">Select</option>
+                            <option ng-repeat="item in vm.guardianDetailsList" value="{{item.SUBCODE}}">{{item.DESCRIPTION}}</option>
+                        </select>
+                    </td>
+
+                    <td>{{x.sharePercentage}}</td>
+
+                    <td>{{x.shareAmountSettled}}</td>
+
+                    <td>{{x.tdsRate}}</td>
+
+                    <td>{{x.tdsAmount}}</td>
+
+                    <td> <select class="form-control" id="modeOfPayment" name="modeOfPayment"
+                                                                            ng-change="x.accNum='';" ng-model="x.modeOfInterestPay" required>
+                    <option value="">Select</option>
+                    <option  value="MP001" >Credit Account</option>
+                        <option  value="MP002" >DD/PO</option></select></td>
+
+                    <td class="form-control" ng-if="x.modeOfInterestPay == 'MP001'"><input type="text" class="form-control" ng-model="x.accNum" ng-change="getCbsCustDetails(x.accNum)"
+                                                                                                       required >
+                            <span class="alert-danger" ng-if="vm.message" ng-bind="vm.message"></span>
+                    </td>
+
+
+                    <td class="form-control" ng-if="x.modeOfInterestPay == 'MP002'"><input type="text" class="form-control" ng-model="x.accNum" readonly
+                                                                                                       required >
+                            <span class="alert-danger" ng-if="vm.message" ng-bind="vm.message"></span>
+                    </td>
+
+
+                    <td> <input type="text" id="x.remarks" name="x.remarks" class="form-control" ng-model="x.remarks"  ></td>
+
+
+                </tr>
+                </tbody>
+
+
+
+
+
+
+
+                <table>
+                    <tr ng-if="vm.nomineeDetailsList.length > 0">
+
+                        <td class="form-group required"><label class="control-label">Total (%)</label></td>
+                        <td > <input type="text" class="form-control" id="totSharePercenValue[$index]"
+                                                limit-to="3" min="1" max="100" name="totSharePercenErr"
+                                                ng-model="vm.totSharePercenValue" required readonly>
+                            <span class="alert-danger" ng-if="vm.totSharePercenErr" ng-bind="vm.totSharePercenErr"></span>
+                        </td>
+
+                    </tr>
+                </table>
+
+
+            </table>
+            </div>
+        </div>
+
+
+        <!--        <table class="table table-bordered" ng-if="vm.proceedsToBePaid=='L'">-->
+
+
+        <div  ng-if="vm.proceedsToBePaid=='L'">
+
+
+            <h5 class="form_heading" >LEGAL HEIRS DETAILS</h5>
+
+            <table class="table table-bordered table-striped" style="margin-bottom: 40px;" ng-repeat="x in vm.legalHeirsDetailsList">
+
+
+
+
+                <thead>
+                <tr>
+                    <th>S No</th>
+                    <th>Name</th>
+                    <th>DOB</th>
+                    <th>PAN No</th>
+                    <th>Relation</th>
+                    <th>Share %</th>
+                    <th>Amount Settled </th>
+                    <th>TDS Rate</th>
+                    <th>TDS Amount</th>
+                    <th>Payment Mode</th>
+                    <th ng-if="vm.legalHeirsDetailsList1[0].modeOfInterestPay == 'MP001' || vm.legalHeirsDetailsList1[0].modeOfInterestPay == 'MP002' ">Credit Account Number</th>
+                    <th>Remarks</th>
+
+                    </tr>
+
+                </thead>
+                <tbody>
+                <tr>
+                    <td>{{vm.itemsPerPage *(vm.currentPage-1)+$index+1}}</td>
+                    <td>
+                        {{vm.legalHeirsDetailsList[0].nomineeName}}
+                    </td>
+                    <td>
+                    {{vm.legalHeirsDetailsList[0].dateOfBirthOfMinor | date : 'dd-MMM-yyyy'}}
+                </td>
+                    <td>
+                        {{vm.legalHeirsDetailsList[0].panNo}}
+                    </td>
+
+                    <td>
+                        <select class="form-control" id="relationShip[$index]" name="relationShip[$index]"
+                                ng-model="vm.legalHeirsDetailsList1[0].relationShip" required>
+                            <option value="" hidden="true">Select</option>
+                            <option ng-repeat="items in vm.guardianDetailsList" value="{{items.SUBCODE}}" >{{items.DESCRIPTION}}</option>
+                        </select>
+                    </td>
+
+
+
+                <td>
+                        <input type="text" class="form-control" id="sharePercentage[$index]"
+                                name="sharePercentage"
+
+                               ng-model="vm.legalHeirsDetailsList1[0].sharePercentage" readonly disabled required>
+                    </td>
+
+                    <td><input type="text" class="form-control" id="shareAmountSettled[$index]"
+                               limit-to="250" name="shareAmountSettled[$index]"
+                               ng-model="vm.bondDetails[0].totalAmtToBePaid" required disabled readonly>
+                    </td>
+                    <td>{{vm.legalHeirsDetailsList1[0].tdsRate}}</td>
+
+                    <td>{{vm.legalHeirsDetailsList1[0].tdsAmount}}</td>
+
+                    <td>
+                        <select class="form-control" id="modeOfInterestPaymenmt" name="modeOfInterestPay"
+                                ng-change="vm.legalHeirsDetailsList1[0].accNum='';vm.legalHeirsDetailsList1[0].accBranch='';"  ng-model="vm.legalHeirsDetailsList1[0].modeOfInterestPay" required>
+                            <option value="">Select</option>
+                            <option  value="MP001" >Credit Account</option>
+                            <option  value="MP002" >DD/PO</option>
+                            <!--                        <option  value="MP003" >NEFT</option>-->
+                        </select>
+                    </td>
+
+                    <td class="form-control" ng-if="vm.legalHeirsDetailsList1[0].modeOfInterestPay == 'MP001'"><input type="text" class="form-control" ng-model="vm.legalHeirsDetailsList1[0].accNum" ng-change="getCbsCustDetails(vm.legalHeirsDetailsList1[0].accNum)"
+                                                                                           required >
+                        <span class="alert-danger" ng-if="vm.message" ng-bind="vm.message"></span>
+                    </td>
+
+
+                    <td class="form-control" ng-if="vm.legalHeirsDetailsList1[0].modeOfInterestPay == 'MP002'"><input type="text" class="form-control" ng-model="vm.legalHeirsDetailsList1[0].accNum" readonly
+                                                                                           required >
+                        <span class="alert-danger" ng-if="vm.message" ng-bind="vm.message"></span>
+                    </td>
+
+                    <td>
+                        <input type="text" class="form-control" id="remarks[$index]"
+                               limit-to="6" name="remarks"
+                               ng-model="vm.legalHeirsDetailsList1[0].remarks" >
+                        <!--                    // chars="only-numbers"-->
+                    </td>
+                </tr>
+
+
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+
+
+
+
+        <div class="text-center form_submit">
+            <button type="submit" class="btn btn-default" id="submitButton"
+                    ng-disabled="vm.bondClosureBefMaturForm.$invalid || vm.creditBankAccountNoErrMsg ||vm.totSharePercenErr"
+                    ng-click="vm.addClosureOnMaturDeath()">Submit</button>
+            <button type="button" class="btn btn-cancel" id="cancelButton"
+                    onclick="window.location.href= '#!/rbi_bond_sub_acc_closure_on_matur_death/add'">Close
+            </button>
+        </div>
+        <div class="text-center">
+            <notice-message-directive></notice-message-directive>
+
+        </div>
+    </form>
+</div>
+
+
+
+
+

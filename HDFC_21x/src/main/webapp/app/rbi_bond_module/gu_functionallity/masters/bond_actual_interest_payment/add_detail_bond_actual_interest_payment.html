@@ -1,0 +1,230 @@
+<div class="loader-new" ng-if="vm.loader"></div>
+<dc-left-menu></dc-left-menu>
+<div class="container from_wrapper new_form_wrapper">
+
+    <h4 class="form_heading">Bond Actual Interest Payment – ADD</h4>
+    <sol-header></sol-header>
+
+    <form name="vm.bondNominationsForm" role="form">
+        <h4 class="form_heading">Bond Actual Interest Payment Details for the half year ended {{vm.halfYear}} month and
+            {{vm.year}} year</h4>
+        <h4 align="center">BOD Date:{{vm.bodDate}} </h4>
+
+        <div class="row">
+            <div class="pagination-container">
+                <div class="col-sm-3">
+                    <div class="form-group">
+                        <label>
+                            Show
+                            <select id="pageSize" class="form-control filter-control" ng-model="vm.pageSizeForAdd"
+                                    ng-change="vm.updatePageSizeForAdd()"
+                                    ng-options="option for option in vm.pageSizeOptions"></select>
+                            records per page
+                        </label>
+                    </div>
+                </div>
+                <div class=" form-group col-lg-3">
+                    <select class="form-control"
+                            id="downloadOptions"
+                            name="export"
+                            ng-model="vm.downloadType"
+                            ng-init="vm.downloadType=''"
+                            ng-change="vm.getMergeUnMergeDownload(vm.schemeCode,vm.halfYear,vm.year,vm.downloadType)">
+                        <option value="">EXPORT</option>
+                        <option value="UNMERGED">UNMERGED</option>
+                        <option value="MERGED">MERGED</option>
+                    </select>
+                </div>
+                <div class="col-sm-3 pull-right">
+                    <div class="form-group">
+                        <div class="input-group">
+                            <div class="input-group-addon"><i class="glyphicon glyphicon-search"></i></div>
+                            <input type="text" id="search" class="form-control"
+                                   ng-change="vm.updateAddDetailsForPagination()" ng-model="vm.searchTextForAdd"
+                                   Placeholder="Search">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="table-responsive">
+            <table class="table table-bordered table-striped list nowrap table-textWrap datatable">
+                <thead>
+                <tr>
+                    <th colspan="21" class="text-center">Basic Details From BLA cum Subscription</th>
+                    <th colspan="5" class="text-center">OTHER SCHEMES INTEREST RELATED INFO</th>
+                    <th colspan="2" class="text-center">PAN Status</th>
+                    <th colspan="18" class="text-center">TDS EXEMPTION DETAILS</th>
+                    <th colspan="7" class="text-center">FRSB INTEREST PAYOUT DETAILS</th>
+                </tr>
+                <tr>
+                    <th>S.No</th>
+                    <th>Mode of Payment</th>
+                    <th>Branch Ref No</th>
+                    <th>BLA No</th>
+                    <th>Ref No</th>
+                    <th>App Name 1</th>
+                    <th>App Name 2</th>
+                    <th>App Name 3</th>
+                    <th>Address 1</th>
+                    <th>Address 2</th>
+                    <th>Rec Name</th>
+                    <th>Rec Parent Name</th>
+                    <th>PIN Code</th>
+                    <th>Phone No</th>
+                    <th>App Status</th>
+                    <th>Investment Amount</th>
+                    <th>CFD</th>
+                    <th>Maturity Date</th>
+                    <th>Account No</th>
+                    <th>Subscription Count</th>
+                    <th>Bank Sort Code</th>
+                    <th>Bank Name</th>
+                    <th>Pan No Name</th>
+                    <th>8 % Interest Payout</th>
+                    <th>Non Cumulative Int</th>
+                    <th>Cumulative Int</th>
+                    <th>7.75% interest payout</th>
+                    <th>Non Cumulative Int 775</th>
+                    <th>Cumulative Int 775</th>
+                    <th>8.05 % Interest Payout</th>
+                    <th>Non Cumulative Int</th>
+                    <th>Cumulative Int</th>
+                    <th>Total</th>
+                    <th>In-Operative PAN</th>
+                    <th>Non-Filers</th>
+                    <th>Age</th>
+                    <th>Taxable Limit</th>
+                    <th>Waiver Document</th>
+                    <th>Waiver Document Ref No</th>
+                    <th>RRB-TDS rate</th>
+                    <th>Threshold Exceed Amount</th>
+                    <th>Threshold Exceed TDS Amount</th>
+                    <th>Exemption Rate %</th>
+                    <th>Exemption Amount</th>
+                    <th>Exemption TDS Amount</th>
+                    <th>Surcharge %</th>
+                    <th>Edu Cess %</th>
+                    <th>Base Rate Amount</th>
+                    <th>Surcharge Amount</th>
+                    <th>Edu cess Amount</th>
+                    <th>TDS Amount</th>
+                    <th>TDS Recovery Amount</th>
+                    <th>TDS Refund Amount</th>
+                    <th>Int Rate</th>
+                    <th>Last Int Paid</th>
+                    <th>Pending Interest</th>
+                    <th>Current Half Yearly Interest</th>
+                    <th>Future Interest</th>
+                    <th>Gross Interest Amount</th>
+                    <th>Int Paid (Net Interest Amount)</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="user in vm.addDetailsForPagination.slice((vm.currentPageForAdd-1)*vm.pageSizeForAdd, vm.currentPageForAdd*vm.pageSizeForAdd)">
+                    <td>{{$index+1}}</td>
+                    <td>{{user.modeOfPayment}}</td>
+                    <td>{{user.branchRefNo}}</td>
+                    <td>{{user.blaNo}}</td>
+                    <td>{{user.refNo}}</td>
+                    <td>{{user.appName1}}</td>
+                    <td>{{user.appName2}}</td>
+                    <td>{{user.appName3}}</td>
+                    <td>{{user.address1}}</td>
+                    <td>{{user.address2}}</td>
+                    <td>{{user.recName}}</td>
+                    <td>{{user.recParentName}}</td>
+                    <td>{{user.pinCode}}</td>
+                    <td>{{user.phoneNo}}</td>
+                    <td>{{user.appStatus}}</td>
+                    <td>{{user.investmentAmount}}</td>
+                    <td>{{user.cfd}}</td>
+                    <td>{{user.maturityDate}}</td>
+                    <td>{{user.accountNo}}</td>
+                    <td>{{user.subscriptionCount}}</td>
+                    <td>{{user.bankSortCode}}</td>
+                    <td>{{user.bankName}}</td>
+                    <td>{{user.panNoName}}</td>
+                    <td>{{user.interestPayOut8Per}}</td>
+                    <td>{{user.nonCumulativeInt}}</td>
+                    <td>{{user.cumulativeInt}}</td>
+                    <td>{{user.interestPayOut7Per}}</td>
+                    <td>{{user.nonCumulativeIntFor7}}</td>
+                    <td>{{user.cumulativeIntFor7}}</td>
+                    <td>{{user.interestPayOut85Per}}</td>
+                    <td>{{user.nonCumulativeIntFor85}}</td>
+                    <td>{{user.cumulativeIntFor85}}</td>
+                    <td>{{user.total}}</td>
+                    <td>{{user.inOperativePAN}}</td>
+                    <td>{{user.nonFilers}}</td>
+                    <td>{{user.age}}</td>
+                    <td>{{user.taxableLimit}}</td>
+                    <td>{{user.waiverDocument}}</td>
+                    <td>{{user.waiverDocumentRefNo}}</td>
+                    <td>{{user.rrbTDSRate}}</td>
+                    <td>{{user.thresholdExceedAmount}}</td>
+                    <td>{{user.thresholdExceedTDSAmount}}</td>
+                    <td>{{user.exemptionRate}}</td>
+                    <td>{{user.exemptionAmount}}</td>
+                    <td>{{user.exemptionTDSAmount}}</td>
+                    <td>{{user.surcharge}}</td>
+                    <td>{{user.eduCess}}</td>
+                    <td>{{user.baseRateAmount}}</td>
+                    <td>{{user.surchargeAmount}}</td>
+                    <td>{{user.eduCessAmount}}</td>
+                    <td>{{user.tdsAmount}}</td>
+                    <td>{{user.tdsRecoveryAmount}}</td>
+                    <td>{{user.tdsRefundAmount}}</td>
+                    <td>{{user.intRate}}</td>
+                    <td>{{user.lastIntPaid}}</td>
+                    <td>{{user.pendingInterest}}</td>
+                    <td>{{user.currentHalfYearlyInterest}}</td>
+                    <td>{{user.futureInterest}}</td>
+                    <td>{{user.grossInterestAmount}}</td>
+                    <td>{{user.intPaid}}</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="row">
+            <div ng-if="vm.addDetailsForPagination.length != 0" class="col-md-12 text-right">
+                <div class="pagination-container">
+                    <ul class="pagination">
+                        <li ng-class="{disabled: vm.currentPageForAdd === 1}">
+                            <a href="javascript:void(0)" ng-click="vm.firstPageForAdd()">First</a>
+                        </li>
+                        <li ng-class="{disabled: vm.currentPageForAdd === 1}">
+                            <a href="javascript:void(0)" ng-click="vm.prevPageForAdd()">Prev</a>
+                        </li>
+                        <li ng-repeat="page in vm.pagesForAdd" ng-class="{active: vm.page === vm.currentPageForAdd}">
+                            <a href="javascript:void(0)" ng-click="vm.setPageForAdd(page)">{{page}}</a>
+                        </li>
+                        <li ng-class="{disabled: vm.currentPageForAdd === vm.totalPagesForAdd}">
+                            <a href="javascript:void(0)" ng-click="vm.nextPageForAdd()">Next</a>
+                        </li>
+                        <li ng-class="{disabled: vm.currentPageForAdd === vm.totalPagesForAdd}">
+                            <a href="javascript:void(0)" ng-click="vm.lastPageForAdd()">Last</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            Showing {{(vm.currentPageForAdd - 1) * vm.pageSizeForAdd + 1}} to
+            {{Math.min(vm.currentPageForAdd*pageSizeForAdd, vm.addDetailsForPagination.length)}}
+            of {{vm.addDetailsForPagination.length}} records
+        </div>
+
+        <div class="text-center form_submit">
+            <button type="submit" class="btn btn-default" id="submitButton"
+                    ng-disabled="vm.bondNominationsForm.$invalid"
+                    ng-click="vm.addSubmit()">Submit
+            </button>
+            <button type="button" class="btn btn-cancel" id="cancelButton"
+                    onclick="window.location.href= '#!/bond_actual_interest_payment/add';">Cancel
+            </button>
+        </div>
+    </form>
+</div>

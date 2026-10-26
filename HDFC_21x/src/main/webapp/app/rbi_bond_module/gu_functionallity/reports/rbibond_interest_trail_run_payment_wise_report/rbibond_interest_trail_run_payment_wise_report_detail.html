@@ -1,0 +1,246 @@
+<div class="loader-new" ng-if="vm.loader"></div>
+<div class="container" ng-if="vm.paymentWiseList.length>0">
+
+  <div class="text-right form_submit">
+    <button type="submit" class="btn btn-default" onclick="window.location.href ='#!/dc';" id="homeButton">Home</button>
+    <button type="submit" id="backButton" class="btn btn-cancel" ng-click="vm.goPreviousState();">Back</button>
+  </div>
+  <div class="container from_wrapper new_form_wrapper" id="tab">
+    <div class="col-sm-12">
+<!--      <h4 class="form_heading">BOND Interest Trial Run Report Mode of Payment Wise</h4>-->
+      <table class="table report-title-table">
+<!--        <tr>-->
+<!--          <td><h5 class="modal-title">Bank Name : {{vm.bankName}}</h5></td>-->
+<!--        </tr>-->
+<!--        <tr>-->
+<!--          <td><h5 class="modal-title">Branch Id : {{vm.loginSolId}}</h5></td>-->
+<!--        </tr>-->
+<!--        <tr>-->
+<!--          <td><h5 class="modal-title">Branch Name : {{vm.loginSolDesc}}</h5></td>-->
+<!--        </tr>-->
+        <sol-header></sol-header>
+        <tr>
+          <td><h5 class="modal-title">{{vm.schemeName}}</h5></td>
+        </tr>
+        <tr>
+          <td><h4 class="form_heading">BOND Interest Trial Run Report Mode of Payment Wise</h4></td>
+        </tr>
+        <tr>
+          <td><h5 class="modal-title">{{vm.interestPaid}} {{vm.financialYear}}</h5></td>
+        </tr>
+      </table>
+
+      <div class="row">
+        <div class="col-sm-12">
+          <div class="table-responsive">
+            <div class="col-sm-3">
+              <div class="form-group">
+                <label>
+                  Show
+                  <select id="pageSize" class="form-control filter-control" ng-model="vm.pageSize" ng-change="vm.updatePageSize()" ng-options="option for option in vm.pageSizeOptions"></select>
+                  records per page
+                </label>
+              </div>
+            </div>
+            <div class="col-sm-3 pull-right">
+              <div class="form-group">
+                <div class="input-group">
+                  <div class="input-group-addon">
+                    <i class="glyphicon glyphicon-search"></i>
+                  </div>
+                  <input type="text" id="search" class="form-control" ng-change="vm.updateFilteredRecords()" ng-model="vm.searchText" placeholder="Search" />
+                </div>
+              </div>
+            </div>
+            <table class="table table-bordered table-striped list table-textWrap">
+              <thead style="font-weight: bold">
+                <tr class="thalign">
+                  <td>S No</td>
+                  <td ng-click="sort('T2.PANNUMBER')">
+                    PAN No
+                    <span class="glyphicon sort-icon" ng-show="sortKey=='T2.PANNUMBER'" ng-class="{'glyphicon-chevron-up':sortReverse,'glyphicon-chevron-down':!sortReverse}"></span>
+                  </td>
+
+                  <td ng-click="sort('T1.BLANO')">
+                    BOND Ledger Account Number
+                    <span class="glyphicon sort-icon" ng-show="sortKey=='T1.BLANO'" ng-class="{'glyphicon-chevron-up':sortReverse,'glyphicon-chevron-down':!sortReverse}"></span>
+                  </td>
+
+                  <td ng-click="sort('T2.FIRSTJOINTHOLDERNAME')">
+                    Customer Name
+                    <span class="glyphicon sort-icon" ng-show="sortKey=='T2.FIRSTJOINTHOLDERNAME'" ng-class="{'glyphicon-chevron-up':sortReverse,'glyphicon-chevron-down':!sortReverse}"></span>
+                  </td>
+
+                  <td ng-click="sort('T1.BONDSUBSCRIPTIONID')">
+                    BOND Subscription ID
+                    <span class="glyphicon sort-icon" ng-show="sortKey=='T1.BONDSUBSCRIPTIONID'" ng-class="{'glyphicon-chevron-up':sortReverse,'glyphicon-chevron-down':!sortReverse}"></span>
+                  </td>
+
+                  <td ng-click="sort('T1.ACCOUNTOPENDATE')">
+                    Subscription Date
+                    <span class="glyphicon sort-icon" ng-show="sortKey=='T1.ACCOUNTOPENDATE'" ng-class="{'glyphicon-chevron-up':sortReverse,'glyphicon-chevron-down':!sortReverse}"></span>
+                  </td>
+
+                  <td ng-click="sort('T1.SUBSCRIPTIONAMOUNT')">
+                    Subscription Amount
+                    <span class="glyphicon sort-icon" ng-show="sortKey=='T1.SUBSCRIPTIONAMOUNT'" ng-class="{'glyphicon-chevron-up':sortReverse,'glyphicon-chevron-down':!sortReverse}"></span>
+                  </td>
+
+                  <td ng-click="sort('T1.INTERESTRATE')">
+                    Interest Rate
+                    <span class="glyphicon sort-icon" ng-show="sortKey=='T1.INTERESTRATE'" ng-class="{'glyphicon-chevron-up':sortReverse,'glyphicon-chevron-down':!sortReverse}"></span>
+                  </td>
+
+                  <td ng-click="sort('T1.INTERESTPERIODFROM')">
+                    Interest From Period
+                    <span class="glyphicon sort-icon" ng-show="sortKey=='T1.INTERESTPERIODFROM'" ng-class="{'glyphicon-chevron-up':sortReverse,'glyphicon-chevron-down':!sortReverse}"></span>
+                  </td>
+
+                  <td ng-click="sort('T1.INTERSTPERIODTO')">
+                    Interest To Period
+                    <span class="glyphicon sort-icon" ng-show="sortKey=='T1.INTERSTPERIODTO'" ng-class="{'glyphicon-chevron-up':sortReverse,'glyphicon-chevron-down':!sortReverse}"></span>
+                  </td>
+
+                  <td ng-click="sort('T2.MODEOFINTERESTPAYMENT')">
+                    Interest Payment Mode
+                    <span class="glyphicon sort-icon" ng-show="sortKey=='T2.MODEOFINTERESTPAYMENT'" ng-class="{'glyphicon-chevron-up':sortReverse,'glyphicon-chevron-down':!sortReverse}"></span>
+                  </td>
+
+                  <td ng-click="sort('T2.CREDITACCOUNTNUMBER')">
+                    Credit Account
+                    <span class="glyphicon sort-icon" ng-show="sortKey=='T2.CREDITACCOUNTNUMBER'" ng-class="{'glyphicon-chevron-up':sortReverse,'glyphicon-chevron-down':!sortReverse}"></span>
+                  </td>
+
+                  <td ng-click="sort('T2.TYPEOFCERTIFICATE')">
+                    Type of Certificate
+                    <span class="glyphicon sort-icon" ng-show="sortKey=='T2.TYPEOFCERTIFICATE'" ng-class="{'glyphicon-chevron-up':sortReverse,'glyphicon-chevron-down':!sortReverse}"></span>
+                  </td>
+
+                  <td ng-click="sort('T2.TAXEEXEMPTIONCERTIFICATE')">
+                    Tax Exemption Certificate
+                    <span class="glyphicon sort-icon" ng-show="sortKey=='T2.TAXEEXEMPTIONCERTIFICATE'" ng-class="{'glyphicon-chevron-up':sortReverse,'glyphicon-chevron-down':!sortReverse}"></span>
+                  </td>
+
+                  <td ng-click="sort('T2.TAXEEXEMPTIONCERTIFICATENO')">
+                    Tax Exemption Certificate No.
+                    <span class="glyphicon sort-icon" ng-show="sortKey=='T2.TAXEEXEMPTIONCERTIFICATENO'" ng-class="{'glyphicon-chevron-up':sortReverse,'glyphicon-chevron-down':!sortReverse}"></span>
+                  </td>
+
+                  <td ng-click="sort('T2.LOWTAXPERCENTAGE')">
+                    Low Tax Percentage
+                    <span class="glyphicon sort-icon" ng-show="sortKey=='T2.LOWTAXPERCENTAGE'" ng-class="{'glyphicon-chevron-up':sortReverse,'glyphicon-chevron-down':!sortReverse}"></span>
+                  </td>
+
+                  <td ng-click="sort('T2.NOTAXLOWTAXLIMIT')">
+                    No Tax / Low Tax Limit
+                    <span class="glyphicon sort-icon" ng-show="sortKey=='T2.NOTAXLOWTAXLIMIT'" ng-class="{'glyphicon-chevron-up':sortReverse,'glyphicon-chevron-down':!sortReverse}"></span>
+                  </td>
+
+                  <td ng-click="sort('T2.15G15HLIMIT')">
+                    15 G/15H limit
+                    <span class="glyphicon sort-icon" ng-show="sortKey=='T2.15G15HLIMIT'" ng-class="{'glyphicon-chevron-up':sortReverse,'glyphicon-chevron-down':!sortReverse}"></span>
+                  </td>
+
+                  <td ng-click="sort('T1.INTERESTAMT')">
+                    Gross Total Interest Amount Rs.
+                    <span class="glyphicon sort-icon" ng-show="sortKey=='T1.INTERESTAMT'" ng-class="{'glyphicon-chevron-up':sortReverse,'glyphicon-chevron-down':!sortReverse}"></span>
+                  </td>
+
+                  <td ng-click="sort('T2.PANSTATUS')">
+                    PAN Status
+                    <span class="glyphicon sort-icon" ng-show="sortKey=='T2.PANSTATUS'" ng-class="{'glyphicon-chevron-up':sortReverse,'glyphicon-chevron-down':!sortReverse}"></span>
+                  </td>
+
+                  <td ng-click="sort('T2.ITRSTATUS')">
+                    ITR Status
+                    <span class="glyphicon sort-icon" ng-show="sortKey=='T2.ITRSTATUS'" ng-class="{'glyphicon-chevron-up':sortReverse,'glyphicon-chevron-down':!sortReverse}"></span>
+                  </td>
+
+                  <td ng-click="sort('T1.CURRENTTDSAMOUNT')">
+                    TDS Rs.
+                    <span class="glyphicon sort-icon" ng-show="sortKey=='T1.CURRENTTDSAMOUNT'" ng-class="{'glyphicon-chevron-up':sortReverse,'glyphicon-chevron-down':!sortReverse}"></span>
+                  </td>
+
+                  <td ng-click="sort('T1.NETINTERESTAMOUNT')">
+                    Net Interest Amount Rs.
+                    <span class="glyphicon sort-icon" ng-show="sortKey=='T1.NETINTERESTAMOUNT'" ng-class="{'glyphicon-chevron-up':sortReverse,'glyphicon-chevron-down':!sortReverse}"></span>
+                  </td>
+                </tr>
+              </thead>
+              <tbody>
+                <!--                <tr dir-paginate="x in vm.paymentWiseList | itemsPerPage: itemsPerPage" pagination-id="trailRunRep">-->
+                <tr ng-repeat="x in vm.filteredRecords.slice((vm.currentPage-1)*vm.pageSize, vm.currentPage*vm.pageSize)">
+                  <!--                  <td>{{$index+1}}</td>-->
+                  <td>{{vm.itemsPerPage *(vm.currentPage-1)+$index+1}}</td>
+                  <td align="left">{{x.customerName}}</td>
+                  <td align="left">{{x.panNumber}}</td>
+                  <td align="left">{{x.bondLedgerAccount}}</td>
+                  <td align="left">{{x.BRACH_ID}}</td>
+                  <td align="right">{{x.bondSubscriptionID}}</td>
+                  <td align="right">{{x.subscriptionDate | date : 'dd/MM/yyyy'}}</td>
+                  <td align="left">{{x.subscriptionAmount}}</td>
+                  <td align="left">{{x.interestRate}}</td>
+                  <td align="center">{{x.interestFromPeriod | date : 'dd/MM/yyyy'}}</td>
+                  <td align="right">{{x.interestToPeriod | date : 'dd/MM/yyyy'}}</td>
+                  <td align="right">{{x.interestPaidDate | date : 'dd/MM/yyyy'}}</td>
+                  <td align="right">{{x.interestPaymentMode}}</td>
+                  <td align="right">{{x.creditAccountNumber }}</td>
+                  <td align="right">{{x.typeOfCertificate }}</td>
+                  <td align="right">{{x.tdsExemptionLimit }}</td>
+                  <td align="right">{{x.lowTaxPercentage }}</td>
+                  <td align="right">{{x.panStatus }}</td>
+                  <td align="right">{{x.grossTotalInterestAmountRs}}</td>
+                  <td align="right">{{x.tdsAmountRs }}</td>
+                  <td align="right">{{x.newInterestAmountRs }}</td>
+                </tr>
+              </tbody>
+              <tfoot>
+                <tr>
+                  <th class="text-right" colspan="11">Total Rs.</th>
+                  <th class="text-right">{{vm.interestTotal}}</th>
+                  <th class="text-right">{{vm.TdsTotal}}</th>
+                  <th class="text-right">{{vm.netAmtTotal}}</th>
+                </tr>
+              </tfoot>
+            </table>
+          </div>
+          <br />
+          <div class="row">
+            <div ng-if="vm.filteredRecords.length != 0" class="col-md-12 text-right">
+              <div class="pagination-container">
+                <ul class="pagination">
+                  <li ng-class="{disabled: vm.currentPage === 1}">
+                    <a href="javascript:void(0)" ng-click="vm.firstPage()">First</a>
+                  </li>
+                  <li ng-class="{disabled: vm.currentPage === 1}">
+                    <a href="javascript:void(0)" ng-click="vm.prevPage()">Prev</a>
+                  </li>
+                  <li ng-repeat="page in vm.pages" ng-class="{active: vm.page === vm.currentPage}">
+                    <a href="javascript:void(0)" ng-click="vm.setPage(page)">{{page}}</a>
+                  </li>
+                  <li ng-class="{disabled: vm.currentPage === vm.totalPages}">
+                    <a href="javascript:void(0)" ng-click="vm.nextPage()">Next</a>
+                  </li>
+                  <li ng-class="{disabled: vm.currentPage === vm.totalPages}">
+                    <a href="javascript:void(0)" ng-click="vm.lastPage()">Last</a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">Showing {{(vm.currentPage-1)*vm.pageSize + 1}} to {{Math.min(vm.currentPage*pageSize, vm.filteredRecords.length)}} of {{vm.filteredRecords.length}} records</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container" ng-if="vm.paymentWiseList.length == 0 || vm.noDataFound">
+  <div class="list_wrapper no_records_message">
+    <h4 class="form_heading">BOND Interest Trial Run Report Mode of Payment Wise</h4>
+    No records found to display.
+    <center>
+      <button type="button" class="btn btn-default" ng-click="vm.goPreviousState();">Back</button>
+    </center>
+  </div>
+</div>

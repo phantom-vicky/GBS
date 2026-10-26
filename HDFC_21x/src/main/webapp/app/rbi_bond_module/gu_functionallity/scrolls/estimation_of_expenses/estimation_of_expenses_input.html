@@ -1,0 +1,128 @@
+<div class="loader-new" ng-if="vm.loader"></div>
+<dc-left-menu></dc-left-menu>
+<div class="container from_wrapper new_form_wrapper">
+
+    <h4 class="form_heading">Estimation of Expenses</h4>
+    <sol-header></sol-header>
+    <form name="bondPrincipalRepayFrom" role="form">
+
+        <div class="row">
+            <div class="form-group required">
+                <div class="col-sm-3"></div>
+                <div class="col-sm-3">
+                    <label for="moduleName" class="control-label">Name of the Bond Scheme</label>
+                </div>
+                <div class="col-sm-2">
+                    <input type="text" class="form-control" id="moduleName" data-ng-model="vm.subCodeDescription" required
+                           readonly />
+                </div>
+                <div class="col-sm-2"
+                     style="display: flex; align-items: center; height: 34px; gap: 5px; padding-left:0;">
+                    <span class="glyphicon glyphicon-search cp" data-toggle="schemeName" id="treasurySearch"
+                          data-ng-click="vm.getSchemeName();"></span>
+                    <span class="glyphicon glyphicon-remove clear cp"
+                          data-ng-click="vm.schemeCode =''; vm.schemeName=''; vm.financialYear=''; "></span>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="form-group required">
+                <div class="col-sm-3"></div>
+                <div class="col-sm-3">
+                    <label for="financialYear" class="control-label">Financial Year</label>
+                </div>
+                <div class="col-sm-3">
+                    <select class="form-control" id="financialYear" name="financialYear"
+                            ng-model="vm.financialYear"
+                            ng-init="vm.financialYear = '';vm.getFinancialYear();" required>
+                        <option value="">Select</option>
+                        <option value="2024-2025">2024-2025</option>
+                        <option value="2025-2026">2025-2026</option>
+<!--                        <option ng-repeat="item in vm.financialYearList" value="{{item.value}}">{{item.year}}</option>-->
+                    </select>
+                </div>
+            </div>
+        </div>
+
+
+
+        <div class="text-center form_submit">
+            <button type="submit" id="submitbutton" class="btn btn-default"
+                    ui-sref="estimation_of_expenses_scroll.inquiry_detail({obj:{
+                            schemeCode:vm.schemeCode,
+                            schemeName:vm.schemeName,
+                            financialYear: vm.financialYear,
+                        }})"
+                    ng-disabled="bondPrincipalRepayFrom.$invalid">Submit</button>
+            <button type="button" class="btn btn-cancel" id="cancelButton"
+                    onclick="window.location.href= '#!/rbibond_gu_functionality';">Cancel
+            </button>
+        </div>
+
+        <div class="text-center">
+            <notice-message-directive></notice-message-directive>
+        </div>
+    </form>
+</div>
+
+<div class="modal" id="schemeModel" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-bs-dismiss="modal" data-ng-click="vm.modalSearch = ''">&times;
+                </button>
+                <h4 class="modal-title">Scheme Code</h4>
+            </div>
+            <div class="modal-body">
+                <div class="loader_popup"></div>
+                <div class="list_wrapper" data-ng-if="vm.schemeList.length>0">
+                    <div class="col-sm-8 form_submit">
+                        <div class="form-group">
+                            <div class="input-group">
+                                <div class="input-group-addon">
+                                    <span class="glyphicon glyphicon-search"></span>
+                                </div>
+                                <input type="text" class="form-control" data-ng-model="vm.modalSearch"
+                                       data-ng-init="vm.modalSearch = ''" placeholder="Search"
+                                       oninput="this.value = this.value.replace(/^\s+/, '').replace(/\s{2,}/g, ' ')" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4 form_submit"></div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <table class="table table-bordered list scroll sort" aria-label="">
+                                <thead data-ng-init="reverseOrder=true;sortedColumn = 'schemeName'">
+                                <tr>
+                                    <th scope="col"
+                                        data-ng-click="(sortedColumn == 'schemeName')?(reverseOrder=(!reverseOrder)): (reverseOrder = false);sortedColumn = 'schemeName';"
+                                        data-ng-class="(sortedColumn == 'schemeName')?((reverseOrder)?('arrow-down') : ('arrow-up') ) : ('')">
+                                        SCHEME NAME
+                                    </th>
+                                    <th scope="col"
+                                        data-ng-click="(sortedColumn == 'schemeStatus')?(reverseOrder=(!reverseOrder)): (reverseOrder = false);sortedColumn = 'schemeStatus';"
+                                        data-ng-class="(sortedColumn == 'schemeStatus')?((reverseOrder)?('arrow-down') : ('arrow-up') ) : ('')">
+                                        STATUS
+                                    </th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr class="cp"
+                                    data-ng-repeat="x in vm.schemeList | filter:vm.modalSearch | orderBy:sortedColumn:reverseOrder"
+                                    data-ng-click="vm.schemeCode = x.schemeCode; vm.subCodeDescription = x.subCodeDescription; vm.schemeStatus = x.schemeStatus"
+                                    data-bs-dismiss="modal">
+                                    <td>{{x.subCodeDescription}}</td>
+                                    <td>{{x.schemeStatus}}</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="list_wrapper" data-ng-if="vm.schemeList.length==0">No records found to display.</div>
+            </div>
+        </div>
+    </div>
+</div>
+

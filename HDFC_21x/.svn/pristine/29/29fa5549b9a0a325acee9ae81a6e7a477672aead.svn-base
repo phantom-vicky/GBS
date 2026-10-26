@@ -1,0 +1,347 @@
+
+<div class="loader"></div>
+<div class="container from_wrapper">
+	<left-menu-directive></left-menu-directive>
+	<h4 class="form_heading">New Pension Scheme Parameter - Modify</h4>
+		<form name="schemeParameterForm" role="form" ng-submit="submitSchemeParameterForm(schemeParameterForm.$valid)"	novalidate>
+			<div class="row">
+				<h5 class="col-sm-12 tc">
+					<b>Scheme Type - New Pension Scheme</b>
+				</h5>
+			</div>
+			<h4 class="form_heading">Common</h4>
+			<notice-message-directive ></notice-message-directive>
+			<div class="row">
+				<div class="form-group required">
+					<label for="minAgeLimit" class="control-label col-sm-5">Minimum	Age Limit</label>
+					<div class="col-sm-3">
+						<input type="text" class="form-control" id="minAgeLimit" name="minAgeLimit" ng-model="schemeParameter.minAgeLimit" ng-value="minAgeLimit" required ng-change="validate()" allow-only-numbers maxlength='3'> 
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="form-group required">
+					<label for="maxAgeLimit" class="control-label col-sm-5">Maximum Age Limit</label>
+					<div class="col-sm-3">
+						<input type="text" class="form-control" id="maxAgeLimit" name="maxAgeLimit" ng-model="schemeParameter.maxAgeLimit" required ng-change="maxValidate()" string-to-number allow-only-numbers maxlength='3'>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="form-group required">
+					<label for="minNoOfContrYr" class="control-label col-sm-5">Minimum Number of Contribution in a Year</label>
+					<div class="col-sm-3">
+						<input type="text" class="form-control" id="minNoOfContrYr" name="minNoOfContrYr" ng-model="schemeParameter.minNoOfContrYr" required string-to-number allow-only-numbers maxlength='3'> 
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="form-group required">
+					<label for="minAmtPerInitContT1" class="control-label col-sm-5">Minimum Initial Contribution Amount for Tier I Rs.</label>
+					<div class="col-sm-3">
+						<input type="text" class="form-control" id="minAmtPerInitContT1" name="minAmtPerInitContT1" ng-model="schemeParameter.minAmtPerInitContT1" required string-to-number allow-only-numbers maxlength='20'> 
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="form-group required">
+					<label for="minAmtPerContT1" class="control-label col-sm-5">Minimum Contribution Amount for Tier I Rs.</label>
+					<div class="col-sm-3">
+						<input type="text" class="form-control" id="minAmtPerContT1" name="minAmtPerContT1" name="minAmtPerContT1" ng-model="schemeParameter.minAmtPerContT1" required string-to-number allow-only-numbers maxlength='20'>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="form-group required">
+					<label for="minAmtPerInitContT2" class="control-label col-sm-5">Minimum Initial Contribution Amount for Tier II Rs.</label>
+					<div class="col-sm-3">
+						<input type="text" class="form-control" id="minAmtPerInitContT2" name="minAmtPerInitContT2" ng-model="schemeParameter.minAmtPerInitContT2" required string-to-number allow-only-numbers maxlength='20'> 
+					
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="form-group required">
+					<label for="minAmtPerContT2" class="control-label col-sm-5">Minimum
+						Contribution Amount for Tier II Rs.</label>
+					<div class="col-sm-3">
+						<input type="text" class="form-control" id="minAmtPerContT2" name="minAmtPerContT2" ng-model="schemeParameter.minAmtPerContT2" required string-to-number allow-only-numbers maxlength='20'>
+						
+					</div>
+				</div>
+				</div>
+			<div class="row">
+				<div class="form-group required">
+					<label for="minContributionPerYr" class="control-label col-sm-5">Minimum Tier I Contribution per Year in Rs.</label>
+					<div class="col-sm-3">
+						<input type="text" class="form-control" id="minContributionPerYr" name="minContributionPerYr" ng-model="schemeParameter.minContributionPerYr" required string-to-number allow-only-numbers maxlength='20'>
+					
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="form-group required">
+					<label for="maxNoOfNomination" class="control-label col-sm-5">Maximum Number of Nominations</label>
+					<div class="col-sm-3">
+						<input type="text" class="form-control" id="maxNoOfNomination" name="maxNoOfNomination" ng-model="schemeParameter.maxNoOfNomination" required string-to-number allow-only-numbers  maxlength='1'>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="form-group required">
+					<label for="minContributionPerYrT2" class="control-label col-sm-5">Minimum Tier II Contribution per Year in Rs.</label>
+					<div class="col-sm-3">
+						<input type="text" class="form-control" id="minContributionPerYrT2" name="minContributionPerYrT2" ng-model="schemeParameter.minContributionPerYrT2" required string-to-number allow-only-numbers maxlength='20'>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="form-group required">
+					<label for="remittanceAcPlaceHolder" class="control-label col-sm-5">Remittance A/C for POP branch</label>
+					<div class="col-sm-3 inner-addon right-addon">
+						<input type="text" class="form-control" id="remittanceAcPlaceHolder" name="remittanceAcPlaceHolder" ng-model="schemeParameter.remittanceAcPlaceHolder" required>
+					</div>
+					<div class="col-sm-1">
+						<i class="glyphicon glyphicon-search cp" data-bs-toggle="modal" data-target="#remitAcModal" ng-click="getremitAcModal()"></i>
+						<i class="glyphicon glyphicon-remove clear cp" ng-click="clearText('remittanceAcPlaceHolder');clearRemittanceAcTitle()"></i>
+					</div>
+					<div class="col-sm-3">{{schemeParameter.remittanceAcTitle }}</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="form-group required">
+					<label for="phCashAc" class="control-label col-sm-5">Cash Account Place Holder</label>
+					<div class="col-sm-3 inner-addon right-addon">
+						<input type="text" class="form-control" id="phCashAc" name="phCashAc" ng-model="schemeParameter.phCashAc" required>
+					</div>
+					<div class="col-sm-1">
+						<i class="glyphicon glyphicon-search cp" data-bs-toggle="modal" data-target="#cashAcModal" ng-click="getcashAcModal()"></i>
+						<i class="glyphicon glyphicon-remove clear cp" ng-click="clearPhCashAc();clearCashAcTitle()"></i>
+					</div>
+					<div class="col-sm-3">{{schemeParameter.phCashAcTitle}}</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="form-group required">
+					<label for="phClearingAc" class="control-label col-sm-5">Clearing Sundry Account Place Holder</label>
+					<div class="col-sm-3 inner-addon right-addon">
+						<input type="text" class="form-control" id="phClearingAc"name="phClearingAc" ng-model="schemeParameter.phClearingAc"required>
+					</div>
+					<div class="col-sm-1">
+						<i class="glyphicon glyphicon-search cp" data-bs-toggle="modal" data-target="#phClearingAcModal" ng-click="getphClearingAcModal()"></i>
+						<i class="glyphicon glyphicon-remove clear cp" ng-click="clearPhClearingAc();clearClearingAc()"></i>
+					</div>
+					<div class="col-sm-3">{{schemeParameter.phClearingAcTitle}}</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="form-group required">
+					<label for="inetAcPlaceHolder" class="control-label col-sm-5">Internet Parking Account Number</label>
+					<div class="col-sm-3 inner-addon right-addon">
+						<input type="text" class="form-control" id="inetAcPlaceHolder" name="inetAcPlaceHolder" ng-model="schemeParameter.inetAcPlaceHolder" required>
+					</div>
+					<div class="col-sm-1">
+						<i class="glyphicon glyphicon-search cp" data-bs-toggle="modal" data-target="#inetAcPlaceHolderModal" ng-click="getinetAcPlaceHolderModal()"></i>
+						<i class="glyphicon glyphicon-remove clear cp" ng-click="clearInetAcPlaceHolder();clearAccountName()"></i>
+					</div>
+					<div class="col-sm-3">{{schemeParameter.inetAcTitle}}</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-sm-offset-5 col-sm-8 form_submit">
+					<button type="submit" class="btn btn-default" id="submitButton" ng-disabled="schemeParameterForm.$invalid || showMaxError || parse()">Update</button>
+					<button type="button" class="btn btn-cancel" id="cancelButton" ng-click="moveTo()">Cancel</button>
+				</div>
+			</div>
+		</form>
+
+
+		<!-- Modal remittance-->
+		<div class="modal" id="remitAcModal" role="dialog">
+
+			<div class="modal-dialog">
+				<!-- Modal content-->
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-bs-dismiss="modal">&times;</button>
+						<h4 class="modal-title">Help Index</h4>
+					</div>
+					<div class="modal-body">
+						<div class="loader_popup"></div>
+						<div class="list_wrapper" ng-if="list.length>0">
+							<div class="row">
+								<div class="col-sm-12">
+									<table class="table table-bordered list">
+										<thead>
+											<tr>
+												<th>Account Number</th>
+												<th>Name</th>
+												<th>Short Name</th>
+												<th>Account Ownership</th>
+												<th>Available Balance</th>
+											</tr>
+										</thead>
+										<tbody>
+											<tr class="cp" ng-repeat="x in list"
+												ng-click="setremitAcModal(x);">
+												<td>{{x.forAccountId}}</td>
+												<td>{{x.accountName}}</td>
+												<td>{{x.schemeCode}}</td>
+												<td>{{x.accountOwnership}}</td>
+												<td>{{x.availableBalance}}</td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+							</div>
+						</div>
+						<div class="list_wrapper" ng-if="list.length==0">No records
+							found to display.</div>
+					</div>
+
+				</div>
+			</div>
+		</div>
+
+
+		<div class="modal" id="inetAcPlaceHolderModal" role="dialog">
+			<div class="modal-dialog">
+				<!-- Modal content-->
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-bs-dismiss="modal">&times;</button>
+						<h4 class="modal-title">Help Index</h4>
+					</div>
+					<div class="modal-body">
+					<div class="loader_popup"></div>
+						<div class="list_wrapper" ng-if="list.length>0">
+							<div class="row">
+								<div class="col-sm-12">
+									<table class="table table-bordered list">
+										<thead>
+											<tr>
+												<th>Account Number</th>
+												<th>Name</th>
+												<th>Short Name</th>
+												<th>Account Ownership</th>
+												<th>Available Balance</th>
+											</tr>
+										</thead>
+										<tbody>
+
+											<tr class="cp" ng-repeat="x in list"
+												ng-click="setinetAcPlaceHolder(x);">
+												<td>{{x.forAccountId}}</td>
+												<td>{{x.accountName}}</td>
+												<td>{{x.schemeCode}}</td>
+												<td>{{x.accountOwnership}}</td>
+												<td>{{x.availableBalance}}</td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+							</div>
+						</div>
+						<div class="list_wrapper" ng-if="list.length==0">No records
+							found to display.</div>
+					</div>
+
+				</div>
+			</div>
+		</div>
+
+
+		<!-- cash account-->
+		<div class="modal" id="cashAcModal" role="dialog">
+			<div class="modal-dialog">
+				<!-- Modal content-->
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-bs-dismiss="modal">&times;</button>
+						<h4 class="modal-title">Help Index</h4>
+					</div>
+					<div class="modal-body">
+					<div class="loader_popup"></div>
+						<div class="list_wrapper" ng-if="list.length>0">
+							<div class="row">
+								<div class="col-sm-12">
+									<table class="table table-bordered list">
+										<thead>
+											<tr>
+												<th>Place Holder Name</th>
+												<th>Description</th>
+
+											</tr>
+										</thead>
+										<tbody>
+											<tr class="cp" ng-repeat="x in list"
+												ng-click="setcashAcModal(x);">
+												<td>{{x.bankAccountId}}</td>
+												<td>{{x.bankAccountIdDescription}}</td>
+
+											</tr>
+										</tbody>
+									</table>
+								</div>
+							</div>
+						</div>
+						<div class="list_wrapper" ng-if="list.length==0">No records
+							found to display.</div>
+					</div>
+
+				</div>
+			</div>
+		</div>
+
+
+		<!-- clearings account-->
+		<div class="modal" id="phClearingAcModal" role="dialog">
+			<div class="modal-dialog">
+				<!-- Modal content-->
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-bs-dismiss="modal">&times;</button>
+						<h4 class="modal-title">Help Index</h4>
+					</div>
+					<div class="modal-body">
+					<div class="loader_popup"></div>
+						<div class="list_wrapper" ng-if="list.length>0">
+							<div class="row">
+								<div class="col-sm-12">
+									<table class="table table-bordered list">
+										<thead>
+											<tr>
+												<th>Place Holder Name</th>
+												<th>Description</th>
+
+											</tr>
+										</thead>
+										<tbody>
+											<tr class="cp" ng-repeat="x in list"
+												ng-click="setphClearingAcModal(x);">
+												<td>{{x.bankAccountId}}</td>
+												<td>{{x.bankAccountIdDescription}}</td>
+
+											</tr>
+										</tbody>
+									</table>
+								</div>
+							</div>
+						</div>
+						<div class="list_wrapper" ng-if="listStatus.length>0">
+							<div class="row">
+								<div class="col-sm-12">
+									cvdfgf
+									<p>{{listStatus}}</p>
+								</div>
+							</div>
+						</div>
+						<div class="list_wrapper" ng-if="list.length==0">No records
+							found to display.</div>
+					</div>
+
+				</div>
+			</div>
+		</div>
+</div>
+<!-- /.container-fluid -->

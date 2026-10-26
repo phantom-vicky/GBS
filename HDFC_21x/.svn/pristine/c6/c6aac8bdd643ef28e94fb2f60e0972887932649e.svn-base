@@ -1,0 +1,211 @@
+<div class="loader-new" ng-if="vm.loader"></div>
+<div class="container" ng-if="vm.model">
+
+    <div class="container from_wrapper new_form_wrapper">
+        <div class="text-right form_submit">
+            <button type="submit" class="btn btn-default"
+                    onclick="window.location.href ='#!/rbibond_gu_functionality';" id="homeButton">Home
+            </button>
+            <button type="button" id="cancel_Button" class="btn btn-cancel"
+                    onclick="window.location.href= '#!/Principal_scrollreport_5106_Mar_24_Appendix_XII/action/inquiry';">
+                Back
+            </button>
+        </div>
+        <div class="row">
+            <h4 class="form_heading">
+                Principal scrollreport 5106 Appendix XII
+            </h4>
+            <table style="width:100%" class="table table-bordered" aria-label="">
+                <tr>
+                    <th colspan="2" style="text-align:center">For Principal and Interest Non Cumulative cases
+                        paid on maturity date and Cumulative Cases paid after maturity date
+                    </th>
+                </tr>
+                <tr>
+                    <th colspan="2" style="text-align:center">Appendix XII</th>
+                </tr>
+                <tr>
+                    <th scope="col">Name of the Bank :</th>
+                    <td>HDFC Bank Ltd</td>
+                </tr>
+                <tr>
+                    <th scope="col">Name of the Bond Scheme</th>
+                    <td>{{vm.schemeName}}</td>
+                </tr>
+                <tr>
+                    <th scope="col">Name of Branch & Code No :</th>
+                    <td>Mumbai, 5106</td>
+                </tr>
+                <tr>
+                    <th scope="col">Name of Month :</th>
+                    <td>{{vm.toDate ? (vm.toDate | date:'MMM-yyyy') : 'None' }}</td>
+                </tr>
+            </table>
+        </div>
+        <div class="row">
+
+            <div class="col-sm-12">
+                <h5 align="center" style="font-weight:bold">Repayment Scroll</h5>
+                <h5 align="center" style="font-weight:bold">Relief / Saving Bond</h5>
+                <div class="row" style="display: flex; align-items: center; justify-content: space-between;">
+                    <!-- Show Dropdown -->
+                    <div class="col-sm-3" style="flex: 1;">
+                        <div class="form-group">
+                            <label>
+                                Show
+                                <select
+                                        id="pageSize"
+                                        class="form-control filter-control"
+                                        ng-model="vm.pageSize"
+                                        ng-change="vm.updatePageSize()"
+                                        ng-options="option for option in vm.pageSizeOptions"
+                                ></select>
+                                records per page
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Search and Export Controls -->
+                    <div class="col-sm-6"
+                         style="display: flex; align-items: center; justify-content: flex-end;">
+                        <!-- Search -->
+                        <div class="form-group" style="margin-right: 15px;">
+                            <div class="input-group">
+                                <div class="input-group-addon">
+                                    <span class="glyphicon glyphicon-search"></span>
+                                </div>
+                                <input
+                                        type="text"
+                                        id="search"
+                                        class="form-control"
+                                        ng-change="vm.updateFilteredRecords()"
+                                        ng-model="vm.searchText"
+                                        placeholder="Search"/>
+                            </div>
+                        </div>
+
+                        <!-- Export -->
+                        <div class="form-group">
+                            <select
+                                    class="form-control"
+                                    id="export"
+                                    name="export"
+                                    ng-model="vm.downloadType"
+                                    ng-init="vm.downloadType=''"
+                                    ng-change="vm.downloadReport()"
+                            >
+                                <option value="">EXPORT</option>
+                                <option value="NC">EXCEL-NC</option>
+                                <option value="C">EXCEL-C</option>
+                                <!--<option value="csv">CSV</option>-->
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="table-responsive">
+
+
+                    <table class="table table-bordered table-striped list nowrap table-textWrap datatable">
+
+
+
+                        <thead>
+                        <tr class="thalign">
+                            <th>Serial Number</th>
+                            <th>Bond Ledger Account Number</th>
+                            <th>Due Date of Repayment</th>
+                            <th colspan="2">Amount Of Repayment</th>
+                            <th>Credited to Bank Account No. Cheque / Payment Order No</th>
+                            <th colspan="2">Amount paid in case of Cheque / Payment Order</th>
+                            <th>Remarks</th>
+                            <th>Initials</th>
+                        </tr>
+                        <tr>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th>Nominal value</th>
+                            <th>Maturity Value</th>
+                            <th></th>
+                            <th>Clearing</th>
+                            <th>transfer</th>
+                            <th></th>
+                            <th></th>
+                        </tr>
+
+                        </thead>
+                        <tbody>
+                        <tr data-ng-repeat="x in vm.filteredRecords.slice((vm.currentPage-1)*vm.pageSize, vm.currentPage*vm.pageSize)">
+                            <td>{{vm.itemsPerPage *(vm.currentPage-1)+$index+1}}</td>
+                            <td>{{x.bla}}</td>
+                            <td align="center">{{vm.formatDate(x.dueDateRepay)}}</td>
+                            <td align="right">{{vm.formatIndianCurrency(x.amountOfRepayment)}}</td>
+                            <td align="right">{{vm.formatIndianCurrency(x.nomineeValue)}}</td>
+                            <td align="right">{{x.creditAccNo}}</td>
+                            <td align="right"></td>
+                            <td align="center"></td>
+<!--                            <td>{{x.transfer}}</td>-->
+                            <td>{{x.remarks}}</td>
+                            <td align="right">{{x.initials}}</td>
+                        </tr>
+                        </tbody>
+                        <tfoot>
+                        <tr>
+                            <th></th>
+                            <th></th>
+                            <th class="text-center"> Total Rs.</th>
+                            <th class="text-right">{{vm.formatIndianCurrency(vm.totalPrincipalAmount())}}</th>
+                            <th class="text-right">{{vm.formatIndianCurrency(vm.nominalAmount())}}</th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                        </tr>
+                        </tfoot>
+                    </table>
+
+                </div>
+                <br />
+                <div class="row">
+                    <div data-ng-if="vm.filteredRecords.length != 0" class="col-md-12 text-right">
+                        <div class="pagination-container">
+                            <ul class="pagination">
+                                <li data-ng-class="{disabled: vm.currentPage === 1}">
+                                    <a href="javascript:void(0)" data-ng-click="vm.firstPage()">First</a>
+                                </li>
+                                <li data-ng-class="{disabled: vm.currentPage === 1}">
+                                    <a href="javascript:void(0)" data-ng-click="vm.prevPage()">Prev</a>
+                                </li>
+                                <li data-ng-repeat="page in vm.pages" data-ng-class="{active: vm.page === vm.currentPage}">
+                                    <a href="javascript:void(0)" data-ng-click="vm.setPage(page)">{{page}}</a>
+                                </li>
+                                <li data-ng-class="{disabled: vm.currentPage === vm.totalPages}">
+                                    <a href="javascript:void(0)" data-ng-click="vm.nextPage()">Next</a>
+                                </li>
+                                <li data-ng-class="{disabled: vm.currentPage === vm.totalPages}">
+                                    <a href="javascript:void(0)" data-ng-click="vm.lastPage()">Last</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">Showing {{(vm.currentPage-1)*vm.pageSize + 1}} to {{vm.maxValue()}} of {{vm.filteredRecords.length}} records</div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<div class="container" ng-if="vm.noDataFound">
+    <div class="list_wrapper no_records_message">
+        <h4 class="form_heading">Appendix IV Interest Payment Scroll</h4>
+        No records found to display.
+        <center>
+            <button type="button" class="btn btn-default"
+                    onclick="window.location.href= '#!/Principal_scrollreport_5106_Mar 24_Appendix_XII.inquiry/action/inquiry';">
+                Back
+            </button>
+        </center>
+    </div>
+</div>

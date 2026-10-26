@@ -1,0 +1,152 @@
+<div class="loader-new" ng-if="vm.loader"></div>
+<div class="container" ng-if="vm.filteredRecords.length> 0">
+    <div class="container from_wrapper new_form_wrapper">
+        <div class="text-right form_submit">
+            <button type="submit" class="btn btn-default"
+                    onclick="window.location.href ='#!/';" id="homeButton">Home</button>
+            <button type="submit" id="backButton" class="btn btn-cancel"
+                    onclick="window.location.href= '#!/admin_activity_report/action/inquiry';" >Back</button>
+        </div>
+        <div class="row">
+            <h4 class="form_heading">Admin Activity Report</h4>
+            <sol-header></sol-header>
+            <table style="width:100%" class="table table-bordered" style="padding: 10px"
+                   aria-label="Admin Activity table">
+                <tr>
+                    <td align="left"><b>From Date</b></td>
+                    <td align="left">{{vm.fromDate}}</td>
+                    <td align="left"><b>To Date</b></td>
+                    <td align="left">{{vm.toDate}}</td>
+                </tr>
+                <tr>
+                    <th scope="" style="width:20%">Total Count</th>
+                    <td style="width:20%">{{vm.total}}</td>
+                </tr>
+            </table>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="row">
+                    <div class="col-sm-3"  style="display: flex; align-items: center; justify-content: flex-end;">
+                        <div class="form-group" style="margin-right: 15px;">
+                            <div class="input-group">
+                                <input type="text" class="form-control searchButton"
+                                       ng-model="vm.searchValue" ng-init="vm.searchValue = ''"
+                                       placeholder="Search">
+                                <div class="input-group-addon">
+                                    <i class="glyphicon glyphicon-search" ng-click="vm.getDetails()"></i>
+                                    <i class="glyphicon glyphicon-remove clear cp" ng-click="vm.searchValue = '';vm.pageNo = 1;vm.getDetails()"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-2">
+                        <select class="form-control pageDropDown" id="pageSize" name="pageSize"
+                                ng-model="vm.pageSize" ng-init="vm.pageSize='5'"
+                                ng-change="vm.pageNo='1'; vm.getDetails();"
+                                ng-disabled="vm.noDataFoundInSearch">
+                            <option value="5">5 per page</option>
+                            <option value="10">10 per page</option>
+                            <option value="20">20 per page</option>
+                            <option value="50">50 per page</option>
+                        </select>
+                    </div>
+
+                    <div class=" form-group col-lg-3">
+                        <select class="form-control" id="downloadOptions"
+                                name="export" ng-model="vm.selectedOption"
+                                ng-init="vm.downloadType=''" ng-change="vm.getDownload();"
+                                data-ng-disabled="vm.noDataFoundInSearch"
+                        >
+                            <option value="">EXPORT</option>
+                            <option value="excel">EXCEL</option>
+                        </select>
+                    </div>
+
+                    <!--                    Pagination End-->
+                </div>
+                <div class="table-responsive">
+                    <table class="table table-bordered table-striped list table-textWrap">
+                        <thead data-ng-if="!vm.noDataFoundInSearch">
+                        <tr class="thalign">
+                            <th scope="">S.No</th>
+                            <th>User ID</th>
+                            <th>UserName</th>
+                            <th>Branch Code</th>
+                            <th>Branch Name</th>
+                            <th>Profile Name</th>
+                            <th>Activity</th>
+                            <th>Maker Id and Maker Name</th>
+                            <th>Checker Id and Checker Name</th>
+                            <th>Maker Date</th>
+                            <th>Maker Time</th>
+                            <th>Checker Date</th>
+                            <th>Checker Time</th>
+                            <th>Old Employee Name</th>
+                            <th>New Employee Name</th>
+                            <th>Old Profile Name</th>
+                            <th>New Profile Name</th>
+                            <th>Old Branch Name</th>
+                            <th>New Branch Name</th>
+                        </tr>
+                        </thead>
+                        <tbody data-ng-if="!vm.noDataFoundInSearch">
+                        <tr dir-paginate="x in vm.filteredRecords | itemsPerPage: itemsPerPage" pagination-id="trailRunRep">
+                            <td>{{ ($index + 1) + ((vm.pageNo - 1) * vm.pageSize) }}</td>
+                            <td>{{x.id}}</td>
+                            <td>{{x.username}}</td>
+                            <td>{{x.branchCode}}</td>
+                            <td>{{x.branchName}}</td>
+                            <td>{{x.profileName}}</td>
+                            <td>{{x.creationFlag}}</td>
+                            <td>{{x.makerId}}</td>
+                            <td>{{x.lastCheckerId}}</td>
+                            <td>{{x.makerDateTime.split(" ").length === 2 ? x.makerDateTime.split(" ")[0] : x.makerDateTime;}}</td>
+                            <td>{{x.makerDateTime.split(" ").length === 2 ? x.makerDateTime.split(" ")[1] : null;}}</td>
+                            <td>{{x.lastCheckerDateTime.split(" ").length === 2 ? x.lastCheckerDateTime.split(" ")[0] : x.lastCheckerDateTime;}}</td>
+                            <td>{{x.lastCheckerDateTime.split(" ").length === 2 ? x.lastCheckerDateTime.split(" ")[1] : null;}}</td>
+                            <td>{{x.oldEmployeeName}}</td>
+                            <td>{{x.newEmployeeName}}</td>
+                            <td>{{x.oldProfileName}}</td>
+                            <td>{{x.newProfileName}}</td>
+                            <td>{{x.oldBranchName}}</td>
+                            <td>{{x.newBranchName}}</td>
+                        </tr>
+                        </tbody>
+                        <tbody data-ng-if="vm.noDataFoundInSearch">
+                        <tr>
+                            <td style="text-align:center">No Records Found</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <br>
+                <div class="text-center form_submit">
+                        <span ng-show="vm.showPrevious">
+                        <button type="submit" class="btn btn-default" ng-click="vm.goPreviousPage()">Prev
+                        </button>
+                        </span>
+
+                    <span>
+                          <button type="submit" class="btn btn-default" ng-disabled="true" ng-init="vm.pageNo=1" ng-model="vm.pageNo" ng-click="vm.paymentStatus();">{{vm.pageNo}} of {{vm.maxPages}}
+                          </button>
+                        </span>
+
+                    <span ng-show="vm.showNext">
+                        <button type="submit" class="btn btn-default" ng-click="vm.goNextPage();" >Next
+                        </button>
+                        </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container" ng-if="vm.noDataFound">
+    <div class="list_wrapper no_records_message">
+        <h4 class="form_heading">Admin Activity Report</h4>
+        No records found to display.
+        <center>
+            <button type="submit" id="backButton1" class="btn btn-cancel" onclick="window.location.href= '#!/admin_activity_report/action/inquiry';">Back</button>
+        </center>
+    </div>
+</div>

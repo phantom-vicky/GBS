@@ -1,0 +1,148 @@
+<div class="loader-new" ng-if="vm.loader"></div>
+<dc-left-menu></dc-left-menu>
+<div class="container">
+    <div class="container from_wrapper new_form_wrapper">
+        <div class="row">
+            <h4 class="form_heading">NSDL PAN VALIDATION for Redemption - Inquiry</h4>
+        </div>
+        <sol-header></sol-header>
+        <form name="bondNsdlPanValidationForm" role="form">
+        <table class="table table-bordered">
+            <tbody>
+            <tr>
+                <td width="25%">Name of the Bond Scheme</td>
+                <td width="25%">
+                    <label class="data-bind">{{vm.schemeName}}</label>
+                </td>
+                <td width="25%">Name of the Module</td>
+                <td width="25%">
+                    <label class="data-bind"><b>RBI Bond</b></label>
+                </td>
+            </tr>
+            <tr>
+                <td width="25%">File Status</td>
+                <td width="25%">
+                   <span ng-switch="vm.fileStatus">
+            <span ng-switch-when="A">ALL</span>
+            <span ng-switch-when="S">SUCCESS</span>
+            <span ng-switch-when="F">FAILURE</span>
+                    </span>
+                </td>
+                <td width="25%">Type</td>
+                <td width="25%">
+            <span ng-switch="vm.type">
+            <span ng-switch-when="OM001">On Maturity Redemption PAN Validation</span>
+            <span ng-switch-when="BM001">Pre-Maturity PAN Validations</span>
+                    </span>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="table-responsive">
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label>Show
+                                <select id="pageSize" class="form-control filter-control" ng-model="vm.pageSize" ng-change="vm.updatePageSize()" ng-options="option for option in vm.pageSizeOptions"></select>records per page
+                            </label>
+                        </div>
+                    </div>
+                    <div class="col-sm-3 pull-right">
+                        <div class="form-group">
+                            <div class="input-group">
+                                <div class="input-group-addon"><i class="glyphicon glyphicon-search"></i></div>
+                                <input type="text" id="search" class="form-control" ng-change="vm.updateFilteredRecords();" ng-model="vm.searchText" Placeholder="Search">
+                            </div>
+                        </div>
+                    </div>
+                    <table class="table table-bordered table-striped list table-textWrap align-middle">
+                        <thead>
+                        <tr class="thalign">
+                            <th>S.No</th>
+                            <th>Name</th>
+                            <th>New Name</th>
+                            <th>Name Status</th>
+                            <th>DOB</th>
+                            <th>New DOB</th>
+                            <th>DOB Status</th>
+                            <th>Pan No</th>
+                            <th>New Pan No</th>
+                            <th>Pan Status</th>
+                            <th>Type Of Match</th>
+                            <th>Last Status Updated Date & Time</th>
+<!--
+                            <th>Force Matched By (User Id)</th>
+-->
+                            <th>Remarks</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="x in vm.filteredRecords.slice((vm.currentPage-1)*vm.pageSize, vm.currentPage*vm.pageSize)"  ng-if="vm.filteredRecords.length>0">
+                            <td>{{vm.itemsPerPage *(vm.currentPage-1)+$index+1}}</td>
+                            <td>{{x.name}}</td>
+                            <td>{{x.newName}}</td>
+                            <td>{{x.nameStatus}}</td>
+                            <td>{{x.dob}}</td>
+                            <td>{{x.newDob}}</td>
+                            <td>{{x.dobStatus}}</td>
+                            <td>{{x.oldPan}}</td>
+                            <td>{{x.newPan}}</td>
+                            <td>{{x.panStatus}}</td>
+                            <td>{{x.typeOfMatch}}</td>
+                            <td>{{x.panStatusValidateDate}}</td>
+                            <!--<td>{{x.userId}}</td>-->
+                            <td>{{x.remarks}}</td>
+                        </tr>
+                        <tr ng-if="vm.filteredRecords.length == 0">
+                            <td colspan="12" class="text-center">No records found to display.</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="row">
+                    <div ng-if="vm.filteredRecords.length != 0" class="col-md-12 text-right">
+                        <div class="pagination-container">
+                            <ul class="pagination">
+                                <li ng-class="{disabled: vm.currentPage === 1}">
+                                    <a href="javascript:void(0)" ng-click="vm.firstPage()">First</a>
+                                </li>
+                                <li ng-class="{disabled: vm.currentPage === 1}">
+                                    <a href="javascript:void(0)" ng-click="vm.prevPage()">Prev</a>
+                                </li>
+                                <li ng-repeat="page in vm.pages" ng-class="{active: vm.page === vm.currentPage}">
+                                    <a href="javascript:void(0)" ng-click="vm.setPage(page)">{{page}}</a>
+                                </li>
+                                <li ng-class="{disabled: vm.currentPage === vm.totalPages}">
+                                    <a href="javascript:void(0)" ng-click="vm.nextPage()">Next</a>
+                                </li>
+                                <li ng-class="{disabled: vm.currentPage === vm.totalPages}">
+                                    <a href="javascript:void(0)" ng-click="vm.lastPage()">Last</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    Showing {{(vm.currentPage-1)*vm.pageSize + 1}} to
+                    {{Math.min(vm.currentPage*pageSize, vm.filteredRecords.length)}}
+                    of {{vm.filteredRecords.length}} records
+                </div>
+            </div>
+        </div></form>
+            <div class="text-center">
+        <button type="button" class="btn btn-cancel" id="cancelButton"
+                onclick="window.location.href= '#!/bond_nsdl_pan_validation_redemption_on_maturity/action/inquiry'">Cancel</button>
+            </div>
+    </div>
+</div>
+<div class="container" ng-if="vm.noDataFound">
+    <div class="list_wrapper no_records_message">
+        <h4 class="form_heading">NSDL PAN VALIDATION for Redemption on Maturity - Inquiry</h4>
+        No records found to display.
+        <center>
+            <button type="button" class="btn btn-default"
+                    onclick="window.location.href= '#!/bond_nsdl_pan_validation_redemption_on_maturity/action/inquiry';">Back</button>
+        </center>
+    </div>
+</div>

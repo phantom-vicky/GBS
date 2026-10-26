@@ -1,0 +1,209 @@
+<div class="loader-new" ng-if="vm.loader"></div>
+<div class="container" id="section-to-print" >
+
+
+    <div  class="container from_wrapper new_form_wrapper" id="tab">
+        <div class="col-sm-12">
+            <h3 class="form_heading screen-only">Brokerage Invoice Download</h3>
+
+
+            <div class="row">
+                <div class="col-md-12">
+
+                    <table style="width: 100%" class="table table-bordered hide-on-print" style="padding: 10px" aria-label="">
+                        <tr>
+                            <th style="width: 25%">Email Body Total Count</th>
+                            <td style="width: 25%">{{ vm.emailBodyCount + vm.invoiceCount }}</td>
+                            <th style="width: 25%">Invoice Total Count</th>
+                            <td style="width: 25%">{{vm.invoiceCount}}</td>
+                        </tr>
+                    </table>
+<!--                    <div  style="background: white; padding: 28px; margin-bottom: 10px; border-radius: 9px;"  ng-if="vm.dataList.length>0" ng-repeat="x in vm.dataList" class="broker-record">-->
+
+                        <div style="background: white; padding: 28px; margin-bottom: 10px; border-radius: 9px; font-size: 14px; line-height: 1.6;"
+                             ng-if="vm.dataList.length>0"
+                             ng-repeat="x in vm.dataList"
+                             class="broker-record">
+                        <div ng-if="x.flag == 'I'">
+                            <td><img src="assets/images/brokerage_hdfc_logo.png" class="img-responsive yes_bank" alt="HDFC" style="margin-bottom: 10px;margin-top: 0px;"></td>
+
+
+                            <h3 class="form_heading print-only" style="font-size: 15px;">RBI Bonds Brokerage Invoice</h3>
+
+
+
+                            <p><strong>Name of the Broker:</strong> {{ x.broker_name }}</p>
+                            <p><strong>Broker Code:</strong> {{ x.broker_agency_code }}</p>
+                            <p><strong>Vendor Code:</strong> {{ x.broker_agency_code }}</p>
+                            <p><strong>Bank Name:</strong> {{ x.bank_name }}</p>
+                            <p><strong>Account Number:</strong> {{ x.account_number }}</p>
+
+                            <p><strong>HSN Code:</strong> {{ x.hsn_code }}</p>
+
+                            <p><strong>Address:</strong> {{ x.address }}</p>
+
+                            <p><strong>Phone #:</strong> {{ x.PHONE }}</p>
+                            <p><strong>Email Id:</strong> {{ x.EMAIL_ID }}</p>
+                            <p><strong>GSTIN:</strong></p>
+                            <p><strong>PAN No:</strong></p>
+
+
+
+                            <p><strong>Registered Office_(Billing Address)</strong>
+                            {{ 'HDFC Bank Ltd, SENAPATI BAPAT MARG, LOWER PAREL W, MUMBAI-400013.' }}</p>
+
+
+                            <p><strong>Branch Office- (Mailing Address)</strong>
+                            {{ 'HDFC Bank Ltd CMS-GOI BONDS - 2ND FLOOR, GK SHETTY TECHNOLOGY PARK, NO- 94, SP ESTATE BUS STAND, WAVIN MAIN ROAD, MOGAPPAIR, CHENNAI - 600058.' }}</p>
+
+                            <p><strong>GSTIN : </strong>27AAACH2702H1Z0</p>
+                            <p><strong>PAN : </strong>AAACH2702H</p>
+
+                            <p><strong>Invoice No:</strong> {{ x.invoice_no }}</p>
+                            <p><strong>Invoice Date:</strong> {{ x.invoice_date }}</p>
+
+                            <p><strong>Brokerage Commission for the month of {{vm.toDate ? (vm.toDate | date:'MMM-yy') : 'None' }}</strong> &nbsp&nbsp&nbsp&nbsp  &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspRs. {{vm.indianFormat(x.Brokerage_Commission) }}</p>
+
+                            <p><strong>CGST 9%</strong> &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp  0.00</p>
+                            <p><strong>SGST 9%</strong> &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp  0.00</p>
+                            <p><strong>IGST 18%</strong> &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp 0.00</p>
+
+                            <p><strong>Total Invoice Value in Figures:</strong> &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspRs. {{vm.indianFormat(x.Brokerage_Commission) }}</p>
+
+
+
+
+
+
+                            <p><strong>Total Invoice Value in Words:</strong>              {{ x.Brokerage_Commission_in_Words }}</p>
+
+                            <p class="text-right"><strong>Broker Seal and Sign:</strong></p>
+                            <br><br><br><br><br><br><br><br><br>
+
+                        </div>
+                        <div style="padding-top: 30px;">
+                            <img src="assets/images/brokerage_hdfc_logo.png" class="img-responsive yes_bank" alt="HDFC" style="margin-bottom: 10px; display: block;">
+                            <div id="printContent">
+                                <br>
+                                <p><strong>Dear Sir / Madam,</strong></p>
+                                <p style="text-indent: 40px;">
+                                    We write to you in regard to your brokerage credit of Rs. <strong>{{vm.indianFormat(x.GST_NO ? x.grossBrokerAmt : x.Brokerage_Commission)}}</strong> for the investments sourced under the broker code <strong>{{ x.broker_agency_code }}</strong> during the month of<strong> {{ vm.fromDate | date:'MMM-yy' }}.</strong>
+                                    <!--            </p>-->
+                                    <!--            <p>-->
+                                     <br>For your easy reference, we have provided payment method working for both GST Registered and Unregistered brokers:
+                                </p>
+                                <ul>
+                                    <li><strong>· Registered brokers (Individuals):</strong> pay {{x.netBrokerRate}}% of brokerage amount and
+                                        {{x.igstRate}}% GST would be paid by the bank to Government on your behalf. You are requested to raise an invoice for {{x.netBrokerRate}}% of the brokerage amount only as given in the below table. Please note that invoice should contain the clause as <strong>“Whether GST payable under Reverse Charge Mechanism – Yes”.</strong></li><br>
+                                    <li><strong>· Registered brokers (Non-Individuals):</strong> are requested to raise an invoice for the entire brokerage amount (consisting of {{x.netBrokerRate}}% brokerage and
+                                        {{x.igstRate}}% GST), bank will pay 100% to the brokers.The liability of GST rests with the brokers. You are also advised to update the invoice in the GSTIR portal as soon as the amount is settled to you to avoid reconciliation issues later.</li><br>
+                                    <li><strong>· Unregistered brokers(both individuals / Non Individuals ):</strong> Brokers are requested to raise an invoice for
+                                        {{x.netBrokerRate}}% of the brokerage amount as given in the below table. Invoice to be raised mandatorily for release of the brokerage amount.</li>
+                                </ul>
+                                <p><strong>Note:</strong> The GST number of HDFC Bank should be clearly mentioned as <strong> 27AAACH2702H1Z0 </strong>. GST registered brokers are requested to quote the GST number and apportion GST rate as IGST / (CGST and SGST) as per the POP and POS. Unregistered brokers to mention the GST number as Not Applicable.</p>
+                                <!-- Table Structure -->
+                                <table border="1" cellpadding="10" cellspacing="0" style="width: 100%; border-collapse: collapse;">
+                                    <thead>
+                                    <tr style="background-color: #f2f2f2; text-align: center;">
+                                        <th style="text-align: center;">Month</th>
+                                        <th style="text-align: center;">Investment Amount</th>
+                                        <th style="text-align: center;">Brokerage Amt (100%)</th>
+                                        <th style="text-align: center;">GST @{{x.igstRate}}%</th>
+                                        <th style="text-align: center;">Net Payable ({{x.netBrokerRate}}%)</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr style="text-align: center;">
+                                        <td>{{ vm.fromDate ? (vm.fromDate | date:'MMM-yy') : '' }}</td>
+                                        <td>{{ vm.indianFormat(x.investmentAmount) }}</td>
+                                        <td>{{ vm.indianFormat(x.grossBrokerAmt) }}</td>
+                                        <td>{{ vm.indianFormat(x.brokerGstAmt) }}</td>
+                                        <td>{{ vm.indianFormat(x.Brokerage_Commission) }}</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+
+                                <br>
+                                <p>
+                                    Please submit the valid invoice on or before 10-{{ vm.fromDate | date:'MMM-yy' }} to ensure prompt payment of brokerage.
+                                </p>
+                                <p>Looking forward to strengthening our relationship.</p>
+                                <p>Request you to kindly submit the original brokerage invoices at our collecting branches address given in the link <a href="https://www.hdfcbank.com/personal/invest/bonds-and-securities/savings-bonds">click here</a>.</p>
+
+                                <p ng-if="x.flag == 'I'"><strong>Encl :</strong> Tax invoice.</p>
+
+                                <p ng-if="x.flag == 'I'">The attached Invoice for RBI Bonds Brokerage is Password protected, and the password is your latest 6 Digit Broker Code.</p>
+                                <br><p>Warm Regards,<br><strong>HDFC Bank</strong></p>
+                            </div>
+                        </div>
+
+                    </div>
+
+
+
+<!--                    <div class="page-break" ng-if="$index < vm.dataList.length - 1"></div>-->
+
+
+                </div>
+
+            </div>
+
+            <br>
+
+        </div>
+    </div>
+
+</div>
+
+<div class="text-center form_submit screen-only" >
+    <button type="submit" class="btn btn-default"
+            ng-click="vm.printpage();" id="homeButton">Export</button>
+    <button type="submit" class="btn btn-default"
+            ng-click="vm.generateBrokerRes();" id="generate">Generate</button>
+    <button type="submit" id="backButton" class="btn btn-cancel"
+            ui-sref="brokerage_invoice_generation.inquiry">Back</button>
+</div>
+<!--    <a href="" id="downloadLink" style="display: none;"></a>-->
+</div>
+<style>
+    .larger-font {
+        font-size: 23px;
+    }
+
+
+     @media screen {
+        .print-only {
+            display: none;
+        }
+    }
+
+    @media print {
+        .screen-only {
+            display: none;
+        }
+        .hide-on-print {
+            display: none !important;
+    }
+    }
+<!--.broker-record {-->
+<!--      page-break-before: always;-->
+<!--      page-break-after: always;-->
+<!--      break-before: page;-->
+<!--    }-->
+
+    .broker-record {
+  page-break-before: auto;
+  page-break-after: auto;
+  break-before: auto;
+}
+
+/* Apply breaks only between records — not before first or after last */
+.broker-record + .broker-record {
+  page-break-before: always;
+  break-before: page;
+}
+<!--     .page-break {-->
+<!--        page-break-before: always;-->
+<!--    }-->
+</style>
+

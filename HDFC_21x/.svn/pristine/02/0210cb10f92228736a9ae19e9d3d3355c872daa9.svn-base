@@ -1,0 +1,263 @@
+<div class="loader-new" ng-if="vm.loader"></div>
+<dc-left-menu></dc-left-menu>
+<div class="container from_wrapper new_form_wrapper">
+
+    <h4 class="form_heading">Bond Cumulative To Non-Cumulative Change – Verify/Reject</h4>
+    <sol-header></sol-header>
+
+
+
+
+
+
+
+    <div class="tab-content" >
+        <div id="pensionMastersaForm"  ng-if="vm.getDetails" class="tab-pane fade in active">
+            <div class="tab-body">
+                <uib-accordion close-others="oneAtATime">
+                    <form name="pensionMastersaForm" role="form" novalidate>
+
+
+                        <ng-form name="vm.treasuryDetailsForm">
+                            <table class="table table-bordered">
+                                <tbody>
+
+                                <tr>
+
+
+                                    <td width="25%" class="form-group">
+                                        <label class="control-label">Name of the Bond Scheme</label></td>
+                                    <td width="25%">
+                                        <label class="control-label" >{{vm.schemeName}}</label>
+                                    </td>
+
+
+
+                                    <td width="25%" class="form-group">
+                                        <label class="control-label">Bond BLA No</label></td>
+                                    <td width="25%">
+                                        <label class="control-label" >{{vm.blaNo}}</label>
+                                    </td>
+
+                                </tr>
+                                <tr>
+                                    <td width="25%" class="form-group">
+                                        <label class="control-label">Subscription ID</label></td>
+                                    <td width="25%">
+                                        <label class="control-label" >{{vm.subscriptionId}}</label>
+                                    </td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+
+
+                                </tbody>
+                            </table>
+                        </ng-form>
+
+
+                        <div uib-accordion-group id="sapensioner-details" class="panel panel-default"
+                             heading="{{vm.titleText}}">
+                            <table class="table table-bordered table-striped list old-new-value-table">
+                                <thead>
+                                <tr>
+                                    <th width="50%">Particular</th>
+                                    <th>{{(vm.getDetails.previousOperationType == 'M')?('Old Value'): ('Value')}}</th>
+                                    <th ng-if="vm.getDetails.previousOperationType == 'M'">New Value</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+
+
+                                <tr>
+                                    <td>Subscription Amount</td>
+                                    <td class="old-value">{{vm.indianNumberFormat(vm.getDetails.subscriptionAmount)}}
+                                    </td>
+                                    <td class="new-value" ng-if="vm.getDetails.previousOperationType == 'M'">{{vm.indianNumberFormat(vm.getDetails.subscriptionAmount)}}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Bond Type</td>
+                                    <td class="old-value">NON-CUMMULATIVE
+                                    </td>
+                                    <td class="new-value" ng-if="vm.getDetails.previousOperationType == 'M'">{{vm.getDetails.masterDetailsValueModel[0] &&
+                                        vm.getDetails.masterDetailsValueModel[0].C006? (vm.getDetails.masterDetailsValueModel[0].C006.newValue) : ('')}}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Account Open Date (dd/mm/yyyy)</td>
+                                    <td class="old-value">{{vm.getDetails.accountOpenDate}}
+                                    </td>
+                                    <td class="new-value" ng-if="vm.getDetails.previousOperationType == 'M'">{{vm.getDetails.masterDetailsValueModel[0] &&
+                                        vm.getDetails.masterDetailsValueModel[0].C007? (vm.getDetails.masterDetailsValueModel[0].C007.newValue) : ('')}}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Value Date (dd/mm/yyyy)</td>
+                                    <td class="old-value">{{vm.getDetails.valueDate}}
+                                    </td>
+                                    <td class="new-value" ng-if="vm.getDetails.previousOperationType == 'M'">{{vm.getDetails.masterDetailsValueModel[0] &&
+                                        vm.getDetails.masterDetailsValueModel[0].C008? (vm.getDetails.masterDetailsValueModel[0].C008.newValue) : ('')}}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Period of Deposit (months)</td>
+                                    <td class="old-value">{{vm.getDetails.periodOfDeposit}}
+                                    </td>
+                                    <td class="new-value" ng-if="vm.getDetails.previousOperationType == 'M'">{{vm.getDetails.masterDetailsValueModel[0] &&
+                                        vm.getDetails.masterDetailsValueModel[0].C012? (vm.getDetails.masterDetailsValueModel[0].C012.newValue | getLabelFromValuesArray : vm.convertLabelValue(vm.holderTypeList)) : ('')}}
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>Maturity Date (dd/mm/yyyy)</td>
+                                    <td class="old-value">{{vm.getDetails.maturityDate}}
+                                    </td>
+                                    <td class="new-value" ng-if="vm.getDetails.previousOperationType == 'M'">{{vm.getDetails.masterDetailsValueModel[0] &&
+                                        vm.getDetails.masterDetailsValueModel[0].C013? (vm.getDetails.masterDetailsValueModel[0].C013.newValue) : ('')}}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Rate of Interest (%)</td>
+                                    <td class="old-value">{{vm.getDetails.rateOfInterest}}
+                                    </td>
+                                    <td class="new-value" ng-if="vm.getDetails.previousOperationType == 'M'">{{vm.getDetails.masterDetailsValueModel[0] &&
+                                        vm.getDetails.masterDetailsValueModel[0].C014? (vm.getDetails.masterDetailsValueModel[0].C014.newValue) : ('')}}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Maturity Amount</td>
+                                    <td class="old-value">{{vm.indianNumberFormat(vm.getDetails.maturityAmt)}}
+                                    </td>
+                                    <td class="new-value" ng-if="vm.getDetails.previousOperationType == 'M'">{{vm.getDetails.masterDetailsValueModel[0] &&
+                                        vm.getDetails.masterDetailsValueModel[0].C015? (vm.indianNumberFormat(vm.getDetails.masterDetailsValueModel[0].C015.newValue)) : ('')}}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Principle Amount</td>
+                                    <td class="old-value">{{vm.indianNumberFormat(vm.getDetails.principleAmount)}}
+                                    </td>
+                                    <td class="new-value" ng-if="vm.getDetails.previousOperationType == 'M'">{{vm.getDetails.masterDetailsValueModel[0] &&
+                                        vm.getDetails.masterDetailsValueModel[0].C009? (vm.indianNumberFormat(vm.getDetails.masterDetailsValueModel[0].C009.newValue)) : ('')}}
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>Interest Amount</td>
+                                    <td class="old-value">{{vm.indianNumberFormat(vm.getDetails.interestAmount)}}
+                                    </td>
+                                    <td class="new-value" ng-if="vm.getDetails.previousOperationType == 'M'">{{vm.getDetails.masterDetailsValueModel[0] &&
+                                        vm.getDetails.masterDetailsValueModel[0].C017? (vm.indianNumberFormat(vm.getDetails.masterDetailsValueModel[0].C017.newValue)) : ('')}}
+                                    </td>
+                                </tr>
+
+
+                                </tbody>
+
+
+                            </table>
+
+
+
+
+
+                        </div>
+                        <div class="text-center form_submit">
+                            <button type="submit" class="btn btn-default" id="verifyButton" ng-click="vm.submitVerifyForm();"
+                                    ng-disabled="dashBoardForm.$invalid">Verify
+                            </button>
+                            <button type="submit" class="btn btn-default" id="deleteButton" ng-click="vm.rejectReason()"
+                                    ng-disabled="dashBoardForm.$invalid">Reject
+                            </button>
+                            <button type="button" class="btn btn-cancel" id="cancelButton"
+                                    onclick="window.location.href= '#!/cum_to_non_cum_change_of_bond_type/action/inquiry'">Cancel
+                            </button>
+                        </div>
+
+
+
+
+
+
+
+
+                    </form>
+                </uib-accordion>
+            </div>
+        </div>
+
+
+
+
+
+
+
+
+
+        <div class="audit-details">
+            <div class="row">
+                <div class="col-md-3">
+                    <span> <b> Created By </b> : {{vm.getDetails.createdBy}} </span>
+                </div>
+                <div class="col-md-3">
+                    <span> <b> Last Modified By </b> : {{(vm.getDetails.lastModifiedBy) ? (vm.getDetails.lastModifiedBy) : ('None')}}</span>
+                </div>
+                <div class="col-md-3">
+                    <span> <b> Last Verified By </b> : {{(vm.getDetails.lastVerifiedBy) ? (vm.getDetails.lastVerifiedBy) : ('None')}}</span>
+                </div>
+                <div class="col-md-3">
+                    <span> <b> Verify Status </b> : {{vm.getDetails.verifiedStatus  | getLabelFromValuesArray : vm.commonYesNoMetaData}}</span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3">
+                    <span> <b> Created On </b> : {{ vm.getDetails.createdDate | date : 'dd/MM/yyyy'}}</span>
+                </div>
+                <div class="col-md-3">
+                    <span> <b> Last Modified On</b> : {{ (vm.getDetails.lastModifiedDate) ? (vm.getDetails.lastModifiedDate | date : 'dd/MM/yyyy') : ('None')}}</span>
+                </div>
+                <div class="col-md-3">
+                    <span> <b> Last Verified On </b> : {{(vm.getDetails.lastVerifiedDate) ? (vm.getDetails.lastVerifiedDate | date : 'dd/MM/yyyy') : ('None')}}</span>
+                </div>
+                <div class="col-md-3">
+                </div>
+            </div>
+            <div class="modal" id="permissionMappingDelete" role="dialog">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-bs-dismiss="modal">&times;</button>
+                            <h4 class="modal-title"> REJECTION REMARKS</h4>
+                        </div>
+                        <div class="modal-body">
+                            <div class="loader_popup"></div>
+                            <div class="list_wrapper" >
+                                <form name="permissionDelete" role="form">
+                                    <div class="row">
+                                        <div class="form-group">
+                                            <div class="col-sm-2"></div>
+                                            <label class="control-label col-sm-3">Remarks</label>
+                                            <div class="col-sm-5">
+                                                <select class="form-control list_wrapper" id="remarks[$index]" name="remarks[$index]"
+                                                        ng-model="vm.rejectionRemarks" ng-init="vm.getRemarksList();"   required>
+                                                    <option value="">Select</option>
+                                                    <option ng-repeat="item in vm.remarksList"
+                                                            name="{{item.subCode + parentIndex}}" id="{{item.subCode + parentIndex}}" value="{{item.subCodeDescription}}">{{item.subCodeDescription}}</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-sm-offset-5 col-sm-8 form_submit">
+                                        <button type="button" class="btn btn-default" data-bs-dismiss="modal" ng-disabled="permissionDelete.$invalid" ng-click="vm.deleteSubmit()" >Submit</button>
+                                        <button type="button" class="btn btn-cancel" data-bs-dismiss="modal">Cancel</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

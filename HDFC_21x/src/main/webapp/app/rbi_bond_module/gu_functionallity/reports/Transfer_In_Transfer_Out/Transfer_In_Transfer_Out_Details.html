@@ -1,0 +1,554 @@
+<!--<div class="loader-new" data-ng-if="vm.loader"></div>-->
+<!--<div class="container" data-ng-if="vm.model.length>0">-->
+<!--  <div class="container from_wrapper new_form_wrapper">-->
+<!--    <div class="text-right form_submit">-->
+<!--      <button-->
+<!--        type="submit"-->
+<!--        class="btn btn-default"-->
+<!--        onclick="window.location.href ='#!';"-->
+<!--        id="homeButton"-->
+<!--      >-->
+<!--        Home-->
+<!--      </button>-->
+<!--      <button-->
+<!--        type="submit"-->
+<!--        id="backButton"-->
+<!--        class="btn btn-cancel"-->
+<!--        onclick="window.location.href='#!/Transfer_In_Transfer_Out/action/inquiry';"-->
+<!--      >-->
+<!--        Back-->
+<!--      </button>-->
+<!--    </div>-->
+<!--    <h4 class="form_heading">Transfer In/Transfer Out Details</h4>-->
+<!--    <sol-header></sol-header>-->
+
+<!--    <table style="width: 100%" class="table table-bordered" aria-label="">-->
+<!--      <tr>-->
+<!--        <th scope="col">Name of the Bond Scheme</th>-->
+<!--        <td>{{vm.schemeName}}</td>-->
+<!--        <th scope="col" style="width: 20%">Total Count</th>-->
+<!--        <td style="width: 20%">{{vm.total}}</td>-->
+<!--      </tr>-->
+<!--      <tr data-data-ng-if="vm.transferType">-->
+<!--        <th scope="col">Transfer Type</th>-->
+<!--        <td>{{vm.transferType}}</td>-->
+<!--        <th scope="col">Transfer From Date</th>-->
+<!--        <td>{{vm.fromDate | date: 'dd/MM/yyyy'}}</td>-->
+<!--      </tr>-->
+<!--      <tr>-->
+<!--        <th scope="col">Transfer To Date</th>-->
+<!--        <td>{{vm.toDate | date: 'dd/MM/yyyy'}}</td>-->
+<!--      </tr>-->
+<!--    </table>-->
+<!--    <div class="row">-->
+<!--      <div class="col-sm-12">-->
+<!--        <div class="row">-->
+<!--          <div class="col-sm-12">-->
+<!--            <div-->
+<!--              class="row"-->
+<!--              style="-->
+<!--                display: flex;-->
+<!--                align-items: center;-->
+<!--                justify-content: space-between;-->
+<!--              "-->
+<!--            >-->
+<!--              <div class="col-sm-3" style="flex: 1">-->
+<!--                <div class="form-group">-->
+<!--                  <table style="border-spacing: 2" aria-label="">-->
+<!--                    <tr>-->
+<!--                      <th scope="col"></th>-->
+<!--                    </tr>-->
+<!--                    <tr>-->
+<!--                      <td>Show&nbsp;</td>-->
+<!--                      <td>-->
+
+
+
+<!--                        <select class="form-control pageDropDown" id="pageSize" name="pageSize"-->
+<!--                                  ng-model="vm.pageSize" ng-init="vm.pageSize='10'" ng-change="vm.pageNo='1'; vm.getDetails();" ng-disabled="vm.noDataFoundInSearch">-->
+<!--                            <option value="10" >10 per page</option>-->
+<!--                            <option value="20">20 per page</option>-->
+<!--                            <option value="50">50 per page</option>-->
+<!--                          </select>-->
+<!--                      </td>-->
+<!--                    </tr>-->
+<!--                  </table>-->
+<!--                </div>-->
+<!--              </div>-->
+
+<!--                    <div-->
+<!--                      class="col-sm-3"-->
+<!--                      style="-->
+<!--                        display: flex;-->
+<!--                        align-items: center;-->
+<!--                        justify-content: flex-end;-->
+<!--                      "-->
+<!--                    >-->
+<!--                    -->
+<!--                      <div class="form-group" style="margin-right: 15px">-->
+<!--                        <div class="input-group">-->
+<!--                          <input-->
+<!--                            type="text"-->
+<!--                            class="form-control searchButton"-->
+<!--                            ng-model="vm.searchValue"-->
+<!--                            ng-init="vm.searchValue = ''"-->
+<!--                            placeholder="Search"-->
+<!--                          />-->
+<!--                          <div class="input-group-addon">-->
+<!--                            <i-->
+<!--                              class="glyphicon glyphicon-search"-->
+<!--                              ng-click="vm.getDetails()"-->
+<!--                            ></i>-->
+<!--                            <i-->
+<!--                              class="glyphicon glyphicon-remove clear cp"-->
+<!--                              ng-click="vm.searchValue = '';vm.pageNo='1';vm.getDetails()"-->
+<!--                            ></i>-->
+<!--                          </div>-->
+<!--                        </div>-->
+<!--                      </div>-->
+<!--                </div>-->
+<!--                <div class="form-group col-lg-3" ng-disabled="vm.noDataFoundInSearch">-->
+<!--                  <select-->
+<!--                    class="form-control"-->
+<!--                    id="downloadOptions"-->
+<!--                    name="export"-->
+<!--                    ng-disabled="vm.noDataFoundInSearch"-->
+<!--                    ng-model="vm.downloadType"-->
+<!--                    ng-init="vm.downloadType=''"-->
+<!--                    ng-change="vm.getDownload()"-->
+<!--                  >-->
+<!--                    <option value="">EXPORT</option>-->
+<!--                    <option value="excel">EXCEL</option>-->
+<!--                    <option value="csv">CSV</option>-->
+<!--                    &lt;!&ndash;                                <option value="pdf">PDF</option>&ndash;&gt;-->
+<!--                  </select>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--            <div class="table-responsive">-->
+<!--              <table-->
+<!--                class="table table-bordered table-striped list table-textWrap datatable"-->
+<!--                id="dataTable1"-->
+<!--                aria-label=""-->
+<!--              >-->
+<!--                <thead  data-ng-if="!vm.noDataFoundInSearch">-->
+<!--                  <tr class="thalign">-->
+<!--                    <th scope="col">S.NO</th>-->
+<!--                    <th scope="col">BLA No.</th>-->
+<!--                    <th scope="col">Holder Name</th>-->
+<!--                    <th scope="col">Subscription ID</th>-->
+<!--                    <th scope="col">Subscription Amount Rs.</th>-->
+<!--                    <th scope="col">-->
+<!--                      Transfer-->
+<!--                      <span data-ng-if="vm.transferType=='TRANSFER OUT'"-->
+<!--                        >Out</span-->
+<!--                      >-->
+<!--                      <span data-ng-if="vm.transferType=='TRANSFER IN'"-->
+<!--                        >IN</span-->
+<!--                      >-->
+<!--                      to Bank-->
+<!--                    </th>-->
+<!--                    <th scope="col">-->
+<!--                      Transfer-->
+<!--                      <span data-ng-if="vm.transferType=='TRANSFER OUT'"-->
+<!--                        >Out</span-->
+<!--                      >-->
+<!--                      <span data-ng-if="vm.transferType=='TRANSFER IN'"-->
+<!--                        >IN</span-->
+<!--                      >-->
+<!--                      to Bank Branch-->
+<!--                    </th>-->
+<!--                    <th scope="col">-->
+<!--                      Transferred-->
+<!--                      <span data-ng-if="vm.transferType=='TRANSFER OUT'"-->
+<!--                        >Out</span-->
+<!--                      >-->
+<!--                      <span data-ng-if="vm.transferType=='TRANSFER IN'"-->
+<!--                        >IN</span-->
+<!--                      >-->
+<!--                      Date-->
+<!--                    </th>-->
+<!--                  </tr>-->
+<!--                </thead>-->
+<!--                <tbody data-ng-if="!vm.noDataFoundInSearch">-->
+<!--                  &lt;!&ndash;                                <tr data-ng-repeat="x in vm.filteredRecords.slice((vm.currentPage-1)*vm.pageSize, vm.currentPage*vm.pageSize)">&ndash;&gt;-->
+<!--                  <tr-->
+<!--                    dir-paginate="x in vm.filteredRecords | itemsPerPage: itemsPerPage"-->
+<!--                    pagination-id="trailRunRep"-->
+<!--                  >-->
+<!--                    <td>-->
+<!--                      {{ (vm.currentPage - 1) * vm.pageSize + $index + 1 }}-->
+<!--                    </td>-->
+<!--                    <td>{{x.blaNumber}}</td>-->
+<!--                    <td>{{x.holderName}}</td>-->
+<!--                    <td>{{x.subscriptionID}}</td>-->
+<!--                    <td style="text-align: right">{{vm.indianNumberFormat(x.subscriptionAmount | number : 2)}}</td>-->
+<!--                    <td>-->
+<!--                      <span data-ng-if="vm.transferType=='TRANSFER OUT'"-->
+<!--                        >{{x.transferOutBankName}}</span-->
+<!--                      >-->
+<!--                      <span data-ng-if="vm.transferType=='TRANSFER IN'"-->
+<!--                        >{{x.transferInBankName}}</span-->
+<!--                      >-->
+<!--                    </td>-->
+<!--                    <td>-->
+<!--                      <span data-ng-if="vm.transferType=='TRANSFER OUT'"-->
+<!--                        >{{x.transferOutBranchName}}</span-->
+<!--                      >-->
+<!--                      <span data-ng-if="vm.transferType=='TRANSFER IN'"-->
+<!--                        >{{x.transferInBranchName}}</span-->
+<!--                      >-->
+<!--                    </td>-->
+<!--                    <td>{{x.transferDate}}</td>-->
+<!--                  </tr>-->
+<!--                </tbody>-->
+<!--                <tfoot data-ng-if="!vm.noDataFoundInSearch">-->
+<!--                <th></th>-->
+<!--                <th></th>-->
+<!--                <th></th>-->
+<!--                <th></th>-->
+<!--                <th>{{vm.indianNumberFormat(vm.totalAmountt | number:2)}}</th>-->
+<!--                <th></th>-->
+<!--                <th></th>-->
+<!--                <th></th>-->
+<!--                </tfoot>-->
+<!--                <tbody data-ng-if="vm.noDataFoundInSearch">-->
+<!--                  <tr>-->
+<!--                    <td>No Records Found</td>-->
+<!--                  </tr>-->
+<!--                </tbody>-->
+<!--              </table>-->
+<!--            </div>-->
+<!--            <br />-->
+<!--            <div class="row">-->
+<!--              <div-->
+<!--                data-data-ng-if="vm.filteredRecords.length != 0"-->
+<!--                class="col-md-12 text-right"-->
+<!--              >-->
+<!--                <div class="text-center form_submit">-->
+<!--                  <span ng-show="vm.showPrevious">-->
+<!--                    <button-->
+<!--                      type="submit"-->
+<!--                      class="btn btn-default"-->
+<!--                      ng-click="vm.goPreviousPage()"-->
+<!--                    >-->
+<!--                      Prev-->
+<!--                    </button> </span-->
+<!--                  >̥-->
+
+<!--                  <span>-->
+<!--                    <button-->
+<!--                      type="submit"-->
+<!--                      class="btn btn-default"-->
+<!--                      ng-disabled="true"-->
+<!--                      ng-init="vm.pageNo=1"-->
+<!--                      ng-model="vm.pageNo"-->
+<!--                      ng-click="vm.paymentStatus();"-->
+<!--                    >-->
+<!--                      {{vm.pageNo}} of {{vm.maxPages}}-->
+<!--                    </button>-->
+<!--                  </span>-->
+
+<!--                  <span ng-show="vm.showNext">-->
+<!--                    <button-->
+<!--                      type="submit"-->
+<!--                      class="btn btn-default"-->
+<!--                      ng-click="vm.goNextPage();"-->
+<!--                    >-->
+<!--                      Next-->
+<!--                    </button>-->
+<!--                  </span>-->
+<!--                </div>-->
+<!--              </div>-->
+<!--            </div>-->
+<!--            <div class="col-md-6">-->
+<!--              Showing {{(vm.currentPage-1)*vm.pageSize + 1}} to-->
+<!--              {{vm.maxValue()}} of {{vm.filteredRecords.length}} records-->
+<!--            </div>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--  </div>-->
+<!--</div>-->
+<!--<div class="container" data-ng-if="vm.noDataFound">-->
+<!--  <div class="list_wrapper no_records_message">-->
+<!--    <h4 class="form_heading">Transfer In/Transfer Out Details</h4>-->
+<!--    No records found to display.-->
+<!--    <div style="text-align: center">-->
+<!--      <button-->
+<!--        type="button"-->
+<!--        class="btn btn-default"-->
+<!--        onclick="window.location.href='#!/Transfer_In_Transfer_Out/action/inquiry';"-->
+<!--      >-->
+<!--        Back-->
+<!--      </button>-->
+<!--    </div>-->
+<!--  </div>-->
+<!--</div>-->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="loader-new" data-ng-if="vm.loader"></div>
+<div class="container" data-ng-if="vm.model.length>0">
+    <div class="container from_wrapper new_form_wrapper">
+        <div class="text-right form_submit">
+            <button
+                    type="submit"
+                    class="btn btn-default"
+                    onclick="window.location.href ='#!';"
+                    id="homeButton"
+            >
+                Home
+            </button>
+            <button
+                    type="submit"
+                    id="backButton"
+                    class="btn btn-cancel"
+                    onclick="window.location.href='#!/Transfer_In_Transfer_Out/action/inquiry';"
+            >
+                Back
+            </button>
+        </div>
+
+        <div class="row">
+            <h4 class="form_heading">Transfer In/Transfer Out Details</h4>
+            <sol-header></sol-header>
+
+            <table style="width: 100%" class="table table-bordered" aria-label="">
+                <tr>
+                    <th scope="col">Name of the Bond Scheme</th>
+                    <td>{{vm.schemeName}}</td>
+                    <th scope="col" style="width: 20%">Total Count</th>
+                    <td style="width: 20%">{{vm.total}}</td>
+                </tr>
+                <tr data-data-ng-if="vm.transferType">
+                    <th scope="col">Transfer Type</th>
+                    <td>{{vm.transferType}}</td>
+                    <th scope="col">Transfer From Date</th>
+                    <td>{{vm.fromDate | date: 'dd/MM/yyyy'}}</td>
+                </tr>
+                <tr>
+                    <th scope="col">Transfer To Date</th>
+                    <td>{{vm.toDate | date: 'dd/MM/yyyy'}}</td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="row" style="display: flex; align-items: center; justify-content: space-between">
+                    <div class="col-sm-3" style="flex: 1">
+                        <div class="form-group">
+                            <table style="border-spacing: 2" aria-label="BPRR">
+                                <tr>
+                                    <th scope="col"></th>
+                                </tr>
+                                <tr>
+                                    <td>Show&nbsp;</td>
+                                    <td>
+                                        <select class="form-control pageDropDown" id="pageSize"
+                                                name="pageSize" ng-model="vm.pageSize"
+                                                ng-init="vm.pageSize='10'"
+                                                ng-change="vm.pageNo='1'; vm.getDetails();"
+                                                ng-disabled="vm.noDataFoundInSearch"
+                                        >
+
+                                            <option value="10">10 per page</option>
+                                            <option value="20">20 per page</option>
+                                            <option value="50">50 per page</option>
+                                        </select>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-6" style="display: flex; align-items: center; justify-content: flex-end">
+                        <div class="form-group" style="margin-right: 15px">
+                            <div class="input-group">
+                                <input type="text" id="search" class="form-control" data-ng-model="vm.searchValue" placeholder="Search" />
+                                <div class="input-group-addon">
+                                    <span class="glyphicon glyphicon-search" data-ng-click="vm.pageNo = 1; vm.getDetails()"></span>
+                                </div>
+                                <div class="input-group-addon">
+                                    <span class="glyphicon glyphicon-remove clear cp" data-ng-click="vm.searchValue='';vm.pageNo = 1; vm.getDetails(); "></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <select
+                                    class="form-control"
+                                    id="export"
+                                    name="export"
+                                    data-ng-model="vm.downloadType"
+                                    data-ng-init="vm.downloadType=''"
+                                    data-ng-change="vm.getDownload()"
+                                    data-ng-disabled="vm.noDataFoundInSearch"
+                            >
+                                <option value="">EXPORT</option>
+                                <option value="excel">EXCEL</option>
+                                <option value="csv">CSV</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="table-responsive">
+
+                    <table
+                            class="table table-bordered table-striped list table-textWrap datatable"
+                            id="dataTable1"
+                            aria-label=""
+                    >
+                        <thead  data-ng-if="!vm.noDataFoundInSearch">
+                        <tr class="thalign">
+                            <th scope="col">S.NO</th>
+                            <th scope="col">BLA No.</th>
+                            <th scope="col">Holder Name</th>
+                            <th scope="col">Subscription ID</th>
+                            <th scope="col">Subscription Amount Rs.</th>
+                            <th scope="col">
+                                Transfer
+                                <span data-ng-if="vm.transferType=='TRANSFER OUT'"
+                                >Out</span
+                                >
+                                <span data-ng-if="vm.transferType=='TRANSFER IN'"
+                                >IN</span
+                                >
+                                to Bank
+                            </th>
+                            <th scope="col">
+                                Transfer
+                                <span data-ng-if="vm.transferType=='TRANSFER OUT'"
+                                >Out</span
+                                >
+                                <span data-ng-if="vm.transferType=='TRANSFER IN'"
+                                >IN</span
+                                >
+                                to Bank Branch
+                            </th>
+                            <th scope="col">
+                                Transferred
+                                <span data-ng-if="vm.transferType=='TRANSFER OUT'"
+                                >Out</span
+                                >
+                                <span data-ng-if="vm.transferType=='TRANSFER IN'"
+                                >IN</span
+                                >
+                                Date
+                            </th>
+                        </tr>
+                        </thead>
+                        <tbody data-ng-if="!vm.noDataFoundInSearch">
+                        <!--                                <tr data-ng-repeat="x in vm.filteredRecords.slice((vm.currentPage-1)*vm.pageSize, vm.currentPage*vm.pageSize)">-->
+                        <tr
+                                dir-paginate="x in vm.filteredRecords | itemsPerPage: itemsPerPage"
+                                pagination-id="trailRunRep"
+                        >
+                            <td>
+                                {{ (vm.currentPage - 1) * vm.pageSize + $index + 1 }}
+                            </td>
+                            <td>{{x.blaNumber}}</td>
+                            <td>{{x.holderName}}</td>
+                            <td>{{x.subscriptionID}}</td>
+                            <td style="text-align: right">{{vm.indianNumberFormat(x.subscriptionAmount | number : 2)}}</td>
+                            <td>
+                      <span data-ng-if="vm.transferType=='TRANSFER OUT'"
+                      >{{x.transferOutBankName}}</span
+                      >
+                                <span data-ng-if="vm.transferType=='TRANSFER IN'"
+                                >{{x.transferInBankName}}</span
+                                >
+                            </td>
+                            <td>
+                      <span data-ng-if="vm.transferType=='TRANSFER OUT'"
+                      >{{x.transferOutBranchName}}</span
+                      >
+                                <span data-ng-if="vm.transferType=='TRANSFER IN'"
+                                >{{x.transferInBranchName}}</span
+                                >
+                            </td>
+                            <td>{{x.transferDate}}</td>
+                        </tr>
+                        </tbody>
+                        <tfoot data-ng-if="!vm.noDataFoundInSearch">
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th>{{vm.indianNumberFormat(vm.totalAmountt | number:2)}}</th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        </tfoot>
+                        <tbody data-ng-if="vm.noDataFoundInSearch">
+                        <tr>
+                            <td>No Records Found</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <br>
+                <div class="text-center form_submit">
+              <span ng-show="vm.showPrevious">
+                <button type="submit" class="btn btn-default" ng-click="vm.goPreviousPage()">Prev</button>
+              </span>
+
+                    <span>
+                <button type="submit" class="btn btn-default" ng-disabled="true" ng-init="vm.pageNo=1" ng-model="vm.pageNo" ng-click="vm.paymentStatus();">{{vm.pageNo}} of {{vm.maxPages}}</button>
+              </span>
+
+                    <span ng-show="vm.showNext">
+                <button type="submit" class="btn btn-default" ng-click="vm.goNextPage();">Next</button>
+              </span>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container" data-ng-if="vm.noDataFound">
+    <div class="list_wrapper no_records_message">
+        <h4 class="form_heading">Transfer In/Transfer Out Details</h4>
+        No records found to display.
+        <div style="text-align: center">
+            <button
+                    type="button"
+                    class="btn btn-default"
+                    onclick="window.location.href='#!/Transfer_In_Transfer_Out/action/inquiry';"
+            >
+                Back
+            </button>
+        </div>
+    </div>
+</div>
+
+
+
+
+

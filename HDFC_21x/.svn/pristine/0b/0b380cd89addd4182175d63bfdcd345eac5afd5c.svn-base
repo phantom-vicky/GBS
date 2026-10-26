@@ -1,0 +1,173 @@
+<div class="loader-new" ng-if="vm.loader"></div>
+<dc-left-menu></dc-left-menu>
+<div class="container from_wrapper new_form_wrapper">
+
+    <h4 class="form_heading">Age-Based Lock-in Period Details for Premature Encashment - Add</h4>
+    <sol-header></sol-header>
+    <form name="rbiSchemeParameterCreationForm" role="form" ng-submit="vm.addCBDTParameterCreation();" >
+
+
+        <div class="col-sm-9 col-sm-offset-3">
+
+            <div class="row">
+                <div class="form-group">
+                    <div class="col-sm-4">
+                        <label class="control-label">Name of the Module</label>
+                    </div>
+                    <div class="col-sm-6">
+                        <label><b>RBI Bond</b></label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="form-group required">
+                    <div class="col-sm-4">
+                        <label for="schemeName" class="control-label">Name of the Bond scheme</label>
+                    </div>
+
+                    <div class="col-sm-3">
+                        <input type="text" class="form-control" id="schemeName"
+                               ng-model="vm.subCodeDescription"  readonly required>
+                    </div>
+
+                    <div class="col-sm-2">
+                        <i class="glyphicon glyphicon-search cp" data-bs-toggle="modal"
+                           id="schemeCodeSearch"
+                           ng-click="vm.checkRecordExisted('Y');"></i> <i
+                            class="glyphicon glyphicon-remove clear cp"
+                            ng-click="vm.subCodeDescription = '';vm.schemeCode"></i>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="form-group">
+                    <div class="col-sm-4">
+                        <label class="control-label">Version No</label>
+                    </div>
+                    <div class="col-sm-6">
+                        <label><b>00001</b></label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="form-group required">
+                    <div class="col-sm-4">
+                        <label for="effFromDate" class="control-label">Effective From Date</label>
+                    </div>
+                    <div class="col-sm-3">
+                        <p class="input-group">
+                            <input type="text" class="form-control" id="effFromDate"
+                                   name="effFromDate" ng-init="vm.effFromDate='';"
+                                   ng-model="vm.effFromDate"
+                                   uib-datepicker-popup="dd/MM/yyyy"
+                                   datepicker-options="vm.effFromDateOptionsM"
+                                   is-open="vm.efffromDateOptions.opened"
+                                   close-text="Close" maxlength="10" required
+                                   ng-blur="vm.textableDatePicker('effFromDate',vm.effFromDate)"
+                                   ng-keyup="vm.autoslashing('effFromDate')" chars="numbers-slash"
+
+                            >
+                            <span class="input-group-btn">
+                            <button type="button" class="btn btn-secondary"
+                                    ng-click="vm.efffromDateOptions.opened = true"
+                                    id="efffromDateOptions">
+                                <i class="glyphicon glyphicon-calendar"></i>
+                            </button>
+                        </span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+
+
+
+
+        <div class="text-center form_submit">
+            <button type="submit" class="btn btn-default" id="submitButton"
+                    ui-sref="rbibond_age_based.add_detail({obj:{
+                               schemeCode: vm.schemeCode,
+                               effFromDate: vm.effFromDate,
+                               schemeCode: vm.schemeCode,
+                               subCodeDescription: vm.subCodeDescription,
+                            }})"
+                    ng-disabled="rbiSchemeParameterCreationForm.$invalid"  ng-click="vm.checkRecordExisted()">Submit
+            </button>
+            <button type="button" class="btn btn-cancel" id="cancelButton"
+                    onclick="window.location.href= '#!/rbibond_age_based/action/inquiry';">Cancel
+            </button>
+        </div>
+
+        <div class="text-center">
+            <notice-message-directive></notice-message-directive>
+        </div>
+    </form>
+</div>
+
+<div class="modal" id="branchIdSearcher" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-bs-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Scheme Code</h4>
+            </div>
+            <div class="modal-body">
+                <div class="loader_popup"></div>
+                <div class="list_wrapper" ng-if="vm.schemeList.length>0">
+                    <div class="col-sm-8 form_submit">
+                        <div class="form-group">
+                            <div class="input-group">
+                                <div class="input-group-addon">
+                                    <i class="glyphicon glyphicon-search"></i>
+                                </div>
+                                <input type="text" class="form-control"
+                                       ng-model="vm.modalSearch" ng-init="vm.modalSearch = ''"
+                                       placeholder="Search">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4 form_submit"></div>
+                    <div class="row">
+
+                        <div class="col-sm-12">
+
+                            <table class="table table-bordered list scroll sort">
+
+                                <thead ng-init="reverseOrder = false; sortedColumn = 'subCodeDescription'">
+                                <tr>
+<!--                                    <th class="modal-title title-case" ng-click="(sortedColumn == 'schemeCode')?(reverseOrder=(!reverseOrder)): (reverseOrder = false);sortedColumn = 'schemeCode';" ng-class="(sortedColumn == 'schemeCode')?((reverseOrder)?('arrow-down') : ('arrow-up') ) : ('')">Scheme Code</th>-->
+                                    <th class="modal-title title-case" ng-show="false">Scheme Code</th>
+                                    <th class="modal-title title-case" ng-click="(sortedColumn == 'subCodeDescription')?(reverseOrder=(!reverseOrder)): (reverseOrder = false);sortedColumn = 'subCodeDescription';" ng-class="(sortedColumn == 'subCodeDescription')?((reverseOrder)?('arrow-down') : ('arrow-up') ) : ('')">Scheme Description</th>
+                                    <th class="modal-title title-case" ng-click="(sortedColumn == 'status')?(reverseOrder=(!reverseOrder)): (reverseOrder = false);sortedColumn = 'status';" ng-class="(sortedColumn == 'status')?((reverseOrder)?('arrow-down') : ('arrow-up') ) : ('')">Status</th>
+
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr class="cp"
+                                    ng-repeat="x in vm.schemeList | filter:vm.modalSearch | orderBy:sortedColumn:reverseOrder"
+                                    ng-click="vm.schemeCode = x.schemeCode; vm.subCodeDescription = x.subCodeDescription;"
+                                    data-bs-dismiss="modal">
+<!--                                    <td>{{x.schemeCode}}</td>-->
+                                    <td style="display: none;">{{x.schemeCode}}</td>
+                                    <td>{{x.subCodeDescription}}</td>
+                                    <td>{{x.status}}</td>
+
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="list_wrapper" ng-if="vm.schemeList.length==0">No records found to display.</div>
+            </div>
+
+        </div>
+    </div>
+</div>

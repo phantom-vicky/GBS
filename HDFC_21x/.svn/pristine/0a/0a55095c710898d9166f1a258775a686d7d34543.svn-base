@@ -1,0 +1,187 @@
+<div class="container from_wrapper" ng-if="vm.showList==false">
+    <h4 class="form_heading">User Report</h4>
+
+        <sol-header></sol-header>
+
+    <form name="reportForm" role="form" ng-submit="vm.getDetails()" novalidate>
+
+        <div class="row">
+            <div class="col-sm-6 col-sm-offset-3">
+                <div class="row">
+                    <div class="form-group ">
+                        <div class="col-sm-6">
+                            <label for="branchId" class="control-label">Branch Id</label>
+                        </div>
+                        <div class="col-sm-4">
+                            <input type="text" class="form-control" id="branchId" ng-model="vm.branchId" ng-init="vm.branchId=vm.loginSolId" maxlength="25" readonly>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group ">
+                        <div class="col-sm-6">
+                            <label class="control-label">Branch Name</label>
+                        </div>
+                        <div class="col-sm-4">
+                            <input type="text" class="form-control" id="branchName1" ng-model="vm.branchName1" ng-init="vm.branchName1=vm.loginSolDesc" maxlength="25" readonly>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group ">
+                        <div class="col-sm-6">
+                            <label for="branchId" class="control-label">Branch Id</label>
+                        </div>
+                        <div class="col-sm-4">
+                            <input type="text" class="form-control" id="branchId1" ng-model="vm.searchBranchId" maxlength="25" readonly>
+                        </div>
+                        <div class="col-sm-2">
+                            <i class="glyphicon glyphicon-search cp" data-bs-toggle="modal" id="BranchIdSearcher" ng-click="vm.getDetails('B'); vm.searchBranchId = '';"></i>
+                            <i class="glyphicon glyphicon-remove clear cp" ng-click="vm.searchBranchId='';"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="text-center form_submit">
+                <button type="submit" id="submit" name="submit" class="btn btn-default" ng-disabled="reportForm.$invalid">Submit</button>
+                <button type="button" id="cancel" name="cancel" class="btn btn-cancel" ui-sref="report_menu_page">Cancel</button>
+                <notice-message-directive></notice-message-directive>
+            </div>
+        </div>
+    </form>
+</div>
+
+<div class="container" ng-if="vm.showList==true">
+    <div class="text-right form_submit">
+        <button type="submit" class="btn btn-default"
+                onclick="window.location.href ='#!/dc';" id="homeButton">Home</button>
+        <button type="submit" id="backButton" class="btn btn-cancel"
+                ng-click="vm.back();">Back</button>
+    </div>
+    <div width="100%" class="container from_wrapper new_form_wrapper">
+<!--        <div class="col-sm-12">-->
+            <tr height="40">
+                <h4 align="center"><b>User Report</b></h4>
+            </tr>
+             <div class="row">
+                <div class="col-sm-12">
+                    <label class="text-bold">As on Date:<span ng-bind="vm.currentDate1"></span></label>
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-striped list nowrap table-textWrap datatable"
+                               ui-jq="dataTable" ui-options="vm.dataTableOption">
+                            <thead>
+                            <tr class="thalign">
+                                <th> S.No</th>
+                                <th>Branch Id</th>
+                                <th>User Name/ID</th>
+                                <th>First Name</th>
+                                <th>Last Name</th>
+                                <th>User Type</th>
+                                <th>Entity Role</th>
+                                <th>Expiry Date</th>
+                                <th>Status</th>
+                                <th>User domain</th>
+                                <th>Application Name</th>
+                                <th>Location code</th>
+                                <th>Created By</th>
+                                <th>Created Date Time</th>
+                                <th>Modified By</th>
+                                <th>Modified Date Time</th>
+                                <th>Verified By</th>
+                                <th>Authorized Date Time</th>
+                                <th>Last Login Date Time</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr ng-repeat="x in vm.userList">
+                                <td class="text-center">{{vm.itemsPerPage *(vm.currentPage-1)+$index+1}}</td>
+                            <td>{{x.branchID}}</td>
+                            <td>{{x.username}}</td>
+                            <td>{{x.firstName}}</td>
+                            <td>{{x.lastName}}</td>
+                            <td>{{x.userType}}</td>
+                            <td>{{x.entityRole}}</td>
+                            <td>{{x.expiryDate}}</td>
+                            <td>{{x.status}}</td>
+                            <td>{{x.userDomain}}</td>
+                            <td>{{x.applicationName}}</td>
+                            <td>{{x.locationCode}}</td>
+                            <td>{{x.created}}</td>
+                            <td>{{x.createdDate}}</td>
+                            <td>{{x.modifiedBy}}</td>
+                            <td>{{x.modifiedDate}}</td>
+                            <td>{{x.verifiedBy}}</td>
+                            <td>{{x.authorizedDateTime}}</td>
+                            <td>{{x.lastLoginAttempt}}</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+<!--        </div>-->
+    </div>
+</div>
+<div class="container" ng-if="vm.noDataFound">
+    <div class="list_wrapper no_records_message">
+        <h4 class="form_heading">{{vm.reportName}}</h4>
+        No records found to display.
+        <center>
+            <button type="button" class="btn btn-default"
+                    ng-click="vm.back();">Back</button>
+        </center>
+    </div>
+</div>
+
+<div class="modal" id="branchIdSearcherPopUp" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-bs-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Branch Id</h4>
+            </div>
+            <div class="modal-body">
+                <div class="loader_popup"></div>
+                <div class="list_wrapper" ng-if="vm.branchIdList.length>0">
+                    <div class="col-sm-8 form_submit">
+                        <div class="form-group">
+                            <div class="input-group">
+                                <div class="input-group-addon">
+                                    <i class="glyphicon glyphicon-search"></i>
+                                </div>
+                                <input type="text" class="form-control" ng-model="vm.searchBranchId" ng-init="vm.searchBranchId = ''" placeholder="Search">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4 form_submit"></div>
+                    <div class="row">
+
+                        <div class="col-sm-12">
+                            <table class="table table-bordered list scroll">
+                                <thead ng-init="reverseOrder = false; sortedColumn = 'branchId'">
+                                <tr>
+                                    <th class="modal-title title-case" ng-click="(sortedColumn == 'branchId')?(reverseOrder=(!reverseOrder)): (reverseOrder = false);sortedColumn = 'branchId';" ng-class="(sortedColumn == 'branchId')?((reverseOrder)?('arrow-down') : ('arrow-up') ) : ('')">Branch Id</th>
+                                    <th class="modal-title title-case" ng-click="(sortedColumn == 'branchDescription')?(reverseOrder=(!reverseOrder)): (reverseOrder = false);sortedColumn = 'branchDescription';" ng-class="(sortedColumn == 'branchDescription')?((reverseOrder)?('arrow-down') : ('arrow-up') ) : ('')">Branch Name</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr class="cp"
+                                    ng-repeat="x in vm.branchIdList | filter:vm.searchBranchId | orderBy:sortedColumn:reverseOrder"
+                                    ng-click="vm.searchBranchId=x.branchId;vm.branchName = x.branchName"  data-bs-dismiss="modal">
+                                    <td>{{x.branchId}}</td>
+                                    <td>{{x.branchDescription}}</td>
+                                </tr>
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="list_wrapper" ng-if="vm.branchIdList.length==0">No records found to display.</div>
+            </div>
+        </div>
+    </div>
+</div>

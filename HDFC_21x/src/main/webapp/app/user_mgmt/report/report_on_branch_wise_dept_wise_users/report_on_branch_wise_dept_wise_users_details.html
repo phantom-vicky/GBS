@@ -1,0 +1,98 @@
+<!-- Output Screen-->
+<div class="loader-new" ng-if="vm.loader"></div>
+
+<div class="container" ng-if="vm.report.length>0">
+
+    <div class="text-right form_submit">
+        <button type="submit" class="btn btn-default"
+                onclick="window.location.href ='#!/dc';" id="homeButton">Home</button>
+
+        <button type="button" id="cancel_Button" class="btn btn-cancel"
+                onclick="window.location.href= '#!/report_on_branch_wise_dept_wise_users/action/inquiry';">Back</button>
+    </div>
+
+    <div class="container from_wrapper new_form_wrapper">
+        <h4 class="form_heading">Report on Branch-wise / Dept.-Wise Users With Respective Roles & Privileges As of Date</h4>
+        <div class="row">
+            <sol-header></sol-header>
+        </div>
+
+        <table class="table report-title-table">
+
+            <tr>
+                <td>
+                    <h5 class="modal-title">Report on Branch-wise / Dept.-Wise Users With Respective Roles & Privileges As of Date</h5>
+                </td>
+            </tr>
+        </table>
+        <table  width="100%" class="table table-bordered">
+            <tr>
+                <td align="left"><b>DC ID</b></td>
+                <td align="left">{{vm.dcId}}</td>
+                <td align="left"><b>DC Description</b></td>
+                <td align="left">{{vm.dcDescription}}</td>
+            </tr>
+            <tr>
+                <td align="left">Branch ID</td>
+                <td align="left">{{vm.branchDescription}}</td>
+                <td align="left"><b>Dept. Code</b></td>
+                <td align="left">{{vm.deptCode}}</td>
+            </tr>
+            <tr>
+                <td align="left">User ID</td>
+                <td align="left">{{vm.userId}}</td>
+                <td align="left"><b>Date</b></td>
+                <td align="left">{{vm.solDate}}</td>
+            </tr>
+        </table>
+
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="table-responsive">
+
+                    <table class="table table-bordered table-striped list table-textWrap datatable"
+                           ui-jq="dataTable" ui-options="vm.dataTableOption">
+                    <thead>
+                    <tr class="thalign">
+                        <th>Sl.No</th>
+                        <th>Branch id</th>
+                        <th>User ID</th>
+                        <th>Emp. ID</th>
+                        <th>Employee Name</th>
+                        <th>Dept. Code</th>
+                        <th>Role ID</th>
+                        <th>Access Permissions</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr class="cp"
+                        ng-repeat="x in vm.report">
+                        <td class="text-center">{{vm.itemsPerPage *(vm.currentPage-1)+$index+1}}</td>
+                        <td>{{x.branchId}}</td>
+                        <td>{{x.userId}}</td>
+                        <td>{{x.employeeId}}</td>
+                        <td>{{x.employeeName}}</td>
+                        <td>{{x.deptCode}}</td>
+                        <td>{{x.roleId}}</td>
+                        <td>{{x.accessPermissions}}</td>
+                    </tr>
+                    </tbody>
+
+                </table>
+            </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container" ng-if="vm.noDataFound">
+    <div class="list_wrapper no_records_message">
+        <h4 class="form_heading">Report on Branch-wise / Dept.-Wise Users With Respective Roles & Privileges As of Date</h4>
+        No records found to display.
+        <center>
+            <button type="button" class="btn btn-default"
+                    onclick="window.location.href= '#!/report_on_branch_wise_dept_wise_users/action/inquiry';" >Back</button>
+        </center>
+    </div>
+</div>

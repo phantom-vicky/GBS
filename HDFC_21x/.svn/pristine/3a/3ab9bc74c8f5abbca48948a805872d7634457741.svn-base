@@ -1,0 +1,161 @@
+<div class="loader-new" ng-if="vm.loader"></div>
+<cbs-left-menu></cbs-left-menu>
+<div class="container from_wrapper new_form_wrapper">
+	<h4 class="form_heading  feature-heading">User Work Class
+		Information - Verify</h4>
+	<div class="row">
+		<div class="form-group ">
+			<div class="col-sm-3">
+				<label for="userId" class="control-label">User ID</label>
+			</div>
+			<div class="col-sm-2 inner-addon right-addon">
+				:<label class="data-bind" id="userId">
+					{{vm.cbsUserWorkClassInformation.userId}}</label>
+			</div>
+			<div class="col-sm-2"></div>
+			<div class="col-sm-3">
+				<label for="userWorkClass" class="control-label">User work
+					class</label>
+			</div>
+			<div class="col-sm-2">
+				:<label class="data-bind" id="userWorkClass">
+					{{vm.cbsUserWorkClassInformation.userWorkClass}}</label>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="form-group ">
+			<div class="col-sm-3">
+				<label for="solId" class="control-label">Sol ID</label>
+			</div>
+			<div class="col-sm-2">
+				:<label class="data-bind" id="solId">
+					{{vm.cbsUserWorkClassInformation.solId}}</label>
+			</div>
+			<div class="col-sm-2"></div>
+			<div class="col-sm-3">
+				<label for="userSolTenor" class="control-label">User Sol
+					Tenor</label>
+			</div>
+			<div class="col-sm-2">
+				:<label class="data-bind" id="userSolTenor">
+					{{vm.cbsUserWorkClassInformation.userSolTenor}}</label>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="form-group ">
+			<div class="col-sm-3">
+				<label for="userMaxInactiveTime" class="control-label">User
+					Max Inactive Time</label>
+			</div>
+			<div class="col-sm-2">
+				:<label class="data-bind" id="userMaxInactiveTime">
+					{{vm.cbsUserWorkClassInformation.userMaxInactiveTime}}</label>
+			</div>
+			<div class="col-sm-2"></div>
+			<div class="col-sm-3">
+				<label for="userAccountExpiryDate" class="control-label">User
+					Account Expiry Date</label>
+			</div>
+			<div class="col-sm-2">
+				:<label class="data-bind" id="userAccountExpiryDate">
+					{{vm.cbsUserWorkClassInformation.userAccountExpiryDate| date:
+					'dd/MM/y'}}</label>
+
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="form-group ">
+			<div class="col-sm-3">
+				<label for="userApplicationName" class="control-label">User
+					Appl Name</label>
+			</div>
+			<div class="col-sm-2">
+				:<label class="data-bind" id="userApplicationName">
+					{{vm.cbsUserWorkClassInformation.userApplicationName}}</label>
+
+			</div>
+			<div class="col-sm-2"></div>
+			<div class="col-sm-3">
+				<label for="userPasswordExpiryDate" class="control-label">User
+					Password Expiry Date</label>
+			</div>
+			<div class="col-sm-2">
+				:<label class="data-bind" id="userPasswordExpiryDate">
+					{{vm.cbsUserWorkClassInformation.userPasswordExpiryDate| date:
+					'dd/MM/y'}}</label>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="form-group ">
+			<div class="col-sm-3">
+				<label for="newUserFlag" class="control-label">New User Flag</label>
+			</div>
+			<div class="col-sm-2">
+				:<label class="data-bind text-uppercase" id="newUserFlag">
+					{{vm.cbsUserWorkClassInformation.newUserFlag}}</label>
+			</div>
+			<div class="col-sm-2"></div>
+			<div class="col-sm-3">
+				<label for="defaultTermId" class="control-label">Default
+					term ID</label>
+			</div>
+			<div class="col-sm-2">
+				:<label class="data-bind" id="defaultTermId">
+					{{vm.cbsUserWorkClassInformation.defaultTermId}}</label>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="form-group ">
+			<div class="col-sm-3">
+				<label for="virtualFlag" class="control-label">Virtual Flag</label>
+			</div>
+			<div class="col-sm-2">
+				:<label class="data-bind text-uppercase" id="virtualFlag">
+					{{vm.cbsUserWorkClassInformation.virtualFlag}}</label>
+			</div>
+			<div class="col-sm-2"></div>
+			<div class="col-sm-3">
+				<label for="additionalText1" class="control-label">Additional
+					Text1</label>
+			</div>
+			<div class="col-sm-2">
+				:<label class="data-bind" id="additionalText1">
+					{{vm.cbsUserWorkClassInformation.additionalText1}}</label>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="form-group ">
+			<div class="col-sm-3">
+				<label for="additionalText2" class="control-label">Additional
+					Text2</label>
+			</div>
+			<div class="col-sm-2">
+				:<label class="data-bind" id="additionalText2">
+					{{vm.cbsUserWorkClassInformation.additionalText2}}</label>
+			</div>
+			<div class="col-sm-2"></div>
+			<div class="col-sm-3">
+				<label for="additionalText3" class="control-label">Additional
+					Text3</label>
+			</div>
+			<div class="col-sm-2">
+				:<label class="data-bind" id="additionalText3">
+					{{vm.cbsUserWorkClassInformation.additionalText3}}</label>
+			</div>
+		</div>
+	</div>
+	<div class="col-sm-offset-5 col-sm-8 form_submit">
+		<button type="button" class="btn btn-default" id="verifyButton"
+			ng-click="vm.verify()">Verify</button>
+		<button type="button" class="btn btn-cancel" id="cancelButton"
+			ui-sref="cbs_user_work_class_information.verify()">Cancel</button>
+
+	</div>
+</div>
+</div>

@@ -1,0 +1,152 @@
+<div class="loader-new" ng-if="vm.loader"></div>
+<dc-left-menu></dc-left-menu>
+<div class="container from_wrapper new_form_wrapper">
+    <h4 class="form_heading">Coparceners Details of Karta - Inquiry</h4>
+    <sol-header></sol-header>
+
+    <form name="bondKartaForm" role="form">
+        <table class="table table-bordered">
+            <tbody>
+            <tr>
+                <td width="25%">Name of the Bond Scheme</td>
+                <td width="25%">
+                    <label class="data-bind" id="bondScheme">{{vm.subDesc}}</label>
+                </td>
+                <td width="25%">Mode of Holding</td>
+                <td width="25%">
+                    <label class="data-bind" id="modeOfHolding">{{vm.modeOfHolding}}</label>
+                </td>
+            </tr>
+            <tr>
+                <td width="25%">BLA Number</td>
+                <td width="25%">
+                    <label class="data-bind" id="blaNo">{{vm.blaNo}}</label>
+                </td>
+                <!--<td width="25%" ng-if="vm.subDetail[0].modeOfHolding=='MH001' || vm.subDetail[0].modeOfHolding=='MH004' || vm.subDetail[0].modeOfHolding=='MH005'">KARTA Name</td>
+                <td width="25%" ng-if="vm.subDetail[0].modeOfHolding=='MH001' || vm.subDetail[0].modeOfHolding=='MH004' || vm.subDetail[0].modeOfHolding=='MH005'">
+                  -->
+                <td width="25%">Primary Holder Name</td>
+                <td width="25%">
+
+                <label class="data-bind" id="holderName">{{vm.nameOfTheBondHolder}}</label>
+                </td>
+
+            </tr>
+           </tbody>
+        </table>
+
+
+
+        <table class="table table-bordered table-striped list old-new-value-table">
+
+            <thead>
+            </thead>
+            <tbody ng-repeat="item in vm.kartaList">
+            <tr>
+                <th>Particular - Karta Coparceners Details {{$index+1}}</th>
+                <th>{{(vm.verificationDetails == 'M')?('Old Value'): ('Value')}}</th>
+                <th ng-if="vm.verificationDetails == 'M'">New Value</th>
+            </tr>
+            <!--<tr>
+                <td>BLA No</td>
+                <td class="old-value">{{(item && vm.subDetail.blaNo)?
+                    (vm.subDetail.blaNo) : ('-')}}
+                </td>
+                <td ng-if="vm.verificationDetails == 'M'" class="new-value">{{(item &&
+                    vm.subDetail.blaNo)? (vm.subDetail.blaNo) : ('-')}}
+                </td>
+            </tr>
+            <tr>
+                <td>Karta Name</td>
+                <td class="old-value">{{(item && vm.subDetail.nameOfTheBondHolder)?
+                    (vm.subDetail.nameOfTheBondHolder) : ('-')}}
+                </td>
+                <td ng-if="vm.verificationDetails == 'M'" class="new-value">
+                    {{(item && vm.subDetail.nameOfTheBondHolder)?
+                    (vm.subDetail.nameOfTheBondHolder) : ('-')}}
+                </td>
+            </tr>-->
+
+            <tr>
+                <td>Coparceners Name</td>
+                <td class="old-value">{{(item && item.C004)?
+                    (item.C004.oldValue) : ('-')}}
+                </td>
+                <td ng-if="vm.verificationDetails == 'M'" class="new-value text-danger">
+                    {{ (item && item.C004 && item.C004.oldValue === item.C004.newValue)? '-' : item.C004.newValue }}
+                </td>
+            </tr>
+            <tr>
+                <td>Relationship with Karta</td>
+                <td class="old-value">{{(item && item.C005)?
+                    vm.getGuardianRelationName(item.C005.oldValue) : ('-')}}
+                </td>
+                <td ng-if="vm.verificationDetails == 'M'" class="new-value text-danger">
+                    {{ (item && item.C005 && item.C005.oldValue === item.C005.newValue)? '-' : vm.getGuardianRelationName(item.C005.newValue) }}
+                </td>
+            </tr>
+            <tr>
+                <td>DOB</td>
+                <td class="old-value">{{(item && item.C006)?
+                    (item.C006.oldValue) : ('-')}}
+                </td>
+                <td ng-if="vm.verificationDetails == 'M'" class="new-value text-danger">
+                    {{ (item && item.C006 && item.C006.oldValue === item.C006.newValue)? '-' : item.C006.newValue }}
+                </td>
+            </tr>
+
+
+
+            </tbody>
+            <tfoot>
+            <tr>
+                <td width="50%">Rejection Remarks</td>
+                <td class="old-value">{{(vm.auditInfo && vm.auditInfo.remarks)?
+                    (vm.auditInfo.remarks) : ('')}}</td>
+                <td ng-if="vm.verificationDetails == 'M'" class="new-value">
+                    {{(vm.auditInfo && vm.auditInfo.remarks)?
+                    (vm.auditInfo.remarks) : ('')}}
+                </td>
+            </tr>
+            </tfoot>
+
+        </table>
+        <div class="audit-details">
+            <div class="row">
+                <div class="col-md-3">
+                    <span> <b> Created By </b> : {{vm.auditInfo.createdBy}} </span>
+                </div>
+                <div class="col-md-3">
+                    <span> <b> Last Modified By </b> : {{(vm.auditInfo.modifiedBy) ? (vm.auditInfo.modifiedBy) : ('None')}}</span>
+                </div>
+                <div class="col-md-3">
+                    <span> <b> Last Verified By </b> : {{(vm.auditInfo.verifiedBy) ? (vm.auditInfo.verifiedBy) : ('None')}}</span>
+                </div>
+                <div class="col-md-3">
+                    <span> <b> Verify Status </b> : {{vm.auditInfo.verifiedStatus  | getLabelFromValuesArray : vm.commonYesNoMetaData}}</span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3">
+                    <span> <b> Created On </b> : {{ vm.auditInfo.createdDate | date : 'dd-MM-yyyy'}}</span>
+                </div>
+                <div class="col-md-3">
+                    <span> <b> Last Modified On</b> : {{ (vm.auditInfo.modifiedDate) ? (vm.auditInfo.modifiedDate) : ('None')}}</span>
+                </div>
+                <div class="col-md-3">
+                    <span> <b> Last Verified On </b> : {{(vm.auditInfo.verifiedDate) ? (vm.auditInfo.verifiedDate) : ('None')}}</span>
+                </div>
+                <div class="col-md-3">
+                </div>
+            </div>
+        </div>
+        <div class="text-center form_submit">
+            <button type="button" class="btn btn-cancel" id="cancelButton"
+                    onclick="window.location.href= '#!/karta_coparceners_details/action/inquiry';">Close
+            </button>
+        </div>
+        <div class="text-center">
+            <notice-message-directive></notice-message-directive>
+        </div>
+    </form>
+</div>

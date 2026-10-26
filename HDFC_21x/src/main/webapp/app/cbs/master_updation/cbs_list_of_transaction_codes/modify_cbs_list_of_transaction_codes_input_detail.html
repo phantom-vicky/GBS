@@ -1,0 +1,153 @@
+<div class="loader-new" ng-if="vm.loader"></div>
+<cbs-left-menu></cbs-left-menu>
+<div class="container from_wrapper new_form_wrapper">
+
+    <h4 class="form_heading  feature-heading">List Of Transaction
+        Codes - Modify</h4>
+
+    <form name="transactionCodesForm" role="form">
+        <div class="row">
+            <div class="form-group">
+                <div class="col-sm-3"></div>
+                <div class="col-sm-3 required">
+                    <label for="clgTranCode" class="control-label">Clearing
+                        Transaction Code</label>
+                </div>
+                <div class="col-sm-3">
+                    <input type="text" class="form-control" name="clgTranCode"
+                           chars="alpha-numeric" id="clgTranCode"
+                           ng-model="vm.cbsListOfTransactionCodes.C001" ng-init = "vm.cbsListOfTransactionCodes.C001 = vm.modifyLists.clgTranCode" maxlength="5"
+                           required>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group">
+                <div class="col-sm-3"></div>
+                <div class="col-sm-3">
+                    <label for="clgTranCodeDesc" class="control-label">Transaction
+                        Code Description</label>
+                </div>
+                <div class="col-sm-3">
+                    <input type="text" class="form-control" name="clgTranCodeDesc"
+                           id="clgTranCodeDesc" chars="alpha-numeric"
+                           ng-model="vm.cbsListOfTransactionCodes.C002" ng-init = "vm.cbsListOfTransactionCodes.C002 = vm.modifyLists.clgTranCodeDesc"
+                           maxlength="40">
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group">
+                <div class="col-sm-3"></div>
+                <div class="col-sm-3">
+                    <label for="instrumentType" class="control-label">Type of
+                        Instrument</label>
+                </div>
+                <div class="col-sm-3">
+                    <input type="text" class="form-control" name="instrumentType"
+                           id="instrumentType" chars="alpha-numeric"
+                           ng-model="vm.cbsListOfTransactionCodes.C003" ng-init = "vm.cbsListOfTransactionCodes.C003 = vm.modifyLists.instrumentType"
+                           maxlength="5">
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group">
+                <div class="col-sm-3"></div>
+                <div class="col-sm-3">
+                    <label for="schemeCode" class="control-label">Scheme Code</label>
+                </div>
+                <div class="col-sm-3">
+                    <input type="text" class="form-control" name="schemeCode"
+                           id="schemeCode" chars="alpha-numeric"
+                           ng-model="vm.cbsListOfTransactionCodes.C004" ng-init = "vm.cbsListOfTransactionCodes.C004 = vm.modifyLists.schemeCode"
+                           maxlength="5">
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group">
+                <div class="col-sm-3"></div>
+                <div class="col-sm-3">
+                    <label for="addText1" class="control-label">Additional
+                        Text1</label>
+                </div>
+                <div class="col-sm-3">
+                    <input type="text" class="form-control" name="addText1"
+                           id="addText1" ng-model="vm.cbsListOfTransactionCodes.C006" ng-init = "vm.cbsListOfTransactionCodes.C006 = vm.modifyLists.addText1"
+                           maxlength="40" chars="alpha-numeric">
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group">
+                <div class="col-sm-3"></div>
+                <div class="col-sm-3">
+                    <label for="addText2" class="control-label">Additional
+                        Text2</label>
+                </div>
+                <div class="col-sm-3">
+                    <input type="text" class="form-control" name="addText2"
+                           id="addText2" ng-model="vm.cbsListOfTransactionCodes.C007" ng-init = "vm.cbsListOfTransactionCodes.C007 = vm.modifyLists.addText2"
+                           maxlength="40" chars="alpha-numeric">
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group">
+                <div class="col-sm-3"></div>
+                <div class="col-sm-3">
+                    <label for="addText3" class="control-label">Additional
+                        Text3</label>
+                </div>
+                <div class="col-sm-3">
+                    <input type="text" class="form-control" name="addText3"
+                           id="addText3" ng-model="vm.cbsListOfTransactionCodes.C008" ng-init = "vm.cbsListOfTransactionCodes.C008 = vm.modifyLists.addText3"
+                           maxlength="40" chars="alpha-numeric">
+                </div>
+            </div>
+        </div>
+
+        <div class="audit-details">
+            <div class="row">
+                <div class="col-md-3">
+                    <span> <b> Created By </b> : {{vm.modifyLists.createdBy}} </span>
+                </div>
+                <div class="col-md-3">
+                    <span> <b> Last Modified By </b> : {{(vm.modifyLists.modifiedBy) ? (vm.modifyLists.modifiedBy) : ('None')}}</span>
+                </div>
+                <div class="col-md-3">
+                    <span> <b> Last Verified By </b> : {{(vm.modifyLists.verifiedBy) ? (vm.modifyLists.verifiedBy) : ('None')}}</span>
+                </div>
+                <div class="col-md-3">
+                    <span> <b> Verify Status </b> : {{vm.modifyLists.verifiedFlag  | getLabelFromValuesArray : vm.commonYesNoMetaData}}</span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3">
+                    <span> <b> Created On </b> : {{ vm.modifyLists.creatDate | date : 'dd/MM/yyyy'}}</span>
+                </div>
+                <div class="col-md-3">
+                    <span> <b> Last Modified On</b> : {{ (vm.modifyLists.modDate) ? (vm.modifyLists.modDate | date : 'dd/MM/yyyy') : ('None')}}</span>
+                </div>
+                <div class="col-md-3">
+                    <span> <b> Last Verified On </b> : {{(vm.modifyLists.verDate) ? (vm.modifyLists.verDate | date : 'dd/MM/yyyy') : ('None')}}</span>
+                </div>
+                <div class="col-md-3">
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-offset-5 col-sm-8 form_submit">
+                <button type="submit" class="btn btn-default" id="submitButton"
+                        ng-disabled="transactionCodesForm.$invalid" ng-click="vm.modifySubmit()">Submit</button>
+                <button type="button" class="btn btn-cancel" id="cancelButton"
+                        ng-click="vm.showCancelConfirmation('cbs_list_of_transaction_codes.modify');">Cancel</button>
+            </div>
+        </div>
+        <div class="text-center">
+            <notice-message-directive></notice-message-directive>
+        </div>
+    </form>
+
+</div>

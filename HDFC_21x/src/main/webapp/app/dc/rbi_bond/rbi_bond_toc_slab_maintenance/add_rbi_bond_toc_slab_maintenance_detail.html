@@ -1,0 +1,160 @@
+<div class="loader-new" ng-if="vm.loader"></div>
+<dc-left-menu></dc-left-menu>
+<div class="container from_wrapper new_form_wrapper">
+    <h4 class="form_heading">RBI Bond TOC Slab Master Maintenance - Add</h4>
+    <sol-header></sol-header>
+    <form name="rbi_bond_toc_slab_maintenance" role="form">
+        <table class="table table-bordered">
+            <tbody>
+            <tr ng-init="vm.getModuleName();">
+                <td width="20%" class="form-group"> <label  class="control-label">Name of the Module</label></td>
+                <td width="30%"><label class="text-initial"><label><b>RBI Bond</b></label></label></td>
+                <td width="20%" class="form-group"><label class="control-label">Version No</label></td>
+                <td width="30%"><label>{{vm.versionNo}}</label></td>
+            </tr>
+            <tr>
+                <td width="20%" class="form-group"><label class="control-label">Name of the Bond Scheme</label></td>
+                <td width="30%" class="break-word"><label>{{vm.schemeName}}</label></td>
+                <td width="20%" class="form-group"><label class="control-label">Effective From Date</label></td>
+                <td width="30%"><label>{{vm.effFromDate | date : 'dd/MM/yyyy'}}</label></td>
+            </tr>
+            <tr>
+                <td width="20%" class="form-group required" ><label class="control-lable"> CGST %</label></td>
+                <td width="30%">
+                    <input type="text" class="form-control" name="cgst" id="cgst"
+                              ng-model="vm.cgst" ng-change="vm.firstCharDotCgst(vm.cgst);" ng-pattern="/^(100(\.0)?|([1-9]?\d(\.\d{1,2})?)|0(\.\d{1,2})?)$/" maxlength="5" ng-keypress="vm.newPercentageCheck($event);" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" required>
+                    <span ng-show="rbi_bond_toc_slab_maintenance.cgst.$error.pattern && rbi_bond_toc_slab_maintenance.cgst.$touched" class="text-red">
+                       Please enter a valid percentage (e.g., 99.99 or 100.0)
+                    </span>
+                </td>
+                <td width="20%" class="form-group required"><label class="control-lable"> SGST %</label></td>
+                <td width="30%">
+                    <input type="text" class="form-control" name="sgst" id="sgst"
+                              ng-model="vm.sgst" ng-change="vm.firstCharDotSgst(vm.sgst);" ng-pattern="/^(100(\.0)?|([1-9]?\d(\.\d{1,2})?)|0(\.\d{1,2})?)$/" maxlength="5" ng-keypress="vm.newPercentageCheck($event)" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" required>
+                    <span ng-show="rbi_bond_toc_slab_maintenance.sgst.$error.pattern && rbi_bond_toc_slab_maintenance.sgst.$touched" class="text-red">
+                        Please enter a valid percentage (e.g., 99.99).
+                    </span>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+
+        <div class="col-sm-12 text-right form_submit">
+            <div class="row">
+                <a data-href="#" type="text" name="ADD" class="btn btn-primary" ng-click="vm.addRange()">
+                   ADD
+                </a>
+                <a data-href="#" type="text" name="removeBtn" class="btn btn-delete" ng-show="vm.disableDelete" ng-click="vm.removeRange()">
+                   DELETE&nbsp;
+                </a>
+            </div>
+        </div>
+
+        <table class="table table-bordered table-striped list" >
+            <thead>
+            <tr>
+                <th width="10%">Flat Rate</th>
+                <th width="20%">Nature of TOC</th>
+                <th width="20%">Challan Type</th>
+                <th width="10%">Minimum No of Challans / Amount</th>
+                <th width="10%">Maximum No of Challans / Amount</th>
+                <th width="10%">TOC Per Amount Rs.</th>
+                <th width="10%">TOC in (Rs) per Challan / <br> TOC in (paise) Per Amount</th>
+                <th width="10%">Rounding Factor</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat = "item in vm.tocSlabList" ng-init="parentIndex=$index;">
+                <td class="form-group">
+                    <select class="form-control" id="flatRate[$index]" name="flatRate" ng-init="item.isFlatrate = ''"
+                            ng-model="item.isFlatrate" required>
+                        <option value="" >Select</option>
+                        <option value="Y">Yes</option>
+                        <option value="N">No</option>
+                    </select>
+                </td>
+
+                <td>
+                    <select class="form-control" id="paymentNature{{$index}}" name="paymentNature"
+                            ng-model="item.paymentNature"
+                            ng-options="option.SUBCODE as option.DESCRIPTION for option in item.filteredOptions"
+                            ng-change="vm.updateFilteredNatureOfTocLists()"
+                            required>
+                        <option value="">Select</option>
+                    </select>
+                </td>
+
+                <td>
+                    <select class="form-control" id="pensionType[$index]" name="pensionType[$index]" ng-if="item.paymentNature == 'NP001'"
+                            ng-model="item.challanType" ng-init="vm.getPenionTocList();" ng-click="vm.changeNOT(item.SUBCODE,item.DESCRIPTION,$index1)"  required>
+                        <option value="">Select</option>
+                        <option ng-repeat="item in vm.pensionTocList"
+                                 name="{{item.SUBCODE + parentIndex}}" id="{{item.SUBCODE + parentIndex}}" value="{{item.SUBCODE}}">{{item.DESCRIPTION}}</option>
+                    </select>
+                </td>
+
+                <td>
+
+                    <input type="text" class="form-control text-right" ng-if="item.isFlatrate == 'Y'" id="minSlabCh[$index]"
+                           chars="only-numbers"  placeholder="Min No.of Challans"
+                           limit-to="8" name="minSlabCh"
+                           ng-model="item.minSlab" required   ng-blur="vm.minValueOneWithIndex($event,'minSlab',$index)" >
+                    <input type="text" class="form-control text-right" ng-if="item.isFlatrate == 'N'" id="minSlabAmt[$index]"
+                           chars="only-numbers" onkeypress="return isNumber(event)"  placeholder="Min Amount"
+                           limit-to="8" name="minSlabAmt" ng-blur="vm.minValueOneWithIndex($event,'minSlab',$index)"
+                           ng-model="item.minSlab" required>
+                </td>
+
+                <td>
+
+<!--                    <input type="text" class="form-control text-right" ng-if="item.isFlatrate == 'Y'" id="maxSlabCh[$index]"-->
+<!--                           chars="only-numbers"   placeholder="Max No.of Challans"-->
+<!--                           limit-to="8" name="maxSlabCh"-->
+<!--                           ng-model="item.maxSlab" ng-blur="vm.minValueOne($event,'maxSlab',$index)" required>-->
+                    <input type="text" class="form-control text-right" id="maxSlabAmt[$index]"
+                           chars="only-numbers"  placeholder="Max Amount"
+                           limit-to="15" name="maxSlabAmt"
+                           ng-model="item.maxSlab" required ng-blur="vm.minValueOneWithIndex($event,'maxSlab',$index)">
+                </td>
+
+                <td ><input type="text" class="form-control text-right" id="tocAmount[$index]" ng-if="item.isFlatrate == 'N'"
+                                                          chars="only-numbers" name="tocAmount" limit-to="5"
+                            ng-blur="vm.minValueOneWithIndex($event,'tocAmount',$index)"       ng-model="item.tocAmount" required></td>
+
+
+                <td><input type="text" class="form-control text-right" id="tocSlabValue[$index]"
+                            name="tocSlabValue"    ng-pattern="/^\d{1,5}(\.\d+)?$/"
+                           maxlength="10"
+                           oninput="
+               this.value = this.value.replace(/[^0-9.]/g, '');  /* Allow only numbers & dot */
+               if (this.value.indexOf('.') === 0) this.value = this.value.replace('.', ''); /* Prevent starting with a dot */
+               if ((this.value.match(/\./g) || []).length > 1) this.value = this.value.slice(0, -1); /* Prevent multiple dots */
+               if (this.value.split('.')[0].length > 5) this.value = this.value.slice(0, -1); /* Restrict to 5 digits before dot */
+           "
+                           ng-model="item.tocSlabValue"  ng-blur="vm.minValueOneWithIndex($event,'tocSlabValue',$index)" required></td>
+
+                <td>
+                    <select class="form-control" id="roundOff[$index]" name="roundOff"
+                            ng-model="item.roundOff"
+
+                            ng-init="vm.getRoundFactList();"
+                            required>
+                        <option value="">Select</option>
+                        <option ng-repeat="items in vm.roudingFactorList;" value="{{items.SUBCODE}}">{{items.DESCRIPTION}}</option>
+                    </select>
+                </td>
+
+
+            </tr>
+            </tbody>
+        </table>
+
+        <div class="text-center form_submit">
+            <button type="submit" class="btn btn-default" id="submitButton"
+                    ng-disabled="rbi_bond_toc_slab_maintenance.$invalid" ng-click="vm.submitAddForm()">Submit</button>
+            <button type="button" id="subButton" class="btn btn-cancel"
+                    ng-click="vm.showCancelConfirmation('rbi_bond_toc_slab_maintenance.add');">Cancel</button>
+        </div>
+
+    </form>
+</div>

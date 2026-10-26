@@ -1,0 +1,144 @@
+<div class="loader-new" ng-if="vm.loader"></div>
+<div class="container" data-ng-if="vm.detailsList.length>0">
+  <div class="container from_wrapper new_form_wrapper">
+    <div class="text-right form_submit">
+      <button type="submit" class="btn btn-default" onclick="window.location.href ='#!/';" id="homeButton">Home</button>
+
+      <button type="button" id="cancel_Button" class="btn btn-cancel" onclick="window.location.href= '#!/acknowledgement_and_confirmation_letters_to_customer_upon_updation_rejection/action/inquiry';">Back</button>
+    </div>
+
+    <h4 class="form_heading">Acknowledgement and confirmation letters to customer upon updation / rejection</h4>
+
+    <sol-header></sol-header>
+
+    <div>
+      <table style="width: 100%" class="table table-bordered" style="padding: 10px" aria-label="">
+        <tr>
+          <th ng-if="vm.schemeName" scope="">Name of the Bond Scheme</th>
+          <td ng-if="vm.schemeName">{{vm.schemeName}}</td>
+          <th scope="col" style="width: 20%">Total Count</th>
+          <td style="width: 20%">{{vm.total}}</td>
+        </tr>
+        <tr>
+          <th ng-if="vm.statusIO" scope="">Inward & Outward Status</th>
+          <td ng-if="vm.statusIO">{{vm.status}}</td>
+        </tr>
+        <tr>
+          <th scope="">From Date</th>
+          <td>{{vm.fromDate | date: 'dd/MM/yyyy'}}</td>
+        </tr>
+        <tr>
+          <th scope="">To Date</th>
+          <td>{{vm.toDate | date: 'dd/MM/yyyy'}}</td>
+        </tr>
+      </table>
+    </div>
+
+      <div class="row" style="display: flex; align-items: center; justify-content: space-between">
+        <div class="col-sm-3" style="flex: 1">
+          <div class="form-group">
+            <table style="border-spacing: 2" aria-label="RBLA">
+              <tr>
+                <th scope="col"></th>
+              </tr>
+              <tr>
+                <td>Show&nbsp;</td>
+                <td>
+                  <select class="form-control pageDropDown" id="pageSize" name="pageSize"
+                          ng-model="vm.pageSize" ng-init="vm.pageSize='5'"
+                          ng-change="vm.pageNo = 1; vm.getDetails();"ng-disabled="vm.noDataFoundInSearch">
+                    <option value="5">5 per page</option>
+                    <option value="10">10 per page</option>
+                    <option value="20">20 per page</option>
+                    <option value="50">50 per page</option>
+                  </select>
+                </td>
+
+              </tr>
+            </table>
+          </div>
+        </div>
+
+        <div class="col-sm-6" style="display: flex; align-items: center; justify-content: flex-end">
+          <div class="form-group" style="margin-right: 15px">
+            <div class="input-group">
+              <input type="text" id="search" class="form-control" data-ng-model="vm.searchText" placeholder="Search"/>
+              <div class="input-group-addon">
+                <span class="glyphicon glyphicon-search" data-ng-click="vm.pageNo = 1; vm.getDetails()"></span>
+              </div>
+              <div class="input-group-addon">
+                <span class="glyphicon glyphicon-remove clear cp" data-ng-click="vm.searchText='';vm.pageNo = 1; vm.getDetails()"></span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="table-responsive">
+        <table class="table table-bordered table-striped list nowrap table-textWrap datatable" aria-label="">
+          <thead data-ng-if="!vm.noDataFoundInSearch">
+            <tr class="thalign">
+              <th scope="col">S.No</th>
+              <th scope="col">FTS Bar Code Number</th>
+              <th scope="col">Scheme Name</th>
+              <th scope="col">BLA number</th>
+              <th scope="col">Inward Reference Number</th>
+              <th scope="col">Inward Date</th>
+              <th scope="col">Outward Reference Number</th>
+              <th scope="col">Outward Date</th>
+              <th scope="col">Outward Reason</th>
+              <th scope="col">Download</th>
+            </tr>
+          </thead>
+          <tbody data-ng-if="!vm.noDataFoundInSearch">
+          <tr dir-paginate="x in vm.filteredRecords | itemsPerPage: itemsPerPage" pagination-id="trailRunRep">
+            <td>{{ ($index + 1) + ((vm.pageNo - 1) * vm.pageSize) }}</td>
+              <td>{{x.fts}}</td>
+              <td>{{x.schemeName}}</td>
+              <td>{{x.blaNo}}</td>
+              <td>{{x.inwardRefNo}}</td>
+              <td>{{x.inwardDate}}</td>
+              <td>{{x.outwardRefNo}}</td>
+              <td>{{x.outwardDate}}</td>
+              <td>{{x.outwardReason}}</td>
+              <td>
+                <button type="button" class="btn btn-default" ng-click="vm.downloadInvoice(x)" id="downloadButton">Download</button>
+              </td>
+            </tr>
+          </tbody>
+          <tbody data-ng-if="vm.noDataFoundInSearch">
+          <tr>
+            <td style="text-align:center">No Records Found</td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Pagination -->
+      <br />
+      <div class="text-center form_submit">
+              <span data-ng-show="vm.showPrevious">
+                <button type="submit" class="btn btn-default" data-ng-click="vm.goPreviousPage()">Prev</button>
+              </span>
+
+        <span>
+                <button type="submit" class="btn btn-default" data-ng-disabled="true" data-ng-init="vm.pageNo=1" data-ng-model="vm.pageNo" data-ng-click="vm.paymentStatus();">{{vm.pageNo}} of {{vm.maxPages}}</button>
+              </span>
+
+        <span data-ng-show="vm.showNext">
+                <button type="submit" class="btn btn-default" data-ng-click="vm.goNextPage();">Next</button>
+              </span>
+      </div>
+
+  </div>
+</div>
+
+<div class="container" data-ng-if="vm.noDataFound">
+  <div class="list_wrapper no_records_message">
+    <h4 class="form_heading">Acknowledgement and confirmation letters to customer upon updation / rejection</h4>
+    No records found to display.
+    <div style="text-align: center">
+      <button type="button" class="btn btn-default" onclick="window.location.href= '#!/acknowledgement_and_confirmation_letters_to_customer_upon_updation_rejection/action/inquiry';">Back</button>
+    </div>
+  </div>
+</div>

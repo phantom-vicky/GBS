@@ -1,0 +1,1253 @@
+<div class="loader-new" ng-if="vm.loader"></div>
+<dc-left-menu></dc-left-menu>
+<div class="container from_wrapper new_form_wrapper">
+    <h4 class="form_heading">RBI Bond Scheme Parameters - Modify</h4>
+    <sol-header></sol-header>
+    <form name="schemeParameterCreationForm" role="form" ng-submit="vm.modifyCBDTParameterCreation();">
+        <div class="row">
+            <div class="form-group">
+                <div class="col-sm-2"></div>
+                <div class="col-sm-5">
+                    <label class="control-label">Name of the Module</label>
+                </div>
+                <div class="col-sm-5">
+                    <label><b>RBI Bond</b></label>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="form-group">
+                <div class="col-sm-2"></div>
+                <div class="col-sm-5">
+                    <label class="control-label">Name of the Bond Scheme</label>
+                </div>
+                <div class="col-sm-5">
+                    <label><b>{{vm.schemeName}}</b></label>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="form-group required">
+                <div class="col-sm-2"></div>
+                <div class="col-sm-5">
+                    <label class="control-label">Bond Scheme Effective From Date (DD/MM/YYYY)</label>
+                </div>
+                <div class="col-sm-2">
+                    <p class="input-group">
+                        <input type="text" class="form-control" id="effFromDate1" name="effFromDate1"
+                            ng-model="vm.cbdtSchemeParameter.C003.oldValue" uib-datepicker-popup="dd/MM/yyyy"
+                            ng-init="vm.fromDate1=''" datepicker-options="vm.dateOptions"
+                            is-open="vm.effFromDatePicker1.opened" close-text="Close" maxlength="10" readonly
+                            required />
+                        <!--<span class="input-group-btn">
+                  <button type="button" class="btn btn-secondary"
+                          ng-click="vm.effFromDatePicker1.opened = true"
+                          id="effFromDateSearcher1">
+                  <i class="glyphicon glyphicon-calendar"></i>
+                  </button>
+                  </span>-->
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group">
+                <div class="col-sm-2"></div>
+                <div class="col-sm-5">
+                    <label class="control-label">Bond Scheme Effective End Date (DD/MM/YYYY)</label>
+                </div>
+                <div class="col-sm-2">
+                    <p class="input-group">
+                        <input type="text" class="form-control" id="effToDate" name="effToDate"
+                            ng-model="vm.cbdtSchemeParameter.C004.oldValue" uib-datepicker-popup="dd/MM/yyyy"
+                            ng-init="vm.toDate='';" datepicker-options="vm.dateOptionsM"
+                            is-open="vm.effToDatePicker.opened" close-text="Close" maxlength="10"
+                            ng-blur="vm.textableDatePicker('effToDate',vm.cbdtSchemeParameter.C004.oldValue);vm.fromToDateM();"
+                            ng-keyup="vm.autoslashing('effToDate')" chars="numbers-slash" />
+                        <span class="input-group-btn">
+                            <button type="button" class="btn btn-secondary" ng-click="vm.effToDatePicker.opened = true"
+                                id="effToDateSearcher1" ng-if="vm.cbdtSchemeParameter.C003.oldValue">
+                                <i class="glyphicon glyphicon-calendar"></i>
+                            </button>
+                        </span>
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group required">
+                <div class="col-sm-2"></div>
+                <div class="col-sm-5">
+                    <label class="control-label">Parameters Effective From Date (DD/MM/YYYY)</label>
+                </div>
+                <div class="col-sm-2">
+                    <p class="input-group">
+                        <input type="text" class="form-control" id="effFromDate" name="effFromDate"
+                            ng-model="vm.cbdtSchemeParameter.C005.oldValue" uib-datepicker-popup="dd/MM/yyyy"
+                            datepicker-options="vm.dateOptionsM" is-open="vm.effFromDatePicker.opened"
+                            close-text="Close" maxlength="10" readonly required />
+                        <span class="input-group-btn">
+                            <!--<button type="button" class="btn btn-secondary"
+                          ng-click="vm.effFromDatePicker.opened = true"
+                          id="effFromDateSearcher">
+                  <i class="glyphicon glyphicon-calendar"></i>
+                  </button>-->
+                        </span>
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="form-group required">
+                <div class="col-sm-2"></div>
+                <div class="col-sm-5">
+                    <label class="control-label">Minimum Deposit Rs</label>
+                </div>
+                <div class="col-sm-2">
+                    <input type="text" chars="only-numbers" class="form-control" id="minDepositAmt"
+                        ng-blur="vm.minMaxInput(vm.cbdtSchemeParameter.C006.oldValue,'M');" oninput="
+              this.value = this.value
+                .replace(/[^0-9.]/g, '')
+                .replace(/(\..*)\./g, '$1')
+                .slice(0, 6)
+            " name="minDepositAmt" ng-model="vm.cbdtSchemeParameter.C006.oldValue" maxlength="6" required />
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="form-group required">
+                <div class="col-sm-2"></div>
+                <div class="col-sm-5">
+                    <label class="control-label">Maximum Deposit Amount Rs</label>
+                </div>
+                <div class="col-sm-2">
+                    <!--                    <input type="text" chars="only-numbers" class="form-control" id="maxDepositAmout" ng-init="" maxlength="11"-->
+                    <!--                           oninput="var startPos = this.selectionStart; var endPos = this.selectionEnd; this.value = this.value.slice(0, 11).replace(/[^0-9]/g, ''); this.setSelectionRange(startPos, endPos);"-->
+                    <!--                           name="maxNoOfChallan" ng-model="vm.cbdtSchemeParameter.C007.oldValue" required>-->
+                    <input type="text" class="form-control" id="maxDepositAmout" maxlength="11" oninput="
+              var startPos = this.selectionStart;
+              var endPos = this.selectionEnd;
+              this.value = this.value
+                .replace(/[^0-9.]/g, '')
+                .replace(/^(\d*\.\d{0,2}).*$/, '$1')
+                .replace(/(\..*)\./g, '$1');
+              this.setSelectionRange(startPos, endPos);
+            " name="maxNoOfChallan" ng-model="vm.cbdtSchemeParameter.C007.oldValue" required />
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="form-group required">
+                <div class="col-sm-2"></div>
+                <div class="col-sm-5">
+                    <label class="control-label">Maximum Limit for Cash Deposit Rs</label>
+                </div>
+                <div class="col-sm-2">
+                    <input type="text" chars="only-numbers" class="form-control" id="maxLimitForcashDeposit" ng-init=""
+                        maxlength="6" oninput="
+              var startPos = this.selectionStart;
+              var endPos = this.selectionEnd;
+              this.value = this.value.slice(0, 6).replace(/[^0-9]/g, '');
+              this.setSelectionRange(startPos, endPos);
+            " name="maxNoOfChallan" ng-model="vm.cbdtSchemeParameter.C008.oldValue" required />
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="form-group required">
+                <div class="col-sm-2"></div>
+                <div class="col-sm-5">
+                    <label class="control-label">Deposit in Multiples of (Rs.)</label>
+                </div>
+                <div class="col-sm-2">
+                    <input type="text" chars="only-numbers" class="form-control" id="depositInMultiples" maxlength="6"
+                        ng-blur="vm.validateRoundedValue(vm.cbdtSchemeParameter.C009.oldValue,'M')" oninput="
+              var startPos = this.selectionStart;
+              var endPos = this.selectionEnd;
+              this.value = this.value.slice(0, 6).replace(/[^0-9]/g, '');
+              this.setSelectionRange(startPos, endPos);
+            " name="maxNoOfChallan" ng-model="vm.cbdtSchemeParameter.C009.oldValue" required />
+                    <div ng-if="vm.errorMessage" class="text-danger small-text-margin">
+                        {{ vm.errorMessage }}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="form-group required">
+                <div class="col-sm-2"></div>
+                <div class="col-sm-5">
+                    <label class="control-label">Deposit Maturity Period (Months)</label>
+                </div>
+                <div class="col-sm-2">
+                    <input type="text" chars="only-numbers" class="form-control" id="depositMaturityPeriod" ng-init=""
+                        maxlength="3" oninput="
+              var startPos = this.selectionStart;
+              var endPos = this.selectionEnd;
+              this.value = this.value.slice(0, 3).replace(/[^0-9]/g, '');
+              this.setSelectionRange(startPos, endPos);
+            " name="maxNoOfChallan" ng-model="vm.cbdtSchemeParameter.C010.oldValue" required />
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="form-group required">
+                <div class="col-sm-2"></div>
+                <div class="col-sm-5">
+                    <label class="control-label" for="minimumTenure">Minimum Tenure of the Bond</label>
+                </div>
+                <div class="col-sm-2">
+                    <input type="text" chars="only-numbers" class="form-control" id="minimumTenure" ng-init=""
+                        maxlength="2" oninput="
+              if (this.value.length > 2) this.value = this.value.slice(0, 2);
+              this.value =
+                this.value.trim() !== ''
+                  ? Math.abs(parseInt(this.value, 10))
+                  : null;
+            " name="maxNoOfChallan" ng-model="vm.cbdtSchemeParameter.C011.oldValue" required />
+                </div>
+            </div>
+        </div>
+        <!--        <div class="row">-->
+        <!--            <div class="form-group required">-->
+        <!--                <div class="col-sm-2"></div>-->
+        <!--                <div class="col-sm-5">-->
+        <!--                    <label class="control-label">Maximum Tenure of the Bond</label>-->
+        <!--                </div>-->
+        <!--                <div class="col-sm-2">-->
+        <!--                    <input type="text" chars="only-numbers" class="form-control" id="maximumTenure" ng-init=""-->
+        <!--                           maxlength="2"-->
+        <!--                           oninput="if(this.value.length > 2) this.value = this.value.slice(0, 2); this.value = this.value.trim() !== '' ? Math.abs(parseInt(this.value, 10)) : null;"-->
+        <!--                           name="maxNoOfChallan" ng-model="vm.cbdtSchemeParameter.C040.oldValue" required>-->
+        <!--                </div>-->
+        <!--            </div>-->
+        <!--        </div>-->
+        <div class="row">
+            <div class="form-group required">
+                <div class="col-sm-2"></div>
+                <div class="col-sm-5">
+                    <label class="control-label">TDS applicable (Y/N)?</label>
+                </div>
+                <td width="25%">
+                    <ng-container ng-repeat="item in vm.commonYesNoMetaData">
+                        <input type="radio" name="isTdsActive" id="isTdsActive{{$index}}"
+                            ng-model="vm.cbdtSchemeParameter.C012.oldValue" ng-value="item.value"
+                            required />{{item.label}}
+                    </ng-container>
+                    <!-- <input type="radio" id="isTdsActiveY" name="isTdsActiveY"  ng-change="vm.isTdsActive= 'Y'; vm.isTdsActiveN=''" ng-model="vm.isTdsActiveY" ng-init="vm.isTdsActive='';"  value="Y">Yes
+                     <input type="radio" id="isTdsActiveN" name="isTdsActiveN"  ng-change="vm.isTdsActive= 'N'; vm.isTdsActiveY=''" ng-model="vm.isTdsActiveN" ng-init="vm.isTdsActive='';" value="N">No
+                -->
+                </td>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group required">
+                <div class="col-sm-2"></div>
+                <div class="col-sm-5">
+                    <label class="control-label">Scheme Status</label>
+                </div>
+                <div class="col-sm-2">
+                    <select class="form-control" id="isSchemeActive" name="isSchemeActive"
+                        ng-model="vm.cbdtSchemeParameter.C013.oldValue" required>
+                        <option value="" hidden="true">SELECT</option>
+                        <option value="C">Current Scheme</option>
+                        <option value="A">Active Scheme</option>
+                        <option value="CL">Closed</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group required">
+                <div class="col-sm-2"></div>
+                <div class="col-sm-5">
+                    <label for="versionNo" class="control-label">Interest Rate code</label>
+                </div>
+                <div class="col-sm-2">
+                    <input type="text" class="form-control" id="versionNo"
+                        ng-model="vm.cbdtSchemeParameter.C014.oldValue" required readonly />
+                </div>
+                <div class="col-sm-2">
+                    <i class="glyphicon glyphicon-search cp" data-bs-toggle="modal" id="versionNoSearch"
+                        ng-click="vm.schemeTorchFunction()"></i>
+                    <i class="glyphicon glyphicon-remove clear cp"
+                        ng-click="vm.cbdtSchemeParameter.C014.oldValue= '';"></i>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="form-group required">
+                <div class="col-sm-2"></div>
+                <div class="col-sm-5">
+                    <label for="interestpaymentFreq" class="control-label">Interest Payment Frequency</label>
+                </div>
+                <div class="col-sm-2">
+                    <select class="form-control" id="interestpaymentFreq" name="reportType"
+                        ng-model="vm.cbdtSchemeParameter.C015.oldValue" required>
+                        <option value="" hidden="true">SELECT</option>
+                        <option value="H">Half Yearly</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <!--        <div class="row">-->
+        <!--            <div class="form-group required">-->
+        <!--                <div class="col-sm-2"></div>-->
+        <!--                <div class="col-sm-5">-->
+        <!--                    <label class="control-label">Interest Payment Date1 (DD/MM)</label>-->
+        <!--                </div>-->
+        <!--                <div class="col-sm-1">-->
+        <!--                    <div class="row">-->
+        <!--                        <select class="form-control" id="interstPayementDate11" name="reportTypeTwo"-->
+        <!--                                ng-model="vm.intPaymntDayOneM" style="width:80%"-->
+        <!--                                ng-init="vm.intPaymntDayOneM =''" ng-change="vm.interstPayementDateOneM()"  required>-->
+        <!--                            <option value="" hidden="true">SELECT</option>-->
+        <!--                            <option ng-repeat="x in vm.dateList" value="{{x}}">{{x}}</option>-->
+        <!--                        </select>-->
+        <!--                    </div>-->
+        <!--                </div>-->
+        <!--                <div class="col-sm-1">-->
+
+        <!--                    <div class="row">-->
+        <!--                        <select class="form-control" id="interstPayementDate22" name="reportTypeTwo"-->
+        <!--                                ng-model="vm.intPaymntMonthOneM" style="width:80%"-->
+        <!--                                ng-init="vm.intPaymntMonthOneM =''" ng-change="vm.interstPayementDateOneM()"  required>-->
+        <!--                            <option value="" hidden="true">SELECT</option>-->
+        <!--                            <option ng-repeat="x in vm.monthList" value="{{x}}">{{x}}</option>-->
+        <!--                        </select>-->
+        <!--                    </div>-->
+        <!--                    <input type="text"  class="form-control" id="interstPayementDate111" name="brokeragePercentage"-->
+        <!--                           ng-model="vm.cbdtSchemeParameter.C016.oldValue" readonly>-->
+        <!--                </div>-->
+        <!--            </div>-->
+        <!--        </div>-->
+
+        <div class="row">
+            <div class="form-group required">
+                <div class="col-sm-2"></div>
+                <div class="col-sm-5">
+                    <label class="control-label">Interest Payment Date1 (DD/MM)</label>
+                </div>
+                <div class="col-sm-1">
+                    <div class="row">
+                        <select class="form-control width-80" id="interstPayementDate11" name="reportTypeTwo"
+                            ng-model="vm.intPaymntDayOneM" ng-change="vm.validateDateOneM()" required>
+                            <option value="" hidden="true">SELECT</option>
+                            <option ng-repeat="x in vm.dateList" value="{{x}}">{{x}}</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-sm-1">
+                    <div class="row">
+                        <select class="form-control width-80" id="interstPayementDate22" name="reportTypeTwo"
+                            ng-model="vm.intPaymntMonthOneM" ng-change="vm.validateDateOneM()" required>
+                            <option value="" hidden="true">SELECT</option>
+                            <option ng-repeat="x in vm.monthList" value="{{x}}">{{x}}</option>
+                        </select>
+                    </div>
+                    <input type="text" class="form-control" id="interstPayementDate111" name="brokeragePercentage"
+                        ng-model="vm.cbdtSchemeParameter.C016.oldValue" readonly required />
+                </div>
+            </div>
+            <div class="text-danger bold-nowrap" ng-show="vm.invalidDate">
+                Invalid date selected for the selected month.
+            </div>
+        </div>
+
+        <!--        <div class="row">-->
+        <!--            <div class="form-group required">-->
+        <!--                <div class="col-sm-2"></div>-->
+        <!--                <div class="col-sm-5">-->
+        <!--                    <label class="control-label">Interest Payment Date2 (DD/MM)</label>-->
+        <!--                </div>-->
+        <!--                <div class="col-sm-1">-->
+        <!--                    <div class="row">-->
+        <!--                        <select class="form-control" id="interstPayementDate1" name="reportTypeTwo"-->
+        <!--                                ng-model="vm.intPaymntDayM" style="width:80%"-->
+        <!--                                ng-init="vm.intPaymntDayM =''" ng-change="vm.interstPayementDateM()"  required>-->
+        <!--                            <option value="" hidden="true">SELECT</option>-->
+        <!--                            <option ng-repeat="x in vm.dateList" value="{{x}}">{{x}}</option>-->
+        <!--                        </select>-->
+        <!--                    </div>-->
+        <!--                </div>-->
+        <!--                <div class="col-sm-1">-->
+
+        <!--                    <div class="row">-->
+        <!--                        <select class="form-control" id="interstPayementDate2" name="reportTypeTwo"-->
+        <!--                                ng-model="vm.intPaymntMonthM" style="width:80%"-->
+        <!--                                ng-init="vm.intPaymntMonthM =''" ng-change="vm.interstPayementDateM()"  required>-->
+        <!--                            <option value="" hidden="true">SELECT</option>-->
+        <!--                            <option ng-repeat="x in vm.monthList" value="{{x}}">{{x}}</option>-->
+        <!--                        </select>-->
+        <!--                    </div>-->
+        <!--                    <input type="text"  class="form-control" id="interstPayementDate" name="brokeragePercentage"-->
+        <!--                           ng-model="vm.cbdtSchemeParameter.C017.oldValue" readonly>-->
+        <!--                </div>-->
+        <!--            </div>-->
+        <!--        </div>-->
+
+        <div class="row">
+            <div class="form-group required">
+                <div class="col-sm-2"></div>
+                <div class="col-sm-5">
+                    <label class="control-label">Interest Payment Date2 (DD/MM)</label>
+                </div>
+                <div class="col-sm-1">
+                    <div class="row">
+                        <select class="form-control width-80" id="interstPayementDate1" name="reportTypeTwo"
+                            ng-model="vm.intPaymntDayM" ng-init="vm.intPaymntDayM =''" ng-change="vm.validateDateM()"
+                            required>
+                            <option value="" hidden="true">SELECT</option>
+                            <option ng-repeat="x in vm.dateList" value="{{x}}">{{x}}</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-sm-1">
+                    <div class="row">
+                        <select class="form-control width-80" id="interstPayementDate2" name="reportTypeTwo"
+                            ng-model="vm.intPaymntMonthM" ng-init="vm.intPaymntMonthM =''"
+                            ng-change="vm.validateDateM()" required>
+                            <option value="" hidden="true">SELECT</option>
+                            <option ng-repeat="x in vm.monthList" value="{{x}}">{{x}}</option>
+                        </select>
+                    </div>
+                    <input type="text" class="form-control" id="interstPayementDate" name="brokeragePercentage"
+                        ng-model="vm.cbdtSchemeParameter.C017.oldValue" readonly required />
+                </div>
+            </div>
+            <div class="text-danger bold-nowrap" ng-show="vm.invalidDateM">
+                Invalid date selected for the selected month.
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="form-group required">
+                <div class="col-sm-2"></div>
+                <div class="col-sm-5">
+                    <label for="alternateInterstPaymentDay" class="control-label">In case of Holiday, Alternate Interest
+                        Payment Day</label>
+                </div>
+                <div class="col-sm-2">
+                    <select class="form-control" id="alternateInterstPaymentDay" name="reportType"
+                        ng-model="vm.cbdtSchemeParameter.C018.oldValue" ng-init="vm.cbdtSchemeParameter.C018=''"
+                        required>
+                        <option value="" hidden="true">SELECT</option>
+                        <option value="P">Previous</option>
+                        <option value="N">NextDay</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="form-group required">
+                <div class="col-sm-2"></div>
+                <div class="col-sm-5">
+                    <label class="control-label">Is Age based Premature Encashment allowed under scheme
+                        (Y/N)?</label>
+                </div>
+                <td width="25%">
+                    <ng-container ng-repeat="item in vm.commonYesNoMetaData">
+                        <input type="radio" name="isAgeBasedPremature" id="isAgeBasedPremature{{$index}}"
+                            ng-model="vm.cbdtSchemeParameter.C019.oldValue" ng-value="item.value"
+                            required />{{item.label}}
+                    </ng-container>
+
+                    <!--                    <input type="radio"    id="isAgeBasedPrematureY" name="isAgeBasedPrematureY"  ng-change="vm.isAgeBasedPremature= 'Y'; vm.isAgeBasedPrematureN=''" ng-model="vm.isAgeBasedPrematureY" ng-init="vm.isAgeBasedPremature='';"   value="Y">Yes-->
+                    <!--                    <input type="radio"   id="isAgeBasedPrematureN" name="isAgeBasedPrematureN"  ng-change="vm.isAgeBasedPremature= 'N'; vm.isAgeBasedPrematureY=''" ng-model="vm.isAgeBasedPrematureN" ng-init="vm.isAgeBasedPremature='';"  value="N">No-->
+                </td>
+            </div>
+        </div>
+
+        <div class="row" ng-if="vm.cbdtSchemeParameter.C019.oldValue =='N'">
+            <div class="form-group required">
+                <div class="col-sm-2"></div>
+                <div class="col-sm-5">
+                    <label class="control-label">Is Normal Premature Encashment allowed under scheme (Y/N)?</label>
+                </div>
+                <td width="25%">
+                    <ng-container ng-repeat="item in vm.commonYesNoMetaData">
+                        <input type="radio" name="isNormalPremature" id="isNormalPremature{{$index}}"
+                            ng-model="vm.cbdtSchemeParameter.C020.oldValue" ng-value="item.value"
+                            required />{{item.label}}
+                    </ng-container>
+                    <!--                    <input type="radio"    id="isNormalPrematureY" name="isNormalPrematureY"  ng-change="vm.isNormalPremature= 'Y'; vm.isNormalPrematureN=''" ng-model="vm.isNormalPrematureY" ng-init="vm.isNormalPremature='';"   value="Y">Yes-->
+                    <!--                    <input type="radio"   id="isNormalPrematureN" name="isNormalPrematureN"  ng-change="vm.isNormalPremature= 'N'; vm.isNormalPrematureY=''" ng-model="vm.isNormalPrematureN" ng-init="vm.isNormalPremature='';"  value="N">No-->
+                </td>
+            </div>
+        </div>
+
+        <!--        <div class="row" ng-if="vm.cbdtSchemeParameter.C018.oldValue =='Y'">-->
+        <div class="row" ng-if="vm.cbdtSchemeParameter.C019.oldValue =='N'">
+            <div class="form-group required">
+                <div class="col-sm-2"></div>
+                <div class="col-sm-5">
+                    <label class="control-label">Minimum Lock-in Period (Years)</label>
+                </div>
+                <div class="col-sm-2">
+                    <input type="text" ng-keypress="vm.validateInput($event,interstPaymentDate21)" chars="only-numbers"
+                        class="form-control" id="interstPaymentDate21" maxlength="2" name="maxNoOfChallan"
+                        ng-model="vm.cbdtSchemeParameter.C021.oldValue" required />
+                </div>
+            </div>
+        </div>
+
+        <div class="row" ng-if="vm.cbdtSchemeParameter.C019.oldValue =='Y'">
+            <div class="form-group">
+                <div class="col-sm-2"></div>
+                <div class="col-sm-5">
+                    <label class="control-label">Minimum Lock-in Period (Years)</label>
+                </div>
+                <div class="col-sm-2">
+                    <input type="text" chars="only-numbers" class="form-control" id="interstPaymentDate213"
+                        maxlength="2" name="maxNoOfChallan" ng-model="vm.cbdtSchemeParameter .C021.oldValue" />
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="form-group required">
+                <div class="col-sm-2"></div>
+                <div class="col-sm-5">
+                    <label for="typeOfBond" class="control-label">Type of Bond subscriptions allowed under bond
+                        scheme</label>
+                </div>
+                <div class="col-sm-2">
+                    <select class="form-control" id="typeOfBond" name="reportType"
+                        ng-model="vm.cbdtSchemeParameter.C022.oldValue" required>
+                        <option value="" hidden="true">SELECT</option>
+                        <option value="C">Cumulative</option>
+                        <option value="NC">Non-Cumulative</option>
+                        <option value="B">Both</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <div class="row" data-ng-if="vm.cbdtSchemeParameter.C022.oldValue == 'NC'">
+            <div class="form-group">
+                <div class="col-sm-2"></div>
+                <div class="col-sm-5">
+                    <label class="control-label">Maturity Amount Per Thousand (Rs.)</label>
+                </div>
+                <div class="col-sm-2">
+                    <input type="text" chars="only-numbers" class="form-control" id="maturityAmountPerthousand1"
+                        ng-init="" limit-To="4" min="0" name="maxNoOfChallan"
+                        ng-model="vm.cbdtSchemeParameter.C023.oldValue" />
+                </div>
+            </div>
+        </div>
+
+        <div class="row"
+            data-ng-if="vm.cbdtSchemeParameter.C022.oldValue == 'C' || vm.cbdtSchemeParameter.C022.oldValue == 'B'">
+            <div class="form-group required">
+                <div class="col-sm-2"></div>
+                <div class="col-sm-5">
+                    <label class="control-label">Maturity Amount Per Thousand (Rs.)</label>
+                </div>
+                <div class="col-sm-2">
+                    <input type="text" chars="only-numbers" class="form-control" id="maturityAmountPerthousand"
+                        ng-init="" limit-To="4" min="1" oninput="
+              this.value =
+                !!this.value && Math.abs(this.value) >= 0
+                  ? Math.abs(this.value)
+                  : null
+            " name="maxNoOfChallan" ng-model="vm.cbdtSchemeParameter.C023.oldValue" required />
+                </div>
+            </div>
+        </div>
+
+        <!--        <div class="row">-->
+        <!--            <div class="form-group required">-->
+        <!--                <div class="col-sm-2"></div>-->
+        <!--                <div class="col-sm-5">-->
+        <!--                    <label class="control-label">Premature Encashment Penalty Percentage.</label>-->
+        <!--                </div>-->
+        <!--                <div class="col-sm-2">-->
+        <!--                    <input type="text" class="form-control" id="spread" ng-keypress="vm.percentageCheckNew($event);" ng-change="vm.firstCharDot(vm.cbdtSchemeParameter.C024);"-->
+        <!--                           ng-change="vm.percentageCheckChangeM(vm.cbdtSchemeParameter.C024.oldValue,'C024');" limit-to="5" oninput="this.value = this.value.replace(/[^0-9.]/g, '')" ng-model="vm.cbdtSchemeParameter.C024.oldValue" required>-->
+        <!--                </div>-->
+        <!--            </div>-->
+        <!--        </div>-->
+
+        <div class="row">
+            <div class="form-group required">
+                <div class="col-sm-2"></div>
+                <div class="col-sm-5">
+                    <label class="control-label">Premature Encashment Penalty Percentage.</label>
+                </div>
+                <div class="col-sm-2">
+                    <input type="text" class="form-control" id="spread" ng-keypress="vm.percentageCheckNew($event);"
+                        ng-change="vm.firstCharDot(vm.cbdtSchemeParameter.C024); vm.percentageCheckChangeM(vm.cbdtSchemeParameter.C024.oldValue, 'C024');"
+                        limit-to="5" oninput="
+              this.value = this.value
+                .replace(/[^0-9.]/g, '')
+                .replace(/^(\.)/g, '')
+            " ng-model="vm.cbdtSchemeParameter.C024.oldValue" required />
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="form-group required">
+                <div class="col-sm-2"></div>
+                <div class="col-sm-5">
+                    <label class="control-label">Maximum No of Nominee allowed in the scheme</label>
+                </div>
+                <div class="col-sm-2">
+                    <input type="text" inputmode="numeric" class="form-control" id="MaxNominee" maxlength="1"
+                        ng-blur="vm.nomineeValidation();" oninput="this.value = this.value.replace(/[^0-9]/g, '')"
+                        ng-model="vm.cbdtSchemeParameter.C025.oldValue" required />
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="form-group">
+                <div class="col-sm-2"></div>
+                <div class="col-sm-5">
+                    <label class="control-label">Nominee Sharable Amount in Multiples of (Rs.)</label>
+                </div>
+                <div class="col-sm-2">
+                    <input type="text" chars="only-numbers" class="form-control" id="nomineeSharableAmountMultiples"
+                        maxlength="6" oninput="this.value = this.value.replace(/[^\d]/g, '').slice(0, 6)"
+                        name="nomineeSharableAmountMultiples" ng-model="vm.cbdtSchemeParameter.C050.oldValue"
+                        ng-blur="vm.validateNomineeAmountMin(vm.cbdtSchemeParameter.C050.oldValue, 'M', 'C050')" />
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="form-group">
+                <div class="col-sm-2"></div>
+                <div class="col-sm-5">
+                    <label class="control-label">Nominee Minimum Amount (Rs.)</label>
+                </div>
+                <div class="col-sm-2">
+                    <input type="text" chars="only-numbers" class="form-control" id="nomineeMinimumAmount"
+                        maxlength="20" oninput="this.value = this.value.replace(/[^\d]/g, '').slice(0, 20)"
+                        name="nomineeMinimumAmount" ng-model="vm.cbdtSchemeParameter.C051.oldValue"
+                        ng-blur="vm.validateNomineeAmountMin(vm.cbdtSchemeParameter.C051.oldValue, 'M', 'C051')" />
+                </div>
+            </div>
+        </div>
+        <!--        <div class="row">-->
+        <!--            <div class="form-group required">-->
+        <!--                <div class="col-sm-2"></div>-->
+        <!--                <div class="col-sm-5">-->
+        <!--                    <label class="control-label">Govt Notification No</label>-->
+        <!--                </div>-->
+        <!--&lt;!&ndash;                        ng-change="vm.specialNotAllowed(vm.cbdtSchemeParameter.C026);"-->
+        <!--oninput="this.value = this.value.replace(/\s+/g, '')"&ndash;&gt;-->
+        <!--                <div class="col-sm-2">-->
+        <!--                    <input type="text" class="form-control" id="govtNotificationNo"-->
+        <!--                           name="maxNoOfChallan" ng-model="vm.cbdtSchemeParameter.C026.oldValue" required>-->
+        <!--                </div>-->
+
+        <!--            </div>-->
+        <!--        </div>-->
+
+        <div class="row">
+            <div class="form-group required">
+                <div class="col-sm-2"></div>
+                <div class="col-sm-5">
+                    <label class="control-label">Govt Notification No</label>
+                </div>
+                <div class="col-sm-2">
+                    <input type="text" class="form-control" id="govtNotificationNo"
+                        ng-keypress="vm.specialNotAllowed(vm.cbdtSchemeParameter.C026);"
+                        oninput="this.value = this.value.replace(/\s+/g, '')" maxlength="20" name="maxNoOfChallan"
+                        ng-model="vm.cbdtSchemeParameter.C026.oldValue" required />
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="form-group">
+                <div class="col-sm-2"></div>
+                <div class="col-sm-5">
+                    <label class="control-label">Govt Notification Date(DD/MM/YYYY)</label>
+                </div>
+                <div class="col-sm-2">
+                    <p class="input-group">
+                        <input type="text" class="form-control" id="govtNotiDate" name="effNotificationDate"
+                            ng-model="vm.cbdtSchemeParameter.C027.oldValue" uib-datepicker-popup="dd/MM/yyyy"
+                            ng-blur="vm.textableDatePicker('govtNotiDate',vm.cbdtSchemeParameter.C027.oldValue)"
+                            ng-keyup="vm.autoslashing('govtNotiDate')" chars="numbers-slash"
+                            datepicker-options="vm.effNotificationDateOptions"
+                            is-open="vm.effNotificationDateOptions.opened" close-text="Close" maxlength="10" />
+                        <span class="input-group-btn">
+                            <button type="button" class="btn btn-secondary"
+                                ng-click="vm.effNotificationDateOptions.opened = true"
+                                id="effNotificationDateOptions11">
+                                <i class="glyphicon glyphicon-calendar"></i>
+                            </button>
+                        </span>
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!--        <div class="row">-->
+        <!--            <div class="form-group required">-->
+        <!--                <div class="col-sm-2"></div>-->
+        <!--                <div class="col-sm-5">-->
+        <!--                    <label class="control-label">PAN No required for Subscription Amount greater than Rs</label>-->
+        <!--                </div>-->
+        <!--                <div class="col-sm-2">-->
+        <!--                    <input type="text" inputmode="numeric" class="form-control" id="subscriptionAmount" ng-init="" maxlength="8"-->
+        <!--                           oninput="this.value = this.value.replace(/\s+/g, '')"-->
+        <!--                           name="maxNoOfChallan" ng-model="vm.cbdtSchemeParameter.C028.oldValue"  required>-->
+        <!--                </div>-->
+        <!--            </div>-->
+        <!--        </div>-->
+
+        <div class="row">
+            <div class="form-group required">
+                <div class="col-sm-2"></div>
+                <div class="col-sm-5">
+                    <label class="control-label">CAS Transfer Days (T+)</label>
+                </div>
+                <div class="col-sm-2">
+                    <input type="number" class="form-control" id="casTranDays"
+                        ng-model="vm.cbdtSchemeParameter.C049.oldValue" name="casTranDays" oninput="
+              this.value = this.value
+                .replace(/\s+/g, '')
+                .replace(/^0$/, '')
+                .slice(0, 1)
+            " maxlength="1" required />
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="form-group required">
+                <div class="col-sm-2"></div>
+                <div class="col-sm-5">
+                    <label class="control-label">PAN No required for Subscription Amount greater than Rs</label>
+                </div>
+                <div class="col-sm-2">
+                    <input type="text" inputmode="numeric" class="form-control" id="subscriptionAmount" maxlength="8"
+                        oninput="this.value = this.value.replace(/[^\d]/g, '').slice(0, 8)" name="maxNoOfChallan"
+                        ng-model="vm.cbdtSchemeParameter.C028.oldValue" required />
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="form-group">
+                <div class="col-sm-2"></div>
+                <div class="col-sm-5">
+                    <label class="control-label">Ceiling Amount without PAN</label>
+                </div>
+                <div class="col-sm-2">
+                    <input type="text" inputmode="numeric" class="form-control" id="ceilingAmountWithoutPan"
+                        maxlength="8" oninput="this.value = this.value.replace(/[^0-9]/g, '').slice(0, 8)"
+                        name="maxNoOfChallan" ng-model="vm.cbdtSchemeParameter.C029.oldValue" />
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="form-group">
+                <div class="col-sm-2"></div>
+                <div class="col-sm-5">
+                    <label class="control-label">Ceiling Amount with PAN</label>
+                </div>
+                <div class="col-sm-2">
+                    <input type="text" inputmode="numeric" class="form-control" id="ceilingAmount" maxlength="8"
+                        oninput="this.value = this.value.replace(/[^0-9]/g, '').slice(0, 8)" name="maxNoOfChallan"
+                        ng-model="vm.cbdtSchemeParameter.C041.oldValue" />
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="form-group">
+                <div class="col-sm-2"></div>
+                <div class="col-sm-5">
+                    <label for="versionNo" class="control-label">After Maturity Interest Rate</label>
+                </div>
+                <div class="col-sm-2">
+                    <input type="text" class="form-control" id="postOfficeSavRtCode"
+                        ng-model="vm.cbdtSchemeParameter.C048.oldValue" readonly />
+                </div>
+                <div class="col-sm-2">
+                    <i class="glyphicon glyphicon-search cp" data-bs-toggle="modal" id="postOfficeSavRtCode1"
+                        ng-click="vm.schemeTorchFunction('postOfficeSavingRateCode')"></i>
+                    <i class="glyphicon glyphicon-remove clear cp"
+                        ng-click="vm.cbdtSchemeParameter.C048.oldValue= '';"></i>
+                </div>
+            </div>
+        </div>
+        <!--        <div class="row">-->
+        <!--            <div class="form-group required">-->
+        <!--                <div class="col-sm-2"></div>-->
+        <!--                <div class="col-sm-5">-->
+        <!--                    <label class="control-label">Brokerage percentage (%)</label>-->
+        <!--                </div>-->
+        <!--                <div class="col-sm-2">-->
+        <!--&lt;!&ndash;                    <input type="text"  class="form-control" id="brokeragePercentage" name="brokeragePercentage"&ndash;&gt;-->
+        <!--&lt;!&ndash;                           ng-model="vm.cbdtSchemeParameter.C029.oldValue"  ng-pattern="/^[0-9]{3}[.]{1}[0-9]{2}$/"  required >&ndash;&gt;-->
+
+        <!--                    <input type="text" class="form-control" id="brokeragePercentage" chars="float"-->
+        <!--                           ng-change="vm.decimalConvertBrokeragepercentageM(vm.cbdtSchemeParameter.C029.oldValue);"-->
+        <!--                           ng-model="vm.cbdtSchemeParameter.C029.oldValue" minlength="1" limit-To="6" required>-->
+        <!--&lt;!&ndash;                           ng-change="vm.decimalConvertBrokeragepercentageM(vm.cbdtSchemeParameter.C029.oldValue);"&ndash;&gt;-->
+
+        <!--                </div>-->
+        <!--            </div>-->
+        <!--        </div>-->
+
+        <div class="row">
+            <div class="form-group required">
+                <div class="col-sm-2"></div>
+                <div class="col-sm-5">
+                    <label class="control-label">Handling Charges (%)</label>
+                </div>
+                <div class="col-sm-2">
+                    <input type="text" class="form-control" id="handling" chars="float"
+                        ng-keypress="vm.percentageCheckNew($event);"
+                        ng-change="vm.percentageCheckChangeM(vm.cbdtSchemeParameter.C030.oldValue,'C030');"
+                        ng-model="vm.cbdtSchemeParameter.C030.oldValue" required />
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="form-group required">
+                <div class="col-sm-2"></div>
+                <div class="col-sm-5">
+                    <label class="control-label">Service Charges (for year April - March) for New BLA Accounts
+                        Rs.</label>
+                </div>
+                <div class="col-sm-2">
+                    <input type="text" class="form-control" id="spreadRate"
+                        ng-keypress="vm.handlePercentageInput($event);"
+                        oninput="this.value = this.value.replace(/[^0-9.]/g, '')"
+                        ng-change="vm.firstCharDotServiceRate(); vm.validatePercentageValue('C031');"
+                        ng-model="vm.cbdtSchemeParameter.C031.oldValue" required />
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="form-group required">
+                <div class="col-sm-2"></div>
+                <div class="col-sm-5">
+                    <label class="control-label">Service Charges (for year April - March) for the existing BLA
+                        Accounts Rs.</label>
+                </div>
+                <div class="col-sm-2">
+                    <input type="text" class="form-control" id="spreadRate1"
+                        ng-keypress="vm.handlePercentageInput1($event);"
+                        oninput="this.value = this.value.replace(/[^0-9.]/g, '')"
+                        ng-change="vm.firstCharDotServiceRate1();vm.validatePercentageValue1('C032');"
+                        ng-model="vm.cbdtSchemeParameter.C032.oldValue" required />
+                </div>
+            </div>
+        </div>
+
+        <!--        <div class="row">-->
+        <!--            <div class="form-group required">-->
+        <!--                <div class="col-sm-2"></div>-->
+        <!--                <div class="col-sm-5">-->
+        <!--                    <label for="reportType" class="control-label">Interest Amount Rounding Factor</label>-->
+        <!--                </div>-->
+        <!--                <div class="col-sm-2">-->
+        <!--                    <select class="form-control" id="roundingFactor" name="reportType"-->
+        <!--                            ng-model="vm.cbdtSchemeParameter.C033.oldValue"-->
+        <!--                            ng-init="vm.reportType=''"  required>-->
+        <!--                        <option value="" >SELECT</option>-->
+        <!--                        <option value="R">ROUND</option>-->
+        <!--                        <option value="A">ACTUAL</option>-->
+        <!--                        <option value="C">CEIL</option>-->
+        <!--                        <option value="F">FLOOR</option>-->
+        <!--                        &lt;!&ndash;                        <option value="ALL">ALL</option>&ndash;&gt;-->
+        <!--                    </select>-->
+        <!--                </div>-->
+        <!--            </div>-->
+        <!--        </div>-->
+        <div class="row">
+            <div class="form-group required">
+                <div class="col-sm-2"></div>
+                <div class="col-sm-5">
+                    <label for="roundOff" class="control-label">Interest Amount Rounding Factor</label>
+                </div>
+                <div class="col-sm-2">
+                    <select class="form-control" id="roundOff" name="roundOff"
+                        ng-model="vm.cbdtSchemeParameter.C033.oldValue" ng-init="vm.getRoundFactList();" required>
+                        <option value="" hidden="true">Select</option>
+                        <option ng-repeat="items in vm.roundOff" value="{{items.value}}" ng-bind="items.label"></option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <!--        <div class="row">-->
+        <!--            <div class="form-group required">-->
+        <!--                <div class="col-sm-2"></div>-->
+        <!--                <div class="col-sm-5">-->
+        <!--                    <label class="control-label">Is Aadhaar Required to be captured?</label>-->
+        <!--                </div>-->
+        <!--                <td width="25%">-->
+
+        <!--                    <ng-container ng-repeat="item in vm.commonYesNoMetaData">-->
+        <!--                        <input type="radio" name="isAadharReq" id="isAadharReq{{$index}}"-->
+        <!--                               ng-model="vm.cbdtSchemeParameter.C034.oldValue" ng-value="item.value" required>{{item.label}}-->
+        <!--                    </ng-container>-->
+
+        <!--&lt;!&ndash;                    <input type="radio"    id="isAadharReqY" name="isAadharReqY"  ng-change="vm.isAadharReq= 'Y'; vm.isAadharReqN=''" ng-model="vm.isAadharReqY" ng-init="vm.isAadharReq='';"   value="Y">Yes&ndash;&gt;-->
+        <!--&lt;!&ndash;                    <input type="radio"   id="isAadharReqN" name="isAadharReqN"  ng-change="vm.isAadharReq= 'N'; vm.isAadharReqY=''" ng-model="vm.isAadharReqN" ng-init="vm.isAadharReq='';" value="N">No&ndash;&gt;-->
+        <!--                </td>-->
+        <!--            </div>-->
+        <!--        </div>-->
+
+        <!--        <div class="row">-->
+        <!--            <div class="form-group required">-->
+        <!--                <div class="col-sm-2"></div>-->
+        <!--                <div class="col-sm-5">-->
+        <!--                    <label class="control-label">Is Aadhaar Mandatory?</label>-->
+        <!--                </div>-->
+        <!--                <td width="25%">-->
+
+        <!--                    <ng-container ng-repeat="item in vm.commonYesNoMetaData">-->
+        <!--                        <input type="radio" name="isAadharMan" id="isAadharMan{{$index}}"-->
+        <!--                               ng-model="vm.cbdtSchemeParameter.C035.oldValue" ng-value="item.value" required>{{item.label}}-->
+        <!--                    </ng-container>-->
+
+        <!--&lt;!&ndash;                    <input type="radio"    id="isAadharManY" name="isAadharManY"  ng-change="vm.isAadharMan= 'Y'; vm.isAadharManN=''" ng-model="vm.isAadharManY" ng-init="vm.isAadharMan='';"  value="Y">Yes&ndash;&gt;-->
+        <!--&lt;!&ndash;                    <input type="radio"   id="isAadharManN" name="isAadharManN"  ng-change="vm.isAadharMan= 'N'; vm.isAadharManY=''" ng-model="vm.isAadharManN" ng-init="vm.isAadharMan='';" value="N">No&ndash;&gt;-->
+        <!--                </td>-->
+        <!--            </div>-->
+        <!--        </div>-->
+
+        <!--        <div class="row">-->
+        <!--            <div class="form-group required">-->
+        <!--                <div class="col-sm-2"></div>-->
+        <!--                <div class="col-sm-5">-->
+        <!--                    <label class="control-label">Is Aadhaar required to be displayed in the screen?</label>-->
+        <!--                </div>-->
+        <!--                <td width="25%">-->
+
+        <!--                    <ng-container ng-repeat="item in vm.commonYesNoMetaData">-->
+        <!--                        <input type="radio" name="isAadharDisOnScreen" id="isAadharDisOnScreen{{$index}}"-->
+        <!--                               ng-model="vm.cbdtSchemeParameter.C036.oldValue" ng-value="item.value" required>{{item.label}}-->
+        <!--                    </ng-container>-->
+        <!--                </td>-->
+        <!--            </div>-->
+        <!--        </div>-->
+
+        <div class="row">
+            <div class="form-group required">
+                <div class="col-sm-2"></div>
+                <div class="col-sm-5">
+                    <label class="control-label">Is Separate Holder ID required for each Joint holder?</label>
+                </div>
+                <td width="25%">
+                    <ng-container ng-repeat="item in vm.commonYesNoMetaData">
+                        <input type="radio" name="isSeperateHolder" id="isSeperateHolder{{$index}}"
+                            ng-model="vm.cbdtSchemeParameter.C037.oldValue" ng-value="item.value"
+                            required />{{item.label}}
+                    </ng-container>
+                </td>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group required">
+                <div class="col-sm-2"></div>
+                <div class="col-sm-5">
+                    <label class="control-label">Batch size for Interest Payment</label>
+                </div>
+                <div class="col-sm-2">
+                    <input type="text" class="form-control" id="batchSize" chars="only-numbers"
+                        ng-model="vm.cbdtSchemeParameter.C038.oldValue" minlength="1" maxlength="5" required />
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group required">
+                <div class="col-sm-2"></div>
+                <div class="col-sm-5">
+                    <label class="control-label">IGST Rate Brokerage (%)</label>
+                </div>
+                <div class="col-sm-2">
+                    <input type="text" class="form-control" id="igstRate" ng-keypress="vm.percentageCheckNew($event);"
+                        ng-change="vm.percentageCheckChange(vm.cbdtSchemeParameter.C047,'C047');"
+                        ng-model="vm.cbdtSchemeParameter.C047.oldValue" limit-to="5" oninput="
+              this.value = this.value
+                .replace(/[^0-9.]/g, '')
+                .replace(/^(\.)/g, '')
+            " required />
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group required">
+                <div class="col-sm-2"></div>
+                <div class="col-sm-5">
+                    <label class="control-label">CGST Rate For Brokerage (%)</label>
+                </div>
+                <div class="col-sm-2">
+                    <!--                    <input type="text"  class="form-control" id="handlingCharges" name="handlingCharges"-->
+                    <!--                           ng-model="vm.cbdtSchemeParameter.C030"-->
+                    <!--                           ng-change="vm.decimalConvertHandlingCharges(vm.cbdtSchemeParameter.C030);"-->
+                    <!--                           ng-pattern="/^[0-9]{1}[.]{1}[0-9]{5}$/" limit-To="7"-->
+                    <!--                           required>-->
+
+                    <input type="text" class="form-control" id="cgstRate" ng-keypress="vm.percentageCheckNew($event);"
+                        ng-change="vm.percentageCheckChange(vm.cbdtSchemeParameter.C042,'C042');"
+                        ng-model="vm.cbdtSchemeParameter.C042.oldValue" limit-to="5" required />
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group">
+                <div class="col-sm-2"></div>
+                <div class="col-sm-5">
+                    <label class="control-label">Cess Rate For Brokerage (%) </label>
+                </div>
+                <div class="col-sm-2">
+                    <input type="text" class="form-control" id="cessRate" ng-keypress="vm.percentageCheckNew($event);"
+                        ng-change="vm.percentageCheckChange(vm.cbdtSchemeParameter.C043,'C043');"
+                        ng-model="vm.cbdtSchemeParameter.C043.oldValue" limit-to="5" />
+                    <!--                           -->
+
+                    <!--                    <input type="text" inputmode="numeric" class="form-control" id="handlingCharges" ng-init="" limit-To="4" min="0"
+                    oninput="this.value =-->
+                    <!-- !!this.value && Math.abs(this.value) >= 0 ? Math.abs(this.value) : null"-->
+                    <!--                           name="maxNoOfChallan" ng-model="vm.cbdtSchemeParameter.C030" required>-->
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group required">
+                <div class="col-sm-2"></div>
+                <div class="col-sm-5">
+                    <label class="control-label">RBI Brokerage percentage (%)</label>
+                </div>
+                <div class="col-sm-2">
+                    <input type="text" class="form-control" id="rbiBrokerage"
+                        ng-keypress="vm.percentageCheckNew($event);"
+                        ng-change="vm.percentageCheckChange1('vm.cbdtSchemeParameter.C044.oldValue');vm.decimalRbiBrokerageM(vm.cbdtSchemeParameter.C044.oldValue);"
+                        ng-model="vm.cbdtSchemeParameter.C044.oldValue" limit-to="5" oninput="
+              this.value = this.value
+                .replace(/[^0-9.]/g, '')
+                .replace(/^(\.)/g, '')
+            " required />
+                    <!--                           -->
+
+                    <!--                    <input type="text" inputmode="numeric" class="form-control" id="handlingCharges" ng-init="" limit-To="4" min="0"
+                    oninput="this.value =-->
+                    <!-- !!this.value && Math.abs(this.value) >= 0 ? Math.abs(this.value) : null"-->
+                    <!--                           name="maxNoOfChallan" ng-model="vm.cbdtSchemeParameter.C030" required>-->
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group required">
+                <div class="col-sm-2"></div>
+                <div class="col-sm-5">
+                    <label class="control-label">Broker’s percentage share (%)</label>
+                </div>
+                <div class="col-sm-2">
+                    <!--                    <input type="text"  class="form-control" id="handlingCharges" name="handlingCharges"-->
+                    <!--                           ng-model="vm.cbdtSchemeParameter.C030"-->
+                    <!--                           ng-change="vm.decimalConvertHandlingCharges(vm.cbdtSchemeParameter.C030);"-->
+                    <!--                           ng-pattern="/^[0-9]{1}[.]{1}[0-9]{5}$/" limit-To="7"-->
+                    <!--                           required>-->
+
+                    <input type="text" class="form-control" id="brshare" ng-keypress="vm.percentageCheckNew($event);"
+                        ng-change="vm.percentageCheckChange1('vm.cbdtSchemeParameter.C045.oldValue');vm.decimalPercentageShareM(vm.cbdtSchemeParameter.C045.oldValue);"
+                        ng-model="vm.cbdtSchemeParameter.C045.oldValue" limit-to="5" oninput="
+              this.value = this.value
+                .replace(/[^0-9.]/g, '')
+                .replace(/^(\.)/g, '')
+            " required />
+                    <!--                           -->
+
+                    <!--                    <input type="text" inputmode="numeric" class="form-control" id="handlingCharges" ng-init="" limit-To="4" min="0"
+                    oninput="this.value =-->
+                    <!-- !!this.value && Math.abs(this.value) >= 0 ? Math.abs(this.value) : null"-->
+                    <!--                           name="maxNoOfChallan" ng-model="vm.cbdtSchemeParameter.C030" required>-->
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group required">
+                <div class="col-sm-2"></div>
+                <div class="col-sm-5">
+                    <label class="control-label">Difference Percentage with bank share (%)</label>
+                </div>
+                <div class="col-sm-2">
+                    <!--                    <input type="text"  class="form-control" id="handlingCharges" name="handlingCharges"-->
+                    <!--                           ng-model="vm.cbdtSchemeParameter.C030"-->
+                    <!--                           ng-change="vm.decimalConvertHandlingCharges(vm.cbdtSchemeParameter.C030);"-->
+                    <!--                           ng-pattern="/^[0-9]{1}[.]{1}[0-9]{5}$/" limit-To="7"-->
+                    <!--                           required>-->
+                    <label id="diffPercentageShare">{{vm.cbdtSchemeParameter.C046.oldValue}}</label>
+                    <!--<input type="text" class="form-control" id="diffshare"
+
+                           ng-keypress="vm.percentageCheckNew($event);" ng-change="vm.percentageCheckChange(vm.cbdtSchemeParameter.C046,'C046');"   ng-model="vm.cbdtSchemeParameter.C046.oldValue" limit-to="5"
+                           oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/^(\.)/g, '')" required>-->
+                    <!--                           -->
+
+                    <!--                    <input type="text" inputmode="numeric" class="form-control" id="handlingCharges" ng-init="" limit-To="4" min="0"
+                    oninput="this.value =-->
+                    <!-- !!this.value && Math.abs(this.value) >= 0 ? Math.abs(this.value) : null"-->
+                    <!--                           name="maxNoOfChallan" ng-model="vm.cbdtSchemeParameter.C030" required>-->
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="form-group">
+                <div class="col-sm-2"></div>
+                <div class="col-sm-5">
+                    <label class="control-label">Rejection Remarks</label>
+                </div>
+                <div class="col-sm-5">
+                    <label>{{(vm.auditInfo.remarks)}} </label>
+                </div>
+            </div>
+        </div>
+
+        <div class="text-center form_submit">
+            <button type="submit" class="btn btn-default" id="modifyButton"
+                ng-disabled="schemeParameterCreationForm.$invalid && vm.invalidDate!=null">
+                Submit
+            </button>
+            <button type="button" class="btn btn-cancel" id="cancelButton" onclick="
+          window.location.href = '#!/rbibond_scheme_parameter/action/modify'
+        ">
+                Cancel
+            </button>
+        </div>
+
+        <div class="text-center">
+            <notice-message-directive></notice-message-directive>
+        </div>
+    </form>
+</div>
+
+<!-- Version Details -->
+<div class="modal" id="rateCodeModal" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-bs-dismiss="modal">
+                    &times;
+                </button>
+                <h4 class="modal-title">Rate Code List</h4>
+            </div>
+            <div class="modal-body">
+                <div class="loader_popup"></div>
+                <div class="list_wrapper" ng-if="vm.interstRateCodeList.length>0">
+                    <div class="col-sm-8 form_submit">
+                        <div class="form-group">
+                            <div class="input-group">
+                                <div class="input-group-addon">
+                                    <i class="glyphicon glyphicon-search"></i>
+                                </div>
+                                <input type="text" class="form-control" ng-model="vm.versionNoSearch"
+                                    placeholder="Search" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4 form_submit"></div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <table class="table table-bordered list scroll sort">
+                                <thead ng-init="reverseOrder=true;sortedColumn = 'versionNo'">
+                                    <tr>
+                                        <th ng-click="(sortedColumn == 'versionNo')?(reverseOrder=(!reverseOrder)): (reverseOrder = false);sortedColumn = 'versionNo';"
+                                            ng-class="(sortedColumn == 'versionNo')?((reverseOrder)?('arrow-down') : ('arrow-up') ) : ('')">
+                                            Rate Code
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr class="cp"
+                                        ng-repeat="x in vm.interstRateCodeList | filter:vm.versionNoSearch | orderBy:sortedColumn:reverseOrder"
+                                        ng-click="vm.cbdtSchemeParameter.C014.oldValue = x;" data-bs-dismiss="modal">
+                                        <td>{{x}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="list_wrapper" ng-if="vm.interstRateCodeList.length==0">
+                    No records found to display.
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Treasury Details - End -->
+
+<!-- Version Details -->
+<div class="modal" id="postOfficeRateCodeModal" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-bs-dismiss="modal">
+                    &times;
+                </button>
+                <h4 class="modal-title">Rate Code List</h4>
+            </div>
+            <div class="modal-body">
+                <div class="loader_popup"></div>
+                <div class="list_wrapper" ng-if="vm.interstRateCodeList.length>0">
+                    <div class="col-sm-8 form_submit">
+                        <div class="form-group">
+                            <div class="input-group">
+                                <div class="input-group-addon">
+                                    <i class="glyphicon glyphicon-search"></i>
+                                </div>
+                                <input type="text" class="form-control" ng-model="vm.versionNoSearch"
+                                    placeholder="Search" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4 form_submit"></div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <table class="table table-bordered list scroll sort">
+                                <thead ng-init="reverseOrder=true;sortedColumn = 'versionNo'">
+                                    <tr>
+                                        <th ng-click="(sortedColumn == 'versionNo')?(reverseOrder=(!reverseOrder)): (reverseOrder = false);sortedColumn = 'versionNo';"
+                                            ng-class="(sortedColumn == 'versionNo')?((reverseOrder)?('arrow-down') : ('arrow-up') ) : ('')">
+                                            Rate Code
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr class="cp"
+                                        ng-repeat="x in vm.interstRateCodeList | filter:vm.versionNoSearch | orderBy:sortedColumn:reverseOrder"
+                                        ng-click="vm.cbdtSchemeParameter.C048.oldValue = x;" data-bs-dismiss="modal">
+                                        <td>{{x}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="list_wrapper" ng-if="vm.interstRateCodeList.length==0">
+                    No records found to display.
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Treasury Details - End -->

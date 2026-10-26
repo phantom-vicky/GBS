@@ -1,0 +1,62 @@
+<div class="loader-new" ng-if="vm.loader"></div>
+<div class="container from_wrapper new_form_wrapper">
+    <h4 class="form_heading">{{(vm.levelCode == '1')?('LINK Cell BOD for RBI Bond') : ('Collecting Branch BOD for RBI Bond') }}</h4>
+    <div class="row">
+        <sol-header></sol-header>
+    </div>
+    <div class="col-sm-6 col-sm-offset-3">
+        <form name="rbibondBodForm" role="form">
+            <div class="row margin-btm">
+                <h5 class="text-center sub-title">BOD for SolDate : {{vm.masterSolDate}}</h5>
+                <div class="map-div">
+
+                    <table class="table report-title-table">
+                        <thead>
+                        <tr>
+                            <p ng-hide="vm.processingPage">
+                                <b>Processing.......</b>
+                            </p>
+                        </tr>
+                        <tr>
+                            <p ng-hide="vm.processingPage">
+                                <b>=======================</b>
+                            </p>
+                        </tr>
+                        </thead>
+
+                        <!--	<tbody ng-if="vm.bodStatusList">
+                            <tr ng-repeat = "x in vm.bodStatusList">
+                                <td>BOD for {{x.treasuryName}} treasury level {{x.levelName}} completed successfully</td>
+                            </tr>
+                            </tbody>-->
+                        <tbody ng-if="vm.errorMessage">
+                        <tr>
+                            <p>{{vm.errorMessage}}</p>
+                        </tr>
+                        </tbody>
+
+                        <tbody>
+                        <tr>
+                            <p ng-if="vm.messageSucceed">BOD Status:{{vm.messageSucceed}}</p>
+                            <p ng-if="vm.messageSucceed=='SUCCESS'">BOD Process Completed</p>
+
+                        </tr>
+                        </tbody>
+
+                    </table>
+                </div>
+            </div>
+
+
+            <div class="text-center form_submit">
+                <button type="button" id="cancelButton" class="btn btn-cancel"
+                        ng-click="vm.navigateToPreviousState()">Back
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+<!-- Warning - End -->
+

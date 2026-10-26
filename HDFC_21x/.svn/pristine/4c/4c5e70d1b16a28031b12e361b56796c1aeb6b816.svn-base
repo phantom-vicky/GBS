@@ -1,0 +1,332 @@
+<div class="loader-new" ng-if="vm.loader"></div>
+<dc-left-menu></dc-left-menu>
+<div class="container from_wrapper new_form_wrapper" ng-if="vm.filteredRecords.length>0">
+    <sol-header></sol-header>
+    <form name="rbi_bond_centralized_trial_run" role="form">
+        <div class="row">
+            <h4 class="form_heading">Bond Centralized Interest Trial Run - Verify/Reject</h4>
+            <sol-header></sol-header>
+            <table style="width:100%" class="table table-bordered" style="padding: 10px"
+                   aria-label="Call back report name table">
+                <tr>
+                    <th scope="" style="width:25%">Name of the Bond Scheme</th>
+                    <td style="width:35%">{{vm.schemeName}}</td>
+                    <th scope="" style="width:20%">Total Count</th>
+                    <td style="width:20%">{{vm.total}}</td>
+                </tr>
+                <tr>
+                    <th scope="" style="width:25%">Year</th>
+                    <td style="width:35%">{{vm.financeyear}}</td>
+                    <th scope="" style="width:20%">Interest For HalfYear</th>
+                    <td style="width:20%">{{vm.interestForHalfYear}}</td>
+                </tr>
+            </table>
+        </div>
+        <br>
+
+
+            <!--  BASHA CODE START -->
+
+            <div class="row">
+                <div class="col-sm-3"  style="display: flex; align-items: center; justify-content: flex-end;">
+                    <div class="form-group" style="margin-right: 15px;">
+                        <div class="input-group">
+                            <input type="text" class="form-control searchButton"
+                                   ng-model="vm.searchValue" ng-init="vm.searchValue = ''"
+                                   placeholder="Search">
+                            <div class="input-group-addon">
+                                <i class="glyphicon glyphicon-search" ng-click="vm.getTdsDeductionDetail()"></i>
+                                <i class="glyphicon glyphicon-remove clear cp" ng-click="vm.searchValue = '';vm.getTdsDeductionDetail()"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-2">
+                    <select class="form-control pageDropDown" id="pageSize" name="pageSize"
+                            ng-model="vm.pageSize" ng-init="vm.pageSize='10'" ng-change="vm.pageNo='1'; vm.getTdsDeductionDetail();">
+                        <option value="10" >10 per page</option>
+                        <option value="50">50 per page</option>
+                        <option value="200">200 per page</option>
+                    </select>
+                </div>
+
+                <div class=" form-group col-lg-3">
+                    <select class="form-control"
+                            id="downloadOptions"
+                            name="export"
+                            ng-model="vm.selectedOption"
+                            ng-change="vm.getDownload(vm.schemeCode,vm.financeyear,vm.interestForHalfYear)">
+                        <option value="">EXPORT</option>
+                        <option value="UNMERGED">UNMERGED</option>
+                        <option value="MERGED">MERGED</option>
+                    </select>
+                </div>
+
+                <!--                    Pagination End-->
+            </div>
+
+            <!--BASHA CODE END -->
+        <div class="table-responsive">
+
+            <table class="table table-bordered table-striped list table-textWrap align-middle"
+                   >
+                <thead data-ng-if="!vm.noDataFoundInSearch">
+                <tr>
+                    <th colspan="2"></th>
+                    <th colspan="21" class="text-center">Basic Details From BLA cum Subscription</th>
+                    <th colspan="8" class="text-center">OTHER SCHEMES INTEREST RELATED INFO</th>
+                    <th colspan="2" class="text-center">PAN STATUS</th>
+                    <th colspan="18" class="text-center">TDS EXEMPTION DETAILS</th>
+                    <th colspan="7" class="text-center">FRSB INTEREST PAYOUT DETAILS</th>
+                </tr>
+                <tr>
+                    <th>
+                        <input type="checkbox" ng-model="vm.checkAll" ng-change="vm.toggleAllSelection()" /> Reject All
+                    </th>
+                    <th>S.No</th>
+                    <th>Mode of Payment</th>
+                    <th>Branch Ref No</th>
+                    <th>Bla No</th>
+                    <th>Ref No</th>
+                    <th>Appl Name1</th>
+                    <th>Appl Name2</th>
+                    <th>Appl Name3</th>
+                    <th>Addr1</th>
+                    <th>Addr2</th>
+                    <th>Rec Name</th>
+                    <th>Rec Parent Name</th>
+                    <th>Pin Code</th>
+                    <th>Phone No</th>
+                    <th>Appl Status</th>
+                    <th>Investment Amount</th>
+                    <th>CFD</th>
+                    <th>Mat Date</th>
+                    <th>Account No</th>
+                    <th>Subscription Count</th>
+                    <th>BankSortCode</th>
+                    <th>BankName</th>
+                    <th>PanNo</th>
+                    <th>8% interest payout</th>
+                    <th>Non Cumulative Int 8%</th>
+                    <th>Cumulative Int 8%</th>
+                    <th>7.75% interest payout</th>
+                    <th>Non Cumulative Int 7.75%</th>
+                    <th>Cumulative Int 7.75%</th>
+                    <th>8.05% interest payout</th>
+                    <th>Non Cumulative Int 8.05%</th>
+                    <th>Cumulative Int 8.05%</th>
+                    <th>Total Interest Payout</th>
+                    <th>In-operative PAN</th>
+                    <th>Non-filers</th>
+                    <th>Age</th>
+                    <th>Taxable Limit</th>
+                    <th>Waiver Document</th>
+                    <th>Waiver Document Ref No.</th>
+                    <th>RRB-TDS rate</th>
+                    <th>Threshold Exceed Amount</th>
+                    <th>Threshold Exceed TDS Amount</th>
+                    <th>Exemption Rate %</th>
+                    <th>Exemption Amount</th>
+                    <th>Exemption TDS Amount</th>
+                    <th>Surcharge %</th>
+                    <th>Edu Cess %</th>
+                    <th>Base Rate Amt</th>
+                    <th>Surcharge Amt</th>
+                    <th>Edu Cess Amt</th>
+                    <th>TDS Amount</th>
+                    <th>TDS Recovery Amount</th>
+                    <th>TDS Refund Amount</th>
+                    <th>Int_Rate</th>
+                    <th>Last Int Paid</th>
+                    <th>Pending Interest</th>
+                    <th>Current Half Yearly Interest</th>
+                    <th>Future Interest</th>
+                    <th>Gross Interest Amount</th>
+                    <th>Int Paid (Net Interest Amount)</th>
+                    <th>Payment Date</th>
+                    <th>Total Amount ToBe Paid</th>
+                </tr>
+                </thead>
+                <tbody data-ng-if="!vm.noDataFoundInSearch">
+                    <tr ng-repeat="x in vm.filteredRecords.slice((vm.currentPage-1)*vm.pageSize, vm.currentPage*vm.pageSize)">
+                        <td><input type="checkbox" ng-model="x.selected" ng-change="vm.updateSelection()" checked /></td>
+                        <td>{{$index + 1 + (vm.currentPage - 1) * vm.pageSize}}</td>
+                        <td align="center">{{ x.modeOfPayment }}</td>
+                        <td align="center">{{ x.branchRefNo }}</td>
+                        <td align="center">{{ x.blaNo }}</td>
+                        <td align="center">{{ x.refNo }}</td>
+                        <td align="center">{{ x.applName1 }}</td>
+                        <td align="center">{{ x.applName2 }}</td>
+                        <td align="center">{{ x.applName3 }}</td>
+                        <td align="center">{{ x.addr1 }}</td>
+                        <td align="center">{{ x.addr2 }}</td>
+                        <td align="center">{{ x.recName }}</td>
+                        <td align="center">{{ x.recParentName }}</td>
+                        <td align="center">{{ x.pinCode }}</td>
+                        <td align="center">{{ x.phoneNo }}</td>
+                        <td align="center">{{ x.applStatus }}</td>
+                        <td align="center">{{ x.investmentAmt }}</td>
+                        <td align="center">{{ x.cfd }}</td>
+                        <td align="center">{{ x.matDate }}</td>
+                        <td align="center">{{ x.accountNo }}</td>
+                        <td align="center">{{ x.subscriptionCount }}</td>
+                        <td align="center">{{ x.bankSortCode }}</td>
+                        <td align="center">{{ x.bankName }}</td>
+                        <td align="center">{{ x.panNo }}</td>
+                        <td align="center">{{ x.interestPayout8Percent }}</td>
+                        <td align="center">{{ x.nonCumulativeInt8 }}</td>
+                        <td align="center">{{ x.cumulativeInt8 }}</td>
+                        <td align="center">{{ x.interestPayout775Percent }}</td>
+                        <td align="center">{{ x.nonCumulativeInt775 }}</td>
+                        <td align="center">{{ x.cumulativeInt775 }}</td>
+                        <td align="center">{{ x.interestPayout805Percent }}</td>
+                        <td align="center">{{ x.nonCumulativeInt805 }}</td>
+                        <td align="center">{{ x.cumulativeInt805 }}</td>
+                        <td align="center">{{ x.totalInterestPayout }}</td>
+                        <td align="center">{{ x.inOperativePan }}</td>
+                        <td align="center">{{ x.nonFilers }}</td>
+                        <td align="center">{{ x.age }}</td>
+                        <td align="center">{{ x.taxableLimit }}</td>
+                        <td align="center">{{ x.waiverDocument }}</td>
+                        <td align="center">{{ x.waiverDocumentRefNo }}</td>
+                        <td align="center">{{ x.rrbTdsRate }}</td>
+                        <td align="center">{{ x.thresholdExceedAmount }}</td>
+                        <td align="center">{{ x.thresholdExceedTdsAmount }}</td>
+                        <td align="center">{{ x.exemptionRate }}</td>
+                        <td align="center">{{ x.exemptionAmount }}</td>
+                        <td align="center">{{ x.exemptionTdsAmount }}</td>
+                        <td align="center">{{ x.surchargePercent }}</td>
+                        <td align="center">{{ x.eduCessPercent }}</td>
+                        <td align="center">{{ x.baseRateAmt }}</td>
+                        <td align="center">{{ x.surchargeAmt }}</td>
+                        <td align="center">{{ x.eduCessAmt }}</td>
+                        <td align="center">{{ x.tdsAmount }}</td>
+                        <td align="center">{{ x.tdsRecoveryAmount }}</td>
+                        <td align="center">{{ x.tdsRefundAmount }}</td>
+                        <td align="center">{{ x.intRate }}</td>
+                        <td align="center">{{ x.lastIntPaid }}</td>
+                        <td align="center">{{ x.pendingInterest }}</td>
+                        <td align="center">{{ x.currentHalfYearlyInterest }}</td>
+                        <td align="center">{{ x.futureInterest }}</td>
+                        <td align="center">{{ x.grossInterestAmount }}</td>
+                        <td align="center">{{ x.intPaidNet }}</td>
+                        <td align="center">{{ x.paymentDate }}</td>
+                        <td align="center">{{ x.totalAmountToBePaid }}</td>
+                </tr>
+                </tbody>
+                <tbody data-ng-if="vm.noDataFoundInSearch">
+                <tr>
+                    <td style="text-align:center">No Records Found</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <!--<div style="max-height: 600px; overflow-y: auto; overflow-x: auto;">
+
+            <table class="table table-bordered table-striped list old-new-value-table">
+                <tbody>
+                <tr>
+                    <th width="50%">Rejection Remarks</th>
+                    <td width="50%">{{vm.verifyDetail.rejectionRemarks}}</td>
+                </tr>
+
+
+                </tbody>
+            </table>
+        </div>-->
+
+
+        <div class="audit-details">
+            <div class="row">
+                <div class="col-md-3">
+                </div>
+                <div class="col-md-3">
+                    <span> <b> Created On </b> : {{ vm.verifyDetail.createdDate | date : 'dd/MM/yyyy'}}</span>
+                </div>
+                <div class="col-md-3">
+                    <span> <b> Created By </b> : {{vm.verifyDetail.createdBy}} </span>
+                </div>
+                <div class="col-md-3">
+                    <span> <b> Verify Status </b> : {{vm.verifyDetail.verifiedBy  | getLabelFromValuesArray : vm.commonYesNoMetaData}}</span>
+                </div>
+            </div>
+            <br>
+            <div class="text-center form_submit">
+                <span ng-show="vm.showPrevious">
+                        <button type="submit" class="btn btn-default" ng-click="vm.goPreviousPage()">Prev
+                        </button>
+                </span>
+                <span>
+                    <button type="submit" class="btn btn-default" ng-disabled="true" ng-init="vm.pageNo=1" ng-model="vm.pageNo" ng-click="vm.paymentStatus();">{{vm.pageNo}} of {{vm.maxPages}}
+                    </button>
+                </span>
+                <span ng-show="vm.showNext">
+                        <button type="submit" class="btn btn-default" ng-click="vm.goNextPage();" >REJECT&CONTINUE
+                        </button>
+                </span>
+            </div>
+            <br>
+            <div class="text-center form_submit">
+                <button  class="btn btn-default" id="submitButton" ng-click="vm.verifySubmit();">Verify</button>
+                <button  class="btn btn-default" id="submitButton" ng-click="vm.rejectReason();"
+                >Reject</button>
+                <button type="button" class="btn btn-cancel" id="cancelButton"
+                          onclick="window.location.href= '#!/rbi_bond_centralized_trial_run/action/verify'">Cancel</button>
+            </div>
+            <div class="text-center">
+                <notice-message-directive></notice-message-directive>
+            </div>
+        </div>
+    </form>
+</div>
+<div class="modal" id="permissionMappingDelete" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-bs-dismiss="modal">&times;</button>
+                <h4 class="modal-title"> REJECTION REMARKS</h4>
+            </div>
+            <div class="modal-body">
+                <div class="loader_popup"></div>
+                <div class="list_wrapper" >
+                    <form name="permissionDelete" role="form">
+                        <div class="row">
+                            <div class="form-group">
+                                <div class="col-sm-2"></div>
+                                <label class="control-label col-sm-3">Remarks</label>
+                                <div class="col-sm-5">
+                                    <!--
+                                                                        <textarea class="form-control"   ng-keypress="vm.validateInput($event,'remarks')" id="remarks" name="remarks" ng-model="vm.remarks" maxlength="80" required></textarea>
+                                    -->
+                                    <select class="form-control list_wrapper" id="remarks[$index]" name="remarks[$index]"
+                                            ng-model="vm.remarks" ng-init="vm.getRemarksList();"   required>
+                                        <option value="">Select</option>
+                                        <option ng-repeat="item in vm.remarksList"
+                                                name="{{item.subCode + parentIndex}}" id="{{item.subCode + parentIndex}}" value="{{item.subCodeDescription}}">{{item.subCodeDescription}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-offset-5 col-sm-8 form_submit">
+                            <button type="button" class="btn btn-default" data-bs-dismiss="modal" ng-disabled="permissionDelete.$invalid" ng-click="vm.deleteSubmit()" >Submit</button>
+                            <button type="button" class="btn btn-cancel" data-bs-dismiss="modal">Cancel</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container" ng-if="vm.noDataFound">
+    <div class="list_wrapper no_records_message">
+        <h4 class="form_heading">Bond Centralized Interest Trial Run - Verify/Reject</h4>
+        No records found to display.
+        <center>
+            <button type="button" class="btn btn-default"
+                    onclick="window.location.href= '#!/rbi_bond_centralized_trial_run/action/verify'">Back
+            </button>
+        </center>
+    </div>
+</div>

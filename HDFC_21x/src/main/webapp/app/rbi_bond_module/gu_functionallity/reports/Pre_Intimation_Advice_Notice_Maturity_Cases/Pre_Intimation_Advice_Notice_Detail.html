@@ -1,0 +1,736 @@
+<div class="loader-new" data-ng-if="vm.loader"></div>
+
+<div class="container" data-ng-if="vm.model.length > 0">
+
+  <div class="container from_wrapper new_form_wrapper">
+
+    <div class="text-right form_submit">
+
+      <button type="submit"
+              class="btn btn-default"
+              onclick="window.location.href ='#!/rbibond_gu_functionality';"
+              id="homeButton">
+
+        Home
+
+      </button>
+
+      <button type="submit"
+              class="btn btn-default"
+              data-ng-click="vm.printPage($event)">
+
+        Print
+
+      </button>
+
+      <button type="button"
+              class="btn btn-cancel"
+              data-ng-click="vm.goBack()">
+        Back
+      </button>
+
+    </div>
+
+    <h4 class="form_heading">
+      Pre Intimation Advice Notice for On Maturity Cases
+    </h4>
+
+    <sol-header></sol-header>
+
+    <!-- LIST SCREEN -->
+
+    <div data-ng-hide="vm.showLetter">
+
+      <table class="table table-bordered"
+             style="padding: 10px; width: 100%"
+             aria-label="Pre Intimation Advice Notice for On Maturity Cases">
+
+        <tr>
+          <th scope="col">Name of the Bond Scheme</th>
+          <td colspan="3">{{vm.schemeName}}</td>
+        </tr>
+
+        <tr data-ng-if="vm.fromDate">
+          <th scope="col">From Transaction Date</th>
+          <td>{{vm.fromDate | date: 'dd/MM/yyyy'}}</td>
+        </tr>
+
+        <tr data-ng-if="vm.toDate">
+          <th scope="col">To Transaction Date</th>
+          <td>{{vm.toDate | date: 'dd/MM/yyyy'}}</td>
+        </tr>
+
+      </table>
+
+      <div class="row">
+
+        <div class="col-sm-6"
+             style="width:100%;
+                     display:flex;
+                     align-items:center;
+                     justify-content:flex-end">
+
+          <div class="form-group" style="margin-right: 15px;">
+
+            <div class="input-group">
+
+              <div class="input-group-addon">
+                <span class="glyphicon glyphicon-search"></span>
+              </div>
+
+              <input type="text"
+                     id="search"
+                     class="form-control"
+                     data-ng-model="vm.searchText"
+                     placeholder="Search records..." />
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+      <div class="col-sm-12">
+
+        <div class="table-responsive">
+
+          <table class="table table-bordered table-striped list nowrap table-textWrap datatable"
+                 aria-label="Pre Intimation Advice Notice for On Maturity Cases">
+
+            <thead>
+
+            <tr>
+
+              <th scope="col">S. No.</th>
+              <th scope="col">BLA No</th>
+              <th scope="col">Holder Name / First Holder Name</th>
+              <th scope="col">PAN No</th>
+              <th scope="col">Download</th>
+
+            </tr>
+
+            </thead>
+
+            <tbody>
+
+            <tr data-ng-repeat="x in vm.model | filter: vm.searchText">
+
+              <td>{{$index+1}}</td>
+
+              <td>{{x.blaNumber}}</td>
+
+              <td>{{x.nameOfHolder}}</td>
+
+              <td>{{x.panNumber}}</td>
+
+              <td>
+
+                <button type="button"
+                        class="btn btn-default"
+                        data-ng-click="vm.download(x.blaNumber, x.panNumber)">
+
+                  Download
+
+                </button>
+
+              </td>
+
+            </tr>
+
+            <tr data-ng-if="(vm.model | filter: vm.searchText).length == 0">
+
+              <td colspan="5"
+                  style="text-align:center;
+                   font-weight:bold;">
+
+                No Data Found
+
+              </td>
+
+            </tr>
+
+            </tbody>
+
+          </table>
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- PRINT SECTION -->
+
+    <div id="printSection"
+         class="letter-wrapper"
+         data-ng-show="vm.showLetter"
+         style="background:#fff;
+                    padding:30px;
+                    min-height:500px;
+                    font-family:'Times New Roman', serif;">
+
+      <div ng-repeat="data in vm.printRecords track by $index">
+        <div class="logo-placeholder-space"
+             style="height:45px;">
+
+        </div>
+
+        <div class="date"
+             style="margin-top:20px;
+                            margin-bottom:20px;
+                            font-size:17px;
+                            color:#333;">
+
+          Date: {{ vm.today | date:'dd-MMM-yyyy' }}
+
+        </div>
+
+        <div class="address-block"
+             style="margin-bottom:25px;
+                            line-height:1.5;
+                            font-size:17px;
+                            color:#222;">
+
+          To,
+          <br>
+
+          {{data.nameOfHolder}}<br>
+
+          {{data.address}}<br>
+
+          {{data.address1}}<br>
+
+          {{data.city}} - {{data.pinCode}}<br>
+
+          {{data.state}}<br>
+
+          {{data.phoneNumber}}<br>
+
+        </div>
+
+        <div class="salutation"
+             style="margin-bottom:15px;
+                            font-size:17px;">
+
+          <b>Dear Customer,</b>
+
+        </div>
+
+        <p style="font-size:17px;
+                          margin-bottom:15px;
+                          color:#333;">
+
+          <b>Greetings from HDFC Bank.</b>
+
+        </p>
+
+        <p style="font-size:17px;
+                          margin-bottom:15px;
+                          color:#333;">
+
+          Your {{ vm.formattedSchemeName.replace('Frsb', 'FRSB') }} are due for repayment.
+        </p>
+
+        <p style="font-size:17px;
+                          margin-bottom:15px;
+                          color:#333;">
+
+          Details as below:
+
+        </p>
+
+        <table style="width:100%;
+                              max-width:600px;
+                              border-collapse:collapse;
+                              margin:8px 0;
+                              font-size:17px;">
+
+          <tr>
+
+            <td style="padding:9px 12px;
+                                   border:1px solid #bbb;
+                                   font-weight:bold;
+                                   width:40%;
+                                   background-color:#fcfcfc;">
+
+              BLA No
+
+            </td>
+
+            <td style="padding:9px 12px;
+                                   border:1px solid #bbb;
+                                   color:#222;">
+
+              {{data.blaNumber}}
+
+            </td>
+
+          </tr>
+
+          <tr>
+
+            <td style="padding:9px 12px;
+                                   border:1px solid #bbb;
+                                   font-weight:bold;
+                                   background-color:#fcfcfc;">
+
+              Branch Ref No
+
+            </td>
+
+            <td style="padding:9px 12px;
+                                   border:1px solid #bbb;">
+
+              {{data.branchRefNo}}
+
+            </td>
+
+          </tr>
+
+          <tr>
+
+            <td style="padding:9px 12px;
+                                   border:1px solid #bbb;
+                                   font-weight:bold;
+                                   background-color:#fcfcfc;">
+
+              Interest Option
+
+            </td>
+
+            <td style="padding:9px 12px;
+                                   border:1px solid #bbb;">
+
+              {{data.interset}}
+
+            </td>
+
+          </tr>
+
+          <tr>
+
+            <td style="padding:9px 12px;
+                                   border:1px solid #bbb;
+                                   font-weight:bold;
+                                   background-color:#fcfcfc;">
+
+              Date of Investment
+
+            </td>
+
+            <td style="padding:9px 12px;
+                                   border:1px solid #bbb;">
+
+              {{data.investmentdate | date:'dd-MMM-yy'}}
+
+            </td>
+
+          </tr>
+
+          <tr>
+
+            <td style="padding:9px 12px;
+                                   border:1px solid #bbb;
+                                   font-weight:bold;
+                                   background-color:#fcfcfc;">
+
+              Amount Invested (Rs.)
+
+            </td>
+
+            <td style="padding:9px 12px;
+                                   border:1px solid #bbb;">
+
+              {{data.investedAmount}}
+
+            </td>
+
+          </tr>
+
+          <tr>
+
+            <td style="padding:9px 12px;
+                                   border:1px solid #bbb;
+                                   font-weight:bold;
+                                   background-color:#fcfcfc;">
+
+              Date of Maturity
+
+            </td>
+
+            <td style="padding:9px 12px;
+                                   border:1px solid #bbb;">
+
+              {{data.maturityDate | date:'dd-MMM-yy'}}
+
+            </td>
+
+          </tr>
+
+          <tr>
+
+            <td style="padding:9px 12px;
+                                   border:1px solid #bbb;
+                                   font-weight:bold;
+                                   background-color:#fcfcfc;">
+
+              Interest Amount (Rs.)
+
+            </td>
+
+            <td style="padding:9px 12px;
+                                   border:1px solid #bbb;">
+
+              {{data.interestAmount}}
+
+            </td>
+
+          </tr>
+
+          <tr>
+
+            <td style="padding:9px 12px;
+                                   border:1px solid #bbb;
+                                   font-weight:bold;
+                                   background-color:#fcfcfc;">
+
+              Total Amount (Rs.)
+
+            </td>
+
+            <td style="padding:9px 12px;
+                                   border:1px solid #bbb;">
+
+              {{data.totalAmount}}
+
+            </td>
+
+          </tr>
+
+        </table>
+
+        <div class="section-title"
+             style="font-weight:bold;
+                            margin-top:10px;
+                            margin-bottom:8px;
+                            font-size:17px;">
+
+          Repayment Process:
+
+        </div>
+
+        <div style="font-size:17px;
+                            color:#222;
+                            line-height:1.35;">
+
+          <div style="display:flex;
+                                align-items:flex-start;
+                                margin-bottom:14px;">
+
+            <div style="width:28px;
+                                    min-width:28px;
+                                    font-size:17px;
+                                    line-height:1.4;">
+
+              1.
+
+            </div>
+
+            <div style="flex:1;
+                                    text-align:justify;">
+
+              <strong>Automatic Redemption:</strong>
+
+              As per Regulation 24 of Government Securities Regulations 2007,
+              if you have already provided your bank account details,
+              your investment will be automatically redeemed,
+              and the proceeds will be credited to your bank account
+              on the maturity date.
+
+              <br>
+
+              • <strong>Bank Account Details:</strong>
+
+              A/c No: 01461050196026, HDFC BANK LTD
+
+            </div>
+
+          </div>
+
+          <div style="display:flex;
+                                align-items:flex-start;
+                                margin-bottom:14px;">
+
+            <div style="width:28px;
+                                    min-width:28px;
+                                    font-size:17px;
+                                    line-height:1.4;">
+
+              2.
+
+            </div>
+
+            <div style="flex:1;
+                                    text-align:justify;">
+
+              <strong>Bank Account Details Needed:</strong>
+
+              If you have not provided your bank account details,
+              please fill and submit the enclosed mandate form
+              (ANNEXURE 1B) certified by your bank.
+
+            </div>
+
+          </div>
+
+          <div style="display:flex;
+                                align-items:flex-start;
+                                margin-bottom:14px;">
+
+            <div style="width:28px;
+                                    min-width:28px;
+                                    font-size:17px;
+                                    line-height:1.4;">
+
+              3.
+
+            </div>
+
+            <div style="flex:1;
+                                    text-align:justify;">
+
+              <strong>PAN/GIR Details:</strong>
+
+              If the repayment amount exceeds Rs. One lakh,
+              please provide your PAN / GIR number
+              or submit Form No 60 if you do not have
+              a PAN / GIR number.
+
+            </div>
+
+          </div>
+
+          <div style="display:flex;
+                                align-items:flex-start;
+                                margin-bottom:14px;">
+
+            <div style="width:28px;
+                                    min-width:28px;
+                                    font-size:17px;
+                                    line-height:1.4;">
+
+              4.
+
+            </div>
+
+            <div style="flex:1;
+                                    text-align:justify;">
+
+              <strong>No Post-Maturity Interest:</strong>
+
+              Please note that no interest will be paid
+              on the investment after the maturity date.
+
+            </div>
+
+          </div>
+
+        </div>
+
+        <div style="margin-top:20px;
+                            font-size:17px;
+                            color:#222;">
+
+          <strong>Send by Post:</strong>
+
+          Complete the attached Annexure 1 B form
+          (<strong>signed by all bond holders</strong>)
+          and mail it to:
+
+          <br>
+
+          <strong>HDFC Bank Ltd.</strong>
+
+          <br><br>
+
+          CMS-GOI Bonds, 2nd Floor, Zone 1<br>
+
+          GKS Technology Park<br>
+
+          No. 94, SP Estate Bus Stand<br>
+
+          Wavin Main Road, Mogappair<br>
+
+          Chennai - 600058<br>
+<br>
+          Customer service desk number : 044-69129917
+
+        </div>
+
+        <div class="footer"
+             style="margin-top:35px;
+                            font-size:17px;
+                            color:#222;">
+
+          <p>
+
+            We assure you the best of our services.
+
+          </p>
+
+          <p>
+
+            Warm Regards,<br>
+
+            HDFC Bank Ltd.
+
+          </p>
+
+          <div style="text-align:center;
+                                margin-top:30px;">
+
+            (This is system generated letter and does not require signature)
+
+          </div>
+
+        </div>
+
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+<div class="container" data-ng-if="vm.noDataFound">
+  <div class="list_wrapper no_records_message">
+    <h4 class="form_heading">Pre Intimation Advice Notice for On Maturity Cases</h4>
+    No records found to display.
+    <div style="text-align: center">
+      <button type="button" class="btn btn-default"               onclick="window.location.href= '#!/Pre_Intimation_Advice_Notice_Maturity_Cases/action/inquiry';">Back</button>
+    </div>
+  </div>
+</div>
+
+
+
+
+<style>
+  /* --- UI / Screen Styling --- */
+  .from_wrapper {
+      width: 100%;
+      background: #eef1f4;
+      padding: 15px;
+      overflow: hidden;
+  }
+
+  .letter-wrapper {
+      width: 100%;
+      background: #eef1f4;
+      padding: 10px 0;
+  }
+
+  table {
+      width: 100%;
+      border-collapse: collapse;
+  }
+
+  table td,
+  table th {
+      vertical-align: top;
+  }
+
+  /* --- PRINT SPECIFIC STYLING --- */
+  @media print {
+      /* Hide everything else on the screen except the print section */
+      body * {
+          visibility: hidden;
+      }
+
+      #printSection,
+      #printSection * {
+          visibility: visible;
+      }
+
+      #printSection {
+          position: absolute;
+          left: 0;
+          top: 0;
+          width: 100%;
+          background: #fff !important;
+          margin: 0 !important;
+          padding: 0 !important;
+      }
+
+      /* CRITICAL: Forces each ng-repeat record block to start on a brand new page */
+      #printSection > div {
+          page-break-after: always;
+          break-after: page;
+          page-break-inside: avoid;
+          break-inside: avoid;
+          box-sizing: border-box;
+          width: 100%;
+          height: 100%;
+          padding: 5mm 10mm !important; /* Standard safe margins for A4 printing */
+      }
+
+      /* Optimize text density so content comfortably fits single-page limits */
+      #printSection p,
+      #printSection div,
+      #printSection span,
+      #printSection td,
+      #printSection th,
+      #printSection .salutation,
+      #printSection .address-block,
+      #printSection .date,
+      #printSection .section-title,
+      #printSection .footer {
+          font-size: 13.5px !important; /* Slightly reduced from screen to guarantee single-page fit */
+          line-height: 1.3 !important;
+          margin-top: 0 !important;
+          margin-bottom: 8px !important;
+      }
+
+      /* Tighter spacing for the tables during print */
+      #printSection table {
+          margin: 8px 0 !important;
+          font-size: 13.5px !important;
+      }
+
+      #printSection table td,
+      #printSection table th {
+          padding: 5px 8px !important;
+      }
+
+      /* Spacing fine-tuning for structured layout sections */
+      .address-block {
+          margin-bottom: 12px !important;
+          line-height: 1.3 !important;
+      }
+
+      .logo-placeholder-space {
+          height: 30px !important; /* Slightly reduced logo gap */
+      }
+
+      .footer {
+          margin-top: 15px !important;
+      }
+
+      /* Form controls and headers hidden safely */
+      .form_submit,
+      .form_heading,
+      sol-header,
+      .loader-new {
+          display: none !important;
+      }
+
+      /* Page margins setups */
+      @page {
+          size: A4;
+          margin: 0; /* Handled gracefully via internal record padding */
+      }
+  }
+</style>

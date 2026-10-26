@@ -1,0 +1,269 @@
+<div class="loader-new" ng-if="vm.loader"></div>
+<dc-left-menu></dc-left-menu>
+<div class="container from_wrapper new_form_wrapper" >
+    <h4 class="form_heading">Bond Acknowledgement Receipt  - Add</h4>
+    <sol-header></sol-header>
+    <div >
+        <form name="accountOpeningForm" role="form" ng-init="vm.getModuleName();">
+            <div class="form-group">
+                <table class="table table-bordered" style="margin-bottom : 0px !important">
+                    <tbody>
+                    <tr>
+                        <td width="25%" class="form-group"><label
+                                class="control-label">Name of the Module</label></td>
+                        <td width="25%"><label
+                                for="transactionMode" class="control-label">RBI Bond</label></td>
+                        <td width="25%" class="form-group required"><label class="contol-label">Name of the Bond Scheme</label></td>
+                        <td width="25%">
+                            <select class="form-control" id="schemeCode" name="schemCode"
+                                    ng-model="vm.bondAckRec.schemeCode" required>
+                                <option value="">Select</option>
+                                <option ng-repeat="item in vm.schemeListMetaData"  value="{{item.subCode}}">{{item.subCodeDescription}}</option>
+                            </select>
+                        </td>
+                    <tr>
+                        <td width="25%" class="form-group">
+                            <label class="control-label">Transaction Date</label>
+                        </td>
+                        <td width="25%">
+                            <label class="data-bind">{{ vm.currentDate }}</label>
+                        </td>
+                        <td width="25%" class="form-group">
+                            <label class="control-label">Broker ID</label>
+                        </td>
+                        <td width="25%">
+                            <div class="col-sm-8">
+                                <input type="text" class="form-control" id="cusId"
+                                       ng-model="vm.bondAckRec.brokerID"  readonly>
+                            </div>
+                            <div class="col-sm-4">
+                                <i class="glyphicon glyphicon-search cp" data-bs-toggle="modal"
+                                   id="treasurySearch"
+                                   ng-click="vm.getBrokerId();vm.searchSolId='';"></i> <i
+                                    class="glyphicon glyphicon-remove clear cp"
+                                    ng-click="vm.bondAckRec.brokerID ='';"></i>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td width="25%" class="form-group required"><label
+                                class="control-label">Bond Holder Name	</label></td>
+                        <td width="25%" class="text-left">
+                            <input type="text" class="form-control" id="tranSolId"
+                                   name="bondHolderName"
+                                   ng-model="vm.bondAckRec.bondHolderName"
+                                   required
+                            ></td>
+                         <td width="25%" class="form-group required"><label
+                                for="transactionMode" class="control-label">Transaction Mode</label></td>
+                        <td width="25%">
+                            <select class="form-control" id="transactionMode"
+                                    name="transactionMode"
+                                    ng-model="vm.bondAckRec.transactionMode"
+                                    ng-init="vm.getTransCommonMetaData();"
+                                    ng-change="vm.bondAckRec.debitAccNo='';vm.bondAckRec.branchId='';vm.bondAckRec.instrumentType='';vm.bondAckRec.InsNo='';vm.errorMsgForInstrumentNumber='';vm.cbsErrorMessage=''"
+                                    required>
+                                <option value="" hidden="true">Select Transaction Mode</option>
+                                <option
+                                        ng-repeat="item in vm.tranDetailList"
+                                        value="{{item.SUBCODE}}">{{item.DESCRIPTION}}</option>
+                            </select>
+                        </td>
+
+                    </tr>
+                    <tr>
+                        <td width="25%" class="form-group required"><label
+                                class="control-label">Debit Account Number	</label></td>
+                        <td width="25%" class="text-left">
+
+                            <input type="text" class="form-control" id="debitAccNo"
+                                   name="debitAccNo" ng-blur="vm.validateAccNumCbsM(vm.bondAckRec.debitAccNo);"
+                                   ng-if="vm.bondAckRec.transactionMode !='C' " ng-model="vm.bondAckRec.debitAccNo"
+                                   required
+                            >
+                            <span class="alert-danger" ng-if="vm.cbsErrorMessage && vm.bondAckRec.transactionMode !='C' ">{{vm.cbsErrorMessage}}</span>
+
+                        </td>
+                       <td width="25%" class="form-group required">
+                            <label
+                                    class="control-label">Branch ID</label>
+                        </td>
+                        <td width="25%">
+                            <input type="text" class="form-control" id="branchId"
+                                   name="branchId"
+                                   ng-model="vm.bondAckRec.branchId"
+                                   readonly
+                            >
+                        </td>
+                   </tr>
+                    <tr>
+                        <td width="25%" class="form-group required"><label
+                                class="control-label">Instrument Type</label></td>
+                        <td width="25%" class="text-left" ng-init="vm.bondAckRec.transactionMode ='';">
+                            <div ng-if="vm.bondAckRec.transactionMode !='C' && vm.bondAckRec.transactionMode !='CL' ">
+                            <select class="form-control" id="instrumentType"
+                                    name="instrumentType"
+                                    ng-model="vm.bondAckRec.instrumentType"
+                                    required>
+                                <option value="" hidden="true">Select Instrument Type</option>
+                                <option value="Cheque" ng-if="vm.bondAckRec.transactionMode == 'T' ||vm.bondAckRec.transactionMode == 'CL'  ">CHQ</option>
+                                <option value="DD" ng-if="vm.bondAckRec.transactionMode == 'CL'">DD</option>
+                            </select>
+                            </div>
+                        </td>
+                        <td width="25%" class="form-group required"><label
+                                class="control-label">Instrument Number</label></td>
+                          <td> <div ng-if="vm.bondAckRec.transactionMode !='C' "> <input type="text" class="form-control"  ng-if="vm.bondAckRec.instrumentType != ''" id="InsNo" name="InsNo" chars="only-numbers"
+                                   maxlength="6" minlength="1" ng-click="vm.InsNum()" ng-change="vm.bondAckRec.amount ='';"   ng-blur="vm.validateInstNum(vm.bondAckRec.InsNo,vm.bondAckRec.debitAccNo);"
+                                   ng-model="vm.bondAckRec.InsNo"  required>
+                            <span class="alert-danger" ng-if="vm.errorMsgForInstrumentNumber"  ng-show="vm.errorMsgForInstrumentNumber">Enter valid Instrument Number!..</span>
+                          </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td width="25%" class="form-group required"><label
+                                class="control-label"> Instrument Date (dd/mm/yyyy)</label></td>
+                        <td width="25%" class="text-left" >
+                            <div ng-if="vm.bondAckRec.transactionMode !='C'">
+                                <p class="input-group">
+                                    <input type="text" class="form-control" id="InsDate"
+                                           name="InsDate"
+                                           ng-model="vm.InsDate"
+                                           uib-datepicker-popup="dd/MM/yyyy"
+                                           datepicker-options="vm.InsDateOptions"
+                                           is-open="vm.InsDateOptions.opened"
+                                           close-text="Close" maxlength="10" required
+                                           ng-blur="vm.textableDatePicker('InsDate',vm.InsDate)"
+                                           ng-keyup="vm.autoslashing('InsDate')" chars="numbers-slash"
+                                    >
+                                    <span class="input-group-btn">
+                            <button type="button" class="btn btn-secondary"
+                                    ng-click="vm.InsDateOptions.opened = true"
+                                    id="InsDateOptions">
+                                <i class="glyphicon glyphicon-calendar"></i>
+                            </button>
+                        </span>
+                                </p>
+                            </div>
+
+                        </td>
+                        <td width="25%" class="form-group required" ><label
+                                class="control-label">Amount</label></td>
+                        <td width="25%">
+                            <input type="text" class="form-control" id="amt"
+                                   name="amt"
+                                   ng-model="vm.bondAckRec.amount" required>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td width="25%" class="form-group"><label
+                                class="control-label">Delivery Date</label></td>
+                        <td width="25%" class="text-left" >
+                            <div class="">
+                                <p class="input-group">
+                                    <input type="text" class="form-control" id="delDate"
+                                           name="delDate"
+                                           ng-model="vm.bondAckRec.delDate"
+                                           uib-datepicker-popup="dd/MM/yyyy"
+                                           datepicker-options="vm.deliveryDateOptions"
+                                           is-open="vm.deliveryDateOptions.opened"
+                                           close-text="Close" maxlength="10"
+                                           ng-blur="vm.textableDatePicker('delDate',vm.bondAckRec.delDate)"
+                                           ng-keyup="vm.autoslashing('delDate')" chars="numbers-slash"
+                                    >
+                                    <span class="input-group-btn">
+                            <button type="button" class="btn btn-secondary"
+                                    ng-click="vm.deliveryDateOptions.opened = true"
+                                    id="deliveryDateOptions">
+                                <i class="glyphicon glyphicon-calendar"></i>
+                            </button>
+                        </span>
+                                </p>
+                            </div>
+
+                        </td>
+                        <td width="25%" class="form-group">
+                            <label
+                                    class="control-label">Remarks</label>
+                        </td>
+                        <td width="25%">
+                            <input type="text" class="form-control" id="remarks"
+                                   name="remarks"
+                                   ng-model="vm.bondAckRec.remarks">
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="text-center form_submit">
+                <div class="text-center form_submit">
+                    <button type="submit" class="btn btn-default" id="submitButton"
+                            ui-sref="rbi_bond_ack_receipt.add_detail({obj:{
+
+								bondAckRec: vm.bondAckRec,
+								}})"
+                            ng-disabled="accountOpeningForm.$invalid || vm.errorMsgForInstrumentNumber || vm.cbsErrorMessage">Submit</button>
+
+                <button type="button" class="btn btn-cancel" id="cancelButton"
+                        onclick="window.location.href= '#!/rbi_bond_ack_receipt/action/inquiry';">Cancel</button>
+            </div>
+        </form>
+    </div>
+    <div class="text-center">
+        <notice-message-directive></notice-message-directive>
+    </div>
+</div>
+<!-- brokerIdModel Code Details -->
+<div class="modal" id="brokerIdModel" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-bs-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Broker Id</h4>
+            </div>
+            <div class="modal-body">
+                <div class="loader_popup"></div>
+                <div class="list_wrapper" ng-if="vm.brokerIdList.length>0">
+                    <div class="col-sm-8 form_submit">
+                        <div class="form-group">
+                            <div class="input-group">
+                                <div class="input-group-addon">
+                                    <i class="glyphicon glyphicon-search"></i>
+                                </div>
+                                <input type="text" class="form-control"
+                                       ng-model="vm.searchSolId" ng-init="vm.searchSolId = ''"
+                                       placeholder="Search">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4 form_submit"></div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <table class="table table-bordered list scroll sort">
+                                <thead ng-init="reverseOrder=false;sortedColumn = 'schemeCodeName'">
+                                <tr>
+                                    <th ng-click="(sortedColumn == 'branchId')?(reverseOrder=(!reverseOrder)): (reverseOrder = false);sortedColumn = 'branchId';" ng-class="(sortedColumn == 'bondHolderName')?((reverseOrder)?('arrow-down') : ('arrow-up') ) : ('')">Branch Id</th>
+                                    <th ng-click="(sortedColumn == 'bankAgencyCode')?(reverseOrder=(!reverseOrder)): (reverseOrder = false);sortedColumn = 'bankAgencyCode';" ng-class="(sortedColumn == 'bankAgencyCode')?((reverseOrder)?('arrow-down') : ('arrow-up') ) : ('')">Bank Agency Code</th>
+                                    <th ng-click="(sortedColumn == 'borkerName')?(reverseOrder=(!reverseOrder)): (reverseOrder = false);sortedColumn = 'borkerName';" ng-class="(sortedColumn == 'borkerName')?((reverseOrder)?('arrow-down') : ('arrow-up') ) : ('')">Broker Name</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr class="cp"
+                                    ng-repeat="x in vm.brokerIdList | filter:vm.searchSolId | orderBy:sortedColumn:reverseOrder"
+                                    ng-click="vm.bondAckRec.brokerID =x.bankAgencyCode;" data-bs-dismiss="modal">
+                                    <td>{{x.branchId}}</td>
+                                    <td>{{x.bankAgencyCode}}</td>
+                                    <td>{{x.borkerName}}</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="list_wrapper" ng-if="vm.brokerIdList.length==0">No records found to display.</div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- brokerIdModel - End -->

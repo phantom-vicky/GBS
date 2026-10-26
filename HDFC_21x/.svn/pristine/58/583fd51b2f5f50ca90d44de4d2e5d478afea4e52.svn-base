@@ -1,0 +1,171 @@
+<div class="loader-new" ng-if="vm.loader"></div>
+<cbs-left-menu></cbs-left-menu>
+<div class="container from_wrapper new_form_wrapper">
+	<h4 class="form_heading  feature-heading">Instrument Details - Verify</h4>
+	<form name="instrumentDetailsForm" role="form">
+
+		<div class="row">
+			<div class="form-group">
+				<div class="col-sm-3"></div>
+				<div class="col-sm-3 required">
+					<label for="drCrIndicator" class="control-label">Debit or
+						Credit Indicator</label>
+				</div>
+				<div class="col-sm-3">
+					<select class="form-control" id="drCrIndicator"
+							name="drCrIndicator" ng-model="vm.instrumentDetails.drCrIndicator1"
+							required>
+						<option ng-selected="{{vm.instrumentDetails.drCrIndicator1 == ''}}"
+								value="">Select</option>
+						<option
+								ng-selected="{{vm.instrumentDetails.drCrIndicator1 == 'C'}}"
+								value="C">Credit</option>
+						<option
+								ng-selected="{{vm.instrumentDetails.drCrIndicator1 == 'D'}}"
+								value="D">Debit</option>
+					</select>
+
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="form-group">
+				<div class="col-sm-3"></div>
+				<div class="col-sm-3 required">
+					<label for="instrumentType" class="control-label">Type of
+						Instrument</label>
+				</div>
+				<div class="col-sm-3">
+					<select class="form-control" id="instrumentType"
+							name="instrumentType"
+							ng-init="vm.getInstrumentTypes();vm.instrumentDetails.instrumentType = vm.typeOfInstrumentList[0]"
+							ng-model="vm.instrumentDetails.instrumentType" ng-change="vm.getVerDelDetails()"    required>
+						<option
+								ng-selected="{{vm.instrumentDetails.instrumentType == ''}}"
+								value="">Select</option>
+						<option ng-selected="{{x == vm.instrumentDetails.instrumentType}}"
+								ng-repeat="(x,y) in vm.typeOfInstrumentList" value="{{x}}">{{y}}</option>
+					</select>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="form-group">
+				<div class="col-sm-3"></div>
+				<div class="col-sm-3 required">
+					<label for="schemeCode" class="control-label">Scheme Code</label>
+				</div>
+				<div class="col-sm-3">
+					<input type="text" class="form-control" name="schemeCode"
+						   id="schemeCode" ng-model="vm.result.schemeCode"
+						   maxlength="5" chars="alpha-numeric" readonly required>
+				</div>
+			</div>
+		</div>
+		<div class="col-sm-6 col-sm-offset-3">
+			<div class="row" ng-if="vm.result.schemeCode">
+				<table class="table table-bordered table-striped list old-new-value-table">
+					<thead>
+					<tr>
+						<th width="50%">Particular</th>
+						<th width="25%">{{(vm.result.prevOperationType == 'M')?('Old Value'): ('Value')}}</th>
+						<th width="25%" ng-if="vm.result.previousOperationType == 'M'">New Value</th>
+					</tr>
+					</thead>
+					<tbody>
+					<tr>
+						<td>Additional Text1</td>
+						<td class="old-value">{{(vm.oldNewValueList && vm.oldNewValueList.C005)?
+							(vm.oldNewValueList.C005.oldValue) : ('')}}
+						</td>
+						<td class="new-value" ng-if="vm.result.prevOperationType == 'M'">{{vm.oldNewValueList &&
+							vm.oldNewValueList.C005? (vm.oldNewValueList.C005.newValue) : ('')}}
+						</td>
+					</tr>
+					<tr>
+						<td>Additional Text2</td>
+						<td class="old-value">{{(vm.oldNewValueList && vm.oldNewValueList.C006)?
+							(vm.oldNewValueList.C006.oldValue) : ('')}}
+						</td>
+						<td class="new-value" ng-if="vm.result.prevOperationType == 'M'">{{vm.oldNewValueList &&
+							vm.oldNewValueList.C006? (vm.oldNewValueList.C006.newValue) : ('')}}
+						</td>
+					</tr>
+					<tr>
+						<td>Additional Text3</td>
+						<td class="old-value">{{(vm.oldNewValueList && vm.oldNewValueList.C007)?
+							(vm.oldNewValueList.C007.oldValue) : ('')}}
+						</td>
+						<td class="new-value" ng-if="vm.result.prevOperationType == 'M'">{{vm.oldNewValueList &&
+							vm.oldNewValueList.C007? (vm.oldNewValueList.C007.newValue) : ('')}}
+						</td>
+					</tr>
+
+					</tbody>
+				</table>
+			</div>
+
+		</div>
+
+
+
+		<div class="col-sm-12">
+			<div class="audit-details" ng-if="vm.result.schemeCode">
+				<div class="row">
+					<div class="col-md-3">
+						<span>
+							<b> Created By </b> : {{vm.result.createdBy}}
+						</span>
+					</div>
+					<div class="col-md-3">
+						<span>
+							<b> Last Modified By </b> : {{(vm.result.modifiedBy) ? (vm.result.modifiedBy) : ('None')}}
+						</span>
+					</div>
+					<div class="col-md-3">
+						<span>
+							<b> Last Verified By </b> : {{(vm.result.verifiedBy) ? (vm.result.verifiedBy) : ('None')}}
+						</span>
+					</div>
+					<div class="col-md-3">
+						<span>
+							<b> Verify Status </b> : {{vm.result.verifiedStatus  | getLabelFromValuesArray : vm.commonYesNoMetaData}}
+						</span>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-3">
+						<span>
+							<b> Created On </b> : {{ vm.result.createdDate1 | date : 'dd/MM/yyyy'}}
+						</span>
+					</div>
+					<div class="col-md-3">
+						<span>
+							<b> Last Modified On</b> : {{ (vm.result.modifiedDate1) ? (vm.result.modifiedDate1 | date : 'dd/MM/yyyy') : ('None')}}
+						</span>
+					</div>
+					<div class="col-md-3">
+						<span>
+							<b> Last Verified On </b> : {{(vm.result.verifiedDate1) ? (vm.result.verifiedDate1 | date : 'dd/MM/yyyy') : ('None')}}
+						</span>
+					</div>
+					<div class="col-md-3"></div>
+				</div>
+			</div>
+
+
+			<div class="text-center form_submit">
+				<button type="button" class="btn btn-default" id="submitButton"
+						ng-click="vm.verify()" ng-disabled="instrumentDetailsForm.$invalid">Verify</button>
+				<button type="button" class="btn btn-cancel" id="cancelButton"
+						ui-sref="instrument_details.list">Cancel</button>
+			</div>
+		</div>
+
+	</form>
+</div>
+
+
+
+
+

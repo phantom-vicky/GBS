@@ -1,0 +1,33 @@
+<div class="atss atss-right">
+	<li id="left-menu-add"  class="left-menu-item"><a href="#"><div>
+				<span>Add</span><i class="glyphicon glyphicon-plus" aria-hidden="true"></i>
+			</div></a></li>
+	<li id="left-menu-upload" class="left-menu-item"><a href="#"><div>
+				<span>Upload</span><i class="glyphicon glyphicon-upload" aria-hidden="true"></i>
+			</div></a></li>
+	<li id="left-menu-modify" class="left-menu-item"><a href="#"><div>
+				<span>Modify</span><i class="glyphicon glyphicon-edit"
+					aria-hidden="true"></i>
+			</div></a></li>
+	<li id="left-menu-verify" class="left-menu-item"><a href="#"><div>
+				<span>Verify/Reject</span><i class="glyphicon glyphicon-ok" aria-hidden="true"></i>
+			</div></a></li>
+<!--	<li id="left-menu-delete" class="left-menu-item"><a href="#"><div>-->
+<!--				<span>Delete</span><i class="glyphicon glyphicon-remove" aria-hidden="true"></i>-->
+<!--			</div></a></li>-->
+	<li id="left-menu-inquiry" class="left-menu-item"><a href="#"><div>
+				<span>Inquiry</span> <i class="glyphicon glyphicon-search" aria-hidden="true"></i>
+			</div></a></li>
+	<li id="left-menu-bulkadd"  class="left-menu-item"><a href="#"><div>
+		<span>BulkAdd</span><i class="glyphicon glyphicon-plus" aria-hidden="true"></i>
+	</div></a></li>
+	<li id="left-menu-bulkverify" class="left-menu-item"><a href="#"><div>
+		<span>BulkVerify</span><i class="glyphicon glyphicon-ok" aria-hidden="true"></i>
+	</div></a></li>
+	<li id="left-menu-download" class="left-menu-item"><a href="#"><div>
+		<span>Download</span><i class="glyphicon glyphicon-download" aria-hidden="true"></i>
+	</div></a></li>
+   <!-- <li id="left-menu-api" class="left-menu-item"><a href="#"><div>
+        <span>Api</span> <i class="glyphicon glyphicon-plus" aria-hidden="true"></i>
+    </div></a></li>-->
+</div>

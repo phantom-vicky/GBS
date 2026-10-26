@@ -1,0 +1,345 @@
+<div class="loader-new" data-ng-if="vm.loader"></div>
+<div class="container from_wrapper new_form_wrapper">
+  <h4 class="form_heading">Bond Interest not Credited Report</h4>
+  <sol-header></sol-header>
+  <form name="BondInterestNotCreditedForm" role="form">
+
+
+    <div class="row">
+      <div class="form-group">
+        <div class="col-sm-3"></div>
+        <div class="col-sm-3">
+          <label class="control-label">Name of the Module</label>
+        </div>
+        <div class="col-sm-5">
+          <label><b>RBI Bond</b></label>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="form-group required">
+        <div class="col-sm-3"></div>
+        <div class="col-sm-3"><label for="moduleName" class="control-label">Name of the Bond Scheme</label></div>
+        <div class="col-sm-2">
+          <input type="text" class="form-control" id="moduleName" data-ng-model="vm.schemeName" readonly required />
+        </div>
+        <div class="col-sm-2" style="display: flex; align-items: center; height: 34px; gap: 5px; padding-left: 0">
+          <span class="glyphicon glyphicon-search cp" data-bs-toggle="schemeName" id="treasurySearch" data-ng-click="vm.getSchemeName();"></span>
+          <span class="glyphicon glyphicon-remove clear cp" data-ng-click="vm.schemeCode ='';vm.schemeName='';vm.holderName=''; vm.panNumber='';vm.blaNumber='';vm.interestPaymentFor='';vm.financialYear='';"></span>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="form-group">
+        <div class="col-sm-3"></div>
+        <div class="col-sm-3">
+          <label class="control-label">Interest Payment For</label>
+        </div>
+        <div class="col-sm-2">
+          <select class="form-control" id="interestForHalfYear" name="interestForHalfYear"
+                  ng-model="vm.interestForHalfYear"  ng-disabled="!vm.schemeCode"
+                  required>
+            <option value="" hidden="true">Select</option>
+            <option ng-repeat="items in vm.interestHalfYearList" value="{{items.interestForHalfYear}}" ng-bind="items.interestForHalfYear"></option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+
+
+
+
+    <div class="row">
+      <div class="form-group">
+        <div class="col-sm-3"></div>
+        <div class="col-sm-3"><label for="holderName" class="control-label">Name</label></div>
+        <div class="col-sm-2">
+          <input type="text" maxlength="50" class="form-control" id="holderName" name="holderName" data-ng-model="vm.holderName" oninput="this.value = this.value.replace(/^\s+/, '').replace(/[^a-zA-Z\s]/g, '').replace(/\s{2,}/g, ' ')" />
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="form-group">
+        <div class="col-sm-3"></div>
+        <div class="col-sm-3"><label for="panNumber" class="control-label">PAN No</label></div>
+        <div class="col-sm-2">
+          <input
+            type="text"
+            class="form-control"
+            id="panNumber"
+            data-ng-model="vm.panNumber"
+            data-ng-init="vm.panNumber= ''; "
+            data-chars="alpha-numeric"
+            minlength="4"
+            maxlength="10"
+            oninput="this.value = this.value.replace(/\s+/g, '').replace(/[^a-zA-Z0-9]/g, '')"
+          />
+        </div>
+
+        <div class="col-sm-2" style="display: flex; align-items: center; height: 34px; gap: 5px; padding-left: 0" data-ng-if="vm.panNumber || vm.holderName && vm.schemeName">
+          <span class="glyphicon glyphicon-search cp" data-bs-toggle="modal" id="panTreasurySearch" data-ng-click="vm.getPanNumber();"></span>
+          <span class="glyphicon glyphicon-remove clear cp" data-ng-click="vm.panNumber =''; vm.blaNumber =''; vm.holderName=''"></span>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="form-group">
+        <div class="col-sm-3"></div>
+        <div class="col-sm-3"><label for="BLA No" class="control-label">BLA No</label></div>
+        <div class="col-sm-2">
+          <p class="input-group">
+            <input type="text" class="form-control" id="BLA No" data-ng-model="vm.blaNumber" maxlength="14" oninput="this.value = this.value.replace(/[^a-zA-Z0-9]/g, '')" />
+          </p>
+        </div>
+        <div class="col-sm-2" style="display: flex; align-items: center; height: 34px; gap: 5px; padding-left: 0" data-ng-if="vm.panNumber || vm.blaNumber && vm.schemeName">
+          <span class="glyphicon glyphicon-search cp" data-bs-toggle="modal" id="BLATreasurySearch" data-ng-click="vm.getBlaNumber();"></span>
+          <span class="glyphicon glyphicon-remove clear cp" data-ng-click="vm.blaNumber ='';"></span>
+        </div>
+      </div>
+    </div>
+
+    <div class="row" data-ng-init="vm.getFinancialYears()">
+      <div class="form-group">
+        <div class="col-sm-3"></div>
+        <div class="col-sm-3">
+          <label class="control-label">Financial Year</label>
+        </div>
+        <div class="col-sm-2">
+          <select class="form-control" id="financial-year" name="financial-year" data-ng-model="vm.financialYear">
+            <option value="" disabled selected>Select</option>
+            <option data-ng-repeat="year in vm.financialYears" value="{{year.financialYear}}" data-ng-bind="year.financialYear"></option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <div class="text-center form_submit">
+      <button
+        type="submit"
+        id="submitButton"
+        class="btn btn-default"
+        data-ui-sref="rbiBond_bond_interest_not_credited_report.inquiry_detail({obj:{
+                        schemeCode          : vm.schemeCode,
+                        schemeName          : vm.schemeName,
+                        interestPaymentFor  : vm.interestForHalfYear,
+                        holderName          : vm.holderName,
+                        panNumber           : vm.panNumber,
+                        blaNumber           : vm.blaNumber,
+                        financialYear       : vm.financialYear,
+                        }})"
+        data-ng-disabled="BondInterestNotCreditedForm.$invalid"
+      >
+        Submit
+      </button>
+      <button type="button" class="btn btn-cancel" id="cancelButton" onclick="window.location.href= '#!/rbibond_gu_functionality';">Cancel</button>
+    </div>
+
+    <div class="text-center">
+      <notice-message-directive></notice-message-directive>
+    </div>
+  </form>
+</div>
+
+<div class="modal" id="schemeModel" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-bs-dismiss="modal" data-ng-click="vm.modalSearch=''">&times;</button>
+        <h4 class="modal-title">Name of the Bond Scheme</h4>
+      </div>
+      <div class="modal-body">
+        <div class="loader_popup"></div>
+        <div class="list_wrapper" data-ng-if="vm.schemeList.length>0">
+          <div class="col-sm-8 form_submit">
+            <div class="form-group">
+              <div class="input-group">
+                <div class="input-group-addon">
+                  <span class="glyphicon glyphicon-search"></span>
+                </div>
+                <input type="text" class="form-control" data-ng-model="vm.modalSearch" data-ng-init="vm.modalSearch = ''" placeholder="Search" oninput="this.value = this.value.replace(/^\s+/, '').replace(/\s{2,}/g, ' ')" />
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-4 form_submit"></div>
+          <div class="row">
+            <div class="col-sm-12">
+              <table class="table table-bordered list scroll sort" aria-label="Bond Interest Not Credited Report">
+                <thead data-ng-init="reverseOrder=true;sortedColumn = 'schemeName'">
+                  <tr>
+                    <th
+                      scope="col"
+                      data-ng-click="(sortedColumn == 'schemeName')?(reverseOrder=(!reverseOrder)): (reverseOrder = false);sortedColumn = 'schemeName';"
+                      data-ng-class="(sortedColumn == 'schemeName')?((reverseOrder)?('arrow-down') : ('arrow-up') ) : ('')"
+                    >
+                      Scheme Name
+                    </th>
+                    <th
+                      scope="col"
+                      data-ng-click="(sortedColumn == 'schemeStatus')?(reverseOrder=(!reverseOrder)): (reverseOrder = false);sortedColumn = 'schemeStatus';"
+                      data-ng-class="(sortedColumn == 'schemeStatus')?((reverseOrder)?('arrow-down') : ('arrow-up') ) : ('')"
+                    >
+                      Scheme Status
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr
+                    class="cp"
+                    data-ng-repeat="x in vm.schemeList | filter:vm.modalSearch | orderBy:sortedColumn:reverseOrder"
+                    data-ng-click="vm.schemeCode = x.schemeCode; vm.schemeName = x.schemeName; vm.schemeStatus = x.schemeStatus;vm.getTorchDetails('interestHalfYear');"
+                    data-bs-dismiss="modal"
+                  >
+                    <td>{{x.schemeName}}</td>
+                    <td>{{x.schemeStatus}}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+        <div class="list_wrapper" data-ng-if="vm.schemeList.length==0">No records found to display.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal" id="panModel" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-bs-dismiss="modal" data-ng-click="vm.PANSearch=''">&times;</button>
+        <h4 class="modal-title">PAN No</h4>
+      </div>
+      <div class="modal-body">
+        <div class="loader_popup"></div>
+        <div class="list_wrapper" data-ng-if="vm.panList.length>0">
+          <div class="col-sm-8 form_submit">
+            <div class="form-group">
+              <div class="input-group">
+                <div class="input-group-addon">
+                  <span class="glyphicon glyphicon-search"></span>
+                </div>
+                <input type="text" class="form-control" data-ng-model="vm.PANSearch" data-ng-init="vm.PANSearch = ''" placeholder="Search" oninput="this.value = this.value.replace(/[^a-zA-Z0-9\s]/g, '').replace(/^\s+/, '').replace(/\s{2,}/g, ' ')" />
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-4 form_submit"></div>
+          <div class="row">
+            <div class="col-sm-12">
+              <table class="table table-bordered list scroll sort" aria-label="Bond Interest Not Credited Report">
+                <thead data-ng-init="reverseOrder=false;sortedColumn = 'panNumber'">
+                  <tr>
+                    <th
+                      scope="col"
+                      data-ng-click="(sortedColumn == 'panNumber')?(reverseOrder=(!reverseOrder)): (reverseOrder = false);sortedColumn = 'panNumber';"
+                      data-ng-class="(sortedColumn == 'panNumber')?((reverseOrder)?('arrow-down') : ('arrow-up') ) : ('')"
+                    >
+                      PAN No
+                    </th>
+                    <th
+                      scope="col"
+                      data-ng-click="(sortedColumn == 'holderName')?(reverseOrder=(!reverseOrder)): (reverseOrder = false);sortedColumn = 'holderName';"
+                      data-ng-class="(sortedColumn == 'holderName')?((reverseOrder)?('arrow-down') : ('arrow-up') ) : ('')"
+                    >
+                      Holder Name
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr class="cp" data-ng-repeat="x in vm.panList | filter:vm.PANSearch | orderBy:sortedColumn:reverseOrder" data-ng-click="vm.panNumber= x.panNumber; vm.holderName= x.holderName;" data-bs-dismiss="modal">
+                    <td>{{x.panNumber}}</td>
+                    <td>{{x.holderName}}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+        <div class="list_wrapper" data-ng-if="vm.panList.length==0">No records found to display.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal" id="blaModel" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-bs-dismiss="modal" data-ng-click="vm.BLASearch=''">&times;</button>
+        <h4 class="modal-title">BLA Number</h4>
+      </div>
+      <div class="modal-body">
+        <div class="loader_popup"></div>
+        <div class="list_wrapper" data-ng-if="vm.blaList.length>0">
+          <div class="col-sm-8 form_submit">
+            <div class="form-group">
+              <div class="input-group">
+                <div class="input-group-addon">
+                  <span class="glyphicon glyphicon-search"></span>
+                </div>
+                <input type="text" class="form-control" data-ng-model="vm.BLASearch" data-ng-init="vm.BLASearch = ''" placeholder="Search" data-chars="alpha-numeric" oninput="this.value = this.value.replace(/^\s+/, '').replace(/\s{2,}/g, ' ')" />
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-4 form_submit"></div>
+          <div class="row">
+            <div class="col-sm-12">
+              <table class="table table-bordered list scroll sort" aria-label="Bond Interest Not Credited Report">
+                <thead data-ng-init="reverseOrder=false;sortedColumn = 'blaNumber'">
+                  <tr>
+                    <th
+                      scope="col"
+                      data-ng-click="(sortedColumn == 'blaNumber')?(reverseOrder=(!reverseOrder)): (reverseOrder = false);sortedColumn = 'blaNumber';"
+                      data-ng-class="(sortedColumn == 'blaNumber')?((reverseOrder)?('arrow-down') : ('arrow-up') ) : ('')"
+                    >
+                      BLA No
+                    </th>
+                    <th
+                      scope="col"
+                      data-ng-click="(sortedColumn == 'panNumber')?(reverseOrder=(!reverseOrder)): (reverseOrder = false);sortedColumn = 'panNumber';"
+                      data-ng-class="(sortedColumn == 'panNumber')?((reverseOrder)?('arrow-down') : ('arrow-up') ) : ('')"
+                    >
+                      PAN No
+                    </th>
+                    <th
+                      scope="col"
+                      data-ng-click="(sortedColumn == 'holderName')?(reverseOrder=(!reverseOrder)): (reverseOrder = false);sortedColumn = 'holderName';"
+                      data-ng-class="(sortedColumn == 'holderName')?((reverseOrder)?('arrow-down') : ('arrow-up') ) : ('')"
+                    >
+                      Holder Name
+                    </th>
+                    <th
+                      scope="col"
+                      data-ng-click="(sortedColumn == 'modeOfHolding')?(reverseOrder=(!reverseOrder)): (reverseOrder = false);sortedColumn = 'modeOfHolding';"
+                      data-ng-class="(sortedColumn == 'modeOfHolding')?((reverseOrder)?('arrow-down') : ('arrow-up') ) : ('')"
+                    >
+                      Mode of Holding
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr
+                    class="cp"
+                    data-ng-repeat="x in vm.blaList | filter:vm.BLASearch | orderBy:sortedColumn:reverseOrder"
+                    data-ng-click="vm.blaNumber = x.blaNumber; vm.panNumber = x.panNumber; vm.holderName = x.holderName; vm.modeOfHolding = x.modeOfHolding;"
+                    data-bs-dismiss="modal"
+                  >
+                    <td>{{x.blaNumber}}</td>
+                    <td>{{x.panNumber}}</td>
+                    <td>{{x.holderName}}</td>
+                    <td>{{x.modeOfHolding}}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+        <div class="list_wrapper" data-ng-if="vm.blaList.length==0">No records found to display.</div>
+      </div>
+    </div>
+  </div>
+</div>

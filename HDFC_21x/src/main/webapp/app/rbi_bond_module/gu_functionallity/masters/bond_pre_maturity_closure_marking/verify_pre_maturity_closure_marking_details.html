@@ -1,0 +1,146 @@
+<div class="loader-new" ng-if="vm.loader"></div>
+<dc-left-menu></dc-left-menu>
+<div class="container" ng-if="vm.responseResult.length>0">
+    <div class="container from_wrapper new_form_wrapper">
+        <div class="row">
+            <h4 class="form_heading">Pre – Maturity Closure Marking – Verify/Reject</h4>
+        </div>
+        <sol-header></sol-header>
+        <form name="preMaturityForm" role="form">
+            <table class="table table-bordered">
+                <tbody>
+                <tr>
+                    <td width="25%">Name of the Bond Scheme</td>
+                    <td width="25%">
+                        <label class="data-bind">{{vm.schemeName}}</label>
+                    </td>
+                    <td width="25%">Name of the Module</td>
+                    <td width="25%">
+                        <label class="data-bind"><b>RBI Bond</b></label>
+                    </td>
+                </tr>
+                <tr>
+                    <td width="25%">BLA No</td>
+                    <td width="25%">
+                        <label class="data-bind">{{vm.blaNo}}</label>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-striped list nowrap table-textWrap datatable"
+                               ui-jq="dataTable" ui-options="vm.dataTableOption">
+                            <thead>
+                            <tr class="thalign">
+                                <th>S.No</th>
+                                <th>PAN No</th>
+                                <th>Holder Name</th>
+                                <th>Age</th>
+                                <th>BLA Number</th>
+                                <th>Mode Of Holding</th>
+                                <th>Subscription Id</th>
+                                <th>Account Open Date</th>
+                                <th>Maturity Date</th>
+                                <th>Subscription Amount</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr data-ng-repeat="x in vm.responseResult">
+                                <td class="text-center">{{vm.itemsPerPage *(vm.currentPage-1)+$index+1}}</td>
+                                <td>{{x.panNo}}</td>
+                                <td>{{x.holderName}}</td>
+                                <td>{{x.age}}</td>
+                                <td>{{x.blaNo}}</td>
+                                <td>{{x.modeOfHolding}}</td>
+                                <td>{{x.subsId}}</td>
+                                <td>{{x.accOpenDate}}</td>
+                                <td>{{x.maturityDate}}</td>
+                                <td>{{x.subsAmt}}</td>
+                            </tr>
+                            </tbody>
+                            <tfoot>
+                            <tr>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td>Total</td>
+                                <td>{{vm.totalAmt | number:0}}</td>
+                            </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="text-center">
+                <button type="submit" class="btn btn-default" id="verifyButton" ng-click="vm.verifySubmit();"
+                        ng-disabled="preMaturityForm.$invalid">Verify</button>
+                <button type="submit" class="btn btn-default" id="deleteButton" ng-click="vm.rejectReason();"
+                        ng-disabled="preMaturityForm.$invalid">Reject</button>
+                <button type="button" class="btn btn-cancel" id="cancelButton"
+                        onclick="window.location.href= '#!/pre_maturity_closure_marking/action/verify'">Cancel</button>
+            </div>
+        </form>
+    </div>
+</div>
+<div class="container" ng-if="vm.noDataFound">
+    <div class="list_wrapper no_records_message">
+        <h4 class="form_heading">Pre – Maturity Closure Marking – Verify/Reject</h4>
+        No records found to display.
+        <center>
+            <button type="button" class="btn btn-default"
+                    onclick="window.location.href= '#!/pre_maturity_closure_marking/action/inquiry';">Back</button>
+        </center>
+    </div>
+</div>
+
+
+<!--Delete Get Remarks-->
+<div class="modal" id="permissionMappingDelete" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-bs-dismiss="modal">&times;</button>
+                <h4 class="modal-title"> REJECTION REMARKS</h4>
+            </div>
+            <div class="modal-body">
+                <div class="loader_popup"></div>
+                <div class="list_wrapper" >
+                    <form name="permissionDelete" role="form">
+
+                        <div class="row">
+                            <div class="form-group">
+                                <div class="col-sm-2"></div>
+                                <label class="control-label col-sm-3">Remarks</label>
+                                <div class="col-sm-5">
+                                    <!--
+                                                                        <textarea class="form-control"   ng-keypress="vm.validateInput($event,'remarks')" id="remarks" name="remarks" ng-model="vm.remarks" maxlength="80" required></textarea>
+                                    -->
+                                    <select class="form-control list_wrapper" id="remarks[$index]" name="remarks[$index]"
+                                            ng-model="vm.remarks" ng-init="vm.getRemarksList();"   required>
+                                        <option value="">Select</option>
+                                        <option ng-repeat="item in vm.remarksList"
+                                                name="{{item.subCode + parentIndex}}" id="{{item.subCode + parentIndex}}" value="{{item.subCodeDescription}}">{{item.subCodeDescription}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-offset-5 col-sm-8 form_submit">
+                            <button type="button" class="btn btn-default" data-bs-dismiss="modal" ng-disabled="permissionDelete.$invalid" ng-click="vm.deleteSubmit()" >Submit</button>
+                            <button type="button" class="btn btn-cancel" data-bs-dismiss="modal">Cancel</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

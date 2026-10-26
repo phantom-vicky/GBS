@@ -1,0 +1,183 @@
+<div class="loader-new" ng-if="vm.loader"></div>
+
+<div class="container" data-ng-if="vm.model.length>0">
+  <div class="container from_wrapper new_form_wrapper">
+    <div class="text-right form_submit">
+      <button type="submit" class="btn btn-default" onclick="window.location.href ='#!';" id="homeButton">Home</button>
+
+      <button type="button" id="cancel_Button" class="btn btn-cancel" onclick="window.location.href= '#!/bond_repayment_report/action/inquiry';">Back</button>
+    </div>
+
+    <table style="width: 100%" class="table table-bordered" aria-label="">
+      <tr>
+        <h4 class="form_heading">Bond Repayment Report</h4>
+        <sol-header></sol-header>
+
+        <table style="width: 100%" class="table table-bordered" style="padding: 10px" aria-label="">
+          <tr>
+            <th scope="col">Name of the Bond Scheme</th>
+            <td>{{vm.schemeName}}</td>
+            <th scope="col" style="width: 20%">Total Count</th>
+            <td style="width: 20%">{{vm.total}}</td>
+          </tr>
+          <tr>
+            <th scope="col" style="width: 25%">From Date</th>
+            <td style="width: 35%">{{vm.fromDate | date:'dd/MM/yyyy'}}</td>
+            <th scope="col" style="width: 20%">To Date</th>
+            <td style="width: 20%">{{vm.toDate | date:'dd/MM/yyyy'}}</td>
+          </tr>
+        </table>
+      </tr>
+    </table>
+
+    <div class="row">
+      <div class="col-sm-12">
+        <br />
+
+        <div class="row">
+          <div class="col-sm-12">
+            <div class="row" style="display: flex; align-items: center; justify-content: space-between">
+              <!-- Show Dropdown -->
+              <div class="col-sm-3" style="flex: 1">
+                <div class="form-group">
+                  <label>
+                    Show
+                    <select class="form-control pageDropDown" id="pageSize" name="pageSize"
+                            ng-model="vm.pageSize" ng-init="vm.pageSize='5'"
+                            ng-change="vm.pageNo = 1; vm.getDetails();"
+                            ng-disabled="vm.noDataFoundInSearch">
+                      <option value="5">5 per page</option>
+                      <option value="10">10 per page</option>
+                      <option value="20">20 per page</option>
+                      <option value="50">50 per page</option>
+                    </select>
+                  </label>
+                </div>
+              </div>
+
+              <!-- Search and Export Controls -->
+              <div class="col-sm-6" style="display: flex; align-items: center; justify-content: flex-end">
+                <!-- Search -->
+                <div class="form-group" style="margin-right: 15px">
+                  <div class="input-group">
+                    <input type="text" id="search" class="form-control" data-ng-model="vm.searchText" placeholder="Search"/>
+                    <div class="input-group-addon">
+                      <span class="glyphicon glyphicon-search" data-ng-click="vm.pageNo = 1; vm.getDetails()"></span>
+                    </div>
+                    <div class="input-group-addon">
+                      <span class="glyphicon glyphicon-remove clear cp" data-ng-click="vm.searchText='';vm.pageNo = 1; vm.getDetails()"></span>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Export -->
+                <div class="form-group">
+                  <select class="form-control" id="export"
+                          name="export" ng-model="vm.downloadType"
+                          data-ng-disabled="vm.noDataFoundInSearch"
+                          ng-init="vm.downloadType=''" ng-change="vm.downloadReport()">
+                    <option value="">EXPORT</option>
+                    <option value="excel">EXCEL</option>
+                    <option value="csv">CSV</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <div class="table-responsive">
+              <table class="table table-bordered table-striped list table-textWrap datatable" aria-label="">
+                <thead data-ng-if="!vm.noDataFoundInSearch">
+                  <tr class="thalign">
+                    <th id="sl-no">S.No</th>
+                    <th id="pan-no">Pan No</th>
+                    <th id="bla-no">BLA No.</th>
+                    <th id="holder-name">Holder Name</th>
+                    <th id="subscription-id">Subscription ID</th>
+                    <th id="subscription-date">Date of Subscription</th>
+                    <th id="subscription-amount">Subscription Amount (Rs)</th>
+                    <th id="gross-amount">Gross Amount</th>
+                    <th id="tds-percentage">TDS Percentage</th>
+                    <th id="tds-amount">TDS Amount</th>
+                    <th id="amount-repaid">Amount Repaid (Rs)</th>
+                    <th id="maturity-date">Maturity Date</th>
+                    <th id="repayment-date">Date of Repayment</th>
+                    <th id="mode-of-payment">Mode of Interest Payment/Principal Repayment</th>
+                    <th id="operative-account-number">Operative Account Number</th>
+                    <th id="dd-po-account-number">DD/PO Account Number</th>
+                    <th id="bank-code">Bank Code</th>
+                    <th id="branch-code">Branch Code</th>
+                    <th id="ifsc-code-credit-bank">IFSC Code of the Credit Bank</th>
+                    <th id="payee-name">Name of the Payee</th>
+                    <th id="credit-account-number">Credit Account Number</th>
+                    <th id="ifsc-code-secondary">IFSC Code</th>
+                    <th id="micr-code">MICR Code</th>
+                    <th id="status">Status</th>
+                    <th id="return-description">Return Description</th>
+                  </tr>
+                </thead>
+                <tbody data-ng-if="!vm.noDataFoundInSearch">
+                <tr dir-paginate="x in vm.filteredRecords | itemsPerPage: itemsPerPage" pagination-id="trailRunRep">
+                  <td>{{ ($index + 1) + ((vm.pageNo - 1) * vm.pageSize) }}</td>
+                    <td>{{ x.panNo }}</td>
+                    <td>{{ x.blaNo }}</td>
+                    <td>{{ x.holderName }}</td>
+                    <td>{{ x.subsId }}</td>
+                    <td>{{ x.dateOfSubscription }}</td>
+                    <td>{{ vm.indianNumberFormat(x.subsAmt) }}</td>
+                    <td>{{ vm.indianNumberFormat(x.grossAmount) }}</td>
+                    <td>{{ x.tdsPercentage }}</td>
+                    <td>{{ vm.indianNumberFormat(x.tdsAmount) }}</td>
+                    <td>{{ vm.indianNumberFormat(x.amtRepaid) }}</td>
+                    <td>{{ x.maturityDate }}</td>
+                    <td>{{ x.dateOfRepayment }}</td>
+                    <td>{{ x.principalRepayment }}</td>
+                    <td>{{ x.operativeAccountNumber }}</td>
+                    <td>{{ x.ddOrPoAccountNumber }}</td>
+                    <td>{{ x.bankCode }}</td>
+                    <td>{{ x.branchCode }}</td>
+                    <td>{{ x.ifscCodeOfCreditBank }}</td>
+                    <td>{{ x.nameOfPayee }}</td>
+                    <td>{{ x.creditAccountNumber }}</td>
+                    <td>{{ x.ifscCodeSecondary }}</td>
+                    <td>{{ x.micrCode }}</td>
+                    <td>{{ x.status }}</td>
+                    <td>{{ x.returnDescription }}</td>
+                  </tr>
+                </tbody>
+                <tbody data-ng-if="vm.noDataFoundInSearch">
+                <tr>
+                  <td style="text-align:center">No Records Found</td>
+                </tr>
+                </tbody>
+              </table>
+            </div>
+            <br />
+            <div class="text-center form_submit">
+              <span ng-show="vm.showPrevious">
+                <button type="submit" class="btn btn-default" ng-click="vm.goPreviousPage()">Prev</button>
+              </span>
+
+              <span>
+                <button type="submit" class="btn btn-default" ng-disabled="true" ng-init="vm.pageNo=1" ng-model="vm.pageNo" ng-click="vm.paymentStatus();">{{vm.pageNo}} of {{vm.maxPages}}</button>
+              </span>
+
+              <span ng-show="vm.showNext">
+                <button type="submit" class="btn btn-default" ng-click="vm.goNextPage();">Next</button>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container" ng-if="vm.noDataFound">
+  <div class="list_wrapper no_records_message">
+    <h4 class="form_heading">Bond Repayment Report</h4>
+    No records found to display.
+    <div style="text-align: center">
+      <button type="button" class="btn btn-default" onclick="window.location.href= '#!/bond_repayment_report/action/inquiry';">Back</button>
+    </div>
+  </div>
+</div>

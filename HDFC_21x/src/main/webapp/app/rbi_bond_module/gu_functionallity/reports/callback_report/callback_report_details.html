@@ -1,0 +1,409 @@
+<div class="loader-new" ng-if="vm.loader"></div>
+<div class="container" ng-if="vm.filteredRecords.length> 0">
+    <div class="container from_wrapper new_form_wrapper">
+        <div class="text-right form_submit">
+            <button type="submit" class="btn btn-default"
+                    onclick="window.location.href ='#!/';" id="homeButton">Home
+            </button>
+            <button type="button" id="cancel_Button" class="btn btn-cancel"
+                    onclick="window.location.href= '#!/callback_report/action/inquiry';"
+            >Back
+            </button>
+        </div>
+        <div class="row">
+            <h4 class="form_heading">Call Back Report</h4>
+            <sol-header></sol-header>
+            <table style="width:100%" class="table table-bordered" style="padding: 10px"
+                   aria-label="Call back report name table">
+                <tr>
+                    <th scope="" style="width:25%">Name of the Bond Scheme</th>
+                    <td style="width:35%">{{vm.schemeName}}</td>
+                    <th scope="" style="width:20%">Total Count</th>
+                    <td style="width:20%">{{vm.total}}</td>
+                </tr>
+                <tr>
+                    <th scope="" style="width:25%">From Date</th>
+                    <td style="width:35%">{{vm.fromDate | date:'dd/MM/yyyy'}}</td>
+                    <th scope="" style="width:20%">To Date</th>
+                    <td style="width:20%">{{vm.toDate | date:'dd/MM/yyyy'}}</td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-12">
+               <div class="row">
+                   <div class="col-sm-3"  style="display: flex; align-items: center; justify-content: flex-end;">
+                       <div class="form-group" style="margin-right: 15px;">
+                           <div class="input-group">
+                               <input type="text" class="form-control searchButton"
+                                      ng-model="vm.searchValue" ng-init="vm.searchValue = ''"
+                                      placeholder="Search">
+                               <div class="input-group-addon">
+                                   <i class="glyphicon glyphicon-search" ng-click="vm.getCallBackReportDetails()"></i>
+                                   <i class="glyphicon glyphicon-remove clear cp" ng-click="vm.searchValue = '';vm.pageNo = 1;vm.getCallBackReportDetails()"></i>
+                               </div>
+                           </div>
+                       </div>
+                   </div>
+                    <div class="col-sm-2">
+                        <select class="form-control pageDropDown" id="pageSize" name="pageSize"
+                                ng-model="vm.pageSize" ng-init="vm.pageSize='5'"
+                                ng-change="vm.pageNo='1'; vm.getCallBackReportDetails();"
+                                ng-disabled="vm.noDataFoundInSearch">
+                            <option value="5" >5 per page</option>
+                            <option value="10" >10 per page</option>
+                            <option value="20">20 per page</option>
+                            <option value="50">50 per page</option>
+                        </select>
+                    </div>
+
+                        <div class=" form-group col-lg-3">
+                            <select class="form-control" id="downloadOptions"
+                                    name="export" ng-model="vm.selectedOption"
+                                    ng-init="vm.downloadType=''" ng-change="vm.getDownload()"
+                                    data-ng-disabled="vm.noDataFoundInSearch"
+                            >
+                                <option value="">EXPORT</option>
+                                <option value="excel">EXCEL</option>
+                            </select>
+                        </div>
+
+                    <!--                    Pagination End-->
+                </div>
+                <div class="table-responsive">
+                    <table class="table table-bordered table-striped list table-textWrap">
+                        <thead data-ng-if="!vm.noDataFoundInSearch">
+                        <tr class="thalign">
+                            <th scope="">S.No</th>
+                            <th scope="">Mode of Investment</th>
+                            <th scope="">Scheme</th>
+                            <th scope="">BranchName</th>
+                            <th scope="">Application No</th>
+                            <th scope="">Investment_Date</th>
+                            <th scope="">CAS Date</th>
+                            <th scope="">InvestAmt</th>
+                            <th scope="">BranchRefNo (Subscription Id)</th>
+                            <th scope="">BlaNo</th>
+                            <th scope="">ApplName1</th>
+                            <th scope="">Gender</th>
+                            <th scope="">First Holder DOB</th>
+                            <th scope="">PanNo</th>
+                            <th scope="">ApplName2</th>
+                            <th scope="">Second Holder DOB</th>
+                            <th scope="">PanNo2</th>
+                            <th scope="">ApplName3</th>
+                            <th scope="">Third Holder DOB</th>
+                            <th scope="">PanNo3</th>
+                            <th scope="">Addr1</th>
+                            <th scope="">Addr2</th>
+                            <th scope="">City</th>
+                            <th scope="">State</th>
+                            <th scope="">PinCode</th>
+                            <th scope="">TelePhoneNo</th>
+                            <th scope="">MobileNo</th>
+                            <th scope="">EmailId</th>
+                            <th scope="">ApplicantStatus</th>
+                            <th scope="">ModeHolding</th>
+                            <th scope="">GuardianName</th>
+                            <th scope="">ModeOfPayment</th>
+                            <th scope="">ChequeNumber</th>
+                            <th scope="">AccountNo</th>
+                            <th scope="">IFSCCODE</th>
+                            <th scope="">MICRCODE</th>
+                            <th scope="">BankName</th>
+                            <th scope="">Nominee1</th>
+                            <th scope="">Nominee DOB1</th>
+                            <th scope="">Nominee Relationship</th>
+                            <th scope="">Nominee Sharing %</th>
+                            <th scope="">If Nominee1 Minor</th>
+                            <th scope="">Guardian Name 1</th>
+                            <th scope="">Guardian Relationship 1</th>
+                            <th scope="">Nomination1 Ref.No</th>
+                            <th scope="">Nominee 1 Status</th>
+                            <th scope="">Nominee2</th>
+                            <th scope="">Nominee DOB2</th>
+                            <th scope="">If Nominee2 Minor</th>
+                            <th scope="">Guardian Name 2</th>
+                            <th scope="">Guardian Relationship 2</th>
+                            <th scope="">Nomination2 Ref.No</th>
+                            <th scope="">Nominee 2 Status</th>
+                            <th scope="">Nominee3</th>
+                            <th scope="">Nominee DOB3</th>
+                            <th scope="">If Nominee3 Minor</th>
+                            <th scope="">Guardian Name 3</th>
+                            <th scope="">Guardian Relationship 3</th>
+                            <th scope="">Nomination3 Ref.No</th>
+                            <th scope="">Nominee 3 Status</th>
+                            <th scope="">Nominee4</th>
+                            <th scope="">Nominee DOB4</th>
+                            <th scope="">If Nominee4 Minor</th>
+                            <th scope="">Guardian Name 4</th>
+                            <th scope="">Guardian Relationship 4</th>
+                            <th scope="">Nomination4 Ref.No </th>
+                            <th scope="">Nominee 4 Status</th>
+                            <th scope="">Status</th>
+                            <th scope="">MaturityDate</th>
+                            <th scope="">Actual Paid date (Maturity)</th>
+                            <th scope="">MaturityAmt</th>
+                            <th scope="">Half Yearly Interest Amount</th>
+                            <th scope="">LastIntPaidDate (Broken Interest)</th>
+                            <th scope="">Net Paid (Gross - TDS) Acutal paid</th>
+                            <th scope="">TDS @ 10%</th>
+                            <th scope="">TDSAmt</th>
+                            <th scope="">ExemptDoc Status Yes / No</th>
+                            <th scope="">ExemptDoc Type</th>
+                            <th scope="">Limit</th>
+                            <th scope="">FY</th>
+                            <th scope="">Age</th>
+                            <th scope="">Whether assessed to tax</th>
+                            <th scope="">Date on which Declaration is received</th>
+                            <th scope="">Estimated income for which this declaration is made</th>
+                            <th scope="">Estimated total income of the P.Y</th>
+                            <th scope="">Total No. of Forms</th>
+                            <th scope="">Aggregate amount of income</th>
+                            <th scope="">Certificate No Low Tax / No Tax</th>
+                            <th scope="">Exem Doc Maker Id</th>
+                            <th scope="">Exem Doc Checker Id</th>
+                            <th scope="">LastUpdateDate & Time</th>
+                            <th scope="">CurrentStatus</th>
+                            <th scope="">CIF</th>
+                            <th scope="">AccountTypeCode</th>
+                            <th scope="">Application/Data Entry Maker Id</th>
+                            <th scope="">Application/Data Entry Checker ID</th>
+                            <th scope="">applStatus</th>
+                            <th scope="">DataEntry By HO</th>
+                            <th scope="">Certificate No</th>
+                            <th scope="">Certificate Type ( COH / COI )</th>
+                            <th scope="">Section Code</th>
+                            <th scope="">Reason for Non-deduction / Lower Deduction</th>
+                            <th scope="">Interest Payout of the Year</th>
+                            <th scope="">Deductee Code (02)</th>
+                            <th scope="">Pan Status Active / Inactive</th>
+                           <!-- <th scope="">Filer / Non Filer</th>-->
+                            <th scope="">Transfer Cases Old Branch Ref Number</th>
+                            <th scope="">Transfer Cases Old Blas</th>
+                            <th scope="">Transfer Cases Old CustomerName</th>
+                            <th scope="">Transfer Cases Old PanNumber</th>
+                            <th scope="">Bond Certificate Dispath Date</th>
+                            <th scope="">Bond Certificate Email Trigger Date</th>
+                            <th scope="">Bond Certificate Status</th>
+                            <th scope="">Half Yearly Interest Advice Email Trigger Date</th>
+                            <th scope="">Half Yearly Interest Advice Status</th>
+                            <th scope="">Coparceners Details 1</th>
+                            <th scope="">Coparceners Details 2</th>
+                            <th scope="">Coparceners Details 3</th>
+                            <th scope="">Coparceners 1 DOB</th>
+                            <th scope="">Coparceners 1 Relationship</th>
+                            <th scope="">Coparceners 2 DOB</th>
+                            <th scope="">Coparceners 2 Relationship</th>
+                            <th scope="">Coparceners 3 DOB</th>
+                            <th scope="">Coparceners 3 Relationship</th>
+                            <th scope="">BrokerCode</th>
+                            <th scope="">BrokerName</th>
+                            <th scope="">BrokerAddress 1</th>
+                            <th scope="">BrokerAddress 2</th>
+                            <th scope="">BrokerLocation</th>
+                            <th scope="">BrokerState</th>
+                            <th scope="">BrokerPinCode</th>
+                            <th scope="">BrokerMobileNumber</th>
+                            <th scope="">BrokerPanNumber</th>
+                            <th scope="">GSTNumber</th>
+                            <th scope="">BrokerAccountNumber</th>
+                            <th scope="">Gross Brokerage</th>
+                            <th scope="">NET Brokerage</th>
+                            <th scope="">GST @ 18%</th>
+                            <th scope="">BrokerCode Status ( Active / Inactive )</th>
+                            <th scope="">Brokerage Letter - Email Triggered Status</th>
+                            <th scope="">Brokerage Payment Status</th>
+                            <th scope="">POA</th>
+                            <th scope="">Scheme Type</th>
+                        </tr>
+                        </thead>
+                        <tbody data-ng-if="!vm.noDataFoundInSearch">
+                        <tr dir-paginate="x in vm.filteredRecords | itemsPerPage: itemsPerPage" pagination-id="trailRunRep">
+                            <td>{{ ($index + 1) + ((vm.pageNo - 1) * vm.pageSize) }}</td>
+                            <td style="text-align: center">{{x.modeOfInvestment}}</td>
+                            <td style="text-align: center">{{x.schemeName}}</td>
+                            <td style="text-align: center">{{x.branchName}}</td>
+                            <td style="text-align: center">{{x.applicationNo}}</td>
+                            <td style="text-align: center">{{formatDate(x.investmentDate)}}</td>
+                            <td style="text-align: center">{{formatDate(x.casdate)}}</td>
+                            <td style="text-align: center">{{vm.indianFormat(x.investmentAmount)}}</td>
+                            <td style="text-align: center">{{x.branchRefNoSubsId}}</td>
+                            <td style="text-align: center">{{x.blaNo}}</td>
+                            <td style="text-align: center">{{x.applicantName1}}</td>
+                            <td style="text-align: center">{{formatGender(x.gender)}}</td>
+                            <td style="text-align: center">{{formatDate(x.dob)}}</td>
+                            <td style="text-align: center">{{x.panNo}}</td>
+                            <td style="text-align: center">{{x.applicantName2}}</td>
+                            <td style="text-align: center">{{formatDate(x.dob2)}}</td>
+                            <td style="text-align: center">{{x.panNo2}}</td>
+                            <td style="text-align: center">{{x.applicantName3}}</td>
+                            <td style="text-align: center">{{formatDate(x.dob3)}}</td>
+                            <td style="text-align: center">{{x.panNo3}}</td>
+                            <td style="text-align: center">{{x.address1}}</td>
+                            <td style="text-align: center">{{x.address2}}</td>
+                            <td style="text-align: center">{{x.city}}</td>
+                            <td style="text-align: center">{{x.state1}}</td>
+                            <td style="text-align: center">{{x.pincode}}</td>
+                            <td style="text-align: center">{{x.telephoneNo}}</td>
+                            <td style="text-align: center">{{x.mobileNo}}</td>
+                            <td style="text-align: center">{{x.emailId}}</td>
+                            <td style="text-align: center">{{x.applicantStatus}}</td>
+                            <td style="text-align: center">{{x.modeOfHolding}}</td>
+                            <td style="text-align: center">{{x.guardianName}}</td>
+                            <td style="text-align: center">{{x.modeOfPayment}}</td>
+                            <td style="text-align: center">{{x.chequeNumber}}</td>
+                            <td style="text-align: center">{{x.accountNo}}</td>
+                            <td style="text-align: center">{{x.ifscCode}}</td>
+                            <td style="text-align: center">{{x.micrCode}}</td>
+                            <td style="text-align: center">{{x.bankName}}</td>
+                            <td style="text-align: center">{{x.nominee1}}</td>
+                            <td style="text-align: center">{{formatDate(x.nominee_DOB1)}}</td>
+                            <td style="text-align: center">{{x.nominee_Relationship}}</td>
+                            <td style="text-align: center">{{x.nominee_Sharing_Percent1}}</td>
+                            <td style="text-align: center">{{x.if_Nominee_minor_Guardian_details}}</td>
+                            <td style="text-align: center">{{x.guardianName1}}</td>
+                            <td style="text-align: center">{{x.guardianRelationship1}}</td>
+                            <td style="text-align: center">{{x.nominationRefNo}}</td>
+                            <td style="text-align: center">{{x.nominationStatus1}}</td>
+                            <td style="text-align: center">{{x.nominee2}}</td>
+                            <td style="text-align: center">{{formatDate(x.nominee_DOB2)}}</td>
+                            <td style="text-align: center">{{x.if_Nominee_minor_Guardian_details2}}</td>
+                            <td style="text-align: center">{{x.guardianName2}}</td>
+                            <td style="text-align: center">{{x.guardianRelationship2}}</td>
+                            <td style="text-align: center">{{x.nominationRefNo2}}</td>
+                            <td style="text-align: center">{{x.nominationStatus2}}</td>
+                            <td style="text-align: center">{{x.nominee3}}</td>
+                            <td style="text-align: center">{{formatDate(x.nominee_DOB3)}}</td>
+                            <td style="text-align: center">{{x.if_Nominee_minor_Guardian_details3}}</td>
+                            <td style="text-align: center">{{x.guardianName3}}</td>
+                            <td style="text-align: center">{{x.guardianRelationship3}}</td>
+                            <td style="text-align: center">{{x.nominationRefNo3}}</td>
+                            <td style="text-align: center">{{x.nominationStatus3}}</td>
+                            <td style="text-align: center">{{x.nominee4}}</td>
+                            <td style="text-align: center">{{formatDate(x.nominee_DOB4)}}</td>
+                            <td style="text-align: center">{{x.if_Nominee_minor_Guardian_details4}}</td>
+                            <td style="text-align: center">{{x.guardianName4}}</td>
+                            <td style="text-align: center">{{x.guardianRelationship4}}</td>
+                            <td style="text-align: center">{{x.nominationRefNo4}}</td>
+                            <td style="text-align: center">{{x.nominationStatus4}}</td>
+                            <td style="text-align: center">{{x.status}}</td>
+                            <td style="text-align: center">{{formatDate(x.maturityDate)}}</td>
+                            <td style="text-align: center">{{formatDate(x.actualPaidDate)}}</td>
+                            <td style="text-align: center">{{vm.indianFormat(x.maturityAmount)}}</td>
+                            <td style="text-align: center">{{vm.indianFormat(x.halfYearlyInterestAmount)}}</td>
+                            <td style="text-align: center">{{formatDate(x.lastIntrPaidDateBrokenInterest)}}</td>
+                            <td style="text-align: center">{{vm.indianFormat(x.netPaidGrossTDSAcutalPaid)}}</td>
+                            <td style="text-align: center">{{x.tdsAt10Percent}}</td>
+                            <td style="text-align: center">{{vm.indianFormat(x.tds_amt)}}</td>
+                            <td style="text-align: center">{{x.exempt_Doc_Status_Yes_No}}</td>
+                            <td style="text-align: center">{{x.exempt_Doc_Type}}</td>
+                            <td style="text-align: center">{{vm.indianFormat(x.limit)}}</td>
+                            <td style="text-align: center">{{x.fy}}</td>
+                            <td style="text-align: center">{{x.age}}</td>
+                            <td style="text-align: center">{{x.whether_assessed_to_tax}}</td>
+                            <td style="text-align: center">{{formatDate(x.date_on_which_Declaration_is_received)}}</td>
+                            <td style="text-align: center">{{vm.indianFormat(x.estimated_income_for_which_this_declaration_is_ma)}}</td>
+                            <td style="text-align: center">{{vm.indianFormat(x.estimated_total_income_of_the_P_Y)}}</td>
+                            <td style="text-align: center">{{x.total_No__of_Forms}}</td>
+                            <td style="text-align: center">{{vm.indianFormat(x.aggregate_amount_of_income)}}</td>
+                            <td style="text-align: center">{{x.certificateNoLowTaxNoTax}}</td>
+                            <td style="text-align: center">{{x.exem_Doc_Maker_Id}}</td>
+                            <td style="text-align: center">{{x.exem_Doc_Checker_Id}}</td>
+                            <td style="text-align: center">{{formatDate(x.last_Update_Date_And_Time)}}</td>
+                            <td style="text-align: center">{{x.current_Status}}</td>
+                            <td style="text-align: center">{{x.cif}}</td>
+                            <td style="text-align: center">{{x.account_Type_Code}}</td>
+                            <td style="text-align: center">{{x.application_Data_Entry_Maker_id}}</td>
+                            <td style="text-align: center">{{x.application_Data_Entry_Checker_ID}}</td>
+                            <td style="text-align: center">{{x.appl_status}}</td>
+                            <td style="text-align: center">{{x.dataEntry_By_HO}}</td>
+                            <td style="text-align: center">{{x.certificateNo}}</td>
+                            <td style="text-align: center">{{x.certificate_Type_COH__COI}}</td>
+                            <td style="text-align: center">{{x.section_Code_193}}</td>
+                            <td style="text-align: center">{{x.reason_for_Non_deduction_Lower_Deduction}}</td>
+                            <td style="text-align: center">{{vm.indianFormat(x.interet_Payout_of_the_Year)}}</td>
+                            <td style="text-align: center">{{x.deductee_Code_02}}</td>
+                            <td style="text-align: center">{{x.pan_Status_Active_Inactive}}</td>
+                          <!--  <td style="text-align: center">{{x.filer_Non_Filer}}</td>-->
+                            <td style="text-align: center">{{x.transfer_cases_Old_Branch_Ref_Number}}</td>
+                            <td style="text-align: center">{{x.transfer_cases_Old_Blas}}</td>
+                            <td style="text-align: center">{{x.transfer_cases_Old_Customer_Name}}</td>
+                            <td style="text-align: center">{{x.transfer_cases_Old_Pan_Number}}</td>
+                            <td style="text-align: center">{{formatDate(x.bond_Certificate_Dispatch_Date)}}</td>
+                            <td style="text-align: center">{{formatDate(x.bond_Certificate_Email_trigger_date)}}</td>
+                            <td style="text-align: center">{{x.bond_Certificate_Status}}</td>
+                            <td style="text-align: center">{{formatDate(x.half_Yearly_Interest_Advice_Email_trigger_date)}}</td>
+                            <td style="text-align: center">{{x.half_Yearly_Interest_Advice_Status}}</td>
+                            <td style="text-align: center">{{x.co_parceners_details_1}}</td>
+                            <td style="text-align: center">{{x.co_parceners_details_2}}</td>
+                            <td style="text-align: center">{{x.co_parceners_details_3}}</td>
+                            <td style="text-align: center">{{formatDate(x.co_parceners_1_DOB)}}</td>
+                            <td style="text-align: center">{{x.co_parceners_1_Relationship}}</td>
+                            <td style="text-align: center">{{formatDate(x.co_parceners_2_DOB)}}</td>
+                            <td style="text-align: center">{{x.co_parceners_2_Relationship}}</td>
+                            <td style="text-align: center">{{formatDate(x.co_parceners_3_DOB)}}</td>
+                            <td style="text-align: center">{{x.co_parceners_3_Relationship}}</td>
+                            <td style="text-align: center">{{x.broker_code}}</td>
+                            <td style="text-align: center">{{x.broker_Name}}</td>
+                            <td style="text-align: center">{{x.address_1}}</td>
+                            <td style="text-align: center">{{x.address_2}}</td>
+                            <td style="text-align: center">{{x.location}}</td>
+                            <td style="text-align: center">{{x.state2}}</td>
+                            <td style="text-align: center">{{x.pin_Code}}</td>
+                            <td style="text-align: center">{{x.mobile_Number}}</td>
+                            <td style="text-align: center">{{x.pan_Number}}</td>
+                            <td style="text-align: center">{{x.gst_Number}}</td>
+                            <td style="text-align: center">{{x.account_Number}}</td>
+                            <td style="text-align: center">{{vm.indianFormat(x.gross_Brokerage)}}</td>
+                            <td style="text-align: center">{{vm.indianFormat(x.net_Brokerage)}}</td>
+                            <td style="text-align: center">{{vm.indianFormat(x.gst_At_18Percent)}}</td>
+                            <td style="text-align: center">{{x.broker_Code_Status_Active_Inactive}}</td>
+                            <td style="text-align: center">{{x.brokerage_letter_Email_triggered_status}}</td>
+                            <td style="text-align: center">{{x.brokerage_Payment_status}}</td>
+                            <td style="text-align: center">{{x.poa}}</td>
+                            <td style="text-align: center">{{x.schemeType}}</td>
+                        </tr>
+                        </tbody>
+                        <tbody data-ng-if="vm.noDataFoundInSearch">
+                        <tr>
+                            <td style="text-align:center">No Records Found</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <br>
+                <div class="text-center form_submit">
+                        <span ng-show="vm.showPrevious">
+                        <button type="submit" class="btn btn-default" ng-click="vm.goPreviousPage()">Prev
+                        </button>
+                        </span>
+
+                    <span>
+                          <button type="submit" class="btn btn-default" ng-disabled="true" ng-init="vm.pageNo=1" ng-model="vm.pageNo" ng-click="vm.paymentStatus();">{{vm.pageNo}} of {{vm.maxPages}}
+                          </button>
+                        </span>
+
+                    <span ng-show="vm.showNext">
+                        <button type="submit" class="btn btn-default" ng-click="vm.goNextPage();" >Next
+                        </button>
+                        </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container" ng-if="vm.noDataFound">
+    <div class="list_wrapper no_records_message">
+        <h4 class="form_heading">Call Back Report</h4>
+        No records found to display.
+        <center>
+            <button type="button" class="btn btn-default"
+                    onclick="window.location.href= '#!/callback_report/action/inquiry';">
+                Back
+            </button>
+        </center>
+    </div>
+</div>

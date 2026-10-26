@@ -1,0 +1,96 @@
+<div class="loader-new" ng-if="vm.loader"></div>
+<div class="container" ng-if="vm.holderTypeDetList.length>0">
+    <div class="text-right form_submit">
+        <button type="submit" class="btn btn-default"
+                onclick="window.location.href ='#!';" id="homeButton">Home</button>
+        <button type="submit" id="backButton" class="btn btn-cancel"
+                onclick="window.location.href='#!/rbiBond_bond_inquiry_holder_type_det_report/action/inquiry';">Back</button>
+    </div>
+    <div  class="container from_wrapper new_form_wrapper">
+        <div class="col-sm-12">
+            <h4 class="form_heading">Holder Type Details</h4>
+            <table class="table report-title-table">
+                <tr>
+                    <td>
+                        <h5 class="modal-title">Bank Name : {{vm.bankName}}</h5>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <h5 class="modal-title">Branch Name : {{vm.loginSolDesc}}</h5>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <h5 class="modal-title">Branch Id : {{vm.loginSolId}}</h5>
+                    </td>
+                </tr>
+
+            </table>
+<strong>
+            <div>
+                <table  width="100%">
+                    <tr height="40">
+                        <td><h4 class="form_heading">Holder Type Details</h4></td>
+                    </tr>
+
+                    <tr height="40">
+                        <td align="center">{{vm.schemeName}}</td>
+                    </tr>
+                    <tr height="40">
+                        <td align="center">Holder Type : {{vm.holderType}}</td>
+                    </tr>
+                </table>
+            </div>
+</strong>
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="table-responsive">
+
+
+                        <table class="table table-bordered table-striped list table-textWrap datatable" id="dataTable"
+                               ui-jq="dataTable" ui-options="vm.dataTableOption">
+                            <thead>
+                            <tr class="thalign">
+                                <th>S.NO</th>
+                                <th>BLA No.</th>
+                                <th>Holder Name</th>
+                                <th>Subscription ID</th>
+                                <th>Guardian id</th>
+                                <th>Guardian Name</th>
+                                <th>Mode of Holding</th>
+                                <th>Holder Type</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr ng-repeat="x in vm.holderTypeDetList">
+                                <td>{{vm.itemsPerPage *(vm.currentPage-1)+$index+1}}</td>
+                                <td align="center">{{x.blaNo}}</td>
+                                <td align="left">{{x.holderName}}</td>
+                                <td align="left">{{x.subsId}}</td>
+                                <td align="left">{{x.guadId}}</td>
+                                <td align="left">{{x.guadName}}</td>
+                                <td align="left">{{x.modeOfHolding}}</td>
+                                <td align="left">{{x.holderType}}</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <br>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container" ng-if="vm.noDataFound">
+    <div class="list_wrapper no_records_message">
+        <h4 class="form_heading">Holder Type Details</h4>
+        No records found to display.
+        <center>
+            <button type="button" class="btn btn-default"
+                    onclick="window.location.href='#!/rbiBond_bond_inquiry_holder_type_det_report/action/inquiry';">Back</button>
+        </center>
+    </div>
+</div>

@@ -1,0 +1,147 @@
+<div class="loader-new" ng-if="vm.loader"></div>
+<dc-left-menu></dc-left-menu>
+<div class="container from_wrapper new_form_wrapper">
+    <h4 class="form_heading">Coparceners Details of Karta - Delete</h4>
+    <sol-header></sol-header>
+
+    <form name="bondKartaForm" role="form">
+        <table class="table table-bordered">
+            <tbody>
+            <tr>
+                <td width="25%">Name of the Bond Scheme</td>
+                <td width="25%">
+                    <label class="data-bind" id="bondScheme">{{vm.subDetail.schemeName}}</label>
+                </td>
+                <td width="25%">Mode of Holding</td>
+                <td width="25%">
+                    <label class="data-bind" id="modeOfHolding">{{vm.subDetail.modeOfHolding}}</label>
+                </td>
+            </tr>
+            <tr>
+                <td width="25%">BLA Number</td>
+                <td width="25%">
+                    <label class="data-bind" id="blaNo">{{vm.subDetail.blaNo}}</label>
+                </td>
+                <!--<td width="25%" ng-if="vm.subDetail[0].modeOfHolding=='MH001' || vm.subDetail[0].modeOfHolding=='MH004' || vm.subDetail[0].modeOfHolding=='MH005'">Bond Holder Name</td>
+                <td width="25%" ng-if="vm.subDetail[0].modeOfHolding=='MH001' || vm.subDetail[0].modeOfHolding=='MH004' || vm.subDetail[0].modeOfHolding=='MH005'">
+                 -->
+                <td width="25%">Karta Name</td>
+                <td width="25%">
+
+                <label class="data-bind" id="holderName">{{vm.subDetail.nameOfTheBondHolder}}</label>
+                </td>
+
+            </tr>
+
+            </tbody>
+        </table>
+
+
+
+        <table class="table table-bordered table-striped list old-new-value-table">
+
+            <thead>
+
+            </thead>
+            <tbody ng-repeat="item in vm.kartaList">
+            <tr>
+                <th>Particular - Karta Coparceners Details {{$index+1}}</th>
+                <th>{{(vm.preOprType == 'M')?('Old Value'): ('Value')}}</th>
+                <th ng-if="vm.preOprType == 'M'">New Value</th>
+            </tr>
+            <!--<tr>
+                <td>BLA No</td>
+                <td class="old-value">{{(item && vm.subDetail.blaNo)?
+                    (vm.subDetail.blaNo) : ('-')}}
+                </td>
+                <td ng-if="vm.preOprType == 'M'" class="new-value">{{(item &&
+                    vm.subDetail.blaNo)? (vm.subDetail.blaNo) : ('-')}}
+                </td>
+            </tr>
+            <tr>
+                <td>Karta Name</td>
+                <td class="old-value">{{(item && vm.subDetail.nameOfTheBondHolder)?
+                    (vm.subDetail.nameOfTheBondHolder) : ('-')}}
+                </td>
+                <td ng-if="vm.preOprType == 'M'" class="new-value">
+                    {{(item && vm.subDetail.nameOfTheBondHolder)?
+                    (vm.subDetail.nameOfTheBondHolder) : ('-')}}
+                </td>
+            </tr>-->
+
+            <tr>
+                <td>Coparceners Name</td>
+                <td class="old-value">{{(item && item.C001)?
+                    (item.C001.oldValue) : ('-')}}
+                </td>
+
+                <td ng-if="vm.preOprType == 'M'" class="new-value text-danger">
+                    {{(item && item.C001)?
+                    (item.C001.newValue) : ('-')}}
+                </td>
+            </tr>
+            <tr>
+                <td>Relationship with Karta</td>
+                <td class="old-value">{{(item && item.C002)?
+                    (item.C002.oldValue) : ('-')}}
+                </td>
+                <td ng-if="vm.preOprType == 'M'" class="new-value text-danger">
+                    {{(item && item.C002)?
+                    (item.C002.newValue) : ('-')}}
+                </td>
+            </tr>
+            <tr>
+                <td>DOB</td>
+                <td class="old-value">{{(item && item.C003)?
+                    (item.C003.oldValue) : ('-')}}
+                </td>
+                <td ng-if="vm.preOprType == 'M'" class ="new-value text-danger">
+                    {{(item && item.C003)?
+                    (item.C003.newValue) : ('-')}}
+                </td>
+            </tr>
+            </tbody>
+
+        </table>
+        <div class="audit-details">
+            <div class="row">
+                <div class="col-md-3">
+                    <span> <b> Created By </b> : {{vm.auditInfo.createdBy}} </span>
+                </div>
+                <div class="col-md-3">
+                    <span> <b> Last Modified By </b> : {{(vm.auditInfo.modifiedBy) ? (vm.auditInfo.modifiedBy) : ('None')}}</span>
+                </div>
+                <div class="col-md-3">
+                    <span> <b> Last Verified By </b> : {{(vm.auditInfo.verifiedBy) ? (vm.auditInfo.verifiedBy) : ('None')}}</span>
+                </div>
+                <div class="col-md-3">
+                    <span> <b> Verify Status </b> : {{vm.auditInfo.verifiedStatus  | getLabelFromValuesArray : vm.commonYesNoMetaData}}</span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3">
+                    <span> <b> Created On </b> : {{ vm.auditInfo.createdDate | date : 'dd-MM-yyyy'}}</span>
+                </div>
+                <div class="col-md-3">
+                    <span> <b> Last Modified On</b> : {{ (vm.auditInfo.modifiedDate) ? (vm.auditInfo.modifiedDate | date : 'dd-MM-yyyy') : ('None')}}</span>
+                </div>
+                <div class="col-md-3">
+                    <span> <b> Last Verified On </b> : {{(vm.auditInfo.verifiedDate) ? (vm.auditInfo.verifiedDate | date : 'dd-MM-yyyy') : ('None')}}</span>
+                </div>
+                <div class="col-md-3">
+                </div>
+            </div>
+        </div>
+        <div class="text-center form_submit">
+            <button type="submit" class="btn btn-default" id="sumitButton"
+                    ng-click="vm.deleteDetails()">Delete
+            </button>
+            <button type="button" class="btn btn-cancel" id="cancelButton"
+                    onclick="window.location.href= '#!/karta_coparceners_details/action/inquiry';">Close
+            </button>
+        </div>
+        <div class="text-center">
+            <notice-message-directive></notice-message-directive>
+        </div>
+    </form>
+</div>

@@ -1,0 +1,320 @@
+
+
+<div class="loader-new" ng-if="vm.loader"></div>
+<div class="container" ng-if="vm.result.length > 0">
+    <div class="text-right form_submit">
+        <button type="submit" class="btn btn-default" onclick="window.location.href ='#!/';" id="homeButton">Home</button>
+        <button type="button" id="cancel_Button" class="btn btn-cancel"
+                onclick="window.location.href= '#!/pending_brokerage_payment_status_brokerage_claim_status/action/inquiry';">
+            Back
+        </button>
+    </div>
+    <div class="container from_wrapper new_form_wrapper">
+        <div class="row">
+            <h4 class="form_heading">Pending Brokerage Payment Status & Brokerage Claim Status Report</h4>
+            <sol-header></sol-header>
+            <table width="100%" class="table table-bordered">
+                <tr>
+                    <th>Name of the Bond Scheme</th>
+                    <td colspan="3">{{vm.schemeName}}</td>
+                </tr>
+                <tr>
+                    <th width="25%">For the period from </th>
+                    <td width="25%">{{vm.fromDate | date: 'dd/MM/yyyy'}}</td>
+                    <th width="25%">To</th>
+                    <td width="25%">{{vm.toDate | date: 'dd/MM/yyyy'}}</td>
+                </tr>
+            </table>
+<!--            <h4 class="form_heading">Pending Brokerage Payment Status & Brokerage Claim Status – For the period from-->
+<!--                {{vm.fromDate | date:'dd/MM/yyyy'}} To {{vm.toDate | date:'dd/MM/yyyy'}}-->
+<!--            </h4>-->
+        </div>
+
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="">
+                        <table class="table table-bordered table-striped list nowrap table-textWrap datatable" ng-if="vm.result && vm.status == 'P'">
+                            <thead>
+                                <tr class="thalign">
+                                    <th>Month</th>
+                                    <th>Count</th>
+                                    <th>Sum of Investment Amount</th>
+                                    <th>Sum of Gross Brokerage</th>
+                                </tr>
+                            </thead>
+                        <tbody>
+                            <tr>
+                                <td align="center">{{x.month}}</td>
+                                <td align="center">{{x.count}}</td>
+                                <td align="center">{{vm.calculateTotalSum(vm.result)}}</td>
+                                <td align="center">{{vm.calculateTotalGrossBrokerage(vm.result)}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <div class="row" style="display: flex; align-items: center; justify-content: space-between;">
+
+                        <div class="col-sm-3" style="flex: 1;">
+                            <div class="form-group">
+                                <table style="border-spacing: 2;">
+                                    <tr>
+                                        <td>Show&nbsp;</td>
+                                        <td>
+                                            <select id="pageSize" class="form-control filter-control" ng-model="vm.pageSize"
+                                                    ng-change="vm.updatePageSize()"
+                                                    ng-options="option for option in vm.pageSizeOptions"></select>
+                                        </td>
+                                        <td>&nbsp;records per page</td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+
+                        <!-- Search and Export Controls -->
+                        <div class="col-sm-6" style="display: flex; align-items: center; justify-content: flex-end;">
+                            <!-- Search -->
+                            <div class="form-group" style="margin-right: 15px;">
+                                <div class="input-group">
+                                    <div class="input-group-addon">
+                                        <i class="glyphicon glyphicon-search"></i>
+                                    </div>
+                                    <input type="text" id="search" class="form-control" ng-change="vm.updateFilteredRecords()"
+                                            ng-model="vm.searchText" placeholder="Search"/>
+                                </div>
+                            </div>
+
+                            <!-- Export -->
+                            <div class="form-group">
+                                <select class="form-control"
+                                        id="export"
+                                        name="export"
+                                        ng-model="vm.selectedOption"
+                                        ng-init="vm.selectedOption=''"
+                                        ng-change="vm.handleDownloadOption()"
+                                >
+                                    <option value="">EXPORT</option>
+                                    <option value="excel">EXCEL</option>
+                                    <option value="csv">CSV</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="table-responsive">
+                    <table class="table table-bordered table-striped list old-new-value-table table-textWrap" ng-if="vm.result && vm.status == 'P'">
+                        <thead>
+                            <tr class="thalign">
+                                <th>S.No</th>
+                                <th>Broker Code</th>
+                                <th>Broker Name</th>
+                                <th>Sum of Investment Amount</th>
+                                <th>Gross Brokerage</th>
+                                <th>Address 1</th>
+                                <th>Address 2</th>
+                                <th>City</th>
+                                <th>Pincode</th>
+                                <th>State</th>
+                                <th>Net Brokerage</th>
+                                <th>GST @ 18%</th>
+                                <th>Vendor Codes</th>
+                                <th>HSN Codes</th>
+                                <th>Status</th>
+                                <th>RCM Status</th>
+                                <th>Invoice Number</th>
+                                <th>Invoice Date</th>
+                                <th>VBMS</th>
+                                <th>Date</th>
+                                <th>Maker</th>
+                                <th>Credit Date</th>
+                                <th>Amount</th>
+                                <th>Difference</th>
+                                <th>Received On</th>
+                                <th>Rejected On</th>
+                                <th>POD</th>
+                                <th>RCM</th>
+                                <th>Remarks</th>
+                                <th>TAT</th>
+                                <th>CPU Remarks</th>
+                                <th>Remarks</th>
+                                <th>Reason</th>
+                                <th>Phone</th>
+                                <th>Email id</th>
+                                <th>Status</th>
+                                <th>Query Remarks</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="x in vm.filteredRecords.slice((vm.currentPage-1)*vm.pageSize, vm.currentPage*vm.pageSize)">
+                                <td>{{ (vm.currentPage - 1) * vm.pageSize + $index + 1 }}</td>
+                                <td class="col-sm-2 text-left">{{x.brokerCode}}</td>
+                                <td>{{x.brokerName}}</td>
+                                <td>{{x.sumOfInvestmentAmountHeader1}}</td>
+                                <td>{{x.grossBrokerage}}</td>
+                                <td>{{x.address1}}</td>
+                                <td>{{x.address2}}</td>
+                                <td>{{x.city}}</td>
+                                <td>{{x.pinCode}}</td>
+                                <td>{{x.state}}</td>
+                                <td>{{x.netBrokerage}}</td>
+                                <td>{{x.gst18Percent}}</td>
+                                <td>{{x.vendorCodes}}</td>
+                                <td>{{x.hsnCodes}}</td>
+                                <td>{{x.status}}</td>
+                                <td>{{x.rcmStatus}}</td>
+                                <td>{{x.invoiceNumber}}</td>
+                                <td>{{x.invoiceDate}}</td>
+                                <td>{{x.vbms}}</td>
+                                <td>{{x.date}}</td>
+                                <td>{{x.maker}}</td>
+                                <td>{{x.creditDate}}</td>
+                                <td>{{x.amount}}</td>
+                                <td>{{x.difference}}</td>
+                                <td>{{x.receivedOn}}</td>
+                                <td>{{x.rejectedOn}}</td>
+                                <td>{{x.pod}}</td>
+                                <td>{{x.rcm}}</td>
+                                <td>{{x.remarks}}</td>
+                                <td>{{x.tat}}</td>
+                                <td>{{x.cpuRemarks}}</td>
+                                <td>{{x.remarks}}</td>
+                                <td>{{x.reason}}</td>
+                                <td>{{x.phone}}</td>
+                                <td>{{x.emailId}}</td>
+                                <td>{{x.status}}</td>
+                                <td>{{x.queryRemarks}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                        <table class="table table-bordered table-striped list old-new-value-table table-textWrap" ng-if="vm.result && vm.status == 'C'">
+                            <thead>
+                            <tr class="thalign">
+                                <th>S.No.</th>
+                                <th>BLA_NO</th>
+                                <th>INVESTMENT_AMOUNT</th>
+                                <th>CAS_TRANSFER_DATE</th>
+                                <th>MATURITY_DATE</th>
+                                <th>SCHEME</th>
+                                <th>CFD</th>
+                                <th>BRANCH_REF_NO</th>
+                                <th>ADVICE_NO</th>
+                                <th>APPLICANT_NAME</th>
+                                <th>ADDRESS1</th>
+                                <th>ADDRESS2</th>
+                                <th>CITY</th>
+                                <th>STATE</th>
+                                <th>PIN_CODE</th>
+                                <th>BRANCH_NAME</th>
+                                <th>RECEIPT_DATE</th>
+                                <th>GROUP_CODE</th>
+                                <th>HDFC_BROKER_CODE</th>
+                                <th>BROKER_NAME</th>
+                                <th>ADDRESS1</th>
+                                <th>ADDRESS2</th>
+                                <th>CITY</th>
+                                <th>STATE</th>
+                                <th>PINCODE</th>
+                                <th>PHONE</th>
+                                <th>PAYMENT_MODE</th>
+                                <th>ACCOUNT_TYPE_CODE</th>
+                                <th>BANK_ACCOUNT</th>
+                                <th>MICR_CODE</th>
+                                <th>APPLICANT_NO</th>
+                                <th>STATUS</th>
+                                <th>DE_STATUS</th>
+                                <th>Broker_Amount</th>
+                                <th>HDFC_Branch_Code</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr ng-repeat="x in vm.filteredRecords.slice((vm.currentPage-1)*vm.pageSize, vm.currentPage*vm.pageSize)">
+                                <td>{{ (vm.currentPage - 1) * vm.pageSize + $index + 1 }}</td>
+                                <td>{{x.blaNo}}</td>
+                                <td>{{x.investmentAmount}}</td>
+                                <td>{{x.casTransferDate}}</td>
+                                <td>{{x.maturityDate}}</td>
+                                <td>{{x.schemeName}}</td>
+                                <td>{{x.cfd}}</td>
+                                <td>{{x.branchRefNo}}</td>
+                                <td>{{x.adviceNo}}</td>
+                                <td>{{x.applicantName}}</td>
+                                <td>{{x.address1}}</td>
+                                <td>{{x.address2}}</td>
+                                <td>{{x.city}}</td>
+                                <td>{{x.state}}</td>
+                                <td>{{x.pinCode}}</td>
+                                <td>{{x.branchName}}</td>
+                                <td>{{x.receiptDate}}</td>
+                                <td>{{x.groupCode}}</td>
+                                <td>{{x.hdfcBrokerCode}}</td>
+                                <td>{{x.brokerName}}</td>
+                                <td>{{x.address1}}</td>
+                                <td>{{x.address2}}</td>
+                                <td>{{x.city}}</td>
+                                <td>{{x.state}}</td>
+                                <td>{{x.pinCode}}</td>
+                                <td>{{x.phone}}</td>
+                                <td>{{x.paymentMode}}</td>
+                                <td>{{x.accountTypeCode}}</td>
+                                <td>{{x.bankAccount}}</td>
+                                <td>{{x.micrCode}}</td>
+                                <td>{{x.applicantNO}}</td>
+                                <td>{{x.status}}</td>
+                                <td>{{x.deStatus}}</td>
+                                <td>{{x.brokerAmount}}</td>
+                                <td>{{x.hdfcBranchCode}}</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <br/>
+                    <div class="row">
+                        <div ng-if="vm.filteredRecords.length != 0" class="col-md-12 text-right">
+                            <div class="pagination-container">
+                                <ul class="pagination">
+                                    <li ng-class="{disabled: vm.currentPage === 1}">
+                                        <a href="javascript:void(0)" ng-click="vm.firstPage()"
+                                        >First</a>
+                                    </li>
+                                    <li ng-class="{disabled: vm.currentPage === 1}">
+                                        <a href="javascript:void(0)" ng-click="vm.prevPage()"
+                                        >Prev</a>
+                                    </li>
+                                    <li ng-repeat="page in vm.pages"
+                                        ng-class="{active: vm.page === vm.currentPage}">
+                                        <a href="javascript:void(0)" ng-click="vm.setPage(page)"
+                                        >{{page}}</a>
+                                    </li>
+                                    <li ng-class="{disabled: vm.currentPage === vm.totalPages}">
+                                        <a href="javascript:void(0)" ng-click="vm.nextPage()"
+                                        >Next</a>
+                                    </li>
+                                    <li ng-class="{disabled: vm.currentPage === vm.totalPages}">
+                                        <a href="javascript:void(0)" ng-click="vm.lastPage()"
+                                        >Last</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        Showing {{(vm.currentPage-1)*vm.pageSize + 1}} to
+                        {{vm.maxValue()}} of
+                        {{vm.filteredRecords.length}} records
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container" ng-if="vm.result.length < 1 || vm.noDataFound || vm.result.length == 0">
+    <div class="list_wrapper no_records_message">
+        <h4 class="form_heading">Pending Brokerage Payment Status & Brokerage Claim Status Report</h4>
+        No records found to display.
+        <center>
+            <button type="button" class="btn btn-default"
+                onclick="window.location.href= '#!/pending_brokerage_payment_status_brokerage_claim_status/action/inquiry';">
+                Back
+            </button>
+        </center>
+    </div>
+</div>

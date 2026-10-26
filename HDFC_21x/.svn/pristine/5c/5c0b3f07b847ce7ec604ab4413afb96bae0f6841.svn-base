@@ -1,0 +1,161 @@
+<user-left-menu></user-left-menu>
+<div class="loader-new" ng-if="vm.loader"></div>
+<div class="container list_wrapper" >
+    <h4 class="form_heading feature-heading">Active User - Verify/Reject</h4>
+
+    <div class="col-sm-3">
+        <div class="form-group">
+            <label>
+                Show
+                <select class="form-control record-filter" ng-model="vm.itemsPerPage">
+                    <option value='5'>5</option>
+                    <option value='10'>10</option>
+                    <option value='25'>25</option>
+                    <option value='50'>50</option>
+                </select>
+                records per page
+            </label>
+        </div>
+    </div>
+    <div class="col-sm-3 pull-right">
+        <div class="form-group">
+            <div class="input-group">
+                <div class="input-group-addon"><i class="glyphicon glyphicon-search"></i></div>
+                <input type="text" class="form-control" ng-model="vm.search" placeholder="Search">
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Table to display user data -->
+    <table class="table table-bordered table-striped list">
+        <thead>
+        <tr>
+            <th>Sl.No</th>
+<!--            <th><input type="checkbox" ng-model="selectAll" ng-click="toggleAll()" />Select All</th>-->
+<!--            <th>Check Box</th>-->
+            <th>
+                <input
+                        type="checkbox"
+                        name="select_all_user_name"
+                        ng-model="vm.IsAllChecked"
+                        ng-click="vm.CheckUncheckAll()"
+                        title="Select All"> Select All
+            </th>
+            <th>User Id</th>
+            <th>Employee Name</th>
+            <th>Branch Code</th>
+            <th>Employee Code</th>
+            <th>Dormant Date & Time</th>
+            <th>Status</th>
+<!--            <th>Rejection Remarks</th>-->
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="user in vm.users | filter:vm.search | limitTo:vm.itemsPerPage" ng-if="vm.users && vm.users.length > 0">
+            <td>{{(vm.itemsPerPage * (vm.currentPage-1)) + $index + 1}}</td>
+<!--            <td><input type="checkbox" ng-model="user.checked" ng-checked="selectAll" /></td>-->
+<!--            <td><input type="checkbox" ng-model="user.checked" ></td>-->
+            <td>
+                <input
+                        type="checkbox"
+                        id="user_{{user.userId}}"
+                        name="user_name"
+                        ng-model="user.Selected"
+                        ng-change="vm.CheckUncheckHeader()"
+                >
+            </td>
+            <td>{{user.username}}</td>
+            <td>{{user.employeeName}}</td>
+            <td>{{user.branchCode}}</td>
+            <td>{{user.employeeCode}}</td>
+            <td>{{user.dormantDateTime}}</td>
+            <td>{{user.status}}</td>
+<!--            <td>{{user.remarks}}</td>-->
+        </tr>
+        <tr ng-if="!vm.users || vm.users.length === 0">
+            <td colspan="8">No records found</td>
+        </tr>
+        </tbody>
+    </table>
+    <div class="audit-details">
+        <div class="row">
+            <div class="col-md-3">
+                <span><b>Last Modified By</b>: {{(vm.users[0].modifiedBy) ? (vm.users[0].modifiedBy) : ('None')}}</span>
+            </div>
+            <div class="col-md-3">
+                <span><b>Last Verified By</b>: {{(vm.users[0].verifiedBy) ? (vm.users[0].verifiedBy) : ('None')}}</span>
+            </div>
+            <div class="col-md-3">
+                <span><b>Verify Status</b>: {{vm.users[0].verifiedStatus | getLabelFromValuesArray: vm.commonYesNoMetaData}}</span>
+            </div>
+        </div>
+        <div class="row">
+
+            <div class="col-md-3">
+                <span><b>Last Modified On</b>: {{(vm.users[0].modifiedDate) ? (vm.users[0].modifiedDate | date: 'dd/MM/yyyy') : ('None')}}</span>
+            </div>
+            <div class="col-md-3">
+                <span><b>Last Verified On</b>: {{(vm.users[0].verifiedDate) ? (vm.users[0].verifiedDate | date: 'dd/MM/yyyy') : ('None')}}</span>
+            </div>
+            <div class="col-md-3"></div>
+        </div>
+    </div>
+    <dir-pagination-controls direction-links="true" boundary-links="true"></dir-pagination-controls>
+    <div class="text-center">
+        <button type="submit" class="btn btn-default" id="submitButton"   ng-if="vm.users && vm.users.length > 0" ng-click="vm.verifySubmit()"  ng-disabled="vm.validateSubmitCheckbox()">Verify</button>
+        <button type="button" class="btn btn-default" id="submitButtonn"    ng-if="vm.users && vm.users.length > 0"ng-click="vm.rejectReason()"  ng-disabled="vm.validateSubmitCheckbox()">Reject</button>
+        <button type="button" id="cancel" name="cancel" class="btn btn-cancel" onclick="window.location.href= '#!/';">Cancel</button>
+    </div>
+</div>
+
+<div class="modal" id="permissionMappingDelete" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-bs-dismiss="modal">&times;</button>
+                <h4 class="modal-title"> REJECTION REMARKS</h4>
+            </div>
+            <div class="modal-body">
+                <div class="loader_popup"></div>
+                <div class="list_wrapper">
+                    <form name="permissionDelete" role="form">
+
+                        <div class="row">
+                            <div class="form-group">
+                                <div class="col-sm-2"></div>
+                                <label class="control-label col-sm-3">Remarks</label>
+                                <div class="col-sm-5">
+                                    <!--
+                                                                        <textarea class="form-control"   ng-keypress="vm.validateInput($event,'remarks')" id="remarks" name="remarks" ng-model="vm.remarks" maxlength="80" required></textarea>
+                                    -->
+                                    <select class="form-control list_wrapper" id="remarks[$index]"
+                                            name="remarks[$index]"
+                                            ng-model="vm.deleteRemark" ng-init="vm.getRemarksList();" required>
+                                        <option value="">Select</option>
+                                        <option ng-repeat="item in vm.remarksList"
+                                                name="{{item.subCode + parentIndex}}"
+                                                id="{{item.subCode + parentIndex}}" value="{{item.subCodeDescription}}">
+                                            {{item.subCodeDescription}}
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-offset-5 col-sm-8 form_submit">
+                            <button type="button" class="btn btn-default" data-bs-dismiss="modal"
+                                    ng-disabled="permissionDelete.$invalid" ng-click="vm.deleteSubmit()">Submit
+                            </button>
+                            <button type="button" class="btn btn-cancel" data-bs-dismiss="modal">Cancel</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<div class="list_wrapper no_records_message" ng-if="vm.users.length <= 0">No records found to display.</div>
+<!-- list result - End -->
+</div>

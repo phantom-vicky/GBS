@@ -1,0 +1,207 @@
+<div class="loader-new" ng-if="vm.loader"></div>
+<dc-left-menu></dc-left-menu>
+<div class="container from_wrapper new_form_wrapper">
+    <h4 class="form_heading">RBI Code mapping for Branches - Modify</h4>
+    <sol-header></sol-header>
+    <form name="tdsparameter" role="form">
+
+
+
+        <div class="row">
+            <div class="form-group">
+                <div class="col-sm-2"></div>
+                <div class="col-sm-5">
+                    <label class="control-label">Name of the Module : </label>
+                </div>
+                <div class="col-sm-2"><b>RBI Bond</b>
+                </div>
+
+            </div>
+        </div>
+
+
+
+
+
+        <div class="row" >
+            <div class="form-group required">
+                <div class="col-sm-2"></div>
+                <div class="col-sm-5">
+                    <label for="effFromDate" class="control-label">Effective from Date</label>
+                </div>
+                <div class="col-sm-2">
+                    <p class="input-group">
+                        <input type="text" class="form-control" id="effFromDate"
+                               name="effFromDate" ng-model="vm.tdsParameterList.C006.oldValue"
+                               uib-datepicker-popup="dd/MM/yyyy" ng-init="vm.effFromDate=''"
+                               datepicker-options="vm.dateOptionsM"
+                               is-open="vm.effFromDatePicker.opened" close-text="Close"
+                               maxlength="10" readonly required>
+
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="form-group required">
+                <div class="col-sm-2"></div>
+                <div class="col-sm-5">
+                    <label for="pdoCode" class="control-label">PDO Code/Branch code</label>
+                </div>
+                <div class="col-sm-2">
+                    <input type="text" class="form-control" id="pdoCode"
+                           ng-model="vm.tdsParameterList.C003.oldValue" maxlength="10" chars="alpha-numeric" required oninput="this.value = this.value.replace(/\s+/g, '')">
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="form-group required">
+                <div class="col-sm-2"></div>
+                <div class="col-sm-5">
+                    <label class="control-label">RBI code</label>
+                </div>
+                <div class="col-sm-2">
+                    <input type="text" class="form-control" id="rbiCode" maxlength="10" chars="alpha-numeric"
+                           name="maxNoOfChallan" ng-model="vm.tdsParameterList.C004.oldValue" required oninput="this.value = this.value.replace(/\s+/g, '')">
+                </div>
+            </div>
+        </div>
+
+        <div class="row" >
+            <div class="form-group required">
+                <div class="col-sm-2"></div>
+                <div class="col-sm-5">
+                    <label class="control-label">BLA Prefix</label>
+                </div>
+                <div class="col-sm-2">
+                    <input type="text" class="form-control" id="blaPrefix" maxlength="7" minlength="7" pattern="[A-Za-z]{3}[0-9]{4}"
+                           name="blaPrefix" ng-model="vm.tdsParameterList.C005.oldValue" required oninput="this.value = this.value.replace(/\s+/g, '')">
+                </div>
+            </div>
+        </div>
+
+
+        <div class="row">
+            <div class="form-group required">
+                <div class="col-sm-2"></div>
+                <div class="col-sm-5">
+                    <label for="remark" class="control-label">Remarks</label>
+                </div>
+                <div class="col-sm-2">
+                   <textarea class="form-control" rows="3" id="remark" maxlength="50" name="remark" ng-model="vm.tdsParameterList.C008.oldValue"  oninput="this.value = this.value.replace(/^\s*/, '')"></textarea>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="form-group">
+                <div class="col-sm-2"></div>
+                <div class="col-sm-5">
+                    <label for="remark" class="control-label">Rejection Remark</label>
+                </div>
+                <div class="col-sm-2">
+                   <textarea class="form-control" rows="3" id="rejectionRemark" maxlength="50" name="rejectionRemark" ng-model="vm.verifyDetailsList.rejectionRemark" readonly></textarea>
+                </div>
+            </div>
+        </div>
+
+        <div class="text-center form_submit">
+            <button type="submit" class="btn btn-default" id="submitButton"
+                    ng-disabled="tdsparameter.$invalid" ng-click="vm.modifySubmit()">Modify</button>
+            <button type="button" id="subButton" class="btn btn-cancel"
+                    ng-click="vm.showCancelConfirmation('code_mapping_rbi_bond.modify');">Cancel</button>
+        </div>
+
+
+        <div class="audit-details">
+            <div class="row">
+                <div class="col-md-3">
+                    <span> <b> Created By </b> : {{vm.verifyDetailsList.createdBy}} </span>
+                </div>
+                <div class="col-md-3">
+                    <span> <b> Last Modified By </b> : {{(vm.verifyDetailsList.modifiedBy) ? (vm.verifyDetailsList.modifiedBy) : ('None')}}</span>
+                </div>
+                <div class="col-md-3">
+                    <span> <b> Last Verified By </b> : {{(vm.verifyDetailsList.verifiedBy) ? (vm.verifyDetailsList.verifiedBy) : ('None')}}</span>
+                </div>
+                <div class="col-md-3">
+                    <span> <b> Verify Status </b> : {{vm.verifyDetailsList.verifiedStatus  | getLabelFromValuesArray : vm.commonYesNoMetaData}}</span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3">
+                    <span> <b> Created On </b> : {{ vm.verifyDetailsList.createdDate | date : 'dd/MM/yyyy'}}</span>
+                </div>
+                <div class="col-md-3">
+                    <span> <b> Last Modified On</b> : {{ (vm.verifyDetailsList.modifiedDate) ? (vm.verifyDetailsList.modifiedDate | date : 'dd/MM/yyyy') : ('None')}}</span>
+                </div>
+                <div class="col-md-3">
+                    <span> <b> Last Verified On </b> : {{(vm.verifyDetailsList.verifiedDate) ? (vm.verifyDetailsList.verifiedDate | date : 'dd/MM/yyyy') : ('None')}}</span>
+                </div>
+                <div class="col-md-3">
+                </div>
+            </div>
+        </div>
+
+    </form>
+</div>
+
+
+
+
+
+
+<div class="modal" id="getBranchCode" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-bs-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Branch Code Model</h4>
+            </div>
+            <div class="modal-body">
+                <div class="loader_popup"></div>
+                <div class="list_wrapper" ng-if="vm.branchCodeList.length>0">
+                    <div class="col-sm-8 form_submit">
+                        <div class="form-group">
+                            <div class="input-group">
+                                <div class="input-group-addon">
+                                    <i class="glyphicon glyphicon-search"></i>
+                                </div>
+                                <input type="text" class="form-control"
+                                       ng-model="vm.InterestRateModalSearch"
+                                       placeholder="Search">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4 form_submit"></div>
+                    <div class="row">
+
+                        <div class="col-sm-12">
+                            <table class="table table-bordered list scroll sort">
+                                <thead ng-init="reverseOrder=true;sortedColumn = 'InterestRate'">
+                                <tr>
+                                    <th ng-click="(sortedColumn == 'branchCode')?(reverseOrder=(!reverseOrder)): (reverseOrder = false);sortedColumn = 'branchCode';" ng-class="(sortedColumn == 'branchCode')?((reverseOrder)?('arrow-down') : ('arrow-up') ) : ('')">Branch Code</th>
+                                    <th ng-click="(sortedColumn == 'branchDescription')?(reverseOrder=(!reverseOrder)): (reverseOrder = false);sortedColumn = 'branchDescription';" ng-class="(sortedColumn == 'branchDescription')?((reverseOrder)?('arrow-down') : ('arrow-up') ) : ('')">Branch Description</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr class="cp"
+                                    ng-repeat="x in vm.branchCodeList | filter:vm.InterestRateModalSearch | orderBy:sortedColumn:reverseOrder"
+                                    ng-click="vm.tdsParameterList.C002.oldValue = x.branchCode; vm.tdsParameterList.C010.oldValue=x.branchDescription" data-bs-dismiss="modal">
+                                    <td>{{x.branchCode}}</td>
+                                    <td>{{x.branchDescription}}</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="list_wrapper" ng-if="vm.branchCodeList.length==0">No records found to display.</div>
+            </div>
+
+        </div>
+    </div>
+</div>

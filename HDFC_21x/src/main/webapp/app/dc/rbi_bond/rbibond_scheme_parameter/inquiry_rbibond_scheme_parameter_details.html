@@ -1,0 +1,942 @@
+<div class="loader-new" ng-if="vm.loader"></div>
+<dc-left-menu></dc-left-menu>
+<div class="container from_wrapper new_form_wrapper">
+    <h4 class="form_heading">RBI Bond Scheme Parameters - Inquiry</h4>
+    <sol-header></sol-header>
+    <form name="cbdtSchemeParameterCreationForm" role="form">
+        <div class="row">
+            <div class="form-group">
+                <div class="col-sm-6">
+                    <label class="control-label">Name of the Module : <b>RBI Bond</b></label>
+                </div>
+                <div class="col-sm-2">
+                </div>
+                <div class="col-sm-4 text-right">
+                    <label class="control-label"><b>Version :&nbsp;&nbsp;<span ng-bind="vm.cbdtSchemeParameter.C002.oldValue"></span></b></label>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="row">
+            <div class="form-group">
+                <div class="col-sm-12">
+                    <label class="control-label">Name of the Bond Scheme</label>
+                    <label><b>{{vm.schemeName}}</b></label>
+                </div>
+            </div>
+        </div>
+
+
+
+        <table class="table table-bordered table-striped list old-new-value-table">
+            <thead>
+            <tr>
+                <th>Particular</th>
+                <th>{{(vm.verificationDetails == 'M')?('Old Value'): ('Value')}}</th>
+                <th ng-if="vm.verificationDetails == 'M'">New Value</th>
+            </tr>
+            </thead>
+            <tbody>
+
+
+            <tr>
+                <td>Bond Scheme Effective From Date (DD/MM/YYYY)</td>
+                <td class="old-value">{{(vm.cbdtSchemeParameter && vm.cbdtSchemeParameter.C003)?
+                    (vm.cbdtSchemeParameter.C003.oldValue | date : 'dd/MM/yyyy') : ('')}}
+                </td>
+                <td ng-if="vm.verificationDetails == 'M'" class="new-value">{{(vm.cbdtSchemeParameter &&
+                    vm.cbdtSchemeParameter.C003)? (vm.cbdtSchemeParameter.C003.newValue | date : 'dd/MM/yyyy') : ('')}}
+                </td>
+            </tr>
+            <tr>
+                <td>Bond Scheme Effective End Date (DD/MM/YYYY)</td>
+                <td class="old-value">{{(vm.cbdtSchemeParameter && vm.cbdtSchemeParameter.C004)?
+                    (vm.cbdtSchemeParameter.C004.oldValue | date : 'dd/MM/yyyy') : ('')}}
+                </td>
+                <td ng-if="vm.verificationDetails == 'M'" class="new-value">{{(vm.cbdtSchemeParameter &&
+                    vm.cbdtSchemeParameter.C004)? (vm.cbdtSchemeParameter.C004.newValue | date : 'dd/MM/yyyy') : ('')}}
+                </td>
+            </tr>
+            <tr>
+                <td>Parameters Effective From (DD/MM/YYYY)</td>
+                <td class="old-value">{{(vm.cbdtSchemeParameter && vm.cbdtSchemeParameter.C005)?
+                    (vm.cbdtSchemeParameter.C005.oldValue | date : 'dd/MM/yyyy') : ('')}}
+                </td>
+                <td ng-if="vm.verificationDetails == 'M'" class="new-value">{{(vm.cbdtSchemeParameter &&
+                    vm.cbdtSchemeParameter.C005)? (vm.cbdtSchemeParameter.C005.newValue | date : 'dd/MM/yyyy') : ('')}}
+                </td>
+            </tr>
+
+            <tr>
+                <td>Minimum Deposit Rs</td>
+                <td class="old-value">{{(vm.cbdtSchemeParameter && vm.cbdtSchemeParameter.C006)?
+                    (vm.indianNumberFormat(vm.cbdtSchemeParameter.C006.oldValue)) : ('')}}
+                </td>
+                <td ng-if="vm.verificationDetails == 'M'" class="new-value">
+                    {{(vm.cbdtSchemeParameter && vm.cbdtSchemeParameter.C006)?
+                    (vm.indianNumberFormat(vm.cbdtSchemeParameter.C006.newValue)) : ('')}}
+                </td>
+            </tr>
+
+            <tr>
+                <td>Maximum Deposit Amount Rs</td>
+                <td class="old-value">{{(vm.cbdtSchemeParameter && vm.cbdtSchemeParameter.C007)?
+                    (vm.indianNumberFormat(vm.cbdtSchemeParameter.C007.oldValue)) : ('')}}
+                </td>
+                <td ng-if="vm.verificationDetails == 'M'" class="new-value">
+                    {{(vm.cbdtSchemeParameter && vm.cbdtSchemeParameter.C007)?
+                    (vm.indianNumberFormat(vm.cbdtSchemeParameter.C007.newValue)) : ('')}}
+                </td>
+            </tr>
+
+            <tr>
+                <td>Maximum Limit for Cash Deposit Rs</td>
+                <td class="old-value">{{(vm.cbdtSchemeParameter && vm.cbdtSchemeParameter.C008)?
+                    (vm.indianNumberFormat(vm.cbdtSchemeParameter.C008.oldValue)) : ('')}}
+                </td>
+                <td ng-if="vm.verificationDetails == 'M'" class="new-value">
+                    {{(vm.cbdtSchemeParameter && vm.cbdtSchemeParameter.C008)?
+                    (vm.indianNumberFormat(vm.cbdtSchemeParameter.C008.newValue)) : ('')}}
+                </td>
+            </tr>
+
+            <tr>
+                <td>Deposit in Multiples of (Rs.)</td>
+                <td class="old-value">{{(vm.cbdtSchemeParameter && vm.cbdtSchemeParameter.C009)?
+                    (vm.indianNumberFormat(vm.cbdtSchemeParameter.C009.oldValue)) : ('')}}
+                </td>
+                <td ng-if="vm.verificationDetails == 'M'" class="new-value">
+                    {{(vm.cbdtSchemeParameter && vm.cbdtSchemeParameter.C009)?
+                    (vm.indianNumberFormat(vm.cbdtSchemeParameter.C009.newValue)) : ('')}}
+                </td>
+            </tr>
+
+            <tr>
+                <td>Deposit Maturity Period (Months)</td>
+                <td class="old-value">{{(vm.cbdtSchemeParameter && vm.cbdtSchemeParameter.C010)?
+                    (vm.cbdtSchemeParameter.C010.oldValue) : ('')}}
+                </td>
+                <td ng-if="vm.verificationDetails == 'M'" class="new-value">
+                    {{(vm.cbdtSchemeParameter && vm.cbdtSchemeParameter.C010)?
+                    (vm.cbdtSchemeParameter.C010.newValue) : ('')}}
+                </td>
+            </tr>
+
+            <tr>
+                <td>Minimum Tenure of the Bond</td>
+                <td class="old-value">{{(vm.cbdtSchemeParameter && vm.cbdtSchemeParameter.C011)?
+                    (vm.cbdtSchemeParameter.C011.oldValue) : ('')}}
+                </td>
+                <td ng-if="vm.verificationDetails == 'M'" class="new-value">
+                    {{(vm.cbdtSchemeParameter && vm.cbdtSchemeParameter.C011)?
+                    (vm.cbdtSchemeParameter.C011.newValue) : ('')}}
+                </td>
+            </tr>
+<!--            <tr>-->
+<!--                <td>Maximum Tenure of the Bond</td>-->
+<!--                <td class="old-value">{{(vm.cbdtSchemeParameter && vm.cbdtSchemeParameter.C040)?-->
+<!--                    (vm.cbdtSchemeParameter.C040.oldValue) : ('')}}-->
+<!--                </td>-->
+<!--                <td ng-if="vm.verificationDetails == 'M'" class="new-value">-->
+<!--                    {{(vm.cbdtSchemeParameter && vm.cbdtSchemeParameter.C040)?-->
+<!--                    (vm.cbdtSchemeParameter.C040.newValue) : ('')}}-->
+<!--                </td>-->
+<!--            </tr>-->
+            <tr>
+                <td>TDS applicable </td>
+                <td class="old-value">{{(vm.cbdtSchemeParameter && vm.cbdtSchemeParameter.C012)?
+                    (vm.cbdtSchemeParameter.C012.oldValue) : ('')}}
+                </td>
+                <td ng-if="vm.verificationDetails == 'M'" class="new-value">
+                    {{(vm.cbdtSchemeParameter && vm.cbdtSchemeParameter.C012)?
+                    (vm.cbdtSchemeParameter.C012.newValue) : ('')}}
+                </td>
+            </tr>
+            <tr>
+                <td>The status of the scheme (Y/N)?</td>
+                <td class="old-value">{{(vm.cbdtSchemeParameter && vm.cbdtSchemeParameter.C013)?
+                    (vm.cbdtSchemeParameter.C013.oldValue | getLabelFromValuesArray : vm.typeOfSchemeStatus) : ('')}}
+                </td>
+                <td ng-if="vm.verificationDetails == 'M'" class="new-value">
+                    {{(vm.cbdtSchemeParameter && vm.cbdtSchemeParameter.C013)?
+                    (vm.cbdtSchemeParameter.C013.newValue | getLabelFromValuesArray : vm.typeOfSchemeStatus) : ('')}}
+                </td>
+            </tr>
+
+            <tr>
+                <td>Interest Rate code</td>
+                <td class="old-value">{{(vm.cbdtSchemeParameter && vm.cbdtSchemeParameter.C014)?
+                    (vm.cbdtSchemeParameter.C014.oldValue) : ('')}}
+                </td>
+                <td ng-if="vm.verificationDetails == 'M'" class="new-value">
+                    {{(vm.cbdtSchemeParameter && vm.cbdtSchemeParameter.C014)?
+                    (vm.cbdtSchemeParameter.C014.newValue) : ('')}}
+                </td>
+            </tr>
+
+            <tr>
+                <td>Interest Payment Frequency</td>
+                <td class="old-value">{{(vm.cbdtSchemeParameter && vm.cbdtSchemeParameter.C015)?
+                    (vm.cbdtSchemeParameter.C015.oldValue | getLabelFromValuesArray : vm.interestPaymentFrequency) : ('')}}
+                </td>
+                </td>
+                <td ng-if="vm.verificationDetails == 'M'" class="new-value">
+                    {{(vm.cbdtSchemeParameter && vm.cbdtSchemeParameter.C015)?
+                    (vm.cbdtSchemeParameter.C015.newValue | getLabelFromValuesArray : vm.interestPaymentFrequency) : ('')}}
+                </td>
+            </tr>
+
+            <tr>
+                <td>Interest Payment Date1 (DD/MM)</td>
+                <td class="old-value">{{(vm.cbdtSchemeParameter && vm.cbdtSchemeParameter.C016)?
+                    (vm.cbdtSchemeParameter.C016.oldValue) : ('')}}
+                </td>
+                <td ng-if="vm.verificationDetails == 'M'" class="new-value">
+                    {{(vm.cbdtSchemeParameter && vm.cbdtSchemeParameter.C016)?
+                    (vm.cbdtSchemeParameter.C016.newValue) : ('')}}
+                </td>
+            </tr>
+
+            <tr>
+                <td>Interest Payment Date2 (DD/MM)</td>
+                <td class="old-value">{{(vm.cbdtSchemeParameter && vm.cbdtSchemeParameter.C017)?
+                    (vm.cbdtSchemeParameter.C017.oldValue) : ('')}}
+                </td>
+                <td ng-if="vm.verificationDetails == 'M'" class="new-value">
+                    {{(vm.cbdtSchemeParameter && vm.cbdtSchemeParameter.C017)?
+                    (vm.cbdtSchemeParameter.C017.newValue) : ('')}}
+                </td>
+            </tr>
+
+
+            <tr>
+                <td>In case of Holiday, Alternate Interest Payment Day</td>
+                <td class="old-value">{{(vm.cbdtSchemeParameter && vm.cbdtSchemeParameter.C018)?
+                    (vm.cbdtSchemeParameter.C018.oldValue | getLabelFromValuesArray : vm.inCaseOfHolidayAlternateInterestPaymentDate) : ('')}}
+                </td>
+                <td ng-if="vm.verificationDetails == 'M'" class="new-value">
+                    {{(vm.cbdtSchemeParameter && vm.cbdtSchemeParameter.C018)?
+                    (vm.cbdtSchemeParameter.C018.newValue | getLabelFromValuesArray : vm.inCaseOfHolidayAlternateInterestPaymentDate) : ('')}}
+                </td>
+            </tr>
+
+            <tr>
+                <td>Is Age based Premature Encashment allowed under scheme (Y/N)?</td>
+                <td class="old-value">{{(vm.cbdtSchemeParameter && vm.cbdtSchemeParameter.C019)?
+                    (vm.cbdtSchemeParameter.C019.oldValue | getLabelFromValuesArray : vm.commonYesNoMetaData) : ('')}}
+                </td>
+                <td ng-if="vm.verificationDetails == 'M'" class="new-value">
+                    {{(vm.cbdtSchemeParameter && vm.cbdtSchemeParameter.C019)?
+                    (vm.cbdtSchemeParameter.C019.newValue | getLabelFromValuesArray : vm.commonYesNoMetaData) : ('')}}
+                </td>
+            </tr>
+
+            <tr ng-if="vm.cbdtSchemeParameter.C019.newValue == 'N'">
+                <td>Is Normal Premature Encashment allowed under scheme (Y/N)?</td>
+                <td class="old-value">{{(vm.cbdtSchemeParameter && vm.cbdtSchemeParameter.C020)?
+                    (vm.cbdtSchemeParameter.C020.oldValue | getLabelFromValuesArray : vm.commonYesNoMetaData) : ('-')}}
+                </td>
+                <td ng-if="vm.verificationDetails == 'M'" class="new-value">
+                    {{(vm.cbdtSchemeParameter && vm.cbdtSchemeParameter.C020)?
+                    (vm.cbdtSchemeParameter.C020.newValue | getLabelFromValuesArray : vm.commonYesNoMetaData) : ('-')}}
+                </td>
+            </tr>
+
+            <!--<tr ng-if="vm.cbdtSchemeParameter.C019.oldValue == 'N'">
+                <td>Is Normal Premature Encashment allowed under scheme (Y/N)?</td>
+                <td class="old-value">{{(vm.cbdtSchemeParameter && vm.cbdtSchemeParameter.C019)?
+                    (vm.cbdtSchemeParameter.C019.oldValue | getLabelFromValuesArray : vm.commonYesNoMetaData) : ('-')}}
+                </td>
+                <td ng-if="vm.verificationDetails == 'M'" class="new-value">
+                    {{(vm.cbdtSchemeParameter && vm.cbdtSchemeParameter.C019)?
+                    (vm.cbdtSchemeParameter.C019.newValue | getLabelFromValuesArray : vm.commonYesNoMetaData) : ('-')}}
+                </td>
+            </tr>-->
+
+            <tr>
+                <td>Minimum Lock-in Period (Years)</td>
+                <td class="old-value">{{(vm.cbdtSchemeParameter && vm.cbdtSchemeParameter.C021)?
+                    (vm.cbdtSchemeParameter.C021.oldValue) : ('-')}}
+                </td>
+                <td ng-if="vm.verificationDetails == 'M'" class="new-value">
+                    {{(vm.cbdtSchemeParameter && vm.cbdtSchemeParameter.C021)?
+                    (vm.cbdtSchemeParameter.C021.newValue) : ('-')}}
+                </td>
+            </tr>
+
+
+            <tr>
+                <td>Type of Bond subscriptions allowed under bond scheme</td>
+                <td class="old-value">{{(vm.cbdtSchemeParameter && vm.cbdtSchemeParameter.C022)?
+                    (vm.cbdtSchemeParameter.C022.oldValue | getLabelFromValuesArray : vm.typeOfBondSchemeSubscriptionAllowedUnderBondScheme) : ('')}}
+                </td>
+                <td ng-if="vm.verificationDetails == 'M'" class="new-value">
+                    {{(vm.cbdtSchemeParameter && vm.cbdtSchemeParameter.C022)?
+                    (vm.cbdtSchemeParameter.C022.newValue | getLabelFromValuesArray : vm.typeOfBondSchemeSubscriptionAllowedUnderBondScheme) : ('')}}
+                </td>
+            </tr>
+
+
+            <tr>
+                <td>Maturity Amount Per Thousand (Rs.)</td>
+                <td class="old-value">{{(vm.cbdtSchemeParameter && vm.cbdtSchemeParameter.C023)?
+                    (vm.indianNumberFormat(vm.cbdtSchemeParameter.C023.oldValue)) : ('-')}}
+                </td>
+                <td ng-if="vm.verificationDetails == 'M'" class="new-value">
+                    {{(vm.cbdtSchemeParameter && vm.cbdtSchemeParameter.C023)?
+                    (vm.indianNumberFormat(vm.cbdtSchemeParameter.C023.newValue)) : ('-')}}
+                </td>
+            </tr>
+            <tr>
+                <td>Premature Encashment Penalty Percentage</td>
+                <td class="old-value">{{vm.cbdtSchemeParameter.C024.oldValue}}
+                </td>
+                <td ng-if="vm.verificationDetails == 'M'" class="new-value">
+                    {{vm.cbdtSchemeParameter.C024.newValue}}
+                </td>
+            </tr>
+
+            <tr>
+                <td>Maximum No of Nominee allowed in the scheme </td>
+                <td class="old-value">{{vm.cbdtSchemeParameter.C025.oldValue}}
+                </td>
+                <td ng-if="vm.verificationDetails == 'M'" class="new-value">
+                    {{vm.cbdtSchemeParameter.C025.newValue}}
+                </td>
+            </tr>
+            <tr>
+                <td>Nominee Sharable Amount in Multiples of (Rs.)</td>
+                <td class="old-value">{{(vm.cbdtSchemeParameter && vm.cbdtSchemeParameter.C050)?
+                    (vm.indianNumberFormat(vm.cbdtSchemeParameter.C050.oldValue)) : ('')}}
+                </td>
+                <td ng-if="vm.verificationDetails == 'M'" class="new-value">
+                    {{(vm.cbdtSchemeParameter && vm.cbdtSchemeParameter.C050)?
+                    (vm.indianNumberFormat(vm.cbdtSchemeParameter.C050.newValue)) : ('')}}
+                </td>
+            </tr>
+            <tr>
+                <td>Nominee Minimum Amount (Rs.)</td>
+                <td class="old-value">{{(vm.cbdtSchemeParameter && vm.cbdtSchemeParameter.C051)?
+                    (vm.indianNumberFormat(vm.cbdtSchemeParameter.C051.oldValue)) : ('')}}
+                </td>
+                <td ng-if="vm.verificationDetails == 'M'" class="new-value">
+                    {{(vm.cbdtSchemeParameter && vm.cbdtSchemeParameter.C051)?
+                    (vm.indianNumberFormat(vm.cbdtSchemeParameter.C051.newValue)) : ('')}}
+                </td>
+            </tr>
+            <tr>
+                <td>Govt Notification No*</td>
+                <td class="old-value">{{(vm.cbdtSchemeParameter && vm.cbdtSchemeParameter.C026)?
+                    (vm.cbdtSchemeParameter.C026.oldValue) : ('')}}
+                </td>
+                <td ng-if="vm.verificationDetails == 'M'" class="new-value">
+                    {{(vm.cbdtSchemeParameter && vm.cbdtSchemeParameter.C026)?
+                    (vm.cbdtSchemeParameter.C026.newValue) : ('')}}
+                </td>
+            </tr>
+
+            <tr>
+                <td>Govt Notification Date(DD/MM/YYYY)</td>
+                <td class="old-value">{{(vm.cbdtSchemeParameter && vm.cbdtSchemeParameter.C027)?
+                    (vm.cbdtSchemeParameter.C027.oldValue) : ('')}}
+                </td>
+                <td ng-if="vm.verificationDetails == 'M'" class="new-value">
+                    {{(vm.cbdtSchemeParameter && vm.cbdtSchemeParameter.C027)?
+                    (vm.cbdtSchemeParameter.C027.newValue) : ('')}}
+                </td>
+            </tr>
+            <tr>
+                <td>CAS Transfer Days (T+)</td>
+                <td class="old-value">{{(vm.cbdtSchemeParameter && vm.cbdtSchemeParameter.C049)?
+                    (vm.cbdtSchemeParameter.C049.oldValue) : ('')}}
+                </td>
+                <td ng-if="vm.verificationDetails == 'M'" class="new-value">
+                    {{(vm.cbdtSchemeParameter && vm.cbdtSchemeParameter.C049)?
+                    (vm.cbdtSchemeParameter.C049.newValue) : ('')}}
+                </td>
+            </tr>
+
+            <tr>
+                <td>PAN No required for Subscription Amount greater than Rs</td>
+                <td class="old-value">{{(vm.cbdtSchemeParameter && vm.cbdtSchemeParameter.C028)?
+                    (vm.indianNumberFormat(vm.cbdtSchemeParameter.C028.oldValue)) : ('')}}
+                </td>
+                <td ng-if="vm.verificationDetails == 'M'" class="new-value">
+                    {{(vm.cbdtSchemeParameter && vm.cbdtSchemeParameter.C028)?
+                    (vm.indianNumberFormat(vm.cbdtSchemeParameter.C028.newValue)) : ('')}}
+                </td>
+            </tr>
+            <tr>
+                <td>Ceiling Amount without PAN</td>
+                <td class="old-value">{{(vm.cbdtSchemeParameter && vm.cbdtSchemeParameter.C029)?
+                    (vm.cbdtSchemeParameter.C029.oldValue) : ('')}}
+                </td>
+                <td ng-if="vm.verificationDetails == 'M'" class="new-value">
+                    {{(vm.cbdtSchemeParameter && vm.cbdtSchemeParameter.C029)?
+                    (vm.cbdtSchemeParameter.C029.newValue) : ('')}}
+                </td>
+            </tr>
+            <tr>
+                <td>Ceiling Amount with PAN</td>
+                <td class="old-value">{{(vm.cbdtSchemeParameter && vm.cbdtSchemeParameter.C041)?
+                    (vm.cbdtSchemeParameter.C041.oldValue) : ('')}}
+                </td>
+                <td ng-if="vm.verificationDetails == 'M'" class="new-value">
+                    {{(vm.cbdtSchemeParameter && vm.cbdtSchemeParameter.C041)?
+                    (vm.cbdtSchemeParameter.C041.newValue) : ('')}}
+                </td>
+            </tr>
+
+            <tr>
+                <td>After Maturity Interest Rate</td>
+                <td class="old-value">{{(vm.cbdtSchemeParameter && vm.cbdtSchemeParameter.C043)?
+                    (vm.cbdtSchemeParameter.C048.oldValue) : ('')}}
+                </td>
+                <td ng-if="vm.verificationDetails == 'M'" class="new-value">
+                    {{(vm.cbdtSchemeParameter && vm.cbdtSchemeParameter.C043)?
+                    (vm.cbdtSchemeParameter.C048.newValue) : ('')}}
+                </td>
+            </tr>
+
+
+<!--
+            <tr>
+                <td>Post Office Saving Rate code</td>
+                <td class="old-value">{{(vm.cbdtSchemeParameter && vm.cbdtSchemeParameter.C028)?
+                    (vm.cbdtSchemeParameter.C028.oldValue) : ('')}}
+                </td>
+                <td ng-if="vm.verificationDetails == 'M'" class="new-value">
+                    {{(vm.cbdtSchemeParameter && vm.cbdtSchemeParameter.C028)?
+                    (vm.cbdtSchemeParameter.C028.newValue) : ('')}}
+                </td>
+            </tr>
+
+            <tr>
+                <td>Brokerage percentage (%)</td>
+                <td class="old-value">{{(vm.cbdtSchemeParameter && vm.cbdtSchemeParameter.C029)?
+                    (vm.cbdtSchemeParameter.C029.oldValue) : ('')}}
+                </td>
+                <td ng-if="vm.verificationDetails == 'M'" class="new-value">
+                    {{(vm.cbdtSchemeParameter && vm.cbdtSchemeParameter.C029)?
+                    (vm.cbdtSchemeParameter.C029.newValue) : ('')}}
+                </td>
+            </tr>-->
+
+            <tr>
+                <td>Handling Charges (%)</td>
+                <td class="old-value">{{(vm.cbdtSchemeParameter && vm.cbdtSchemeParameter.C030)?
+                    (vm.cbdtSchemeParameter.C030.oldValue) : ('')}}
+                </td>
+                <td ng-if="vm.verificationDetails == 'M'" class="new-value">
+                    {{(vm.cbdtSchemeParameter && vm.cbdtSchemeParameter.C030)?
+                    (vm.cbdtSchemeParameter.C030.newValue) : ('')}}
+                </td>
+            </tr>
+
+            <tr>
+                <td>Service Charges (for year April - March) for New BLA Accounts Rs.</td>
+                <td class="old-value">{{(vm.cbdtSchemeParameter && vm.cbdtSchemeParameter.C031)?
+                    (vm.cbdtSchemeParameter.C031.oldValue) : ('')}}
+                </td>
+                <td ng-if="vm.verificationDetails == 'M'" class="new-value">
+                    {{(vm.cbdtSchemeParameter && vm.cbdtSchemeParameter.C031)?
+                    (vm.cbdtSchemeParameter.C031.newValue) : ('')}}
+                </td>
+            </tr>
+
+            <tr>
+                <td>Service Charges (for year April - March) for the existing  BLA Accounts Rs.</td>
+                <td class="old-value">{{(vm.cbdtSchemeParameter && vm.cbdtSchemeParameter.C032)?
+                    (vm.cbdtSchemeParameter.C032.oldValue) : ('')}}
+                </td>
+                <td ng-if="vm.verificationDetails == 'M'" class="new-value">
+                    {{(vm.cbdtSchemeParameter && vm.cbdtSchemeParameter.C032)?
+                    (vm.cbdtSchemeParameter.C032.newValue) : ('')}}
+                </td>
+            </tr>
+
+            <tr>
+                <td>Interest Amount Rounding Factor</td>
+                <td class="old-value">{{(vm.cbdtSchemeParameter && vm.cbdtSchemeParameter.C033)?
+                    (vm.cbdtSchemeParameter.C033.oldValue | getLabelFromValuesArray : vm.roundingFactorMetaData) : ('')}}
+                </td>
+                <td ng-if="vm.verificationDetails == 'M'" class="new-value">
+                    {{(vm.cbdtSchemeParameter && vm.cbdtSchemeParameter.C017)?
+                    (vm.cbdtSchemeParameter.C033.newValue | getLabelFromValuesArray : vm.roundingFactorMetaData) : ('')}}
+                </td>
+            </tr>
+
+
+
+
+<!--            <tr>-->
+<!--                <td>Is Aadhaar Required to be captured?</td>-->
+<!--                <td class="old-value">{{(vm.cbdtSchemeParameter && vm.cbdtSchemeParameter.C034)?-->
+<!--                    (vm.cbdtSchemeParameter.C034.oldValue | getLabelFromValuesArray : vm.commonYesNoMetaData) : ('')}}-->
+<!--                </td>-->
+<!--                <td ng-if="vm.verificationDetails == 'M'" class="new-value">-->
+<!--                    {{(vm.cbdtSchemeParameter && vm.cbdtSchemeParameter.C034)?-->
+<!--                    (vm.cbdtSchemeParameter.C034.newValue | getLabelFromValuesArray : vm.commonYesNoMetaData) : ('')}}-->
+<!--                </td>-->
+<!--            </tr>-->
+
+
+
+<!--            <tr>-->
+<!--                <td>Is Aadhaar Mandatory?</td>-->
+<!--                <td class="old-value">{{(vm.cbdtSchemeParameter && vm.cbdtSchemeParameter.C035)?-->
+<!--                    (vm.cbdtSchemeParameter.C035.oldValue | getLabelFromValuesArray : vm.commonYesNoMetaData) : ('')}}-->
+<!--                </td>-->
+<!--                <td ng-if="vm.verificationDetails == 'M'" class="new-value">-->
+<!--                    {{(vm.cbdtSchemeParameter && vm.cbdtSchemeParameter.C035)?-->
+<!--                    (vm.cbdtSchemeParameter.C035.newValue | getLabelFromValuesArray : vm.commonYesNoMetaData) : ('')}}-->
+<!--                </td>-->
+<!--            </tr>-->
+<!--            <tr>-->
+<!--                <td>Is Aadhaar required to be displayed in the screen?</td>-->
+<!--                <td class="old-value">{{(vm.cbdtSchemeParameter && vm.cbdtSchemeParameter.C036)?-->
+<!--                    (vm.cbdtSchemeParameter.C036.oldValue | getLabelFromValuesArray : vm.commonYesNoMetaData) : ('')}}-->
+<!--                </td>-->
+<!--                <td ng-if="vm.verificationDetails == 'M'" class="new-value">-->
+<!--                    {{(vm.cbdtSchemeParameter && vm.cbdtSchemeParameter.C036)?-->
+<!--                    (vm.cbdtSchemeParameter.C036.newValue | getLabelFromValuesArray : vm.commonYesNoMetaData) : ('')}}-->
+<!--                </td>-->
+<!--            </tr>-->
+            <tr>
+                <td>Is Separate Holder ID required for each Joint holder?</td>
+                <td class="old-value">{{(vm.cbdtSchemeParameter && vm.cbdtSchemeParameter.C037)?
+                    (vm.cbdtSchemeParameter.C037.oldValue | getLabelFromValuesArray : vm.commonYesNoMetaData) : ('')}}
+                </td>
+                <td ng-if="vm.verificationDetails == 'M'" class="new-value">
+                    {{(vm.cbdtSchemeParameter && vm.cbdtSchemeParameter.C037)?
+                    (vm.cbdtSchemeParameter.C037.newValue | getLabelFromValuesArray : vm.commonYesNoMetaData) : ('')}}
+                </td>
+            </tr>
+
+            <tr>
+                <td>Batch size for Interest Payment</td>
+                <td class="old-value">{{(vm.cbdtSchemeParameter && vm.cbdtSchemeParameter.C038)?
+                    (vm.indianNumberFormat(vm.cbdtSchemeParameter.C038.oldValue)) : ('')}}
+                </td>
+                <td ng-if="vm.verificationDetails == 'M'" class="new-value">
+                    {{(vm.cbdtSchemeParameter && vm.cbdtSchemeParameter.C038)?
+                    (vm.indianNumberFormat(vm.cbdtSchemeParameter.C038.newValue)) : ('')}}
+                </td>
+            </tr>
+
+            <tr>
+                <td>CGST Rate For Brokerage (%)</td>
+                <td class="old-value">{{(vm.cbdtSchemeParameter && vm.cbdtSchemeParameter.C042)?
+                    (vm.cbdtSchemeParameter.C042.oldValue) : ('')}}
+                </td>
+                <td ng-if="vm.verificationDetails == 'M'" class="new-value">
+                    {{(vm.cbdtSchemeParameter && vm.cbdtSchemeParameter.C042)?
+                    (vm.cbdtSchemeParameter.C042.newValue) : ('')}}
+                </td>
+            </tr>
+            <tr>
+                <td>Cess Rate For Brokerage (%)</td>
+                <td class="old-value">{{(vm.cbdtSchemeParameter && vm.cbdtSchemeParameter.C043)?
+                    (vm.cbdtSchemeParameter.C043.oldValue) : ('')}}
+                </td>
+                <td ng-if="vm.verificationDetails == 'M'" class="new-value">
+                    {{(vm.cbdtSchemeParameter && vm.cbdtSchemeParameter.C042)?
+                    (vm.cbdtSchemeParameter.C043.newValue) : ('')}}
+                </td>
+            </tr>
+            <tr>
+                <td>RBI Brokerage percentage (%)</td>
+                <td class="old-value">{{(vm.cbdtSchemeParameter && vm.cbdtSchemeParameter.C044)?
+                    (vm.cbdtSchemeParameter.C044.oldValue) : ('')}}
+                </td>
+                <td ng-if="vm.verificationDetails == 'M'" class="new-value">
+                    {{(vm.cbdtSchemeParameter && vm.cbdtSchemeParameter.C044)?
+                    (vm.cbdtSchemeParameter.C044.newValue) : ('')}}
+                </td>
+            </tr>
+            <tr>
+                <td>Broker’s percentage share (%)</td>
+                <td class="old-value">{{(vm.cbdtSchemeParameter && vm.cbdtSchemeParameter.C045)?
+                    (vm.cbdtSchemeParameter.C045.oldValue) : ('')}}
+                </td>
+                <td ng-if="vm.verificationDetails == 'M'" class="new-value">
+                    {{(vm.cbdtSchemeParameter && vm.cbdtSchemeParameter.C045)?
+                    (vm.cbdtSchemeParameter.C045.newValue) : ('')}}
+                </td>
+            </tr>
+            <tr>
+                <td>Difference Percentage with bank share (%)</td>
+                <td class="old-value">{{(vm.cbdtSchemeParameter && vm.cbdtSchemeParameter.C046)?
+                    (vm.cbdtSchemeParameter.C046.oldValue) : ('')}}
+                </td>
+                <td ng-if="vm.verificationDetails == 'M'" class="new-value">
+                    {{(vm.cbdtSchemeParameter && vm.cbdtSchemeParameter.C046)?
+                    (vm.cbdtSchemeParameter.C046.newValue) : ('')}}
+                </td>
+            </tr>
+            <tr>
+                <td>IGST Rate Brokerage (%)</td>
+                <td class="old-value">{{(vm.cbdtSchemeParameter && vm.cbdtSchemeParameter.C047)?
+                    (vm.cbdtSchemeParameter.C047.oldValue) : ('')}}
+                </td>
+                <td ng-if="vm.verificationDetails == 'M'" class="new-value">
+                    {{(vm.cbdtSchemeParameter && vm.cbdtSchemeParameter.C047)?
+                    (vm.cbdtSchemeParameter.C047.newValue) : ('')}}
+                </td>
+            </tr>
+            <tr>
+                <td>Rejection Remarks</td>
+                <td class="old-value">{{(vm.auditInfo && vm.auditInfo.remarks)?
+                    (vm.auditInfo.remarks) : ('')}}
+                </td>
+                <td ng-if="vm.verificationDetails == 'M'" class="new-value">
+                    {{(vm.auditInfo && vm.auditInfo.remarks)?
+                    (vm.auditInfo.remarks) : ('')}}
+                </td>
+            </tr>
+
+
+           <!-- <tr>
+                <td>Is BOND CASH Account centralized?</td>
+                <td class="old-value">{{(vm.cbdtSchemeParameter && vm.cbdtSchemeParameter.C037)?
+                    (vm.cbdtSchemeParameter.C037.oldValue | getLabelFromValuesArray : vm.commonYesNoMetaData) : ('')}}
+                </td>
+                <td ng-if="vm.verificationDetails == 'M'" class="new-value">
+                    {{(vm.cbdtSchemeParameter && vm.cbdtSchemeParameter.C037)?
+                    (vm.cbdtSchemeParameter.C037.newValue | getLabelFromValuesArray : vm.commonYesNoMetaData) : ('')}}
+                </td>
+            </tr>
+
+
+            <tr>
+                <td>BOND CASH Account</td>
+                <td class="old-value">{{(vm.cbdtSchemeParameter && vm.cbdtSchemeParameter.C038)?
+                    (vm.cbdtSchemeParameter.C038.oldValue) : ('')}}
+                </td>
+                <td ng-if="vm.verificationDetails == 'M'" class="new-value">
+                    {{(vm.cbdtSchemeParameter && vm.cbdtSchemeParameter.C038)?
+                    (vm.cbdtSchemeParameter.C038.newValue) : ('')}}
+                </td>
+            </tr>
+
+            <tr>
+                <td>Is BOND Clearing Account centralized?</td>
+                <td class="old-value">{{(vm.cbdtSchemeParameter && vm.cbdtSchemeParameter.C039)?
+                    (vm.cbdtSchemeParameter.C039.oldValue | getLabelFromValuesArray : vm.commonYesNoMetaData) : ('')}}
+                </td>
+                <td ng-if="vm.verificationDetails == 'M'" class="new-value">
+                    {{(vm.cbdtSchemeParameter && vm.cbdtSchemeParameter.C039)?
+                    (vm.cbdtSchemeParameter.C039.newValue | getLabelFromValuesArray : vm.commonYesNoMetaData) : ('')}}
+                </td>
+            </tr>
+
+
+
+            <tr>
+                <td>BOND Clearing Account</td>
+                <td class="old-value">{{(vm.cbdtSchemeParameter && vm.cbdtSchemeParameter.C040)?
+                    (vm.cbdtSchemeParameter.C040.oldValue) : ('')}}
+                </td>
+                <td ng-if="vm.verificationDetails == 'M'" class="new-value">
+                    {{(vm.cbdtSchemeParameter && vm.cbdtSchemeParameter.C040)?
+                    (vm.cbdtSchemeParameter.C040.newValue) : ('')}}
+                </td>
+            </tr>
+
+            <tr>
+                <td>Is BOND Collection Account centralized?</td>
+                <td class="old-value">{{(vm.cbdtSchemeParameter && vm.cbdtSchemeParameter.C041)?
+                    (vm.cbdtSchemeParameter.C041.oldValue | getLabelFromValuesArray : vm.commonYesNoMetaData) : ('')}}
+                </td>
+                <td ng-if="vm.verificationDetails == 'M'" class="new-value">
+                    {{(vm.cbdtSchemeParameter && vm.cbdtSchemeParameter.C041)?
+                    (vm.cbdtSchemeParameter.C041.newValue | getLabelFromValuesArray : vm.commonYesNoMetaData) : ('')}}
+                </td>
+            </tr>
+
+            <tr>
+                <td>BOND Collection Account</td>
+                <td class="old-value">{{(vm.cbdtSchemeParameter && vm.cbdtSchemeParameter.C042)?
+                    (vm.cbdtSchemeParameter.C042.oldValue) : ('')}}
+                </td>
+                <td ng-if="vm.verificationDetails == 'M'" class="new-value">
+                    {{(vm.cbdtSchemeParameter && vm.cbdtSchemeParameter.C042)?
+                    (vm.cbdtSchemeParameter.C042.newValue) : ('')}}
+                </td>
+            </tr>
+
+            <tr>
+                <td>Is BOND Link Cell Consolidation Account Centralised?</td>
+                <td class="old-value">{{(vm.cbdtSchemeParameter && vm.cbdtSchemeParameter.C043)?
+                    (vm.cbdtSchemeParameter.C043.oldValue | getLabelFromValuesArray : vm.commonYesNoMetaData) : ('')}}
+                </td>
+                <td ng-if="vm.verificationDetails == 'M'" class="new-value">
+                    {{(vm.cbdtSchemeParameter && vm.cbdtSchemeParameter.C043)?
+                    (vm.cbdtSchemeParameter.C043.newValue | getLabelFromValuesArray : vm.commonYesNoMetaData) : ('')}}
+                </td>
+            </tr>
+
+
+            <tr>
+                <td>BOND Link Cell Consolidation Account</td>
+                <td class="old-value">{{(vm.cbdtSchemeParameter && vm.cbdtSchemeParameter.C044)?
+                    (vm.cbdtSchemeParameter.C044.oldValue) : ('')}}
+                </td>
+                <td ng-if="vm.verificationDetails == 'M'" class="new-value">
+                    {{(vm.cbdtSchemeParameter && vm.cbdtSchemeParameter.C044)?
+                    (vm.cbdtSchemeParameter.C044.newValue) : ('')}}
+                </td>
+            </tr>
+
+
+            <tr>
+                <td>Is BOND Sundry Account for Interest Payment centralized?</td>
+                <td class="old-value">{{(vm.cbdtSchemeParameter && vm.cbdtSchemeParameter.C045)?
+                    (vm.cbdtSchemeParameter.C045.oldValue | getLabelFromValuesArray : vm.commonYesNoMetaData) : ('')}}
+                </td>
+                <td ng-if="vm.verificationDetails == 'M'" class="new-value">
+                    {{(vm.cbdtSchemeParameter && vm.cbdtSchemeParameter.C045)?
+                    (vm.cbdtSchemeParameter.C045.newValue | getLabelFromValuesArray : vm.commonYesNoMetaData) : ('')}}
+                </td>
+            </tr>
+
+
+            <tr>
+                <td>BOND Sundry Account for Interest Payment</td>
+                <td class="old-value">{{(vm.cbdtSchemeParameter && vm.cbdtSchemeParameter.C046)?
+                    (vm.cbdtSchemeParameter.C046.oldValue) : ('')}}
+                </td>
+                <td ng-if="vm.verificationDetails == 'M'" class="new-value">
+                    {{(vm.cbdtSchemeParameter && vm.cbdtSchemeParameter.C046)?
+                    (vm.cbdtSchemeParameter.C046.newValue) : ('')}}
+                </td>
+            </tr>
+
+
+            <tr>
+                <td>Is BOND Suspense Account centralized?</td>
+                <td class="old-value">{{(vm.cbdtSchemeParameter && vm.cbdtSchemeParameter.C047)?
+                    (vm.cbdtSchemeParameter.C047.oldValue | getLabelFromValuesArray : vm.commonYesNoMetaData) : ('')}}
+                </td>
+                <td ng-if="vm.verificationDetails == 'M'" class="new-value">
+                    {{(vm.cbdtSchemeParameter && vm.cbdtSchemeParameter.C047)?
+                    (vm.cbdtSchemeParameter.C047.newValue | getLabelFromValuesArray : vm.commonYesNoMetaData) : ('')}}
+                </td>
+            </tr>
+
+            <tr>
+                <td>BOND Suspense Account</td>
+                <td class="old-value">{{(vm.cbdtSchemeParameter && vm.cbdtSchemeParameter.C048)?
+                    (vm.cbdtSchemeParameter.C048.oldValue) : ('')}}
+                </td>
+                <td ng-if="vm.verificationDetails == 'M'" class="new-value">
+                    {{(vm.cbdtSchemeParameter && vm.cbdtSchemeParameter.C048)?
+                    (vm.cbdtSchemeParameter.C048.newValue) : ('')}}
+                </td>
+            </tr>
+
+            <tr>
+                <td>Is BOND Income Account centralized?</td>
+                <td class="old-value">{{(vm.cbdtSchemeParameter && vm.cbdtSchemeParameter.C049)?
+                    (vm.cbdtSchemeParameter.C049.oldValue | getLabelFromValuesArray : vm.commonYesNoMetaData) : ('')}}
+                </td>
+                <td ng-if="vm.verificationDetails == 'M'" class="new-value">
+                    {{(vm.cbdtSchemeParameter && vm.cbdtSchemeParameter.C049)?
+                    (vm.cbdtSchemeParameter.C049.newValue | getLabelFromValuesArray : vm.commonYesNoMetaData) : ('')}}
+                </td>
+            </tr>
+
+
+
+            <tr>
+                <td>BOND Income Account</td>
+                <td class="old-value">{{(vm.cbdtSchemeParameter && vm.cbdtSchemeParameter.C050)?
+                    (vm.cbdtSchemeParameter.C050.oldValue) : ('')}}
+                </td>
+                <td ng-if="vm.verificationDetails == 'M'" class="new-value">
+                    {{(vm.cbdtSchemeParameter && vm.cbdtSchemeParameter.C050)?
+                    (vm.cbdtSchemeParameter.C050.newValue) : ('')}}
+                </td>
+            </tr>
+
+
+
+            <tr>
+                <td>Is BOND TDS Account centralized?</td>
+                <td class="old-value">{{(vm.cbdtSchemeParameter && vm.cbdtSchemeParameter.C051)?
+                    (vm.cbdtSchemeParameter.C051.oldValue | getLabelFromValuesArray : vm.commonYesNoMetaData) : ('')}}
+                </td>
+                <td ng-if="vm.verificationDetails == 'M'" class="new-value">
+                    {{(vm.cbdtSchemeParameter && vm.cbdtSchemeParameter.C051)?
+                    (vm.cbdtSchemeParameter.C051.newValue | getLabelFromValuesArray : vm.commonYesNoMetaData) : ('')}}
+                </td>
+            </tr>
+
+
+            <tr>
+                <td>BOND TDS Account</td>
+                <td class="old-value">{{(vm.cbdtSchemeParameter && vm.cbdtSchemeParameter.C052)?
+                    (vm.cbdtSchemeParameter.C052.oldValue) : ('')}}
+                </td>
+                <td ng-if="vm.verificationDetails == 'M'" class="new-value">
+                    {{(vm.cbdtSchemeParameter && vm.cbdtSchemeParameter.C052)?
+                    (vm.cbdtSchemeParameter.C052.newValue) : ('')}}
+                </td>
+            </tr>
+
+
+            <tr>
+                <td>Is DD/PO Account centralized?</td>
+                <td class="old-value">{{(vm.cbdtSchemeParameter && vm.cbdtSchemeParameter.C053)?
+                    (vm.cbdtSchemeParameter.C053.oldValue | getLabelFromValuesArray : vm.commonYesNoMetaData) : ('')}}
+                </td>
+                <td ng-if="vm.verificationDetails == 'M'" class="new-value">
+                    {{(vm.cbdtSchemeParameter && vm.cbdtSchemeParameter.C053)?
+                    (vm.cbdtSchemeParameter.C053.newValue | getLabelFromValuesArray : vm.commonYesNoMetaData) : ('')}}
+                </td>
+            </tr>
+
+
+            <tr>
+                <td>DD/PO Account</td>
+                <td class="old-value">{{(vm.cbdtSchemeParameter && vm.cbdtSchemeParameter.C054)?
+                    (vm.cbdtSchemeParameter.C054.oldValue) : ('')}}
+                </td>
+                <td ng-if="vm.verificationDetails == 'M'" class="new-value">
+                    {{(vm.cbdtSchemeParameter && vm.cbdtSchemeParameter.C054)?
+                    (vm.cbdtSchemeParameter.C054.newValue) : ('')}}
+                </td>
+            </tr>
+
+
+            <tr>
+                <td>Is NEFT Placeholder centralized?</td>
+                <td class="old-value">{{(vm.cbdtSchemeParameter && vm.cbdtSchemeParameter.C055)?
+                    (vm.cbdtSchemeParameter.C055.oldValue | getLabelFromValuesArray : vm.commonYesNoMetaData) : ('')}}
+                </td>
+                <td ng-if="vm.verificationDetails == 'M'" class="new-value">
+                    {{(vm.cbdtSchemeParameter && vm.cbdtSchemeParameter.C055)?
+                    (vm.cbdtSchemeParameter.C055.newValue | getLabelFromValuesArray : vm.commonYesNoMetaData) : ('')}}
+                </td>
+            </tr>
+
+
+            <tr>
+                <td>NEFT Placeholder</td>
+                <td class="old-value">{{(vm.cbdtSchemeParameter && vm.cbdtSchemeParameter.C056)?
+                    (vm.cbdtSchemeParameter.C056.oldValue) : ('')}}
+                </td>
+                <td ng-if="vm.verificationDetails == 'M'" class="new-value">
+                    {{(vm.cbdtSchemeParameter && vm.cbdtSchemeParameter.C056)?
+                    (vm.cbdtSchemeParameter.C056.newValue) : ('')}}
+                </td>
+            </tr>
+
+&lt;!&ndash;            <tr>&ndash;&gt;
+&lt;!&ndash;                <td>Link Cell Consolidation Account</td>&ndash;&gt;
+&lt;!&ndash;                <td class="old-value">{{(vm.cbdtSchemeParameter && vm.cbdtSchemeParameter.C057)?&ndash;&gt;
+&lt;!&ndash;                    (vm.cbdtSchemeParameter.C057.oldValue) : ('')}}&ndash;&gt;
+&lt;!&ndash;                </td>&ndash;&gt;
+&lt;!&ndash;                <td ng-if="vm.verificationDetails == 'M'" class="new-value">&ndash;&gt;
+&lt;!&ndash;                    {{(vm.cbdtSchemeParameter && vm.cbdtSchemeParameter.C057)?&ndash;&gt;
+&lt;!&ndash;                    (vm.cbdtSchemeParameter.C057.newValue) : ('')}}&ndash;&gt;
+&lt;!&ndash;                </td>&ndash;&gt;
+&lt;!&ndash;            </tr>&ndash;&gt;
+
+            <tr>
+                <td>Is Contra Transaction Required?</td>
+                <td class="old-value">{{(vm.cbdtSchemeParameter && vm.cbdtSchemeParameter.C058)?
+                    (vm.cbdtSchemeParameter.C058.oldValue | getLabelFromValuesArray : vm.commonYesNoMetaData) : ('-')}}
+                </td>
+                <td ng-if="vm.verificationDetails == 'M'" class="new-value">
+                    {{(vm.cbdtSchemeParameter && vm.cbdtSchemeParameter.C058)?
+                    (vm.cbdtSchemeParameter.C058.newValue | getLabelFromValuesArray : vm.commonYesNoMetaData) : ('-')}}
+                </td>
+            </tr>
+
+
+
+            <tr data-ng-if="vm.canShowContra">
+                <td>Is BOND Payable Account centralized?</td>
+                <td class="old-value">{{(vm.cbdtSchemeParameter && vm.cbdtSchemeParameter.C059)?
+                    (vm.cbdtSchemeParameter.C059.oldValue | getLabelFromValuesArray : vm.commonYesNoMetaData) : ('-')}}
+                </td>
+                <td ng-if="vm.verificationDetails == 'M'" class="new-value">
+                    {{(vm.cbdtSchemeParameter && vm.cbdtSchemeParameter.C059)?
+                    (vm.cbdtSchemeParameter.C059.newValue | getLabelFromValuesArray : vm.commonYesNoMetaData) : ('-')}}
+                </td>
+            </tr>
+            <tr data-ng-if="vm.canShowContra">
+                <td>BOND Payable Account</td>
+                <td class="old-value">{{(vm.cbdtSchemeParameter && vm.cbdtSchemeParameter.C060)?
+                    (vm.cbdtSchemeParameter.C060.oldValue) : ('-')}}
+                </td>
+                <td ng-if="vm.verificationDetails == 'M'" class="new-value">
+                    {{(vm.cbdtSchemeParameter && vm.cbdtSchemeParameter.C060)?
+                    (vm.cbdtSchemeParameter.C060.newValue) : ('-')}}
+                </td>
+            </tr>
+            <tr data-ng-if="vm.canShowContra">
+                <td>Is BOND Receivable Account centralized?</td>
+                <td class="old-value">{{(vm.cbdtSchemeParameter && vm.cbdtSchemeParameter.C061)?
+                    (vm.cbdtSchemeParameter.C061.oldValue | getLabelFromValuesArray : vm.commonYesNoMetaData) : ('-')}}
+                </td>
+                <td ng-if="vm.verificationDetails == 'M'" class="new-value">
+                    {{(vm.cbdtSchemeParameter && vm.cbdtSchemeParameter.C061)?
+                    (vm.cbdtSchemeParameter.C061.newValue | getLabelFromValuesArray : vm.commonYesNoMetaData) : ('-')}}
+                </td>
+            </tr>
+            <tr data-ng-if="vm.canShowContra">
+                <td>BOND Receivable Account</td>
+                <td class="old-value">{{(vm.cbdtSchemeParameter && vm.cbdtSchemeParameter.C062)?
+                    (vm.cbdtSchemeParameter.C062.oldValue) : ('-')}}
+                </td>
+                <td ng-if="vm.verificationDetails == 'M'" class="new-value">
+                    {{(vm.cbdtSchemeParameter && vm.cbdtSchemeParameter.C062)?
+                    (vm.cbdtSchemeParameter.C062.newValue) : ('-')}}
+                </td>
+            </tr>-->
+
+
+            </tbody>
+        </table>
+        <div class="audit-details">
+            <div class="row">
+                <div class="col-md-3">
+                    <span> <b> Created By </b> : {{vm.auditInfo.createdBy}} </span>
+                </div>
+                <div class="col-md-3">
+                    <span> <b> Last Modified By </b> : {{(vm.auditInfo.lastModifiedBy) ? (vm.auditInfo.lastModifiedBy) : ('None')}}</span>
+                </div>
+                <div class="col-md-3">
+                    <span> <b> Last Verified By </b> : {{(vm.auditInfo.lastVerifiedBy) ? (vm.auditInfo.lastVerifiedBy) : ('None')}}</span>
+                </div>
+                <div class="col-md-3">
+                    <span> <b> Verify Status </b> : {{vm.auditInfo.verifiedStatus  | getLabelFromValuesArray : vm.commonYesNoMetaData}}</span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3">
+                    <span> <b> Created On </b> : {{ vm.auditInfo.createdDate | date : 'dd/MM/yyyy'}}</span>
+                </div>
+                <div class="col-md-3">
+                    <span> <b> Last Modified On</b> : {{ (vm.auditInfo.lastModifiedDate) ? (vm.auditInfo.lastModifiedDate | date : 'dd/MM/yyyy') : ('None')}}</span>
+                </div>
+                <div class="col-md-3">
+                    <span> <b> Last Verified On </b> : {{(vm.auditInfo.lastVerifiedDate) ? (vm.auditInfo.lastVerifiedDate | date : 'dd/MM/yyyy') : ('None')}}</span>
+                </div>
+                <div class="col-md-3">
+                </div>
+            </div>
+        </div>
+        <div class="text-center form_submit">
+            <button type="button" class="btn btn-cancel" id="cancelButton"
+                    onclick="window.location.href= '#!/rbibond_scheme_parameter/action/inquiry';">Close
+            </button>
+        </div>
+        <div class="text-center">
+            <notice-message-directive></notice-message-directive>
+        </div>
+    </form>
+</div>

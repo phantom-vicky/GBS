@@ -1,0 +1,249 @@
+<div class="loader-new" data-ng-if="vm.loader"></div>
+<div class="container" data-ng-if="vm.model.length>0">
+    <div class="container from_wrapper new_form_wrapper">
+        <div class="text-right form_submit">
+            <button type="submit" class="btn btn-default" onclick="window.location.href ='#!/'" id="homeButton">Home</button>
+            <button type="button" id="cancel_Button" class="btn btn-cancel"
+                    onclick="window.location.href= '#!/estimation_of_expenses_scroll/action/inquiry';">Back
+            </button>
+        </div>
+        <h4 class="form_heading">Estimation of Expenses</h4>
+
+        <table style="width:100%" class="table table-bordered" aria-label="">
+            <tr>
+                <th scope="col">Name of the Bond Scheme</th>
+                <td>{{vm.schemeName}}</td>
+            </tr>
+            <tr>
+                <th scope="col">Financial Year</th>
+                <td>{{vm.financialYear}}</td>
+            </tr>
+        </table>
+
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="row" style="display: flex; align-items: center; justify-content: space-between">
+                    <div class="col-sm-3" style="flex: 1">
+                        <div class="form-group">
+                            <table style="border-spacing: 2" aria-label="">
+                                <tr>
+                                    <th scope="col"></th>
+                                </tr>
+                                <tr>
+                                    <td>Show&nbsp;</td>
+                                    <td>
+                                        <select id="pageSize" class="form-control filter-control" data-ng-model="vm.pageSize"
+                                                data-ng-change="vm.updatePageSize()"
+                                                data-ng-options="option for option in vm.pageSizeOptions"></select>
+                                    </td>
+                                    <td>&nbsp;records per page</td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-6" style="display: flex; align-items: center; justify-content: flex-end">
+                        <div class="form-group" style="margin-right: 15px">
+                            <div class="input-group">
+                                <div class="input-group-addon">
+                                    <span class="glyphicon glyphicon-search"></span>
+                                </div>
+                                <input type="text" id="search" class="form-control" data-ng-change="vm.updateFilteredRecords()"
+                                       data-ng-model="vm.searchText" placeholder="Search"/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <select class="form-control" data-ng-model="vm.downloadType"
+                                    data-ng-init="vm.downloadType=''" data-ng-change="vm.downloadReport()">
+                                <option value="">EXPORT</option>
+                                <option value="excel">EXCEL</option>
+                                <option value="csv">CSV</option>
+                            </select>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="table-responsive">
+                    <tr>
+                        <th scope="col" colspan="2" style="text-align:center;font-weight: bold;">Budget / Revised Estimates of Receipts, Repayment of Principal and payment of interest on Relief / Savings Bonds
+                        </th>
+                    </tr><br>
+                    <tr>
+                        <th style="font-weight: bold;">I-Receipts (New Subscriptions)</th>
+                    </tr>
+                    <table class="table table-bordered table-striped list table-textWrap" aria-label="">
+                        <thead>
+                        <tr>
+                            <th rowspan="2">S. No.</th>
+                            <th rowspan="2">Scheme</th>
+                            <th colspan="3" style="text-align:center">Revised Estimates (2017-18)</th>
+                            <th rowspan="2">Budget Estimates (2018-19)</th>
+                        </tr>
+                        <tr>
+                            <th>Actual Receipts<br>(April 17 - Sep 2017)</th>
+                            <th>Estimated Receipts<br>(October 2017 - March 2018)</th>
+                            <th>Total</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr
+                                data-ng-repeat="x in vm.filteredRecords.slice((vm.currentPage-1)*vm.pageSize, vm.currentPage*vm.pageSize)">
+                            <td>{{ (vm.currentPage - 1) * vm.pageSize + $index + 1 }}</td>
+                            <td>{{x.schemeName}}</td>
+                            <td>{{x.actualRecipt}}</td>
+                            <td>{{x.estimatedRecipt}}</td>
+                            <td>{{x.total}}</td>
+                            <td>{{x.budgetEstimates}}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <tr>
+                        <th style="font-weight: bold;">Notes: </th><br>
+                        <tr>
+                    <td>1.The estimated receipts for the period Oct 17 to March 18 are arrived based on the monthly average of actual receipts upto Sep 17</td><br>
+                    <td>2.The Budgetted estimates for the period 2018-19 are arrived at based on the average on the total receipts for the period 2017-18</td><br>
+                        </tr>
+                </div><br>
+
+                <div class="table-responsive">
+                    <tr>
+                        <th style="font-weight: bold;">II - Repayment of Principal</th>
+                    </tr>
+                    <table class="table table-bordered table-striped list table-textWrap" aria-label="">
+                        <thead>
+                        <tr>
+                            <th rowspan="2">S. No.</th>
+                            <th rowspan="2">Scheme</th>
+                            <th colspan="3" style="text-align:center">Revised Estimates (2017-18)</th>
+                            <th rowspan="2">Budget Estimates (2018-19)</th>
+                        </tr>
+                        <tr>
+                            <th>Actual Repayments<br>( April - Sep 2017 )</th>
+                            <th>Estimated Repayments<br>(October 2017 - March 2018)</th>
+                            <th>Total</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr
+                                data-ng-repeat="x in vm.filteredRecords.slice((vm.currentPage-1)*vm.pageSize, vm.currentPage*vm.pageSize)">
+                            <td>{{ (vm.currentPage - 1) * vm.pageSize + $index + 1 }}</td>
+                            <td>{{x.schemeName}}</td>
+                            <td>{{x.actualRepayment}}</td>
+                            <td>{{x.estimatedRepayment}}</td>
+                            <td>{{x.total1}}</td>
+                            <td>{{x.budgetEstimates1}}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <tr>
+                        <th style="font-weight: bold;">Notes: </th><br>
+                    <tr>
+                    <td>1.Except 8% Savings (Taxable) Bonds, 2003, all the other Schemes were completely matured.   Hence considered the balance payable (maturity values)
+                        under estimated repayments for the period Oct 2017 - Mar 2018.   Since these are already outstanding, the Budget Estimates for the year 2018-19 as
+                        shown as NIL.</td><br>
+                    <td>
+                        2.For 8% Savings (Taxable) Bonds 2003, the investments that are already matured and on hold for want of proper documentation are added
+                        under Estimated Repayments for the period Oct 17 - Mar 2018 alongwith the actual dues.
+                    </td><br>
+                    <td>
+                        3.The Budget Estimates for the year 2018-19 shows the actual maturity values payable during the period less the prematured cases during the period
+                    </td><br>
+                    <td>
+                        4.The Budget Estimates of Premature Encashment for the periods has been approximately provided considering the age factor and investment date
+                        of the individual investors.
+                    </td><br>
+                    </tr>
+                </div><br>
+
+                <div class="table-responsive">
+                    <tr>
+                        <th style="font-weight: bold;">II - Repayment of Principal</th>
+                    </tr>
+                    <table class="table table-bordered table-striped list table-textWrap" aria-label="">
+                        <thead>
+                        <tr>
+                            <th rowspan="2">S. No.</th>
+                            <th rowspan="2">Scheme</th>
+                            <th colspan="3" style="text-align:center">Revised Estimates (2017-18)</th>
+                            <th rowspan="2">Budget Estimates (2018-19)</th>
+                        </tr>
+                        <tr>
+                            <th>Actual Payment of Interest<br>( April - Sep 2017 )</th>
+                            <th>Estimated Payment of Interest<br>(October 2017 - March 2018)</th>
+                            <th>Total</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr
+                                data-ng-repeat="x in vm.filteredRecords.slice((vm.currentPage-1)*vm.pageSize, vm.currentPage*vm.pageSize)">
+                            <td>{{ (vm.currentPage - 1) * vm.pageSize + $index + 1 }}</td>
+                            <td>{{x.schemeName}}</td>
+                            <td>{{x.actualPaymentInterest}}</td>
+                            <td>{{x.estimatedPaymentInterest}}</td>
+                            <td>{{x.total2}}</td>
+                            <td>{{x.budgetEstimates2}}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <tr>
+                        <th style="font-weight: bold;">Notes: </th><br>
+                        <td>1.Except 8% Savings (Taxable) Bonds, 2003, all the other Schemes were completely matured.   Hence considered the balance payable (interest on
+                            cumulative investments only) under estimated repayments for the period Oct 2017 - Mar 2018.   Since these are already outstanding, the Budget Estimates for
+                            the year 2018-19 as shown as NIL.
+                        </td><br>
+                        <td>2.For 8% Savings (Taxable) Bonds 2003, the interest on investments that are already outstanding including the half-yearly interest due in Feb 2018
+                            and broken period interest which are kept in payable are added under Estimated Repayments for the period Oct 2017 - Mar 2018 alongwith the actual dues.
+                        </td><br>
+                        <td>3.The Budget Estimates for the year 2018-19 shows the actual interest values payable during the period.</td><br>
+                        <td>4.While arriving at Interest Estimation - subscription received till Sep 2017 end is considered and estimated future inflow / subscription for the balance period
+                            (Oct 2017- Mar 2018) is based on the monthly average of actual receipt of Non Cumulative cases upto Sep 17</td><br>
+                        <td>5.The Budget Estimates of Premature Encashment Interest for the periods has been approximately provided considering the age factor and investment date
+                            of the individual investors
+                        </td><br>
+                    </tr>
+                </div>
+
+                <br/>
+                <div class="row">
+                    <div data-ng-if="vm.filteredRecords.length != 0" class="col-md-12 text-right">
+                        <div class="pagination-container">
+                            <ul class="pagination">
+                                <li data-ng-class="{disabled: vm.currentPage === 1}">
+                                    <a href="javascript:void(0)" data-ng-click="vm.firstPage()">First</a>
+                                </li>
+                                <li data-ng-class="{disabled: vm.currentPage === 1}">
+                                    <a href="javascript:void(0)" data-ng-click="vm.prevPage()">Prev</a>
+                                </li>
+                                <li data-ng-repeat="page in vm.pages" data-ng-class="{active: vm.page === vm.currentPage}">
+                                    <a href="javascript:void(0)" data-ng-click="vm.setPage(page)">{{page}}</a>
+                                </li>
+                                <li data-ng-class="{disabled: vm.currentPage === vm.totalPages}">
+                                    <a href="javascript:void(0)" data-ng-click="vm.nextPage()">Next</a>
+                                </li>
+                                <li data-ng-class="{disabled: vm.currentPage === vm.totalPages}">
+                                    <a href="javascript:void(0)" data-ng-click="vm.lastPage()">Last</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">Showing {{(vm.currentPage-1)*vm.pageSize + 1}} to {{vm.maxValue()}} of
+                    {{vm.filteredRecords.length}} records
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container" data-ng-if="vm.noDataFound">
+    <div class="list_wrapper no_records_message">
+        <h4 class="form_heading">Estimation of Expenses</h4>
+        No records found to display.
+        <div style="text-align: center">
+            <button type="button" class="btn btn-default"
+                    onclick="window.location.href= '#!/estimation_of_expenses_scroll/action/inquiry';">Back
+            </button>
+        </div>
+    </div>
+</div>

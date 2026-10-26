@@ -1,0 +1,930 @@
+<div class="loader-new" ng-if="vm.loader"></div>
+<dc-left-menu></dc-left-menu>
+<div class="container from_wrapper new_form_wrapper">
+
+    <h4 class="form_heading">Accounting Entries - Add</h4>
+    <sol-header></sol-header>
+    <form name="accountOpeningForm" role="form">
+        <!--Name of the Module-->
+        <div class="row">
+            <div class="form-group">
+                <div class="col-sm-3"></div>
+                <div class="col-sm-3">
+                    <label class="control-label">Name of the Module</label>
+                </div>
+                <div class="col-sm-4">
+                    <label><strong>RBI Bond</strong></label>
+                </div>
+            </div>
+        </div>
+        <!--Name of the Bond Scheme-->
+        <div class="row">
+            <div class="form-group required">
+                <div class="col-sm-3"></div>
+                <div class="col-sm-3">
+                    <label for="schemeCode" class="control-label">Name of the Bond Scheme</label>
+                </div>
+                <div class="col-sm-3">
+                    <input type="text" class="form-control" id="schemeCode" ng-model="vm.schemeName" required readonly>
+                </div>
+                <div class="col-sm-2"
+                     style="display: flex; align-items: center; height: 34px; gap: 5px; padding-left:0;">
+                    <span class="glyphicon glyphicon-search cp" data-bs-toggle="schemeName" id="treasurySearcher"
+                          ng-click="vm.getModuleName();"></span>
+                    <span class="glyphicon glyphicon-remove clear cp"
+                          ng-click="vm.schemeCode ='';vm.schemeName =''; vm.schemeStatus='';"></span>
+                </div>
+            </div>
+        </div>
+        <!--Effective From Date-->
+        <div class="row">
+            <div class="form-group required">
+                <div class="col-sm-3"></div>
+                <div class="col-sm-3">
+                    <label class="control-label">Effective From Date</label>
+                </div>
+                <div class="col-sm-2">
+                    <p class="input-group">
+                        <input type="text" class="form-control" id="effectiveFromDate" name="fromDate"
+                               ng-model="vm.effectiveFromDate" ng-init="vm.effectiveFromDate=''; vm.fromDateVal();"
+                               uib-datepicker-popup="dd-MMM-yyyy" datepicker-options="vm.fromDateOptions"
+                               ng-change="vm.toDateVal(vm.effectiveFromDate);" is-open="vm.effFromDatePicker.opened"
+                               close-text="Close"
+                               ng-blur="vm.textableDatePicker('effectiveFromDate',vm.effectiveFromDate);"
+                               ng-keyup="vm.autoslashing('effectiveFromDate')" chars="numbers-slash"
+                               required>
+                        <span class="input-group-btn">
+                            <button type="button" class="btn btn-secondary"
+                                    ng-click="vm.effFromDatePicker.opened = true" id="fromDateSearcher">
+                                <span class="glyphicon glyphicon-calendar"></span>
+                            </button>
+                        </span>
+                    </p>
+                </div>
+            </div>
+        </div>
+        <!--Subscription Accounts-->
+        <h5 class="form_heading">Subscription Accounts</h5>
+        <div class="row">
+            <div class="form-group">
+                <div class="col-sm-3"></div>
+                <div class="col-sm-3">
+                    <label for="susCMS" class="control-label">SUSPENSE ACCT – CMS (Debit)</label>
+                </div>
+                <div class="col-sm-4">
+                    <input type="text" class="form-control" id="susCMS" chars="only-numbers" maxlength="14"
+                           ng-model="vm.suspAccCmsDbt" ng-init="vm.suspAccCmsDbt = '';">
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group">
+                <div class="col-sm-3"></div>
+                <div class="col-sm-3">
+                    <label for="susINet" class="control-label">SUSPENSE ACCT – INET (Debit)</label>
+                </div>
+                <div class="col-sm-4">
+                    <input type="text" class="form-control" id="susINet" chars="only-numbers" maxlength="14"
+                           ng-model="vm.suspAccInetDbt" ng-init="vm.suspAccInetDbt = '';">
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group">
+                <div class="col-sm-3"></div>
+                <div class="col-sm-3">
+                    <label for="rrbPay" class="control-label">RRB PAY (Credit)</label>
+                </div>
+                <div class="col-sm-4">
+                    <input type="text" class="form-control" id="rrbPay" chars="only-numbers" maxlength="14"
+                           ng-model="vm.rrbPayCr" ng-init="vm.rrbPayCr = '';">
+                </div>
+            </div>
+        </div>
+        <h5 class="form_heading">Accounting entries for cash-in and net banking handling by cash-in application itself.
+            Accounting entries will not happen for above account in GBS</h5>
+        <!--RBI Subscription Funds Accounts        -->
+        <h5 class="form_heading">RBI Subscription Funds Accounts</h5>
+        <h5 class="form_heading">There is a dependency on RBI statement / Confirmation</h5>
+        <div class="row">
+            <div class="form-group">
+                <div class="col-sm-3"></div>
+                <div class="col-sm-3">
+                    <label for="rrbPayDb" class="control-label">RRB PAY (Debit)</label>
+                </div>
+                <div class="col-sm-4">
+                    <input type="text" class="form-control" id="rrbPayDb" chars="only-numbers" maxlength="14"
+                           ng-model="vm.rrbPayDbt" ng-init="vm.rrbPayDbt = '';">
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="form-group">
+                <div class="col-sm-3"></div>
+                <div class="col-sm-3">
+                    <label for="rrbPay" class="control-label">RESERVE BANK OF INDIA-CLG -Nostro A/c with RBI</label>
+                </div>
+                <div class="col-sm-4">
+                    <input type="text" class="form-control" id="rrbPayId" chars="only-numbers" maxlength="14"
+                           ng-model="vm.rbiClgNostroRbi" ng-init="vm.rbiClgNostroRbi = '';">
+                </div>
+            </div>
+        </div>
+
+        <h5 class="form_heading">Receivable account is debited for brokerage and handling commission receivable from RBI
+            for the month--- during month-end</h5>
+
+        <div class="row">
+            <div class="form-group required">
+                <div class="col-sm-3"></div>
+                <div class="col-sm-3">
+                    <label for="rrbPay" class="control-label">9% RRB-RBI NAGPUR BROK. RECE.A/C (Debit)</label>
+                </div>
+                <div class="col-sm-4">
+                    <input type="text" class="form-control" id="rrbPayId" chars="only-numbers" maxlength="14"
+                           ng-model="vm.rrbRbiNagpBrkgReceDbt1" ng-init="vm.rrbRbiNagpBrkgReceDbt1 = '';" required>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="form-group required">
+                <div class="col-sm-3"></div>
+                <div class="col-sm-3">
+                    <label for="rrbPay" class="control-label">Remittance Suspense A/c (Credit)</label>
+                </div>
+                <div class="col-sm-4">
+                    <input type="text" class="form-control" id="rrbPayId" chars="only-numbers" maxlength="14"
+                           ng-model="vm.remitSuspAccCrd1" ng-init="vm.remitSuspAccCrd1 = '';" required>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="form-group required">
+                <div class="col-sm-3"></div>
+                <div class="col-sm-3">
+                    <label for="rrbPay" class="control-label">9% RRB-RBI NAGPUR BROK. RECE.A/C (Debit)</label>
+                </div>
+                <div class="col-sm-4">
+                    <input type="text" class="form-control" id="rrbPayId" chars="only-numbers" maxlength="14"
+                           ng-model="vm.rrbRbiNagpBrkgReceDbt2" ng-init="vm.rrbRbiNagpBrkgReceDbt2 = '';" required>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="form-group required">
+                <div class="col-sm-3"></div>
+                <div class="col-sm-3">
+                    <label for="rrbPay" class="control-label">Remittance Suspense A/c (Credit)</label>
+                </div>
+                <div class="col-sm-4">
+                    <input type="text" class="form-control" id="rrbPayId" chars="only-numbers" maxlength="14"
+                           ng-model="vm.remitSuspAccCrd2" ng-init="vm.remitSuspAccCrd2 = '';" required>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="form-group required">
+                <div class="col-sm-3"></div>
+                <div class="col-sm-3">
+                    <label for="rrbPay" class="control-label">9% RRB-RBI NAGPUR BROK. RECE.A/C (Debit)</label>
+                </div>
+                <div class="col-sm-4">
+                    <input type="text" class="form-control" id="rrbPayId" chars="only-numbers" maxlength="14"
+                           ng-model="vm.rrbRbiNagpBrkgReceDbt3" ng-init="vm.rrbRbiNagpBrkgReceDbt3 = '';" required>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="form-group required">
+                <div class="col-sm-3"></div>
+                <div class="col-sm-3">
+                    <label for="rrbPay" class="control-label">Remittance Suspense A/c (Credit)</label>
+                </div>
+                <div class="col-sm-4">
+                    <input type="text" class="form-control" id="remSusAcCr" chars="only-numbers" maxlength="14"
+                           ng-model="vm.remitSuspAccCrd3" ng-init="vm.remitSuspAccCrd3 = '';" required>
+                </div>
+            </div>
+        </div>
+        <!--Brokerage Income accounting-->
+        <h5 class="form_heading">Brokerage Income accounting</h5>
+
+        <div class="row">
+            <div class="form-group required">
+                <div class="col-sm-3"></div>
+                <div class="col-sm-3">
+                    <label for="rrbPay" class="control-label">Remittance Suspense A/c (Debit)</label>
+                </div>
+                <div class="col-sm-4">
+                    <input type="text" class="form-control" id="remSusAcCr" chars="only-numbers" maxlength="14"
+                           ng-model="vm.brkgIncAccRemSuspAccDbt1" ng-init="vm.brkgIncAccRemSuspAccDbt1 = '';" required>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="form-group required">
+                <div class="col-sm-3"></div>
+                <div class="col-sm-3">
+                    <label for="rrbPay" class="control-label">Brokerage earned- RBI Bonds (Credit)</label>
+                </div>
+                <div class="col-sm-4">
+                    <input type="text" class="form-control" id="remSusAcCr" chars="only-numbers" maxlength="14"
+                           ng-model="vm.brkgErnRbiBondCrd1" ng-init="vm.brkgErnRbiBondCrd1 = '';" required>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="row">
+            <div class="form-group required">
+                <div class="col-sm-3"></div>
+                <div class="col-sm-3">
+                    <label for="rrbPay" class="control-label">Remittance Suspense A/c (Debit)</label>
+                </div>
+                <div class="col-sm-4">
+                    <input type="text" class="form-control" id="remSusAcCr" chars="only-numbers" maxlength="14"
+                           ng-model="vm.brkgIncAccRemSuspAccDbt2" ng-init="vm.brkgIncAccRemSuspAccDbt2 = '';" required>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="form-group required">
+                <div class="col-sm-3"></div>
+                <div class="col-sm-3">
+                    <label for="rrbPay" class="control-label">Brokerage earned- RBI Bonds (Credit)</label>
+                </div>
+                <div class="col-sm-4">
+                    <input type="text" class="form-control" id="remSusAcCr" chars="only-numbers" maxlength="14"
+                           ng-model="vm.brkgErnRbiBondCrd2" ng-init="vm.brkgErnRbiBondCrd2 = '';" required>
+                </div>
+            </div>
+        </div>
+        <!--GST liability entry is createGST liability entry is created1-->
+        <h5 class="form_heading">GST liability entry is created</h5>
+
+        <div class="row">
+            <div class="form-group required">
+                <div class="col-sm-3"></div>
+                <div class="col-sm-3">
+                    <label for="rrbPay" class="control-label">Remittance Suspense A/c (Debit)</label>
+                </div>
+                <div class="col-sm-4">
+                    <input type="text" class="form-control" id="remSusAcCr" ng-model="vm.gstLiabRemSuspAccDbt"
+                           ng-init="vm.gstLiabRemSuspAccDbt = '';" required>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="form-group required">
+                <div class="col-sm-3"></div>
+                <div class="col-sm-3">
+                    <label for="rrbPay" class="control-label">Respective GST A/c (Credit)</label>
+                </div>
+                <div class="col-sm-4">
+                    <input type="text" class="form-control" id="remSusAcCr" chars="only-numbers" maxlength="14"
+                           ng-model="vm.rspctvGstAccCrd" ng-init="vm.rspctvGstAccCrd = '';" required>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="form-group required">
+                <div class="col-sm-3"></div>
+                <div class="col-sm-3">
+                    <label for="rrbPay" class="control-label">9% RRB-RBI NAGPUR BROK. RECE.A/C (Debit)</label>
+                </div>
+                <div class="col-sm-4">
+                    <input type="text" class="form-control" id="remSusAcCr" chars="only-numbers" maxlength="14"
+                           ng-model="vm.gstLiabRrbRbiNagpReceAccDbt" ng-init="vm.gstLiabRrbRbiNagpReceAccDbt = '';"
+                           required>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="form-group required">
+                <div class="col-sm-3"></div>
+                <div class="col-sm-3">
+                    <label for="rrbPay" class="control-label">Remittance Suspense A/c (Credit)</label>
+                </div>
+                <div class="col-sm-4">
+                    <input type="text" class="form-control" id="remSusAcCr" chars="only-numbers" maxlength="14"
+                           ng-model="vm.gstLiabRemSuspAccCdt" ng-init="vm.gstLiabRemSuspAccCdt = '';" required>
+                </div>
+            </div>
+        </div>
+        <!--Handling Commission income accounting-->
+        <h5 class="form_heading">Handling Commission income accounting</h5>
+
+        <div class="row">
+            <div class="form-group required">
+                <div class="col-sm-3"></div>
+                <div class="col-sm-3">
+                    <label for="rrbPay" class="control-label">Remittance Suspense A/c (Debit)</label>
+                </div>
+                <div class="col-sm-4">
+                    <input type="text" class="form-control" id="remSusAcCr" chars="only-numbers" maxlength="14"
+                           ng-model="vm.hndCmmRemSusAccDbt" ng-init="vm.hndCmmRemSusAccDbt = '';" required>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="form-group required">
+                <div class="col-sm-3"></div>
+                <div class="col-sm-3">
+                    <label for="rrbPay" class="control-label">Commission earned (Credit)</label>
+                </div>
+                <div class="col-sm-4">
+                    <input type="text" class="form-control" id="remSusAcCr" chars="only-numbers" maxlength="14"
+                           ng-model="vm.cmmEarnCdt" ng-init="vm.cmmEarnCdt = '';" required>
+                </div>
+            </div>
+        </div>
+        <!--GST liability entry is created2-->
+        <h5 class="form_heading">GST liability entry is created</h5>
+
+        <div class="row">
+            <div class="form-group required">
+                <div class="col-sm-3"></div>
+                <div class="col-sm-3">
+                    <label for="rrbPay" class="control-label">Remittance Suspense A/c (Debit)</label>
+                </div>
+                <div class="col-sm-4">
+                    <input type="text" class="form-control" id="remSusAcCr" chars="only-numbers" maxlength="14"
+                           ng-model="vm.gstLiabRemeSuspAccDbt2" ng-init="vm.gstLiabRemeSuspAccDbt2 = '';" required>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="form-group required">
+                <div class="col-sm-3"></div>
+                <div class="col-sm-3">
+                    <label for="rrbPay" class="control-label">Respective GST A/c (Credit)</label>
+                </div>
+                <div class="col-sm-4">
+                    <input type="text" class="form-control" id="remSusAcCr" chars="only-numbers" maxlength="14"
+                           ng-model="vm.gstLiabRspGSTAccCrd1" ng-init="vm.gstLiabRspGSTAccCrd1 = '';" required>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="form-group required">
+                <div class="col-sm-3"></div>
+                <div class="col-sm-3">
+                    <label for="rrbPay" class="control-label">9% RRB-RBI NAGPUR BROK. RECE.A/C (Debit)</label>
+                </div>
+                <div class="col-sm-4">
+                    <input type="text" class="form-control" id="remSusAcCr" chars="only-numbers" maxlength="14"
+                           ng-model="vm.gstLiabRrbRbiNgpBrkgAccDbt" ng-init="vm.gstLiabRrbRbiNgpBrkgAccDbt = '';" required>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="form-group required">
+                <div class="col-sm-3"></div>
+                <div class="col-sm-3">
+                    <label for="rrbPay" class="control-label">Remittance Suspense A/c (Credit)</label>
+                </div>
+                <div class="col-sm-4">
+                    <input type="text" class="form-control" id="remSusAcCr" chars="only-numbers" maxlength="14"
+                           ng-model="vm.gstLiabRemeSuspAccCdt2" ng-init="vm.gstLiabRemeSuspAccCdt2 = '';" required>
+                </div>
+            </div>
+        </div>
+
+        <h5 class="form_heading">Reversal of brokerage receivable upon receipt of Brokerage from RBI during 1st week of
+            the month</h5>
+
+        <div class="row">
+            <div class="form-group required">
+                <div class="col-sm-3"></div>
+                <div class="col-sm-3">
+                    <label for="rrbPay" class="control-label">RESERVE BANK OF INDIA-CLG (Debit)</label>
+                </div>
+                <div class="col-sm-4">
+                    <input type="text" class="form-control" id="remSusAcCr" chars="only-numbers" maxlength="14"
+                           ng-model="vm.rvrsRbiClgDbt2" ng-init="vm.rvrsRbiClgDbt2 = '';" required>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="form-group required">
+                <div class="col-sm-3"></div>
+                <div class="col-sm-3">
+                    <label for="rrbPay" class="control-label">9% RRB-RBI NAGPUR BROK. RECE.A/C (Credit)</label>
+                </div>
+                <div class="col-sm-4">
+                    <input type="text" class="form-control" id="remSusAcCr" chars="only-numbers" maxlength="14"
+                           ng-model="vm.rvrsRrrbRbiNgpBrkgReceAccCrd" ng-init="vm.rvrsRrrbRbiNgpBrkgReceAccCrd = '';"
+                           required>
+                </div>
+            </div>
+        </div>
+
+        <h5 class="form_heading">** Therefore Brokerage receivable GL_ 190602656 will have a Dr. balance of Rs. 10 and
+            will be reversed when we receive this fund from RBI in month end</h5>
+
+        <div class="row">
+            <div class="form-group required">
+                <div class="col-sm-3"></div>
+                <div class="col-sm-3">
+                    <label for="rrbPay" class="control-label">RESERVE BANK OF INDIA-CLG (Debit) </label>
+                </div>
+                <div class="col-sm-4">
+                    <input type="text" class="form-control" id="remSusAcCr" chars="only-numbers" maxlength="14"
+                           ng-model="vm.glRbiClgDbt" ng-init="vm.glRbiClgDbt = '';" required>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="form-group required">
+                <div class="col-sm-3"></div>
+                <div class="col-sm-3">
+                    <label for="rrbPay" class="control-label">9% RRB-RBI NAGPUR BROK. RECE.A/C (Credit) </label>
+                </div>
+                <div class="col-sm-4">
+                    <input type="text" class="form-control" id="remSusAcCr" chars="only-numbers" maxlength="14"
+                           ng-model="vm.glRrbRbiNgpBrkgAccCdt" ng-init="vm.glRrbRbiNgpBrkgAccCdt = '';" required>
+                </div>
+            </div>
+        </div>
+
+        <h5 class="form_heading">HY Int payment-parking of interest payable to respective GL accounts- Day 0</h5>
+
+        <div class="row">
+            <div class="form-group required">
+                <div class="col-sm-3"></div>
+                <div class="col-sm-3">
+                    <label for="rrbPay" class="control-label">Interest receivable Account (Debit) </label>
+                </div>
+                <div class="col-sm-4">
+                    <input type="text" class="form-control" id="remSusAcCr" chars="only-numbers" maxlength="14"
+                           ng-model="vm.intRcvAccDbt" ng-init="vm.intRcvAccDbt = '';" required>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="form-group required">
+                <div class="col-sm-3"></div>
+                <div class="col-sm-3">
+                    <label for="rrbPay" class="control-label">Minor difference rounding off (Debit/Credit) </label>
+                </div>
+                <div class="col-sm-4">
+                    <input type="text" class="form-control" id="remSusAcCr" chars="only-numbers" maxlength="14"
+                           ng-model="vm.minorDiffRndDbtCdt" ng-init="vm.minorDiffRndDbtCdt = '';" required>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="form-group required">
+                <div class="col-sm-3"></div>
+                <div class="col-sm-3">
+                    <label for="rrbPay" class="control-label">TDS on Interest on Securities (Credit) </label>
+                </div>
+                <div class="col-sm-4">
+                    <input type="text" class="form-control" id="remSusAcCr" chars="only-numbers" maxlength="14"
+                           ng-model="vm.tdsIntScsCdt" ng-init="vm.tdsIntScsCdt = '';" required>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="form-group required">
+                <div class="col-sm-3"></div>
+                <div class="col-sm-3">
+                    <label for="rrbPay" class="control-label">RBI Bonds Transitory A/c (Credit) </label>
+                </div>
+                <div class="col-sm-4">
+                    <input type="text" class="form-control" id="remSusAcCr" chars="only-numbers" maxlength="14"
+                           ng-model="vm.rbiBondsTrnstAccCdt1" ng-init="vm.rbiBondsTrnstAccCdt1 = '';" required>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="form-group required">
+                <div class="col-sm-3"></div>
+                <div class="col-sm-3">
+                    <label for="rrbPay" class="control-label">ECS Settlement Account (Credit) </label>
+                </div>
+                <div class="col-sm-4">
+                    <input type="text" class="form-control" id="remSusAcCr" chars="only-numbers" maxlength="14"
+                           ng-model="vm.ecsSttlAccCdt" ng-init="vm.ecsSttlAccCdt = '';" required>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="form-group required">
+                <div class="col-sm-3"></div>
+                <div class="col-sm-3">
+                    <label for="rrbPay" class="control-label">RBI Bonds Transitory A/c (Credit) </label>
+                </div>
+                <div class="col-sm-4">
+                    <input type="text" class="form-control" id="remSusAcCr" chars="only-numbers" maxlength="14"
+                           ng-model="vm.rbiBondsTrnstAccCdt2" ng-init="vm.rbiBondsTrnstAccCdt2 = '';" required>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="form-group required">
+                <div class="col-sm-3"></div>
+                <div class="col-sm-3">
+                    <label for="rrbPay" class="control-label">CMS-DISB-CENTRAL CLIENT FUNDING (Credit) </label>
+                </div>
+                <div class="col-sm-4">
+                    <input type="text" class="form-control" id="remSusAcCr" chars="only-numbers" maxlength="14"
+                           ng-model="vm.cmsDisbCtrlCltFndCrd" ng-init="vm.cmsDisbCtrlCltFndCrd = '';" required>
+                </div>
+            </div>
+        </div>
+
+        <h5 class="form_heading">HY Int payment to customers through respective payment modes- Day 0</h5>
+
+        <div class="row">
+            <div class="form-group required">
+                <div class="col-sm-3"></div>
+                <div class="col-sm-3">
+                    <label for="rrbPay" class="control-label">RBI Bonds Transitory A/c (Debit) </label>
+                </div>
+                <div class="col-sm-4">
+                    <input type="text" class="form-control" id="remSusAcCr" chars="only-numbers" maxlength="14"
+                           ng-model="vm.rbiBdsTrnstAccDbt" ng-init="vm.rbiBdsTrnstAccDbt = '';" required>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="form-group required">
+                <div class="col-sm-3"></div>
+                <div class="col-sm-3">
+                    <label for="rrbPay" class="control-label">ECS Settlement Account (Debit) </label>
+                </div>
+                <div class="col-sm-4">
+                    <input type="text" class="form-control" id="remSusAcCr" chars="only-numbers" maxlength="14"
+                           ng-model="vm.ecsSettlAccDbt" ng-init="vm.ecsSettlAccDbt = '';" required>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="form-group required">
+                <div class="col-sm-3"></div>
+                <div class="col-sm-3">
+                    <label for="rrbPay" class="control-label">RBI Bonds Transitory A/c (Debit) </label>
+                </div>
+                <div class="col-sm-4">
+                    <input type="text" class="form-control" id="remSusAcCr" chars="only-numbers" maxlength="14"
+                           ng-model="vm.rbiBondsTrnstAccDbt3" ng-init="vm.rbiBondsTrnstAccDbt3 = '';" required>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="form-group required">
+                <div class="col-sm-3"></div>
+                <div class="col-sm-3">
+                    <label for="rrbPay" class="control-label">CMS-DISB-CENTRAL CLIENT FUNDING (Debit) </label>
+                </div>
+                <div class="col-sm-4">
+                    <input type="text" class="form-control" id="remSusAcCr" chars="only-numbers" maxlength="14"
+                           ng-model="vm.cmsDisbCtrlCltFndDbt" ng-init="vm.cmsDisbCtrlCltFndDbt = '';" required>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="form-group required">
+                <div class="col-sm-3"></div>
+                <div class="col-sm-3">
+                    <label for="rrbPay" class="control-label">Customer's A/c (Credit) </label>
+                </div>
+                <div class="col-sm-4">
+                    <input type="text" class="form-control" id="remSusAcCr" chars="only-numbers" maxlength="14"
+                           ng-model="vm.custAccCdt" ng-init="vm.custAccCdt = '';" required>
+                </div>
+            </div>
+        </div>
+
+        <h5 class="form_heading">Upon receipt of funds from RBI- Day 2/ Day 3/ Day 4 as the case may be</h5>
+
+        <div class="row">
+            <div class="form-group required">
+                <div class="col-sm-3"></div>
+                <div class="col-sm-3">
+                    <label for="rrbPay" class="control-label">RESERVE BANK OF INDIA-CLG (Debit) </label>
+                </div>
+                <div class="col-sm-4">
+                    <input type="text" class="form-control" id="remSusAcCr" chars="only-numbers" maxlength="14"
+                           ng-model="vm.rvrsRbiClgDbt3" ng-init="vm.rvrsRbiClgDbt3 = '';" required>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="form-group required">
+                <div class="col-sm-3"></div>
+                <div class="col-sm-3">
+                    <label for="rrbPay" class="control-label">Interest receivable Account(Credit) </label>
+                </div>
+                <div class="col-sm-4">
+                    <input type="text" class="form-control" id="remSusAcCr" chars="only-numbers" maxlength="14"
+                           ng-model="vm.intRcvbAccCdt" ng-init="vm.intRcvbAccCdt = '';" required>
+                </div>
+            </div>
+        </div>
+
+        <h5 class="form_heading">When making redemption payment to investors Day +0</h5>
+
+        <div class="row">
+            <div class="form-group required">
+                <div class="col-sm-3"></div>
+                <div class="col-sm-3">
+                    <label for="rrbPay" class="control-label">Principal receivable A/c (Debit) </label>
+                </div>
+                <div class="col-sm-4">
+                    <input type="text" class="form-control" id="remSusAcCr" chars="only-numbers" maxlength="14"
+                           ng-model="vm.prpRcvbAccDbt" ng-init="vm.prpRcvbAccDbt = '';" required>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="form-group required">
+                <div class="col-sm-3"></div>
+                <div class="col-sm-3">
+                    <label for="rrbPay" class="control-label">Interest Receivable A/c (Debit) </label>
+                </div>
+                <div class="col-sm-4">
+                    <input type="text" class="form-control" id="remSusAcCr" chars="only-numbers" maxlength="14"
+                           ng-model="vm.intRcvbAccDbt" ng-init="vm.intRcvbAccDbt = '';" required>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="form-group required">
+                <div class="col-sm-3"></div>
+                <div class="col-sm-3">
+                    <label for="rrbPay" class="control-label">CMS-DISB-CENTRAL CLIENT FUNDING (Credit) </label>
+                </div>
+                <div class="col-sm-4">
+                    <input type="text" class="form-control" id="remSusAcCr" chars="only-numbers" maxlength="14"
+                           ng-model="vm.cmsDisbCtrlCliFndCdt" ng-init="vm.cmsDisbCtrlCliFndCdt = '';" required>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="form-group required">
+                <div class="col-sm-3"></div>
+                <div class="col-sm-3">
+                    <label for="rrbPay" class="control-label">RBI Bonds Transitory A/c (Credit) </label>
+                </div>
+                <div class="col-sm-4">
+                    <input type="text" class="form-control" id="remSusAcCr" chars="only-numbers" maxlength="14"
+                           ng-model="vm.rbiBdsTrnstAccCdt" ng-init="vm.rbiBdsTrnstAccCdt = '';" required>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="form-group required">
+                <div class="col-sm-3"></div>
+                <div class="col-sm-3">
+                    <label for="rrbPay" class="control-label">TDS ON SECURITIES U/S 193 (Credit) </label>
+                </div>
+                <div class="col-sm-4">
+                    <input type="text" class="form-control" id="remSusAcCr" chars="only-numbers" maxlength="14"
+                           ng-model="vm.tdsSec193Cdt" ng-init="vm.tdsSec193Cdt = '';" required>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="form-group required">
+                <div class="col-sm-3"></div>
+                <div class="col-sm-3">
+                    <label for="rrbPay" class="control-label">Customer CASA A/c (Credit) </label>
+                </div>
+                <div class="col-sm-4">
+                    <input type="text" class="form-control" id="remSusAcCr" chars="only-numbers" maxlength="14"
+                           ng-model="vm.cusCASAAccCdt" ng-init="vm.cusCASAAccCdt = '';" required>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="form-group required">
+                <div class="col-sm-3"></div>
+                <div class="col-sm-3">
+                    <label for="rrbPay" class="control-label">RBI Bonds Transitory A/c (Debit) </label>
+                </div>
+                <div class="col-sm-4">
+                    <input type="text" class="form-control" id="remSusAcCr" chars="only-numbers" maxlength="14"
+                           ng-model="vm.rbiTrstAccDbt" ng-init="vm.rbiTrstAccDbt = '';" required>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="form-group required">
+                <div class="col-sm-3"></div>
+                <div class="col-sm-3">
+                    <label for="rrbPay" class="control-label">CMS-DISB-CENTRAL CLIENT FUNDING (Debit) </label>
+                </div>
+                <div class="col-sm-4">
+                    <input type="text" class="form-control" id="remSusAcCr" chars="only-numbers" maxlength="14"
+                           ng-model="vm.cmsDisbCtrlFndDbt" ng-init="vm.cmsDisbCtrlFndDbt = '';" required>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="form-group required">
+                <div class="col-sm-3"></div>
+                <div class="col-sm-3">
+                    <label for="rrbPay" class="control-label">Customer A/c (Credit) </label>
+                </div>
+                <div class="col-sm-4">
+                    <input type="text" class="form-control" id="remSusAcCr" chars="only-numbers" maxlength="14"
+                           ng-model="vm.cusAccCdt" ng-init="vm.cusAccCdt = '';" required>
+                </div>
+            </div>
+        </div>
+
+        <h5 class="form_heading">Post receipt of funds from RBI on Day + 2</h5>
+
+        <div class="row">
+            <div class="form-group required">
+                <div class="col-sm-3"></div>
+                <div class="col-sm-3">
+                    <label for="rrbPay" class="control-label">RESERVE BANK OF INDIA-CLG (Debit) </label>
+                </div>
+                <div class="col-sm-4">
+                    <input type="text" class="form-control" id="remSusAcCr" chars="only-numbers" maxlength="14"
+                           ng-model="vm.rbiClgDbt4" ng-init="vm.rbiClgDbt4 = '';" required>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="form-group required">
+                <div class="col-sm-3"></div>
+                <div class="col-sm-3">
+                    <label for="rrbPay" class="control-label">Principal receivable A/c(Credit) </label>
+                </div>
+                <div class="col-sm-4">
+                    <input type="text" class="form-control" id="remSusAcCr" chars="only-numbers" maxlength="14"
+                           ng-model="vm.prpRcvbAccCdt" ng-init="vm.prpRcvbAccCdt = '';" required>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="form-group required">
+                <div class="col-sm-3"></div>
+                <div class="col-sm-3">
+                    <label for="rrbPay" class="control-label">Interest Receivable A/c (Credit) </label>
+                </div>
+                <div class="col-sm-4">
+                    <input type="text" class="form-control" id="remSusAcCr" chars="only-numbers" maxlength="14"
+                           ng-model="vm.intRcvbAccCdt2" ng-init="vm.intRcvbAccCdt2 = '';" required>
+                </div>
+            </div>
+        </div>
+
+        <h5 class="form_heading">The above flow of entries would be the same when booking income for Service Charges and
+            Turnover Commission</h5>
+
+        <div class="row">
+            <div class="form-group required">
+                <div class="col-sm-3"></div>
+                <div class="col-sm-3">
+                    <label for="rrbPay" class="control-label">BROKERAGE EXPENSE RBI BONDS - RRB (Debit) </label>
+                </div>
+                <div class="col-sm-4">
+                    <input type="text" class="form-control" id="remSusAcCr" chars="only-numbers" maxlength="14"
+                           ng-model="vm.brkgExpRbiBdsRrbDbt" ng-init="vm.brkgExpRbiBdsRrbDbt = '';" required>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="form-group required">
+                <div class="col-sm-3"></div>
+                <div class="col-sm-3">
+                    <label for="rrbPay" class="control-label">BROKERAGE EXPENSE RBI BONDS - RRB under RCM
+                        (Credit) </label>
+                </div>
+                <div class="col-sm-4">
+                    <input type="text" class="form-control" id="remSusAcCr" chars="only-numbers" maxlength="14"
+                           ng-model="vm.brkgExpRbiBdsRcm" ng-init="vm.brkgExpRbiBdsRcm = '';" required>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="form-group required">
+                <div class="col-sm-3"></div>
+                <div class="col-sm-3">
+                    <label for="rrbPay" class="control-label">Vendor/ Brokers Account(Credit) </label>
+                </div>
+                <div class="col-sm-4">
+                    <input type="text" class="form-control" id="remSusAcCr" chars="only-numbers" maxlength="14"
+                           ng-model="vm.vndBrkrAccCdt" ng-init="vm.vndBrkrAccCdt = '';" required>
+                </div>
+            </div>
+        </div>
+
+        <div class="text-center form_submit">
+            <button type="submit" class="btn btn-default" id="submitButton" ng-disabled="accountOpeningForm.$invalid"
+                    ng-click="vm.addSubmit();">Submit
+            </button>
+            <button type="button" id="otherpen_cancelButton" class="btn btn-cancel"
+                    onclick="window.location.href= '#!/accounting_entries/action/inquiry';">Cancel
+            </button>
+        </div>
+    </form>
+</div>
+
+<!--Bond Scheme Name-->
+<div class="modal" id="schemeModel" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-bs-dismiss="modal" ng-click="vm.searchSolId=''">&times;</button>
+                <h4 class="modal-title">Name of the Bond Scheme</h4>
+            </div>
+            <div class="modal-body">
+                <div class="loader_popup"></div>
+                <div class="list_wrapper" ng-if="vm.schemeList.length>0">
+                    <div class="col-sm-8 form_submit">
+                        <div class="form-group">
+                            <div class="input-group">
+                                <div class="input-group-addon">
+                                    <span class="glyphicon glyphicon-search"></span>
+                                </div>
+                                <input type="text" class="form-control" ng-model="vm.searchSolId"
+                                       ng-Byinit="vm.searchSolId = ''" placeholder="Search"
+                                       oninput="this.value = this.value.replace(/^\s+/, '').replace(/\s{2,}/g, ' ')">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4 form_submit"></div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <table class="table table-bordered list scroll sort" aria-label="">
+                                <thead ng-init="reverseOrder=true;sortedColumn = 'blaAccNo'">
+                                <tr>
+                                    <th ng-click="(sortedColumn == 'bondType')?(reverseOrder=(!reverseOrder)): (reverseOrder = false);sortedColumn = 'bondType';"
+                                        ng-class="(sortedColumn == 'bondType')?((reverseOrder)?('arrow-down') : ('arrow-up') ) : ('')"
+                                        scope="">
+                                        Name of the Bond Scheme
+                                    </th>
+                                    <th ng-click="(sortedColumn == 'bondType')?(reverseOrder=(!reverseOrder)): (reverseOrder = false);sortedColumn = 'bondType';"
+                                        ng-class="(sortedColumn == 'bondType')?((reverseOrder)?('arrow-down') : ('arrow-up') ) : ('')"
+                                        scope="">
+                                        Scheme Status
+                                    </th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr class="cp"
+                                    ng-repeat="x in vm.schemeList | filter:vm.searchSolId | orderBy:sortedColumn:reverseOrder"
+                                    ng-click="vm.schemeName = x.schemeName;vm.schemeCode = x.schemeCode;vm.schemeStatus = x.schemeStatus;vm.effectiveFromDate = x.effectiveFromDate;
+                                    vm.parameterEffectiveFromDate= x.parameterEffectiveFromDate;vm.parameterEffectiveToDate= x.parameterEffectiveToDate;
+                                    vm.bondSchemeEffectiveFromDate= x.bondSchemeEffectiveFromDate;vm.bondSchemeEffectiveToDate= x.bondSchemeEffectiveToDate;"
+                                    data-bs-dismiss="modal">
+                                    <td>{{x.schemeName}}</td>
+                                    <td>{{x.schemeStatus}}</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="list_wrapper" ng-if="vm.schemeList.length==0">No records found to display.</div>
+            </div>
+        </div>
+    </div>
+</div>

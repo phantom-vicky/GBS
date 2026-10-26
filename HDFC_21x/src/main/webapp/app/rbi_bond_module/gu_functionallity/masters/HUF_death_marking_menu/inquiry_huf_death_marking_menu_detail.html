@@ -1,0 +1,145 @@
+<div class="loader-new" ng-if="vm.loader"></div>
+<dc-left-menu></dc-left-menu>
+<div class="container from_wrapper new_form_wrapper">
+
+    <form name="blaDodfrm" role="form">
+        <h4 class="form_heading">HUF Death Marking – Inquiry</h4>
+        <sol-header></sol-header>
+        <div class="col-sm-12">
+
+            <table class="table table-bordered table-striped list">
+                <thead>
+                <tr>
+                    <td width="50%">Old Karta Name</td>
+                    <td width="50%">
+                        <label class="data-bind" id="blaNo" ng-model="vm.addList.bondHolderName">{{vm.addList.bondHolderName}}</label>
+                    </td>
+                </tr>
+                <tr>
+                    <td width="50%">PAN No</td>
+                    <td width="50%">
+                        <label class="data-bind" id="panNo" ng-model="vm.addList.panNo">{{vm.addList.panNo}}</label>
+                    </td>
+                </tr>
+                <tr>
+                    <td width="50%">Date of Death of Karta (dd/mm/yyyy)</td>
+                    <td width="50%">
+                        <label class="data-bind" id="dodDate" ng-model="vm.dodDate">{{vm.addList.dodDate}}</label>
+                    </td>
+                </tr>
+                <tr>
+                    <td width="50%">Date of Receipt of Inward Request(dd/mm/yyyy)</td>
+                    <td width="50%">
+                        <label class="data-bind" id="certDate" ng-model="vm.certDate">{{vm.addList.certDate}}</label>
+                    </td>
+
+                </tr>
+                <tr>
+                    <td width="50%">Karta Death Marking Date (dd/mm/yyyy)</td>
+                    <td width="50%">
+                        <label class="data-bind" id="dateFrom" ng-model="vm.dateFrom">{{vm.addList.markingDate}}</label>
+                    </td>
+
+                </tr>
+                <tr>
+                    <td width="50%">Karta Death Marking Remarks </td>
+
+                    <td width="50%">
+                    <textarea class="form-control" rows="3" maxlength="50" id="remarks" name="remarks" readonly
+                              ng-model="vm.remarks">{{vm.remarks}}</textarea>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td width="50%" >Next Eligible Co-Parcener (New Karta Name)</td>
+                    <td width="50%">
+                        <label class="data-bind" id="newKartaName" ng-model="vm.newKartaName">
+                            {{vm.newKartaName}}
+                        </label>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td width="50%" >Relationship with Karta</td>
+                    <td width="50%">
+                        <label class="data-bind" id="relationshipWithKarta" ng-model="vm.relationshipWithKarta">
+                            {{vm.relationshipWithKarta}}
+                        </label>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td width="50%">DOB</td>
+                    <td width="50%">
+                        <label class="data-bind" id="coParcenerDob" ng-model="vm.coParcenerDob">
+                            {{vm.coParcenerDob}}
+                        </label>
+                    </td>
+                </tr>
+                <tr>
+                    <td width="50%">Karta Change Reference Number </td>
+                    <td width="50%">
+                        <label class="data-bind" id="kcrnNo" ng-model="vm.addList.kcrnNo">{{vm.addList.kcrnNo}}</label>
+                    </td>
+                </tr>
+
+
+
+
+
+
+            </table>
+            <table class="table table-bordered table-striped list">
+                <thead>
+
+                <th>S.No</th>
+                <th>Scheme Name</th>
+                <th>BLA No</th>
+                <th>Bond Subscription Id</th>
+                </thead>
+                <!-- </thead>-->
+                <tbody>
+                <tr ng-repeat="items in vm.addResList" ng-init="parentIndex=$index;">
+                    <td>{{vm.itemsPerPage*(vm.currentPage-1)+$index+1}} </td>
+
+                    <td>{{items.schemeName}}</td>
+                    <td>{{items.blaNo}}</td>
+                    <td>{{items.bondSubscriptionId}}</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="audit-details">
+            <div class="row">
+                <div class="col-md-3">
+                    <span> <b> Created By </b> : {{vm.addList.createdBy}} </span>
+                </div>
+                <div class="col-md-3">
+                    <span> <b> Last Verified By </b> : {{(vm.addList.verifiedBy) ? (vm.addList.verifiedBy) : ('None')}}</span>
+                </div>
+                <div class="col-md-3">
+                    <span> <b> Verify Status </b> : {{vm.addList.verifiedStatus}}</span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3">
+                    <span> <b> Created On </b> : {{ vm.addList.createdDate | date : 'dd-MM-yyyy'}}</span>
+                </div>
+                 <div class="col-md-3">
+                    <span> <b> Last Verified On </b> : {{(vm.addList.verifiedDate) ? (vm.addList.verifiedDate | date : 'dd-MM-yyyy') : ('None')}}</span>
+                </div>
+                <div class="col-md-3">
+                </div>
+            </div>
+        </div>
+
+        <div class="text-center form_submit">
+            <button type="button" class="btn btn-cancel" id="cancelButton"
+                    onclick="window.location.href= '#!/huf_death_marking_menu/action/inquiry';">Close
+            </button>
+        </div>
+        <div class="text-center">
+            <notice-message-directive></notice-message-directive>
+        </div>
+    </form>
+</div>

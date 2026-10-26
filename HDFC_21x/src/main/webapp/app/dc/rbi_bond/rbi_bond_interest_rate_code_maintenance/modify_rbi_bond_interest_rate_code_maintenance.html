@@ -1,0 +1,281 @@
+<div class="loader-new" ng-if="vm.loader"></div>
+<dc-left-menu></dc-left-menu>
+<div class="container from_wrapper new_form_wrapper">
+    <form name="rbiBondInterestMaintenanceForm" role="form"><h4 class="form_heading">RBI Bond Interest Rate Code Maintenance - Modify</h4>
+
+
+        <div class="col-sm-6 col-sm-offset-3">
+
+            <sol-header></sol-header>
+            <div class="row">
+                <div class="form-group required">
+                    <div class="col-sm-6">
+                        <label  class="control-label">Name of the Module</label>
+                    </div>
+                    <div class="col-sm-4">
+                        <label><b>RBI Bond</b></label>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group required">
+                    <div class="col-sm-6">
+                        <label for="moduleName" class="control-label">Scheme Name</label>
+                    </div>
+
+                    <div class="col-sm-4">
+                        <input type="text" class="form-control" id="moduleName"
+                               ng-model="vm.subCodeDescription"  readonly required>
+                    </div>
+
+                    <div class="col-sm-2">
+                        <i class="glyphicon glyphicon-search cp" data-bs-toggle="modal"
+                           id="schemeCodeSearch"
+                           ng-click="vm.modifySelect();vm.InterestRate='';vm.version = ''"></i> <i
+                            class="glyphicon glyphicon-remove clear cp"
+                            ng-click="vm.subCodeDescription = '';vm.schemeCode"></i>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="row">
+                <div class="form-group required" >
+                    <div class="col-sm-6">
+                        <label  class="control-label">Interest Rate Code</label>
+                    </div>
+                    <div class="col-sm-4">
+                        <input type="text" class="form-control" id="InterestRate" name="InterestRate" ng-model="vm.InterestRate"  required maxLength="20" readonly  >
+                    </div>
+                    <div class="col-sm-2">
+                        <i class="glyphicon glyphicon-search cp" data-bs-toggle="modal"
+                           id="InterestRateSearch" ng-if="vm.schemeCode" ng-click="vm.modifySelect('','','select')"
+                        ></i>
+                        <i class="glyphicon glyphicon-remove clear cp"
+                           ng-click="vm.InterestRate='';"  ng-if="vm.InterestRate" ></i>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row" ng-if="vm.InterestRate">
+                <div class="form-group" >
+                    <div class="col-sm-6">
+                        <label  class="control-label">Version</label>
+                    </div>
+                    <div class="col-sm-4">
+                        <label class="control-label" ng-bind="vm.versionNo"></label>
+
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="row" ng-if="vm.InterestRate">
+                <div class="form-group required">
+                    <div class="col-sm-6">
+                        <label for="effFromDate" class="control-label">Effective From Date</label>
+                    </div>
+                    <div class="col-sm-4">
+                        <p class="input-group">
+                            <input type="text" class="form-control" id="effFromDate"
+                                   name="effFromDate" ng-init="vm.getEffectFromDate();"
+                                   ng-model="vm.effFromDatepicker"
+                                   uib-datepicker-popup="dd/MM/yyyy"
+                                   datepicker-options="vm.effFromDateOptions"
+                                   is-open="vm.efffromDateOptions.opened"
+                                   close-text="Close" maxlength="10" required
+                                   ng-blur="vm.textableDatePicker('effFromDate',vm.effFromDatepicker)"
+                                   ng-keyup="vm.autoslashing('effFromDate')" chars="numbers-slash"
+
+                            >
+                            <span class="input-group-btn">
+                    <button type="button" class="btn btn-secondary"
+                            ng-click="vm.efffromDateOptions.opened = true"
+                            id="efffromDateOptions">
+                        <i class="glyphicon glyphicon-calendar"></i>
+                    </button>
+                </span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+<!--            <div class="row">-->
+<!--                <div class="form-group">-->
+<!--                    <div class="col-sm-6">-->
+<!--                        <label class="control-label">Effective From Date (dd/mm/yyyy)</label>-->
+<!--                    </div>-->
+<!--                    <div class="col-sm-4">-->
+<!--&lt;!&ndash;                      <label>{{vm.effFromDate}}</label>&ndash;&gt;-->
+<!--                        <p class="input-group">-->
+<!--                            <input type="text" class="form-control" id="effFromDate"-->
+<!--                                   name="effFromDate"-->
+<!--                                   ng-model="vm.effFromDatepicker"-->
+<!--                                   uib-datepicker-popup="dd/MM/yyyy"-->
+<!--                                   datepicker-options="vm.effFromDateOptions"-->
+<!--                                   is-open="vm.effFromDateOptions.opened"-->
+<!--                                   close-text="Close" maxlength="10"  readonly>-->
+<!--                            <span class="input-group-btn">-->
+<!--                            <button type="button" class="btn btn-secondary"-->
+<!--                                    ng-click="vm.effFromDateOptions.opened = true"-->
+<!--                                    id="effFromDateOptions" ng-if="vm.effFromDatepicker">-->
+<!--                                <i class="glyphicon glyphicon-calendar"></i>-->
+<!--                            </button>-->
+<!--                        </span>-->
+<!--                        </p>-->
+
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+
+            <div class="text-center form_submit">
+                <button type="submit" class="btn btn-default" id="submitButton"
+                        ng-disabled="rbiBondInterestMaintenanceForm.$invalid"
+                        ui-sref="rbi_bond_interest_rate_code_maintenance.modify_detail({obj:{
+                                InterestRate: vm.InterestRate,
+                                effFromDate:vm.effFromDatepicker,
+                                oldEffFromDate:vm.effFromDate,
+                                schemeCode:vm.schemeCode,
+                                subCodeDescription:vm.subCodeDescription,
+                                newEffectiveDateStr:vm.newEffectiveDateStr,
+                                versionNo:vm.versionNo
+                            }})"
+                >Next</button>
+                <button type="button" class="btn btn-cancel" id="cancelButton"
+                          onclick="window.location.href= '#!/rbi_bond_interest_rate_code_maintenance/action/inquiry';">Cancel</button>
+            </div>
+            <div class="text-center">
+                <notice-message-directive></notice-message-directive>
+            </div>
+        </div>
+    </form>
+</div>
+
+
+
+
+
+<!-- InterestRateModal Details -->
+<div class="modal" id="InterestRateModal" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-bs-dismiss="modal">&times;</button>
+                <h4 class="modal-title">RBI Bond Interest Rate Code Maintenance</h4>
+            </div>
+            <div class="modal-body">
+                <div class="loader_popup"></div>
+                <div class="list_wrapper" ng-if="vm.InterestRateModal.length>0">
+                    <div class="col-sm-8 form_submit">
+                        <div class="form-group">
+                            <div class="input-group">
+                                <div class="input-group-addon">
+                                    <i class="glyphicon glyphicon-search"></i>
+                                </div>
+                                <input type="text" class="form-control"
+                                       ng-model="vm.InterestRateModalSearch" chars="alpha-numeric"
+                                       placeholder="Search">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4 form_submit"></div>
+                    <div class="row">
+
+                        <div class="col-sm-12">
+                            <table class="table table-bordered list scroll sort">
+                                <thead ng-init="reverseOrder=true;sortedColumn = 'InterestRate'">
+                                <tr>
+                                    <th ng-click="(sortedColumn == 'InterestRate')?(reverseOrder=(!reverseOrder)): (reverseOrder = false);sortedColumn = 'InterestRate';" ng-class="(sortedColumn == 'InterestRate')?((reverseOrder)?('arrow-down') : ('arrow-up') ) : ('')">Interest Rate Code</th>
+                                    <th ng-click="(sortedColumn == 'effFromDate')?(reverseOrder=(!reverseOrder)): (reverseOrder = false);sortedColumn = 'effFromDate';" ng-class="(sortedColumn == 'effFromDate')?((reverseOrder)?('arrow-down') : ('arrow-up') ) : ('')">Effective Date</th>
+                                    <th ng-click="(sortedColumn == 'rateCodeMaintenanceDescription')?(reverseOrder=(!reverseOrder)): (reverseOrder = false);sortedColumn = 'rateCodeMaintenanceDescription';" ng-class="(sortedColumn == 'rateCodeMaintenanceDescription')?((reverseOrder)?('arrow-down') : ('arrow-up') ) : ('')"> Interest Rate Code Description</th>
+                                    <th ng-click="(sortedColumn == 'versionNo')?(reverseOrder=(!reverseOrder)): (reverseOrder = false);sortedColumn = 'versionNo';" ng-class="(sortedColumn == 'versionNo')?((reverseOrder)?('arrow-down') : ('arrow-up') ) : ('')">Version no.</th>
+                                    <th ng-click="(sortedColumn == 'verifiedStatus')?(reverseOrder=(!reverseOrder)): (reverseOrder = false);sortedColumn = 'verifiedStatus';" ng-class="(sortedColumn == 'verifiedStatus')?((reverseOrder)?('arrow-down') : ('arrow-up') ) : ('')"> Verify Status</th>
+                                </tr>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr class="cp"
+                                    ng-repeat="x in vm.InterestRateModal | filter:vm.InterestRateModalSearch | orderBy:sortedColumn:reverseOrder"
+                                    ng-click="vm.InterestRate = x.interestRateCode;vm.effFromDate=x.effFromDate;vm.effFromDatepicker=x.effFromDatePicker;vm.newEffectiveDateStr=x.effFromDate;vm.rateCodeMaintenanceDescription = x.rateCodeMaintenanceDescription;vm.versionNo = x.versionNo;vm.verifiedStatus = x.verifiedStatus;" data-bs-dismiss="modal">
+                                    <td>{{x.interestRateCode}}</td>
+                                    <td>{{x.effFromDate}}</td>
+                                    <td>{{x.rateCodeMaintenanceDescription}}</td>
+                                    <td>{{x.versionNo}}</td>
+                                    <td>{{x.verifiedStatus}}</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="list_wrapper" ng-if="vm.InterestRateModal.length==0">No records found to display.</div>
+            </div>
+
+        </div>
+    </div>
+</div>
+<!-- Treasury Details - End -->
+
+<!-- Scheme code Details -->
+<div class="modal" id="branchIdSearcher" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-bs-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Scheme Code</h4>
+            </div>
+            <div class="modal-body">
+                <div class="loader_popup"></div>
+                <div class="list_wrapper" ng-if="vm.schemeList.length>0">
+                    <div class="col-sm-8 form_submit">
+                        <div class="form-group">
+                            <div class="input-group">
+                                <div class="input-group-addon">
+                                    <i class="glyphicon glyphicon-search"></i>
+                                </div>
+                                <input type="text" class="form-control"
+                                       ng-model="vm.modalSearch" ng-init="vm.modalSearch = ''"
+                                       placeholder="Search">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4 form_submit"></div>
+                    <div class="row">
+
+                        <div class="col-sm-12">
+
+                            <table class="table table-bordered list scroll sort">
+
+                                <thead ng-init="reverseOrder = false; sortedColumn = 'subCodeDescription'">
+                                <tr>
+<!--                                    <th class="modal-title title-case" ng-click="(sortedColumn == 'schemeCode')?(reverseOrder=(!reverseOrder)): (reverseOrder = false);sortedColumn = 'schemeCode';" ng-class="(sortedColumn == 'schemeCode')?((reverseOrder)?('arrow-down') : ('arrow-up') ) : ('')">Scheme Code</th>-->
+                                    <th class="modal-title title-case" ng-show="false">Scheme Code</th>
+                                    <th class="modal-title title-case" ng-click="(sortedColumn == 'subCodeDescription')?(reverseOrder=(!reverseOrder)): (reverseOrder = false);sortedColumn = 'subCodeDescription';" ng-class="(sortedColumn == 'subCodeDescription')?((reverseOrder)?('arrow-down') : ('arrow-up') ) : ('')">Scheme Name</th>
+                                    <th class="modal-title title-case" ng-click="(sortedColumn == 'status')?(reverseOrder=(!reverseOrder)): (reverseOrder = false);sortedColumn = 'status';" ng-class="(sortedColumn == 'status')?((reverseOrder)?('arrow-down') : ('arrow-up') ) : ('')">Status</th>
+
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr class="cp"
+                                    ng-repeat="x in vm.schemeList | filter:vm.modalSearch | orderBy:sortedColumn:reverseOrder"
+                                    ng-click="vm.schemeCode = x.schemeCode; vm.subCodeDescription = x.subCodeDescription; vm.status = x.status;"
+                                    data-bs-dismiss="modal">
+<!--                                    <td>{{x.schemeCode}}</td>-->
+                                    <td style="display: none;">{{x.schemeCode}}</td>
+                                    <td>{{x.subCodeDescription}}</td>
+                                    <td>{{x.status}}</td>
+
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="list_wrapper" ng-if="vm.schemeList.length==0">No records found to display.</div>
+            </div>
+
+        </div>
+    </div>
+</div>

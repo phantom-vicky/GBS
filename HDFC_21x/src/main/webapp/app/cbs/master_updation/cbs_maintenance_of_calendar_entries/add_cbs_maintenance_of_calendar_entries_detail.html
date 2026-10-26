@@ -1,0 +1,325 @@
+<div class="loader-new" ng-if="vm.loader"></div>
+<cbs-left-menu></cbs-left-menu>
+<div class="container from_wrapper new_form_wrapper">
+
+    <h4 class="form_heading  feature-heading">Maintenance of Calendar
+        Entries - Add</h4>
+
+    <form name="maintenanceOfCalendarEntriesForm" role="form">
+      <table class="table table-bordered list scroll">
+            <thead>
+            <tr>
+                <th class="modal-title title-case" >SUNDAY</th>
+                <th class="modal-title title-case" >MONDAY</th>
+                <th class="modal-title title-case" >TUESDAY</th>
+                <th class="modal-title title-case" >WEDNESDAY</th>
+                <th class="modal-title title-case" >THURSDAY</th>
+                <th class="modal-title title-case" >FRIDAY</th>
+                <th class="modal-title title-case" >SATURDAY</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td class="text-center"><b  ng-if="vm.cbsMaintenanceOfCalendarEntries.dayOrder[0] !='x'">{{vm.cbsMaintenanceOfCalendarEntries.dayOrder[0]}}</b></td>
+                <td class="text-center"><b  ng-if="vm.cbsMaintenanceOfCalendarEntries.dayOrder[1] !='x'">{{vm.cbsMaintenanceOfCalendarEntries.dayOrder[1]}}</b></td>
+                <td class="text-center"><b  ng-if="vm.cbsMaintenanceOfCalendarEntries.dayOrder[2] !='x'">{{vm.cbsMaintenanceOfCalendarEntries.dayOrder[2]}}</b></td>
+                <td class="text-center"><b  ng-if="vm.cbsMaintenanceOfCalendarEntries.dayOrder[3] !='x'">{{vm.cbsMaintenanceOfCalendarEntries.dayOrder[3]}}</b></td>
+                <td class="text-center"><b  ng-if="vm.cbsMaintenanceOfCalendarEntries.dayOrder[4] !='x'">{{vm.cbsMaintenanceOfCalendarEntries.dayOrder[4]}}</b></td>
+                <td class="text-center"><b  ng-if="vm.cbsMaintenanceOfCalendarEntries.dayOrder[5] !='x'">{{vm.cbsMaintenanceOfCalendarEntries.dayOrder[5]}}</b></td>
+                <td class="text-center"><b  ng-if="vm.cbsMaintenanceOfCalendarEntries.dayOrder[6] !='x'">{{vm.cbsMaintenanceOfCalendarEntries.dayOrder[6]}}</b></td>
+            </tr>
+            <tr>
+                <td>
+                    <input type="text" class="form-control text-center"
+                           ng-if="vm.cbsMaintenanceOfCalendarEntries.dayOrder[0] !='x'"
+                              ng-model="vm.cbsMaintenanceOfCalendarEntries.option[vm.cbsMaintenanceOfCalendarEntries.dayOrder[0]]" >
+                </td>
+                <td>
+                    <input type="text" class="form-control text-center"
+                           ng-if="vm.cbsMaintenanceOfCalendarEntries.dayOrder[1] !='x'"
+                           ng-model="vm.cbsMaintenanceOfCalendarEntries.option[vm.cbsMaintenanceOfCalendarEntries.dayOrder[1]]" >
+                </td>
+                <td>
+                    <input type="text" class="form-control text-center"
+                           ng-if="vm.cbsMaintenanceOfCalendarEntries.dayOrder[2] !='x'"
+                           ng-model="vm.cbsMaintenanceOfCalendarEntries.option[vm.cbsMaintenanceOfCalendarEntries.dayOrder[2]]" >
+                </td>
+                <td>
+                    <input type="text" class="form-control text-center"
+                           ng-if="vm.cbsMaintenanceOfCalendarEntries.dayOrder[3] !='x'"
+                           ng-model="vm.cbsMaintenanceOfCalendarEntries.option[vm.cbsMaintenanceOfCalendarEntries.dayOrder[3]]" >
+                </td>
+                <td>
+                    <input type="text" class="form-control text-center"
+                           ng-if="vm.cbsMaintenanceOfCalendarEntries.dayOrder[4] !='x'"
+                           ng-model="vm.cbsMaintenanceOfCalendarEntries.option[vm.cbsMaintenanceOfCalendarEntries.dayOrder[4]]" >
+                </td>
+                <td>
+                    <input type="text" class="form-control text-center"
+                           ng-if="vm.cbsMaintenanceOfCalendarEntries.dayOrder[5] !='x'"
+                           ng-model="vm.cbsMaintenanceOfCalendarEntries.option[vm.cbsMaintenanceOfCalendarEntries.dayOrder[5]]" >
+                </td>
+                <td>
+                    <input type="text" class="form-control text-center"
+                           ng-if="vm.cbsMaintenanceOfCalendarEntries.dayOrder[6] !='x'"
+                           ng-model="vm.cbsMaintenanceOfCalendarEntries.option[vm.cbsMaintenanceOfCalendarEntries.dayOrder[6]]" >
+                </td>
+            </tr>
+            <tr>
+                <td class=" text-center"><b>{{vm.cbsMaintenanceOfCalendarEntries.dayOrder[7]}}</b></td>
+                <td class=" text-center"><b>{{vm.cbsMaintenanceOfCalendarEntries.dayOrder[8]}}</b></td>
+                <td class=" text-center"><b>{{vm.cbsMaintenanceOfCalendarEntries.dayOrder[9]}}</b></td>
+                <td class=" text-center"><b>{{vm.cbsMaintenanceOfCalendarEntries.dayOrder[10]}}</b></td>
+                <td class=" text-center"><b>{{vm.cbsMaintenanceOfCalendarEntries.dayOrder[11]}}</b></td>
+                <td class=" text-center"><b>{{vm.cbsMaintenanceOfCalendarEntries.dayOrder[12]}}</b></td>
+                <td class=" text-center"><b>{{vm.cbsMaintenanceOfCalendarEntries.dayOrder[13]}}</b></td>
+            </tr>
+            <tr>
+                <td>
+                    <input type="text" class="form-control text-center"
+                           ng-if="vm.cbsMaintenanceOfCalendarEntries.dayOrder[7] !='x'"
+                           ng-model="vm.cbsMaintenanceOfCalendarEntries.option[vm.cbsMaintenanceOfCalendarEntries.dayOrder[7]]" >
+                </td>
+                <td>
+                    <input type="text" class="form-control text-center"
+                           ng-if="vm.cbsMaintenanceOfCalendarEntries.dayOrder[8] !='x'"
+                           ng-model="vm.cbsMaintenanceOfCalendarEntries.option[vm.cbsMaintenanceOfCalendarEntries.dayOrder[8]]" >
+                </td>
+                <td>
+                    <input type="text" class="form-control text-center"
+                           ng-if="vm.cbsMaintenanceOfCalendarEntries.dayOrder[9] !='x'"
+                           ng-model="vm.cbsMaintenanceOfCalendarEntries.option[vm.cbsMaintenanceOfCalendarEntries.dayOrder[9]]" >
+                </td>
+                <td>
+                    <input type="text" class="form-control text-center"
+                           ng-if="vm.cbsMaintenanceOfCalendarEntries.dayOrder[10] !='x'"
+                           ng-model="vm.cbsMaintenanceOfCalendarEntries.option[vm.cbsMaintenanceOfCalendarEntries.dayOrder[10]]" >
+                </td>
+                <td>
+                    <input type="text" class="form-control text-center"
+                           ng-if="vm.cbsMaintenanceOfCalendarEntries.dayOrder[11] !='x'"
+                           ng-model="vm.cbsMaintenanceOfCalendarEntries.option[vm.cbsMaintenanceOfCalendarEntries.dayOrder[11]]" >
+                </td>
+                <td>
+                    <input type="text" class="form-control text-center"
+                           ng-if="vm.cbsMaintenanceOfCalendarEntries.dayOrder[12] !='x'"
+                           ng-model="vm.cbsMaintenanceOfCalendarEntries.option[vm.cbsMaintenanceOfCalendarEntries.dayOrder[12]]" >
+                </td>
+                <td>
+                    <input type="text" class="form-control text-center"
+                           ng-if="vm.cbsMaintenanceOfCalendarEntries.dayOrder[13] !='x'"
+                           ng-model="vm.cbsMaintenanceOfCalendarEntries.option[vm.cbsMaintenanceOfCalendarEntries.dayOrder[13]]" >
+                </td>
+            </tr>
+            <tr>
+                <td class=" text-center"><b>{{vm.cbsMaintenanceOfCalendarEntries.dayOrder[14]}}</b></td>
+                <td class=" text-center"><b>{{vm.cbsMaintenanceOfCalendarEntries.dayOrder[15]}}</b></td>
+                <td class=" text-center"><b>{{vm.cbsMaintenanceOfCalendarEntries.dayOrder[16]}}</b></td>
+                <td class=" text-center"><b>{{vm.cbsMaintenanceOfCalendarEntries.dayOrder[17]}}</b></td>
+                <td class=" text-center"><b>{{vm.cbsMaintenanceOfCalendarEntries.dayOrder[18]}}</b></td>
+                <td class=" text-center"><b>{{vm.cbsMaintenanceOfCalendarEntries.dayOrder[19]}}</b></td>
+                <td class=" text-center"><b>{{vm.cbsMaintenanceOfCalendarEntries.dayOrder[20]}}</b></td>
+            </tr>
+            <tr>
+                <td>
+                    <input type="text" class="form-control text-center"
+                           ng-if="vm.cbsMaintenanceOfCalendarEntries.dayOrder[14] !='x'"
+                           ng-model="vm.cbsMaintenanceOfCalendarEntries.option[vm.cbsMaintenanceOfCalendarEntries.dayOrder[14]]" >
+                </td>
+                <td>
+                    <input type="text" class="form-control text-center"
+                           ng-if="vm.cbsMaintenanceOfCalendarEntries.dayOrder[15] !='x'"
+                           ng-model="vm.cbsMaintenanceOfCalendarEntries.option[vm.cbsMaintenanceOfCalendarEntries.dayOrder[15]]" >
+                </td>
+                <td>
+                    <input type="text" class="form-control text-center"
+                           ng-if="vm.cbsMaintenanceOfCalendarEntries.dayOrder[16] !='x'"
+                           ng-model="vm.cbsMaintenanceOfCalendarEntries.option[vm.cbsMaintenanceOfCalendarEntries.dayOrder[16]]" >
+                </td>
+                <td>
+                    <input type="text" class="form-control text-center"
+                           ng-if="vm.cbsMaintenanceOfCalendarEntries.dayOrder[17] !='x'"
+                           ng-model="vm.cbsMaintenanceOfCalendarEntries.option[vm.cbsMaintenanceOfCalendarEntries.dayOrder[17]]" >
+                </td>
+                <td>
+                    <input type="text" class="form-control text-center"
+                           ng-if="vm.cbsMaintenanceOfCalendarEntries.dayOrder[18] !='x'"
+                           ng-model="vm.cbsMaintenanceOfCalendarEntries.option[vm.cbsMaintenanceOfCalendarEntries.dayOrder[18]]" >
+                </td>
+                <td>
+                    <input type="text" class="form-control text-center"
+                           ng-if="vm.cbsMaintenanceOfCalendarEntries.dayOrder[19] !='x'"
+                           ng-model="vm.cbsMaintenanceOfCalendarEntries.option[vm.cbsMaintenanceOfCalendarEntries.dayOrder[19]]" >
+                </td>
+                <td>
+                    <input type="text" class="form-control text-center"
+                           ng-if="vm.cbsMaintenanceOfCalendarEntries.dayOrder[20] !='x'"
+                           ng-model="vm.cbsMaintenanceOfCalendarEntries.option[vm.cbsMaintenanceOfCalendarEntries.dayOrder[20]]" >
+                </td>
+            </tr>
+            <tr>
+                <td class=" text-center"><b>{{vm.cbsMaintenanceOfCalendarEntries.dayOrder[21]}}</b></td>
+                <td class=" text-center"><b>{{vm.cbsMaintenanceOfCalendarEntries.dayOrder[22]}}</b></td>
+                <td class=" text-center"><b>{{vm.cbsMaintenanceOfCalendarEntries.dayOrder[23]}}</b></td>
+                <td class=" text-center"><b>{{vm.cbsMaintenanceOfCalendarEntries.dayOrder[24]}}</b></td>
+                <td class=" text-center"><b>{{vm.cbsMaintenanceOfCalendarEntries.dayOrder[25]}}</b></td>
+                <td class=" text-center"><b>{{vm.cbsMaintenanceOfCalendarEntries.dayOrder[26]}}</b></td>
+                <td class=" text-center"><b>{{vm.cbsMaintenanceOfCalendarEntries.dayOrder[27]}}</b></td>
+            </tr>
+            <tr>
+                <td>
+                    <input type="text" class="form-control text-center"
+                           ng-if="vm.cbsMaintenanceOfCalendarEntries.dayOrder[21] !='x'"
+                           ng-model="vm.cbsMaintenanceOfCalendarEntries.option[vm.cbsMaintenanceOfCalendarEntries.dayOrder[21]]" >
+                </td>
+                <td>
+                    <input type="text" class="form-control text-center"
+                           ng-if="vm.cbsMaintenanceOfCalendarEntries.dayOrder[22] !='x'"
+                           ng-model="vm.cbsMaintenanceOfCalendarEntries.option[vm.cbsMaintenanceOfCalendarEntries.dayOrder[22]]" >
+                </td>
+                <td>
+                    <input type="text" class="form-control text-center"
+                           ng-if="vm.cbsMaintenanceOfCalendarEntries.dayOrder[23] !='x'"
+                           ng-model="vm.cbsMaintenanceOfCalendarEntries.option[vm.cbsMaintenanceOfCalendarEntries.dayOrder[23]]" >
+                </td>
+                <td>
+                    <input type="text" class="form-control text-center"
+                           ng-if="vm.cbsMaintenanceOfCalendarEntries.dayOrder[24] !='x'"
+                           ng-model="vm.cbsMaintenanceOfCalendarEntries.option[vm.cbsMaintenanceOfCalendarEntries.dayOrder[24]]" >
+                </td>
+                <td>
+                    <input type="text" class="form-control text-center"
+                           ng-if="vm.cbsMaintenanceOfCalendarEntries.dayOrder[25] !='x'"
+                           ng-model="vm.cbsMaintenanceOfCalendarEntries.option[vm.cbsMaintenanceOfCalendarEntries.dayOrder[25]]" >
+                </td>
+                <td>
+                    <input type="text" class="form-control text-center"
+                           ng-if="vm.cbsMaintenanceOfCalendarEntries.dayOrder[26] !='x'"
+                           ng-model="vm.cbsMaintenanceOfCalendarEntries.option[vm.cbsMaintenanceOfCalendarEntries.dayOrder[26]]" >
+                </td>
+                <td>
+                    <input type="text" class="form-control text-center"
+                           ng-if="vm.cbsMaintenanceOfCalendarEntries.dayOrder[27] !='x'"
+                           ng-model="vm.cbsMaintenanceOfCalendarEntries.option[vm.cbsMaintenanceOfCalendarEntries.dayOrder[27]]" >
+                </td>
+            </tr>
+            <tr  ng-if="vm.cbsMaintenanceOfCalendarEntries.dayOrder[28] !='x'">
+                <td class="text-center"><b ng-if="vm.cbsMaintenanceOfCalendarEntries.dayOrder[28] !='x'">{{vm.cbsMaintenanceOfCalendarEntries.dayOrder[28]}}</b></td>
+                <td class="text-center"><b ng-if="vm.cbsMaintenanceOfCalendarEntries.dayOrder[29] !='x'">{{vm.cbsMaintenanceOfCalendarEntries.dayOrder[29]}}</b></td>
+                <td class="text-center"><b ng-if="vm.cbsMaintenanceOfCalendarEntries.dayOrder[30] !='x'">{{vm.cbsMaintenanceOfCalendarEntries.dayOrder[30]}}</b></td>
+                <td class="text-center"><b ng-if="vm.cbsMaintenanceOfCalendarEntries.dayOrder[31] !='x'">{{vm.cbsMaintenanceOfCalendarEntries.dayOrder[31]}}</b></td>
+                <td class="text-center"><b ng-if="vm.cbsMaintenanceOfCalendarEntries.dayOrder[32] !='x'">{{vm.cbsMaintenanceOfCalendarEntries.dayOrder[32]}}</b></td>
+                <td class="text-center"><b ng-if="vm.cbsMaintenanceOfCalendarEntries.dayOrder[33] !='x'">{{vm.cbsMaintenanceOfCalendarEntries.dayOrder[33]}}</b></td>
+                <td class="text-center"><b ng-if="vm.cbsMaintenanceOfCalendarEntries.dayOrder[34] !='x'">{{vm.cbsMaintenanceOfCalendarEntries.dayOrder[34]}}</b></td>
+            </tr>
+            <tr  ng-if="vm.cbsMaintenanceOfCalendarEntries.dayOrder[28] !='x'">
+                <td>
+                    <input type="text" class="form-control text-center"
+                           ng-if="vm.cbsMaintenanceOfCalendarEntries.dayOrder[28] !='x'"
+                           ng-model="vm.cbsMaintenanceOfCalendarEntries.option[vm.cbsMaintenanceOfCalendarEntries.dayOrder[28]]" >
+                </td>
+                <td>
+                    <input type="text" class="form-control text-center"
+                           ng-if="vm.cbsMaintenanceOfCalendarEntries.dayOrder[29] !='x'"
+                           ng-model="vm.cbsMaintenanceOfCalendarEntries.option[vm.cbsMaintenanceOfCalendarEntries.dayOrder[29]]" >
+                </td>
+                <td>
+                    <input type="text" class="form-control text-center"
+                           ng-if="vm.cbsMaintenanceOfCalendarEntries.dayOrder[30] !='x'"
+                           ng-model="vm.cbsMaintenanceOfCalendarEntries.option[vm.cbsMaintenanceOfCalendarEntries.dayOrder[30]]" >
+                </td>
+                <td>
+                    <input type="text" class="form-control text-center"
+                           ng-if="vm.cbsMaintenanceOfCalendarEntries.dayOrder[31] !='x'"
+                           ng-model="vm.cbsMaintenanceOfCalendarEntries.option[vm.cbsMaintenanceOfCalendarEntries.dayOrder[31]]" >
+                </td>
+                <td>
+                    <input type="text" class="form-control text-center"
+                           ng-if="vm.cbsMaintenanceOfCalendarEntries.dayOrder[32] !='x'"
+                           ng-model="vm.cbsMaintenanceOfCalendarEntries.option[vm.cbsMaintenanceOfCalendarEntries.dayOrder[32]]" >
+                </td>
+                <td>
+                    <input type="text" class="form-control text-center"
+                           ng-if="vm.cbsMaintenanceOfCalendarEntries.dayOrder[33] !='x'"
+                           ng-model="vm.cbsMaintenanceOfCalendarEntries.option[vm.cbsMaintenanceOfCalendarEntries.dayOrder[33]]" >
+                </td>
+                <td>
+                    <input type="text" class="form-control text-center"
+                           ng-if="vm.cbsMaintenanceOfCalendarEntries.dayOrder[34] !='x'"
+                           ng-model="vm.cbsMaintenanceOfCalendarEntries.option[vm.cbsMaintenanceOfCalendarEntries.dayOrder[34]]" >
+                </td>
+            </tr>
+            <tr  ng-if="vm.cbsMaintenanceOfCalendarEntries.dayOrder[35] !='x'">
+                <td class="text-center"><b ng-if="vm.cbsMaintenanceOfCalendarEntries.dayOrder[35] !='x'">{{vm.cbsMaintenanceOfCalendarEntries.dayOrder[35]}}</b></td>
+                <td class="text-center"><b ng-if="vm.cbsMaintenanceOfCalendarEntries.dayOrder[36] !='x'">{{vm.cbsMaintenanceOfCalendarEntries.dayOrder[36]}}</b></td>
+                <td class="text-center"><b ng-if="vm.cbsMaintenanceOfCalendarEntries.dayOrder[37] !='x'">{{vm.cbsMaintenanceOfCalendarEntries.dayOrder[37]}}</b></td>
+                <td class="text-center"><b ng-if="vm.cbsMaintenanceOfCalendarEntries.dayOrder[38] !='x'">{{vm.cbsMaintenanceOfCalendarEntries.dayOrder[38]}}</b></td>
+                <td class="text-center"><b ng-if="vm.cbsMaintenanceOfCalendarEntries.dayOrder[39] !='x'">{{vm.cbsMaintenanceOfCalendarEntries.dayOrder[39]}}</b></td>
+                <td class="text-center"><b ng-if="vm.cbsMaintenanceOfCalendarEntries.dayOrder[40] !='x'">{{vm.cbsMaintenanceOfCalendarEntries.dayOrder[40]}}</b></td>
+                <td class="text-center"><b ng-if="vm.cbsMaintenanceOfCalendarEntries.dayOrder[41] !='x'">{{vm.cbsMaintenanceOfCalendarEntries.dayOrder[41]}}</b></td>
+            </tr>
+            <tr  ng-if="vm.cbsMaintenanceOfCalendarEntries.dayOrder[35] !='x'">
+                <td>
+                    <input type="text" class="form-control text-center"
+                           ng-if="vm.cbsMaintenanceOfCalendarEntries.dayOrder[35] !='x'"
+                           ng-model="vm.cbsMaintenanceOfCalendarEntries.option[vm.cbsMaintenanceOfCalendarEntries.dayOrder[35]]" >
+                </td>
+                <td>
+                    <input type="text" class="form-control text-center"
+                           ng-if="vm.cbsMaintenanceOfCalendarEntries.dayOrder[36] !='x'"
+                           ng-model="vm.cbsMaintenanceOfCalendarEntries.option[vm.cbsMaintenanceOfCalendarEntries.dayOrder[36]]" >
+                </td>
+                <td>
+                    <input type="text" class="form-control text-center"
+                           ng-if="vm.cbsMaintenanceOfCalendarEntries.dayOrder[37] !='x'"
+                           ng-model="vm.cbsMaintenanceOfCalendarEntries.option[vm.cbsMaintenanceOfCalendarEntries.dayOrder[37]]" >
+                </td>
+                <td>
+                    <input type="text" class="form-control text-center"
+                           ng-if="vm.cbsMaintenanceOfCalendarEntries.dayOrder[38] !='x'"
+                           ng-model="vm.cbsMaintenanceOfCalendarEntries.option[vm.cbsMaintenanceOfCalendarEntries.dayOrder[38]]" >
+                </td>
+                <td>
+                    <input type="text" class="form-control text-center"
+                           ng-if="vm.cbsMaintenanceOfCalendarEntries.dayOrder[39] !='x'"
+                           ng-model="vm.cbsMaintenanceOfCalendarEntries.option[vm.cbsMaintenanceOfCalendarEntries.dayOrder[39]]" >
+                </td>
+                <td>
+                    <input type="text" class="form-control text-center"
+                           ng-if="vm.cbsMaintenanceOfCalendarEntries.dayOrder[40] !='x'"
+                           ng-model="vm.cbsMaintenanceOfCalendarEntries.option[vm.cbsMaintenanceOfCalendarEntries.dayOrder[40]]" >
+                </td>
+                <td>
+                    <input type="text" class="form-control text-center"
+                           ng-if="vm.cbsMaintenanceOfCalendarEntries.dayOrder[41] !='x'"
+                           ng-model="vm.cbsMaintenanceOfCalendarEntries.option[vm.cbsMaintenanceOfCalendarEntries.dayOrder[41]]" >
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <div class="row">
+            <div class="col-sm-offset-5 col-sm-8 form_submit">
+                <button type="submit" class="btn btn-default" id="submitButton"
+                        ng-disabled ="cbsMaintenanceOfCalendarEntriesForm.$invalid"
+                        ng-click="vm.addSubmit();"
+                >Submit</button>
+                <button type="button" class="btn btn-cancel" id="cancelButton"
+                        onclick="window.location.href= '#!/cbs_maintenance_of_calendar_entries/add';">Cancel</button>
+            </div>
+        </div>
+        <div class="text-center notice-message text-danger" style="text-align: left;">
+            <b>Points to be remembered:</b>
+            <ul>
+                <li>Y – Holiday.</li>
+                <li>Columns marked in colour should be non-editable.</li>
+                <li>Only one letter (Y) should be accepted against the date</li>
+                <li>Columns which are kept blank against the dates are to be treated as working day</li>
+                <li>Columns which are marked with ‘Y” against the dates are to be treated as Holidays.</li>
+                <li>(*) - indicates mandatory fields. Submit/Update button will be enabled, once all the mandatory fields are filled.</li>
+            </ul>
+        </div>
+    </form>
+
+</div>
+
+

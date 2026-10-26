@@ -1,0 +1,226 @@
+<div style="margin:0; padding:0; font-family: Arial, sans-serif;">
+
+                <div class="container" ng-if="vm.redemptionData">
+
+                    <div class="text-right form_submit">
+                        <button type="submit"
+                                class="btn btn-default"
+                                data-ng-click="vm.printpage();">
+                            Print
+                        </button>
+
+                        <button type="submit"
+                                class="btn btn-default"
+                                data-ng-click="vm.downloadWord();">
+                            WORD
+                        </button>
+
+<!--                        <button type="submit"-->
+<!--                                class="btn btn-default"-->
+<!--                                data-ng-click="vm.downloadPdf();">-->
+<!--                            PDF-->
+<!--                        </button>-->
+
+
+
+
+                        <button type="button" id="cancel_Button" class="btn btn-cancel"
+                                onclick="window.location.href= '#!/subscription_mandate/action/inquiry';">Back</button>
+                    </div>
+
+
+
+
+                    <h4 class="form_heading">Subscription Mandate</h4>
+                    <sol-header></sol-header>
+
+
+<!--        <div id="section-to-print" style="margin:0; padding:0; font-family: Arial, sans-serif;">-->
+
+            <div id="section-to-print" class="customer-record"
+                 style="width: 800px; margin: auto; padding: 30px; border: 1px solid #000; color:#000;">
+        <table style="width:100%; border-collapse: collapse;">
+<!--      <div id="section-to-print">-->
+            <tr>
+
+                <td style="width:20%;"></td>
+
+                <td style="
+        width:60%;
+        text-align:center;
+        font-size:14px;
+        line-height:26px;
+        vertical-align:top;
+    ">
+                    <strong>HDFC BANK LTD</strong><br>
+                    Link Cell<br>
+                    18/3, 1st floor,<br>
+                    IT Park, Near Persistant<br>
+                    System Software Technology Park<br>
+                    Near Mate Square, Gayatri Nagar<br>
+                    NAGPUR - 440022
+                </td>
+
+                <td style="width:20%;"></td>
+
+            </tr>
+
+        </table>
+
+        <br>
+
+        <!-- To Section -->
+        <table style="width:100%;">
+
+            <tr>
+
+
+                <br>
+
+
+                <td>
+                    Reporting Date: {{vm.fileDateOne}}
+                </td>
+
+            </tr>
+            <tr>
+
+
+                <td style="font-size:16px; line-height:40px;">
+
+                    To<br>
+                    General Manager<br>
+                    Central Accounts section<br>
+                    Reserve Bank of India<br>
+                    Nagpur – 440001
+                </td>
+            </tr>
+        </table>
+
+
+
+        <!-- Subject -->
+        <table style="width:100%;">
+            <tr>
+                <td style="font-size:16px;">
+                    Reg: Subscription of {{vm.formatSchemeName(vm.schemeName)}}
+                </td>
+            </tr>
+        </table>
+
+
+
+        <!-- Title -->
+<!--        <div style="text-align:center; font-size:28px; font-weight:bold;">-->
+<!--            Debit Advice-->
+<!--        </div>-->
+
+                <div style="text-align:center; font-size:28px; font-weight:bold; text-decoration:underline;">
+                    Debit Advice
+                </div>
+
+        <br>
+
+        <!-- Paragraph -->
+
+
+        <div style="font-size:16px; line-height:28px; text-align:justify;">
+            Please find enclosed debit advice for Rs. {{vm.formatIndianNumber(vm.grandTotalAmount)}}
+            ({{vm.formatSchemeName(vm.convertNumberToWords(vm.grandTotalAmount))}})
+            towards {{vm.formatSchemeName(vm.schemeName)}}. Please acknowledge the receipt.
+        </div>
+
+        <br>
+
+                <div style="font-size:16px;">
+            The Total amount under non-cumulative and cumulative are
+        </div>
+
+        <br>
+
+        <!-- Amount Table -->
+        <table style="width:100%; border-collapse:collapse; font-size:16px;" border="1">
+
+            <tr>
+                <th style="padding:8px; text-align:left;">Scheme</th>
+                <th style="padding:8px; text-align:left;">Amount</th>
+                <th style="padding:8px; text-align:left;">
+                    No of Transactions (Total BLAs)
+                </th>
+            </tr>
+
+            <tr>
+                <td style="padding:8px;">Cumulative</td>
+                <td style="padding:8px;">{{vm.formatIndianNumber(vm.totalCumAmount)}}</td>
+                <td style="padding:8px;">{{vm.totalCumTran}}</td>
+            </tr>
+
+            <tr>
+                <td style="padding:8px;">Non-cumulative</td>
+                <td style="padding:8px;">{{vm.formatIndianNumber(vm.totalCumNonCumAmount)}}</td>
+                <td style="padding:8px;">{{vm.totalCumNonTran}}</td>
+            </tr>
+
+            <tr>
+                <td style="padding:8px;"><strong>Total</strong></td>
+                <td style="padding:8px;"><strong>{{vm.formatIndianNumber(vm.grandTotalAmount)}}</strong></td>
+                <td style="padding:8px;"><strong>{{vm.grandTotalTran}}</strong></td>
+            </tr>
+
+        </table>
+
+
+
+
+        <!-- Authorization Text -->
+        <div style="font-size:16px; line-height:28px;"><br>
+            We authorize You to debit our Current Account No 32105001001
+            Maintained with DAD Nagpur For Rs. {{vm.formatIndianNumber(vm.grandTotalAmount)}}
+            ({{vm.formatSchemeName(vm.convertNumberToWords(vm.grandTotalAmount))}})
+        </div>
+
+        <br><br>
+
+        <!-- Signature Section -->
+        <table style="width:100%;">
+
+            <tr>
+                <td style="width:50%; text-align:left; font-weight:bold;">
+                    For HDFC BANK LTD
+                </td>
+
+                <td style="width:50%; text-align:left; font-weight:bold;">
+                    For HDFC BANK LTD
+                </td>
+            </tr>
+
+            <tr>
+                <td style="padding-top:60px; font-weight:bold;">
+                    Authorized Signatory
+                </td>
+
+                <td style="padding-top:60px; font-weight:bold;">
+                    Authorized Signatory
+                </td>
+            </tr>
+
+        </table>
+
+
+    </div>
+
+</div>
+
+    <div class="container" ng-if="vm.noDataFound">
+        <div class="list_wrapper no_records_message">
+            <h4 class="form_heading">Subscription Mandate</h4>
+            No records found to display.
+            <center>
+                <button type="button" class="btn btn-default"
+                        onclick="window.location.href= '#!/subscription_mandate.inquiry/action/inquiry';" >Back</button>
+            </center>
+        </div>
+    </div>
+</div>
+
+

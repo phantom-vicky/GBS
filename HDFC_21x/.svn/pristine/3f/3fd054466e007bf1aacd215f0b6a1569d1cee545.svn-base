@@ -1,0 +1,96 @@
+<div class="loader-new" ng-if="vm.loader"></div>
+<dc-left-menu></dc-left-menu>
+<div class="container from_wrapper new_form_wrapper">
+
+    <h4 class="form_heading">Annexure IX - Statement of Charges for Servicing Bond Ledger Account</h4>
+    <sol-header></sol-header>
+    <form name="StatementSrevicingChargesFrom" role="form">
+
+        <div class="row" ng-init="vm.getModuleName();">
+            <div class="form-group required">
+                <div class="col-sm-3"></div>
+                <div class="col-sm-3">
+                    <label for="schemeCode" class="control-label">Name of the Bond Scheme</label>
+                </div>
+                <div class="col-sm-2">
+                    <select class="form-control" id="schemeCode" name="schemCode"
+                            ng-model="vm.schemeCode" required>
+                        <option value="">Select</option>
+                        <option ng-repeat="item in vm.schemeList" value="{{item.subCode}}" ng-bind="vm.schemeName=item.subCodeDescription"></option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="form-group required">
+                <div class="col-sm-3"></div>
+                <div class="col-sm-3">
+                    <label  class="control-label">From Date(DD/MM/YYYY)</label>
+                </div>
+                <div class="col-sm-2">
+                    <p class="input-group">
+                        <input type="text" class="form-control" id="effFromDate1"
+                               name="effFromDate" ng-model="vm.fromdate"
+                               uib-datepicker-popup="dd/MM/yyyy" ng-init="vm.fromdate=''"
+                               datepicker-options="vm.dateOptions"
+                               is-open="vm.effFromDatePicker.opened" close-text="Close"
+                               maxlength="10" readonly required>
+                        <span class="input-group-btn">
+                  <button type="button" class="btn btn-secondary"
+                          ng-click="vm.effFromDatePicker.opened = true"
+                          id="effFromDateSearcher1">
+                  <i class="glyphicon glyphicon-calendar"></i>
+                  </button>
+                  </span>
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group required">
+                <div class="col-sm-3"></div>
+                <div class="col-sm-3">
+                    <label  class="control-label">To Date(DD/MM/YYYY)</label>
+                </div>
+                <div class="col-sm-2">
+                    <p class="input-group">
+                        <input type="text" class="form-control" id="effToDate"
+                               name="effToDate" ng-model="vm.todate"
+                               uib-datepicker-popup="dd/MM/yyyy" ng-init="vm.todate=''"
+                               datepicker-options="vm.dateOptions"
+                               is-open="vm.effToDatePicker.opened" close-text="Close"
+                               maxlength="10" readonly required>
+                        <span class="input-group-btn">
+                  <button type="button" class="btn btn-secondary"
+                          ng-click="vm.effToDatePicker.opened = true"
+                          id="effToDateSearcher">
+                  <i class="glyphicon glyphicon-calendar"></i>
+                  </button>
+                  </span>
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="text-center form_submit">
+            <button type="submit" id="submitbutton" class="btn btn-default"
+                    ui-sref="Statement_of_Charges_for_Servicing_Bond_Ledger_Account.inquiry_details({obj:{
+                           schemeCode:vm.schemeCode,
+                            fromdate:vm.fromdate,
+                            todate:vm.todate,
+                             schemeName: vm.schemeName
+                        }})"
+                    ng-disabled="StatementSrevicingChargesFrom.$invalid">Submit</button>
+            <button type="button" class="btn btn-cancel" id="cancelButton"
+                    onclick="window.location.href= '#!/rbibond_gu_functionality';">Cancel
+            </button>
+        </div>
+
+        <div class="text-center">
+            <notice-message-directive></notice-message-directive>
+        </div>
+    </form>
+</div>
+
+

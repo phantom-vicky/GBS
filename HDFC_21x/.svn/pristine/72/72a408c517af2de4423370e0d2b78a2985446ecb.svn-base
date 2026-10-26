@@ -1,0 +1,67 @@
+<div class="loader-new" ng-if="vm.loader"></div>
+<div class="container">
+    <script>
+		var browserName = (function (agent) {
+        switch (true) {
+            case agent.indexOf("edge") > -1: return "MS Edge";
+            case agent.indexOf("edg/") > -1: return "Edge ( chromium based)";
+            case agent.indexOf("opr") > -1 && !!window.opr: return "Opera";
+            case agent.indexOf("chrome") > -1 && !!window.chrome: return "Chrome";
+            case agent.indexOf("trident") > -1: return "MS IE";
+            case agent.indexOf("firefox") > -1: return "Mozilla Firefox";
+            case agent.indexOf("safari") > -1: return "Safari";
+            default: return "other";
+        }
+    })(window.navigator.userAgent.toLowerCase());
+
+	</script>
+    <div id="loginbox" style="margin-top:50px;" class="mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
+        <div class="panel panel-info">
+            <div class="panel-heading">
+                <div class="panel-title" ng-if ="browserName != 'MS IE'">Sign In</div>
+                <!--  <div style="float:right; font-size: 80%; position: relative; top:-10px"><a href="#">Forgot password?</a></div> -->
+            </div>
+            <div style="padding-top:30px" class="panel-body">
+                <div style="display:none" id="login-alert" class="alert alert-danger col-sm-12"></div>
+                <form name="loginform" class="form-horizontal" role="form" ng-submit="vm.login()" novalidate autocomplete="off" ng-if ="browserName != 'MS IE'">
+                    <div style="margin-bottom: 25px" class="input-group">
+                        <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                        <input id="login-username" type="text" style="text-transform: none;" class="form-control" name="username" placeholder="USERNAME" role="login" ng-model="vm.credentials.username"  autocomplete="off" readonly
+                                onfocus="this.removeAttribute('readonly');"  required maxlength='20' tabindex="1" oninput="this.value = this.value.replace(/\s+/g, '').replace(/[^a-zA-Z0-9]/g, '')" validate-username>
+                    </div>
+                    <div style="margin-bottom: 25px" class="input-group">
+                        <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+
+                        <div>
+
+                            <input style="position: inherit!important; text-transform: none;" id="login-password" type="password" class="form-control" name="password" placeholder="PASSWORD" role="login" ng-model="vm.credentials.password"
+                                   autocomplete="off" readonly onfocus="this.removeAttribute('readonly');" required maxlength="30" tabindex="2">
+                      <i class="glyphicon glyphicon-eye-open" style="position: absolute;
+    margin-left: -22px;
+    margin-top: 10px;" ng-mouseup="vm.eyeLogin()" ng-mousedown="vm.eyeLogin()"></i>
+                            <style>
+            input[type="password"]::-ms-reveal {
+                display: none;
+            }
+        </style>
+                        </div>
+                        </div>
+                    <div class="input-group">             
+                    </div>
+                    <div style="margin-top:10px" class="form-group">
+                        <!-- Button -->
+                        <div class="col-sm-12 controls">
+                            <button type="submit" class="btn btn-default" ng-disabled="loginform.$invalid || vm.disableLoginClick">Login</button>
+                        </div>                        
+                    </div>
+                    <p ng-show="vm.errorMsg" class="help-block alert alert-danger">{{ vm.errorMsg }}</p>
+                </form>
+
+                <div ng-show="browserName == 'MS IE'">
+                    <h4  class="alert alert-danger">BROWSER UNSUPPORTED Sorry, This Application is not supported on Internet Explorer, Please use Google chrome or microsoft edge</h4>
+<!--                    <h1>This Browser is Not Supported</h1>-->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

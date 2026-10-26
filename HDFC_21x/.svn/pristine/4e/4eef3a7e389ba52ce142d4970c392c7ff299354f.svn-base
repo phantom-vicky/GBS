@@ -1,0 +1,2179 @@
+<div class="loader-new" ng-if="vm.loader"></div>
+<dc-left-menu></dc-left-menu>
+<div class="container from_wrapper new_form_wrapper">
+    <h4 class="form_heading">Joint Type Change  – Verify/Reject</h4>
+    <sol-header></sol-header>
+
+    <ul class="nav nav-tabs" ng-init="vm.tabReferenceVerify ='pensionMastersaForm'" >
+        <!--
+            <li ng-class="{ 'active': vm.tabReferenceVerify == 'pensionMastersaForm'}"  ><a>BLA Opening – Verify</a></li>
+        -->
+        <li ng-click="vm.tabReferenceVerify ='pensionMastersaForm'"  ng-class="{ 'active': vm.tabReferenceVerify == 'pensionMastersaForm'}"><a ng-class="{ 'active': vm.tabReferenceVerify == 'pensionMastersaForm'}">BLA Opening – Verify</a></li>
+        <!--<li><a data-bs-toggle="tab" data-target="#pensionMastersaForm1">BOND SUBSCRIPTION WORKFLOW - Verify</a></li>-->
+        <!-- <li ng-class="{ 'active': vm.tabReferenceVerify == 'reversalForm'}" ><a>BOND SUBSCRIPTION-REVERSAL-CHANGE - Verify</a></li>-->
+        <li ng-click="vm.tabReferenceVerify ='reversalForm'" ng-class="{ 'active': vm.tabReferenceVerify == 'reversalForm'}"><a  >BOND SUBSCRIPTION-REVERSAL-CHANGE - Verify</a></li>
+
+    </ul>
+
+    <div class="tab-content">
+        <div id="pensionMastersaForm" ng-show="vm.tabReferenceVerify=='pensionMastersaForm'" ng-if="vm.getDetails" class="tab-pane  in active">
+            <div class="tab-body">
+                <uib-accordion close-others="oneAtATime">
+                    <form name="pensionMastersaForm" role="form" novalidate>
+                        <div
+                                uib-accordion-group
+                                id="satreasury-details"
+                                class="panel"
+                                heading="Bond Ledger Account Maintenance - Verify"
+                                is-open="true"
+                                ng-class="(vm.treasuryDetailsForm.$invalid) ? 'panel-danger' : 'panel-default'"
+                        >
+                            <ng-form name="vm.treasuryDetailsForm">
+                                <table class="table table-bordered">
+                                    <tbody>
+                                    <tr>
+                                        <td width="25%" class="form-group">
+                                            <label class="control-label">Name of the Bond Scheme</label>
+                                        </td>
+                                        <td width="25%">
+                                            <label class="control-label">{{vm.schemeName}}</label>
+                                        </td>
+
+                                        <td width="25%" class="form-group">
+                                            <label class="control-label">Mode of Holding</label>
+                                        </td>
+                                        <td width="25%">
+                                            <label class="data-bind">{{vm.selectedModeOfHolding}}</label>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </ng-form>
+                        </div>
+
+                        <div uib-accordion-group id="sapensioner-details" class="panel panel-default" heading="{{vm.titleText}}">
+                            <table class="table table-bordered table-striped list old-new-value-table">
+                                <thead>
+                                <tr>
+                                    <th width="50%">Particular</th>
+                                    <th>{{(vm.getDetails.previousOperationType == 'M')?('Old Value'): ('Value')}}</th>
+                                    <th ng-if="vm.getDetails.previousOperationType == 'M'">New Value</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <td>Bond Ledger Account Number</td>
+                                    <td class="old-value">
+                                        {{(vm.getDetails.masterDetailsValueModel[0] && vm.getDetails.masterDetailsValueModel[0].C005)? (vm.getDetails.masterDetailsValueModel[0].C005.oldValue) : ('')}}
+                                    </td>
+                                    <td class="new-value" ng-if="vm.getDetails.previousOperationType == 'M'">
+                                        {{vm.getDetails.masterDetailsValueModel[0] && vm.getDetails.masterDetailsValueModel[0].C005? (vm.getDetails.masterDetailsValueModel[0].C005.newValue) : ('')}}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Bond Holder First name</td>
+                                    <td class="old-value">
+                                        {{(vm.getDetails.masterDetailsValueModel[0] && vm.getDetails.masterDetailsValueModel[0].C006)? (vm.getDetails.masterDetailsValueModel[0].C006.oldValue) : ('')}}
+                                    </td>
+                                    <td class="new-value" ng-if="vm.getDetails.previousOperationType == 'M'">
+                                        {{vm.getDetails.masterDetailsValueModel[0] && vm.getDetails.masterDetailsValueModel[0].C006? (vm.getDetails.masterDetailsValueModel[0].C006.newValue) : ('')}}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Bond Holder Middle Name</td>
+                                    <td class="old-value">
+                                        {{(vm.getDetails.masterDetailsValueModel[0] && vm.getDetails.masterDetailsValueModel[0].C007)? (vm.getDetails.masterDetailsValueModel[0].C007.oldValue) : ('')}}
+                                    </td>
+                                    <td class="new-value" ng-if="vm.getDetails.previousOperationType == 'M'">
+                                        {{vm.getDetails.masterDetailsValueModel[0] && vm.getDetails.masterDetailsValueModel[0].C007? (vm.getDetails.masterDetailsValueModel[0].C007.newValue) : ('')}}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Bond Holder Last name</td>
+                                    <td class="old-value">
+                                        {{(vm.getDetails.masterDetailsValueModel[0] && vm.getDetails.masterDetailsValueModel[0].C008)? (vm.getDetails.masterDetailsValueModel[0].C008.oldValue) : ('')}}
+                                    </td>
+                                    <td class="new-value" ng-if="vm.getDetails.previousOperationType == 'M'">
+                                        {{vm.getDetails.masterDetailsValueModel[0] && vm.getDetails.masterDetailsValueModel[0].C008? (vm.getDetails.masterDetailsValueModel[0].C008.newValue) : ('')}}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Holder Type</td>
+                                    <td class="old-value">
+                                        {{(vm.getDetails.masterDetailsValueModel[0] && vm.getDetails.masterDetailsValueModel[0].C012)? (vm.getDetails.masterDetailsValueModel[0].C012.oldValue | getLabelFromValuesArray :
+                                        vm.convertLabelValue(vm.holderTypeList)) : ('')}}
+                                    </td>
+                                    <td class="new-value" ng-if="vm.getDetails.previousOperationType == 'M'">
+                                        {{vm.getDetails.masterDetailsValueModel[0] && vm.getDetails.masterDetailsValueModel[0].C012? (vm.getDetails.masterDetailsValueModel[0].C012.newValue | getLabelFromValuesArray :
+                                        vm.convertLabelValue(vm.holderTypeList)) : ('')}}
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>Father Name/Spouse Name</td>
+                                    <td class="old-value">
+                                        {{(vm.getDetails.masterDetailsValueModel[0] && vm.getDetails.masterDetailsValueModel[0].C013)? (vm.getDetails.masterDetailsValueModel[0].C013.oldValue) : ('')}}
+                                    </td>
+                                    <td class="new-value" ng-if="vm.getDetails.previousOperationType == 'M'">
+                                        {{vm.getDetails.masterDetailsValueModel[0] && vm.getDetails.masterDetailsValueModel[0].C013? (vm.getDetails.masterDetailsValueModel[0].C013.newValue) : ('')}}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Mother's Maiden Name</td>
+                                    <td class="old-value">
+                                        {{(vm.getDetails.masterDetailsValueModel[0] && vm.getDetails.masterDetailsValueModel[0].C014)? (vm.getDetails.masterDetailsValueModel[0].C014.oldValue) : ('')}}
+                                    </td>
+                                    <td class="new-value" ng-if="vm.getDetails.previousOperationType == 'M'">
+                                        {{vm.getDetails.masterDetailsValueModel[0] && vm.getDetails.masterDetailsValueModel[0].C014? (vm.getDetails.masterDetailsValueModel[0].C014.newValue) : ('')}}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Gender</td>
+                                    <td class="old-value">
+                                        {{(vm.getDetails.masterDetailsValueModel[0] && vm.getDetails.masterDetailsValueModel[0].C015)? (vm.getDetails.masterDetailsValueModel[0].C015.oldValue | getLabelFromValuesArray :
+                                        vm.genderListMetaData) : ('')}}
+                                    </td>
+                                    <td class="new-value" ng-if="vm.getDetails.previousOperationType == 'M'">
+                                        {{vm.getDetails.masterDetailsValueModel[0] && vm.getDetails.masterDetailsValueModel[0].C015? (vm.getDetails.masterDetailsValueModel[0].C015.newValue | getLabelFromValuesArray :
+                                        vm.genderListMetaData) : ('')}}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Bond Holder Date of Birth (DD/MM/YYYY)</td>
+                                    <td class="old-value">
+                                        {{(vm.getDetails.masterDetailsValueModel[0] && vm.getDetails.masterDetailsValueModel[0].C009)? (vm.getDetails.masterDetailsValueModel[0].C009.oldValue) : ('')}}
+                                    </td>
+                                    <td class="new-value" ng-if="vm.getDetails.previousOperationType == 'M'">
+                                        {{vm.getDetails.masterDetailsValueModel[0] && vm.getDetails.masterDetailsValueModel[0].C009? (vm.getDetails.masterDetailsValueModel[0].C009.newValue) : ('')}}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Is Minor (Y/N)?</td>
+                                    <td class="old-value">
+                                        {{(vm.getDetails.masterDetailsValueModel[0] && vm.getDetails.masterDetailsValueModel[0].C016)? (vm.getDetails.masterDetailsValueModel[0].C016.oldValue | getLabelFromValuesArray :
+                                        vm.commonYesNoMetaData) : ('')}}
+                                    </td>
+                                    <td class="new-value" ng-if="vm.getDetails.previousOperationType == 'M'">
+                                        {{vm.getDetails.masterDetailsValueModel[0] && vm.getDetails.masterDetailsValueModel[0].C016? (vm.getDetails.masterDetailsValueModel[0].C016.newValue | getLabelFromValuesArray :
+                                        vm.commonYesNoMetaData) : ('')}}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Details of Birth certificate submitted as per norms</td>
+                                    <td class="old-value">
+                                        {{(vm.getDetails.masterDetailsValueModel[0] && vm.getDetails.masterDetailsValueModel[0].C017)? (vm.getDetails.masterDetailsValueModel[0].C017.oldValue) : ('')}}
+                                    </td>
+                                    <td class="new-value" ng-if="vm.getDetails.previousOperationType == 'M'">
+                                        {{vm.getDetails.masterDetailsValueModel[0] && vm.getDetails.masterDetailsValueModel[0].C017? (vm.getDetails.masterDetailsValueModel[0].C017.newValue) : ('')}}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Communication Address 1</td>
+                                    <td class="old-value">
+                                        {{(vm.getDetails.masterDetailsValueModel[0] && vm.getDetails.masterDetailsValueModel[0].C018)? (vm.getDetails.masterDetailsValueModel[0].C018.oldValue) : ('')}}
+                                    </td>
+                                    <td class="new-value" ng-if="vm.getDetails.previousOperationType == 'M'">
+                                        {{vm.getDetails.masterDetailsValueModel[0] && vm.getDetails.masterDetailsValueModel[0].C018? (vm.getDetails.masterDetailsValueModel[0].C018.newValue) : ('')}}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Address 2</td>
+                                    <td class="old-value">
+                                        {{(vm.getDetails.masterDetailsValueModel[0] && vm.getDetails.masterDetailsValueModel[0].C019)? (vm.getDetails.masterDetailsValueModel[0].C019.oldValue) : ('')}}
+                                    </td>
+                                    <td class="new-value" ng-if="vm.getDetails.previousOperationType == 'M'">
+                                        {{vm.getDetails.masterDetailsValueModel[0] && vm.getDetails.masterDetailsValueModel[0].C019? (vm.getDetails.masterDetailsValueModel[0].C019.newValue) : ('')}}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Address 3</td>
+                                    <td class="old-value">
+                                        {{(vm.getDetails.masterDetailsValueModel[0] && vm.getDetails.masterDetailsValueModel[0].C020)? (vm.getDetails.masterDetailsValueModel[0].C020.oldValue) : ('')}}
+                                    </td>
+                                    <td class="new-value" ng-if="vm.getDetails.previousOperationType == 'M'">
+                                        {{vm.getDetails.masterDetailsValueModel[0] && vm.getDetails.masterDetailsValueModel[0].C020? (vm.getDetails.masterDetailsValueModel[0].C020.newValue) : ('')}}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>City</td>
+                                    <td class="old-value">
+                                        {{(vm.getDetails.masterDetailsValueModel[0] && vm.getDetails.masterDetailsValueModel[0].C022)? (vm.getDetails.masterDetailsValueModel[0].C022.oldValue) : ('')}}
+                                    </td>
+                                    <td class="new-value" ng-if="vm.getDetails.previousOperationType == 'M'">
+                                        {{vm.getDetails.masterDetailsValueModel[0] && vm.getDetails.masterDetailsValueModel[0].C022? (vm.getDetails.masterDetailsValueModel[0].C022.newValue) : ('')}}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>State</td>
+                                    <td class="old-value">
+                                        {{(vm.getDetails.masterDetailsValueModel[0] && vm.getDetails.masterDetailsValueModel[0].C023)? (vm.getDetails.masterDetailsValueModel[0].C023.oldValue | getLabelFromValuesArray :
+                                        vm.stateMetaData) : ('')}}
+                                    </td>
+                                    <td class="new-value" ng-if="vm.getDetails.previousOperationType == 'M'">
+                                        {{vm.getDetails.masterDetailsValueModel[0] && vm.getDetails.masterDetailsValueModel[0].C023? (vm.getDetails.masterDetailsValueModel[0].C023.newValue | getLabelFromValuesArray :
+                                        vm.stateMetaData) : ('')}}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Pin Code</td>
+                                    <td class="old-value">
+                                        {{(vm.getDetails.masterDetailsValueModel[0] && vm.getDetails.masterDetailsValueModel[0].C021)? (vm.getDetails.masterDetailsValueModel[0].C021.oldValue | getLabelFromValuesArray :
+                                        vm.commonYesNoMetaData) : ('')}}
+                                    </td>
+                                    <td class="new-value" ng-if="vm.getDetails.previousOperationType == 'M'">
+                                        {{vm.getDetails.masterDetailsValueModel[0] && vm.getDetails.masterDetailsValueModel[0].C021? (vm.getDetails.masterDetailsValueModel[0].C021.newValue) : ('')}}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Phone Number</td>
+                                    <td class="old-value">
+                                        {{(vm.getDetails.masterDetailsValueModel[0] && vm.getDetails.masterDetailsValueModel[0].C024)? (vm.getDetails.masterDetailsValueModel[0].C024.oldValue) : ('')}}
+                                    </td>
+                                    <td class="new-value" ng-if="vm.getDetails.previousOperationType == 'M'">
+                                        {{vm.getDetails.masterDetailsValueModel[0] && vm.getDetails.masterDetailsValueModel[0].C024? (vm.getDetails.masterDetailsValueModel[0].C024.newValue) : ('')}}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Mobile Number</td>
+                                    <td class="old-value">
+                                        {{(vm.getDetails.masterDetailsValueModel[0] && vm.getDetails.masterDetailsValueModel[0].C025)? (vm.getDetails.masterDetailsValueModel[0].C025.oldValue) : ('')}}
+                                    </td>
+                                    <td class="new-value" ng-if="vm.getDetails.previousOperationType == 'M'">
+                                        {{vm.getDetails.masterDetailsValueModel[0] && vm.getDetails.masterDetailsValueModel[0].C025? (vm.getDetails.masterDetailsValueModel[0].C025.newValue | getLabelFromValuesArray :
+                                        vm.commonYesNoMetaData) : ('')}}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Email id</td>
+                                    <td class="old-value">
+                                        {{(vm.getDetails.masterDetailsValueModel[0] && vm.getDetails.masterDetailsValueModel[0].C026)? (vm.getDetails.masterDetailsValueModel[0].C026.oldValue) : ('')}}
+                                    </td>
+                                    <td class="new-value" ng-if="vm.getDetails.previousOperationType == 'M'">
+                                        {{vm.getDetails.masterDetailsValueModel[0] && vm.getDetails.masterDetailsValueModel[0].C026? (vm.getDetails.masterDetailsValueModel[0].C026.newValue) : ('')}}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>HUF registration / Power of Attorney number</td>
+                                    <td class="old-value">
+                                        {{(vm.getDetails.masterDetailsValueModel[0] && vm.getDetails.masterDetailsValueModel[0].C027)? (vm.getDetails.masterDetailsValueModel[0].C027.oldValue) : ('')}}
+                                    </td>
+                                    <td class="new-value" ng-if="vm.getDetails.previousOperationType == 'M'">
+                                        {{vm.getDetails.masterDetailsValueModel[0] && vm.getDetails.masterDetailsValueModel[0].C027? (vm.getDetails.masterDetailsValueModel[0].C027.newValue) : ('')}}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Power of Attorney/Karta Name</td>
+                                    <td class="old-value">
+                                        {{(vm.getDetails.masterDetailsValueModel[0] && vm.getDetails.masterDetailsValueModel[0].C028)? (vm.getDetails.masterDetailsValueModel[0].C028.oldValue) : ('')}}
+                                    </td>
+                                    <td class="new-value" ng-if="vm.getDetails.previousOperationType == 'M'">
+                                        {{vm.getDetails.masterDetailsValueModel[0] && vm.getDetails.masterDetailsValueModel[0].C028? (vm.getDetails.masterDetailsValueModel[0].C028.newValue) : ('')}}
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+
+                            <table
+                                    class="table table-bordered table-striped list old-new-value-table"
+                                    ng-if=" vm.getDetails.masterDetailsValueModel[0].C003.oldValue =='MH004' && vm.getDetails.coparsDetailsValueModel.length > 0"
+                            >
+                                <thead></thead>
+                                <h4 class="form_heading" ng-if="vm.getDetails.masterDetailsValueModel[0].C003.oldValue =='MH004' && vm.getDetails.coparsDetailsValueModel.length > 0">Coparceners Details of Karta</h4>
+
+                                <tbody ng-repeat="item in vm.getDetails.coparsDetailsValueModel">
+                                <tr>
+                                    <th width="50%">Particular</th>
+                                    <th>{{(vm.getDetails.previousOperationType == 'M')?('Old Value'): ('Value')}}</th>
+                                    <th ng-if="vm.getDetails.previousOperationType == 'M'">New Value</th>
+                                </tr>
+
+                                <tr>
+                                    <td>Co-Person Name</td>
+                                    <td class="old-value">{{(item && item.C004)? (item.C004.oldValue) : ('')}}</td>
+                                    <td class="new-value" ng-if="vm.getDetails.previousOperationType == 'M'">{{item && item.C004? (item.C004.newValue) : ('')}}</td>
+                                </tr>
+
+                                <tr>
+                                    <td>Relationship with Karta</td>
+                                    <td class="old-value">{{(item && item.C005)? (item.C005.oldValue) : ('')}}</td>
+                                    <td class="new-value" ng-if="vm.getDetails.previousOperationType == 'M'">{{item && item.C005? (item.C005.newValue) : ('')}}</td>
+                                </tr>
+
+                                <tr>
+                                    <td>DOB</td>
+                                    <td class="old-value">{{(item && item.C006)? (item.C006.oldValue) : ('')}}</td>
+                                    <td class="new-value" ng-if="vm.getDetails.previousOperationType == 'M'">{{item && item.C006? (item.C006.newValue) : ('')}}</td>
+                                </tr>
+                                </tbody>
+                            </table>
+
+                            <table
+                                    class="table table-bordered table-striped list old-new-value-table"
+                                    ng-if="vm.getDetails.masterDetailsValueModel[0].C016.oldValue == 'Y' || vm.getDetails.masterDetailsValueModel[0].C016.newValue == 'Y'"
+                            >
+                                <thead>
+                                <tr>
+                                    <th width="50%">Particular</th>
+                                    <th>{{(vm.getDetails.previousOperationType == 'M')?('Old Value'): ('Value')}}</th>
+                                    <th ng-if="vm.getDetails.previousOperationType == 'M'">New Value</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <h4 class="form_heading" ng-if="vm.getDetails.masterDetailsValueModel[0].C016.oldValue == 'Y' || vm.getDetails.masterDetailsValueModel[0].C016.newValue == 'Y'">GUARDIAN DETAILS</h4>
+                                <div>
+                                    <tr>
+                                        <td>Guardian ID</td>
+                                        <td class="old-value">
+                                            {{(vm.getDetails.guardianDetailsValueModel[0] && vm.getDetails.guardianDetailsValueModel[0].C005)? (vm.getDetails.guardianDetailsValueModel[0].C005.oldValue) : ('')}}
+                                        </td>
+                                        <td class="new-value" ng-if="vm.getDetails.previousOperationType == 'M'">
+                                            {{vm.getDetails.guardianDetailsValueModel[0] && vm.getDetails.guardianDetailsValueModel[0].C005? (vm.getDetails.guardianDetailsValueModel[0].C005.newValue) : ('')}}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Guardian First Name</td>
+                                        <td class="old-value">
+                                            {{(vm.getDetails.guardianDetailsValueModel[0] && vm.getDetails.guardianDetailsValueModel[0].C006)? (vm.getDetails.guardianDetailsValueModel[0].C006.oldValue) : ('')}}
+                                        </td>
+                                        <td class="new-value" ng-if="vm.getDetails.previousOperationType == 'M'">
+                                            {{vm.getDetails.guardianDetailsValueModel[0] && vm.getDetails.guardianDetailsValueModel[0].C006? (vm.getDetails.guardianDetailsValueModel[0].C006.newValue) : ('')}}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Guardian Middle Name</td>
+                                        <td class="old-value">
+                                            {{(vm.getDetails.guardianDetailsValueModel[0] && vm.getDetails.guardianDetailsValueModel[0].C007)? (vm.getDetails.guardianDetailsValueModel[0].C007.oldValue) : ('')}}
+                                        </td>
+                                        <td class="new-value" ng-if="vm.getDetails.previousOperationType == 'M'">
+                                            {{vm.getDetails.guardianDetailsValueModel[0] && vm.getDetails.guardianDetailsValueModel[0].C007? (vm.getDetails.guardianDetailsValueModel[0].C007.newValue) : ('')}}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Guardian Last Name</td>
+                                        <td class="old-value">
+                                            {{(vm.getDetails.guardianDetailsValueModel[0] && vm.getDetails.guardianDetailsValueModel[0].C008)? (vm.getDetails.guardianDetailsValueModel[0].C008.oldValue) : ('')}}
+                                        </td>
+                                        <td class="new-value" ng-if="vm.getDetails.previousOperationType == 'M'">
+                                            {{vm.getDetails.guardianDetailsValueModel[0] && vm.getDetails.guardianDetailsValueModel[0].C008? (vm.getDetails.guardianDetailsValueModel[0].C008.newValue) : ('')}}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Relation with Minor</td>
+                                        <td class="old-value">
+                                            {{(vm.getDetails.guardianDetailsValueModel[0] && vm.getDetails.guardianDetailsValueModel[0].C009)? (vm.getDetails.guardianDetailsValueModel[0].C009.oldValue |
+                                            getLabelFromValuesArray : vm.convertLabelValue(vm.guardianDetailsListMetaData)) : ('')}}
+                                        </td>
+                                        <td class="new-value" ng-if="vm.getDetails.previousOperationType == 'M'">
+                                            {{vm.getDetails.guardianDetailsValueModel[0] && vm.getDetails.guardianDetailsValueModel[0].C009? (vm.getDetails.guardianDetailsValueModel[0].C009.newValue |
+                                            getLabelFromValuesArray : vm.convertLabelValue(vm.guardianDetailsListMetaData)) : ('')}}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Date of Birth</td>
+                                        <td class="old-value">
+                                            {{(vm.getDetails.guardianDetailsValueModel[0] && vm.getDetails.guardianDetailsValueModel[0].C010)? (vm.getDetails.guardianDetailsValueModel[0].C010.oldValue) : ('')}}
+                                        </td>
+                                        <td class="new-value" ng-if="vm.getDetails.previousOperationType == 'M'">
+                                            {{vm.getDetails.guardianDetailsValueModel[0] && vm.getDetails.guardianDetailsValueModel[0].C010? (vm.getDetails.guardianDetailsValueModel[0].C010.newValue) : ('')}}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Communication Address</td>
+                                        <td class="old-value">
+                                            {{(vm.getDetails.guardianDetailsValueModel[0] && vm.getDetails.guardianDetailsValueModel[0].C011)? (vm.getDetails.guardianDetailsValueModel[0].C011.oldValue) : ('')}}
+                                        </td>
+                                        <td class="new-value" ng-if="vm.getDetails.previousOperationType == 'M'">
+                                            {{vm.getDetails.guardianDetailsValueModel[0] && vm.getDetails.guardianDetailsValueModel[0].C011? (vm.getDetails.guardianDetailsValueModel[0].C011.newValue) : ('')}}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Mobile No.</td>
+                                        <td class="old-value">
+                                            {{(vm.getDetails.guardianDetailsValueModel[0] && vm.getDetails.guardianDetailsValueModel[0].C012)? (vm.getDetails.guardianDetailsValueModel[0].C012.oldValue) : ('')}}
+                                        </td>
+                                        <td class="new-value" ng-if="vm.getDetails.previousOperationType == 'M'">
+                                            {{vm.getDetails.guardianDetailsValueModel[0] && vm.getDetails.guardianDetailsValueModel[0].C012? (vm.getDetails.guardianDetailsValueModel[0].C012.newValue) : ('')}}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Email ID</td>
+                                        <td class="old-value">
+                                            {{(vm.getDetails.guardianDetailsValueModel[0] && vm.getDetails.guardianDetailsValueModel[0].C013)? (vm.getDetails.guardianDetailsValueModel[0].C013.oldValue) : ('')}}
+                                        </td>
+                                        <td class="new-value" ng-if="vm.getDetails.previousOperationType == 'M'">
+                                            {{vm.getDetails.guardianDetailsValueModel[0] && vm.getDetails.guardianDetailsValueModel[0].C013? (vm.getDetails.guardianDetailsValueModel[0].C013.newValue) : ('')}}
+                                        </td>
+                                    </tr>
+                                    <tr
+                                            ng-if="vm.getDetails.guardianDetailsValueModel[0] && vm.getDetails.guardianDetailsValueModel[0].C014 && (vm.getDetails.guardianDetailsValueModel[0].C014.oldValue || vm.getDetails.guardianDetailsValueModel[0].C014.newValue)"
+                                    >
+                                        <td>Date of Death of Guardian (DD/MM/YYYY)</td>
+                                        <td class="old-value">
+                                            {{(vm.getDetails.guardianDetailsValueModel[0] && vm.getDetails.guardianDetailsValueModel[0].C014)? (vm.getDetails.guardianDetailsValueModel[0].C014.oldValue) : ('')}}
+                                        </td>
+                                        <td class="new-value" ng-if="vm.getDetails.previousOperationType == 'M'">
+                                            {{vm.getDetails.guardianDetailsValueModel[0] && vm.getDetails.guardianDetailsValueModel[0].C014? (vm.getDetails.guardianDetailsValueModel[0].C014.newValue) : ('')}}
+                                        </td>
+                                    </tr>
+                                    <tr
+                                            ng-if="vm.getDetails.guardianDetailsValueModel[0] && vm.getDetails.guardianDetailsValueModel[0].C015 && (vm.getDetails.guardianDetailsValueModel[0].C015.oldValue || vm.getDetails.guardianDetailsValueModel[0].C015.newValue)"
+                                    >
+                                        <td>Date of Receipt of Death Certificate (DD/MM/YYYY)</td>
+                                        <td class="old-value">
+                                            {{(vm.getDetails.guardianDetailsValueModel[0] && vm.getDetails.guardianDetailsValueModel[0].C015)? (vm.getDetails.guardianDetailsValueModel[0].C015.oldValue) : ('')}}
+                                        </td>
+                                        <td class="new-value" ng-if="vm.getDetails.previousOperationType == 'M'">
+                                            {{vm.getDetails.guardianDetailsValueModel[0] && vm.getDetails.guardianDetailsValueModel[0].C015? (vm.getDetails.guardianDetailsValueModel[0].C015.newValue) : ('')}}
+                                        </td>
+                                    </tr>
+                                    <tr
+                                            ng-if="vm.getDetails.guardianDetailsValueModel[0] && vm.getDetails.guardianDetailsValueModel[0].C016 && (vm.getDetails.guardianDetailsValueModel[0].C016.oldValue || vm.getDetails.guardianDetailsValueModel[0].C016.newValue)"
+                                    >
+                                        <td>If Request from Current Guardian (Y/N)</td>
+                                        <td class="old-value">
+                                            {{(vm.getDetails.guardianDetailsValueModel[0] && vm.getDetails.guardianDetailsValueModel[0].C016)? (vm.getDetails.guardianDetailsValueModel[0].C016.oldValue |
+                                            getLabelFromValuesArray : vm.supportingDocumentsMetaData) : ('')}}
+                                        </td>
+                                        <td class="new-value" ng-if="vm.getDetails.previousOperationType == 'M'">
+                                            {{vm.getDetails.guardianDetailsValueModel[0] && vm.getDetails.guardianDetailsValueModel[0].C016? (vm.getDetails.guardianDetailsValueModel[0].C016.newValue |
+                                            getLabelFromValuesArray : vm.supportingDocumentsMetaData) : ('')}}
+                                        </td>
+                                    </tr>
+                                </div>
+                                </tbody>
+                            </table>
+
+                            <table class="table table-bordered table-striped list old-new-value-table">
+                                <thead>
+                                <tr>
+                                    <th width="50%">Particular</th>
+                                    <th>{{(vm.getDetails.previousOperationType == 'M')?('Old Value'): ('Value')}}</th>
+                                    <th ng-if="vm.getDetails.previousOperationType == 'M'">New Value</th>
+                                </tr>
+                                </thead>
+                                <tbody></tbody>
+                                <tbody>
+                                <h4 class="form_heading">OTHERS DETAILS</h4>
+                                <div>
+                                    <!--                                    <tr>-->
+                                    <!--                                        <td>Whether the customer belongs to HDFC?</td>-->
+                                    <!--                                        <td class="old-value">{{(vm.getDetails.masterDetailsValueModel[0] && vm.getDetails.masterDetailsValueModel[0].C029)?-->
+                                    <!--                                            (vm.getDetails.masterDetailsValueModel[0].C029.oldValue | getLabelFromValuesArray : vm.convertLabelValue(vm.formList)) : ('')}}-->
+                                    <!--                                        </td>-->
+                                    <!--                                        <td class="new-value" ng-if="vm.getDetails.previousOperationType == 'M'">{{vm.getDetails.masterDetailsValueModel[0] &&-->
+                                    <!--                                            vm.getDetails.masterDetailsValueModel[0].C029? (vm.getDetails.masterDetailsValueModel[0].C029.newValue | getLabelFromValuesArray : vm.convertLabelValue(vm.formList)) : ('')}}-->
+                                    <!--                                        </td>-->
+                                    <!--                                    </tr>-->
+
+                                    <tr>
+                                        <td>Whether the customer belongs to HDFC?</td>
+                                        <td class="old-value">
+                                            {{(vm.getDetails.masterDetailsValueModel[0] && vm.getDetails.masterDetailsValueModel[0].C029)? (vm.getDetails.masterDetailsValueModel[0].C029.oldValue | getLabelFromValuesArray
+                                            : vm.supportingDocumentsMetaData) : ('')}}
+                                        </td>
+                                        <td class="new-value" ng-if="vm.getDetails.previousOperationType == 'M'">
+                                            {{vm.getDetails.masterDetailsValueModel[0] && vm.getDetails.masterDetailsValueModel[0].C029? (vm.getDetails.masterDetailsValueModel[0].C029.newValue | getLabelFromValuesArray :
+                                            vm.supportingDocumentsMetaData) : ('')}}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Operative Account Number</td>
+                                        <td class="old-value">
+                                            {{(vm.getDetails.masterDetailsValueModel[0] && vm.getDetails.masterDetailsValueModel[0].C030)? (vm.getDetails.masterDetailsValueModel[0].C030.oldValue) : ('')}}
+                                        </td>
+                                        <td class="new-value" ng-if="vm.getDetails.previousOperationType == 'M'">
+                                            {{vm.getDetails.masterDetailsValueModel[0] && vm.getDetails.masterDetailsValueModel[0].C030? (vm.getDetails.masterDetailsValueModel[0].C030.newValue) : ('')}}
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td>Mode of Interest Payment/ Principal Repayment</td>
+                                        <td class="old-value">
+                                            {{(vm.getDetails.masterDetailsValueModel[0] && vm.getDetails.masterDetailsValueModel[0].C049)? (vm.getDetails.masterDetailsValueModel[0].C049.oldValue | getLabelFromValuesArray
+                                            : vm.convertLabelValue(vm.modeOfInterestPaymentList)) : ('')}}
+                                        </td>
+                                        <td class="new-value" ng-if="vm.getDetails.previousOperationType == 'M'">
+                                            {{vm.getDetails.masterDetailsValueModel[0] && vm.getDetails.masterDetailsValueModel[0].C049? (vm.getDetails.masterDetailsValueModel[0].C049.newValue | getLabelFromValuesArray :
+                                            vm.convertLabelValue(vm.modeOfInterestPaymentList)) : ('')}}
+                                        </td>
+                                    </tr>
+
+                                    <tr ng-if="vm.getDetails.masterDetailsValueModel[0].C049.oldValue == 'MP001' || vm.getDetails.masterDetailsValueModel[0].C049.oldValue == 'MP004'">
+                                        <td>Operative Account Number</td>
+                                        <td class="old-value">
+                                            {{(vm.getDetails.masterDetailsValueModel[0] && vm.getDetails.masterDetailsValueModel[0].C053)? (vm.getDetails.masterDetailsValueModel[0].C053.oldValue) : ('')}}
+                                        </td>
+                                        <td class="new-value" ng-if="vm.getDetails.previousOperationType == 'M'">
+                                            {{vm.getDetails.masterDetailsValueModel[0] && vm.getDetails.masterDetailsValueModel[0].C053? (vm.getDetails.masterDetailsValueModel[0].C053.newValue) : ('')}}
+                                        </td>
+                                    </tr>
+
+                                    <tr ng-if="vm.getDetails.masterDetailsValueModel[0].C049.oldValue == 'MP001'" >
+                                        <td>Account Type code</td>
+                                        <td class="old-value">
+                                            {{(vm.getDetails.masterDetailsValueModel[0] && vm.getDetails.masterDetailsValueModel[0].C055)? (vm.getDetails.masterDetailsValueModel[0].C055.oldValue) : ('')}}
+                                        </td>
+                                        <td class="new-value" ng-if="vm.getDetails.previousOperationType == 'M'">
+                                            {{vm.getDetails.masterDetailsValueModel[0] && vm.getDetails.masterDetailsValueModel[0].C055? (vm.getDetails.masterDetailsValueModel[0].C055.newValue) : ('')}}
+                                        </td>
+                                    </tr>
+
+                                    <tr ng-if="vm.getDetails.masterDetailsValueModel[0].C049.oldValue == 'MP002'">
+                                        <td>DD/PO Account Number</td>
+                                        <td class="old-value">
+                                            {{(vm.getDetails.masterDetailsValueModel[0] && vm.getDetails.masterDetailsValueModel[0].C053)? (vm.getDetails.masterDetailsValueModel[0].C053.oldValue) : ('')}}
+                                        </td>
+                                        <td class="new-value" ng-if="vm.getDetails.previousOperationType == 'M'">
+                                            {{vm.getDetails.masterDetailsValueModel[0] && vm.getDetails.masterDetailsValueModel[0].C053? (vm.getDetails.masterDetailsValueModel[0].C053.newValue) : ('')}}
+                                        </td>
+                                    </tr>
+                                    <tr ng-if="vm.getDetails.masterDetailsValueModel[0].C049.oldValue == 'MP003' || vm.getDetails.masterDetailsValueModel[0].C049.oldValue == 'MP004'">
+                                        <td>Bank Name</td>
+                                        <td class="old-value">
+                                            {{vm.bankNameOldVal1}}
+                                        </td>
+                                        <td class="new-value" ng-if="vm.getDetails.previousOperationType == 'M' && vm.bankNameOldVal1 !== vm.bankNameNewVal1">
+                                            {{vm.bankNameNewVal1}}
+                                        </td>
+                                    </tr>
+
+                                    <tr ng-if="vm.getDetails.masterDetailsValueModel[0].C049.oldValue == 'MP003' || vm.getDetails.masterDetailsValueModel[0].C049.oldValue == 'MP004'">
+                                        <td>Branch Code</td>
+                                        <td class="old-value">
+                                            {{(vm.getDetails.masterDetailsValueModel[0] && vm.getDetails.masterDetailsValueModel[0].C051)? (vm.getDetails.masterDetailsValueModel[0].C051.oldValue) : ('')}}
+                                        </td>
+                                        <td class="new-value" ng-if="vm.getDetails.previousOperationType == 'M'">
+                                            {{vm.getDetails.masterDetailsValueModel[0] && vm.getDetails.masterDetailsValueModel[0].C051? (vm.getDetails.masterDetailsValueModel[0].C051.newValue) : ('')}}
+                                        </td>
+                                    </tr>
+
+                                    <tr ng-if="vm.getDetails.masterDetailsValueModel[0].C049.oldValue == 'MP003'">
+                                        <td>IFSC Code of the Credit Bank</td>
+                                        <td class="old-value">
+                                            {{(vm.getDetails.masterDetailsValueModel[0] && vm.getDetails.masterDetailsValueModel[0].C031)? (vm.getDetails.masterDetailsValueModel[0].C031.oldValue) : ('')}}
+                                        </td>
+                                        <td class="new-value" ng-if="vm.getDetails.previousOperationType == 'M'">
+                                            {{vm.getDetails.masterDetailsValueModel[0] && vm.getDetails.masterDetailsValueModel[0].C031? (vm.getDetails.masterDetailsValueModel[0].C031.newValue) : ('')}}
+                                        </td>
+                                    </tr>
+
+                                    <tr ng-if="vm.getDetails.masterDetailsValueModel[0].C049.oldValue == 'MP003'">
+                                        <td>Name of the Payee</td>
+                                        <td class="old-value">
+                                            {{(vm.getDetails.masterDetailsValueModel[0] && vm.getDetails.masterDetailsValueModel[0].C052)? (vm.getDetails.masterDetailsValueModel[0].C052.oldValue) : ('')}}
+                                        </td>
+                                        <td class="new-value" ng-if="vm.getDetails.previousOperationType == 'M'">
+                                            {{vm.getDetails.masterDetailsValueModel[0] && vm.getDetails.masterDetailsValueModel[0].C052? (vm.getDetails.masterDetailsValueModel[0].C052.newValue) : ('')}}
+                                        </td>
+                                    </tr>
+
+                                    <tr ng-if="vm.getDetails.masterDetailsValueModel[0].C049.oldValue == 'MP003'">
+                                        <td>Credit Account Number</td>
+                                        <td class="old-value">
+                                            {{(vm.getDetails.masterDetailsValueModel[0] && vm.getDetails.masterDetailsValueModel[0].C053)? (vm.getDetails.masterDetailsValueModel[0].C053.oldValue) : ('')}}
+                                        </td>
+                                        <td class="new-value" ng-if="vm.getDetails.previousOperationType == 'M'">
+                                            {{vm.getDetails.masterDetailsValueModel[0] && vm.getDetails.masterDetailsValueModel[0].C053? (vm.getDetails.masterDetailsValueModel[0].C053.newValue) : ('')}}
+                                        </td>
+                                    </tr>
+                                    <tr ng-if="vm.getDetails.masterDetailsValueModel[0].C049.oldValue == 'MP004'">
+                                        <td>MICR Code</td>
+                                        <td class="old-value">{{(vm.getDetails.masterDetailsValueModel[0] && vm.getDetails.masterDetailsValueModel[0].C054)?
+                                            (vm.getDetails.masterDetailsValueModel[0].C054.oldValue) : ('')}}
+                                        </td>
+                                        <td class="new-value" ng-if="vm.getDetails.previousOperationType == 'M'">{{vm.getDetails.masterDetailsValueModel[0] &&
+                                            vm.getDetails.masterDetailsValueModel[0].C054? (vm.getDetails.masterDetailsValueModel[0].C054.newValue) : ('')}}
+                                        </td>
+                                    </tr>
+                                    <tr ng-if="vm.getDetails.masterDetailsValueModel[0].C049.oldValue == 'MP004'">
+                                        <td>IFSC Code</td>
+                                        <td class="old-value">
+                                            {{(vm.getDetails.masterDetailsValueModel[0] && vm.getDetails.masterDetailsValueModel[0].C031)? (vm.getDetails.masterDetailsValueModel[0].C031.oldValue) : ('')}}
+                                        </td>
+                                        <td class="new-value" ng-if="vm.getDetails.previousOperationType == 'M'">
+                                            {{vm.getDetails.masterDetailsValueModel[0] && vm.getDetails.masterDetailsValueModel[0].C031? (vm.getDetails.masterDetailsValueModel[0].C031.newValue) : ('')}}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>PAN No</td>
+                                        <td class="old-value">
+                                            {{(vm.getDetails.masterDetailsValueModel[0] && vm.getDetails.masterDetailsValueModel[0].C002)? (vm.getDetails.masterDetailsValueModel[0].C002.oldValue) : ('')}}
+                                        </td>
+                                        <td class="new-value" ng-if="vm.getDetails.previousOperationType == 'M'">
+                                            {{vm.getDetails.masterDetailsValueModel[0] && vm.getDetails.masterDetailsValueModel[0].C002? (vm.getDetails.masterDetailsValueModel[0].C002.newValue) : ('')}}
+                                        </td>
+                                    </tr>
+                                </div>
+                                </tbody>
+                            </table>
+
+                            <table class="table table-bordered table-striped list old-new-value-table">
+                                <thead>
+                                <tr>
+                                    <th width="50%">Particular</th>
+                                    <th>{{(vm.getDetails.previousOperationType == 'M')?('Old Value'): ('Value')}}</th>
+                                    <th ng-if="vm.getDetails.previousOperationType == 'M'">New Value</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <h4 class="form_heading">WITNESS DETAILS</h4>
+                                <div>
+                                    <tr>
+                                        <td>WitnessName1</td>
+                                        <td class="old-value">
+                                            {{(vm.getDetails.masterDetailsValueModel[0] && vm.getDetails.masterDetailsValueModel[0].C033)? (vm.getDetails.masterDetailsValueModel[0].C033.oldValue) : ('')}}
+                                        </td>
+                                        <td class="new-value" ng-if="vm.getDetails.previousOperationType == 'M'">
+                                            {{vm.getDetails.masterDetailsValueModel[0] && vm.getDetails.masterDetailsValueModel[0].C033? (vm.getDetails.masterDetailsValueModel[0].C033.newValue) : ('')}}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Address</td>
+                                        <td class="old-value">
+                                            {{(vm.getDetails.masterDetailsValueModel[0] && vm.getDetails.masterDetailsValueModel[0].C034)? (vm.getDetails.masterDetailsValueModel[0].C034.oldValue) : ('')}}
+                                        </td>
+                                        <td class="new-value" ng-if="vm.getDetails.previousOperationType == 'M'">
+                                            {{vm.getDetails.masterDetailsValueModel[0] && vm.getDetails.masterDetailsValueModel[0].C034? (vm.getDetails.masterDetailsValueModel[0].C034.newValue) : ('')}}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>WitnessName2</td>
+                                        <td class="old-value">
+                                            {{(vm.getDetails.masterDetailsValueModel[0] && vm.getDetails.masterDetailsValueModel[0].C035)? (vm.getDetails.masterDetailsValueModel[0].C035.oldValue) : ('')}}
+                                        </td>
+                                        <td class="new-value" ng-if="vm.getDetails.previousOperationType == 'M'">
+                                            {{vm.getDetails.masterDetailsValueModel[0] && vm.getDetails.masterDetailsValueModel[0].C035? (vm.getDetails.masterDetailsValueModel[0].C035.newValue) : ('')}}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Address</td>
+                                        <td class="old-value">
+                                            {{(vm.getDetails.masterDetailsValueModel[0] && vm.getDetails.masterDetailsValueModel[0].C036)? (vm.getDetails.masterDetailsValueModel[0].C036.oldValue) : ('')}}
+                                        </td>
+                                        <td class="new-value" ng-if="vm.getDetails.previousOperationType == 'M'">
+                                            {{vm.getDetails.masterDetailsValueModel[0] && vm.getDetails.masterDetailsValueModel[0].C036? (vm.getDetails.masterDetailsValueModel[0].C036.newValue) : ('')}}
+                                        </td>
+                                    </tr>
+                                </div>
+                                </tbody>
+                            </table>
+
+                            <table class="table table-bordered table-striped list old-new-value-table">
+                                <thead>
+                                <tr>
+                                    <th width="50%">Particular</th>
+                                    <th>{{(vm.getDetails.previousOperationType == 'M')?('Old Value'): ('Value')}}</th>
+                                    <th ng-if="vm.getDetails.previousOperationType == 'M'">New Value</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <h4 class="form_heading">SUPPORTING DOCUMENTS</h4>
+                                <div>
+                                    <tr>
+                                        <td>Birth Certificate</td>
+                                        <td class="old-value">
+                                            {{(vm.getDetails.masterDetailsValueModel[0] && vm.getDetails.masterDetailsValueModel[0].C037)? (vm.getDetails.masterDetailsValueModel[0].C037.oldValue | getLabelFromValuesArray
+                                            : vm.supportingDocumentsMetaData) : ('')}}
+                                        </td>
+                                        <td class="new-value" ng-if="vm.getDetails.previousOperationType == 'M'">
+                                            {{vm.getDetails.masterDetailsValueModel[0] && vm.getDetails.masterDetailsValueModel[0].C037? (vm.getDetails.masterDetailsValueModel[0].C037.newValue | getLabelFromValuesArray :
+                                            vm.supportingDocumentsMetaData) : ('')}}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Passport</td>
+                                        <td class="old-value">
+                                            {{(vm.getDetails.masterDetailsValueModel[0] && vm.getDetails.masterDetailsValueModel[0].C038)? (vm.getDetails.masterDetailsValueModel[0].C038.oldValue | getLabelFromValuesArray
+                                            : vm.supportingDocumentsMetaData) : ('')}}
+                                        </td>
+                                        <td class="new-value" ng-if="vm.getDetails.previousOperationType == 'M'">
+                                            {{vm.getDetails.masterDetailsValueModel[0] && vm.getDetails.masterDetailsValueModel[0].C038? (vm.getDetails.masterDetailsValueModel[0].C038.newValue | getLabelFromValuesArray :
+                                            vm.supportingDocumentsMetaData) : ('')}}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Senior Citizen Card</td>
+                                        <td class="old-value">
+                                            {{(vm.getDetails.masterDetailsValueModel[0] && vm.getDetails.masterDetailsValueModel[0].C039)? (vm.getDetails.masterDetailsValueModel[0].C039.oldValue | getLabelFromValuesArray
+                                            : vm.supportingDocumentsMetaData) : ('')}}
+                                        </td>
+                                        <td class="new-value" ng-if="vm.getDetails.previousOperationType == 'M'">
+                                            {{vm.getDetails.masterDetailsValueModel[0] && vm.getDetails.masterDetailsValueModel[0].C039? (vm.getDetails.masterDetailsValueModel[0].C039.newValue | getLabelFromValuesArray :
+                                            vm.supportingDocumentsMetaData) : ('')}}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Voter ID Card</td>
+                                        <td class="old-value">
+                                            {{(vm.getDetails.masterDetailsValueModel[0] && vm.getDetails.masterDetailsValueModel[0].C040)? (vm.getDetails.masterDetailsValueModel[0].C040.oldValue | getLabelFromValuesArray
+                                            : vm.supportingDocumentsMetaData) : ('')}}
+                                        </td>
+                                        <td class="new-value" ng-if="vm.getDetails.previousOperationType == 'M'">
+                                            {{vm.getDetails.masterDetailsValueModel[0] && vm.getDetails.masterDetailsValueModel[0].C040? (vm.getDetails.masterDetailsValueModel[0].C040.newValue | getLabelFromValuesArray :
+                                            vm.supportingDocumentsMetaData) : ('')}}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>PAN Card</td>
+                                        <td class="old-value">
+                                            {{(vm.getDetails.masterDetailsValueModel[0] && vm.getDetails.masterDetailsValueModel[0].C041)? (vm.getDetails.masterDetailsValueModel[0].C041.oldValue | getLabelFromValuesArray
+                                            : vm.supportingDocumentsMetaData) : ('')}}
+                                        </td>
+                                        <td class="new-value" ng-if="vm.getDetails.previousOperationType == 'M'">
+                                            {{vm.getDetails.masterDetailsValueModel[0] && vm.getDetails.masterDetailsValueModel[0].C041? (vm.getDetails.masterDetailsValueModel[0].C041.newValue | getLabelFromValuesArray :
+                                            vm.supportingDocumentsMetaData) : ('')}}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Driving Licence</td>
+                                        <td class="old-value">
+                                            {{(vm.getDetails.masterDetailsValueModel[0] && vm.getDetails.masterDetailsValueModel[0].C042)? (vm.getDetails.masterDetailsValueModel[0].C042.oldValue | getLabelFromValuesArray
+                                            : vm.supportingDocumentsMetaData) : ('')}}
+                                        </td>
+                                        <td class="new-value" ng-if="vm.getDetails.previousOperationType == 'M'">
+                                            {{vm.getDetails.masterDetailsValueModel[0] && vm.getDetails.masterDetailsValueModel[0].C042? (vm.getDetails.masterDetailsValueModel[0].C042.newValue | getLabelFromValuesArray :
+                                            vm.supportingDocumentsMetaData) : ('')}}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Ration Card</td>
+                                        <td class="old-value">
+                                            {{(vm.getDetails.masterDetailsValueModel[0] && vm.getDetails.masterDetailsValueModel[0].C043)? (vm.getDetails.masterDetailsValueModel[0].C043.oldValue | getLabelFromValuesArray
+                                            : vm.supportingDocumentsMetaData) : ('')}}
+                                        </td>
+                                        <td class="new-value" ng-if="vm.getDetails.previousOperationType == 'M'">
+                                            {{vm.getDetails.masterDetailsValueModel[0] && vm.getDetails.masterDetailsValueModel[0].C043? (vm.getDetails.masterDetailsValueModel[0].C043.newValue | getLabelFromValuesArray :
+                                            vm.supportingDocumentsMetaData) : ('')}}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Others</td>
+                                        <td class="old-value">
+                                            {{(vm.getDetails.masterDetailsValueModel[0] && vm.getDetails.masterDetailsValueModel[0].C044)? (vm.getDetails.masterDetailsValueModel[0].C044.oldValue | getLabelFromValuesArray
+                                            : vm.supportingDocumentsMetaData) : ('')}}
+                                        </td>
+                                        <td class="new-value" ng-if="vm.getDetails.previousOperationType == 'M'">
+                                            {{vm.getDetails.masterDetailsValueModel[0] && vm.getDetails.masterDetailsValueModel[0].C044? (vm.getDetails.masterDetailsValueModel[0].C044.newValue | getLabelFromValuesArray :
+                                            vm.supportingDocumentsMetaData) : ('')}}
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td>Detail for Others</td>
+                                        <td class="old-value">
+                                            {{(vm.getDetails.masterDetailsValueModel[0] && vm.getDetails.masterDetailsValueModel[0].C045)? (vm.getDetails.masterDetailsValueModel[0].C045.oldValue | getLabelFromValuesArray
+                                            : vm.supportingDocumentsMetaData) : ('')}}
+                                        </td>
+                                        <td class="new-value" ng-if="vm.getDetails.previousOperationType == 'M'">
+                                            {{vm.getDetails.masterDetailsValueModel[0] && vm.getDetails.masterDetailsValueModel[0].C045? (vm.getDetails.masterDetailsValueModel[0].C045.newValue | getLabelFromValuesArray :
+                                            vm.supportingDocumentsMetaData) : ('')}}
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td>Remarks</td>
+                                        <td class="old-value">
+                                            {{(vm.getDetails.masterDetailsValueModel[0] && vm.getDetails.masterDetailsValueModel[0].C046)? (vm.getDetails.masterDetailsValueModel[0].C046.oldValue) : ('')}}
+                                        </td>
+                                        <td class="new-value" ng-if="vm.getDetails.previousOperationType == 'M'">
+                                            {{vm.getDetails.masterDetailsValueModel[0] && vm.getDetails.masterDetailsValueModel[0].C046? (vm.getDetails.masterDetailsValueModel[0].C046.newValue) : ('')}}
+                                        </td>
+                                    </tr>
+                                </div>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div uib-accordion-group id="sapensioner-details-two" class="panel panel-default" ng-if="vm.getDetails.masterDetailsValueModel.length >= 2" heading="SECOND JOINT BOND HOLDER DETAILS">
+                            <table class="table table-bordered table-striped list old-new-value-table">
+                                <thead>
+                                <tr>
+                                    <th width="50%">Particular</th>
+                                    <th>{{(vm.getDetails.previousOperationType == 'M')?('Old Value'): ('Value')}}</th>
+                                    <th ng-if="vm.getDetails.previousOperationType == 'M'">New Value</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <td>Bond Ledger Account Number</td>
+                                    <td class="old-value">
+                                        {{(vm.getDetails.masterDetailsValueModel[1] && vm.getDetails.masterDetailsValueModel[1].C005)? (vm.getDetails.masterDetailsValueModel[1].C005.oldValue) : ('')}}
+                                    </td>
+                                    <td class="new-value" ng-if="vm.getDetails.previousOperationType == 'M'">
+                                        {{vm.getDetails.masterDetailsValueModel[1] && vm.getDetails.masterDetailsValueModel[1].C005? (vm.getDetails.masterDetailsValueModel[1].C005.newValue) : ('')}}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Bond Holder First name</td>
+                                    <td class="old-value">
+                                        {{(vm.getDetails.masterDetailsValueModel[1] && vm.getDetails.masterDetailsValueModel[1].C006)? (vm.getDetails.masterDetailsValueModel[1].C006.oldValue) : ('')}}
+                                    </td>
+                                    <td class="new-value" ng-if="vm.getDetails.previousOperationType == 'M'">
+                                        {{vm.getDetails.masterDetailsValueModel[1] && vm.getDetails.masterDetailsValueModel[1].C006? (vm.getDetails.masterDetailsValueModel[1].C006.newValue) : ('')}}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Bond Holder Middle Name</td>
+                                    <td class="old-value">
+                                        {{(vm.getDetails.masterDetailsValueModel[1] && vm.getDetails.masterDetailsValueModel[1].C007)? (vm.getDetails.masterDetailsValueModel[1].C007.oldValue) : ('')}}
+                                    </td>
+                                    <td class="new-value" ng-if="vm.getDetails.previousOperationType == 'M'">
+                                        {{vm.getDetails.masterDetailsValueModel[1] && vm.getDetails.masterDetailsValueModel[1].C007? (vm.getDetails.masterDetailsValueModel[1].C007.newValue) : ('')}}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Bond Holder Last name</td>
+                                    <td class="old-value">
+                                        {{(vm.getDetails.masterDetailsValueModel[1] && vm.getDetails.masterDetailsValueModel[1].C008)? (vm.getDetails.masterDetailsValueModel[1].C008.oldValue) : ('')}}
+                                    </td>
+                                    <td class="new-value" ng-if="vm.getDetails.previousOperationType == 'M'">
+                                        {{vm.getDetails.masterDetailsValueModel[1] && vm.getDetails.masterDetailsValueModel[1].C008? (vm.getDetails.masterDetailsValueModel[1].C008.newValue) : ('')}}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Holder Type</td>
+                                    <td class="old-value">
+                                        {{(vm.getDetails.masterDetailsValueModel[1] && vm.getDetails.masterDetailsValueModel[1].C012)? (vm.getDetails.masterDetailsValueModel[1].C012.oldValue | getLabelFromValuesArray :
+                                        vm.convertLabelValue(vm.holderTypeList)) : ('')}}
+                                    </td>
+                                    <td class="new-value" ng-if="vm.getDetails.previousOperationType == 'M'">
+                                        {{vm.getDetails.masterDetailsValueModel[1] && vm.getDetails.masterDetailsValueModel[1].C012? (vm.getDetails.masterDetailsValueModel[1].C012.newValue | getLabelFromValuesArray :
+                                        vm.convertLabelValue(vm.holderTypeList)) : ('')}}
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>Father Name/Spouse Name</td>
+                                    <td class="old-value">
+                                        {{(vm.getDetails.masterDetailsValueModel[1] && vm.getDetails.masterDetailsValueModel[1].C013)? (vm.getDetails.masterDetailsValueModel[1].C013.oldValue) : ('')}}
+                                    </td>
+                                    <td class="new-value" ng-if="vm.getDetails.previousOperationType == 'M'">
+                                        {{vm.getDetails.masterDetailsValueModel[1] && vm.getDetails.masterDetailsValueModel[1].C013? (vm.getDetails.masterDetailsValueModel[1].C013.newValue) : ('')}}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Mother's Maiden Name</td>
+                                    <td class="old-value">
+                                        {{(vm.getDetails.masterDetailsValueModel[1] && vm.getDetails.masterDetailsValueModel[1].C014)? (vm.getDetails.masterDetailsValueModel[1].C014.oldValue) : ('')}}
+                                    </td>
+                                    <td class="new-value" ng-if="vm.getDetails.previousOperationType == 'M'">
+                                        {{vm.getDetails.masterDetailsValueModel[1] && vm.getDetails.masterDetailsValueModel[1].C014? (vm.getDetails.masterDetailsValueModel[1].C014.newValue) : ('')}}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Gender</td>
+                                    <td class="old-value">
+                                        {{(vm.getDetails.masterDetailsValueModel[1] && vm.getDetails.masterDetailsValueModel[1].C015)? (vm.getDetails.masterDetailsValueModel[1].C015.oldValue | getLabelFromValuesArray :
+                                        vm.genderListMetaData) : ('')}}
+                                    </td>
+                                    <td class="new-value" ng-if="vm.getDetails.previousOperationType == 'M'">
+                                        {{vm.getDetails.masterDetailsValueModel[1] && vm.getDetails.masterDetailsValueModel[1].C015? (vm.getDetails.masterDetailsValueModel[1].C015.newValue | getLabelFromValuesArray :
+                                        vm.genderListMetaData) : ('')}}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Bond Holder Date of Birth (DD/MM/YYYY)</td>
+                                    <td class="old-value">
+                                        {{(vm.getDetails.masterDetailsValueModel[1] && vm.getDetails.masterDetailsValueModel[1].C009)? (vm.getDetails.masterDetailsValueModel[1].C009.oldValue) : ('')}}
+                                    </td>
+                                    <td class="new-value" ng-if="vm.getDetails.previousOperationType == 'M'">
+                                        {{vm.getDetails.masterDetailsValueModel[1] && vm.getDetails.masterDetailsValueModel[1].C009? (vm.getDetails.masterDetailsValueModel[1].C009.newValue) : ('')}}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Is Minor (Y/N)?</td>
+                                    <td class="old-value">
+                                        {{(vm.getDetails.masterDetailsValueModel[1] && vm.getDetails.masterDetailsValueModel[1].C016)? (vm.getDetails.masterDetailsValueModel[1].C016.oldValue | getLabelFromValuesArray :
+                                        vm.commonYesNoMetaData) : ('')}}
+                                    </td>
+                                    <td class="new-value" ng-if="vm.getDetails.previousOperationType == 'M'">
+                                        {{vm.getDetails.masterDetailsValueModel[1] && vm.getDetails.masterDetailsValueModel[1].C016? (vm.getDetails.masterDetailsValueModel[1].C016.newValue | getLabelFromValuesArray :
+                                        vm.commonYesNoMetaData) : ('')}}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Details of Birth certificate submitted as per norms</td>
+                                    <td class="old-value">
+                                        {{(vm.getDetails.masterDetailsValueModel[1] && vm.getDetails.masterDetailsValueModel[1].C017)? (vm.getDetails.masterDetailsValueModel[1].C017.oldValue) : ('')}}
+                                    </td>
+                                    <td class="new-value" ng-if="vm.getDetails.previousOperationType == 'M'">
+                                        {{vm.getDetails.masterDetailsValueModel[1] && vm.getDetails.masterDetailsValueModel[1].C017? (vm.getDetails.masterDetailsValueModel[1].C017.newValue) : ('')}}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Communication Address 1</td>
+                                    <td class="old-value">
+                                        {{(vm.getDetails.masterDetailsValueModel[1] && vm.getDetails.masterDetailsValueModel[1].C018)? (vm.getDetails.masterDetailsValueModel[1].C018.oldValue) : ('')}}
+                                    </td>
+                                    <td class="new-value" ng-if="vm.getDetails.previousOperationType == 'M'">
+                                        {{vm.getDetails.masterDetailsValueModel[1] && vm.getDetails.masterDetailsValueModel[1].C018? (vm.getDetails.masterDetailsValueModel[1].C018.newValue) : ('')}}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Address 2</td>
+                                    <td class="old-value">
+                                        {{(vm.getDetails.masterDetailsValueModel[1] && vm.getDetails.masterDetailsValueModel[1].C019)? (vm.getDetails.masterDetailsValueModel[1].C019.oldValue) : ('')}}
+                                    </td>
+                                    <td class="new-value" ng-if="vm.getDetails.previousOperationType == 'M'">
+                                        {{vm.getDetails.masterDetailsValueModel[1] && vm.getDetails.masterDetailsValueModel[1].C019? (vm.getDetails.masterDetailsValueModel[1].C019.newValue) : ('')}}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Address 3</td>
+                                    <td class="old-value">
+                                        {{(vm.getDetails.masterDetailsValueModel[1] && vm.getDetails.masterDetailsValueModel[1].C020)? (vm.getDetails.masterDetailsValueModel[1].C020.oldValue) : ('')}}
+                                    </td>
+                                    <td class="new-value" ng-if="vm.getDetails.previousOperationType == 'M'">
+                                        {{vm.getDetails.masterDetailsValueModel[1] && vm.getDetails.masterDetailsValueModel[1].C020? (vm.getDetails.masterDetailsValueModel[1].C020.newValue) : ('')}}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>City</td>
+                                    <td class="old-value">
+                                        {{(vm.getDetails.masterDetailsValueModel[1] && vm.getDetails.masterDetailsValueModel[1].C022)? (vm.getDetails.masterDetailsValueModel[1].C022.oldValue) : ('')}}
+                                    </td>
+                                    <td class="new-value" ng-if="vm.getDetails.previousOperationType == 'M'">
+                                        {{vm.getDetails.masterDetailsValueModel[1] && vm.getDetails.masterDetailsValueModel[1].C022? (vm.getDetails.masterDetailsValueModel[1].C022.newValue) : ('')}}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>State</td>
+                                    <td class="old-value">
+                                        {{(vm.getDetails.masterDetailsValueModel[1] && vm.getDetails.masterDetailsValueModel[1].C023)? (vm.getDetails.masterDetailsValueModel[1].C023.oldValue | getLabelFromValuesArray :
+                                        vm.stateMetaData) : ('')}}
+                                    </td>
+                                    <td class="new-value" ng-if="vm.getDetails.previousOperationType == 'M'">
+                                        {{vm.getDetails.masterDetailsValueModel[1] && vm.getDetails.masterDetailsValueModel[1].C023? (vm.getDetails.masterDetailsValueModel[1].C023.newValue | getLabelFromValuesArray :
+                                        vm.stateMetaData) : ('')}}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Pin Code</td>
+                                    <td class="old-value">
+                                        {{(vm.getDetails.masterDetailsValueModel[1] && vm.getDetails.masterDetailsValueModel[1].C021)? (vm.getDetails.masterDetailsValueModel[1].C021.oldValue | getLabelFromValuesArray :
+                                        vm.commonYesNoMetaData) : ('')}}
+                                    </td>
+                                    <td class="new-value" ng-if="vm.getDetails.previousOperationType == 'M'">
+                                        {{vm.getDetails.masterDetailsValueModel[1] && vm.getDetails.masterDetailsValueModel[1].C021? (vm.getDetails.masterDetailsValueModel[1].C021.newValue) : ('')}}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Phone Number</td>
+                                    <td class="old-value">
+                                        {{(vm.getDetails.masterDetailsValueModel[1] && vm.getDetails.masterDetailsValueModel[1].C024)? (vm.getDetails.masterDetailsValueModel[1].C024.oldValue) : ('')}}
+                                    </td>
+                                    <td class="new-value" ng-if="vm.getDetails.previousOperationType == 'M'">
+                                        {{vm.getDetails.masterDetailsValueModel[1] && vm.getDetails.masterDetailsValueModel[1].C024? (vm.getDetails.masterDetailsValueModel[1].C024.newValue) : ('')}}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Mobile Number</td>
+                                    <td class="old-value">
+                                        {{(vm.getDetails.masterDetailsValueModel[1] && vm.getDetails.masterDetailsValueModel[1].C025)? (vm.getDetails.masterDetailsValueModel[1].C025.oldValue) : ('')}}
+                                    </td>
+                                    <td class="new-value" ng-if="vm.getDetails.previousOperationType == 'M'">
+                                        {{vm.getDetails.masterDetailsValueModel[1] && vm.getDetails.masterDetailsValueModel[1].C025? (vm.getDetails.masterDetailsValueModel[1].C025.newValue | getLabelFromValuesArray :
+                                        vm.commonYesNoMetaData) : ('')}}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Email id</td>
+                                    <td class="old-value">
+                                        {{(vm.getDetails.masterDetailsValueModel[1] && vm.getDetails.masterDetailsValueModel[1].C026)? (vm.getDetails.masterDetailsValueModel[1].C026.oldValue) : ('')}}
+                                    </td>
+                                    <td class="new-value" ng-if="vm.getDetails.previousOperationType == 'M'">
+                                        {{vm.getDetails.masterDetailsValueModel[1] && vm.getDetails.masterDetailsValueModel[1].C026? (vm.getDetails.masterDetailsValueModel[1].C026.newValue) : ('')}}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>HUF registration / Power of Attorney number</td>
+                                    <td class="old-value">
+                                        {{(vm.getDetails.masterDetailsValueModel[1] && vm.getDetails.masterDetailsValueModel[1].C027)? (vm.getDetails.masterDetailsValueModel[1].C027.oldValue) : ('')}}
+                                    </td>
+                                    <td class="new-value" ng-if="vm.getDetails.previousOperationType == 'M'">
+                                        {{vm.getDetails.masterDetailsValueModel[1] && vm.getDetails.masterDetailsValueModel[1].C027? (vm.getDetails.masterDetailsValueModel[1].C027.newValue) : ('')}}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Power of Attorney/Karta Name</td>
+                                    <td class="old-value">
+                                        {{(vm.getDetails.masterDetailsValueModel[1] && vm.getDetails.masterDetailsValueModel[1].C028)? (vm.getDetails.masterDetailsValueModel[1].C028.oldValue) : ('')}}
+                                    </td>
+                                    <td class="new-value" ng-if="vm.getDetails.previousOperationType == 'M'">
+                                        {{vm.getDetails.masterDetailsValueModel[1] && vm.getDetails.masterDetailsValueModel[1].C028? (vm.getDetails.masterDetailsValueModel[1].C028.newValue) : ('')}}
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+
+                            <table
+                                    class="table table-bordered table-striped list old-new-value-table"
+                                    ng-if="vm.getDetails.masterDetailsValueModel[1].C016.oldValue == 'Y' || vm.getDetails.masterDetailsValueModel[1].C016.newValue == 'Y'"
+                            >
+                                <thead>
+                                <tr>
+                                    <th width="50%">Particular</th>
+                                    <th>{{(vm.getDetails.previousOperationType == 'M')?('Old Value'): ('Value')}}</th>
+                                    <th ng-if="vm.getDetails.previousOperationType == 'M'">New Value</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <h4 class="form_heading" ng-if="vm.getDetails.masterDetailsValueModel[1].C016.oldValue == 'Y' || vm.getDetails.masterDetailsValueModel[1].C016.newValue == 'Y'">GUARDIAN DETAILS</h4>
+                                <div>
+                                    <tr>
+                                        <td>Guardian ID</td>
+                                        <td class="old-value">
+                                            {{(vm.getDetails.guardianDetailsValueModel[1] && vm.getDetails.guardianDetailsValueModel[1].C005)? (vm.getDetails.guardianDetailsValueModel[1].C005.oldValue) : ('')}}
+                                        </td>
+                                        <td class="new-value" ng-if="vm.getDetails.previousOperationType == 'M'">
+                                            {{vm.getDetails.guardianDetailsValueModel[1] && vm.getDetails.guardianDetailsValueModel[1].C005? (vm.getDetails.guardianDetailsValueModel[1].C005.newValue) : ('')}}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Guardian First Name</td>
+                                        <td class="old-value">
+                                            {{(vm.getDetails.guardianDetailsValueModel[1] && vm.getDetails.guardianDetailsValueModel[1].C006)? (vm.getDetails.guardianDetailsValueModel[1].C006.oldValue) : ('')}}
+                                        </td>
+                                        <td class="new-value" ng-if="vm.getDetails.previousOperationType == 'M'">
+                                            {{vm.getDetails.guardianDetailsValueModel[1] && vm.getDetails.guardianDetailsValueModel[1].C006? (vm.getDetails.guardianDetailsValueModel[1].C006.newValue) : ('')}}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Guardian Middle Name</td>
+                                        <td class="old-value">
+                                            {{(vm.getDetails.guardianDetailsValueModel[1] && vm.getDetails.guardianDetailsValueModel[1].C007)? (vm.getDetails.guardianDetailsValueModel[1].C007.oldValue) : ('')}}
+                                        </td>
+                                        <td class="new-value" ng-if="vm.getDetails.previousOperationType == 'M'">
+                                            {{vm.getDetails.guardianDetailsValueModel[1] && vm.getDetails.guardianDetailsValueModel[1].C007? (vm.getDetails.guardianDetailsValueModel[1].C007.newValue) : ('')}}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Guardian Last Name</td>
+                                        <td class="old-value">
+                                            {{(vm.getDetails.guardianDetailsValueModel[1] && vm.getDetails.guardianDetailsValueModel[1].C008)? (vm.getDetails.guardianDetailsValueModel[1].C008.oldValue) : ('')}}
+                                        </td>
+                                        <td class="new-value" ng-if="vm.getDetails.previousOperationType == 'M'">
+                                            {{vm.getDetails.guardianDetailsValueModel[1] && vm.getDetails.guardianDetailsValueModel[1].C008? (vm.getDetails.guardianDetailsValueModel[1].C008.newValue) : ('')}}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Relation with Minor</td>
+                                        <td class="old-value">
+                                            {{(vm.getDetails.guardianDetailsValueModel[1] && vm.getDetails.guardianDetailsValueModel[1].C009)? (vm.getDetails.guardianDetailsValueModel[1].C009.oldValue |
+                                            getLabelFromValuesArray : vm.convertLabelValue(vm.guardianDetailsListMetaData)) : ('')}}
+                                        </td>
+                                        <td class="new-value" ng-if="vm.getDetails.previousOperationType == 'M'">
+                                            {{vm.getDetails.guardianDetailsValueModel[1] && vm.getDetails.guardianDetailsValueModel[1].C009? (vm.getDetails.guardianDetailsValueModel[1].C009.newValue |
+                                            getLabelFromValuesArray : vm.convertLabelValue(vm.guardianDetailsListMetaData)) : ('')}}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Date of Birth</td>
+                                        <td class="old-value">
+                                            {{(vm.getDetails.guardianDetailsValueModel[1] && vm.getDetails.guardianDetailsValueModel[1].C010)? (vm.getDetails.guardianDetailsValueModel[1].C010.oldValue) : ('')}}
+                                        </td>
+                                        <td class="new-value" ng-if="vm.getDetails.previousOperationType == 'M'">
+                                            {{vm.getDetails.guardianDetailsValueModel[1] && vm.getDetails.guardianDetailsValueModel[1].C010? (vm.getDetails.guardianDetailsValueModel[1].C010.newValue) : ('')}}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Communication Address</td>
+                                        <td class="old-value">
+                                            {{(vm.getDetails.guardianDetailsValueModel[1] && vm.getDetails.guardianDetailsValueModel[1].C011)? (vm.getDetails.guardianDetailsValueModel[1].C011.oldValue) : ('')}}
+                                        </td>
+                                        <td class="new-value" ng-if="vm.getDetails.previousOperationType == 'M'">
+                                            {{vm.getDetails.guardianDetailsValueModel[1] && vm.getDetails.guardianDetailsValueModel[1].C011? (vm.getDetails.guardianDetailsValueModel[1].C011.newValue) : ('')}}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Mobile No.</td>
+                                        <td class="old-value">
+                                            {{(vm.getDetails.guardianDetailsValueModel[1] && vm.getDetails.guardianDetailsValueModel[1].C012)? (vm.getDetails.guardianDetailsValueModel[1].C012.oldValue) : ('')}}
+                                        </td>
+                                        <td class="new-value" ng-if="vm.getDetails.previousOperationType == 'M'">
+                                            {{vm.getDetails.guardianDetailsValueModel[1] && vm.getDetails.guardianDetailsValueModel[1].C012? (vm.getDetails.guardianDetailsValueModel[1].C012.newValue) : ('')}}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Email ID</td>
+                                        <td class="old-value">
+                                            {{(vm.getDetails.guardianDetailsValueModel[1] && vm.getDetails.guardianDetailsValueModel[1].C013)? (vm.getDetails.guardianDetailsValueModel[1].C013.oldValue) : ('')}}
+                                        </td>
+                                        <td class="new-value" ng-if="vm.getDetails.previousOperationType == 'M'">
+                                            {{vm.getDetails.guardianDetailsValueModel[1] && vm.getDetails.guardianDetailsValueModel[1].C013? (vm.getDetails.guardianDetailsValueModel[1].C013.newValue) : ('')}}
+                                        </td>
+                                    </tr>
+                                    <tr
+                                            ng-if="vm.getDetails.guardianDetailsValueModel[1] && vm.getDetails.guardianDetailsValueModel[1].C014 && (vm.getDetails.guardianDetailsValueModel[1].C014.oldValue || vm.getDetails.guardianDetailsValueModel[1].C014.newValue)"
+                                    >
+                                        <td>Date of Death of Guardian (DD/MM/YYYY)</td>
+                                        <td class="old-value">
+                                            {{(vm.getDetails.guardianDetailsValueModel[1] && vm.getDetails.guardianDetailsValueModel[1].C014)? (vm.getDetails.guardianDetailsValueModel[1].C014.oldValue) : ('')}}
+                                        </td>
+                                        <td class="new-value" ng-if="vm.getDetails.previousOperationType == 'M'">
+                                            {{vm.getDetails.guardianDetailsValueModel[1] && vm.getDetails.guardianDetailsValueModel[1].C014? (vm.getDetails.guardianDetailsValueModel[1].C014.newValue) : ('')}}
+                                        </td>
+                                    </tr>
+                                    <tr
+                                            ng-if="vm.getDetails.guardianDetailsValueModel[1] && vm.getDetails.guardianDetailsValueModel[1].C015 && (vm.getDetails.guardianDetailsValueModel[1].C015.oldValue || vm.getDetails.guardianDetailsValueModel[1].C015.newValue)"
+                                    >
+                                        <td>Date of Receipt of Death Certificate (DD/MM/YYYY)</td>
+                                        <td class="old-value">
+                                            {{(vm.getDetails.guardianDetailsValueModel[1] && vm.getDetails.guardianDetailsValueModel[1].C015)? (vm.getDetails.guardianDetailsValueModel[1].C015.oldValue) : ('')}}
+                                        </td>
+                                        <td class="new-value" ng-if="vm.getDetails.previousOperationType == 'M'">
+                                            {{vm.getDetails.guardianDetailsValueModel[1] && vm.getDetails.guardianDetailsValueModel[1].C015? (vm.getDetails.guardianDetailsValueModel[1].C015.newValue) : ('')}}
+                                        </td>
+                                    </tr>
+                                    <tr
+                                            ng-if="vm.getDetails.guardianDetailsValueModel[1] && vm.getDetails.guardianDetailsValueModel[1].C016 && (vm.getDetails.guardianDetailsValueModel[1].C016.oldValue || vm.getDetails.guardianDetailsValueModel[1].C016.newValue)"
+                                    >
+                                        <td>If Request from Current Guardian (Y/N)</td>
+                                        <td class="old-value">
+                                            {{(vm.getDetails.guardianDetailsValueModel[1] && vm.getDetails.guardianDetailsValueModel[1].C016)? (vm.getDetails.guardianDetailsValueModel[1].C016.oldValue |
+                                            getLabelFromValuesArray : vm.supportingDocumentsMetaData) : ('')}}
+                                        </td>
+                                        <td class="new-value" ng-if="vm.getDetails.previousOperationType == 'M'">
+                                            {{vm.getDetails.guardianDetailsValueModel[1] && vm.getDetails.guardianDetailsValueModel[1].C016? (vm.getDetails.guardianDetailsValueModel[1].C016.newValue |
+                                            getLabelFromValuesArray : vm.supportingDocumentsMetaData) : ('')}}
+                                        </td>
+                                    </tr>
+                                </div>
+                                </tbody>
+                            </table>
+
+                            <table class="table table-bordered table-striped list old-new-value-table">
+                                <thead>
+                                <tr>
+                                    <th width="50%">Particular</th>
+                                    <th>{{(vm.getDetails.previousOperationType == 'M')?('Old Value'): ('Value')}}</th>
+                                    <th ng-if="vm.getDetails.previousOperationType == 'M'">New Value</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <h4 class="form_heading">OTHERS DETAILS</h4>
+                                <div>
+                                    <!--                                    <tr>-->
+                                    <!--                                        <td>Whether the customer belongs to HDFC?</td>-->
+                                    <!--                                        <td class="old-value">{{(vm.getDetails.masterDetailsValueModel[1] && vm.getDetails.masterDetailsValueModel[1].C029)?-->
+                                    <!--                                            (vm.getDetails.masterDetailsValueModel[1].C029.oldValue | getLabelFromValuesArray : vm.convertLabelValue(vm.formList)) : ('')}}-->
+                                    <!--                                        </td>-->
+                                    <!--                                        <td class="new-value" ng-if="vm.getDetails.previousOperationType == 'M'">{{vm.getDetails.masterDetailsValueModel[1] &&-->
+                                    <!--                                            vm.getDetails.masterDetailsValueModel[1].C029? (vm.getDetails.masterDetailsValueModel[1].C029.newValue | getLabelFromValuesArray : vm.convertLabelValue(vm.formList)) : ('')}}-->
+                                    <!--                                        </td>-->
+                                    <!--                                    </tr>-->
+                                    <tr>
+                                        <td>Whether the customer belongs to HDFC?</td>
+                                        <td class="old-value">
+                                            {{(vm.getDetails.masterDetailsValueModel[1] && vm.getDetails.masterDetailsValueModel[1].C029)? (vm.getDetails.masterDetailsValueModel[1].C029.oldValue | getLabelFromValuesArray
+                                            : vm.supportingDocumentsMetaData) : ('')}}
+                                        </td>
+                                        <td class="new-value" ng-if="vm.getDetails.previousOperationType == 'M'">
+                                            {{vm.getDetails.masterDetailsValueModel[1] && vm.getDetails.masterDetailsValueModel[1].C029? (vm.getDetails.masterDetailsValueModel[1].C029.newValue | getLabelFromValuesArray :
+                                            vm.supportingDocumentsMetaData) : ('')}}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Operative Account Number</td>
+                                        <td class="old-value">
+                                            {{(vm.getDetails.masterDetailsValueModel[1] && vm.getDetails.masterDetailsValueModel[1].C030)? (vm.getDetails.masterDetailsValueModel[1].C03.oldValue) : ('')}}
+                                        </td>
+                                        <td class="new-value" ng-if="vm.getDetails.previousOperationType == 'M'">
+                                            {{vm.getDetails.masterDetailsValueModel[1] && vm.getDetails.masterDetailsValueModel[1].C030? (vm.getDetails.masterDetailsValueModel[1].C030.newValue) : ('')}}
+                                        </td>
+                                    </tr>
+<!--                                    <tr>-->
+<!--                                        <td>IFSC Code</td>-->
+<!--                                        <td class="old-value">-->
+<!--                                            {{(vm.getDetails.masterDetailsValueModel[1] && vm.getDetails.masterDetailsValueModel[1].C031)? (vm.getDetails.masterDetailsValueModel[1].C031.oldValue) : ('')}}-->
+<!--                                        </td>-->
+<!--                                        <td class="new-value" ng-if="vm.getDetails.previousOperationType == 'M'">-->
+<!--                                            {{vm.getDetails.masterDetailsValueModel[1] && vm.getDetails.masterDetailsValueModel[1].C031? (vm.getDetails.masterDetailsValueModel[1].C031.newValue) : ('')}}-->
+<!--                                        </td>-->
+<!--                                    </tr>-->
+                                    <tr>
+                                        <td>PAN No</td>
+                                        <td class="old-value">
+                                            {{(vm.getDetails.masterDetailsValueModel[1] && vm.getDetails.masterDetailsValueModel[1].C002)? (vm.getDetails.masterDetailsValueModel[1].C002.oldValue) : ('')}}
+                                        </td>
+                                        <td class="new-value" ng-if="vm.getDetails.previousOperationType == 'M'">
+                                            {{vm.getDetails.masterDetailsValueModel[1] && vm.getDetails.masterDetailsValueModel[1].C002? (vm.getDetails.masterDetailsValueModel[1].C002.newValue) : ('')}}
+                                        </td>
+                                    </tr>
+                                </div>
+                                </tbody>
+                            </table>
+
+                            <table class="table table-bordered table-striped list old-new-value-table">
+                                <thead>
+                                <tr>
+                                    <th width="50%">Particular</th>
+                                    <th>{{(vm.getDetails.previousOperationType == 'M')?('Old Value'): ('Value')}}</th>
+                                    <th ng-if="vm.getDetails.previousOperationType == 'M'">New Value</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <h4 class="form_heading">WITNESS DETAILS</h4>
+                                <div>
+                                    <tr>
+                                        <td>WitnessName1</td>
+                                        <td class="old-value">
+                                            {{(vm.getDetails.masterDetailsValueModel[1] && vm.getDetails.masterDetailsValueModel[1].C033)? (vm.getDetails.masterDetailsValueModel[1].C033.oldValue) : ('')}}
+                                        </td>
+                                        <td class="new-value" ng-if="vm.getDetails.previousOperationType == 'M'">
+                                            {{vm.getDetails.masterDetailsValueModel[1] && vm.getDetails.masterDetailsValueModel[1].C033? (vm.getDetails.masterDetailsValueModel[1].C033.newValue) : ('')}}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Address</td>
+                                        <td class="old-value">
+                                            {{(vm.getDetails.masterDetailsValueModel[1] && vm.getDetails.masterDetailsValueModel[1].C034)? (vm.getDetails.masterDetailsValueModel[1].C034.oldValue) : ('')}}
+                                        </td>
+                                        <td class="new-value" ng-if="vm.getDetails.previousOperationType == 'M'">
+                                            {{vm.getDetails.masterDetailsValueModel[1] && vm.getDetails.masterDetailsValueModel[1].C034? (vm.getDetails.masterDetailsValueModel[1].C034.newValue) : ('')}}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>WitnessName2</td>
+                                        <td class="old-value">
+                                            {{(vm.getDetails.masterDetailsValueModel[1] && vm.getDetails.masterDetailsValueModel[1].C035)? (vm.getDetails.masterDetailsValueModel[1].C035.oldValue) : ('')}}
+                                        </td>
+                                        <td class="new-value" ng-if="vm.getDetails.previousOperationType == 'M'">
+                                            {{vm.getDetails.masterDetailsValueModel[1] && vm.getDetails.masterDetailsValueModel[1].C035? (vm.getDetails.masterDetailsValueModel[1].C035.newValue) : ('')}}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Address</td>
+                                        <td class="old-value">
+                                            {{(vm.getDetails.masterDetailsValueModel[1] && vm.getDetails.masterDetailsValueModel[1].C036)? (vm.getDetails.masterDetailsValueModel[1].C036.oldValue) : ('')}}
+                                        </td>
+                                        <td class="new-value" ng-if="vm.getDetails.previousOperationType == 'M'">
+                                            {{vm.getDetails.masterDetailsValueModel[1] && vm.getDetails.masterDetailsValueModel[1].C036? (vm.getDetails.masterDetailsValueModel[1].C036.newValue) : ('')}}
+                                        </td>
+                                    </tr>
+                                </div>
+                                </tbody>
+                            </table>
+
+                            <table class="table table-bordered table-striped list old-new-value-table">
+                                <thead>
+                                <tr>
+                                    <th width="50%">Particular</th>
+                                    <th>{{(vm.getDetails.previousOperationType == 'M')?('Old Value'): ('Value')}}</th>
+                                    <th ng-if="vm.getDetails.previousOperationType == 'M'">New Value</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <h4 class="form_heading">SUPPORTING DOCUMENTS</h4>
+                                <div>
+                                    <tr>
+                                        <td>Birth Certificate</td>
+                                        <td class="old-value">
+                                            {{(vm.getDetails.masterDetailsValueModel[1] && vm.getDetails.masterDetailsValueModel[1].C037)? (vm.getDetails.masterDetailsValueModel[1].C037.oldValue | getLabelFromValuesArray
+                                            : vm.supportingDocumentsMetaData) : ('')}}
+                                        </td>
+                                        <td class="new-value" ng-if="vm.getDetails.previousOperationType == 'M'">
+                                            {{vm.getDetails.masterDetailsValueModel[1] && vm.getDetails.masterDetailsValueModel[1].C037? (vm.getDetails.masterDetailsValueModel[1].C037.newValue | getLabelFromValuesArray :
+                                            vm.supportingDocumentsMetaData) : ('')}}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Passport</td>
+                                        <td class="old-value">
+                                            {{(vm.getDetails.masterDetailsValueModel[1] && vm.getDetails.masterDetailsValueModel[1].C038)? (vm.getDetails.masterDetailsValueModel[1].C038.oldValue | getLabelFromValuesArray
+                                            : vm.supportingDocumentsMetaData) : ('')}}
+                                        </td>
+                                        <td class="new-value" ng-if="vm.getDetails.previousOperationType == 'M'">
+                                            {{vm.getDetails.masterDetailsValueModel[1] && vm.getDetails.masterDetailsValueModel[1].C038? (vm.getDetails.masterDetailsValueModel[1].C038.newValue | getLabelFromValuesArray :
+                                            vm.supportingDocumentsMetaData) : ('')}}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Senior Citizen Card</td>
+                                        <td class="old-value">
+                                            {{(vm.getDetails.masterDetailsValueModel[1] && vm.getDetails.masterDetailsValueModel[1].C039)? (vm.getDetails.masterDetailsValueModel[1].C039.oldValue | getLabelFromValuesArray
+                                            : vm.supportingDocumentsMetaData) : ('')}}
+                                        </td>
+                                        <td class="new-value" ng-if="vm.getDetails.previousOperationType == 'M'">
+                                            {{vm.getDetails.masterDetailsValueModel[1] && vm.getDetails.masterDetailsValueModel[1].C039? (vm.getDetails.masterDetailsValueModel[1].C039.newValue | getLabelFromValuesArray :
+                                            vm.supportingDocumentsMetaData) : ('')}}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Voter ID Card</td>
+                                        <td class="old-value">
+                                            {{(vm.getDetails.masterDetailsValueModel[1] && vm.getDetails.masterDetailsValueModel[1].C040)? (vm.getDetails.masterDetailsValueModel[1].C040.oldValue | getLabelFromValuesArray
+                                            : vm.supportingDocumentsMetaData) : ('')}}
+                                        </td>
+                                        <td class="new-value" ng-if="vm.getDetails.previousOperationType == 'M'">
+                                            {{vm.getDetails.masterDetailsValueModel[1] && vm.getDetails.masterDetailsValueModel[1].C040? (vm.getDetails.masterDetailsValueModel[1].C040.newValue | getLabelFromValuesArray :
+                                            vm.supportingDocumentsMetaData) : ('')}}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>PAN Card</td>
+                                        <td class="old-value">
+                                            {{(vm.getDetails.masterDetailsValueModel[1] && vm.getDetails.masterDetailsValueModel[1].C041)? (vm.getDetails.masterDetailsValueModel[1].C041.oldValue | getLabelFromValuesArray
+                                            : vm.supportingDocumentsMetaData) : ('')}}
+                                        </td>
+                                        <td class="new-value" ng-if="vm.getDetails.previousOperationType == 'M'">
+                                            {{vm.getDetails.masterDetailsValueModel[1] && vm.getDetails.masterDetailsValueModel[1].C041? (vm.getDetails.masterDetailsValueModel[1].C041.newValue | getLabelFromValuesArray :
+                                            vm.supportingDocumentsMetaData) : ('')}}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Driving Licence</td>
+                                        <td class="old-value">
+                                            {{(vm.getDetails.masterDetailsValueModel[1] && vm.getDetails.masterDetailsValueModel[1].C042)? (vm.getDetails.masterDetailsValueModel[1].C042.oldValue | getLabelFromValuesArray
+                                            : vm.supportingDocumentsMetaData) : ('')}}
+                                        </td>
+                                        <td class="new-value" ng-if="vm.getDetails.previousOperationType == 'M'">
+                                            {{vm.getDetails.masterDetailsValueModel[1] && vm.getDetails.masterDetailsValueModel[1].C042? (vm.getDetails.masterDetailsValueModel[1].C042.newValue | getLabelFromValuesArray :
+                                            vm.supportingDocumentsMetaData) : ('')}}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Ration Card</td>
+                                        <td class="old-value">
+                                            {{(vm.getDetails.masterDetailsValueModel[1] && vm.getDetails.masterDetailsValueModel[1].C043)? (vm.getDetails.masterDetailsValueModel[1].C043.oldValue | getLabelFromValuesArray
+                                            : vm.supportingDocumentsMetaData) : ('')}}
+                                        </td>
+                                        <td class="new-value" ng-if="vm.getDetails.previousOperationType == 'M'">
+                                            {{vm.getDetails.masterDetailsValueModel[1] && vm.getDetails.masterDetailsValueModel[1].C043? (vm.getDetails.masterDetailsValueModel[1].C043.newValue | getLabelFromValuesArray :
+                                            vm.supportingDocumentsMetaData) : ('')}}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Others</td>
+                                        <td class="old-value">
+                                            {{(vm.getDetails.masterDetailsValueModel[1] && vm.getDetails.masterDetailsValueModel[1].C044)? (vm.getDetails.masterDetailsValueModel[1].C044.oldValue | getLabelFromValuesArray
+                                            : vm.supportingDocumentsMetaData) : ('')}}
+                                        </td>
+                                        <td class="new-value" ng-if="vm.getDetails.previousOperationType == 'M'">
+                                            {{vm.getDetails.masterDetailsValueModel[1] && vm.getDetails.masterDetailsValueModel[1].C044? (vm.getDetails.masterDetailsValueModel[1].C044.newValue | getLabelFromValuesArray :
+                                            vm.supportingDocumentsMetaData) : ('')}}
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td>Detail for Others</td>
+                                        <td class="old-value">
+                                            {{(vm.getDetails.masterDetailsValueModel[1] && vm.getDetails.masterDetailsValueModel[1].C045)? (vm.getDetails.masterDetailsValueModel[1].C045.oldValue | getLabelFromValuesArray
+                                            : vm.supportingDocumentsMetaData) : ('')}}
+                                        </td>
+                                        <td class="new-value" ng-if="vm.getDetails.previousOperationType == 'M'">
+                                            {{vm.getDetails.masterDetailsValueModel[1] && vm.getDetails.masterDetailsValueModel[1].C045? (vm.getDetails.masterDetailsValueModel[1].C045.newValue | getLabelFromValuesArray :
+                                            vm.supportingDocumentsMetaData) : ('')}}
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td>Remarks</td>
+                                        <td class="old-value">
+                                            {{(vm.getDetails.masterDetailsValueModel[1] && vm.getDetails.masterDetailsValueModel[1].C046)? (vm.getDetails.masterDetailsValueModel[1].C046.oldValue) : ('')}}
+                                        </td>
+                                        <td class="new-value" ng-if="vm.getDetails.previousOperationType == 'M'">
+                                            {{vm.getDetails.masterDetailsValueModel[1] && vm.getDetails.masterDetailsValueModel[1].C046? (vm.getDetails.masterDetailsValueModel[1].C046.newValue) : ('')}}
+                                        </td>
+                                    </tr>
+                                </div>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div uib-accordion-group id="sapensioner-details-three" class="panel panel-default" ng-if="vm.getDetails.masterDetailsValueModel.length >= 3" heading="THIRD JOINT BOND HOLDER DETAILS">
+                            <table class="table table-bordered table-striped list old-new-value-table">
+                                <thead>
+                                <tr>
+                                    <th width="50%">Particular</th>
+                                    <th>{{(vm.getDetails.previousOperationType == 'M')?('Old Value'): ('Value')}}</th>
+                                    <th ng-if="vm.getDetails.previousOperationType == 'M'">New Value</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <td>Bond Ledger Account Number</td>
+                                    <td class="old-value">
+                                        {{(vm.getDetails.masterDetailsValueModel[2] && vm.getDetails.masterDetailsValueModel[2].C005)? (vm.getDetails.masterDetailsValueModel[2].C005.oldValue) : ('')}}
+                                    </td>
+                                    <td class="new-value" ng-if="vm.getDetails.previousOperationType == 'M'">
+                                        {{vm.getDetails.masterDetailsValueModel[2] && vm.getDetails.masterDetailsValueModel[2].C005? (vm.getDetails.masterDetailsValueModel[2].C005.newValue) : ('')}}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Bond Holder First name</td>
+                                    <td class="old-value">
+                                        {{(vm.getDetails.masterDetailsValueModel[2] && vm.getDetails.masterDetailsValueModel[2].C006)? (vm.getDetails.masterDetailsValueModel[2].C006.oldValue) : ('')}}
+                                    </td>
+                                    <td class="new-value" ng-if="vm.getDetails.previousOperationType == 'M'">
+                                        {{vm.getDetails.masterDetailsValueModel[2] && vm.getDetails.masterDetailsValueModel[2].C006? (vm.getDetails.masterDetailsValueModel[2].C006.newValue) : ('')}}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Bond Holder Middle Name</td>
+                                    <td class="old-value">
+                                        {{(vm.getDetails.masterDetailsValueModel[2] && vm.getDetails.masterDetailsValueModel[2].C007)? (vm.getDetails.masterDetailsValueModel[2].C007.oldValue) : ('')}}
+                                    </td>
+                                    <td class="new-value" ng-if="vm.getDetails.previousOperationType == 'M'">
+                                        {{vm.getDetails.masterDetailsValueModel[2] && vm.getDetails.masterDetailsValueModel[2].C007? (vm.getDetails.masterDetailsValueModel[2].C007.newValue) : ('')}}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Bond Holder Last name</td>
+                                    <td class="old-value">
+                                        {{(vm.getDetails.masterDetailsValueModel[2] && vm.getDetails.masterDetailsValueModel[2].C008)? (vm.getDetails.masterDetailsValueModel[2].C008.oldValue) : ('')}}
+                                    </td>
+                                    <td class="new-value" ng-if="vm.getDetails.previousOperationType == 'M'">
+                                        {{vm.getDetails.masterDetailsValueModel[2] && vm.getDetails.masterDetailsValueModel[2].C008? (vm.getDetails.masterDetailsValueModel[2].C008.newValue) : ('')}}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Holder Type</td>
+                                    <td class="old-value">
+                                        {{(vm.getDetails.masterDetailsValueModel[2] && vm.getDetails.masterDetailsValueModel[2].C012)? (vm.getDetails.masterDetailsValueModel[2].C012.oldValue | getLabelFromValuesArray :
+                                        vm.convertLabelValue(vm.holderTypeList)) : ('')}}
+                                    </td>
+                                    <td class="new-value" ng-if="vm.getDetails.previousOperationType == 'M'">
+                                        {{vm.getDetails.masterDetailsValueModel[2] && vm.getDetails.masterDetailsValueModel[2].C012? (vm.getDetails.masterDetailsValueModel[2].C012.newValue | getLabelFromValuesArray :
+                                        vm.convertLabelValue(vm.holderTypeList)) : ('')}}
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>Father Name/Spouse Name</td>
+                                    <td class="old-value">
+                                        {{(vm.getDetails.masterDetailsValueModel[2] && vm.getDetails.masterDetailsValueModel[2].C013)? (vm.getDetails.masterDetailsValueModel[2].C013.oldValue) : ('')}}
+                                    </td>
+                                    <td class="new-value" ng-if="vm.getDetails.previousOperationType == 'M'">
+                                        {{vm.getDetails.masterDetailsValueModel[2] && vm.getDetails.masterDetailsValueModel[2].C013? (vm.getDetails.masterDetailsValueModel[2].C013.newValue) : ('')}}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Mother's Maiden Name</td>
+                                    <td class="old-value">
+                                        {{(vm.getDetails.masterDetailsValueModel[2] && vm.getDetails.masterDetailsValueModel[2].C014)? (vm.getDetails.masterDetailsValueModel[2].C014.oldValue) : ('')}}
+                                    </td>
+                                    <td class="new-value" ng-if="vm.getDetails.previousOperationType == 'M'">
+                                        {{vm.getDetails.masterDetailsValueModel[2] && vm.getDetails.masterDetailsValueModel[2].C014? (vm.getDetails.masterDetailsValueModel[2].C014.newValue) : ('')}}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Gender</td>
+                                    <td class="old-value">
+                                        {{(vm.getDetails.masterDetailsValueModel[2] && vm.getDetails.masterDetailsValueModel[2].C015)? (vm.getDetails.masterDetailsValueModel[2].C015.oldValue | getLabelFromValuesArray :
+                                        vm.genderListMetaData) : ('')}}
+                                    </td>
+                                    <td class="new-value" ng-if="vm.getDetails.previousOperationType == 'M'">
+                                        {{vm.getDetails.masterDetailsValueModel[2] && vm.getDetails.masterDetailsValueModel[2].C015? (vm.getDetails.masterDetailsValueModel[2].C015.newValue | getLabelFromValuesArray :
+                                        vm.genderListMetaData) : ('')}}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Bond Holder Date of Birth (DD/MM/YYYY)</td>
+                                    <td class="old-value">
+                                        {{(vm.getDetails.masterDetailsValueModel[2] && vm.getDetails.masterDetailsValueModel[2].C009)? (vm.getDetails.masterDetailsValueModel[2].C009.oldValue) : ('')}}
+                                    </td>
+                                    <td class="new-value" ng-if="vm.getDetails.previousOperationType == 'M'">
+                                        {{vm.getDetails.masterDetailsValueModel[2] && vm.getDetails.masterDetailsValueModel[2].C009? (vm.getDetails.masterDetailsValueModel[2].C009.newValue) : ('')}}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Is Minor (Y/N)?</td>
+                                    <td class="old-value">
+                                        {{(vm.getDetails.masterDetailsValueModel[2] && vm.getDetails.masterDetailsValueModel[2].C016)? (vm.getDetails.masterDetailsValueModel[2].C016.oldValue | getLabelFromValuesArray :
+                                        vm.commonYesNoMetaData) : ('')}}
+                                    </td>
+                                    <td class="new-value" ng-if="vm.getDetails.previousOperationType == 'M'">
+                                        {{vm.getDetails.masterDetailsValueModel[2] && vm.getDetails.masterDetailsValueModel[2].C016? (vm.getDetails.masterDetailsValueModel[2].C016.newValue | getLabelFromValuesArray :
+                                        vm.commonYesNoMetaData) : ('')}}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Details of Birth certificate submitted as per norms</td>
+                                    <td class="old-value">
+                                        {{(vm.getDetails.masterDetailsValueModel[2] && vm.getDetails.masterDetailsValueModel[2].C017)? (vm.getDetails.masterDetailsValueModel[2].C017.oldValue) : ('')}}
+                                    </td>
+                                    <td class="new-value" ng-if="vm.getDetails.previousOperationType == 'M'">
+                                        {{vm.getDetails.masterDetailsValueModel[2] && vm.getDetails.masterDetailsValueModel[2].C017? (vm.getDetails.masterDetailsValueModel[2].C017.newValue) : ('')}}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Communication Address 1</td>
+                                    <td class="old-value">
+                                        {{(vm.getDetails.masterDetailsValueModel[2] && vm.getDetails.masterDetailsValueModel[2].C018)? (vm.getDetails.masterDetailsValueModel[2].C018.oldValue) : ('')}}
+                                    </td>
+                                    <td class="new-value" ng-if="vm.getDetails.previousOperationType == 'M'">
+                                        {{vm.getDetails.masterDetailsValueModel[2] && vm.getDetails.masterDetailsValueModel[2].C018? (vm.getDetails.masterDetailsValueModel[2].C018.newValue) : ('')}}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Address 2</td>
+                                    <td class="old-value">
+                                        {{(vm.getDetails.masterDetailsValueModel[2] && vm.getDetails.masterDetailsValueModel[2].C019)? (vm.getDetails.masterDetailsValueModel[2].C019.oldValue) : ('')}}
+                                    </td>
+                                    <td class="new-value" ng-if="vm.getDetails.previousOperationType == 'M'">
+                                        {{vm.getDetails.masterDetailsValueModel[2] && vm.getDetails.masterDetailsValueModel[2].C019? (vm.getDetails.masterDetailsValueModel[2].C019.newValue) : ('')}}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Address 3</td>
+                                    <td class="old-value">
+                                        {{(vm.getDetails.masterDetailsValueModel[2] && vm.getDetails.masterDetailsValueModel[2].C020)? (vm.getDetails.masterDetailsValueModel[2].C020.oldValue) : ('')}}
+                                    </td>
+                                    <td class="new-value" ng-if="vm.getDetails.previousOperationType == 'M'">
+                                        {{vm.getDetails.masterDetailsValueModel[2] && vm.getDetails.masterDetailsValueModel[2].C020? (vm.getDetails.masterDetailsValueModel[2].C020.newValue) : ('')}}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>City</td>
+                                    <td class="old-value">
+                                        {{(vm.getDetails.masterDetailsValueModel[2] && vm.getDetails.masterDetailsValueModel[2].C022)? (vm.getDetails.masterDetailsValueModel[2].C022.oldValue) : ('')}}
+                                    </td>
+                                    <td class="new-value" ng-if="vm.getDetails.previousOperationType == 'M'">
+                                        {{vm.getDetails.masterDetailsValueModel[2] && vm.getDetails.masterDetailsValueModel[2].C022? (vm.getDetails.masterDetailsValueModel[2].C022.newValue) : ('')}}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>State</td>
+                                    <td class="old-value">
+                                        {{(vm.getDetails.masterDetailsValueModel[2] && vm.getDetails.masterDetailsValueModel[2].C023)? (vm.getDetails.masterDetailsValueModel[2].C023.oldValue | getLabelFromValuesArray :
+                                        vm.stateMetaData) : ('')}}
+                                    </td>
+                                    <td class="new-value" ng-if="vm.getDetails.previousOperationType == 'M'">
+                                        {{vm.getDetails.masterDetailsValueModel[2] && vm.getDetails.masterDetailsValueModel[2].C023? (vm.getDetails.masterDetailsValueModel[2].C023.newValue | getLabelFromValuesArray :
+                                        vm.stateMetaData) : ('')}}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Pin Code</td>
+                                    <td class="old-value">
+                                        {{(vm.getDetails.masterDetailsValueModel[2] && vm.getDetails.masterDetailsValueModel[2].C021)? (vm.getDetails.masterDetailsValueModel[2].C021.oldValue | getLabelFromValuesArray :
+                                        vm.commonYesNoMetaData) : ('')}}
+                                    </td>
+                                    <td class="new-value" ng-if="vm.getDetails.previousOperationType == 'M'">
+                                        {{vm.getDetails.masterDetailsValueModel[2] && vm.getDetails.masterDetailsValueModel[2].C021? (vm.getDetails.masterDetailsValueModel[2].C021.newValue) : ('')}}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Phone Number</td>
+                                    <td class="old-value">
+                                        {{(vm.getDetails.masterDetailsValueModel[2] && vm.getDetails.masterDetailsValueModel[2].C024)? (vm.getDetails.masterDetailsValueModel[2].C024.oldValue) : ('')}}
+                                    </td>
+                                    <td class="new-value" ng-if="vm.getDetails.previousOperationType == 'M'">
+                                        {{vm.getDetails.masterDetailsValueModel[2] && vm.getDetails.masterDetailsValueModel[2].C024? (vm.getDetails.masterDetailsValueModel[2].C024.newValue) : ('')}}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Mobile Number</td>
+                                    <td class="old-value">
+                                        {{(vm.getDetails.masterDetailsValueModel[2] && vm.getDetails.masterDetailsValueModel[2].C025)? (vm.getDetails.masterDetailsValueModel[2].C025.oldValue) : ('')}}
+                                    </td>
+                                    <td class="new-value" ng-if="vm.getDetails.previousOperationType == 'M'">
+                                        {{vm.getDetails.masterDetailsValueModel[2] && vm.getDetails.masterDetailsValueModel[2].C025? (vm.getDetails.masterDetailsValueModel[2].C025.newValue | getLabelFromValuesArray :
+                                        vm.commonYesNoMetaData) : ('')}}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Email id</td>
+                                    <td class="old-value">
+                                        {{(vm.getDetails.masterDetailsValueModel[2] && vm.getDetails.masterDetailsValueModel[2].C026)? (vm.getDetails.masterDetailsValueModel[2].C026.oldValue) : ('')}}
+                                    </td>
+                                    <td class="new-value" ng-if="vm.getDetails.previousOperationType == 'M'">
+                                        {{vm.getDetails.masterDetailsValueModel[2] && vm.getDetails.masterDetailsValueModel[2].C026? (vm.getDetails.masterDetailsValueModel[2].C026.newValue) : ('')}}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>HUF registration / Power of Attorney number</td>
+                                    <td class="old-value">
+                                        {{(vm.getDetails.masterDetailsValueModel[2] && vm.getDetails.masterDetailsValueModel[2].C027)? (vm.getDetails.masterDetailsValueModel[2].C027.oldValue) : ('')}}
+                                    </td>
+                                    <td class="new-value" ng-if="vm.getDetails.previousOperationType == 'M'">
+                                        {{vm.getDetails.masterDetailsValueModel[2] && vm.getDetails.masterDetailsValueModel[2].C027? (vm.getDetails.masterDetailsValueModel[2].C027.newValue) : ('')}}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Power of Attorney/Karta Name</td>
+                                    <td class="old-value">
+                                        {{(vm.getDetails.masterDetailsValueModel[2] && vm.getDetails.masterDetailsValueModel[2].C028)? (vm.getDetails.masterDetailsValueModel[2].C028.oldValue) : ('')}}
+                                    </td>
+                                    <td class="new-value" ng-if="vm.getDetails.previousOperationType == 'M'">
+                                        {{vm.getDetails.masterDetailsValueModel[2] && vm.getDetails.masterDetailsValueModel[2].C028? (vm.getDetails.masterDetailsValueModel[2].C028.newValue) : ('')}}
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+
+                            <table
+                                    class="table table-bordered table-striped list old-new-value-table"
+                                    ng-if="vm.getDetails.masterDetailsValueModel[2].C016.oldValue == 'Y' || vm.getDetails.masterDetailsValueModel[2].C016.newValue == 'Y'"
+                            >
+                                <thead>
+                                <tr>
+                                    <th width="50%">Particular</th>
+                                    <th>{{(vm.getDetails.previousOperationType == 'M')?('Old Value'): ('Value')}}</th>
+                                    <th ng-if="vm.getDetails.previousOperationType == 'M'">New Value</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <h4 class="form_heading" ng-if="vm.getDetails.masterDetailsValueModel[2].C016.oldValue == 'Y' || vm.getDetails.masterDetailsValueModel[2].C016.newValue == 'Y'">GUARDIAN DETAILS</h4>
+                                <div>
+                                    <tr>
+                                        <td>Guardian ID</td>
+                                        <td class="old-value">
+                                            {{(vm.getDetails.guardianDetailsValueModel[2] && vm.getDetails.guardianDetailsValueModel[2].C005)? (vm.getDetails.guardianDetailsValueModel[2].C005.oldValue) : ('')}}
+                                        </td>
+                                        <td class="new-value" ng-if="vm.getDetails.previousOperationType == 'M'">
+                                            {{vm.getDetails.guardianDetailsValueModel[2] && vm.getDetails.guardianDetailsValueModel[2].C005? (vm.getDetails.guardianDetailsValueModel[2].C005.newValue) : ('')}}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Guardian First Name</td>
+                                        <td class="old-value">
+                                            {{(vm.getDetails.guardianDetailsValueModel[2] && vm.getDetails.guardianDetailsValueModel[2].C006)? (vm.getDetails.guardianDetailsValueModel[2].C006.oldValue) : ('')}}
+                                        </td>
+                                        <td class="new-value" ng-if="vm.getDetails.previousOperationType == 'M'">
+                                            {{vm.getDetails.guardianDetailsValueModel[2] && vm.getDetails.guardianDetailsValueModel[2].C006? (vm.getDetails.guardianDetailsValueModel[2].C006.newValue) : ('')}}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Guardian Middle Name</td>
+                                        <td class="old-value">
+                                            {{(vm.getDetails.guardianDetailsValueModel[2] && vm.getDetails.guardianDetailsValueModel[2].C007)? (vm.getDetails.guardianDetailsValueModel[2].C007.oldValue) : ('')}}
+                                        </td>
+                                        <td class="new-value" ng-if="vm.getDetails.previousOperationType == 'M'">
+                                            {{vm.getDetails.guardianDetailsValueModel[2] && vm.getDetails.guardianDetailsValueModel[2].C007? (vm.getDetails.guardianDetailsValueModel[2].C007.newValue) : ('')}}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Guardian Last Name</td>
+                                        <td class="old-value">
+                                            {{(vm.getDetails.guardianDetailsValueModel[2] && vm.getDetails.guardianDetailsValueModel[2].C008)? (vm.getDetails.guardianDetailsValueModel[2].C008.oldValue) : ('')}}
+                                        </td>
+                                        <td class="new-value" ng-if="vm.getDetails.previousOperationType == 'M'">
+                                            {{vm.getDetails.guardianDetailsValueModel[2] && vm.getDetails.guardianDetailsValueModel[2].C008? (vm.getDetails.guardianDetailsValueModel[2].C008.newValue) : ('')}}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Relation with Minor</td>
+                                        <td class="old-value">
+                                            {{(vm.getDetails.guardianDetailsValueModel[2] && vm.getDetails.guardianDetailsValueModel[2].C009)? (vm.getDetails.guardianDetailsValueModel[2].C009.oldValue |
+                                            getLabelFromValuesArray : vm.convertLabelValue(vm.guardianDetailsListMetaData)) : ('')}}
+                                        </td>
+                                        <td class="new-value" ng-if="vm.getDetails.previousOperationType == 'M'">
+                                            {{vm.getDetails.guardianDetailsValueModel[2] && vm.getDetails.guardianDetailsValueModel[2].C009? (vm.getDetails.guardianDetailsValueModel[2].C009.newValue |
+                                            getLabelFromValuesArray : vm.convertLabelValue(vm.guardianDetailsListMetaData)) : ('')}}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Date of Birth</td>
+                                        <td class="old-value">
+                                            {{(vm.getDetails.guardianDetailsValueModel[2] && vm.getDetails.guardianDetailsValueModel[2].C010)? (vm.getDetails.guardianDetailsValueModel[2].C010.oldValue) : ('')}}
+                                        </td>
+                                        <td class="new-value" ng-if="vm.getDetails.previousOperationType == 'M'">
+                                            {{vm.getDetails.guardianDetailsValueModel[2] && vm.getDetails.guardianDetailsValueModel[2].C010? (vm.getDetails.guardianDetailsValueModel[2].C010.newValue) : ('')}}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Communication Address</td>
+                                        <td class="old-value">
+                                            {{(vm.getDetails.guardianDetailsValueModel[2] && vm.getDetails.guardianDetailsValueModel[2].C011)? (vm.getDetails.guardianDetailsValueModel[2].C011.oldValue) : ('')}}
+                                        </td>
+                                        <td class="new-value" ng-if="vm.getDetails.previousOperationType == 'M'">
+                                            {{vm.getDetails.guardianDetailsValueModel[2] && vm.getDetails.guardianDetailsValueModel[2].C011? (vm.getDetails.guardianDetailsValueModel[2].C011.newValue) : ('')}}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Mobile No.</td>
+                                        <td class="old-value">
+                                            {{(vm.getDetails.guardianDetailsValueModel[2] && vm.getDetails.guardianDetailsValueModel[2].C012)? (vm.getDetails.guardianDetailsValueModel[2].C012.oldValue) : ('')}}
+                                        </td>
+                                        <td class="new-value" ng-if="vm.getDetails.previousOperationType == 'M'">
+                                            {{vm.getDetails.guardianDetailsValueModel[2] && vm.getDetails.guardianDetailsValueModel[2].C012? (vm.getDetails.guardianDetailsValueModel[2].C012.newValue) : ('')}}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Email ID</td>
+                                        <td class="old-value">
+                                            {{(vm.getDetails.guardianDetailsValueModel[2] && vm.getDetails.guardianDetailsValueModel[2].C013)? (vm.getDetails.guardianDetailsValueModel[2].C013.oldValue) : ('')}}
+                                        </td>
+                                        <td class="new-value" ng-if="vm.getDetails.previousOperationType == 'M'">
+                                            {{vm.getDetails.guardianDetailsValueModel[2] && vm.getDetails.guardianDetailsValueModel[2].C013? (vm.getDetails.guardianDetailsValueModel[2].C013.newValue) : ('')}}
+                                        </td>
+                                    </tr>
+                                    <tr
+                                            ng-if="vm.getDetails.guardianDetailsValueModel[2] && vm.getDetails.guardianDetailsValueModel[1].C014 && (vm.getDetails.guardianDetailsValueModel[2].C014.oldValue || vm.getDetails.guardianDetailsValueModel[2].C014.newValue)"
+                                    >
+                                        <td>Date of Death of Guardian (DD/MM/YYYY)</td>
+                                        <td class="old-value">
+                                            {{(vm.getDetails.guardianDetailsValueModel[2] && vm.getDetails.guardianDetailsValueModel[2].C014)? (vm.getDetails.guardianDetailsValueModel[2].C014.oldValue) : ('')}}
+                                        </td>
+                                        <td class="new-value" ng-if="vm.getDetails.previousOperationType == 'M'">
+                                            {{vm.getDetails.guardianDetailsValueModel[2] && vm.getDetails.guardianDetailsValueModel[2].C014? (vm.getDetails.guardianDetailsValueModel[2].C014.newValue) : ('')}}
+                                        </td>
+                                    </tr>
+                                    <tr
+                                            ng-if="vm.getDetails.guardianDetailsValueModel[2] && vm.getDetails.guardianDetailsValueModel[1].C015 && (vm.getDetails.guardianDetailsValueModel[2].C015.oldValue || vm.getDetails.guardianDetailsValueModel[2].C015.newValue)"
+                                    >
+                                        <td>Date of Receipt of Death Certificate (DD/MM/YYYY)</td>
+                                        <td class="old-value">
+                                            {{(vm.getDetails.guardianDetailsValueModel[2] && vm.getDetails.guardianDetailsValueModel[2].C015)? (vm.getDetails.guardianDetailsValueModel[2].C015.oldValue) : ('')}}
+                                        </td>
+                                        <td class="new-value" ng-if="vm.getDetails.previousOperationType == 'M'">
+                                            {{vm.getDetails.guardianDetailsValueModel[2] && vm.getDetails.guardianDetailsValueModel[2].C015? (vm.getDetails.guardianDetailsValueModel[2].C015.newValue) : ('')}}
+                                        </td>
+                                    </tr>
+                                    <tr
+                                            ng-if="vm.getDetails.guardianDetailsValueModel[2] && vm.getDetails.guardianDetailsValueModel[1].C016 && (vm.getDetails.guardianDetailsValueModel[2].C016.oldValue || vm.getDetails.guardianDetailsValueModel[2].C016.newValue)"
+                                    >
+                                        <td>If Request from Current Guardian (Y/N)</td>
+                                        <td class="old-value">
+                                            {{(vm.getDetails.guardianDetailsValueModel[2] && vm.getDetails.guardianDetailsValueModel[2].C016)? (vm.getDetails.guardianDetailsValueModel[2].C016.oldValue |
+                                            getLabelFromValuesArray : vm.supportingDocumentsMetaData) : ('')}}
+                                        </td>
+                                        <td class="new-value" ng-if="vm.getDetails.previousOperationType == 'M'">
+                                            {{vm.getDetails.guardianDetailsValueModel[2] && vm.getDetails.guardianDetailsValueModel[2].C016? (vm.getDetails.guardianDetailsValueModel[2].C016.newValue |
+                                            getLabelFromValuesArray : vm.supportingDocumentsMetaData) : ('')}}
+                                        </td>
+                                    </tr>
+                                </div>
+                                </tbody>
+                            </table>
+
+                            <table class="table table-bordered table-striped list old-new-value-table">
+                                <thead>
+                                <tr>
+                                    <th width="50%">Particular</th>
+                                    <th>{{(vm.getDetails.previousOperationType == 'M')?('Old Value'): ('Value')}}</th>
+                                    <th ng-if="vm.getDetails.previousOperationType == 'M'">New Value</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <h4 class="form_heading">OTHERS DETAILS</h4>
+                                <div>
+                                    <tr>
+                                        <td>Whether the customer belongs to HDFC?</td>
+                                        <td class="old-value">
+                                            {{(vm.getDetails.masterDetailsValueModel[2] && vm.getDetails.masterDetailsValueModel[2].C029)? (vm.getDetails.masterDetailsValueModel[2].C029.oldValue | getLabelFromValuesArray
+                                            : vm.supportingDocumentsMetaData) : ('')}}
+                                        </td>
+                                        <td class="new-value" ng-if="vm.getDetails.previousOperationType == 'M'">
+                                            {{vm.getDetails.masterDetailsValueModel[2] && vm.getDetails.masterDetailsValueModel[2].C029? (vm.getDetails.masterDetailsValueModel[2].C029.newValue | getLabelFromValuesArray :
+                                            vm.supportingDocumentsMetaData) : ('')}}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Operative Account Number</td>
+                                        <td class="old-value">
+                                            {{(vm.getDetails.masterDetailsValueModel[2] && vm.getDetails.masterDetailsValueModel[2].C030)? (vm.getDetails.masterDetailsValueModel[2].C03.oldValue) : ('')}}
+                                        </td>
+                                        <td class="new-value" ng-if="vm.getDetails.previousOperationType == 'M'">
+                                            {{vm.getDetails.masterDetailsValueModel[2] && vm.getDetails.masterDetailsValueModel[2].C030? (vm.getDetails.masterDetailsValueModel[2].C030.newValue) : ('')}}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>IFSC Code</td>
+                                        <td class="old-value">
+                                            {{(vm.getDetails.masterDetailsValueModel[2] && vm.getDetails.masterDetailsValueModel[2].C031)? (vm.getDetails.masterDetailsValueModel[2].C031.oldValue) : ('')}}
+                                        </td>
+                                        <td class="new-value" ng-if="vm.getDetails.previousOperationType == 'M'">
+                                            {{vm.getDetails.masterDetailsValueModel[2] && vm.getDetails.masterDetailsValueModel[2].C031? (vm.getDetails.masterDetailsValueModel[2].C031.newValue) : ('')}}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>PAN No</td>
+                                        <td class="old-value">
+                                            {{(vm.getDetails.masterDetailsValueModel[2] && vm.getDetails.masterDetailsValueModel[2].C002)? (vm.getDetails.masterDetailsValueModel[2].C002.oldValue) : ('')}}
+                                        </td>
+                                        <td class="new-value" ng-if="vm.getDetails.previousOperationType == 'M'">
+                                            {{vm.getDetails.masterDetailsValueModel[2] && vm.getDetails.masterDetailsValueModel[2].C002? (vm.getDetails.masterDetailsValueModel[2].C002.newValue) : ('')}}
+                                        </td>
+                                    </tr>
+                                </div>
+                                </tbody>
+                            </table>
+
+                            <table class="table table-bordered table-striped list old-new-value-table">
+                                <thead>
+                                <tr>
+                                    <th width="50%">Particular</th>
+                                    <th>{{(vm.getDetails.previousOperationType == 'M')?('Old Value'): ('Value')}}</th>
+                                    <th ng-if="vm.getDetails.previousOperationType == 'M'">New Value</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <h4 class="form_heading">WITNESS DETAILS</h4>
+                                <div>
+                                    <tr>
+                                        <td>WitnessName1</td>
+                                        <td class="old-value">
+                                            {{(vm.getDetails.masterDetailsValueModel[2] && vm.getDetails.masterDetailsValueModel[2].C033)? (vm.getDetails.masterDetailsValueModel[2].C033.oldValue) : ('')}}
+                                        </td>
+                                        <td class="new-value" ng-if="vm.getDetails.previousOperationType == 'M'">
+                                            {{vm.getDetails.masterDetailsValueModel[2] && vm.getDetails.masterDetailsValueModel[2].C033? (vm.getDetails.masterDetailsValueModel[2].C033.newValue) : ('')}}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Address</td>
+                                        <td class="old-value">
+                                            {{(vm.getDetails.masterDetailsValueModel[2] && vm.getDetails.masterDetailsValueModel[2].C034)? (vm.getDetails.masterDetailsValueModel[2].C034.oldValue) : ('')}}
+                                        </td>
+                                        <td class="new-value" ng-if="vm.getDetails.previousOperationType == 'M'">
+                                            {{vm.getDetails.masterDetailsValueModel[2] && vm.getDetails.masterDetailsValueModel[2].C034? (vm.getDetails.masterDetailsValueModel[2].C034.newValue) : ('')}}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>WitnessName2</td>
+                                        <td class="old-value">
+                                            {{(vm.getDetails.masterDetailsValueModel[2] && vm.getDetails.masterDetailsValueModel[2].C035)? (vm.getDetails.masterDetailsValueModel[2].C035.oldValue) : ('')}}
+                                        </td>
+                                        <td class="new-value" ng-if="vm.getDetails.previousOperationType == 'M'">
+                                            {{vm.getDetails.masterDetailsValueModel[2] && vm.getDetails.masterDetailsValueModel[2].C035? (vm.getDetails.masterDetailsValueModel[2].C035.newValue) : ('')}}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Address</td>
+                                        <td class="old-value">
+                                            {{(vm.getDetails.masterDetailsValueModel[2] && vm.getDetails.masterDetailsValueModel[2].C036)? (vm.getDetails.masterDetailsValueModel[2].C036.oldValue) : ('')}}
+                                        </td>
+                                        <td class="new-value" ng-if="vm.getDetails.previousOperationType == 'M'">
+                                            {{vm.getDetails.masterDetailsValueModel[2] && vm.getDetails.masterDetailsValueModel[2].C036? (vm.getDetails.masterDetailsValueModel[2].C036.newValue) : ('')}}
+                                        </td>
+                                    </tr>
+                                </div>
+                                </tbody>
+                            </table>
+
+                            <table class="table table-bordered table-striped list old-new-value-table">
+                                <thead>
+                                <tr>
+                                    <th width="50%">Particular</th>
+                                    <th>{{(vm.getDetails.previousOperationType == 'M')?('Old Value'): ('Value')}}</th>
+                                    <th ng-if="vm.getDetails.previousOperationType == 'M'">New Value</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <h4 class="form_heading">SUPPORTING DOCUMENTS</h4>
+                                <div>
+                                    <tr>
+                                        <td>Birth Certificate</td>
+                                        <td class="old-value">
+                                            {{(vm.getDetails.masterDetailsValueModel[2] && vm.getDetails.masterDetailsValueModel[2].C037)? (vm.getDetails.masterDetailsValueModel[2].C037.oldValue | getLabelFromValuesArray
+                                            : vm.supportingDocumentsMetaData) : ('')}}
+                                        </td>
+                                        <td class="new-value" ng-if="vm.getDetails.previousOperationType == 'M'">
+                                            {{vm.getDetails.masterDetailsValueModel[2] && vm.getDetails.masterDetailsValueModel[2].C037? (vm.getDetails.masterDetailsValueModel[2].C037.newValue | getLabelFromValuesArray :
+                                            vm.supportingDocumentsMetaData) : ('')}}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Passport</td>
+                                        <td class="old-value">
+                                            {{(vm.getDetails.masterDetailsValueModel[2] && vm.getDetails.masterDetailsValueModel[2].C038)? (vm.getDetails.masterDetailsValueModel[2].C038.oldValue | getLabelFromValuesArray
+                                            : vm.supportingDocumentsMetaData) : ('')}}
+                                        </td>
+                                        <td class="new-value" ng-if="vm.getDetails.previousOperationType == 'M'">
+                                            {{vm.getDetails.masterDetailsValueModel[2] && vm.getDetails.masterDetailsValueModel[2].C038? (vm.getDetails.masterDetailsValueModel[2].C038.newValue | getLabelFromValuesArray :
+                                            vm.supportingDocumentsMetaData) : ('')}}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Senior Citizen Card</td>
+                                        <td class="old-value">
+                                            {{(vm.getDetails.masterDetailsValueModel[2] && vm.getDetails.masterDetailsValueModel[2].C039)? (vm.getDetails.masterDetailsValueModel[2].C039.oldValue | getLabelFromValuesArray
+                                            : vm.supportingDocumentsMetaData) : ('')}}
+                                        </td>
+                                        <td class="new-value" ng-if="vm.getDetails.previousOperationType == 'M'">
+                                            {{vm.getDetails.masterDetailsValueModel[2] && vm.getDetails.masterDetailsValueModel[2].C039? (vm.getDetails.masterDetailsValueModel[2].C039.newValue | getLabelFromValuesArray :
+                                            vm.supportingDocumentsMetaData) : ('')}}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Voter ID Card</td>
+                                        <td class="old-value">
+                                            {{(vm.getDetails.masterDetailsValueModel[2] && vm.getDetails.masterDetailsValueModel[2].C040)? (vm.getDetails.masterDetailsValueModel[2].C040.oldValue | getLabelFromValuesArray
+                                            : vm.supportingDocumentsMetaData) : ('')}}
+                                        </td>
+                                        <td class="new-value" ng-if="vm.getDetails.previousOperationType == 'M'">
+                                            {{vm.getDetails.masterDetailsValueModel[2] && vm.getDetails.masterDetailsValueModel[2].C040? (vm.getDetails.masterDetailsValueModel[2].C040.newValue | getLabelFromValuesArray :
+                                            vm.supportingDocumentsMetaData) : ('')}}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>PAN Card</td>
+                                        <td class="old-value">
+                                            {{(vm.getDetails.masterDetailsValueModel[2] && vm.getDetails.masterDetailsValueModel[2].C041)? (vm.getDetails.masterDetailsValueModel[2].C041.oldValue | getLabelFromValuesArray
+                                            : vm.supportingDocumentsMetaData) : ('')}}
+                                        </td>
+                                        <td class="new-value" ng-if="vm.getDetails.previousOperationType == 'M'">
+                                            {{vm.getDetails.masterDetailsValueModel[2] && vm.getDetails.masterDetailsValueModel[2].C041? (vm.getDetails.masterDetailsValueModel[2].C041.newValue | getLabelFromValuesArray :
+                                            vm.supportingDocumentsMetaData) : ('')}}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Driving Licence</td>
+                                        <td class="old-value">
+                                            {{(vm.getDetails.masterDetailsValueModel[2] && vm.getDetails.masterDetailsValueModel[2].C042)? (vm.getDetails.masterDetailsValueModel[2].C042.oldValue | getLabelFromValuesArray
+                                            : vm.supportingDocumentsMetaData) : ('')}}
+                                        </td>
+                                        <td class="new-value" ng-if="vm.getDetails.previousOperationType == 'M'">
+                                            {{vm.getDetails.masterDetailsValueModel[2] && vm.getDetails.masterDetailsValueModel[2].C042? (vm.getDetails.masterDetailsValueModel[2].C042.newValue | getLabelFromValuesArray :
+                                            vm.supportingDocumentsMetaData) : ('')}}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Ration Card</td>
+                                        <td class="old-value">
+                                            {{(vm.getDetails.masterDetailsValueModel[2] && vm.getDetails.masterDetailsValueModel[2].C043)? (vm.getDetails.masterDetailsValueModel[2].C043.oldValue | getLabelFromValuesArray
+                                            : vm.supportingDocumentsMetaData) : ('')}}
+                                        </td>
+                                        <td class="new-value" ng-if="vm.getDetails.previousOperationType == 'M'">
+                                            {{vm.getDetails.masterDetailsValueModel[2] && vm.getDetails.masterDetailsValueModel[2].C043? (vm.getDetails.masterDetailsValueModel[2].C043.newValue | getLabelFromValuesArray :
+                                            vm.supportingDocumentsMetaData) : ('')}}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Others</td>
+                                        <td class="old-value">
+                                            {{(vm.getDetails.masterDetailsValueModel[2] && vm.getDetails.masterDetailsValueModel[2].C044)? (vm.getDetails.masterDetailsValueModel[2].C044.oldValue | getLabelFromValuesArray
+                                            : vm.supportingDocumentsMetaData) : ('')}}
+                                        </td>
+                                        <td class="new-value" ng-if="vm.getDetails.previousOperationType == 'M'">
+                                            {{vm.getDetails.masterDetailsValueModel[2] && vm.getDetails.masterDetailsValueModel[2].C044? (vm.getDetails.masterDetailsValueModel[2].C044.newValue | getLabelFromValuesArray :
+                                            vm.supportingDocumentsMetaData) : ('')}}
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td>Detail for Others</td>
+                                        <td class="old-value">
+                                            {{(vm.getDetails.masterDetailsValueModel[2] && vm.getDetails.masterDetailsValueModel[2].C045)? (vm.getDetails.masterDetailsValueModel[2].C045.oldValue | getLabelFromValuesArray
+                                            : vm.supportingDocumentsMetaData) : ('')}}
+                                        </td>
+                                        <td class="new-value" ng-if="vm.getDetails.previousOperationType == 'M'">
+                                            {{vm.getDetails.masterDetailsValueModel[2] && vm.getDetails.masterDetailsValueModel[2].C045? (vm.getDetails.masterDetailsValueModel[2].C045.newValue | getLabelFromValuesArray :
+                                            vm.supportingDocumentsMetaData) : ('')}}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Remarks</td>
+                                        <td class="old-value">
+                                            {{(vm.getDetails.masterDetailsValueModel[2] && vm.getDetails.masterDetailsValueModel[2].C046)? (vm.getDetails.masterDetailsValueModel[2].C046.oldValue) : ('')}}
+                                        </td>
+                                        <td class="new-value" ng-if="vm.getDetails.previousOperationType == 'M'">
+                                            {{vm.getDetails.masterDetailsValueModel[2] && vm.getDetails.masterDetailsValueModel[2].C046? (vm.getDetails.masterDetailsValueModel[2].C046.newValue) : ('')}}
+                                        </td>
+                                    </tr>
+                                </div>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="text-center form_submit">
+                            <button type="submit" class="btn btn-default" id="submitButton" ng-click="vm.tabReferenceVerify ='reversalForm'" ng-disabled="vm.pensionMastersaForm.$invalid">Next</button>
+                        </div>
+                    </form>
+                </uib-accordion>
+            </div>
+        </div>
+        <div id="reversalForm" class="tab-pane fade  in active" ng-show="vm.tabReferenceVerify=='reversalForm'">
+            <div class="tab-body">
+                <uib-accordion close-others="oneAtATime">
+                    <form name="reversalForm" role="form" novalidate>
+                        <div uib-accordion-group id="satreasury-details1" class="panel" heading="BOND HOLDER REVERSAL DETAILS" is-open="true" ng-class="(vm.treasuryDetailsForm.$invalid) ? 'panel-danger' : 'panel-default'">
+                            <ng-form name="vm.treasuryDetailsForm">
+                                <table class="table table-bordered">
+                                    <tbody>
+                                    <tr>
+                                        <td width="25%" >
+                                            <label  class="control-label">Module Name</label>
+                                        </td>
+                                        <td width="25%">
+                                            <label  class="control-label">RBI Bond</label>
+                                        </td>
+                                        <td width="25%">
+                                            <label  class="control-label required">Name of the Bond Scheme</label>
+                                        </td>
+                                        <td width="25%">
+                                            <div class="row">
+                                                <div class="col-sm-12">
+                                                    <input type="text" class="form-control" id="schemeCode"
+                                                           ng-model="vm.schemeName"
+                                                           chars="alpha-numeric" readonly required>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td width="25%"><label for="bondHolderName" class="control-label">Bond Holder Name</label></td>
+                                        <td width="25%">
+                                            <input type="text" class="form-control"  maxlength="50"
+                                                   id="bondHolderName" name="bondHolderName" ng-model="vm.reversalObj.bondHolderName" chars="only-character"
+                                                   oninput="this.value = this.value.replace(/[^a-zA-Z\s]/g, '').replace(/^\s/, '')" disabled>
+                                        </td>
+                                        <td width="25%"><label for="panNum" class="control-label">PAN No</label></td>
+                                        <td width="25%">
+                                            <div class="row">
+                                                <div class="col-sm-12">
+                                                    <input type="text" class="form-control" id="panNum" ng-model="vm.reversalObj.panNum"
+                                                           chars="alpha-numeric" oninput="this.value = this.value.replace(/\s+/g, '')" disabled></div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td width="25%">
+                                            <label class="control-label required">Mode of Holding</label>
+                                        </td>
+                                        <td width="25%">
+                                            <label class="data-bind">{{vm.selectedModeOfHolding}}</label>
+                                        </td>
+                                        <td width="25%">
+                                            <label class="control-label required">From BLA Account Number</label>
+                                        </td>
+                                        <td width="25%">
+                                            <div class="row">
+                                                <div class="col-sm-12">
+                                                    <input type="text" class="form-control" id="fromBlaNo" ng-model="vm.reversalObj.fromBlaNo"
+                                                           oninput="this.value = this.value.replace(/[^0-9]/g, '')"
+                                                           chars="only-numbers" minlength="5" maxlength="20" required disabled></div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td width="25%">
+                                            <label class="control-label required">To BLA Account Number</label>
+                                        </td>
+                                        <td width="25%">
+                                            <div class="row">
+                                                <div class="col-sm-12">
+                                                    <input type="text" class="form-control" id="blaAccNoTo" ng-model="vm.reversalObj.toBlaNo"
+                                                           chars="only-numbers" minlength="5" maxlength="20" required disabled>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td width="25%">
+                                            <label for="count" class="control-label">Subscription Count</label>
+                                        </td>
+                                        <td width="25%">
+                                            <input type="text" class="form-control" id="count" maxlength="50" name="count" ng-model="vm.reversalObj.count" disabled>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td width="25%">
+                                            <label for="remarks" class="control-label">Remarks</label>
+                                        </td>
+                                        <td width="25%">
+                                            <textarea class="form-control" rows="3" id="remarks" maxlength="200" name="remarks" ng-model="vm.reversalObj.remarks" required disabled oninput="this.value = this.value.replace(/^\s/, '')"></textarea>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </ng-form>
+                            <div class="table-responsive" ng-if="vm.subscriptionIdList.length>0">
+                                <table class="table table-bordered table-striped list table-textWrap align-middle">
+                                    <thead>
+                                    <tr class="thalign">
+                                        <th>S.No</th>
+                                        <th>From Subscription Id</th>
+                                        <th>To Subscription Id</th>
+                                        <th>Subscription Date</th>
+                                        <th>Subscription Amount</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr ng-repeat="x in vm.subscriptionIdList">
+                                        <td align="center">{{vm.itemsPerPage *(vm.currentPage-1)+$index+1}}</td>
+                                        <td align="center">{{x.subscriptionId}}</td>
+                                        <td align="center">{{x.toSubscriptionId}}</td>
+                                        <td align="center">{{x.subscriptionDate}}</td>
+                                        <td align="center">{{vm.indianNumberFormat(x.subscriptionAmt)}}</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <table class="table table-bordered table-striped list old-new-value-table">
+                            <tbody width="100%">
+                            <tr>
+                                <th width="50%">Authorization Remarks</th>
+                            </tr>
+                            <td width="50%">
+                                <input
+                                        type="text"
+                                        class="form-control"
+                                        id="otherDetails"
+                                        name="remarks"
+                                        maxlength="200"
+                                        ng-model="vm.authorizationRemarks"
+                                        oninput="this.value = this.value.replace(/[^a-zA-Z\s]/g, '').replace(/^\s/, '')" required/>
+                            </td>
+                            </tbody>
+                        </table>
+                        <div class="text-center form_submit">
+                            <button type="submit" class="btn btn-default" id="verifyButton" ng-click="vm.verifyCustomerMaster();" ng-disabled="!vm.authorizationRemarks">Verify</button>
+                            <button type="button" class="btn btn-default" id="rejectButton" ng-click="vm.rejectReason();" ng-disabled="!vm.authorizationRemarks">Reject</button>
+                            <button type="button" class="btn btn-cancel" id="cancelButton" onclick="window.location.href= '#!/Joint_type_change_Three_to_two/action/verify';">Cancel</button>
+                        </div>
+                    </form>
+                </uib-accordion>
+            </div>
+        </div>
+        <div class="audit-details">
+            <div class="row">
+                <div class="col-md-4">
+                    <span> <b> Created By </b> : {{vm.getDetails.createdBy}} </span>
+                </div>
+                <div class="col-md-4">
+                    <span> <b> Last Verified By </b> : {{(vm.getDetails.lastVerifiedBy) ? (vm.getDetails.lastVerifiedBy) : ('None')}}</span>
+                </div>
+                <div class="col-md-4">
+                    <span> <b> Verify Status </b> : {{vm.getDetails.verifiedStatus | getLabelFromValuesArray : vm.commonYesNoMetaData}}</span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <span> <b> Created On </b> : {{ vm.getDetails.createdDate | date : 'dd/MM/yyyy'}}</span>
+                </div>
+                <div class="col-md-4">
+                    <span> <b> Last Verified On </b> : {{(vm.getDetails.lastVerifiedDate) ? (vm.getDetails.lastVerifiedDate | date : 'dd/MM/yyyy') : ('None')}}</span>
+                </div>
+                <div class="col-md-4"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal" id="permissionMappingDelete" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-bs-dismiss="modal">&times;</button>
+                <h4 class="modal-title"> REJECTION REMARKS</h4>
+            </div>
+            <div class="modal-body">
+                <div class="loader_popup"></div>
+                <div class="list_wrapper" >
+                    <form name="permissionDelete" role="form">
+                        <div class="row">
+                            <div class="form-group">
+                                <div class="col-sm-2"></div>
+                                <label class="control-label col-sm-3">Remarks</label>
+                                <div class="col-sm-5">
+                                    <select class="form-control list_wrapper" id="remarks[$index]" name="remarks[$index]"
+                                            ng-model="vm.rejectionRemarks" ng-init="vm.getRemarksList();"   required>
+                                        <option value="">Select</option>
+                                        <option ng-repeat="item in vm.remarksList"
+                                                name="{{item.subCode + parentIndex}}" id="{{item.subCode + parentIndex}}" value="{{item.subCodeDescription}}">{{item.subCodeDescription}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-offset-5 col-sm-8 form_submit">
+                            <button type="button" class="btn btn-default" data-bs-dismiss="modal" ng-disabled="permissionDelete.$invalid" ng-click="vm.deleteSubmit()" >Submit</button>
+                            <button type="button" class="btn btn-cancel" data-bs-dismiss="modal">Cancel</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

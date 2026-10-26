@@ -1,0 +1,910 @@
+<div class="loader-new" ng-if="vm.loader"></div>
+<div class="container from_wrapper" ng-if="!vm.newValueDispay">
+	<cbs-left-menu></cbs-left-menu>
+	<h4 class="form_heading feature-heading">CBS Integration General
+		Setup - Modify</h4>
+	<div>
+
+		<form name="generalSetupForm" role="form"
+			ng-submit="submitForm(generalSetupForm.$valid)" novalidate
+			class="generalSetupForm">
+			<div class="table-responsive">
+				<table class="table table-bordered table-striped list">
+					<thead>
+						<tr>
+							<th>Integration TP ID</th>
+							<th>Purpose</th>
+							<th>Method</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>GBM/INT/01</td>
+							<td>To take the users details & session mechanism from CBS,
+								for GBM</td>
+							<td>
+								<select class="form-control" id="GBM_INT_01"
+								name="GBM_INT_01" ng-model="vm.generalSetupScope.GBM_INT_01"
+								string-to-number required >
+									<option ng-value="3">Through CBS Web Service Calls</option>
+								</select>
+							</td>
+						</tr>
+						<tr>
+							<td>GBM/INT/02</td>
+							<td>To take the transaction date ( business date)</td>
+							<td><select class="form-control" id="GBM_INT_02"
+								name="GBM_INT_02" ng-model="vm.generalSetupScope.GBM_INT_02"
+								string-to-number required >
+									<option ng-value="1">Master Creation</option>
+									<option ng-value="3">Through CBS Web Service Calls</option>
+							</select></td>
+						</tr>
+						<tr>
+							<td>GBM/INT/03</td>
+							<td>To take the branch description from CBS, Maintainance of
+								bank code, Branch code,Uniform branch code, Address details for
+								each branch</td>
+							<td><select class="form-control" id="GBM_INT_03"
+								name="GBM_INT_03" ng-model="vm.generalSetupScope.GBM_INT_03"
+								string-to-number required >
+									<option ng-value="1">Master Creation</option>
+									<option ng-value="2">Bulk Upload Facility</option>
+									<option ng-value="3">Through CBS Web Service Calls</option>
+							</select></td>
+						</tr>
+						<tr>
+							<td>GBM/INT/04</td>
+							<td>Maintanance of Office Account Placeholders (GL codes) in
+								CBS</td>
+							<td><select class="form-control" id="GBM_INT_04"
+								name="GBM_INT_04" ng-model="vm.generalSetupScope.GBM_INT_04"
+								string-to-number required >
+									<option ng-value="1">Master Creation</option>
+									<option ng-value="2">Bulk Upload Facility</option>
+									<option ng-value="3">Through CBS Web Service Calls</option>
+							</select></td>
+						</tr>
+						<tr>
+							<td>GBM/INT/05</td>
+							<td>Fetching of Branch Office Accounts using the Placeholder
+								value, set at DC level.</td>
+							<td><select class="form-control" id="GBM_INT_05"
+								name="GBM_INT_05" ng-model="vm.generalSetupScope.GBM_INT_05"
+								string-to-number required >
+									<option ng-value="3">Through CBS Web Service Calls</option>
+							</select></td>
+						</tr>
+						<tr>
+							<td>GBM/INT/06</td>
+							<td>To check for the existence of the account number &
+								validations like account freeze etc.,</td>
+							<td><select class="form-control" id="GBM_INT_06"
+								name="GBM_INT_06" ng-model="vm.generalSetupScope.GBM_INT_06"
+								string-to-number required >
+									<option ng-value="3">Through CBS Web Service Calls</option>
+							</select></td>
+						</tr>
+						<tr>
+							<td>GBM/INT/07</td>
+							<td>To maintain transactions done through cheques from the
+								customer accounts.</td>
+							<td><select class="form-control" id="GBM_INT_07"
+								name="GBM_INT_07" ng-model="vm.generalSetupScope.GBM_INT_07"
+								string-to-number required >
+									<option ng-value="3">Through CBS Web Service Calls</option>
+							</select></td>
+						</tr>
+						<tr>
+							<td>GBM/INT/08</td>
+							<td>To get the list of accounts based on short name, scheme
+								code, scheme type</td>
+							<td><select class="form-control" id="GBM_INT_08"
+								name="GBM_INT_08" ng-model="vm.generalSetupScope.GBM_INT_08"
+								string-to-number required >
+									<option ng-value="3">Through CBS Web Service Calls</option>
+							</select></td>
+						</tr>
+						<tr>
+							<td>GBM/INT/09</td>
+							<td>To get the list of instruments permitted for the entered
+								account number.</td>
+							<td><select class="form-control" id="GBM_INT_09"
+								name="GBM_INT_09" ng-model="vm.generalSetupScope.GBM_INT_09"
+								string-to-number required >
+									<option ng-value="1">Master Creation</option>
+									<option ng-value="2">Bulk Upload Facility</option>
+							</select></td>
+						</tr>
+						<tr>
+							<td>GBM/INT/10</td>
+							<td>To get the account balance of the customer account</td>
+							<td><select class="form-control" id="GBM_INT_10"
+								name="GBM_INT_10" ng-model="vm.generalSetupScope.GBM_INT_10"
+								string-to-number required >
+									<option ng-value="3">Through CBS Web Service Calls</option>
+							</select></td>
+						</tr>
+						<tr>
+							<td>GBM/INT/11</td>
+							<td>To push actual financial transactions in the CBS &
+								enquire the same in GBM with status</td>
+							<td><select class="form-control" id="GBM_INT_11"
+								name="GBM_INT_11" ng-model="vm.generalSetupScope.GBM_INT_11"
+								string-to-number required >
+									<option ng-value="3">Through CBS Web Service Calls</option>
+							</select></td>
+						</tr>
+						<tr>
+							<td>GBM/INT/12</td>
+							<td>The clearing instruments will normally be lodged in a
+								zone opened in CBS for the day.</td>
+							<td><select class="form-control" id="GBM_INT_12"
+								name="GBM_INT_12" ng-model="vm.generalSetupScope.GBM_INT_12"
+								string-to-number required >
+									<option ng-value="3">Through CBS Web Service Calls</option>
+							</select></td>
+						</tr>
+						<tr>
+							<td>GBM/INT/13</td>
+							<td>List of individual instrument details in the CBS to get
+								the instrument status information during reconciliation of
+								clearing</td>
+							<td><select class="form-control" id="GBM_INT_13"
+								name="GBM_INT_13" ng-model="vm.generalSetupScope.GBM_INT_13"
+								string-to-number required >
+									<option ng-value="3">Through CBS Web Service Calls</option>
+							</select></td>
+						</tr>
+						<tr>
+							<td>GBM/INT/14</td>
+							<td>To get the open zones from CBS, for clearing
+								transactions</td>
+							<td><select class="form-control" id="GBM_INT_14"
+								name="GBM_INT_14" ng-model="vm.generalSetupScope.GBM_INT_14"
+								string-to-number required >
+									<option ng-value="3">Through CBS Web Service Calls</option>
+							</select></td>
+						</tr>
+						<tr>
+							<td>GBM/INT/15</td>
+							<td>To get different types of instruments used in clearing
+								transactions</td>
+							<td><select class="form-control" id="GBM_INT_15"
+								name="GBM_INT_15" ng-model="vm.generalSetupScope.GBM_INT_15"
+								string-to-number required >
+									<option ng-value="1">Master Creation</option>
+									<option ng-value="2">Bulk Upload Facility</option>
+							</select></td>
+						</tr>
+						<tr>
+							<td>GBM/INT/16</td>
+							<td>To get bank code & corresponding bank name</td>
+							<td><select class="form-control" id="GBM_INT_16"
+								name="GBM_INT_16" ng-model="vm.generalSetupScope.GBM_INT_16"
+								string-to-number required >
+									<option ng-value="1">Master Creation</option>
+									<option ng-value="2">Bulk Upload Facility</option>
+									<option ng-value="3">Through CBS Web Service Calls</option>
+							</select></td>
+						</tr>
+						<tr>
+							<td>GBM/INT/17</td>
+							<td>To get branches coming under different banks</td>
+							<td><select class="form-control" id="GBM_INT_17"
+								name="GBM_INT_17" ng-model="vm.generalSetupScope.GBM_INT_17"
+								string-to-number required >
+									<option ng-value="1">Master Creation</option>
+									<option ng-value="2">Bulk Upload Facility</option>
+									<option ng-value="3">Through CBS Web Service Calls</option>
+							</select></td>
+						</tr>
+						<tr>
+							<td>GBM/INT/18</td>
+							<td>To get sort codes pertaining to MICR instruments</td>
+							<td><select class="form-control" id="GBM_INT_18"
+								name="GBM_INT_18" ng-model="vm.generalSetupScope.GBM_INT_18"
+								string-to-number required >
+									<option ng-value="1">Master Creation</option>
+									<option ng-value="2">Bulk Upload Facility</option>
+									<option ng-value="3">Through CBS Web Service Calls</option>
+							</select></td>
+						</tr>
+						<tr>
+							<td>GBM/INT/19</td>
+							<td>To hit transactions in CBS, to tally the accounts
+								collection & funds transfer to Govt A/c.</td>
+							<td><select class="form-control" id="GBM_INT_19"
+								name="GBM_INT_19" ng-model="vm.generalSetupScope.GBM_INT_19"
+								string-to-number required >
+									<option ng-value="3">Through CBS Web Service Calls</option>
+							</select></td>
+						</tr>
+						<tr>
+							<td>GBM/INT/20</td>
+							<td>To arrive at the next working day in a branch & check
+								whether that date is a holiday in CBS.</td>
+							<td><select class="form-control" id="GBM_INT_20"
+								name="GBM_INT_20" ng-model="vm.generalSetupScope.GBM_INT_20"
+								string-to-number required >
+									<option ng-value="1">Master Creation</option>
+									<option ng-value="2">Bulk Upload Facility</option>
+									<option ng-value="3">Through CBS Web Service Calls</option>
+							</select></td>
+						</tr>
+						<tr>
+							<td>GBM/INT/21</td>
+							<td>To create office & customer accounts under different
+								schemes launched by the bank</td>
+							<td><select class="form-control" id="GBM_INT_21"
+								name="GBM_INT_21" ng-model="vm.generalSetupScope.GBM_INT_21"
+								string-to-number required >
+									<option ng-value="1">Master Creation</option>
+									<option ng-value="2">Bulk Upload Facility</option>
+							</select></td>
+						</tr>
+						<tr>
+							<td>GBM/INT/22</td>
+							<td>To provide inquiry of all current business day financial
+								transactions done in GBM</td>
+							<td><select class="form-control" id="GBM_INT_22"
+								name="GBM_INT_22" ng-model="vm.generalSetupScope.GBM_INT_22"
+								string-to-number required >
+									<option ng-value="3">Through CBS Web Service Calls</option>
+							</select></td>
+						</tr>
+						<tr>
+							<td>GBM/INT/23</td>
+							<td>To provide history of all financial transactions done in
+								GBM</td>
+							<td><select class="form-control" id="GBM_INT_23"
+								name="GBM_INT_23" ng-model="vm.generalSetupScope.GBM_INT_23"
+								string-to-number required >
+									<option ng-value="3">Through CBS Web Service Calls</option>
+							</select></td>
+						</tr>
+						<tr>
+							<td>GBM/INT/24</td>
+							<td>To ensure that the user has a valid session in CBS,
+								anytime the user clicks the GBM links</td>
+							<td><select class="form-control" id="GBM_INT_24"
+								name="GBM_INT_24" ng-model="vm.generalSetupScope.GBM_INT_24"
+								string-to-number required >
+									<option ng-value="3">Through CBS Web Service Calls</option>
+							</select></td>
+						</tr>
+						<tr>
+							<td>GBM/INT/25</td>
+							<td>To authorize the transactions whose work class is
+								greater than the predefined value.</td>
+							<td><select class="form-control" id="GBM_INT_25"
+								name="GBM_INT_25" ng-model="vm.generalSetupScope.GBM_INT_25"
+								string-to-number required >
+									<option ng-value="1">Master Creation</option>
+									<option ng-value="2">Bulk Upload Facility</option>
+							</select></td>
+						</tr>
+						<tr>
+							<td>GBM/INT/26</td>
+							<td>To control the initiation of branch EOD in CBS without
+								GBM MCP completion</td>
+							<td><select class="form-control" id="GBM_INT_26"
+								name="GBM_INT_26" ng-model="vm.generalSetupScope.GBM_INT_26"
+								string-to-number required >
+									<option ng-value="3">Through CBS Web Service Calls</option>
+							</select></td>
+						</tr>
+						<tr>
+							<td>GBM/INT/27</td>
+							<td>To handle the transfer of collection funds to the
+								government account</td>
+							<td><select class="form-control" id="GBM_INT_27"
+								name="GBM_INT_27" ng-model="vm.generalSetupScope.GBM_INT_27"
+								string-to-number required >
+									<option ng-value="3">Through CBS Web Service Calls</option>
+							</select></td>
+						</tr>
+						<tr>
+							<td>GBM/INT/28</td>
+							<td>To lookup Branch IFSC code</td>
+							<td><select class="form-control" id="GBM_INT_28"
+								name="GBM_INT_28" ng-model="vm.generalSetupScope.GBM_INT_28"
+								string-to-number required >
+									<option ng-value="1">Master Creation</option>
+									<option ng-value="2">Bulk Upload Facility</option>
+									<option ng-value="3">Through CBS Web Service Calls</option>
+							</select></td>
+						</tr>
+						<tr>
+							<td>GBM/INT/29</td>
+							<td>To fetch customer details</td>
+							<td><select class="form-control" id="GBM_INT_29"
+								name="GBM_INT_29" ng-model="vm.generalSetupScope.GBM_INT_29"
+								string-to-number required >
+									<option ng-value="3">Through CBS Web Service Calls</option>
+							</select></td>
+						</tr>
+						<tr>
+							<td>GBM/INT/30</td>
+							<td>To fetch customer address details</td>
+							<td><select class="form-control" id="GBM_INT_30"
+								name="GBM_INT_30" ng-model="vm.generalSetupScope.GBM_INT_30"
+								string-to-number required >
+									<option ng-value="3">Through CBS Web Service Calls</option>
+							</select></td>
+						</tr>
+						<tr>
+							<td>GBM/INT/31</td>
+							<td>To fetch customer demographic details</td>
+							<td><select class="form-control" id="GBM_INT_31"
+								name="GBM_INT_31" ng-model="vm.generalSetupScope.GBM_INT_31"
+								string-to-number required >
+
+									<option ng-value="3">Through CBS Web Service Calls</option>
+							</select></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+
+
+			<div class="row" >
+				<div class="col-sm-7"></div>
+				<label class="control-label col-sm-5"><b>Verify Status : Y</b></label>
+			</div>
+			
+			<div class="text-center form_submit">
+				
+				<button type="submit" class="btn btn-default" id="submitButton"
+					ng-disabled="generalSetupForm.$invalid" ng-click="vm.modify();">Update</button>
+
+				<button type="button" id="cancelInquiry" class="btn btn-cancel"
+					ng-click="vm.showCancelConfirmation('cbs_general_setup.list')">Cancel</button>
+			</div>
+			</from>
+	</div>
+</div>
+
+<div class="container from_wrapper" ng-if="vm.newValueDispay">
+	<cbs-left-menu></cbs-left-menu>
+	<h4 class="form_heading feature-heading">CBS Integration General
+		Setup - Modify</h4>
+	<div>
+
+		<form name="generalSetupForm" role="form"
+			ng-submit="submitForm(generalSetupForm.$valid)" novalidate
+			class="generalSetupForm">
+			<div class="table-responsive">
+				<table class="table table-bordered table-striped list">
+					<thead>
+						<tr>
+							<th>Integration TP ID</th>
+							<th>Purpose</th>
+							<th>New Method</th>
+							<th>Old Method</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>GBM/INT/01</td>
+							<td>To take the users details & session mechanism from CBS,
+								for GBM</td>
+							<td>
+								<select class="form-control" id="GBM_INT_01"
+								name="GBM_INT_01" ng-model="vm.generalSetupNewScope.GBM_INT_01"
+								string-to-number required >
+									<option ng-value="3">Through CBS Web Service Calls</option>
+								</select>
+							</td>
+							<td>
+								<select class="form-control" id="GBM_INT_01_old"
+								name="GBM_INT_01_old" ng-model="vm.generalSetupScope.GBM_INT_01"
+								string-to-number required disabled>
+									<option ng-value="3">Through CBS Web Service Calls</option>
+								</select>
+							</td>
+						</tr>
+						<tr>
+							<td>GBM/INT/02</td>
+							<td>To take the transaction date ( business date)</td>
+							<td><select class="form-control" id="GBM_INT_02"
+								name="GBM_INT_02" ng-model="vm.generalSetupNewScope.GBM_INT_02"
+								string-to-number required >
+									<option ng-value="1">Master Creation</option>
+									<option ng-value="3">Through CBS Web Service Calls</option>
+							</select></td>
+							<td><select class="form-control" id="GBM_INT_02_old"
+								name="GBM_INT_02_old" ng-model="vm.generalSetupScope.GBM_INT_02"
+								string-to-number required disabled>
+									<option ng-value="1">Master Creation</option>
+									<option ng-value="3">Through CBS Web Service Calls</option>
+							</select></td>
+						</tr>
+						<tr>
+							<td>GBM/INT/03</td>
+							<td>To take the branch description from CBS, Maintainance of
+								bank code, Branch code,Uniform branch code, Address details for
+								each branch</td>
+							<td><select class="form-control" id="GBM_INT_03"
+								name="GBM_INT_03" ng-model="vm.generalSetupNewScope.GBM_INT_03"
+								string-to-number required >
+									<option ng-value="1">Master Creation</option>
+									<option ng-value="2">Bulk Upload Facility</option>
+									<option ng-value="3">Through CBS Web Service Calls</option>
+							</select></td>
+							<td><select class="form-control" id="GBM_INT_03_old"
+								name="GBM_INT_03_old" ng-model="vm.generalSetupScope.GBM_INT_03"
+								string-to-number required disabled>
+									<option ng-value="1">Master Creation</option>
+									<option ng-value="2">Bulk Upload Facility</option>
+									<option ng-value="3">Through CBS Web Service Calls</option>
+							</select></td>
+						</tr>
+						<tr>
+							<td>GBM/INT/04</td>
+							<td>Maintanance of Office Account Placeholders (GL codes) in
+								CBS</td>
+							<td><select class="form-control" id="GBM_INT_04"
+								name="GBM_INT_04" ng-model="vm.generalSetupNewScope.GBM_INT_04"
+								string-to-number required >
+									<option ng-value="1">Master Creation</option>
+									<option ng-value="2">Bulk Upload Facility</option>
+									<option ng-value="3">Through CBS Web Service Calls</option>
+							</select></td>
+							<td><select class="form-control" id="GBM_INT_04_old"
+								name="GBM_INT_04_old" ng-model="vm.generalSetupScope.GBM_INT_04"
+								string-to-number required disabled>
+									<option ng-value="1">Master Creation</option>
+									<option ng-value="2">Bulk Upload Facility</option>
+									<option ng-value="3">Through CBS Web Service Calls</option>
+							</select></td>
+						</tr>
+						<tr>
+							<td>GBM/INT/05</td>
+							<td>Fetching of Branch Office Accounts using the Placeholder
+								value, set at DC level.</td>
+							<td><select class="form-control" id="GBM_INT_05"
+								name="GBM_INT_05" ng-model="vm.generalSetupNewScope.GBM_INT_05"
+								string-to-number required >
+									<option ng-value="3">Through CBS Web Service Calls</option>
+							</select></td>
+							<td><select class="form-control" id="GBM_INT_05_old"
+								name="GBM_INT_05_old" ng-model="vm.generalSetupScope.GBM_INT_05"
+								string-to-number required disabled>
+									<option ng-value="3">Through CBS Web Service Calls</option>
+							</select></td>
+						</tr>
+						<tr>
+							<td>GBM/INT/06</td>
+							<td>To check for the existence of the account number &
+								validations like account freeze etc.,</td>
+							<td><select class="form-control" id="GBM_INT_06"
+								name="GBM_INT_06" ng-model="vm.generalSetupNewScope.GBM_INT_06"
+								string-to-number required >
+									<option ng-value="3">Through CBS Web Service Calls</option>
+							</select></td>
+							<td><select class="form-control" id="GBM_INT_06_old"
+								name="GBM_INT_06_old" ng-model="vm.generalSetupScope.GBM_INT_06"
+								string-to-number required disabled>
+									<option ng-value="3">Through CBS Web Service Calls</option>
+							</select></td>
+						</tr>
+						<tr>
+							<td>GBM/INT/07</td>
+							<td>To maintain transactions done through cheques from the
+								customer accounts.</td>
+							<td><select class="form-control" id="GBM_INT_07"
+								name="GBM_INT_07" ng-model="vm.generalSetupNewScope.GBM_INT_07"
+								string-to-number required >
+									<option ng-value="3">Through CBS Web Service Calls</option>
+							</select></td>
+							<td><select class="form-control" id="GBM_INT_07_old"
+								name="GBM_INT_07_old" ng-model="vm.generalSetupScope.GBM_INT_07"
+								string-to-number required disabled>
+									<option ng-value="3">Through CBS Web Service Calls</option>
+							</select></td>
+						</tr>
+						<tr>
+							<td>GBM/INT/08</td>
+							<td>To get the list of accounts based on short name, scheme
+								code, scheme type</td>
+							<td><select class="form-control" id="GBM_INT_08"
+								name="GBM_INT_08" ng-model="vm.generalSetupNewScope.GBM_INT_08"
+								string-to-number required >
+									<option ng-value="3">Through CBS Web Service Calls</option>
+							</select></td>
+							<td><select class="form-control" id="GBM_INT_08_old"
+								name="GBM_INT_08_old" ng-model="vm.generalSetupScope.GBM_INT_08"
+								string-to-number required disabled>
+									<option ng-value="3">Through CBS Web Service Calls</option>
+							</select></td>
+						</tr>
+						<tr>
+							<td>GBM/INT/09</td>
+							<td>To get the list of instruments permitted for the entered
+								account number.</td>
+							<td><select class="form-control" id="GBM_INT_09"
+								name="GBM_INT_09" ng-model="vm.generalSetupNewScope.GBM_INT_09"
+								string-to-number required >
+									<option ng-value="1">Master Creation</option>
+									<option ng-value="2">Bulk Upload Facility</option>
+							</select></td>
+							<td><select class="form-control" id="GBM_INT_09_old"
+								name="GBM_INT_09_old" ng-model="vm.generalSetupScope.GBM_INT_09"
+								string-to-number required disabled>
+									<option ng-value="1">Master Creation</option>
+									<option ng-value="2">Bulk Upload Facility</option>
+							</select></td>
+						</tr>
+						<tr>
+							<td>GBM/INT/10</td>
+							<td>To get the account balance of the customer account</td>
+							<td><select class="form-control" id="GBM_INT_10"
+								name="GBM_INT_10" ng-model="vm.generalSetupNewScope.GBM_INT_10"
+								string-to-number required >
+									<option ng-value="3">Through CBS Web Service Calls</option>
+							</select></td>
+							<td><select class="form-control" id="GBM_INT_10_old"
+								name="GBM_INT_10_old" ng-model="vm.generalSetupScope.GBM_INT_10"
+								string-to-number required disabled>
+									<option ng-value="3">Through CBS Web Service Calls</option>
+							</select></td>
+						</tr>
+						<tr>
+							<td>GBM/INT/11</td>
+							<td>To push actual financial transactions in the CBS &
+								enquire the same in GBM with status</td>
+							<td><select class="form-control" id="GBM_INT_11"
+								name="GBM_INT_11" ng-model="vm.generalSetupNewScope.GBM_INT_11"
+								string-to-number required >
+									<option ng-value="3">Through CBS Web Service Calls</option>
+							</select></td>
+							<td><select class="form-control" id="GBM_INT_11_old"
+								name="GBM_INT_11_old" ng-model="vm.generalSetupScope.GBM_INT_11"
+								string-to-number required disabled>
+									<option ng-value="3">Through CBS Web Service Calls</option>
+							</select></td>
+						</tr>
+						<tr>
+							<td>GBM/INT/12</td>
+							<td>The clearing instruments will normally be lodged in a
+								zone opened in CBS for the day.</td>
+							<td><select class="form-control" id="GBM_INT_12"
+								name="GBM_INT_12" ng-model="vm.generalSetupNewScope.GBM_INT_12"
+								string-to-number required >
+									<option ng-value="3">Through CBS Web Service Calls</option>
+							</select></td>
+							<td><select class="form-control" id="GBM_INT_12_old"
+								name="GBM_INT_12_old" ng-model="vm.generalSetupScope.GBM_INT_12"
+								string-to-number required disabled>
+									<option ng-value="3">Through CBS Web Service Calls</option>
+							</select></td>
+						</tr>
+						<tr>
+							<td>GBM/INT/13</td>
+							<td>List of individual instrument details in the CBS to get
+								the instrument status information during reconciliation of
+								clearing</td>
+							<td><select class="form-control" id="GBM_INT_13"
+								name="GBM_INT_13" ng-model="vm.generalSetupNewScope.GBM_INT_13"
+								string-to-number required >
+									<option ng-value="3">Through CBS Web Service Calls</option>
+							</select></td>
+							<td><select class="form-control" id="GBM_INT_13_old"
+								name="GBM_INT_13_old" ng-model="vm.generalSetupScope.GBM_INT_13"
+								string-to-number required disabled>
+									<option ng-value="3">Through CBS Web Service Calls</option>
+							</select></td>
+						</tr>
+						<tr>
+							<td>GBM/INT/14</td>
+							<td>To get the open zones from CBS, for clearing
+								transactions</td>
+							<td><select class="form-control" id="GBM_INT_14"
+								name="GBM_INT_14" ng-model="vm.generalSetupNewScope.GBM_INT_14"
+								string-to-number required >
+									<option ng-value="3">Through CBS Web Service Calls</option>
+							</select></td>
+							<td><select class="form-control" id="GBM_INT_14_old"
+								name="GBM_INT_14_old" ng-model="vm.generalSetupScope.GBM_INT_14"
+								string-to-number required disabled>
+									<option ng-value="3">Through CBS Web Service Calls</option>
+							</select></td>
+						</tr>
+						<tr>
+							<td>GBM/INT/15</td>
+							<td>To get different types of instruments used in clearing
+								transactions</td>
+							<td><select class="form-control" id="GBM_INT_15"
+								name="GBM_INT_15" ng-model="vm.generalSetupNewScope.GBM_INT_15"
+								string-to-number required >
+									<option ng-value="1">Master Creation</option>
+									<option ng-value="2">Bulk Upload Facility</option>
+							</select></td>
+							<td><select class="form-control" id="GBM_INT_15_old"
+								name="GBM_INT_15_old" ng-model="vm.generalSetupScope.GBM_INT_15"
+								string-to-number required disabled>
+									<option ng-value="1">Master Creation</option>
+									<option ng-value="2">Bulk Upload Facility</option>
+							</select></td>
+						</tr>
+						<tr>
+							<td>GBM/INT/16</td>
+							<td>To get bank code & corresponding bank name</td>
+							<td><select class="form-control" id="GBM_INT_16"
+								name="GBM_INT_16" ng-model="vm.generalSetupNewScope.GBM_INT_16"
+								string-to-number required >
+									<option ng-value="1">Master Creation</option>
+									<option ng-value="2">Bulk Upload Facility</option>
+									<option ng-value="3">Through CBS Web Service Calls</option>
+							</select></td>
+							<td><select class="form-control" id="GBM_INT_16_old"
+								name="GBM_INT_16_old" ng-model="vm.generalSetupScope.GBM_INT_16"
+								string-to-number required disabled>
+									<option ng-value="1">Master Creation</option>
+									<option ng-value="2">Bulk Upload Facility</option>
+									<option ng-value="3">Through CBS Web Service Calls</option>
+							</select></td>
+						</tr>
+						<tr>
+							<td>GBM/INT/17</td>
+							<td>To get branches coming under different banks</td>
+							<td><select class="form-control" id="GBM_INT_17"
+								name="GBM_INT_17" ng-model="vm.generalSetupNewScope.GBM_INT_17"
+								string-to-number required >
+									<option ng-value="1">Master Creation</option>
+									<option ng-value="2">Bulk Upload Facility</option>
+									<option ng-value="3">Through CBS Web Service Calls</option>
+							</select></td>
+							<td><select class="form-control" id="GBM_INT_17_old"
+								name="GBM_INT_17_old" ng-model="vm.generalSetupScope.GBM_INT_17"
+								string-to-number required disabled>
+									<option ng-value="1">Master Creation</option>
+									<option ng-value="2">Bulk Upload Facility</option>
+									<option ng-value="3">Through CBS Web Service Calls</option>
+							</select></td>
+						</tr>
+						<tr>
+							<td>GBM/INT/18</td>
+							<td>To get sort codes pertaining to MICR instruments</td>
+							<td><select class="form-control" id="GBM_INT_18"
+								name="GBM_INT_18" ng-model="vm.generalSetupNewScope.GBM_INT_18"
+								string-to-number required >
+									<option ng-value="1">Master Creation</option>
+									<option ng-value="2">Bulk Upload Facility</option>
+									<option ng-value="3">Through CBS Web Service Calls</option>
+							</select></td>
+							<td><select class="form-control" id="GBM_INT_18_old"
+								name="GBM_INT_18_old" ng-model="vm.generalSetupScope.GBM_INT_18"
+								string-to-number required disabled>
+									<option ng-value="1">Master Creation</option>
+									<option ng-value="2">Bulk Upload Facility</option>
+									<option ng-value="3">Through CBS Web Service Calls</option>
+							</select></td>
+						</tr>
+						<tr>
+							<td>GBM/INT/19</td>
+							<td>To hit transactions in CBS, to tally the accounts
+								collection & funds transfer to Govt A/c.</td>
+							<td><select class="form-control" id="GBM_INT_19"
+								name="GBM_INT_19" ng-model="vm.generalSetupNewScope.GBM_INT_19"
+								string-to-number required >
+									<option ng-value="3">Through CBS Web Service Calls</option>
+							</select></td>
+							<td><select class="form-control" id="GBM_INT_19_old"
+								name="GBM_INT_19_old" ng-model="vm.generalSetupScope.GBM_INT_19"
+								string-to-number required disabled>
+									<option ng-value="3">Through CBS Web Service Calls</option>
+							</select></td>
+						</tr>
+						<tr>
+							<td>GBM/INT/20</td>
+							<td>To arrive at the next working day in a branch & check
+								whether that date is a holiday in CBS.</td>
+							<td><select class="form-control" id="GBM_INT_20"
+								name="GBM_INT_20" ng-model="vm.generalSetupNewScope.GBM_INT_20"
+								string-to-number required >
+									<option ng-value="1">Master Creation</option>
+									<option ng-value="2">Bulk Upload Facility</option>
+									<option ng-value="3">Through CBS Web Service Calls</option>
+							</select></td>
+							<td><select class="form-control" id="GBM_INT_20_old"
+								name="GBM_INT_20_old" ng-model="vm.generalSetupScope.GBM_INT_20"
+								string-to-number required disabled>
+									<option ng-value="1">Master Creation</option>
+									<option ng-value="2">Bulk Upload Facility</option>
+									<option ng-value="3">Through CBS Web Service Calls</option>
+							</select></td>
+						</tr>
+						<tr>
+							<td>GBM/INT/21</td>
+							<td>To create office & customer accounts under different
+								schemes launched by the bank</td>
+							<td><select class="form-control" id="GBM_INT_21"
+								name="GBM_INT_21" ng-model="vm.generalSetupNewScope.GBM_INT_21"
+								string-to-number required >
+									<option ng-value="1">Master Creation</option>
+									<option ng-value="2">Bulk Upload Facility</option>
+							</select></td>
+							<td><select class="form-control" id="GBM_INT_21_old"
+								name="GBM_INT_21_old" ng-model="vm.generalSetupScope.GBM_INT_21"
+								string-to-number required disabled>
+									<option ng-value="1">Master Creation</option>
+									<option ng-value="2">Bulk Upload Facility</option>
+							</select></td>
+						</tr>
+						<tr>
+							<td>GBM/INT/22</td>
+							<td>To provide inquiry of all current business day financial
+								transactions done in GBM</td>
+							<td><select class="form-control" id="GBM_INT_22"
+								name="GBM_INT_22" ng-model="vm.generalSetupNewScope.GBM_INT_22"
+								string-to-number required >
+									<option ng-value="3">Through CBS Web Service Calls</option>
+							</select></td>
+							<td><select class="form-control" id="GBM_INT_22_old"
+								name="GBM_INT_22_old" ng-model="vm.generalSetupScope.GBM_INT_22"
+								string-to-number required disabled>
+									<option ng-value="3">Through CBS Web Service Calls</option>
+							</select></td>
+						</tr>
+						<tr>
+							<td>GBM/INT/23</td>
+							<td>To provide history of all financial transactions done in
+								GBM</td>
+							<td><select class="form-control" id="GBM_INT_23"
+								name="GBM_INT_23" ng-model="vm.generalSetupNewScope.GBM_INT_23"
+								string-to-number required >
+									<option ng-value="3">Through CBS Web Service Calls</option>
+							</select></td>
+							<td><select class="form-control" id="GBM_INT_23_old"
+								name="GBM_INT_23_old" ng-model="vm.generalSetupScope.GBM_INT_23"
+								string-to-number required disabled>
+									<option ng-value="3">Through CBS Web Service Calls</option>
+							</select></td>
+						</tr>
+						<tr>
+							<td>GBM/INT/24</td>
+							<td>To ensure that the user has a valid session in CBS,
+								anytime the user clicks the GBM links</td>
+							<td><select class="form-control" id="GBM_INT_24"
+								name="GBM_INT_24" ng-model="vm.generalSetupNewScope.GBM_INT_24"
+								string-to-number required >
+									<option ng-value="3">Through CBS Web Service Calls</option>
+							</select></td>
+							<td><select class="form-control" id="GBM_INT_24_old"
+								name="GBM_INT_24_old" ng-model="vm.generalSetupScope.GBM_INT_24"
+								string-to-number required disabled>
+									<option ng-value="3">Through CBS Web Service Calls</option>
+							</select></td>
+						</tr>
+						<tr>
+							<td>GBM/INT/25</td>
+							<td>To authorize the transactions whose work class is
+								greater than the predefined value.</td>
+							<td><select class="form-control" id="GBM_INT_25"
+								name="GBM_INT_25" ng-model="vm.generalSetupNewScope.GBM_INT_25"
+								string-to-number required >
+									<option ng-value="1">Master Creation</option>
+									<option ng-value="2">Bulk Upload Facility</option>
+							</select></td>
+							<td><select class="form-control" id="GBM_INT_25_old"
+								name="GBM_INT_25_old" ng-model="vm.generalSetupScope.GBM_INT_25"
+								string-to-number required disabled>
+									<option ng-value="1">Master Creation</option>
+									<option ng-value="2">Bulk Upload Facility</option>
+							</select></td>
+						</tr>
+						<tr>
+							<td>GBM/INT/26</td>
+							<td>To control the initiation of branch EOD in CBS without
+								GBM MCP completion</td>
+							<td><select class="form-control" id="GBM_INT_26"
+								name="GBM_INT_26" ng-model="vm.generalSetupNewScope.GBM_INT_26"
+								string-to-number required >
+									<option ng-value="3">Through CBS Web Service Calls</option>
+							</select></td>
+							<td><select class="form-control" id="GBM_INT_26_old"
+								name="GBM_INT_26_old" ng-model="vm.generalSetupScope.GBM_INT_26"
+								string-to-number required disabled>
+									<option ng-value="3">Through CBS Web Service Calls</option>
+							</select></td>
+						</tr>
+						<tr>
+							<td>GBM/INT/27</td>
+							<td>To handle the transfer of collection funds to the
+								government account</td>
+							<td><select class="form-control" id="GBM_INT_27"
+								name="GBM_INT_27" ng-model="vm.generalSetupNewScope.GBM_INT_27"
+								string-to-number required >
+									<option ng-value="3">Through CBS Web Service Calls</option>
+							</select></td>
+							<td><select class="form-control" id="GBM_INT_27_old"
+								name="GBM_INT_27_old" ng-model="vm.generalSetupScope.GBM_INT_27"
+								string-to-number required disabled>
+									<option ng-value="3">Through CBS Web Service Calls</option>
+							</select></td>
+						</tr>
+						<tr>
+							<td>GBM/INT/28</td>
+							<td>To lookup Branch IFSC code</td>
+							<td><select class="form-control" id="GBM_INT_28"
+								name="GBM_INT_28" ng-model="vm.generalSetupNewScope.GBM_INT_28"
+								string-to-number required >
+									<option ng-value="1">Master Creation</option>
+									<option ng-value="2">Bulk Upload Facility</option>
+									<option ng-value="3">Through CBS Web Service Calls</option>
+							</select></td>
+							<td><select class="form-control" id="GBM_INT_28_old"
+								name="GBM_INT_28_old" ng-model="vm.generalSetupScope.GBM_INT_28"
+								string-to-number required disabled>
+									<option ng-value="1">Master Creation</option>
+									<option ng-value="2">Bulk Upload Facility</option>
+									<option ng-value="3">Through CBS Web Service Calls</option>
+							</select></td>
+						</tr>
+						<tr>
+							<td>GBM/INT/29</td>
+							<td>To fetch customer details</td>
+							<td><select class="form-control" id="GBM_INT_29"
+								name="GBM_INT_29" ng-model="vm.generalSetupNewScope.GBM_INT_29"
+								string-to-number required >
+									<option ng-value="3">Through CBS Web Service Calls</option>
+							</select></td>
+							<td><select class="form-control" id="GBM_INT_29_old"
+								name="GBM_INT_29_old" ng-model="vm.generalSetupScope.GBM_INT_29"
+								string-to-number required disabled>
+									<option ng-value="3">Through CBS Web Service Calls</option>
+							</select></td>
+						</tr>
+						<tr>
+							<td>GBM/INT/30</td>
+							<td>To fetch customer address details</td>
+							<td><select class="form-control" id="GBM_INT_30"
+								name="GBM_INT_30" ng-model="vm.generalSetupNewScope.GBM_INT_30"
+								string-to-number required >
+									<option ng-value="3">Through CBS Web Service Calls</option>
+							</select></td>
+							<td><select class="form-control" id="GBM_INT_30_old"
+								name="GBM_INT_30_old" ng-model="vm.generalSetupScope.GBM_INT_30"
+								string-to-number required disabled>
+									<option ng-value="3">Through CBS Web Service Calls</option>
+							</select></td>
+						</tr>
+						<tr>
+							<td>GBM/INT/31</td>
+							<td>To fetch customer demographic details</td>
+							<td><select class="form-control" id="GBM_INT_31"
+								name="GBM_INT_31" ng-model="vm.generalSetupNewScope.GBM_INT_31"
+								string-to-number required >
+
+									<option ng-value="3">Through CBS Web Service Calls</option>
+							</select></td>
+							<td><select class="form-control" id="GBM_INT_31_old"
+								name="GBM_INT_31_old" ng-model="vm.generalSetupScope.GBM_INT_31"
+								string-to-number required disabled>
+
+									<option ng-value="3">Through CBS Web Service Calls</option>
+							</select></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+
+			<div class="row" >
+				<div class="col-sm-7"></div>
+				<label class="control-label col-sm-5"><b>Verify Status : N</b></label>
+			</div>
+			
+
+			<div class="text-center form_submit">
+				
+				<button type="submit" class="btn btn-default" id="submitButton"
+					ng-disabled="generalSetupForm.$invalid" ng-click="vm.modify();">Update</button>
+
+				<button type="button" id="cancelInquiry" class="btn btn-cancel"
+					ng-click="vm.showCancelConfirmation('cbs_general_setup.list')">Cancel</button>
+			</div>
+			</from>
+	</div>
+</div>

@@ -1,0 +1,96 @@
+<div class="loader-new" ng-if="vm.loader"></div>
+<dc-left-menu></dc-left-menu>
+<div class="container from_wrapper new_form_wrapper">
+    <h4 class="form_heading">StateWise SGST Master For Brokerage - Inquiry</h4>
+    <sol-header></sol-header>
+    <form name="stateWiseSgstForminq" role="form">
+        <div class="col-sm-6 col-sm-offset-3">
+            <div class="row">
+                <div class="form-group required">
+                    <div class="col-sm-6">
+                        <label for="moduleName" class="control-label">Name of the Module</label>
+                    </div>
+                    <div class="col-sm-4">
+                        <label><b>RBI Bond</b></label>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group required">
+                    <div class="col-sm-6">
+                        <label class="control-label">Scheme Name</label>
+                    </div>
+                    <div class="col-sm-4">
+                        <label>{{vm.schemeName}}</label>
+                       <!-- <input type="text" class="form-control" id="schemeName"
+                               name="schemeName" ng-model="vm.schemeName" readonly required>-->
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div>
+            <table class="table table-bordered table-striped list old-new-value-table">
+                <thead>
+                <tr>
+                    <th>Particular</th>
+                    <th>{{(vm.auditInfo.prevOprType == 'M')?('Old Value'): ('Value')}}</th>
+                    <th ng-if="vm.auditInfo.prevOprType == 'M'">New Value</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>State Name</td>
+                    <td class="old-value">{{vm.stateName}}
+                    </td>
+                    <td ng-if="vm.auditInfo.prevOprType == 'M'" class="new-value">{{vm.stateName}}
+                    </td>
+                </tr>
+                <tr>
+                    <td>SGST Rate on Brokerage (%)</td>
+                    <td class="old-value">{{(vm.sgstRateVal && vm.sgstRateVal.C003)?
+                        (vm.sgstRateVal.C003.oldValue):('')}}
+                    </td>
+                    <td ng-if="vm.auditInfo.prevOprType == 'M'" class="new-value">{{(vm.sgstRateVal && vm.sgstRateVal.C003)?
+                        (vm.sgstRateVal.C003.newValue):('')}}
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    <div class="audit-details" align="left">
+        <div class="row">
+            <div class="col-md-3">
+                <span> <b> Created By </b> : {{vm.auditInfo.createdBy}} </span>
+            </div>
+            <div class="col-md-3">
+                <span> <b> Last Modified By </b> : {{(vm.auditInfo.modifiedBy) ? (vm.auditInfo.modifiedBy) : ('None')}}</span>
+            </div>
+            <div class="col-md-3">
+                <span> <b> Last Verified By </b> : {{(vm.auditInfo.verifiedBy) ? (vm.auditInfo.verifiedBy) : ('None')}}</span>
+            </div>
+            <div class="col-md-3">
+                <span> <b> Verify Status </b> : {{vm.auditInfo.verifiedStatus  | getLabelFromValuesArray : vm.commonYesNoMetaData}}</span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3">
+                <span> <b> Created On </b> : {{ vm.auditInfo.createdDate | date : 'dd/MM/yyyy'}}</span>
+            </div>
+            <div class="col-md-3">
+                <span> <b> Last Modified On</b> : {{ (vm.auditInfo.modifiedDate) ? (vm.auditInfo.modifiedDate | date : 'dd/MM/yyyy') : ('None')}}</span>
+            </div>
+            <div class="col-md-3">
+                <span> <b> Last Verified On </b> : {{(vm.auditInfo.verifiedDate) ? (vm.auditInfo.verifiedDate | date : 'dd/MM/yyyy') : ('None')}}</span>
+            </div>
+            <div class="col-md-3">
+                <span> <b> Rejection Remarks </b> : {{(vm.auditInfo.deleteRemarks) ? (vm.auditInfo.deleteRemarks) : ('None')}}</span>
+            </div>
+        </div>
+    </div>
+    <div class="text-center form_submit">
+        <button type="button" class="btn btn-cancel" id="cancelButton"
+                onclick="window.location.href= '#!/state_wise_sgst_master_for_brokerage/action/inquiry';">Cancel</button>
+    </div>
+    </form></div>
+
+

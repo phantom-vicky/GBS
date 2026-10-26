@@ -1,0 +1,244 @@
+<div class="loader-new" ng-if="vm.loader"></div>
+<div class="container from_wrapper new_form_wrapper">
+
+    <h4 class="form_heading">RBI Bond BOD_EOD Status Inquiry</h4>
+    <sol-header></sol-header>
+
+    <form name="accountOpeningForm" role="form">
+
+
+
+        <div class="row">
+            <div class="form-group required">
+                <div class="col-sm-3"></div>
+                <div class="col-sm-3">
+                    <label class="control-label">Status Inquiry</label>
+                </div>
+                <div class="col-sm-2">
+                    <select class="form-control" id="month" name="month" ng-model="vm.statusInquiry" ng-init="vm.monthIn=''"required>
+                        <option value="">Select</option>
+                        <option value="BC">BOD Completed</option>
+                        <option value="EC">EOD Completed</option>
+                        <option value="EP">EOD Pending</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+
+                <div class="row">
+            <div class="form-group">
+                <div class="col-sm-3"></div>
+                <div class="col-sm-3">
+                    <label  class="control-label">Module Name</label>
+                </div>
+                <div class="col-sm-2">
+                    <input type="text" class="form-control" id="moduleName"
+                           name="moduleName"
+                           ng-model="vm.moduleName" readonly>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="row">
+            <div class="form-group required">
+                <div class="col-sm-3"></div>
+                <div class="col-sm-3">
+                    <label class="control-label">Level Name</label>
+                </div>
+                <div class="col-sm-2">
+                    <p class="input-group">
+                        <input type="text" class="form-control"  name="branchId"
+                               ng-model="vm.levelName"
+                               chars="alpha-numeric"
+                               maxlength="10"
+                               oninput="this.value = this.value.replace(/\s+/g, '')"
+                               readonly required
+                        />
+                    </p>
+                </div>
+                <div class="col-sm-2">
+                    <i class="glyphicon glyphicon-search cp" data-bs-toggle="modal"
+                       ng-click="vm.getlevelname();"></i>
+                    <i class="glyphicon glyphicon-remove clear cp"
+                       ng-click="vm.levelName ='';"></i>
+                </div>
+            </div>
+        </div>
+
+
+                    <!--Level Branch Id-->
+        <div class="row">
+            <div class="form-group required">
+                <div class="col-sm-3"></div>
+                <div class="col-sm-3">
+                    <label class="control-label">Level Branch Id</label>
+                </div>
+                <div class="col-sm-2">
+                    <p class="input-group">
+                        <input type="text" class="form-control"  name="branchId"
+                               ng-model="vm.branchId"
+                               chars="alpha-numeric"
+                               maxlength="10"
+                               oninput="this.value = this.value.replace(/\s+/g, '')"
+                               readonly required
+                        />
+                    </p>
+                </div>
+                <div class="col-sm-2">
+                    <i class="glyphicon glyphicon-search cp" data-bs-toggle="modal"
+                       ng-click="vm.getLevelBranchTorch();"></i>
+                    <i class="glyphicon glyphicon-remove clear cp"
+                       ng-click="vm.branchId ='';"></i>
+                </div>
+            </div>
+        </div>
+
+        <div class="text-center form_submit">
+            <button type="submit" class="btn btn-default" id="submitButton"
+                    ui-sref="rbibond_bod_eod_status_inquiry_dc.inquiry_details({obj:{
+								schemeCode: vm.schemeCode,
+								schemeName: vm.schemeName,
+								schemeStatus: vm.schemeStatus,
+                                branchId: vm.branchId,
+                                levelName: vm.levelName,
+                                levelId: vm.levelId,
+                                statusInquiry: vm.statusInquiry,
+								}})"
+                    ng-disabled="accountOpeningForm.$invalid">Submit
+            </button>
+            <button type="button" class="btn btn-cancel" id="cancelButton"
+                    onclick="window.location.href= '#!/rbibond_gu_functionality';">Cancel
+            </button>
+        </div>
+        <div class="text-center">
+            <notice-message-directive></notice-message-directive>
+        </div>
+    </form>
+
+</div>
+
+
+<!--Level Name-->
+<div class="modal" id="levelBranchModal" role="dialog">
+
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-bs-dismiss="modal">&times;</button>
+                <h4 class="modal-title title-case">Level Name</h4>
+            </div>
+
+            <div class="modal-body">
+                <div class="loader_popup"></div>
+                <div class="list_wrapper" ng-if="vm.levelname.length>0">
+                    <div class="col-sm-8 form_submit">
+                        <div class="form-group">
+                            <div class="input-group">
+                                <div class="input-group-addon">
+                                    <i class="glyphicon glyphicon-search"></i>
+                                </div>
+                                <input type="text" class="form-control"
+                                       ng-model="vm.levelName" placeholder="Search"
+                                       oninput="this.value = this.value.replace(/^\s+/, '').replace(/[^0-9a-zA-Z\s]/g, '').replace(/\s{2,}/g, ' ')">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4 form_submit"></div>
+                    <div class="row">
+
+                        <div class="col-sm-12">
+                            <table class="table table-bordered list scroll">
+                                <thead ng-init="reverseOrder = false; sortedColumn = 'levelId'">
+                                <tr>
+                                    <th scope="col" class="modal-title title-case" ng-click="(sortedColumn == 'levelId')?(reverseOrder=(!reverseOrder)): (reverseOrder = false);sortedColumn = 'levelId';" ng-class="(sortedColumn == 'levelId')?((reverseOrder)?('arrow-down') : ('arrow-up') ) : ('')">Level Id</th>
+                                    <th scope="col" class="modal-title title-case" ng-click="(sortedColumn == 'levelName')?(reverseOrder=(!reverseOrder)): (reverseOrder = false);sortedColumn = 'levelName';" ng-class="(sortedColumn == 'levelName')?((reverseOrder)?('arrow-down') : ('arrow-up') ) : ('')">Level Name</th>
+                                    <th scope="col" class="modal-title title-case" ng-click="(sortedColumn == 'parentLevelId')?(reverseOrder=(!reverseOrder)): (reverseOrder = false);sortedColumn = 'parentLevelId';" ng-class="(sortedColumn == 'parentLevelId')?((reverseOrder)?('arrow-down') : ('arrow-up') ) : ('')">Parent Level Id</th>
+                                    <th scope="col" class="modal-title title-case" ng-click="(sortedColumn == 'parentLevelName')?(reverseOrder=(!reverseOrder)): (reverseOrder = false);sortedColumn = 'parentLevelName';" ng-class="(sortedColumn == 'parentLevelName')?((reverseOrder)?('arrow-down') : ('arrow-up') ) : ('')">Parent Level Name</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr class="cp" ng-repeat="x in vm.levelname | filter: vm.levelName | orderBy:sortedColumn:reverseOrder"
+                                    ng-click="vm.levelId=x.levelId; vm.levelName = x.levelName; vm.parentLevelId = x.parentLevelId; vm.parentLevelName = x.parentLevelName;"
+                                    data-bs-dismiss='modal'>
+                                    <td>{{x.levelId}}</td>
+                                    <td>{{x.levelName}}</td>
+                                    <td>{{x.parentLevelId}}</td>
+                                    <td>{{x.parentLevelName}}</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="list_wrapper" ng-if="vm.levelname.length==0">No
+                    records found to display.
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+<!--Level Branch Id-->
+<div class="modal" id="branchModal" role="dialog">
+
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-bs-dismiss="modal">&times;</button>
+                <h4 class="modal-title title-case">Level Branch Id</h4>
+            </div>
+
+            <div class="modal-body">
+                <div class="loader_popup"></div>
+                <div class="list_wrapper" ng-if="vm.levelbranchid.length>0">
+                    <div class="col-sm-8 form_submit">
+                        <div class="form-group">
+                            <div class="input-group">
+                                <div class="input-group-addon">
+                                    <i class="glyphicon glyphicon-search"></i>
+                                </div>
+                                <input type="text" class="form-control"
+                                       ng-model="vm.branchId" placeholder="Search"
+                                       oninput="this.value = this.value.replace(/^\s+/, '').replace(/[^0-9a-zA-Z\s]/g, '').replace(/\s{2,}/g, ' ')">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4 form_submit"></div>
+                    <div class="row">
+
+                        <div class="col-sm-12">
+                            <table class="table table-bordered list scroll">
+                                <thead ng-init="reverseOrder = false; sortedColumn = 'branchId'">
+                                <tr>
+                                    <th scope="col" class="modal-title title-case" ng-click="(sortedColumn == 'levelBranchId')?(reverseOrder=(!reverseOrder)): (reverseOrder = false);sortedColumn = 'levelBranchId';" ng-class="(sortedColumn == 'levelBranchId')?((reverseOrder)?('arrow-down') : ('arrow-up') ) : ('')">Sol Id</th>
+                                    <th scope="col" class="modal-title title-case" ng-click="(sortedColumn == 'branchDesc')?(reverseOrder=(!reverseOrder)): (reverseOrder = false);sortedColumn = 'branchDesc';" ng-class="(sortedColumn == 'branchDesc')?((reverseOrder)?('arrow-down') : ('arrow-up') ) : ('')">Sol Description</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr class="cp" ng-repeat="x in vm.levelbranchid | filter: vm.branchId | orderBy:sortedColumn:reverseOrder"
+                                    ng-click="vm.branchId=x.levelBranchId;vm.branchDesc = x.branchDesc;"
+                                    data-bs-dismiss='modal'>
+                                    <td>{{x.levelBranchId}}</td>
+                                    <td>{{x.branchDesc}}</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="list_wrapper" ng-if="vm.levelbranchid.length==0">No
+                    records found to display.
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+

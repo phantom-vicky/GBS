@@ -1,0 +1,124 @@
+<div class="loader-new" ng-if="vm.loader"></div>
+<cbs-left-menu></cbs-left-menu>
+<div class="container from_wrapper new_form_wrapper">
+	<h4 class="form_heading  feature-heading">Instrument Details -
+		Delete</h4>
+	<form name="instrumentDetailsForm" role="form">
+		
+		<table class="table table-bordered table-striped list">
+			<thead>
+		    	<tr>
+		        	<th>Particular</th>
+		        	<th ng-if="!vm.newValueDispay">Value</th>
+		        	<th ng-if="vm.newValueDispay">New Value</th>
+		        	<th ng-if="vm.newValueDispay">Old Value</th> 
+		    	</tr>
+		    </thead>
+			<tbody>
+				<tr>
+					<td>
+						<label for="drCrIndicator" class="control-label">Debit or
+							Credit Indicator</label>
+					</td>
+					<td ng-if="vm.newValueDispay">
+						<label class="data-bind" id="drCrIndicatorNew" ng-if= "vm.instrumentDetailsNewScope.drCrIndicator == 'C'">Credit</label>
+						<label class="data-bind" id="drCrIndicatorNew" ng-if= "vm.instrumentDetailsNewScope.drCrIndicator == 'D'">Debit</label>
+					</td>
+					<td>
+						<label class="data-bind" id="drCrIndicator" ng-if= "vm.instrumentDetails.drCrIndicator == 'C'">Credit</label>
+						<label class="data-bind" id="drCrIndicator" ng-if= "vm.instrumentDetails.drCrIndicator == 'D'">Debit</label>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<label for="instrumentType" class="control-label"
+						ng-init="vm.getInstrumentTypes()">Type of
+							Instrument</label>
+					</td>
+					<td ng-if="vm.newValueDispay">
+						<label class="data-bind" id="instrumentTypeNew"  
+							ng-if= "x == vm.instrumentDetailsNewScope.instrumentType" 
+							ng-repeat="(x,y) in vm.typeOfInstrumentList">
+							{{y}}</label>
+					</td>
+					<td>
+						<label class="data-bind" id="instrumentType"  
+							ng-if= "x == vm.instrumentDetails.instrumentType" 
+							ng-repeat="(x,y) in vm.typeOfInstrumentList">
+							{{y}}</label>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<label for="schemeCode" class="control-label">Scheme Code</label>
+					</td>
+					<td ng-if="vm.newValueDispay">
+						<label class="data-bind" id="schemeCodeNew">
+							{{vm.instrumentDetailsNewScope.schemeCode}}</label>
+					</td>
+					<td>
+						<label class="data-bind" id="schemeCode">
+							{{vm.instrumentDetails.schemeCode}}</label>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<label for="additionalText1" class="control-label">Additional
+							Text1</label>
+					</td>
+					<td ng-if="vm.newValueDispay">
+						<label class="data-bind" id="additionalText1New">
+							{{vm.instrumentDetailsNewScope.additionalText1}}</label>
+					</td>
+					<td>
+						<label class="data-bind" id="additionalText1">
+							{{vm.instrumentDetails.additionalText1}}</label>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<label for="additionalText1" class="control-label">Additional
+							Text2</label>
+					</td>
+					<td ng-if="vm.newValueDispay">
+						<label class="data-bind" id="additionalText2New">
+							{{vm.instrumentDetailsNewScope.additionalText2}}</label>
+					</td>
+					<td>
+						<label class="data-bind" id="additionalText2">
+							{{vm.instrumentDetails.additionalText2}}</label>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<label for="additionalText1" class="control-label">Additional
+							Text3</label>
+					</td>
+					<td ng-if="vm.newValueDispay">
+						<label class="data-bind" id="additionalText3New">
+							{{vm.instrumentDetailsNewScope.additionalText3}}</label>
+					</td>
+					<td>
+						<label class="data-bind" id="additionalText3">
+							{{vm.instrumentDetails.additionalText3}}</label>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	
+		<div class="row" >
+			<div class="col-sm-7"></div>
+			<label  ng-if="!vm.verified" class="control-label col-sm-5"><b>Verify Status : Y</b></label>
+			<label  ng-if="vm.verified" class="control-label col-sm-5"><b>Verify Status : N</b></label>
+		</div>
+		<div class="row">
+			<div class="text-center form_submit">
+				<button type="button" class="btn btn-default" id="submitButton"
+					ng-click="vm.deleteInstrument(vm.instrumentDetails.instrumentId)">Delete</button>
+				<button type="button" class="btn btn-cancel" id="cancelButton"
+					ui-sref="instrument_details.delete">Cancel</button>
+			</div>
+		</div>
+	</form>
+</div>
+

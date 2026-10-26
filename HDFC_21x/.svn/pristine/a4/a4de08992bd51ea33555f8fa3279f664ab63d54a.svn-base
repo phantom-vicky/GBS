@@ -1,0 +1,1544 @@
+<div class="container from_wrapper">
+    <div class="loader-new" ng-if="vm.loader"></div>
+    <dc-left-menu></dc-left-menu>
+    <h4 class="form_heading">Bond Subscription Workflow - Add</h4>
+    <sol-header></sol-header>
+
+    <div class="container" >
+        <uib-accordion close-others="oneAtATime">
+            <form name="vm.bondSubscriptionFlowForm" role="form"
+                      ng-submit="vm.submitAddForm()">
+
+                <div uib-accordion-group id="general-details"
+                     class="panel-default panel panel-open"
+                     heading="Bond Subscription Workflow - Add" is-open="true" ng-ini="vm.getModuleName()">
+
+                    <div class="row">
+                        <div class="form-group" ng-class="requiredClass">
+                            <label for="isNri" class="control-label col-sm-3">Name of the Module
+                            </label>
+                            <div class="col-sm-2">
+                                :
+                                <label  class="data-bind">RBI Bond</label>
+                            </div>
+                            <div class="col-sm-1"></div>
+                            <label for="isNri" class="control-label col-sm-3">BLA Number
+                            </label>
+                            <div class="col-sm-2">
+                                :
+                                <label id="isNri" class="data-bind" >{{vm.blaNo}} </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="form-group" ng-class="requiredClass">
+                            <label class="control-label col-sm-3">Name of the Bond Scheme
+                            </label>
+                            <div class="col-sm-2">
+                                :
+                                <label class="data-bind" >{{vm.schemeName}}</label>
+                            </div>
+                            <div class="col-sm-1"></div>
+                            <label class="control-label col-sm-3">Mode of Holding
+                            </label>
+                            <div class="col-sm-2">
+                                :
+                                <label class="data-bind"  >{{vm.modeOfHolding}}</label>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+
+                <div uib-accordion-group id="personal-details" class="panel"
+                     heading='BOND HOLDER DETAILS'
+                     is-open="vm.personalDetailsOpen"
+                     ng-class="(vm.customerPersonalDetails.$invalid) ? 'panel-danger' : 'panel-success'">
+
+                    <ng-form name="vm.customerPersonalDetails" ng-init="vm.customerMasterDetails">
+                        <table class="table table-bordered">
+                            <tbody>
+
+                            <tr ng-if="vm.bondHolderDetails[0].modeOfHoldingKeyword == 'MH001' || vm.bondHolderDetails[0].modeOfHoldingKeyword == 'MH004' || vm.bondHolderDetails[0].modeOfHoldingKeyword == 'MH005'">
+                                <td width="25%" >
+                                    <label  class="control-label">Bond Holder Name</label>
+                                </td>
+                                <td width="25%">
+                                    <label  class="control-label">{{vm.bondHolderDetailSingleBondHolderName}}</label>
+                                </td>
+
+                                <td width="25%">
+                                    <label class="control-label">Bond Ledger Account Number</label>
+                                </td>
+                                <td width="25%">
+                                    <label class="control-label">{{vm.bondHolderDetailSingleBlaNo}}</label>
+                                </td>
+                            </tr>
+
+
+                            <tr ng-if="vm.bondHolderDetails[0].modeOfHoldingKeyword == 'MH002' || vm.bondHolderDetails[0].modeOfHoldingKeyword == 'MH003'">
+                                <td width="25%" >
+                                <label  class="control-label">First joint Bond Holder Name</label>
+                            </td>
+                            <td width="25%">
+                                <label  class="control-label">{{vm.bondHolderDetailFirstBondHolderName}}</label>
+                            </td>
+
+                            <td width="25%">
+                                <label class="control-label">First joint Bond Holder BLA No.</label>
+                            </td>
+                            <td width="25%">
+                                <label class="control-label">{{vm.bondHolderDetailFirstBlaNo}}</label>
+                            </td>
+                            </tr>
+
+                            <div ng-if="vm.bondHolderDetails.length >= 2">
+                                <tr ng-if="vm.bondHolderDetails[0].modeOfHoldingKeyword == 'MH002' || vm.bondHolderDetails[0].modeOfHoldingKeyword == 'MH003' && vm.bondHolderDetails.length >= 2">
+                                    <td width="25%" >
+                                        <label  class="control-label">Second joint Bond Holder Name</label>
+                                    </td>
+                                    <td width="25%">
+                                        <label  class="control-label">{{vm.bondHolderDetailSecondBondHolderName}}</label>
+                                    </td>
+
+                                    <td width="25%">
+                                        <label class="control-label">Second joint Bond Holder BLA No.</label>
+                                    </td>
+                                    <td width="25%">
+                                        <label class="control-label">{{vm.bondHolderDetailSecondBlaNo}}</label>
+                                    </td>
+                                </tr>
+
+                            </div>
+
+                            <tr>
+                                <td width="25%" >
+                                    <label  class="control-label">Is NRI?</label>
+                                </td>
+                                <td width="25%">
+                                    <label  class="control-label">{{vm.bondHolderDetails[0].isNri | getLabelFromValuesArray : vm.commonYesNoMetaData}}</label>
+                                </td>
+                            </tr>
+
+
+                            </tbody>
+                        </table>
+                    </ng-form>
+                </div>
+
+                <div uib-accordion-group id="bond-subscription-details" class="panel"
+                     heading='BOND SUBSCRIPTION  DETAILS'
+                     is-open="vm.bondSubscriptionDetailsOpen"
+                     ng-class="(vm.bondSubscriptionDetails.$invalid) ? 'panel-danger' : 'panel-success'">
+
+                    <ng-form name="vm.bondSubscriptionDetails" ng-init="vm.customerMasterDetails">
+                        <table class="table table-bordered">
+                            <tbody>
+
+                            <tr>
+                                <td width="25%" >
+                                    <label for="cbsCustomerId" class="control-label">Application Number</label>
+                                </td>
+                                <td width="25%">
+                                    <div class="row">
+                                        <div class="col-sm-9">
+                                            <input type="text" class="form-control" id="cbsCustomerId"
+                                                   name="tranSolId"
+                                                   ng-init="vm.applicationNo = ''"
+                                                   ng-model="vm.applicationNo"
+                                                   chars="alpha-numeric" disabled readonly>
+                                        </div>
+                                        <div class="col-sm-3 torch-top">
+                                            <i class="glyphicon glyphicon-search cp" data-bs-toggle="modal"
+                                               ng-click="vm.getApplicationNoTorch();" id="solISearcher"></i>
+                                            <i class="glyphicon glyphicon-remove clear cp"
+                                               ng-click="vm.applicationNo = ''; vm.applicationDate = ''; vm.subscriptionAmount='';" id="tranolIdClose"></i>
+                                        </div>
+                                    </div>
+                                </td>
+
+                                <td width="25%">
+                                    <label class="control-label">Application Date</label>
+                                </td>
+                                <td width="25%">
+                                    <label class="control-label">{{vm.applicationDate}}</label>
+                                </td>
+                            </tr>
+
+
+                            <tr>
+                                <td width="25%" >
+                                    <label for="cbsCustomerId" class="control-label">Broker Id</label>
+                                </td>
+                                <td width="25%">
+                                    <div class="row">
+                                        <div class="col-sm-9">
+                                            <input type="text" class="form-control" id="brokerId"
+                                                   name="brokerId"
+                                                   ng-init="vm.brokerId = ''"
+                                                   ng-model="vm.brokerId"
+                                                   chars="alpha-numeric"readonly disabled>
+                                        </div>
+                                        <div class="col-sm-3 torch-top">
+                                            <i class="glyphicon glyphicon-search cp" data-bs-toggle="modal"
+                                               ng-click="vm.getBrokerTorch();" id="brokerIdSearcher"></i>
+                                            <i class="glyphicon glyphicon-remove clear cp"
+                                               ng-click="vm.brokerId = '';" id="brokerIdIdClose"></i>
+                                        </div>
+                                    </div>
+                                </td>
+
+                                <td width="25%" class="form-group required">
+                                    <label for="cbsCustomerId" class="control-label">Subscription Amount</label>
+                                </td>
+
+                                <td width="25%" >
+                                    <input type="text" class="form-control"
+                                           id="saphoneNum" ng-model="vm.subscriptionAmount" ng-blur="vm.validateMultiples(vm.subscriptionAmount, 'add');"
+                                           chars="only-numbers" onkeypress="return isNumber(event)" required>
+                                    <span class="alert-danger" ng-if="vm.depositMultiplesErrMsg">{{vm.depositMultiplesErrMsg}}</span>
+
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td width="25%" class="form-group required">
+                                    <label class="control-label">Bond Type</label>
+                                </td>
+                                <td width="25%">
+                                    <select class="form-control" id="bondType" ng-init=""
+                                                        name="bondType" ng-model="vm.bondType"
+                                                        required>
+                                    <option value="" >Select</option>
+                                    <option value="Non-Cumulative"  ng-selected="vm.bondType == 'Non-Cumulative'">Non-Cumulative</option>
+                                </select>
+                                </td>
+
+                                <td width="25%">
+                                    <label class="control-label">Account Open Date (dd/mm/yyyy)</label>
+                                </td>
+                                <td width="25%">
+                                    <label class="control-label">{{vm.accountOpeningDate}}</label>
+                                </td>
+
+                            </tr>
+
+
+                            <tr>
+                                <td width="25%">
+                                    <label class="control-label">Value Date (dd/mm/yyyy)</label>
+                                </td>
+                                <td width="25%">
+                                    <label class="control-label">{{vm.accountOpeningDate}}</label>
+                                </td>
+
+                                <td width="25%">
+                                    <label class="control-label">Period of Deposit (months)</label>
+                                </td>
+                                <td width="25%">
+                                    <label class="control-label">{{vm.periodOfDeposit}}</label>
+                                </td>
+
+                            </tr>
+
+                            <tr>
+                                <td width="25%">
+                                    <label class="control-label">Maturity Date (dd/mm/yyyy)</label>
+                                </td>
+                                <td width="25%">
+                                    <label class="control-label">{{vm.maturityDate}}</label>
+                                </td>
+
+                                <td width="25%">
+                                    <label class="control-label">Rate of Interest(%)</label>
+                                </td>
+                                <td width="25%">
+                                    <label class="control-label">{{vm.rateOfInterest}}</label>
+                                </td>
+
+                            </tr>
+
+                            <tr>
+                                <td width="25%" class="form-group required">
+                                    <label class="control-label">Mode of Interest Payment/ Principal<br> Repayment</label>
+                                </td>
+                                <td width="25%">
+                                    <select class="form-control" id="modeOfInterestPayment" ng-init=""
+                                            name="modeOfInterestPayment" ng-model="vm.modeOfInterestPayment" ng-change="vm.modeOfInterestPaymentValidation(vm.modeOfInterestPayment);"
+                                            required>
+                                        <option value="" >Select</option>
+                                        <option ng-repeat="item in vm.modeOfInterestPaymentList" value="{{item.SUBCODE}}">{{item.DESCRIPTION}}</option>
+                                    </select>
+                                </td>
+
+                                <td width="25%" class="form-group required" ng-if="vm.modeOfInterestPayment == 'MP001'">
+                                    <label class="control-label">Operative Account Number</label></td>
+                                <td width="25%" ng-if="vm.modeOfInterestPayment == 'MP001'">
+                                    <input type="text" class="form-control"
+                                                       id="operativeAcc" name="operativeAcc" chars="alpha-numeric" maxlength="20" ng-blur="vm.validateOperativeAccNum(vm.operativeAccNum)"
+                                                       ng-model="vm.operativeAccNum" required>
+                                    <span class="alert-danger" ng-if="vm.cbsErrorMessage">{{vm.cbsErrorMessage}}</span>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td width="25%" ng-if="vm.modeOfInterestPayment == 'MP001'">
+                                    <label class="control-label">Branch Id</label>
+                                </td>
+                                <td width="25%" ng-if="vm.modeOfInterestPayment == 'MP001'">
+                                    <div class="row">
+                                        <div class="col-sm-9">
+                                            <input type="text" class="form-control" id="tranSolId"
+                                                   name="tranSolId" ng-init="vm.operativeAccBranchId=''"
+                                                   ng-model="vm.operativeAccBranchId" chars="alpha-numeric" readonly>
+                                        </div>
+                                    </div>
+                                </td>
+
+                                <td width="25%" class="form-group required" ng-if="vm.modeOfInterestPayment == 'MP002'">
+                                    <label class="control-label">DD/PO Account Number</label></td>
+                                <td width="25%" ng-if="vm.modeOfInterestPayment == 'MP002'">
+                                    <input type="text" class="form-control"
+                                           id="ddpoAccountNo" name="ddpoAccountNo" chars="alpha-numeric" maxlength="20"
+                                           ng-model="vm.ddpoAccountNo" required>
+                                </td>
+                            </tr>
+
+                            <tr ng-if="vm.modeOfInterestPayment == 'MP003'">
+                                <td width="25%" class="form-group required" >
+                                    <label class="control-labelaria-controls">Bank Code</label></td>
+                                <td width="25%">
+                                    <div class="row">
+                                        <div class="col-sm-9">
+                                            <input type="text" class="form-control" id="bankCode"
+                                                   name="bankCode"
+                                                   ng-model="vm.bankCode"
+                                                   chars="alpha-numeric" disabled readonly required>
+                                        </div>
+                                        <div class="col-sm-3 torch-top">
+                                            <i class="glyphicon glyphicon-search cp" data-bs-toggle="modal"
+                                               ng-click="vm.getOtherBankDetailsTorch();" id="otherBankSearcher"></i>
+                                            <i class="glyphicon glyphicon-remove clear cp"
+                                               ng-click="vm.bankCode = ''; vm.branchCode = ''" id="otherBankolIdClose"></i>
+                                        </div>
+                                    </div>
+
+                                </td>
+
+                                <td width="25%" class="form-group required">
+                                    <label class="control-label">Branch Code</label></td>
+                                <td width="25%">
+                                    <input type="text" class="form-control"
+                                           id="branchCode" name="branchCode" chars="alpha-numeric" maxlength="20"
+                                           ng-model="vm.branchCode" disabled readonly required>
+                                </td>
+                            </tr>
+
+                            <tr ng-if="vm.modeOfInterestPayment == 'MP003'">
+                                <td width="25%" class="form-group required">
+                                    <label class="control-label">IFSC Code of the Credit Bank</label></td>
+                                <td width="25%">
+                                    <input type="text" class="form-control"
+                                           id="creditBankIfscCode" name="creditBankIfscCode" chars="alpha-numeric"  minlength="11" maxlength="11"
+                                           ng-model="vm.creditBankIfscCode" required>
+                                </td>
+
+                                <td width="25%" class="form-group required">
+                                    <label class="control-label">Name of the Payee</label></td>
+                                <td width="25%">
+                                    <input type="text" class="form-control"
+                                           id="nameOfthePayee" name="nameOfthePayee" chars="alpha-numeric" maxlength="20"
+                                           ng-model="vm.nameOfthePayee" required>
+                                </td>
+                            </tr>
+
+                            <tr ng-if="vm.modeOfInterestPayment == 'MP003'">
+                                <td width="25%" class="form-group required" >
+                                    <label class="control-label">Credit Account Number</label></td>
+                                <td width="25%">
+                                    <input type="text" class="form-control"
+                                           id="creditAccNo" name="creditAccNo" chars="alpha-numeric" maxlength="20"
+                                           ng-model="vm.creditAccNo" required>
+                                </td>
+
+                                <td width="25%">
+                                <td width="25%">
+                                </td>
+                            </tr>
+
+
+                            </tbody>
+                        </table>
+                    </ng-form>
+                </div>
+
+                <div uib-accordion-group id="bond-transaction-details" class="panel"
+                     heading='TRANSACTION DETAILS'
+                     is-open="vm.bondTransactionDetailsOpen"
+                     ng-class="(vm.bondTransactionDetails.$invalid) ? 'panel-danger' : 'panel-success'">
+
+                    <ng-form name="vm.bondTransactionDetails" >
+                        <table class="table table-bordered">
+                            <tbody>
+
+                            <tr>
+                                <td width="25%" class="form-group required">
+                                    <label class="control-label">Transaction Mode</label>
+                                </td>
+                                <td width="25%">
+                                    <select class="form-control" id="transactionMode"
+                                            name="transactionMode" ng-model="vm.transactionMode" ng-change="vm.validateMultiples(vm.subscriptionAmount,'add');vm.debitAccNo='';
+vm.debitBranchId='';
+vm.instrumentType='';
+vm.instrumentNo='';
+vm.instrumentDate='';
+vm.instrumentAmount='';
+vm.tranCode='';
+vm.zoneCode='';
+vm.zoneDate='';
+vm.bankCodeNonMicr='';
+vm.branchCodeNonMicr='';
+vm.sortCode='';"
+                                            required>
+                                        <option value="" >Select</option>
+                                        <option ng-repeat="item in vm.transactionModeList" value="{{item.SUBCODE}}">{{item.DESCRIPTION}}</option>
+                                    </select>
+                                </td>
+
+                                <td ng-if="vm.transactionMode == 'T'" width="25%" class="form-group required">
+                                    <label class="control-label">Debit Account Number</label></td>
+                                <td width="25%" ng-if="vm.transactionMode == 'T'">
+                                    <input type="text" class="form-control"
+                                           id="debitAccNo" name="debitAccNo" chars="alpha-numeric" maxlength="20"
+                                           ng-model="vm.debitAccNo" ng-blur="vm.validateOperativeAccNumForDebit(vm.debitAccNo)" required>
+                                    <span class="alert-danger" ng-if="vm.cbsErrorMessageForDebit">{{vm.cbsErrorMessageForDebit}}</span>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td ng-if="vm.transactionMode == 'T'" width="25%" class="form-group required">
+                                    <label class="control-label">Branch ID</label></td>
+                                <td width="25%" ng-if="vm.transactionMode == 'T'">
+                                    <input type="text" class="form-control"
+                                           id="debitBranchId" name="debitBranchId" chars="alpha-numeric" maxlength="20"
+                                           ng-model="vm.debitBranchId" required readonly>
+                                </td>
+
+                                <td ng-if="vm.transactionMode=='T' || vm.transactionMode=='CL'" width="25%" ng-class="vm.transactionMode!='CL' ? 'form-group required' : 'form-group'">
+                                    <label class="control-label">Instrument Type</label>
+                                </td>
+                                <td ng-if="vm.transactionMode=='T'  || vm.transactionMode=='CL'" width="25%">
+
+                                    <select class="form-control" id="instrumentType"
+                                            name="instrumentType" ng-model="vm.instrumentType"
+                                            ng-required="vm.transactionMode!='CL'">
+                                        <option value="" >Select</option>
+                                        <option ng-if="vm.transactionMode=='T'" value="CHQ">CHEQUE</option>
+                                        <option ng-if="vm.transactionMode=='T' || vm.transactionMode=='CL'"  value="DD">DD</option>
+                                    </select>
+                                </td>
+
+                            </tr>
+
+
+                            <tr>
+                                <td width="25%" class="form-group required" ng-if="vm.transactionMode=='T' || vm.transactionMode=='CL'">
+                                    <label class="control-label">Instrument Number</label></td>
+                                <td width="25%" ng-if="vm.transactionMode=='T' || vm.transactionMode=='CL'">
+                                    <input type="text" class="form-control"
+                                           id="instrumentNo" name="instrumentNo" chars="only-numbers" limit-to="6" ng-blur="vm.validateInstNum(vm.instrumentNo);"
+                                           ng-model="vm.instrumentNo"  required>
+                                    <span class="alert-danger" ng-if="vm.insErrorMessage">{{vm.insErrorMessage}}</span>
+                                </td>
+
+                                <td width="25%" class="form-group required" ng-if="vm.transactionMode=='T' || vm.transactionMode=='CL'">
+                                    <label class="control-label">Instrument Date<br> (DD/MM/YYYY)</label></td>
+                                <td width="25%" ng-if="vm.transactionMode=='T' || vm.transactionMode=='CL'">
+                                    <p class="input-group">
+                                        <input type="text" class="form-control" id="instrumentDate"
+                                               name="effToDate" ng-model="vm.instrumentDate"
+                                               uib-datepicker-popup="dd/MM/yyyy"
+                                               datepicker-options="vm.dateToOptionsInstrumentDate"
+                                               is-open="vm.effToDatePickerDtOfSubTwo.opened" close-text="Close"
+                                               ng-disabled="vm.transactionMode == 'C'"
+                                               maxlength="10"
+
+                                               ng-blur="vm.textableDatePicker('instrumentDate',vm.instrumentDate)"
+                                               ng-keyup="vm.autoslashing('instrumentDate')" chars="numbers-slash"
+                                               required>
+                                        <span class="input-group-btn">
+                            <button type="button" class="btn btn-secondary"
+                                    ng-click="vm.effToDatePickerDtOfSubTwo.opened = true"
+                                    id="effToDateSearcher">
+                                <i class="glyphicon glyphicon-calendar"></i>
+                            </button>
+                        </span>
+                                    </p>
+                                </td>
+
+                            </tr>
+
+                            <tr ng-if="vm.transactionMode == 'T' || vm.transactionMode == 'CL'">
+                                <td width="25%" class="form-group required">
+                                    <label class="control-label">Instrument Amount</label></td>
+                                <td width="25%">
+                                    <input type="text" class="form-control"
+                                           id="instrumentAmount" name="instrumentAmount" chars="only-numbers" maxlength="20"
+                                           ng-model="vm.instrumentAmount" ng-blur="vm.validateSubscriptionAmount();" required>
+                                </td>
+
+                            </tr>
+
+
+                            <tr ng-if="vm.transactionMode == 'CL'">
+                                <td width="25%" class="form-group required">
+                                    <label class="control-label">Tran Code</label></td>
+                                <td width="25%">
+<!--                                    <input type="text" class="form-control"-->
+<!--                                           id="tranCode" name="tranCode" chars="alpha-numeric" maxlength="20"-->
+<!--                                           ng-model="vm.tranCode" required>-->
+                                    <div class="row">
+                                        <div class="col-sm-9">
+                                            <input type="text" class="form-control" id="tranCode"
+                                                   name="tranCode"
+                                                   ng-model="vm.tranCode"
+                                                   chars="alpha-numeric" disabled readonly required>
+                                        </div>
+                                        <div class="col-sm-3 torch-top">
+                                            <i class="glyphicon glyphicon-eye-open" data-bs-toggle="modal"
+                                               ng-click="vm.getTranCodeDetails();" id="tranCodeSearcher"></i>
+                                            <i class="glyphicon glyphicon-remove clear cp"
+                                               ng-click="vm.tranCode = ''" id="tranCodeolIdClose"></i>
+                                        </div>
+                                    </div>
+                                </td>
+
+                                <td width="25%" class="form-group required">
+                                    <label class="control-label">Zone Code</label></td>
+                                <td width="25%">
+                                    <input type="text" class="form-control"
+                                           id="zoneCode" name="zoneCode" chars="alpha-numeric" maxlength="20"
+                                           ng-model="vm.zoneCode" required >
+                                </td>
+
+                            </tr>
+
+                            <tr ng-if="vm.transactionMode == 'CL'">
+                                <td width="25%" class="form-group required" >
+                                    <label class="control-label">Zone Date<br> (DD/MM/YYYY)</label></td>
+                                <td width="25%">
+                                    <p class="input-group">
+                                        <input type="text" class="form-control" id="zoneDate"
+                                               name="effToDate" ng-model="vm.zoneDate"
+                                               uib-datepicker-popup="dd/MM/yyyy"
+                                               datepicker-options="vm.dateToOptionsZoneDate"
+                                               is-open="vm.effToDatePickerZoneDate.opened" close-text="Close"
+
+                                               maxlength="10"
+                                               ng-blur="vm.textableDatePicker('zoneDate',vm.zoneDate)"
+                                               ng-keyup="vm.autoslashing('zoneDate')" chars="numbers-slash"
+
+                                               required>
+                                        <span class="input-group-btn">
+                            <button type="button" class="btn btn-secondary"
+                                    ng-click="vm.effToDatePickerZoneDate.opened = true"
+                                    id="effToDateSearcherZone">
+                                <i class="glyphicon glyphicon-calendar"></i>
+                            </button>
+                        </span>
+                                    </p>
+                                </td>
+
+                                <td width="25%" class="form-group required">
+                                    <label class="control-label">Bank Code (Non-MICR)</label></td>
+                                <td width="25%">
+<!--                                    <input type="text" class="form-control"-->
+<!--                                           id="bankCodeNonMicr" name="bankCodeNonMicr" chars="alpha-numeric" maxlength="20"-->
+<!--                                           ng-model="vm.bankCodeNonMicr" required>-->
+                                    <div class="row">
+                                        <div class="col-sm-9">
+                                            <input type="text" class="form-control" id="bankCodeNonMicr"
+                                                   name="bankCodeNonMicr"
+                                                   ng-model="vm.bankCodeNonMicr"
+                                                   chars="alpha-numeric" disabled readonly required>
+                                        </div>
+                                        <div class="col-sm-3 torch-top">
+                                            <i class="glyphicon glyphicon-search cp" data-bs-toggle="modal"
+                                               ng-click="vm.getOtherBankDetailsMicrTorch();" id="bankCodeNonMicrSearcher"></i>
+                                            <i class="glyphicon glyphicon-remove clear cp"
+                                               ng-click="vm.bankCodeNonMicr = ''; vm.branchCodeNonMicr = ''" id="bankCodeNonMicrolIdClose"></i>
+                                        </div>
+                                    </div>
+                                </td>
+
+                            </tr>
+
+                            <tr ng-if="vm.transactionMode == 'CL'">
+                                <td width="25%" class="form-group required" >
+                                    <label class="control-label">Branch Code (Non-MICR)</label></td>
+                                <td width="25%">
+                                    <input type="text" class="form-control"
+                                           id="branchCodeNonMicr" name="branchCodeNonMicr" chars="alpha-numeric" maxlength="20"
+                                           ng-model="vm.branchCodeNonMicr" readonly disabledrequired>
+                                </td>
+
+                                <td width="25%" class="form-group required" >
+                                    <label class="control-label">Sort Code</label></td>
+                                <td width="25%">
+                                    <input type="text" class="form-control"
+                                           id="sortCode" name="sortCode" chars="alpha-numeric" maxlength="9"
+                                           ng-model="vm.sortCode" required>
+                                </td>
+
+                            </tr>
+
+                            <tr>
+                                <td width="25%" class="form-group">
+                                    <label class="control-label">Remarks</label></td>
+                                <td width="25%">
+                                    <input type="text" class="form-control" ng-model="vm.remarks"
+                                           id="remarks" name="remarks" chars="alpha-numeric" maxlength="100">
+                                </td>
+
+                                <td width="25%" class="form-group required">
+                                    <label class="control-label">Do You want to add Nominee?</label></td>
+                                <td width="25%">
+                                    <ng-container ng-repeat="item in vm.commonYesNoMetaData">
+                                        <input type="radio" name="isNominee" id="isNominee{{$index}}" ng-change="vm.validateNominee();"
+                                               ng-model="vm.isNominee" ng-value="item.value" required>{{item.label}}
+                                    </ng-container>
+                                </td>
+                            </tr>
+
+                            </tbody>
+                        </table>
+                    </ng-form>
+                </div>
+
+                <div uib-accordion-group id="bond-nominee-details" class="panel"
+                     heading='NOMINEE DETAILS'
+                     is-open="vm.bondNomineeDetailsOpen"
+                     ng-class="(vm.bondNomineeDetails.$invalid) ? 'panel-danger' : 'panel-success'"
+                     ng-if="vm.isNominee=='Y'">
+
+                    <div>
+                        <form name="nominationDetailsForm" role="form">
+
+                            <table ng-repeat = "item in vm.nominationDetails" id="nominee{{$index}}" class="table table-bordered">
+                                <tbody>
+
+                                <tr>
+                                    <td width="25%" colspan="4" align="right">
+                                        <a data-href="#" type="button" name="addBtn" class="btn btn-primary" ng-click="vm.addRange()">
+                                            <span class="glyphicon glyphicon-plus"></span>&nbsp;ADD
+                                        </a>
+                                        <a data-href="#" type="button" name="removeBtn"  class="btn btn-delete" ng-click="vm.removeNominee($index); vm.calculateSum();">
+                                            <span class="glyphicon glyphicon-trash"></span>&nbsp;DELETE
+                                        </a>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td width="25%" class="form-group required">
+                                        <label class="control-label">Nominee First Name</label></td>
+                                    <td width="25%"><input type="text" class="form-control" id="firstName[$index]" chars="only-letters"
+                                                           maxlength="50" name="firstName[$index]"
+                                                           ng-model="item.firstName" required></td>
+                                    <td width="25%">Nominee Middle Name</td>
+                                    <td width="25%"><input type="text" class="form-control" id="middleName[$index]" chars="only-letters"
+                                                           maxlength="50" name="middleName[$index]"
+                                                           ng-model="item.middleName"></td>
+                                </tr>
+
+                                <tr>
+                                    <td width="25%">Nominee Last Name</td>
+                                    <td width="25%"><input type="text" class="form-control" id="lastName[$index]" chars="only-letters"
+                                                           maxlength="50" name="lastName[$index]"
+                                                           ng-model="item.lastName"></td>
+
+                                    <td width="25%" class="form-group required">
+                                        <label class="control-label">Address1</label></td>
+                                    <td width="25%"><input type="text" class="form-control" id="address1[$index]"
+                                                           chars="alpha-numeric"
+                                                           maxlength="250" name="address1[$index]"
+                                                           ng-model="item.addressOne" required>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td width="25%" class="form-group">
+                                        <label class="control-label">Address2</label>
+                                    </td>
+                                    <td width="25%">
+                                        <input type="text" class="form-control" id="address2[$index]"
+                                               chars="alpha-numeric"
+                                               maxlength="250" name="address2[$index]"
+                                               ng-model="item.addressTwo">
+                                    </td>
+                                    <td width="25%" class="form-group required">
+                                        <label class="control-label">City</label>
+                                    </td>
+                                    <td width="25%">
+                                        <input type="text" class="form-control" id="city[$index]"
+                                               chars="alpha-numeric"
+                                               maxlength="20" name="city[$index]"
+                                               ng-model="item.city" required>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td width="25%" class="form-group required">
+                                        <label class="control-label">State</label>
+                                    </td>
+                                    <td width="25%">
+                                        <select class="form-control" id="state[$index]"
+                                                name="state[$index]"
+                                                ng-init="item.state = '';"
+                                                ng-model="item.state" required>
+                                            <option value="">Select</option>
+                                            <option ng-repeat="item in vm.stateList" value="{{item.subCode}}">{{item.subCodeDescription}}</option>
+<!--                                            <option ng-repeat="item in vm.referenceValueMap[vm.statesRefId]" value="{{item.value}}">{{item.label}}</option>-->
+                                        </select>
+                                    </td>
+                                    <td width="25%" class="form-group required">
+                                        <label class="control-label">Pin Code</label>
+                                    </td>
+                                    <td width="25%">
+                                        <input type="number" class="form-control" id="pinCode[$index]"
+                                               onkeypress="return event.charCode>=48 && event.charCode<=57"
+                                               limit-to="6" name="pinCode[$index]"
+                                               ng-model="item.pinCode" required>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td width="25%">
+                                        <label class="control-label">Phone No</label>
+                                    </td>
+                                    <td width="25%">
+                                        <input type="number" class="form-control" id="phoneNo[$index]"
+                                               onkeypress="return event.charCode>=48 && event.charCode<=57"
+                                               limit-to="10" name="phoneNo[$index]"
+                                               ng-model="item.phoneNo">
+                                    </td>
+                                    <td width="25%" class="form-group required">
+                                        <label class="control-label required">Share Percentage</label>
+                                    </td>
+                                    <td width="25%">
+                                        <input type="text" class="form-control" id="sharePercentage[$index]"
+                                               chars="float"
+                                               maxlength="3" name="sharePercentage[$index]"
+                                               ng-change="vm.calculateSum();"
+                                               ng-blur="vm.decimalConvert(item.sharePercentage, $index, $event)"
+                                               ng-model="item.sharePercentage" required>
+                                        <span class="alert-danger" name="errorMsg{{$index}}" ng-show="vm.errorMsg[{{$index}}]">Entered Input should not exceed 100</span>
+                                    </td>
+                                </tr>
+                                <tr>
+
+                                    <td width="25%" class="form-group required">
+                                        <label class="control-label">Operative Account No</label>
+                                    </td>
+                                    <td width="25%">
+
+                                        <input type="text" class="form-control" id="operativeNo[$index]" name="operativeNo[$index]" maxlength="16"
+                                               ng-blur="vm.getSchemeTypeListOperativeNominee('', item.operativeAccNo, 'nomineeOperativeAcctNo', $index)"
+                                               chars="alpha-numeric"
+                                               ng-model="item.operativeAccNo" required>
+                                        <span class="alert-danger" ng-show="vm.errorNomineeOperativeAcctNo[{{$index}}]">Invalid Account Number</span>
+                                    </td>
+
+                                    <td width="25%" class="form-group required">
+                                        <label class="control-label">Branch Id</label>
+                                    </td>
+                                    <td width="25%">
+                                        <input type="text" class="form-control" id="operativeBranchId[$index]"
+                                               chars="alpha-numeric"
+                                               maxlength="20" name="operativeBranchId[$index]"
+                                               ng-model="item.operativeAccBranchId" readonly required>
+                                    </td>
+
+                                </tr>
+                                <tr>
+                                    <td width="25%" class="form-group required">
+                                        <label class="control-label required">Is Nominee a Minor</label>
+                                    </td>
+                                    <td width="25%">
+                                        <select class="form-control" id="nomineeMinor[$index]"
+                                                name="nomineeMinor[$index]"
+                                                ng-model="item.isNomineeMinor"
+                                                required>
+                                            <option value="" hidden=true">Select</option>
+                                            <option value="Y">Yes</option>
+                                            <option value="N">No</option>
+                                        </select>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td width="25%" class="form-group required">
+                                        <label class="control-label required">Relation with Holder</label>
+                                    </td>
+                                    <td width="25%">
+                                        <select class="form-control" id="relationWithHolder[$index]"
+                                                name="relationWithHolder[$index]"
+                                                ng-model="item.relationWithHolder" required>
+                                            <option value="" hidden="true">Select</option>
+                                            <option ng-repeat="item in vm.guardianDetailsList" value="{{item.SUBCODE}}">{{item.DESCRIPTION}}</option>
+                                            <!--                                            <option ng-repeat="item in vm.referenceValueMap[vm.relationRefId]" value="{{item.value}}">{{item.label}}</option>-->
+                                        </select>
+                                    </td>
+                                    <td width="25%" class="form-group required" ng-if="item.isNomineeMinor == 'Y'">
+                                        <label class="control-label text-wrap">Date Of Birth(DD/MM/YYYY), in case of minor</label></td>
+                                    <td width="25%" ng-if="item.isNomineeMinor == 'Y'">
+                                        <p class="input-group">
+                                            <input type="text" class="form-control" id="dateofBirth{{$index}}"
+                                                   name="dateofBirth[$index]"
+                                                   ng-model="item.dateOfBirthOfMinor"
+                                                   uib-datepicker-popup="dd/MM/yyyy"
+                                                   ng-init="vm.dateOfBirthOptionsFunc();"
+                                                   datepicker-options="vm.dateOfBirthOptions"
+                                                   is-open="item.dateOfBirthOptions.opened"
+                                                   close-text="Close" maxlength="10" ng-blur="vm.textableDatePicker('dateofBirth{{$index}}',item.dateOfBirthOfMinor)"
+                                                   ng-keyup="vm.autoslashing('dateofBirth{{$index}}')" chars="numbers-slash"
+                                                   required>
+                                            <span class="input-group-btn">
+                        <button type="button" class="btn btn-secondary"
+                                ng-click="item.dateOfBirthOptions.opened = true"
+                                id="sadateOptions">
+                            <i class="glyphicon glyphicon-calendar"></i>
+                        </button>
+                    </span>
+                                        </p>
+                                    </td>
+                                </tr>
+
+                                <tr ng-if="item.isNomineeMinor == 'Y'">
+                                    <td width="25%" class="form-group required">
+                                        <label class="control-label">Guardian First Name</label>
+                                    </td>
+                                    <td width="25%">
+                                        <input type="text" class="form-control" id="guardianFirstName[$index]" chars="only-letters"
+                                               maxlength="50" name="guardianFirstName[$index]"
+                                               ng-model="item.guardianFirstName" required>
+                                    </td>
+                                    <td width="25%">
+                                        <label class="control-label">Guardian Middle Name</label>
+                                    </td>
+                                    <td width="25%">
+                                        <input type="text" class="form-control" id="guardianMiddleName[$index]" chars="only-letters"
+                                               maxlength="50" name="guardianMiddleName[$index]"
+                                               ng-model="item.guardianMiddleName">
+                                    </td>
+                                </tr>
+                                <tr ng-if="item.isNomineeMinor == 'Y'">
+                                    <td width="25%">
+                                        <label class="control-label">Guardian Last Name</label>
+                                    </td>
+                                    <td width="25%">
+                                        <input type="text" class="form-control" id="guardianLastName[$index]" chars="only-letters"
+                                               maxlength="50" name="guardianLastName[$index]"
+                                               ng-model="item.guardianLastName">
+                                    </td>
+                                    <td width="25%" class="form-group required">
+                                        <label class="control-label required">Address1</label>
+                                    </td>
+                                    <td width="25%" >
+                                        <input type="text" class="form-control" id="guardianAddress1[$index]"
+                                               chars="alpha-numeric"
+                                               maxlength="250" name="guardianAddress1[$index]"
+                                               ng-model="item.guardianAddressOne" required>
+                                    </td>
+                                </tr>
+                                <tr ng-if="item.isNomineeMinor == 'Y'">
+                                    <td width="25%">
+                                        <label class="control-label">Address2</label>
+                                    </td>
+                                    <td width="25%">
+                                        <input type="text" class="form-control" id="guardianAddress2[$index]"
+                                               chars="alpha-numeric"
+                                               maxlength="250" name="guardianAddress2[$index]"
+                                               ng-model="item.guardianAddressTwo">
+                                    </td>
+                                    <td width="25%">
+                                        <label class="control-label">City</label>
+                                    </td>
+                                    <td width="25%">
+                                        <input type="text" class="form-control" id="guardianCity[$index]"
+                                               chars="alpha-numeric"
+                                               maxlength="20" name="guardianCity[$index]"
+                                               ng-model="item.guardianCity">
+                                    </td>
+                                </tr>
+                                <tr ng-if="item.isNomineeMinor == 'Y'">
+                                    <td width="25%">
+                                        <label class="control-label">State</label>
+                                    </td>
+                                    <td width="25%">
+                                        <select class="form-control" id="guardianState[$index]"
+                                                name="guardianState[$index]"
+                                                ng-init="item.guardianState = '';"
+                                                ng-model="item.guardianState">
+                                            <option value="">Select</option>
+                                            <option ng-repeat="item in vm.stateList" value="{{item.subCode}}">{{item.subCodeDescription}}</option>
+                                            <!--                                            <option ng-repeat="item in vm.referenceValueMap[vm.statesRefId]" value="{{item.value}}">{{item.label}}</option>-->
+                                        </select>
+                                    </td>
+                                    <td width="25%" class="form-group required">
+                                        <label class="control-label required">Pin Code</label>
+                                    </td>
+                                    <td width="25%">
+                                        <input type="number" class="form-control" id="guardianPinCode[$index]"
+                                               onkeypress="return event.charCode>=48 && event.charCode<=57"
+                                               limit-to="6" name="guardianPinCode[$index]"
+                                               ng-model="item.guardianPinCode" required>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td width="25%">
+                                        <label class="control-label">Mobile No</label>
+                                    </td>
+                                    <td width="25%">
+                                        <input type="number" class="form-control" id="guardianMobileNo[$index]"
+                                               onkeypress="return event.charCode>=48 && event.charCode<=57"
+                                               chars="only-numbers"
+                                               limit-to="10" name="phoneNo[$index]"
+                                               ng-model="item.guardianMobileNo">
+                                    </td>
+
+                                    <td width="25%" class="form-group"><label class="control-label">Email Id</label></td>
+                                    <td width="25%"><input type="email" class="form-control"
+                                                           id="guardianEmailId" name="guardianEmailId" maxlength="50"
+                                                           ng-model="item.guardianEmail" ng-pattern="vm.emailPattern" chars="email">
+                                        <span class="text-danger"
+                                              ng-show="vm.bondSubscriptionFlowForm.emailId.$error.pattern">Enter valid email address</span></td>
+
+                                </tr>
+
+<!--                                <tr>-->
+<!--                                    <td width="25%" colspan="4" align="right">-->
+<!--                                        <a data-href="#" type="button" name="addBtn" class="btn btn-primary" ng-click="vm.addRange()">-->
+<!--                                            <span class="glyphicon glyphicon-plus"></span>&nbsp;ADD-->
+<!--                                        </a>-->
+<!--                                        <a data-href="#" type="button" name="removeBtn"  class="btn btn-delete" ng-click="vm.removeNominee($index); vm.calculateSum();">-->
+<!--                                            <span class="glyphicon glyphicon-trash"></span>&nbsp;DELETE-->
+<!--                                        </a>-->
+<!--                                    </td>-->
+<!--                                </tr>-->
+                                </tbody>
+                            </table>
+                            <div class="row">
+                                <div class="form-group">
+                                    <div class="col-sm-3">
+                                        <label for="total" class="control-label">Total %</label>
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <input type="text" class="form-control text-right" id="total" ng-init="vm.calculateSum();"
+                                               chars="float" maxlength="5" ng-model="vm.total" readonly>
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+                        </form>
+                    </div>
+
+                </div>
+
+
+                <div class="text-center form_submit">
+                    <button type="submit" class="btn btn-default" id="submitButton"
+                            ng-disabled="vm.bondSubscriptionFlowForm.$invalid || vm.depositMultiplesErrMsg"  ng-click="vm.submitAddForm()" >Submit</button>
+
+                    <button type="button" class="btn btn-cancel" id="cancelButton"
+                            onclick="window.location.href= '#!/rbi_bnd_subs_workFlw/add';">Back
+                    </button>
+                </div>
+
+            </form>
+        </uib-accordion>
+    </div>
+
+
+</div>
+
+
+
+
+<!-- Sol Details -->
+<div class="modal" id="applicationModal" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-bs-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Application No List</h4>
+            </div>
+            <div class="modal-body">
+                <div class="loader_popup"></div>
+                <div class="list_wrapper" ng-if="vm.applicationDetailsList.length>0">
+                    <div class="col-sm-8 form_submit">
+                        <div class="form-group">
+                            <div class="input-group">
+                                <div class="input-group-addon">
+                                    <i class="glyphicon glyphicon-search"></i>
+                                </div>
+                                <input type="text" class="form-control"
+                                       ng-model="vm.searchSolId"
+                                       ng-init="vm.searchSolId = ''"
+                                       placeholder="Search">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4 form_submit"></div>
+                    <div class="row">
+
+                        <div class="col-sm-12">
+                            <table class="table table-bordered list scroll">
+                                <thead ng-init="reverseOrder = false; sortedColumn = 'solId'">
+                                <tr>
+                                    <th class="modal-title title-case" ng-click="(sortedColumn == 'applicationNo')?(reverseOrder=(!reverseOrder)): (reverseOrder = false);sortedColumn = 'solId';" ng-class="(sortedColumn == 'applicationNo')?((reverseOrder)?('arrow-down') : ('arrow-up') ) : ('')">Application No</th>
+                                    <th class="modal-title title-case" ng-click="(sortedColumn == 'applicationDate')?(reverseOrder=(!reverseOrder)): (reverseOrder = false);sortedColumn = 'applicationDate';" ng-class="(sortedColumn == 'applicationDate')?((reverseOrder)?('arrow-down') : ('arrow-up') ) : ('')">Application Date</th>
+                                    <th class="modal-title title-case" ng-click="(sortedColumn == 'bondHolderName')?(reverseOrder=(!reverseOrder)): (reverseOrder = false);sortedColumn = 'bondHolderName';" ng-class="(sortedColumn == 'bondHolderName')?((reverseOrder)?('arrow-down') : ('arrow-up') ) : ('')">Bond Holder Name</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr class="cp"
+                                    ng-repeat="x in vm.applicationDetailsList | filter:vm.searchSolId | orderBy:sortedColumn:reverseOrder"
+                                    ng-click="vm.applicationNo = x.applicationNo; vm.getApplicationDetails();"
+                                    data-bs-dismiss="modal">
+                                    <td>{{x.applicationNo}}</td>
+                                    <td>{{x.applicationDate}}</td>
+                                    <td>{{x.bondHolderName}}</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="list_wrapper" ng-if="vm.applicationDetailsList.length==0">No
+                    records found to display.</div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!-- TranCode Details -->
+<div class="modal" id="brokerDetailsModal" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-bs-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Broker Details List</h4>
+            </div>
+            <div class="modal-body">
+                <div class="loader_popup"></div>
+                <div class="list_wrapper" ng-if="vm.brokerDetailsList.length>0">
+                    <div class="col-sm-8 form_submit">
+                        <div class="form-group">
+                            <div class="input-group">
+                                <div class="input-group-addon">
+                                    <i class="glyphicon glyphicon-search"></i>
+                                </div>
+                                <input type="text" class="form-control"
+                                       ng-model="vm.searchTranCode"
+                                       ng-init="vm.searchTranCode = ''"
+                                       placeholder="Search">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4 form_submit"></div>
+                    <div class="row">
+
+                        <div class="col-sm-12">
+                            <table class="table table-bordered list scroll">
+                                <thead ng-init="reverseOrder = false; sortedColumn = 'clgTranCode'">
+                                <tr>
+                                    <th class="modal-title title-case" ng-click="(sortedColumn == 'brokerAgencyCode')?(reverseOrder=(!reverseOrder)): (reverseOrder = false);sortedColumn = 'brokerAgencyCode';" ng-class="(sortedColumn == 'brokerAgencyCode')?((reverseOrder)?('arrow-down') : ('arrow-up') ) : ('')">Broker Agency Code</th>
+                                    <th class="modal-title title-case" ng-click="(sortedColumn == 'brokerName')?(reverseOrder=(!reverseOrder)): (reverseOrder = false);sortedColumn = 'brokerName';" ng-class="(sortedColumn == 'brokerName')?((reverseOrder)?('arrow-down') : ('arrow-up') ) : ('')">Broker Name</th>
+                                    <th class="modal-title title-case" ng-click="(sortedColumn == 'operativeAccBranchId')?(reverseOrder=(!reverseOrder)): (reverseOrder = false);sortedColumn = 'operativeAccBranchId';" ng-class="(sortedColumn == 'operativeAccBranchId')?((reverseOrder)?('arrow-down') : ('arrow-up') ) : ('')">Operative Acc Branch ID</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr class="cp"
+                                    ng-repeat="x in vm.brokerDetailsList | filter:vm.searchTranCode | orderBy:sortedColumn:reverseOrder"
+                                    ng-click=" vm.brokerId = x.brokerAgencyCode; "
+                                    data-bs-dismiss="modal">
+                                    <td>{{x.brokerAgencyCode}}</td>
+                                    <td>{{x.brokerName}}</td>
+                                    <td>{{x.operativeAccBranchId}}</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="list_wrapper" ng-if="vm.brokerDetailsList.length==0">No
+                    records found to display.</div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!-- TranCode Details -->
+<div class="modal" id="otherBankDetailsModal" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-bs-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Other Bank Details List</h4>
+            </div>
+            <div class="modal-body">
+                <div class="loader_popup"></div>
+                <div class="list_wrapper" ng-if="vm.otherBankDetailsTorchList.length>0">
+                    <div class="col-sm-8 form_submit">
+                        <div class="form-group">
+                            <div class="input-group">
+                                <div class="input-group-addon">
+                                    <i class="glyphicon glyphicon-search"></i>
+                                </div>
+                                <input type="text" class="form-control"
+                                       ng-model="vm.searchTranCode"
+                                       ng-init="vm.searchTranCode = ''"
+                                       placeholder="Search">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4 form_submit"></div>
+                    <div class="row">
+
+                        <div class="col-sm-12">
+                            <table class="table table-bordered list scroll">
+                                <thead ng-init="reverseOrder = false; sortedColumn = 'clgTranCode'">
+                                <tr>
+                                    <th class="modal-title title-case" ng-click="(sortedColumn == 'bankCode')?(reverseOrder=(!reverseOrder)): (reverseOrder = false);sortedColumn = 'bankCode';" ng-class="(sortedColumn == 'bankCode')?((reverseOrder)?('arrow-down') : ('arrow-up') ) : ('')">Bank Code</th>
+                                    <th class="modal-title title-case" ng-click="(sortedColumn == 'branchCode')?(reverseOrder=(!reverseOrder)): (reverseOrder = false);sortedColumn = 'branchCode';" ng-class="(sortedColumn == 'branchCode')?((reverseOrder)?('arrow-down') : ('arrow-up') ) : ('')">Branch Code</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr class="cp"
+                                    ng-repeat="x in vm.otherBankDetailsTorchList | filter:vm.searchTranCode | orderBy:sortedColumn:reverseOrder"
+                                    ng-click="vm.bankCode = x.bankCode; vm.branchCode = x.branchCode;"
+                                    data-bs-dismiss="modal">
+                                    <td>{{x.bankCode}}</td>
+                                    <td>{{x.branchCode}}</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="list_wrapper" ng-if="vm.otherBankDetailsTorchList.length==0">No
+                    records found to display.</div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!-- TranCode Details -->
+<div class="modal" id="otherBankDetailsMicrModal" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-bs-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Other Bank Details List</h4>
+            </div>
+            <div class="modal-body">
+                <div class="loader_popup"></div>
+                <div class="list_wrapper" ng-if="vm.otherBankDetailsMicrTorchList.length>0">
+                    <div class="col-sm-8 form_submit">
+                        <div class="form-group">
+                            <div class="input-group">
+                                <div class="input-group-addon">
+                                    <i class="glyphicon glyphicon-search"></i>
+                                </div>
+                                <input type="text" class="form-control"
+                                       ng-model="vm.searchTranCode"
+                                       ng-init="vm.searchTranCode = ''"
+                                       placeholder="Search">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4 form_submit"></div>
+                    <div class="row">
+
+                        <div class="col-sm-12">
+                            <table class="table table-bordered list scroll">
+                                <thead ng-init="reverseOrder = false; sortedColumn = 'clgTranCode'">
+                                <tr>
+                                    <th class="modal-title title-case" ng-click="(sortedColumn == 'bankCode')?(reverseOrder=(!reverseOrder)): (reverseOrder = false);sortedColumn = 'bankCode';" ng-class="(sortedColumn == 'bankCode')?((reverseOrder)?('arrow-down') : ('arrow-up') ) : ('')">Bank Code</th>
+                                    <th class="modal-title title-case" ng-click="(sortedColumn == 'branchCode')?(reverseOrder=(!reverseOrder)): (reverseOrder = false);sortedColumn = 'branchCode';" ng-class="(sortedColumn == 'branchCode')?((reverseOrder)?('arrow-down') : ('arrow-up') ) : ('')">Branch Code</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr class="cp"
+                                    ng-repeat="x in vm.otherBankDetailsMicrTorchList | filter:vm.searchTranCode | orderBy:sortedColumn:reverseOrder"
+                                    ng-click="vm.bankCodeNonMicr = x.bankCode; vm.branchCodeNonMicr = x.branchCode;"
+                                    data-bs-dismiss="modal">
+                                    <td>{{x.bankCode}}</td>
+                                    <td>{{x.branchCode}}</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="list_wrapper" ng-if="vm.otherBankDetailsMicrTorchList.length==0">No
+                    records found to display.</div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+<!-- Tran code Details - End -->
+<!-- Zone Code Details -->
+<div class="modal" id="zoneModal" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-bs-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Zone Code</h4>
+            </div>
+            <div class="modal-body">
+                <div class="loader_popup"></div>
+                <div class="list_wrapper" ng-if="vm.zoneCodeList.length>0">
+                    <div class="col-sm-8 form_submit">
+                        <div class="form-group">
+                            <div class="input-group">
+                                <div class="input-group-addon">
+                                    <i class="glyphicon glyphicon-search"></i>
+                                </div>
+                                <input type="text" class="form-control"
+                                       ng-model="vm.searchZoneCode"
+                                       ng-init="vm.searchZoneCode = ''"
+                                       placeholder="Search">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4 form_submit"></div>
+                    <div class="row">
+
+                        <div class="col-sm-12">
+                            <table class="table table-bordered list scroll">
+                                <thead ng-init="reverseOrder = false; sortedColumn = 'clgZoneCode'">
+                                <tr>
+                                    <th class="modal-title title-case" ng-click="(sortedColumn == 'clgZoneCode')?(reverseOrder=(!reverseOrder)): (reverseOrder = false);sortedColumn = 'clgZoneCode';" ng-class="(sortedColumn == 'clgZoneCode')?((reverseOrder)?('arrow-down') : ('arrow-up') ) : ('')">Zone Codes</th>
+                                    <th class="modal-title title-case" ng-click="(sortedColumn == 'clgZoneDate')?(reverseOrder=(!reverseOrder)): (reverseOrder = false);sortedColumn = 'clgZoneDate';" ng-class="(sortedColumn == 'clgZoneDate')?((reverseOrder)?('arrow-down') : ('arrow-up') ) : ('')">Zone Dates</th>
+                                    <th class="modal-title title-case" ng-click="(sortedColumn == 'micrClgFlag')?(reverseOrder=(!reverseOrder)): (reverseOrder = false);sortedColumn = 'micrClgFlag';" ng-class="(sortedColumn == 'micrClgFlag')?((reverseOrder)?('arrow-down') : ('arrow-up') ) : ('')">MICR Flag</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr class="cp"
+                                    ng-repeat="x in vm.zoneCodeList | filter:vm.searchZoneCode | orderBy:sortedColumn:reverseOrder"
+                                    ng-click="vm.accountOpening.zoneCode = x.clgZoneCode; vm.accountOpening.zoneDate = x.clgZoneDate; vm.accountOpening.micrClgFlag = x.micrClgFlag;"
+                                    data-bs-dismiss="modal">
+                                    <td>{{x.clgZoneCode}}</td>
+                                    <td>{{x.clgZoneDate | date:'dd/MM/yyyy'}}</td>
+                                    <td>{{x.micrClgFlag}}</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="list_wrapper" ng-if="vm.zoneCodeList.length==0">No
+                    records found to display.</div>
+            </div>
+
+        </div>
+    </div>
+</div>
+<!-- Zone Code - End -->
+<!-- Bank Code Details -->
+<div class="modal" id="bankCodeModal" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-bs-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Bank Code</h4>
+            </div>
+            <div class="modal-body">
+                <div class="loader_popup"></div>
+                <div class="list_wrapper" ng-if="vm.bankCodeList.length>0">
+                    <div class="col-sm-8 form_submit">
+                        <div class="form-group">
+                            <div class="input-group">
+                                <div class="input-group-addon">
+                                    <i class="glyphicon glyphicon-search"></i>
+                                </div>
+                                <input type="text" class="form-control"
+                                       ng-model="vm.searchBankCode"
+                                       ng-init="vm.searchBankCode = ''"
+                                       placeholder="Search">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4 form_submit"></div>
+                    <div class="row">
+
+                        <div class="col-sm-12">
+                            <table class="table table-bordered list scroll">
+                                <thead ng-init="reverseOrder = false; sortedColumn = 'bankCode'">
+                                <tr>
+                                    <th class="modal-title title-case" ng-click="(sortedColumn == 'bankCode')?(reverseOrder=(!reverseOrder)): (reverseOrder = false);sortedColumn = 'bankCode';" ng-class="(sortedColumn == 'bankCode')?((reverseOrder)?('arrow-down') : ('arrow-up') ) : ('')">Bank Code</th>
+                                    <th class="modal-title title-case" ng-click="(sortedColumn == 'bankName')?(reverseOrder=(!reverseOrder)): (reverseOrder = false);sortedColumn = 'bankName';" ng-class="(sortedColumn == 'bankName')?((reverseOrder)?('arrow-down') : ('arrow-up') ) : ('')">Bank Name</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr class="cp"
+                                    ng-repeat="x in vm.bankCodeList | filter:vm.searchBankCode | orderBy:sortedColumn:reverseOrder"
+                                    ng-click="vm.accountOpening.bankCode = x.bankCode;"
+                                    data-bs-dismiss="modal">
+                                    <td>{{x.bankCode}}</td>
+                                    <td>{{x.bankName}}</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="list_wrapper" ng-if="vm.bankCodeList.length==0">No
+                    records found to display.</div>
+            </div>
+
+        </div>
+    </div>
+</div>
+<!-- Bank Code Details - End -->
+<!-- Branch Code Details -->
+<div class="modal" id="branchCodeModal" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-bs-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Branch Code</h4>
+            </div>
+            <div class="modal-body">
+                <div class="loader_popup"></div>
+                <div class="list_wrapper" ng-if="vm.branchCodeList.length>0">
+                    <div class="col-sm-8 form_submit">
+                        <div class="form-group">
+                            <div class="input-group">
+                                <div class="input-group-addon">
+                                    <i class="glyphicon glyphicon-search"></i>
+                                </div>
+                                <input type="text" class="form-control"
+                                       ng-model="vm.searchBranchCode"
+                                       ng-init="vm.searchBranchCode = ''"
+                                       placeholder="Search">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4 form_submit"></div>
+                    <div class="row">
+
+                        <div class="col-sm-12">
+                            <table class="table table-bordered list scroll">
+                                <thead ng-init="reverseOrder = false; sortedColumn = 'branchCode'">
+                                <tr>
+                                    <th class="modal-title title-case" ng-click="(sortedColumn == 'branchCode')?(reverseOrder=(!reverseOrder)): (reverseOrder = false);sortedColumn = 'branchCode';" ng-class="(sortedColumn == 'branchCode')?((reverseOrder)?('arrow-down') : ('arrow-up') ) : ('')">Branch Code</th>
+                                    <th class="modal-title title-case" ng-click="(sortedColumn == 'branchName')?(reverseOrder=(!reverseOrder)): (reverseOrder = false);sortedColumn = 'branchName';" ng-class="(sortedColumn == 'branchName')?((reverseOrder)?('arrow-down') : ('arrow-up') ) : ('')">Branch Name</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr class="cp"
+                                    ng-repeat="x in vm.branchCodeList | filter:vm.searchBranchCode | orderBy:sortedColumn:reverseOrder"
+                                    ng-click="vm.accountOpening.branchCode = x.branchCode;"
+                                    data-bs-dismiss="modal">
+                                    <td>{{x.branchCode}}</td>
+                                    <td>{{x.branchName}}</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="list_wrapper" ng-if="vm.branchCodeList.length==0">No
+                    records found to display.</div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!--Zone Bank Code Details -->
+<div class="modal" id="zoneBankCodeModal" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-bs-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Bank Code</h4>
+            </div>
+            <div class="modal-body">
+                <div class="loader_popup"></div>
+                <div class="list_wrapper" ng-if="vm.bankCodeList.length>0">
+                    <div class="col-sm-8 form_submit">
+                        <div class="form-group">
+                            <div class="input-group">
+                                <div class="input-group-addon">
+                                    <i class="glyphicon glyphicon-search"></i>
+                                </div>
+                                <input type="text" class="form-control"
+                                       ng-model="vm.searchBankCode"
+                                       ng-init="vm.searchBankCode = ''"
+                                       placeholder="Search">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4 form_submit"></div>
+                    <div class="row">
+
+                        <div class="col-sm-12">
+                            <table class="table table-bordered list scroll">
+                                <thead ng-init="reverseOrder = false; sortedColumn = 'bankCode'">
+                                <tr>
+                                    <th class="modal-title title-case" ng-click="(sortedColumn == 'bankCode')?(reverseOrder=(!reverseOrder)): (reverseOrder = false);sortedColumn = 'bankCode';" ng-class="(sortedColumn == 'bankCode')?((reverseOrder)?('arrow-down') : ('arrow-up') ) : ('')">Bank Code</th>
+                                    <th class="modal-title title-case" ng-click="(sortedColumn == 'bankName')?(reverseOrder=(!reverseOrder)): (reverseOrder = false);sortedColumn = 'bankName';" ng-class="(sortedColumn == 'bankName')?((reverseOrder)?('arrow-down') : ('arrow-up') ) : ('')">Bank Name</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr class="cp"
+                                    ng-repeat="x in vm.bankCodeList | filter:vm.searchBankCode | orderBy:sortedColumn:reverseOrder"
+                                    ng-click="vm.accountOpening.zoneBankCode = x.bankCode;"
+                                    data-bs-dismiss="modal">
+                                    <td>{{x.bankCode}}</td>
+                                    <td>{{x.bankName}}</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="list_wrapper" ng-if="vm.bankCodeList.length==0">No
+                    records found to display.</div>
+            </div>
+
+        </div>
+    </div>
+</div>
+<!--Zone Bank Code Details - End -->
+<!--Zone Branch Code Details -->
+<div class="modal" id="zoneBranchCodeModal" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-bs-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Branch Code</h4>
+            </div>
+            <div class="modal-body">
+                <div class="loader_popup"></div>
+                <div class="list_wrapper" ng-if="vm.branchCodeList.length>0">
+                    <div class="col-sm-8 form_submit">
+                        <div class="form-group">
+                            <div class="input-group">
+                                <div class="input-group-addon">
+                                    <i class="glyphicon glyphicon-search"></i>
+                                </div>
+                                <input type="text" class="form-control"
+                                       ng-model="vm.searchBranchCode"
+                                       ng-init="vm.searchBranchCode = ''"
+                                       placeholder="Search">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4 form_submit"></div>
+                    <div class="row">
+
+                        <div class="col-sm-12">
+                            <table class="table table-bordered list scroll">
+                                <thead ng-init="reverseOrder = false; sortedColumn = 'branchCode'">
+                                <tr>
+                                    <th class="modal-title title-case" ng-click="(sortedColumn == 'branchCode')?(reverseOrder=(!reverseOrder)): (reverseOrder = false);sortedColumn = 'branchCode';" ng-class="(sortedColumn == 'branchCode')?((reverseOrder)?('arrow-down') : ('arrow-up') ) : ('')">Branch Code</th>
+                                    <th class="modal-title title-case" ng-click="(sortedColumn == 'branchName')?(reverseOrder=(!reverseOrder)): (reverseOrder = false);sortedColumn = 'branchName';" ng-class="(sortedColumn == 'branchName')?((reverseOrder)?('arrow-down') : ('arrow-up') ) : ('')">Branch Name</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr class="cp"
+                                    ng-repeat="x in vm.branchCodeList | filter:vm.searchBranchCode | orderBy:sortedColumn:reverseOrder"
+                                    ng-click="vm.accountOpening.zoneBranchCode = x.branchCode;"
+                                    data-bs-dismiss="modal">
+                                    <td>{{x.branchCode}}</td>
+                                    <td>{{x.branchName}}</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="list_wrapper" ng-if="vm.branchCodeList.length==0">No
+                    records found to display.</div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<div class="modal" id="tranCodeModal" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-bs-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Branch Code</h4>
+            </div>
+            <div class="modal-body">
+                <div class="loader_popup"></div>
+                <div class="list_wrapper" ng-if="vm.tranCodeList.length>0">
+                    <div class="col-sm-8 form_submit">
+                        <div class="form-group">
+                            <div class="input-group">
+                                <div class="input-group-addon">
+                                    <i class="glyphicon glyphicon-search"></i>
+                                </div>
+                                <input type="text" class="form-control"
+                                       ng-model="vm.searchBranchCode"
+                                       ng-init="vm.searchBranchCode = ''"
+                                       placeholder="Search">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4 form_submit"></div>
+                    <div class="row">
+
+                        <div class="col-sm-12">
+                            <table class="table table-bordered list scroll">
+                                <thead ng-init="reverseOrder = false; sortedColumn = 'branchCode'">
+                                <tr>
+                                    <th class="modal-title title-case" ng-click="(sortedColumn == 'clgTranCode')?(reverseOrder=(!reverseOrder)): (reverseOrder = false);sortedColumn = 'clgTranCode';" ng-class="(sortedColumn == 'clgTranCode')?((reverseOrder)?('arrow-down') : ('arrow-up') ) : ('')">Tran Code</th>
+                                    <th class="modal-title title-case" ng-click="(sortedColumn == 'clgTranCodeDesc')?(reverseOrder=(!reverseOrder)): (reverseOrder = false);sortedColumn = 'clgTranCodeDesc';" ng-class="(sortedColumn == 'clgTranCodeDesc')?((reverseOrder)?('arrow-down') : ('arrow-up') ) : ('')">Description</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr class="cp"
+                                    ng-repeat="x in vm.tranCodeList | filter:vm.searchBranchCode | orderBy:sortedColumn:reverseOrder"
+                                    ng-click="vm.tranCode = x.clgTranCode;"
+                                    data-bs-dismiss="modal">
+                                    <td>{{x.clgTranCode}}</td>
+                                    <td>{{x.clgTranCodeDesc}}</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="list_wrapper" ng-if="vm.tranCodeList.length==0">No
+                    records found to display.</div>
+            </div>
+
+        </div>
+    </div>
+</div>
+

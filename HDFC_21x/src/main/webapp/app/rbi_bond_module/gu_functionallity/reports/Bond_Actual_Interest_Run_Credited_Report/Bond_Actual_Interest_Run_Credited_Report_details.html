@@ -1,0 +1,345 @@
+<div class="loader-new" ng-if="vm.loader"></div>
+<div class="container" data-ng-if="vm.DetailsList.length>0">
+  <div class="container from_wrapper new_form_wrapper">
+    <div class="text-right form_submit">
+      <button type="submit" class="btn btn-default" onclick="window.location.href ='#!/rbibond_gu_functionality';" id="homeButton">Home</button>
+
+      <button type="button" id="cancel_Button" class="btn btn-cancel" onclick="window.location.href= '#!/bond_actual_interest_run_credited_report/action/inquiry';">Back</button>
+    </div>
+
+    <h4 class="form_heading">Bond Actual Interest Run Credited Report</h4>
+    <sol-header></sol-header>
+
+
+    <div>
+      <table style="width: 100%" class="table table-bordered" style="padding: 10px" aria-label="">
+        <tr>
+          <th scope="col" ng-if="vm.schemeName">Name of the Bond Scheme</th>
+          <td ng-if="vm.schemeName">{{vm.schemeName}}</td>
+          <th scope="col" style="width: 20%">Total Count</th>
+          <td style="width: 20%">{{vm.total}}</td>
+        </tr>
+        <tr>
+          <th scope="col">Interest Payment From Date</th>
+          <td>{{vm.fromdate | date: 'dd/MM/yyyy'}}</td>
+          <th scope="col">Interest Payment To Date</th>
+          <td>{{vm.todate | date: 'dd/MM/yyyy'}}</td>
+        </tr>
+        <tr>
+          <th scope="col" ng-if="vm.panNo">Pan No</th>
+          <td ng-if="vm.panNo">{{vm.panNo}}</td>
+          <th scope="col" ng-if="vm.blaNum">Bond Ledger Account Number</th>
+          <td ng-if="vm.blaNum">{{vm.blaNum}}</td>
+        </tr>
+        <tr>
+          <th scope="col" ng-if="vm.subscriptionId">Bond Subscription ID</th>
+          <td ng-if="vm.subscriptionId">{{vm.subscriptionId}}</td>
+        </tr>
+      </table>
+    </div>
+
+      <div class="row" style="display: flex; align-items: center; justify-content: space-between">
+        <!-- Show Dropdown -->
+        <div class="col-sm-3" style="flex: 1">
+          <div class="form-group">
+            <table style="border-spacing: 2">
+              <caption style="display: none">
+                TDS Remittance Fincon File
+              </caption>
+              <tr>
+                <th scope="col"></th>
+              </tr>
+              <tr>
+                <td>Show&nbsp;</td>
+                <td>
+                  <select class="form-control pageDropDown" id="pageSize" name="pageSize"
+                          ng-model="vm.pageSize" ng-init="vm.pageSize='5'"
+                          ng-change="vm.pageNo = 1; vm.getDetails();" ng-disabled="vm.noDataFoundInSearch">
+                    <option value="5">5 per page</option>
+                    <option value="10">10 per page</option>
+                    <option value="20">20 per page</option>
+                    <option value="50">50 per page</option>
+                  </select>
+                </td>
+
+              </tr>
+            </table>
+          </div>
+        </div>
+
+        <!-- Search and Export Controls -->
+        <div class="col-sm-6" style="display: flex; align-items: center; justify-content: flex-end">
+          <!-- Search -->
+          <div class="form-group" style="margin-right: 15px">
+            <div class="input-group">
+              <input type="text" id="search" class="form-control" data-ng-model="vm.searchText" placeholder="Search"/>
+              <div class="input-group-addon">
+                <span class="glyphicon glyphicon-search" data-ng-click="vm.pageNo = 1; vm.getDetails()"></span>
+              </div>
+              <div class="input-group-addon">
+                <span class="glyphicon glyphicon-remove clear cp" data-ng-click="vm.searchText='';vm.pageNo = 1; vm.getDetails()"></span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Export -->
+          <div class="form-group" ng-disabled="vm.noDataFoundInSearch">
+            <select class="form-control" id="export" name="export" data-ng-disabled="vm.noDataFoundInSearch" ng-model="vm.downloadType" ng-init="vm.downloadType=''" ng-change="vm.downloadReport()">
+              <option value="">EXPORT</option>
+                <option value="UM">Un Merged</option>
+                <option value="M">Merged</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <div class="table-responsive">
+        <table class="table table-bordered table-striped list nowrap table-textWrap datatable" aria-label="">
+          <thead data-ng-if="!vm.noDataFoundInSearch">
+            <tr>
+              <th scope="col" colspan="21" class="text-center">Basic Details From BLA cum Subscription</th>
+              <th scope="col" colspan="5" class="text-center">OTHER SCHEMES INTEREST RELATED INFO</th>
+              <th scope="col" colspan="2" class="text-center">PAN Status</th>
+              <th scope="col" colspan="18" class="text-center">TDS EXEMPTION DETAILS</th>
+              <th scope="col" colspan="7" class="text-center">FRSB INTEREST PAYOUT DETAILS</th>
+            </tr>
+            <tr>
+              <th scope="col">S.No</th>
+              <th scope="col">Mode of Payment</th>
+              <th scope="col">Branch Ref No</th>
+              <th scope="col">BLA No</th>
+              <th scope="col">Ref No</th>
+              <th scope="col">App Name 1</th>
+              <th scope="col">App Name 2</th>
+              <th scope="col">App Name 3</th>
+              <th scope="col">Address 1</th>
+              <th scope="col">Address 2</th>
+              <th scope="col">Rec Name</th>
+              <th scope="col">Rec Parent Name</th>
+              <th scope="col">PIN Code</th>
+              <th scope="col">Phone No</th>
+              <th scope="col">App Status</th>
+              <th scope="col">Investment Amount</th>
+              <th scope="col">CFD</th>
+              <th scope="col">Maturity Date</th>
+              <th scope="col">Account No</th>
+              <th scope="col">Subscription Count</th>
+              <th scope="col">Bank Sort Code</th>
+              <th scope="col">Bank Name</th>
+              <th scope="col">Pan No Name</th>
+              <th scope="col">8 % Interest Payout</th>
+              <th scope="col">Non Cumulative Int</th>
+              <th scope="col">Cumulative Int</th>
+              <th scope="col">7.75% interest payout</th>
+              <th scope="col">Non Cumulative Int 775</th>
+              <th scope="col">Cumulative Int 775</th>
+              <th scope="col">Total</th>
+              <th scope="col">In-Operative PAN</th>
+              <th scope="col">Non-Filers</th>
+              <th scope="col">Age</th>
+              <th scope="col">Taxable Limit</th>
+              <th scope="col">Waiver Document</th>
+              <th scope="col">Waiver Document Ref No</th>
+              <th scope="col">RRB-TDS rate</th>
+              <th scope="col">Threshold Exceed Amount</th>
+              <th scope="col">Threshold Exceed TDS Amount</th>
+              <th scope="col">Exemption Rate %</th>
+              <th scope="col">Exemption Amount</th>
+              <th scope="col">Exemption TDS Amount</th>
+              <th scope="col">Surcharge %</th>
+              <th scope="col">Edu Cess %</th>
+              <th scope="col">Base Rate Amount</th>
+              <th scope="col">Surcharge Amount</th>
+              <th scope="col">Edu cess Amount</th>
+              <th scope="col">TDS Amount</th>
+              <th scope="col">TDS Recovery Amount</th>
+              <th scope="col">TDS Refund Amount</th>
+              <th scope="col">Int Rate</th>
+              <th scope="col">Last Int Paid</th>
+              <th scope="col">Pending Interest</th>
+              <th scope="col">Current Half Yearly Interest</th>
+              <th scope="col">Future Interest</th>
+              <th scope="col">Gross Interest Amount</th>
+              <th scope="col">Int Paid (Net Interest Amount)</th>
+              <th scope="col">Payment Date</th>
+              <th scope="col">Return reason</th>
+              <th scope="col">Return Amount</th>
+              <th scope="col">ReInitiated Amount</th>
+              <th scope="col">ReInitiated Date</th>
+              <th scope="col">Payment Date</th>
+              <th scope="col">ReInitiate Payment Mode</th>
+            </tr>
+          </thead>
+          <tbody data-ng-if="!vm.noDataFoundInSearch">
+          <tr dir-paginate="x in vm.filteredRecords | itemsPerPage: itemsPerPage" pagination-id="trailRunRep">
+            <td>{{ ($index + 1) + ((vm.pageNo - 1) * vm.pageSize) }}</td>
+              <td>{{x.modeOfPayment}}</td>
+              <td>{{x.branchRefNo}}</td>
+              <td>{{x.blaNo}}</td>
+              <td>{{x.refNo}}</td>
+              <td>{{x.appName1}}</td>
+              <td>{{x.appName2}}</td>
+              <td>{{x.appName3}}</td>
+              <td>{{x.address1}}</td>
+              <td>{{x.address2}}</td>
+              <td>{{x.recName}}</td>
+              <td>{{x.recParentName}}</td>
+              <td>{{x.pinCode}}</td>
+              <td>{{x.phoneNo}}</td>
+              <td>{{x.appStatus}}</td>
+              <td>{{vm.indianNumberFormat(x.investmentAmount |number:2)}}</td>
+              <td>{{x.cfd}}</td>
+              <td>{{x.maturityDate}}</td>
+              <td>{{x.accountNo}}</td>
+              <td>{{x.subscriptionCount}}</td>
+              <td>{{x.bankSortCode}}</td>
+              <td>{{x.bankName}}</td>
+              <td>{{x.panNoName}}</td>
+              <td>{{x.interestPayOut8Per}}</td>
+              <td>{{x.nonCumulativeInt}}</td>
+              <td>{{x.cumulativeInt}}</td>
+              <td>{{x.interestPayOut7Per}}</td>
+              <td>{{x.nonCumulativeIntFor7}}</td>
+              <td>{{x.cumulativeIntFor7}}</td>
+              <td>{{x.total}}</td>
+              <td>{{x.inOperativePAN}}</td>
+              <td>{{x.nonFilers}}</td>
+              <td>{{x.age}}</td>
+              <td>{{x.taxableLimit}}</td>
+              <td>{{x.waiverDocument}}</td>
+              <td>{{x.waiverDocumentRefNo}}</td>
+              <td>{{x.rrbTDSRate}}</td>
+              <td>{{vm.indianNumberFormat(x.thresholdExceedAmount | number:2)}}</td>
+              <td>{{vm.indianNumberFormat(x.thresholdExceedTDSAmount |number:2)}}</td>
+              <td>{{x.exemptionRate}}</td>
+              <td>{{vm.indianNumberFormat(x.exemptionAmount |number :2)}}</td>
+              <td>{{vm.indianNumberFormat(x.exemptionTDSAmount | number:2)}}</td>
+              <td>{{x.surcharge}}</td>
+              <td>{{x.eduCess}}</td>
+              <td>{{vm.indianNumberFormat(x.baseRateAmount|number:2)}}</td>
+              <td>{{vm.indianNumberFormat(x.surchargeAmount|number:2)}}</td>
+              <td>{{vm.indianNumberFormat(x.eduCessAmount|number:2)}}</td>
+              <td>{{vm.indianNumberFormat(x.tdsAmount |number:2)}}</td>
+              <td>{{vm.indianNumberFormat(x.tdsRecoveryAmount| number:2)}}</td>
+              <td>{{vm.indianNumberFormat(x.tdsRefundAmount | number:2)}}</td>
+              <td>{{x.intRate}}</td>
+              <td>{{x.lastIntPaid}}</td>
+              <td>{{x.pendingInterest}}</td>
+              <td>{{x.currentHalfYearlyInterest}}</td>
+              <td>{{x.futureInterest}}</td>
+              <td>{{vm.indianNumberFormat(x.grossInterestAmount | number:2)}}</td>
+              <td>{{x.intPaid}}</td>
+              <td>{{x.paymentDate}}</td>
+              <td>{{x.returnReason}}</td>
+              <td>{{vm.indianNumberFormat(x.returnAmt | number:2)}}</td>
+              <td>{{vm.indianNumberFormat(x.reInitiatedAmt | number:2)}}</td>
+              <td>{{x.reInitiatedDate}}</td>
+              <td>{{x.paymentDateOfReturn}}</td>
+              <td>{{x.reInitiatedPaymentMode}}</td>
+            </tr>
+          </tbody>
+
+          <tfoot data-ng-if="!vm.noDataFoundInSearch">
+          <th></th>
+          <th></th>
+          <th></th>
+          <th></th>
+          <th></th>
+          <th></th>
+          <th></th>
+          <th></th>
+          <th></th>
+          <th></th>
+          <th></th>
+          <th></th>
+          <th></th>
+          <th></th>
+          <th></th>
+          <th>{{vm.indianNumberFormat(vm.investmentAmount| number:2)}}</th>
+          <th></th>
+          <th></th>
+          <th></th>
+          <th></th>
+          <th></th>
+          <th></th>
+          <th></th>
+          <th></th>
+          <th></th>
+          <th></th>
+          <th></th>
+          <th></th>
+          <th></th>
+          <th></th>
+          <th></th>
+          <th></th>
+          <th></th>
+          <th></th>
+          <th></th>
+          <th></th>
+          <th></th>
+          <th>{{ vm.indianNumberFormat(vm.thresholdExceedAmount | number:2)}} </th>
+          <th>{{ vm.indianNumberFormat(vm.thresholdExceedTDSAmount| number:2)}}  </th>
+          <th></th>
+
+          <th>{{ vm.indianNumberFormat(vm.exemptionAmount | number:2)}} </th>
+          <th>{{ vm.indianNumberFormat(vm.exemptionTDSAmount| number:2)}}  </th>
+          <th></th>
+          <th></th>
+          <th>{{ vm.indianNumberFormat(vm.baseRateAmount | number:2)}} </th>
+          <th>{{ vm.indianNumberFormat(vm.surchargeAmount | number:2)}}  </th>
+          <th>{{ vm.indianNumberFormat(vm.eduCessAmount | number:2)}} </th>
+          <th>{{ vm.indianNumberFormat(vm.tdsAmount| number:2)}}  </th>
+          <th>{{ vm.indianNumberFormat(vm.tdsRecoveryAmount | number:2)}} </th>
+          <th>{{ vm.indianNumberFormat(vm.tdsRefundAmount | number:2)}}  </th>
+          <th></th>
+          <th></th>
+          <th></th>
+          <th></th>
+          <th></th>
+          <th>{{ vm.indianNumberFormat(vm.grossInterestAmount| number:2)}}  </th>
+          <th></th>
+          <th></th>
+          <th></th>
+          <th>{{ vm.indianNumberFormat(vm.returnAmt| number:2)}}  </th>
+          <th>{{ vm.indianNumberFormat(vm.reInitiatedAmt | number:2)}}  </th>
+          <th></th>
+          <th></th>
+          <th></th>
+          <th></th>
+          <th></th>
+          <th></th>
+          </tfoot>
+          <tbody data-ng-if="vm.noDataFoundInSearch">
+          <tr>
+            <td style="text-align:center">No Records Found</td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="text-center form_submit">
+              <span data-ng-show="vm.showPrevious">
+                <button type="submit" class="btn btn-default" data-ng-click="vm.goPreviousPage()">Prev</button>
+              </span>
+
+        <span>
+                <button type="submit" class="btn btn-default" data-ng-disabled="true" data-ng-init="vm.pageNo=1" data-ng-model="vm.pageNo" data-ng-click="vm.paymentStatus();">{{vm.pageNo}} of {{vm.maxPages}}</button>
+              </span>
+
+        <span data-ng-show="vm.showNext">
+                <button type="submit" class="btn btn-default" data-ng-click="vm.goNextPage();">Next</button>
+              </span>
+      </div>
+
+  </div>
+</div>
+
+<div class="container" data-ng-if="vm.noDataFound">
+  <div class="list_wrapper no_records_message">
+    <h4 class="form_heading">Bond Actual Interest Run Credited Report</h4>
+    No records found to display.
+    <div style="text-align: center">
+      <button type="button" class="btn btn-default" onclick="window.location.href='#!/bond_actual_interest_run_credited_report/action/inquiry';">Back</button>
+    </div>
+  </div>
+</div>

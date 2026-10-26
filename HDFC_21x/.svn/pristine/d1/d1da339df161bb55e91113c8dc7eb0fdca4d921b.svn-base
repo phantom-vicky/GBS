@@ -1,0 +1,641 @@
+<div class="loader-new" data-ng-if="vm.loader"></div>
+<div class="container"   data-ng-if="
+     vm.partANonCumulativeList.length > 0 || vm.partACumulativeList.length > 0 ||
+            vm.partBNonCumulativeList.length > 0 || vm.partBCumulativeList.length > 0 ||
+            vm.partCNonCumulativeList.length > 0 || vm.partCCumulativeList.length > 0 ||
+            vm.partDNonCumulativeList.length > 0 || vm.partDCumulativeList.length > 0
+">
+
+    <div class="container from_wrapper new_form_wrapper">
+        <div class="text-right form_submit">
+            <button type="submit" class="btn btn-default" onclick="window.location.href ='#!/'" id="homeButton">Home</button>
+            <button type="button" id="cancel_Button" class="btn btn-cancel"
+                    onclick="window.location.href= '#!/Appendix_IV_805_Mar_2024/action/inquiry';">Back
+            </button>
+        </div>
+        <h4 class="form_heading" ng-if="vm.schemeCode== '0017'">Appendix VII</h4>
+        <h4 class="form_heading" ng-if="vm.schemeCode!= '0017'">Appendix IV</h4>
+
+        <table style="width:100%" class="table table-bordered" aria-label="">
+
+            <tr>
+                <th scope="col" >Name of the Bond Scheme</th>
+                <td>{{vm.schemeName}}</td>
+            </tr>
+            <tr>
+                <th scope="col" >From Date</th>
+                <td>{{vm.fromDate | date : 'dd/MM/yyyy'}}</td>
+            </tr>
+            <tr>
+                <th scope="col" >To Date</th>
+                <td>{{vm.toDate | date : 'dd/MM/yyyy'}}</td>
+            </tr>
+        </table>
+
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="row" style="display: flex; align-items: center; justify-content: space-between">
+                    <div class="col-sm-3" style="flex: 1; visibility:hidden">
+                        <div class="form-group">
+                            <table style="border-spacing: 2" aria-label="">
+                                <tr>
+                                    <th scope="col"></th>
+                                </tr>
+                                <tr>
+                                    <td>Show&nbsp;</td>
+                                    <td>
+                                        <select id="pageSize" class="form-control filter-control" data-ng-model="vm.pageSize"
+                                                data-ng-change="vm.updatePageSize()"
+                                                data-ng-options="option for option in vm.pageSizeOptions"></select>
+                                    </td>
+                                    <td>&nbsp;records per page</td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-6" style="display: flex; align-items: center; justify-content: flex-end">
+                        <div class="form-group" style="margin-right: 15px; visibility:hidden">
+                            <div class="input-group">
+                                <div class="input-group-addon">
+                                    <span class="glyphicon glyphicon-search"></span>
+                                </div>
+                                <input type="text" id="search" class="form-control" data-ng-change="vm.updateFilteredRecords()"
+                                       data-ng-model="vm.searchText" placeholder="Search"/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <select class="form-control" id="export" name="export" data-ng-model="vm.downloadType"
+                                    data-ng-init="vm.downloadType=''" data-ng-change="vm.downloadReport()">
+                                <option value="">EXPORT</option>
+                                <option value="excel">EXCEL</option>
+                                <option value="csv">CSV</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="table-responsive" id="myTable">
+                    <table id="myTable1" class="table table-bordered table-striped list table-textWrap" aria-label="">
+                        <thead>
+                        <tr>
+                            <th scope="col" colspan="2" style="text-align:center">Mumbai</th>
+                            <th scope="col" colspan="7" rowspan="2" style="text-align:center">HDFC BANK LTD</th>
+                            <th scope="col" colspan="1"></th>
+                            <th scope="col" colspan="1" style="text-align:center"><strong>PART A</strong></th>
+                        </tr>
+                        <tr>
+                            <th scope="col" colspan="2" style="text-align:center"><strong>{{vm.schemeName}}</strong></th>
+<!--                            <th scope="col" colspan="7"></th>-->
+                            <th scope="col" colspan="1"></th>
+                            <th scope="col" colspan="1" style="text-align:center" ng-if="vm.schemeCode=='0017'"><strong>APPENDIX VII</strong></th>
+                            <th scope="col" colspan="1" style="text-align:center" ng-if="vm.schemeCode!='0017'"><strong>APPENDIX IV</strong></th>
+                        </tr>
+                        <tr>
+                            <th scope="col" colspan="11" style="text-align:center">
+                                Statement of Bonds Issued/Transferred/Repaid etc for the month of {{vm.toDate ? (vm.toDate | date:'MMM yyyy' | uppercase) : '' }}
+                            </th>
+                        </tr>
+                        <tr>
+                            <th scope="col" colspan="11" style="text-align:center">
+                                Bond Ledger Accounts Opened during the month of {{vm.toDate ? (vm.toDate | date:'MMM yyyy' | uppercase) : '' }}
+                            </th>
+                        </tr>
+                        <tr>
+                            <th scope="col" colspan="5" style="text-align:center">NON-CUMULATIVE</th>
+                            <th scope="col" rowspan="1" style="text-align:center;vertical-align:middle;">SCH</th>
+                            <th scope="col" colspan="5" style="text-align:center">CUMULATIVE</th>
+                        </tr>
+                        <tr class="thalign">
+                            <th scope="col" style="text-align:center">S. No.</th>
+                            <th scope="col" style="text-align:center">BLA No</th>
+                            <th scope="col" style="text-align:center">Amount</th>
+                            <th scope="col" style="text-align:center">CAS Adv No & CAS Dt</th>
+                            <th scope="col" style="text-align:center">DUE DATE</th>
+                            <th scope="col" style="text-align:center"></th>
+                            <th scope="col" style="text-align:center">S. No.</th>
+                            <th scope="col" style="text-align:center">BLA No</th>
+                            <th scope="col" style="text-align:center">Amount</th>
+                            <th scope="col" style="text-align:center">CAS Adv No & CAS Dt</th>
+                            <th scope="col" style="text-align:center">DUE DATE</th>
+                        </tr>
+                        </thead>
+
+                        <tbody>
+                         <tr ng-repeat-start="a in vm.mergedPartAList track by $index">
+                            <td style="text-align:center">{{(vm.partANonCumulativeList.length > 0 && $index< vm.partANonCumulativeList.length)? ($index + 1) : '' }}</td>
+                            <td style="text-align:center">{{a.nonCumulative.partANcBla}}</td>
+                            <td style="text-align:right">{{vm.formatIndianCurrency(a.nonCumulative.partANcAmount)}}</td>
+                            <td style="text-align:center">{{a.nonCumulative.partANcCasAdviseNo ||"-"}} <span data-ng-if="a.nonCumulative.partANcCasDate"> /{{vm.formatCasDate(a.nonCumulative.partANcCasDate)}}</span></td>
+<!--                            <td style="text-align:center">{{a.nonCumulative.partANcDueDate}}</td>-->
+                            <td style="text-align:center">
+                                {{ a.nonCumulative.partANcDueDate}}
+                            </td>
+                            <td style="text-align:center">{{a.nonCumulative.sch}}</td>
+                            <td style="text-align:center">{{(vm.partACumulativeList.length > 0 && $index< vm.partACumulativeList.length)? ($index+1) : '' }}</td>
+                            <td style="text-align:center">{{a.cumulative.partACBla}}</td>
+                            <td style="text-align:right">{{vm.formatIndianCurrency(a.cumulative.partACAmount)}}</td>
+                            <td style="text-align:center">{{a.cumulative.partACCasAdviseNo||'-'}} <span data-ng-if="a.cumulative.partACCasDate"> / {{vm.formatCasDate(a.cumulative.partACCasDate)}}</span> </td>
+<!--                            <td style="text-align:center">{{a.cumulative.partACDueDate}}</td>-->
+
+                            <td style="text-align:center">
+                                {{ a.cumulative.partACDueDate}}
+                            </td>
+                        </tr>
+
+
+                         <tr ng-repeat-end
+                             ng-if="vm.showNcTotal(a,$index) || vm.showCTotal(a,$index)">
+
+                             <!-- NON-CUMULATIVE TOTAL -->
+                             <td></td>
+                             <td style="text-align:right; font-weight:bold">
+                                 {{ vm.showNcTotal(a,$index) ? 'Total' : '' }}
+                             </td>
+                             <td style="text-align:right; font-weight:bold">
+                                 {{ vm.showNcTotal(a,$index) ? vm.formatIndianCurrency(vm.ncDateTotals[a.nonCumulative.partANcDueDate]) : '' }}
+                             </td>
+                             <td></td>
+
+                             <td></td>
+                             <td></td>
+
+                             <!-- CUMULATIVE TOTAL -->
+                             <td></td>
+                             <td style="text-align:right; font-weight:bold" ng-if="vm.showCTotal(a,$index)">Total</td>
+                             <td style="text-align:right; font-weight:bold">
+                                 {{ vm.showCTotal(a,$index) ? vm.formatIndianCurrency(vm.cDateTotals[a.cumulative.partACDueDate]) : '' }}
+                             </td>
+                             <td></td>
+                             <td></td>
+                         </tr>
+
+
+
+
+                        <tr>
+                            <td></td>
+                            <td style="text-align:center"><strong>Grand Total</strong></td>
+                            <td style="text-align:right">{{vm.formatIndianCurrency(vm.partANonCumulativeTotalAmount)}}</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td style="text-align:right">{{vm.formatIndianCurrency(vm.partACumulativeTotalAmount)}}</td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        </tbody>
+                        <!--Part B-->
+                        <thead>
+                        <tr>
+                            <th scope="col" colspan="2" style="text-align:center">Part B</th>
+                            <th scope="col" colspan="6" rowspan="2" style="text-align:center">HDFC BANK LTD</th>
+                            <th scope="col" colspan="1"></th>
+                            <th scope="col" colspan="2" style="text-align:center"ng-if="vm.schemeCode=='0017'"><strong>APPENDIX VII</strong></th>
+                            <th scope="col" colspan="2" style="text-align:center"ng-if="vm.schemeCode!='0017'"><strong>APPENDIX IV</strong></th>
+
+
+                        </tr>
+                        <tr>
+                            <th scope="col" colspan="2" style="text-align:center"><strong>Mumbai</strong></th>
+<!--                            <th scope="col" colspan="6"></th>-->
+                            <th scope="col" colspan="1"></th>
+                            <th scope="col" colspan="2" style="text-align:center"><strong>{{vm.schemeName}}</strong></th>
+                        </tr>
+                        <tr>
+                            <th scope="col" colspan="11" style="text-align:center">
+                                Transferred from other branches / banks (inflow)
+                            </th>
+                        </tr>
+                        <tr>
+                            <th scope="col" colspan="11" style="text-align:center">
+                                Bond Ledger Accounts opened during the month of {{vm.toDate ? (vm.toDate | date:'MMM yyyy' | uppercase) : '' }}
+                            </th>
+                        </tr>
+                        <tr>
+                            <th scope="col" colspan="6" style="text-align:center">NON-CUMULATIVE</th>
+                            <th scope="col" colspan="5" style="text-align:center">CUMULATIVE</th>
+                        </tr>
+                        <tr class="thalign">
+                            <th scope="col" style="text-align:center">S. No.</th>
+                            <th scope="col" style="text-align:center">BLA No</th>
+                            <th scope="col" colspan="2" style="text-align:center">Amount</th>
+                            <th scope="col" style="text-align:center">Due Date</th>
+                            <th scope="col" style="text-align:center"></th>
+                            <th scope="col" style="text-align:center">S. No.</th>
+                            <th scope="col" style="text-align:center">BLA No</th>
+                            <th scope="col" style="text-align:center">Amount</th>
+                            <th scope="col" style="text-align:center">Due Date</th>
+                            <th scope="col" style="text-align:center">Transferor Branch Name</th>
+                        </tr>
+                        </thead>
+
+                        <tbody>
+                        <tr ng-repeat="b in vm.mergedPartBList track by $index">
+                            <td style="text-align:center">{{ (vm.partBNonCumulativeList.length > 0 && $index< vm.partBNonCumulativeList.length)? ($index + 1) : '' }}</td>
+                            <td style="text-align:center">{{b.nonCumulative.partBNcBla}}</td>
+                            <td colspan="2" style="text-align:right">{{vm.formatIndianCurrency(b.nonCumulative.partBNcAmount)}}</td>
+                            <td style="text-align:center">{{b.nonCumulative.partBNcDueDate}}</td>
+                            <td></td>
+                            <td style="text-align:center">{{ (vm.partBCumulativeList.length > 0 && $index < vm.partBCumulativeList.length)? ($index+1) : '' }}</td>
+                            <td style="text-align:center">{{b.cumulative.partBCBla}}</td>
+                            <td style="text-align:right">{{vm.formatIndianCurrency(b.cumulative.partBCAmount)}}</td>
+                            <td style="text-align:center">{{b.cumulative.partBCDueDate}}</td>
+                            <td style="text-align:center">{{b.cumulative.partBCTransferorBranchName}}</td>
+                        </tr>
+
+
+
+
+                        <!-- GRAND TOTAL ROW -->
+                        <tr>
+                            <td></td>
+                            <td style="text-align:center"><strong>Total</strong></td>
+                            <td colspan="2" style="text-align:right">
+                                {{vm.formatIndianCurrency(vm.partBNonCumulativeTotalAmount)}}
+                            </td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td style="text-align:right">
+                                {{vm.formatIndianCurrency(vm.partBCumulativeTotalAmount)}}
+                            </td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+
+                        </tbody>
+                        <thead>
+                        <tr>
+                            <th scope="col" colspan="2" style="text-align:center">Part C</th>
+                            <th scope="col" colspan="6"  rowspan="2" style="text-align:center">HDFC BANK LTD</th>
+                            <th scope="col" colspan="1"></th>
+
+                            <th scope="col" colspan="2" style="text-align:center"ng-if="vm.schemeCode=='0017'"><strong>APPENDIX VII</strong></th>
+                            <th scope="col" colspan="2" style="text-align:center"ng-if="vm.schemeCode!='0017'"><strong>APPENDIX IV</strong></th>
+                        </tr>
+                        <tr>
+                            <th scope="col" colspan="2" style="text-align:center"><strong>Mumbai</strong></th>
+<!--                            <th scope="col" colspan="6"></th>-->
+                            <th scope="col" colspan="1"></th>
+                            <th scope="col" colspan="2" style="text-align:center"><strong>{{vm.schemeName}}</strong></th>
+                        </tr>
+                        <tr>
+                            <th scope="col" colspan="11" style="text-align:center">
+                                Transferred from other branches / banks (outflow)
+                            </th>
+                        </tr>
+                        <tr>
+                            <th scope="col" colspan="11" style="text-align:center">
+                                Bond Ledger Accounts opened during the month of {{vm.toDate ? (vm.toDate | date:'MMM yyyy' | uppercase) : '' }}
+                            </th>
+                        </tr>
+                        <tr>
+                            <th scope="col" colspan="6" style="text-align:center">NON-CUMULATIVE</th>
+                            <th scope="col" colspan="5" style="text-align:center">CUMULATIVE</th>
+                        </tr>
+                        <tr class="thalign">
+                            <th scope="col" style="text-align:center">S No.</th>
+                            <th scope="col" style="text-align:center">BLA No.</th>
+                            <th scope="col" colspan="2" style="text-align:center">AMOUNT</th>
+                            <th scope="col" style="text-align:center">DUE DATE OF REPAYMENT</th>
+                            <th scope="col" style="text-align:center"></th>
+                            <th scope="col" style="text-align:center">S No.</th>
+                            <th scope="col" style="text-align:center">BLA No.</th>
+                            <th scope="col" style="text-align:center">AMOUNT</th>
+                            <th scope="col" style="text-align:center">DUE DATE OF REPAYMENT</th>
+                            <th scope="col" style="text-align:center">Name of transferor Branch</th>
+                        </tr>
+                        </thead>
+
+                        <tbody>
+                        <tr ng-repeat="c in vm.mergedPartCList track by $index">
+                            <td style="text-align:center">{{(vm.partCNonCumulativeList.length > 0 && $index< vm.partCNonCumulativeList.length)? ($index+1) : ''}}</td>
+                            <td style="text-align:center">{{c.nonCumulative.partCNcBla}}</td>
+                            <td colspan="2" style="text-align:right">{{vm.formatIndianCurrency(c.nonCumulative.partCNcAmount)}}</td>
+                            <td style="text-align:center">{{c.nonCumulative.partCNcDueDate}}</td>
+                            <td></td>
+                            <td style="text-align:center">{{(vm.partCCumulativeList.length > 0 && $index< vm.partCCumulativeList.length) ?($index + 1) : ''}}</td>
+                            <td style="text-align:center">{{c.cumulative.partCCBla}}</td>
+                            <td  style="text-align:right">{{vm.formatIndianCurrency(c.cumulative.partCCAmount)}}</td>
+                            <td style="text-align:center">{{c.cumulative.partCCDueDate}}</td>
+                            <td style="text-align:center">{{c.cumulative.partCCTransferorBranchName}}</td>
+                        </tr>
+<!--                        <tr>-->
+<!--                            <td></td>-->
+<!--                            <td>I. Transfer of entire Balance</td>-->
+<!--                            <td></td>-->
+<!--                            <td></td>-->
+<!--                            <td></td>-->
+<!--                            <td></td>-->
+<!--                            <td></td>-->
+<!--                            <td></td>-->
+<!--                            <td></td>-->
+<!--                            <td></td>-->
+<!--                            <td></td>-->
+<!--                        </tr>-->
+<!--                        <tr>-->
+<!--                            <td></td>-->
+<!--                            <td>II. Part Transfers</td>-->
+<!--                            <td></td>-->
+<!--                            <td></td>-->
+<!--                            <td></td>-->
+<!--                            <td></td>-->
+<!--                            <td></td>-->
+<!--                            <td></td>-->
+<!--                            <td></td>-->
+<!--                            <td></td>-->
+<!--                            <td></td>-->
+<!--                            <td></td>-->
+<!--                        </tr>-->
+                        <tr>
+                            <td></td>
+                            <td style="text-align:center"><strong>Total</strong></td>
+                            <td colspan="2" style="text-align:right">{{vm.formatIndianCurrency(vm.partCNonCumulativeTotalAmount)}}</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td style="text-align:right">{{vm.formatIndianCurrency(vm.partCCumulativeTotalAmount)}}</td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        </tbody>
+
+                        <!--Part D-->
+                        <thead>
+                        <tr>
+                            <th scope="col" colspan="2" style="text-align:center">Part D</th>
+                            <th scope="col" colspan="6" rowspan="2" style="text-align:center">HDFC BANK LTD</th>
+                            <th scope="col" colspan="1"></th>
+                            <th scope="col" colspan="2" style="text-align:center"ng-if="vm.schemeCode=='0017'"><strong>APPENDIX VII</strong></th>
+                            <th scope="col" colspan="2" style="text-align:center"ng-if="vm.schemeCode!='0017'"><strong>APPENDIX IV</strong></th>
+                        </tr>
+                        <tr>
+                            <th scope="col" colspan="2" style="text-align:center"><strong>Mumbai</strong></th>
+<!--                            <th scope="col" colspan="6"></th>-->
+                            <th scope="col" colspan="1"></th>
+                            <th scope="col" colspan="2" style="text-align:center"><strong>{{vm.schemeName}}</strong></th>
+                        </tr>
+                        <tr>
+                            <th scope="col" colspan="11" style="text-align:center">
+                                REPAYMENT POSITION {{vm.toDate ? (vm.toDate | date:'MMM yyyy' | uppercase) : '' }}
+                            </th>
+                        </tr>
+                        <tr>
+                            <th scope="col" colspan="6" style="text-align:center">NON-CUMULATIVE</th>
+                            <th scope="col" colspan="5" style="text-align:center">CUMULATIVE</th>
+                        </tr>
+                        <tr class="thalign">
+                            <th scope="col" style="text-align:center">S No.</th>
+                            <th scope="col" style="text-align:center">BLA No.</th>
+                            <th scope="col" colspan="2" style="text-align:center">AMOUNT</th>
+                            <th scope="col" style="text-align:center">DUE DATE OF REPAYMENT</th>
+                            <th scope="col" style="text-align:center">Repayment On</th>
+                            <th scope="col" style="text-align:center">S No.</th>
+                            <th scope="col" style="text-align:center">BLA No.</th>
+                            <th scope="col" style="text-align:center">AMOUNT</th>
+                            <th scope="col" style="text-align:center">DUE DATE OF REPAYMENT</th>
+                            <th scope="col" style="text-align:center">Repayment On</th>
+                        </tr>
+                        </thead>
+
+                        <tbody>
+                        <tr ng-repeat="d in vm.mergedPartDList track by $index">
+                            <td style="text-align:center">{{ (vm.partDNonCumulativeList.length > 0 && $index < vm.partDNonCumulativeList.length) ? ($index + 1) : '' }}</td>
+                            <td style="text-align:center">{{d.nonCumulative.partDNcBla}}</td>
+                            <td colspan="2" style="text-align:right">{{vm.formatIndianCurrency(d.nonCumulative.partDNcAmount)}}</td>
+                            <td style="text-align:center">{{d.nonCumulative.partDNcDueDate}}</td>
+                            <td style="text-align:center">{{d.nonCumulative.partDNcRepaymentOn}}</td>
+                            <td style="text-align:center">{{ (vm.partDCumulativeList.length > 0 && $index < vm.partDCumulativeList.length) ? ($index + 1) : '' }}</td>
+                            <td style="text-align:center">{{d.cumulative.partDCBla}}</td>
+                            <td style="text-align:right">{{vm.formatIndianCurrency(d.cumulative.partDCAmount)}}</td>
+                            <td style="text-align:center">{{d.cumulative.partDCDueDate}}</td>
+                            <td style="text-align:center">{{d.cumulative.partDCRepaymentOn}}</td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td style="text-align:center"><strong>Total</strong></td>
+                            <td colspan="2" style="text-align:right">{{vm.formatIndianCurrency(vm.partDNonCumulativeTotalAmount)}}</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td style="text-align:center"><strong>Total</strong></td>
+                            <td  style="text-align:right">{{vm.formatIndianCurrency(vm.partDCumulativeTotalAmount)}}</td>
+                            <td></td>
+                        </tr>
+                        </tbody>
+
+                        <!--Part E-->
+                        <thead>
+                        <tr>
+                            <th scope="col" colspan="2" style="text-align:center">Part E</th>
+                            <th scope="col" colspan="6" rowspan="2" style="text-align:center">HDFC BANK LTD</th>
+                            <th scope="col" colspan="1"></th>
+                            <th scope="col" colspan="2" style="text-align:center"ng-if="vm.schemeCode=='0017'"><strong>APPENDIX VII</strong></th>
+                            <th scope="col" colspan="2" style="text-align:center"ng-if="vm.schemeCode!='0017'"><strong>APPENDIX IV</strong></th>
+                        </tr>
+                        <tr>
+                            <th scope="col" colspan="2" style="text-align:center"><strong>Mumbai</strong></th>
+<!--                            <th scope="col" colspan="6"></th>-->
+                            <th scope="col" colspan="1"></th>
+                            <th scope="col" colspan="2" style="text-align:center"><strong>{{vm.schemeName}}</strong></th>
+                        </tr>
+                        <tr>
+                            <th scope="col" colspan="11" style="text-align:center">
+                                Summary Position {{vm.toDate ? (vm.toDate | date:'MMM yyyy' | uppercase) : '' }}
+                            </th>
+                        </tr>
+                        <tr>
+                            <th scope="col" colspan="6" style="text-align:center">NON-CUMULATIVE</th>
+                            <th scope="col" colspan="5" style="text-align:center">CUMULATIVE</th>
+                        </tr>
+                        <tr class="thalign">
+                            <th scope="col" colspan="2"></th>
+                            <th scope="col" colspan="2" style="text-align:center">No of Accounts</th>
+                            <th scope="col" colspan="2" style="text-align:center">AMOUNT</th>
+                            <th scope="col" colspan="2"></th>
+                            <th scope="col" colspan="2" style="text-align:center">No of Accounts</th>
+                            <th scope="col" colspan="1" style="text-align:center">AMOUNT</th>
+                        </tr>
+                        </thead>
+
+                        <tbody>
+                        <tr>
+
+                            <td colspan="2"><strong>Progressive Opening Balance B/F</strong></td>
+                            <td colspan="2" style="text-align:right">{{vm.formatIndianNumber(vm.partTotalAmtAcc[1].totalaPartiAccounts)}}</td>
+                            <td colspan="2" style="text-align:right">{{vm.formatIndianCurrency(vm.partTotalAmtAcc[1].totalaPartiAmount)}}</td>
+                            <td colspan="2"><strong>Progressive Opening Balance B/F</strong></td>
+                            <td colspan="2"style="text-align:right">{{vm.formatIndianNumber(vm.partTotalAmtAcc[0].totalaPartiAccounts)}}</td>
+                            <td colspan="1" style="text-align:right">{{vm.formatIndianCurrency(vm.partTotalAmtAcc[0].totalaPartiAmount)}}</td>
+                        </tr>
+                        <tr>
+                            <td colspan="2"><strong>Part A + (Add)</strong></td>
+                            <td colspan="2"style="text-align:right">{{vm.formatIndianNumber(vm.partANonCumulativeList.length)}}</td>
+                            <td colspan="2" style="text-align:right">{{vm.formatIndianCurrency(vm.partANonCumulativeTotalAmount)}}</td>
+                            <td colspan="2"><strong>Part A + (Add)</strong></td>
+                            <td colspan="2"style="text-align:right">{{vm.formatIndianNumber(vm.partACumulativeList.length)}}</td>
+                            <td colspan="1" style="text-align:right">{{vm.formatIndianCurrency(vm.partACumulativeTotalAmount)}}</td>
+                        </tr>
+                        <tr>
+                            <td colspan="2"><strong>Part B + (Add)</strong></td>
+                            <td colspan="2"style="text-align:right">{{vm.formatIndianNumber(vm.partBNonCumulativeList.length)}}</td>
+                            <td colspan="2" style="text-align:right">{{vm.formatIndianCurrency(vm.partBNonCumulativeTotalAmount)}}</td>
+                            <td colspan="2"><strong>Part B + (Add)</strong></td>
+                            <td colspan="2"style="text-align:right">{{vm.formatIndianNumber(vm.partBCumulativeList.length)}}</td>
+                            <td colspan="1" style="text-align:right">{{vm.formatIndianCurrency(vm.partBCumulativeTotalAmount)}}</td>
+                        </tr>
+
+
+                        <tr>
+                            <td colspan="2"><strong>Total</strong></td>
+
+                            <!-- Count -->
+                            <td colspan="2" style="text-align:right">
+                                {{
+                                vm.formatIndianNumber(vm.partANonCumulativeList.length + vm.partBNonCumulativeList.length)
+                                }}
+                            </td>
+
+                            <!-- Amount -->
+                            <td colspan="2" style="text-align:right">
+                                {{
+                                vm.formatIndianCurrency(
+                                vm.partANonCumulativeTotalAmount + vm.partBNonCumulativeTotalAmount
+                                )
+                                }}
+                            </td>
+
+                            <td colspan="2"><strong>Total</strong></td>
+
+                            <!-- Cumulative Count -->
+                            <td colspan="2" style="text-align:right">
+                                {{
+                                vm.formatIndianNumber(vm.partACumulativeList.length + vm.partBCumulativeList.length)
+                                }}
+                            </td>
+
+                            <!-- Cumulative Amount -->
+                            <td colspan="1" style="text-align:right">
+                                {{
+                                vm.formatIndianCurrency(
+                                vm.partACumulativeTotalAmount + vm.partBCumulativeTotalAmount
+                                )
+                                }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2"><strong>Part C - (Less)</strong></td>
+                            <td colspan="2"style="text-align:right">{{vm.formatIndianNumber(vm.partCNonCumulativeList.length)}}</td>
+                            <td colspan="2" style="text-align:right">{{vm.formatIndianCurrency(vm.partCNonCumulativeTotalAmount)}}</td>
+                            <td colspan="2"><strong>Part C - (Less)</strong></td>
+                            <td colspan="2"style="text-align:right">{{vm.formatIndianNumber(vm.partCCumulativeList.length)}}</td>
+                            <td colspan="1" style="text-align:right">{{vm.formatIndianCurrency(vm.partCCumulativeTotalAmount)}}</td>
+                        </tr>
+                        <tr>
+                            <td colspan="2"><strong>Part D - (Less)</strong></td>
+                            <td colspan="2"style="text-align:right">{{vm.formatIndianNumber(vm.partDNonCumulativeList.length)}}</td>
+                            <td colspan="2" style="text-align:right">{{vm.formatIndianCurrency(vm.partDNonCumulativeTotalAmount)}}</td>
+                            <td colspan="2"><strong>Part D - (Less)</strong></td>
+                            <td colspan="2"style="text-align:right">{{vm.formatIndianNumber(vm.partDCumulativeList.length)}}</td>
+                            <td colspan="1" style="text-align:right">{{vm.formatIndianCurrency(vm.partDCumulativeTotalAmount)}}</td>
+                        </tr>
+
+
+
+                        <tr>
+                            <td colspan="2"><strong>part D Balance</strong></td>
+
+                            <!-- Count Balance -->
+                            <td colspan="2" style="text-align:right">
+                                {{
+                                vm.formatIndianNumber(vm.partDNonCumulativeList.length)
+                                }}
+                            </td>
+
+                            <!-- Amount Balance (format AFTER calculation) -->
+                            <td colspan="2" style="text-align:right">
+                                {{
+                                vm.formatIndianCurrency(vm.partDNonCumulativeTotalAmount)
+                                }}
+                            </td>
+
+                            <td colspan="2"><strong>part D Balance</strong></td>
+
+                            <!-- Cumulative Count -->
+                            <td colspan="2" style="text-align:right">
+                                {{
+                                vm.formatIndianNumber(vm.partDCumulativeList.length)
+                                }}
+                            </td>
+
+                            <!-- Cumulative Amount -->
+                            <td colspan="1" style="text-align:right">
+                                {{
+                                vm.formatIndianCurrency(vm.partDCumulativeTotalAmount)
+
+                                }}
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td colspan="2">
+                                <strong>Net i.e. Total of Part A + Part B - Total of Part C + Part D</strong>
+                            </td>
+
+                            <!-- Count -->
+                            <td colspan="2" style="text-align:right">
+                                {{
+                                vm.formatIndianNumber(vm.totalNCumAccount)
+                                }}
+                            </td>
+
+                            <!-- Amount -->
+                            <td colspan="2" style="text-align:right">
+                                  {{vm.formatIndianCurrency(vm.totalNCumAmount)}}
+
+                            </td>
+                            <td colspan="2">
+                                <strong>Net i.e. Total of Part A + Part B - Total of Part C + Part D</strong>
+                            </td>
+                            <td colspan="2" style="text-align:right">
+                                {{
+                            vm.formatIndianNumber(vm.totalCumAccount)
+                                }}
+                            </td>
+
+                            <!-- Cumulative Amount -->
+                            <td colspan="1" style="text-align:right">
+
+                                {{vm.formatIndianCurrency(vm.totalCumAmount)}}
+
+                            </td>
+                        </tr>
+
+
+
+
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container" data-ng-if="vm.noDataFound">
+    <div class="list_wrapper no_records_message">
+        <h4 class="form_heading">Appendix IV</h4>
+        No records found to display.
+        <div style="text-align: center">
+            <button type="button" class="btn btn-default"
+                    onclick="window.location.href= '#!/Appendix_IV_805_Mar_2024/action/inquiry';">Back
+            </button>
+        </div>
+    </div>
+</div>

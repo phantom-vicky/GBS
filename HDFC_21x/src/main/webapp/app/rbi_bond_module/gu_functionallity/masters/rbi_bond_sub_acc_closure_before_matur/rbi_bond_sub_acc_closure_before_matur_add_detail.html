@@ -1,0 +1,284 @@
+<div class="loader-new" ng-if="vm.loader"></div>
+<dc-left-menu></dc-left-menu>
+<div class="container from_wrapper new_form_wrapper">
+    <h4 class="form_heading">Bond Subscription Account Closure Before Maturity - Add</h4>
+
+
+    <form name="vm.bondClosureBefMaturForm" role="form">
+        <table class="table table-bordered">
+            <h5 class="form_heading">BOND HOLDER DETAILS</h5>
+
+            <tbody>
+            <tr>
+                <td width="25%">Name of the Bond Scheme</td>
+                <td width="25%">
+                    <label class="data-bind" id="bondScheme">{{vm.schemeName}}</label>
+                </td>
+                <td width="25%">Mode of Holding</td>
+                <td width="25%">
+                    <label class="data-bind" id="modeOfHolding">{{vm.blaDetails.modeOfHolding}}</label>
+                </td>
+            </tr>
+            <tr>
+                <td width="25%">BLA Number</td>
+                <td width="25%">
+                    <label class="data-bind" id="blaNo">{{vm.blaNo}}</label>
+                </td>
+
+                <td width="25%"> Holder Type</td>
+                <td width="25%">
+                    <label class="data-bind" id="holderType">{{vm.blaDetails.holderType}}</label>
+                </td>
+
+            </tr>
+
+
+            <tr ng-if="vm.blaDetails.modeOfHoldingCode=='MH003' || vm.blaDetails.modeOfHoldingCode=='MH002'">
+                <td width="25%">First Joint Bond Holder BLA No</td>
+                <td width="25%">
+                    <label class="data-bind" id="joinBlaNo">{{vm.blaDetails.firstJointBondHolderBLA}}</label>
+                </td>
+                <td width="25%">First Joint Bond Holder Name</td>
+                <td width="25%">
+                    <label class="data-bind" id="firstJointHolderName">{{vm.blaDetails.firstJointBondHolderName}}</label>
+                </td>
+            </tr>
+            <tr ng-if="vm.blaDetails.modeOfHoldingCode=='MH003' || vm.blaDetails.modeOfHoldingCode=='MH002'">
+                <td width="25%">Second Joint Bond Holder BLA No</td>
+                <td width="25%" >
+                    <label class="data-bind" id="secJointHolderBlaNo">{{vm.blaDetails.secondJointBondHolderBLA}}</label>
+                </td>
+                <td width="25%">Second Joint Bond Holder Name</td>
+                <td width="25%">
+                    <label class="data-bind" id="secJointHolderName">{{vm.blaDetails.secondJointBondHolderName}}</label>
+                </td>
+            </tr>
+
+            <tr>
+
+                <td width="25%" ng-if="vm.blaDetails.modeOfHoldingCode=='MH001' || vm.blaDetails.modeOfHoldingCode=='MH004' || vm.blaDetails.modeOfHoldingCode=='MH005'">Bond Holder Name</td>
+                <td width="25%" ng-if="vm.blaDetails.modeOfHoldingCode=='MH001' || vm.blaDetails.modeOfHoldingCode=='MH004' || vm.blaDetails.modeOfHoldingCode=='MH005'">
+                    <label class="data-bind" id="holderName">{{vm.blaDetails.bondHolderName}}</label>
+                </td>
+
+
+                <td width="25%">Is NRI? Yes/No.</td>
+                 <td width="25%">
+                    <label class="data-bind" id="isNri">{{vm.blaDetails.isNri | getLabelFromValuesArray : vm.commonYesNoMetaData}}</label>
+
+                </td>
+            </tr>
+
+            </tbody>
+        </table>
+
+<!--BOND SUBSCRIPTION DETAILS:-->
+        <table class="table table-bordered">
+            <h5 class="form_heading">BOND SUBSCRIPTION DETAILS</h5>
+            <tbody>
+
+            <tr>
+                <td width="25%" ><label>Subscription Date</label></td>
+                <td width="25%" ><label>{{vm.bondDetails.subsDate}}</label>
+                </td>
+                <td width="25%" ><label>Subscription ID</label></td>
+                <td width="25%" ><label>{{vm.bondDetails.boSubsId}}</label>
+            </tr>
+
+
+            <tr>
+
+                <td width="25%" ><label>Subscription  Amount</label></td>
+                <td width="25%" ><label>{{vm.bondDetails.subsAmt}}</label>
+
+                <td width="25%" ><label>Bond Type</label></td>
+                <td width="25%" ><label>{{vm.bondDetails.bondType}}</label>
+
+            </tr>
+
+
+
+            <tr>
+
+                <td width="25%" ><label>Maturity Date</label></td>
+                <td width="25%" ><label>{{vm.bondDetails.maturityDate}}</label>
+
+            </tr>
+
+            </tbody>
+    </table>
+
+
+<!--ACCOUNT CLOSURE  DETAILS-->
+
+        <table class="table table-bordered">
+            <h5 class="form_heading">ACCOUNT CLOSURE  DETAILS</h5>
+            <tbody>
+
+            <tr>
+            <td width="25%" ><label>Interest Paid up to</label></td>
+            <td width="25%" > <label>{{vm.bondDetails.intPaidUpto }}</label> </td>
+            </tr>
+
+            <tr>
+                <td width="25%" ><label>Interest Calculation From Date</label></td>
+                <td width="25%" ><label>{{vm.bondDetails.intCalFromDate | date : 'dd-mm-yyyy' }}</label>
+                </td>
+
+                <td width="25%" ><label>Interest Calculation to Date</label></td>
+                <td width="25%" > <label>{{vm.bondDetails.intCalToDate | date : 'dd-mm-yyyy' }}</label>
+            </tr>
+
+            <tr>
+                <td width="25%" ><label>Last half Year Period Interest Rate</label></td>
+                <td width="25%" ><label>{{vm.bondDetails.lastHalfYrIntRate}}</label>
+                </td>
+
+                <td width="25%" ><label>Last half Year Period Interest amount</label></td>
+                <td width="25%" > <label>{{vm.bondDetails.lastHalfYrIntAmt}}</label>
+            </tr>
+
+
+            <tr>
+                <td width="25%" ><label>Whether Last half year interest is paid</label></td>
+                <td width="25%" ><label>{{vm.bondDetails.islastYearIntPaid | getLabelFromValuesArray : vm.commonYesNoMetaData}}</label></td>
+
+            </tr>
+
+            <tr>
+            <td width="25%" ><label>Penalty To be recovered</label></td>
+            <td width="25%" > <label>{{vm.bondDetails.penality}}</label>
+
+                <td width="25%" ng-if="vm.bondDetails.islastYearIntPaid=='N'"><label>Net Interest for the Last half year period</label></td>
+                <td width="25%" ng-if="vm.bondDetails.islastYearIntPaid=='N'"> <label>{{vm.bondDetails.netIntLastHalfYr}}</label>
+
+            </tr>
+
+            <tr>
+                <td width="25%" ><label>Pending Interest</label></td>
+                <td width="25%" ><label>{{vm.bondDetails.pendIntLastHalfYr}}</label>
+
+                <td width="25%" ><label>Total Interest before TDS</label></td>
+                <td width="25%" ><label>{{vm.bondDetails.totIntBefTDS }}</label>
+
+            </tr>
+
+            <tr>
+                <td width="25%" ><label>TDS Amount</label></td>
+                <td width="25%" ><label>{{vm.bondDetails.tdsAmt}}</label>
+
+                <td width="25%" ><label>Total Interest after TDS</label></td>
+                <td width="25%" ><label>{{vm.bondDetails.totIntAftTDS}}</label>
+
+            </tr>
+
+
+            <tr>
+                <td width="25%" ><label>Total Amount to be paid</label></td>
+                <td width="25%" ><label>{{vm.bondDetails.amtPaid}}</label>
+
+                <td width="25%" ><label>Mode of Interest Payment/ Principal Repayment</label></td>
+                <td width="25%" > <select class="form-control" id="modeOfInterestPay" name="modeOfInterestPay"
+                                          ng-model="vm.bondDetails.modeOfInterestPay"
+                                          ng-change="vm.bondDetails.oprAccNum='';
+                                                     vm.bondDetails.oprAccBrId='';" required disabled>
+                    <option value="">Select</option>
+                    <option  value="MP001" >Credit Account</option>
+                    <option  value="MP002" >DD/PO</option>
+                    <option  value="MP003" >NEFT</option>
+                </select>
+                </td>
+
+            </tr>
+
+
+            <tr>
+                <td width="25%" ><label>Operative Account Number</label></td>
+                <td width="25%" > <label>{{vm.bondDetails.credAccNum}}</label></td>
+
+
+                <td width="25%" ><label>Branch ID</label></td>
+                <td width="25%" > <label>{{vm.bondDetails.oprAccBrId}}</label></td>
+
+            </tr>
+
+            <tr>
+            <td width="25%" ><label>Closure Remarks</label></td>
+            <td width="25%" ><input type="text" class="form-control" id="closeRemarks"
+                                    chars="alpha-numeric"
+                                    limit-to="100" name="closeRemarks"
+                                    value="Due to Death"
+                                    ng-model="vm.bondDetails.closureRemarks" required>
+            </td>
+            </tr>
+
+            </tbody>
+        </table>
+
+
+        <div class="row" ng-if="vm.bondDetails.modeOfInterestPay == 'MP003'">
+        <table class="table table-bordered" ng-if="vm.bondDetails.modeOfInterestPay == 'MP003'">
+            <tbody>
+              <h5 class="form_heading">NEFT DETAILS</h5>
+
+
+            <tr>
+                <td width="25%" ><label>Bank Name</label></td>
+                <td width="25%" > <input type="text" class="form-control" id="neftBankName"
+                                         chars="alpha-numeric"
+                                         limit-to="50" name="neftBankName"
+                                         ng-model="vm.bondDetails.bankName"
+                                         required> </td>
+                <td width="25%" ><label>Branch Name</label></td>
+                <td width="25%" > <input type="text" class="form-control" id="neftBranchName"
+                                         chars="alpha-numeric"
+                                         limit-to="50" name="neftBranchName"
+                                         ng-model="vm.bondDetails.brCode" required> </td>
+            </tr>
+
+            <tr>
+                <td width="25%" ><label>Payee Name</label></td>
+                <td width="25%" > <input type="text" class="form-control" id="neftPayeeName"
+                                         chars="alpha-numeric"
+                                         limit-to="50" name="neftPayeeName"
+                                         ng-model="vm.bondDetails.payeeName" required> </td>
+
+                <td width="25%" ><label>Payee Account Number</label></td>
+                <td width="25%" > <input type="text" class="form-control" id="neftPayeeAccNum"
+                                         chars="alpha-numeric"
+                                         limit-to="20" name="neftPayeeAccNum"
+                                         ng-model="vm.bondDetails.credAccNum" required> </td>
+            </tr>
+            <tr>
+                <td width="25%" ><label>IFSC Code</label></td>
+                <td width="25%" > <input type="text" class="form-control" id="ifscCode"
+                                         chars="alpha-numeric"
+                                         limit-to="11" name="ifscCode"
+                                         ng-model="vm.bondDetails.ifscCode" required> </td>
+            </tr>
+
+
+            </tbody>
+        </table>
+        </div>
+
+
+        <div class="text-center form_submit">
+            <button type="submit" class="btn btn-default" id="submitButton"
+                    ng-disabled="vm.bondClosureBefMaturForm.$invalid || vm.creditBankAccountNoErrMsg"
+                    ng-click="vm.addClosureBefMatur()">Submit</button>
+            <button type="button" class="btn btn-cancel" id="cancelButton"
+                    onclick="window.location.href= '#!/rbi_bond_sub_acc_closure_before_matur/add';">Close
+            </button>
+        </div>
+        <div class="text-center">
+            <notice-message-directive></notice-message-directive>
+
+        </div>
+    </form>
+</div>
+
+
+
+
+

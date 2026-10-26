@@ -1,0 +1,128 @@
+<div class="loader-new" ng-if="vm.loader"></div>
+<dc-left-menu></dc-left-menu>
+<div class="container from_wrapper new_form_wrapper">
+
+    <h4 class="form_heading">RBI Bond TOC Sharing Maintenance - Inquiry</h4>
+    <sol-header></sol-header>
+    <form name="tocSharingMaintenanceForm" role="form">
+
+        <table class="table table-bordered table-striped list old-new-value-table">
+            <tr>
+                <td width="50">Name of the Module</td>
+                <td width="50">RBI Bond</td>
+            </tr>
+            <tr>
+                <td width="50%">Name of the Bond Scheme</td>
+                <td width="50%" class="text-initial">{{vm.schemeCode | getLabelFromValuesArray : vm.moduleNameDetailsLabelValue}}</td>
+            </tr>
+        </table>
+
+        <table class="table table-bordered table-striped list old-new-value-table">
+            <thead>
+            <tr>
+                <th width="70%">Particular</th>
+                <th>{{(vm.auditInfo.previousOperationType == 'M')?('Old Value'): ('Value')}}</th>
+                <th ng-if="vm.auditInfo.previousOperationType == 'M'">New Value</th>
+            </tr>
+            </thead>
+            <tbody>
+
+            <tr>
+                <td width="70%">Version No</td>
+                <td class="old-value">{{(vm.versionEffDateDetails && vm.versionEffDateDetails.C002) ? (vm.versionEffDateDetails.C002.oldValue ) : ('')}}
+                </td>
+                <td ng-if="vm.auditInfo.previousOperationType == 'M'" class="new-value">
+                    {{(vm.versionEffDateDetails && vm.versionEffDateDetails.C002) ? (vm.versionEffDateDetails.C002.newValue) : ('')}}
+                </td>
+            </tr>
+
+            <tr>
+                <td width="70%">Effective From Date</td>
+                <td class="old-value">{{(vm.versionEffDateDetails && vm.versionEffDateDetails.C004) ? (vm.versionEffDateDetails.C004.oldValue ) : ('')}}
+                </td>
+                <td ng-if="vm.auditInfo.previousOperationType == 'M'" class="new-value">
+                    {{(vm.versionEffDateDetails && vm.versionEffDateDetails.C004) ? (vm.versionEffDateDetails.C004.newValue) : ('')}}
+                </td>
+            </tr>
+            <tr ng-repeat="item in vm.tocSharingList">
+                <td width="70%">Sharing of {{item.C003.oldValue}} %</td>
+                <td class="old-value">{{(item && item.C007)?
+                    (item.C007.oldValue ) : ('')}}
+                </td>
+                <td ng-if="vm.auditInfo.previousOperationType == 'M'" class="new-value">{{(item && item.C007)?
+                    (item.C007.newValue) : ('')}}
+                </td>
+            </tr>
+            <tr >
+                <td width="70%">Total(%)</td>
+                <td class="old-value">100
+
+                </td>
+                <td ng-if="vm.auditInfo.previousOperationType == 'M'" class="new-value">100
+                </td>
+            </tr>
+            <!--            <tr>
+                            <td>Total (%)</td>
+                            <td class="old-value">{{(vm.scssSchemeParameter && vm.scssSchemeParameter.C001)?
+                                (vm.scssSchemeParameter.C001.oldValue) : ('')}}
+                            </td>
+                            <td ng-if="vm.verificationDetails == 'M'" class="new-value">
+                                {{(vm.scssSchemeParameter && vm.scssSchemeParameter.C001)?
+                                (vm.scssSchemeParameter.C001.newValue) : ('')}}
+                            </td>
+                        </tr>-->
+            <tr>
+                <td width="70%">Rounding Factor</td>
+                <td class="old-value" class="text-uppercase">{{(vm.roundOffValue)? (vm.roundOffValue.oldValue | getLabelFromValuesArray : vm.roundingFactorMetaData) : ('')}}
+                </td>
+                <td ng-if="vm.auditInfo.previousOperationType == 'M'" class="new-value text-uppercase">
+                    {{(vm.roundOffValue)? (vm.roundOffValue.newValue | getLabelFromValuesArray : vm.roundingFactorMetaData) : ('')}}
+                </td>
+<!--                <td>-->
+<!--                    <span class="old-value" style="text-transform: uppercase;">-->
+<!--                        {{(item && item.C008)?(item.C008.oldValue | getLabelFromValuesArray : vm.roundingFactorMetaData) : ('')}}-->
+<!--                    </span>-->
+<!--                    <span class="new-value" ng-if="vm.auditInfo.previousOperationType == 'M'" style="text-transform: uppercase;">-->
+<!--                        {{item && item.C008.newValue? (item.C008.newValue | getLabelFromValuesArray : vm.roundingFactorMetaData) : ('-')}}-->
+<!--                    </span>-->
+<!--                </td>-->
+            </tr>
+            </tbody>
+        </table>
+
+        <div class="audit-details">
+            <div class="row">
+                <div class="col-md-3">
+                    <span> <b class="margin-right-1px"> Created By </b> : {{vm.auditInfo.createdBy}} </span>
+                </div>
+                <div class="col-md-3">
+                    <span> <b class="margin-right-1px"> Last Modified By </b> : {{(vm.auditInfo.modifiedBy) ? (vm.auditInfo.modifiedBy) : ('None')}}</span>
+                </div>
+                <div class="col-md-3">
+                    <span> <b class="margin-right-1px"> Last Verified By </b> : {{(vm.auditInfo.verifiedBy) ? (vm.auditInfo.verifiedBy) : ('None')}}</span>
+                </div>
+                <div class="col-md-3">
+                    <span> <b> Verify Status </b> : <span class="text-initial">{{vm.auditInfo.verifiedStatus  | getLabelFromValuesArray : vm.commonYesNoMetaData}}</span></span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3">
+                    <span> <b> Created On </b> : {{ vm.auditInfo.createdDate | date : 'dd/MM/yyyy'}}</span>
+                </div>
+                <div class="col-md-3">
+                    <span> <b> Last Modified On</b> : {{ (vm.auditInfo.modifiedDate) ? (vm.auditInfo.modifiedDate | date : 'dd/MM/yyyy') : ('None')}}</span>
+                </div>
+                <div class="col-md-3">
+                    <span> <b> Last Verified On </b> : {{(vm.auditInfo.verifiedDate) ? (vm.auditInfo.verifiedDate | date : 'dd/MM/yyyy') : ('None')}}</span>
+                </div>
+                <div class="col-md-3">
+                </div>
+            </div>
+        </div>
+
+        <div class="text-center form_submit">
+            <button type="button" class="btn btn-cancel" id="cancelButton"
+                    onclick="window.location.href= '#!/rbi_bond_toc_share_maintanance/action/inquiry';">Cancel</button>
+        </div>
+    </form>
+</div>

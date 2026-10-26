@@ -1,0 +1,590 @@
+<div class="loader-new" data-ng-if="vm.loader"></div>
+<div class="container" data-ng-if="vm.model.length>0">
+    <div class="container from_wrapper new_form_wrapper" style="width: auto">
+        <div class="text-right form_submit">
+            <button type="submit" class="btn btn-default" onclick="window.location.href ='#!/rbibond_gu_functionality';" id="homeButton">Home</button>
+            <button type="submit" class="btn btn-default" data-ng-click="vm.printPage();">Print</button>
+            <button type="button" id="cancel_Button" class="btn btn-cancel" onclick="window.location.href= '#!/rbibond_certificate_investment_hold_report/action/inquiry';">Back</button>
+        </div>
+        <h4 class="form_heading">Certificate of Holding</h4>
+        <sol-header></sol-header>
+
+        <table class="table table-bordered" style="padding: 10px; width: 100%" aria-label="Certificate of Holding">
+            <tr>
+                <th scope="col">Name of the Bond Scheme</th>
+                <td colspan="3">{{vm.schemeName}}</td>
+            </tr>
+
+            <tr data-ng-if="vm.bondHolderName">
+                <th scope="col">Name</th>
+                <td>{{vm.bondHolderName}}</td>
+            </tr>
+
+            <tr data-ng-if="vm.panNum">
+                <th scope="col">PAN No</th>
+                <td>{{vm.panNum}}</td>
+            </tr>
+
+            <tr data-ng-if="vm.blaNo">
+                <th scope="col">BLA No</th>
+                <td>{{vm.blaNo}}</td>
+            </tr>
+
+            <tr data-ng-if="vm.subscriptionID">
+                <th scope="col">Subscription ID</th>
+                <td>{{vm.subscriptionID}}</td>
+            </tr>
+
+            <tr data-ng-if="vm.fromDate">
+                <th scope="col">From Transaction Date</th>
+                <td>{{vm.fromDate | date: 'dd/MM/yyyy'}}</td>
+            </tr>
+
+            <tr data-ng-if="vm.toDate">
+                <th scope="col">To Transaction Date</th>
+                <td>{{vm.toDate | date: 'dd/MM/yyyy'}}</td>
+            </tr>
+        </table>
+
+        <div class="row">
+            <div class="col-sm-6" style="width:100%; display: flex; align-items: center; justify-content: flex-end">
+                <div class="form-group" style="margin-right: 15px">
+                    <div class="input-group">
+                        <div class="input-group-addon">
+                            <span class="glyphicon glyphicon-search"></span>
+                        </div>
+                        <input type="text" id="search" class="form-control"
+                               data-ng-model="vm.searchText"
+                               placeholder="Search records..." />
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="col-sm-12">
+
+            <div class="table-responsive">
+                <table class="table table-bordered table-striped list nowrap table-textWrap datatable" aria-label="Certificate of Holding">
+                    <thead>
+                    <tr>
+                        <th scope="col">S. No.</th>
+                        <th scope="col">BLA No</th>
+                        <th scope="col">Holder Name / First Holder Name</th>
+                        <th scope="col">PAN No</th>
+                        <th scope="col">Download</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr data-ng-repeat="x in vm.model | filter: vm.searchText">
+                        <td>{{$index+1}}</td>
+                        <td>{{x.blaNo}}</td>
+                        <td>{{x.holderName}}</td>
+                        <td>{{x.panNumber}}</td>
+                        <td>
+                            <button type="submit" class="btn btn-default" data-ui-sref="rbibond_certificate_investment_hold_report.print_details({obj:{
+                               schemeCode          : vm.schemeCode,
+                               holderName          : x.holderName,
+                               panNumber           : x.panNumber,
+                               blaNo               : x.blaNo,
+                               bondSubscriptionId  : x.bondSubscriptionId,
+                               schemeName  : vm.schemeName,
+                               fromDate  : vm.fromDate,
+                               toDate  : vm.toDate,
+                            }})" >Download</button>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="printContainer" style="margin: 0; padding: 0" >
+    <div data-ng-repeat="(blaNo, x) in vm.groupedCustomers" class="customer-record" style="border: 1px solid #000; padding: 2em; font-family: 'Times New Roman'; margin: 15px">
+        <div data-ng-if="x.length > 0">
+
+
+
+            <div class="print-spacer">
+                <br>
+            </div>
+
+            <div>
+                <!-- Main Printable Table -->
+                <table class="certificate-wrapper" border="0" style="width: 100%; text-align: center; border-collapse: collapse;" aria-label="Certificate Container">
+
+                    <!-- THEAD force-repeats Logo and Top Header on every printed page -->
+                    <thead style="display: table-header-group;">
+                    <tr class="only-print">
+                        <td style="padding: 0 0 15px 0;"> <!-- Added bottom padding to create space on all pages including page 2+ -->
+                            <table border="0" style="border-collapse: collapse; width: 100%; text-align: center; font-family: 'Times New Roman', serif; font-size: 11pt;">
+                                <tr>
+                                    <!-- Logo -->
+                                    <td style="text-align: left; width: 33%; vertical-align: top;">
+                                        <!--<img src="assets/images/HDFC-Logo.png"
+                                             alt="HDFC"
+                                             style="margin-top: 0px; margin-left: 5px; width: 250px; height: 50px; display: block;">-->
+                                    </td>
+                                    <!-- Government of India (center) -->
+                                    <td style="text-align: center; font-weight: bold; font-size: 1.9em; text-decoration: underline; width: 33%;">
+                                        Government of India<br>
+                                        Certificate of Holding<br><br>
+                                    </td>
+
+                                    <!-- WBO Office (right) -->
+                                    <td style="text-align: right; font-weight: bold; font-size: 1.3em; width: 33%;">                                        {{x[0].wboOffice}}
+                                        <br>
+                                        &nbsp;
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td style="text-align: left; text-decoration: underline; font-weight: bold; font-size: 20px;">Annexure 1</td>
+                                    <td style="text-align: center; font-size: 1.6em; white-space: nowrap;">
+                                        {{ toTitleCase(vm.schemeName) }}
+                                    </td>
+                                    <td style="text-align: right"></td>
+                                </tr>
+                                <tr>
+                                    <td style="text-align: left; font-weight: bold; font-size: 20px;">Form 'A'</td>
+                                    <td style="text-align: center; font-size: 1.6em; text-decoration: underline; white-space: nowrap;">
+                                        Bond Ledger Account No: <strong>{{x[0].blaNo}}</strong>
+                                    </td>
+                                    <td style="text-align: right"></td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+
+                    <!-- Header Spacer Row: Guarantees spacing beneath header on every page in print printouts -->
+                    <tr class="header-spacer-row">
+                        <td style="height: 15px; padding: 0;"></td>
+                    </tr>
+                    </thead>
+
+                    <!-- Body Content -->
+                    <tbody>
+                    <tr>
+                        <td style="padding: 10px 0 0 0; text-align: left;">
+                            <table style="width: 100%; border-collapse: collapse;">
+                                <tr>
+                                    <td style="text-align: left; padding: 0; margin: 0;">
+                                        <p style="margin: 0; padding: 0; font-size: 20px;">To,</p>
+                                    </td>
+
+                                    <td style="width: 25%; text-align: left; vertical-align: top; padding: 0; margin: 0;">
+                                        <p style="margin: 0; padding: 0; font-size: 20px; font-weight: bold;">
+                                            Date: {{vm.currentDate}}
+                                        </p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2" style="text-align: left; padding: 5px 0 0 0; font-size: 20px;">
+                                        <span>{{x[0].holderName}}</span>
+                                        <span data-ng-if="x[0].guardianName">u/g {{x[0].guardianName}}</span><br/>
+                                        <span ng-if="x[0].address">{{x[0].address}},<br/></span>
+                                        <span ng-if="x[0].address1 || x[0].address2">
+                                   <span ng-if="x[0].address1">{{x[0].address1}}</span>
+                                   <span ng-if="x[0].address1 && x[0].address2">, </span>
+                                        <span ng-if="x[0].address2">{{x[0].address2}}</span>,
+    <br/>
+</span>
+                                        <span>{{x[0].city}}, {{x[0].pinCode}}</span><br>
+                                        <span>{{x[0].state}}, INDIA</span>
+                                       <!-- <br>-->
+                                       <!-- <span></span>-->
+                                        <br><br>
+
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td colspan="2" style="text-align: left; padding: 0; margin: 0;">
+                                        <p style="margin: 0; padding: 0; font-size: 22px !important; line-height: 1.3; font-family: 'Times New Roman', Times, serif !important;">
+                                            We hereby certify that Shri/Smt <strong><u>{{x[0].holderName}}</u></strong> / Joint holder is/are
+                                            the holder(s) of <strong>{{ toTitleCase(vm.schemeName) }}</strong> held in the Bond Ledger Account
+                                            No. <strong><u>{{x[0].blaNo}}</u></strong> with<strong> {{x[0].wboOffice}}</strong> as per details given below:<br>
+
+                                            Interest on the bonds is payable semi-annually with resetting of the coupon rate every
+                                            {{vm.formatDateDDMM(x[0].intPaymentDate1)}} & {{vm.formatDateDDMM(x[0].intPaymentDate2)}}.
+                                            This is issued subject to the terms and conditions laid down in Government of India
+                                            Notification No. {{ formatGovtNo(x[0].govtNotNo) }} dated June 26, 2020
+                                        </p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2" style="text-align: center; padding: 10px 0 5px 0;">
+                                        <strong style="font-size: 18pt; text-decoration: underline;">Details of Bonds held in the Bond Ledger Account</strong>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+
+                    <tr class="bond-table-container-row">
+                        <td>
+                            <table class="bond-table" style="width: 100%; text-align: center; border-collapse: collapse;">
+                                <tr class="columns-header-once">
+                                    <th style="width:30px;">Sr No</th>
+                                    <th colspan="2" style="width:200px;">Investment</th>
+<!--
+                                    <th style="width:90px;">Certificate No</th>
+-->
+                                    <th colspan="2" style="width:200px;">Transfer</th>
+                                    <th style="width:90px;">Due Date of Repayment</th>
+                                    <th colspan="2" style="width:200px;">Repayment</th>
+                                    <th style="width:110px;">Balance</th>
+                                    <th style="width:65px;">Initials under Bank's seal</th>
+                                </tr>
+                                <tr class="columns-subheader-once">
+                                    <td style="width:30px;"></td>
+                                    <td style="width:60px;">Date</td>
+                                    <td style="width:90px;">Amount</td>
+<!--
+                                    <td style="width:90px;"></td>
+-->
+                                    <td style="width:50px;">Date</td>
+                                    <td style="width:90px;">Amount</td>
+                                    <td style="width:190px;"></td>
+                                    <td style="width:50px;">Date</td>
+                                    <td style="width:90px;">Amount</td>
+                                    <td style="width:90px;"></td>
+                                    <td style="width:60px;"></td>
+                                </tr>
+                                <tr>
+                                    <td>1.</td>
+                                    <td style="width:105px;">2.</td>
+                                    <td>3.</td>
+<!--
+                                    <td>4.</td>
+-->
+                                    <td>4.</td>
+                                    <td>5.</td>
+                                    <td>6.</td>
+                                    <td style="width:105px;">7.</td>
+                                    <td>8.</td>
+                                    <td>9.</td>
+                                    <td>10.</td>
+                                </tr>
+                                <tr data-ng-repeat="y in x">
+                                    <td style="width:40px;">{{$index + 1}}</td>
+
+                                    <td style="width:50px;">
+                                        {{
+                                        y.investDate.split('-')[0] + '-' +
+                                        (y.investDate.split('-')[1].toLowerCase().charAt(0).toUpperCase() + y.investDate.split('-')[1].toLowerCase().slice(1)) +
+                                        '-' +
+                                        y.investDate.split('-')[2]
+                                        }}
+                                    </td>
+                                    <td style="text-align: right !important; padding-right: 5px !important;">
+                                        {{ vm.formatIndianCurrency(y.investAmount) }}
+                                    </td>
+<!--
+                                    <td>{{y.certificateNo}}</td>
+-->
+                                    <td style="width:50px;">
+                                        {{
+                                        y.transferDate
+                                        ? (
+                                        y.transferDate.split(' ')[0].split('-')[2] + '-' +
+                                        (
+                                        {
+                                        '01':'Jan','02':'Feb','03':'Mar','04':'Apr',
+                                        '05':'May','06':'Jun','07':'Jul','08':'Aug',
+                                        '09':'Sep','10':'Oct','11':'Nov','12':'Dec'
+                                        }[y.transferDate.split(' ')[0].split('-')[1]]
+                                        ) + '-' +
+                                        y.transferDate.split(' ')[0].split('-')[0]
+                                        )
+                                        : ''
+                                        }}
+                                    </td>
+                                    <td style="text-align: right !important; padding-right: 5px !important;">{{ vm.formatIndianCurrency(y.transferAmount)}}</td>
+                                    <td>
+                                        {{
+                                        y.dueDateOfRepayment
+                                        ? (
+                                        y.dueDateOfRepayment.split('-')[0] + '-' +
+                                        (y.dueDateOfRepayment.split('-')[1].toLowerCase().charAt(0).toUpperCase() +
+                                        y.dueDateOfRepayment.split('-')[1].toLowerCase().slice(1)) +
+                                        '-' +
+                                        y.dueDateOfRepayment.split('-')[2]
+                                        )
+                                        : ''
+                                        }}
+                                    </td>
+                                    <td style="width:105px;">
+                                        {{  y.repaymentDate ? (  y.repaymentDate.split('-')[0] + '-' + (y.repaymentDate.split('-')[1].toLowerCase().charAt(0).toUpperCase() +
+                                        y.repaymentDate.split('-')[1].toLowerCase().slice(1)) +'-' + y.repaymentDate.split('-')[2]    ) : '' }}
+                                    </td>
+                                    <td style="text-align: right !important; padding-right: 5px !important;">
+                                        {{ vm.formatIndianCurrency(y.repaymentAmount)}}</td>
+                                    <td style="text-align: right !important; padding-right: 5px !important;">
+                                        {{ vm.formatIndianCurrency(y.balance) }}</td>
+                                    <td style="width:80px;">{{y.initialUndrBankSeal}}</td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2"></td>
+                                    <td style="text-align: right !important; padding-right: 5px !important;">
+                                        <strong>{{ vm.formatIndianCurrency(vm.customerTotals[x[0].blaNo].totalInvestAmount)}}</strong></td>
+<!--
+                                    <td></td>
+-->
+                                    <td></td>
+                                    <td style="text-align: right !important; padding-right: 5px !important;">
+                                        <strong>{{ vm.formatIndianCurrency(vm.customerTotals[x[0].blaNo].totalTransferAmount)}}</strong></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td style="text-align: right !important; padding-right: 5px !important;">
+                                        <strong>{{ vm.formatIndianCurrency(vm.customerTotals[x[0].blaNo].totalRepaymentAmount)}}</strong></td>
+                                    <td style="text-align: right !important; padding-right: 5px !important;">
+                                        <strong>{{ vm.formatIndianCurrency(vm.customerTotals[x[0].blaNo].totalBalance)}}</strong></td>
+                                    <td></td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td style="text-align:left; padding-top: 10px;">
+                            <p style="font-size: 22px !important; font-family: 'Times New Roman', Times, serif !important; margin: 0;">
+                                Total Investment Amount (<strong>Amount In Words</strong>):
+                                <strong>
+                                    {{vm.convertNumberToWords(vm.customerTotals[x[0].blaNo].totalInvestAmount)}}
+                                </strong>
+                            </p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="text-align:left;">
+                            <p style="margin: 8px 0 0 0; font-size: 22px !important; font-family: 'Times New Roman', Times, serif !important;">
+                                Name of the Receiving Office: HDFC Bank Ltd, {{x[0].wboOffice}}
+                            </p>
+                            <p style="margin: 4px 0 0 0; font-size: 22px !important; font-family: 'Times New Roman', Times, serif !important;">
+                                Branch Code / Ref No: {{ vm.getBondSubscriptionIds(x)}}
+                            </p>
+                            <p style="margin: 4px 0 0 0; font-size: 22px !important; font-family: 'Times New Roman', Times, serif !important;"
+                               data-ng-if="x[0].modeOfHolding == 'SINGLE'">
+                                <strong>Mode of Operation:</strong> Single
+                            </p>
+                            <p style="margin: 4px 0 0 0; font-size: 22px !important; font-family: 'Times New Roman', Times, serif !important;"
+                               data-ng-if="x[0].modeOfHolding != 'SINGLE'">
+                                <strong>Mode of Operation:</strong>
+                                <span style="text-transform: capitalize !important;">
+                                        {{ (x[0].modeOfHolding).toLowerCase() }}
+                                    </span>
+                            </p>
+                            <p style="margin: 4px 0 0 0; font-size: 22px !important; font-family: 'Times New Roman', Times, serif !important;">
+                                <strong>Applicant Holder(s):</strong>
+                                <span data-ng-if=" x[0].modeOfHolding && ( x[0].modeOfHolding.trim().toLowerCase() == 'single' ||x[0].modeOfHolding.trim().toLowerCase() == 'huf' || x[0].modeOfHolding.trim().toLowerCase() == 'legal guardian')">(1) {{x[0].holderName}}</span>
+                                <span data-ng-if="x[0].guardianName">u/g {{x[0].guardianName}}</span>
+                                <span data-ng-if="x[0].firstJointBlaName"> (1) {{x[0].firstJointBlaName}}</span>
+                                <span data-ng-if="x[0].secondJointBlaName">, (2) {{x[0].secondJointBlaName}}</span>
+                                <span data-ng-if="x[0].thirdJointBlaName">, (3) {{x[0].thirdJointBlaName}}</span>
+                            </p>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td style="padding: 0;">
+                            <div style="display: flex; justify-content: space-between; margin-top: 8px;">
+                                <div class="sig-box">
+                                    <img src="assets/images/kesavan.jpg" alt="kesavan">
+                                </div>
+
+                                <div class="sig-box">
+                                    <img src="assets/images/nageswaran.jpg" alt="nageswaran">
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="text-align:left;">
+                            <p style="font-size: 20px !important; font-family: 'Times New Roman', Times, serif !important; margin: 4px 0 4px 0;">
+                                Nomination Registered at Sr No: {{ vm.getNomineeIds(x)}}
+                            </p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="text-align:left;">
+                            <p style="font-size: 20px !important; font-family: 'Times New Roman', Times, serif !important; margin: 4px 0; line-height: 1.3;">
+                                Note: This certificate is non-negotiable. It is a record of investment for the information of the holder and need not be surrendered, at the time of redemption.
+                            </p>
+                        </td>
+                    </tr>
+<!--                    <tr>-->
+<!--                        <td style="text-align:left;">-->
+<!--                            <p style="font-size: 20px !important; font-family: 'Times New Roman', Times, serif !important; margin: 4px 0; line-height: 1.3;">-->
+<!--                                HDFC Bank Ltd., CMS–GOI Bonds – 2nd Floor, GKS Technology Park,-->
+<!--                                No. 94, SP Estate Bus Stand, Wavin Main Road,-->
+<!--                                Mogappair, Chennai – 600058, Mail id : rrb.chennai@hdfc.bank.in-->
+<!--                            </p>-->
+<!--                        </td>-->
+<!--                    </tr>-->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    table, td, th {
+        border: none;
+    }
+
+    .customer-record {
+        background: #fff;
+        padding: 20px;
+        margin-bottom: 20px;
+        font-family: "Times New Roman", Times, serif;
+        color: #000;
+        border: none !important;
+        box-shadow: none !important;
+    }
+
+    .bond-table {
+        width: 100% !important;
+        border-collapse: collapse !important;
+        margin: 10px 0 !important;
+        table-layout: fixed;
+    }
+
+    .bond-table th,
+    .bond-table td {
+        border: 1px solid #000000 !important;
+        padding: 2px 4px !important;
+        text-align: center !important;
+        font-size: 11pt !important;
+        line-height: 1.4 !important;
+    }
+
+    .bond-table th {
+        font-size: 11.5pt !important;
+        font-weight: bold;
+        background-color: #f2f2f2;
+        white-space: normal !important;
+        word-break: break-word;
+    }
+
+    .bond-table td {
+        white-space: nowrap;
+        overflow: hidden;
+    }
+
+    .sig-box {
+        width: 190px;
+        height: 120px;
+        background: #ffffff;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+    }
+
+    .sig-box img {
+        filter: brightness(1.5) contrast(1.2);
+        mix-blend-mode: multiply;
+        background: white;
+        max-height: 100%;
+        object-fit: contain;
+    }
+
+    .header-top,
+    .header-sub,
+    .signature-section {
+        display: flex;
+        justify-content: space-between;
+    }
+
+@media print {
+
+    @page {
+        size: A4;
+        margin: 4mm;
+    }
+
+    body * {
+        visibility: hidden;
+    }
+
+    #printContainer,
+    #printContainer * {
+        visibility: visible;
+    }
+
+    #printContainer {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        zoom: 0.80;
+        padding: 0 !important;
+        margin: 0 !important;
+    }
+
+    .customer-record {
+        border: none !important;
+        padding: 0 !important;
+        margin: 0 !important;
+        page-break-after: always;
+        page-break-inside: auto;
+        break-after: page;
+        break-inside: auto;
+        box-sizing: border-box;
+    }
+
+    .customer-record:last-child {
+        page-break-after: auto;
+        break-after: auto;
+    }
+
+    .no-print,
+    .print-spacer {
+        display: none !important;
+    }
+
+    .bond-table th {
+        background: transparent !important;
+    }
+
+    td p {
+        margin: 2px 0 !important;
+        line-height: 1.3 !important;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    thead {
+        display: table-header-group !important;
+    }
+
+    tbody {
+        display: table-row-group;
+    }
+
+    tfoot {
+        display: table-footer-group;
+    }
+
+    tr.bond-table-container-row {
+        page-break-inside: auto !important;
+        break-inside: auto !important;
+    }
+
+    tr.bond-table-container-row .bond-table {
+        page-break-inside: auto !important;
+        break-inside: auto !important;
+    }
+
+    .header-spacer-row,
+    .print-spacer {
+        display: none !important;
+    }
+}
+</style>

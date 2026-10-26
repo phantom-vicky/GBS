@@ -1,0 +1,108 @@
+<div class="loader-new" ng-if="vm.loader"></div>
+<dc-left-menu></dc-left-menu>
+<div class="container from_wrapper new_form_wrapper">
+    <h4 class="form_heading">{{vm.screenModule}} Interest Rate Code Maintenance for Investment schemes - Inquiry</h4>
+    <sol-header></sol-header>
+    <form name="disabilityPercentInquiryForm" role="form">
+        <table class="table table-bordered">
+            <tbody>
+            <tr>
+                <td width="25%">Interest Rate Code</td>
+                <td width="25%">
+                    <label class="data-bind">{{vm.interestRateCode}}</label>
+                </td>
+            </tr>
+            <tr>
+                <td width="25%">Interest Rate Code Description</td>
+                <td width="25%">
+                    <label class="data-bind">{{vm.intrstRateCodeDescMain}}</label>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <table class="table table-bordered table-striped list old-new-value-table">
+            <thead>
+            <tr>
+                <th width="" class="text-center">Version No.</th>
+                <th ng-if="vm.disablityPercentDto.previousOperationType == 'M'" width="4%"></th>
+                <th class="text-center">Effective From Date</th>
+<!--                <th class="text-center">Effective To Date</th>-->
+                <th class="text-center">Interest Rate</th>
+                <th class="text-center">Remarks</th>
+<!--                <th class="text-center">Verify Status</th>-->
+<!--                <th class="text-center">Active</th>-->
+            </tr>
+            </thead>
+            <tbody class="oldNewTableBody" ng-repeat="item in vm.getInquiryDetails">
+            <tr>
+                <td align="center" rowspan="2"><span>{{item.versionNo}}</span></td>
+                <td align="center" rowspan="2"><span>{{item.effectiveFromDate  | date:'dd/MM/yyyy'}}</span></td>
+<!--                <td align="center" rowspan="2"><span>{{item.effectiveToDate  | date:'dd/MM/yyyy'}}</span></td>-->
+                <td align="center" rowspan="2"><span>{{item.interestRate}}</span></td>
+                <td align="center" rowspan="2"><span>{{item.remarks}}</span></td>
+<!--                <td align="center" rowspan="2"><span>{{item.verifiedStatus | getLabelFromValuesArray : vm.commonYesNoMetaData}}</span></td>-->
+<!--                <td align="center" rowspan="2"><span>{{item.isActive | getLabelFromValuesArray : vm.commonYesNoMetaData}}</span></td>-->
+            </tr>
+            </tbody>
+            <tbody ng-if="vm.getInquiryOldNewDetails" class="oldNewTableBody" ng-repeat="item in vm.getInquiryOldNewDetails">
+            <tr>
+                <td></td>
+                <td align="center" class="text-danger">
+                    <span>{{(item && item['C007'])?(item['C007'].newValue | date:'dd/MM/yyyy') : ('')}}</span>
+                </td>
+<!--                <td align="center" class="text-danger">-->
+<!--                    <span>{31/12/2099}</span>-->
+<!--                </td>-->
+
+<!--                <td align="center" class="text-danger">-->
+<!--                    <span>{{vm.aaaa}}</span>-->
+<!--                </td>-->
+
+                <td align="center" class="text-danger">
+                    <span  ng-if ="item.C005.oldValue != item.C005.newValue " >{{(item && item['C005'])?(item && item['C005'].newValue) : ('')}}</span>
+                </td>
+                <td align="center" class="text-danger">
+                    <span  ng-if ="item.C003.oldValue != item.C003.newValue ">{{(item && item['C003'])?(item && item['C003'].newValue) : ('')}}</span>
+                </td>
+<!--                <td align="center" class="text-danger">No</td>-->
+            </tr>
+            </tbody>
+        </table>
+
+        <div class="audit-details">
+            <div class="row">
+                <div class="col-md-3">
+                    <span> <b> Created By </b> : {{vm.getInquiry.createdBy}} </span>
+                </div>
+                <div class="col-md-3">
+                    <span> <b> Last Modified By </b> : {{(vm.getInquiry.modifiedBy) ? (vm.getInquiry.modifiedBy) : ('None')}}</span>
+                </div>
+                <div class="col-md-3">
+                    <span> <b> Last Verified By </b> : {{(vm.getInquiry.verifiedBy) ? (vm.getInquiry.verifiedBy) : ('None')}}</span>
+                </div>
+                <div class="col-md-3">
+                    <span> <b> Verify Status </b> : {{vm.getInquiry.verifiedStatus  | getLabelFromValuesArray : vm.commonYesNoMetaData}}</span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3">
+                    <span> <b> Created On </b> : {{ vm.getInquiry.createdDate | date : 'dd/MM/yyyy'}}</span>
+                </div>
+                <div class="col-md-3">
+                    <span> <b> Last Modified On</b> : {{ (vm.getInquiry.modifiedDate) ? (vm.getInquiry.modifiedDate | date : 'dd/MM/yyyy') : ('None')}}</span>
+                </div>
+                <div class="col-md-3">
+                    <span> <b> Last Verified On </b> : {{(vm.getInquiry.verifiedDate) ? (vm.getInquiry.verifiedDate | date : 'dd/MM/yyyy') : ('None')}}</span>
+                </div>
+                <div class="col-md-3">
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-offset-5 col-sm-8 form_submit">
+            <button type="button" id="cancelButton" class="btn btn-cancel"
+                    ng-click="vm.showCancelConfirmation();">Cancel
+            </button>
+        </div>
+    </form>
+</div>

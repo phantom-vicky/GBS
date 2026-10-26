@@ -1,0 +1,491 @@
+<div class="loader-new" ng-if="vm.loader"></div>
+<dc-left-menu></dc-left-menu>
+<div class="container from_wrapper new_form_wrapper">
+    <form name="bondTaxExcemptionForm" role="form">
+        <h4 class="form_heading">TDS Exemption Master - Modify</h4>
+        <sol-header></sol-header>
+        <table class="table table-bordered table-striped">
+            <tr>
+
+                <h4 class="form_heading">Customer Details</h4>
+            <tr>
+                <td width="25%">1.Customer Name</td>
+                <td width="25%">
+                    <label class="data-bind" id="custName">{{vm.ModDetails[0].bondHolderName}}</label>
+                </td>
+                <!--</tr>
+                <tr>-->
+
+            <td width="25%">2.Address</td>
+            <td width="25%">
+                <label class="data-bind" id="communicationAddress" >{{vm.ModDetails[0].communicationAddress}}</label>
+            </td>
+            </tr>
+            <tr>
+                <td width="25%">3.PAN Number</td>
+                <td width="25%">
+                    <label class="data-bind" id="panNumber">{{vm.ModDetails[0].panNo}}</label>
+                </td>
+                <td width="25%">4.Application Status</td>
+                <td width="25%">
+                    <label class="data-bind" id="status" >{{vm.ModDetails[0].applicationStatus}}</label>
+                </td>
+                <!-- </tr>
+                 <tr>-->
+            </tr>
+            <tr>
+                <td width="25%">5.Residential status</td>
+                <td width="25%">
+                    <label class="data-bind" id="residentialStatus">{{(vm.modifyList.C027.newValue)? (vm.modifyList.C027.newValue) : (vm.modifyList.C027.oldValue)}}</label>
+                </td>
+                <td width="25%" style="word-break: break-word;">5(a). If resident individual, whether age is 60 years or more at any time during the tax year (YES/NO)</td>
+                <td width="25%">
+                    <label class="data-bind" id="residentIndividual" >{{(vm.modifyList.C028.newValue == 'Y') ? 'Yes' :
+                        (vm.modifyList.C028.newValue == 'N') ? 'No' :
+                        (vm.modifyList.C028.oldValue == 'Y') ? 'Yes' :
+                        (vm.modifyList.C028.oldValue == 'N') ? 'No' : '' }}</label>
+                </td>
+            </tr>
+            <tr>
+                <td width="25%">6.Email Id</td>
+                <td width="25%">
+                    <label class="data-bind" id="emailId" >{{vm.ModDetails[0].emailId}}</label>
+                </td>
+                <!-- </tr>
+                 <tr>-->
+                <td width="25%">7.PhoneNumber</td>
+                <td width="25%">
+                    <label class="data-bind" id="phoneNo" >{{vm.ModDetails[0].phoneNo}}</label>
+                </td>
+            </tr>
+            <tr>
+                <td width="25%">8. DOB</td>
+                <td width="25%">
+                    <label class="data-bind" id="dob">{{vm.ModDetails[0].dob}}</label>
+                </td>
+                <td width="25%">8. Mobile Number</td>
+                <td width="25%">
+                    <label class="data-bind" id="mobileNo">{{vm.ModDetails[0].mobileNo}}</label>
+                </td>
+                <!-- </tr>
+                 <tr>-->
+<!--                <td width="25%">Effective From Date</td>-->
+<!--                <td width="25%">-->
+<!--                    <label class="data-bind" id="effectiveDate">{{vm.effFromDate | date:'dd/MM/yyyy'}}</label>-->
+<!--                </td>-->
+            </tr>
+
+
+
+<!--            <tr>-->
+<!--                <td width="25%">BLA Id</td>-->
+<!--                <td width="25%">-->
+<!--                    <label class="data-bind" id="blaCount" >{{vm.ModDetails[0].blaNo}}</label>-->
+<!--                </td>-->
+<!--                &lt;!&ndash;</tr>-->
+<!--                <tr>&ndash;&gt;-->
+<!--                <td width="25%">Subscription Id</td>-->
+<!--                <td width="25%">-->
+<!--                    <label class="data-bind" id="subscriptionCnt">{{vm.ModDetails[0].subscriptionId}}</label>-->
+<!--                </td>-->
+<!--            </tr>-->
+
+<!--            <tr>-->
+<!--                <td width="25%">Scheme Name</td>-->
+<!--                <td colspan="3" width="25%">-->
+<!--                    <label class="data-bind" id="schemeName" ng-model="vm.modifyList.schemeName">{{vm.ModDetails[0].schemeName}}</label>-->
+<!--                </td>-->
+<!--            </tr>-->
+<!--            <tr>-->
+<!--                <td width="25%">Mode Of Holding</td>-->
+<!--                <td  colspan="3" width="25%">-->
+<!--                    <label class="data-bind" id="holdingMode" ng-model="vm.modifyList.modeOfHolding">{{vm.ModDetails[0].modeOfHolding}}</label>-->
+<!--                </td>-->
+<!--            </tr>-->
+
+
+        </table>
+        <table class="table table-bordered table-striped list">
+            <thead>
+            <tr>
+
+                <th>BLA Id</th>
+                <th>Subscription Id</th>
+                <th>Scheme Name</th>
+                <th>Mode Of Holding</th>
+                <!--                <th>Maker Id/Checker ID</th>-->
+            </tr>
+            </thead>
+            <tbody>
+            <!--            <tr dir-paginate="user in vm.users|filter:search|itemsPerPage:vm.itemsPerPage">-->
+            <tr class="cp"
+                ng-repeat="x in vm.ModDetails">
+                <td>{{x.blaNo}}</td>
+                <td>{{x.subscriptionId}}</td>
+                <td>{{x.schemeName}}</td>
+                <td>{{x.modeOfHolding}}</td>
+
+
+
+
+            </tr>
+            </tbody>
+        </table>
+
+
+        <table class="table table-bordered table-striped">
+            <h4 class="form_heading">TAX Exemption Master</h4>
+
+
+            <tr>
+                <td width="25%" class="form-group required">
+                    <label class="control-label">Financial Year</label>
+                </td>
+                <td>
+                    <input type="text" class="form-control" id="financialYearDropdown" name="financialYearDropdown"
+                           ng-init="vm.getFinancialYear();"
+                           ng-value="vm.finYear || vm.modifyList.C011.oldValue" readonly>
+                </td>
+            </tr>
+
+            <tr>
+                <td width="25%" class="form-group required">
+                    <label class="control-label">Whether Form 121/Tax Exemption Certificate Submitted?</label>
+                </td>
+                <td>
+                    <input type="text" class="form-control" id="certificateType" name="certificateType"
+                           ng-value="vm.modifyList.C003.oldValue | getLabelFromValuesArray : vm.taxType" readonly>
+                </td>
+            </tr>
+            <tr data-ng-if="vm.modifyList.C003.oldValue == 'TF001' || vm.modifyList.C003.oldValue == 'TF002' || vm.modifyList.C003.oldValue == 'TF006'">
+                <td width="25%" class="form-group required">
+                    <label class="control-label">FORM 121 Certificate No</label>
+                </td>
+                <td>
+                    <input type="text" class="form-control" id="GHCertNo"
+                           limit-to="50" name="GHCertNo"
+                           ng-model="vm.modifyList.C004.oldValue" readonly required>
+                </td>
+            </tr>
+            <tr data-ng-if="vm.modifyList.C003.oldValue=='TF003'">
+                <td width="25%" class="form-group required">
+                    <label class="control-label">Tax Exemption Certificate No</label></td>
+                <td>
+                    <input type="text" class="form-control" id="excemptionCertNo"
+                           limit-to="50" name="excemptionCertNo"
+                           ng-model="vm.modifyList.C004.oldValue" readonly required>
+                </td>
+            </tr>
+            <tr data-ng-if="vm.modifyList.C003.oldValue=='TF003'">
+                <td width="25%" class="form-group required">
+                    <label class="control-label">No/Low Tax</label>
+                </td>
+                <td>
+                    <input type="radio" name="noTax" id="noTaxYes"
+                           ng-model="vm.modifyList.C006.oldValue" value="Y" ng-disabled="true">Low Tax
+                    <input type="radio" name="noTax" id="noTaxNo"
+                           ng-model="vm.modifyList.C005.oldValue" value="Y" ng-disabled="true">No Tax
+                </td>
+            </tr>
+
+            <tr data-ng-if="vm.modifyList.C003.oldValue=='TF003' && (vm.modifyList.C006.oldValue == 'Y' || vm.modifyList.C005.oldValue == 'Y')">
+                <td width="25%" class="form-group required">
+                    <label class="control-label">No/Low Tax amount Limit for Tax Exemption Certificate</label></td>
+                <td>
+                    <input type="text" class="form-control" id="noTaxLimit"
+                           name="noTaxLimit" maxlength="26"
+                           ng-pattern="vm.amountPattern"
+                           ng-model="vm.modifyList.C007.oldValue"
+                           indian-amount-input
+                           required>
+                </td>
+            </tr>
+                        <tr data-ng-if="vm.modifyList.C003.oldValue=='TF003' && (vm.modifyList.C006.oldValue == 'Y' || vm.modifyList.C005.oldValue == 'Y')">
+                            <td width="25%" ng-class="{'required': vm.modifyList.C006.oldValue == 'Y'}">
+                                <label class="control-label">Low Tax Percentage for Tax Exemption Certificate (%)</label></td>
+                            <td>
+                                <input type="text" class="form-control" id="taxPercent"
+                                       oninput="var v=this.value.replace(/[^0-9.]/g,'').replace(/(\..*)\./g,'$1'); if(v.indexOf('.')!==-1){var p=v.split('.'); if(p[1]&&p[1].length>2){v=p[0]+'.'+p[1].substring(0,2);}} if(v!==''&&!isNaN(parseFloat(v))&&parseFloat(v)>=100){v=v.slice(0,-1);} this.value=v;"
+                                       limit-to="50" name="taxPercent" maxlength="5"
+                                       ng-pattern="vm.lowTaxPercentagePattern"
+                                       title="Please enter a valid percentage value (0-99)"
+                                       ng-model="vm.modifyList.C008.oldValue"
+                                       ng-required="vm.modifyList.C006.oldValue == 'Y'" readonly>
+                            </td>
+                        </tr>
+<!--            <tr>-->
+<!--                <td width="25%" class="form-group required">-->
+<!--                    <label class="control-label">Date of Submission of Form 15G/15H/Tax Exemption Certificate From Date</label>-->
+<!--                </td>-->
+<!--                <td width="25%">-->
+<!--                    <p class="input-group">-->
+<!--                        <input type="text" class="form-control" id="dateFrom" name="dateFrom"-->
+<!--                               ng-model="vm.modifyList.C009.oldValue"-->
+
+<!--                               is-open="vm.fromDatepicker.opened" close-text="Close"-->
+<!--                               -options="vm.dateFromOptions"-->
+<!--                               ng-change="vm.dateValidation();"-->
+<!--                               required readonly>-->
+<!--                        &lt;!&ndash;ng-change="vm.fromToDateValidation();">&ndash;&gt;-->
+
+<!--                        <span class="input-group-btn" id="fromDateIcon">-->
+<!--							<button type="button" class="btn btn-secondary" id="fromDateIconPicker"-->
+<!--                                    ng-click="vm.fromDatepicker.opened = true">-->
+<!--								<i class="glyphicon glyphicon-calendar"></i>-->
+<!--							</button>-->
+<!--						</span>-->
+<!--                    </p>-->
+<!--                </td>-->
+<!--            </tr>-->
+<!--            <tr>-->
+<!--                <td width="25%" class="form-group required">-->
+<!--                    <label class="control-label">Date of Submission of Form 15G/15H/Tax Exemption Certificate To Date</label>-->
+<!--                <td width="25%">-->
+<!--                    <p class="input-group">-->
+<!--                        <input type="text" class="form-control" id="dateTo" name="dateTo"-->
+<!--                               ng-model="vm.modifyList.C010.oldValue"-->
+<!--                               uib--popup="dd/MM/yyyy"-->
+<!--                               is-open="vm.toDatepicker.opened" close-text="Close"-->
+<!--                               -options="vm.dateToOptions" required readonly>-->
+<!--                        &lt;!&ndash;ng-change="vm.fromToDateValidation();">&ndash;&gt;-->
+<!--                        <span class="input-group-btn" id="toDateIcon">-->
+<!--							<button type="button" class="btn btn-secondary" id="toDateIconPicker"-->
+<!--                                    ng-click="vm.toDatepicker.opened = true">-->
+<!--								<i class="glyphicon glyphicon-calendar"></i>-->
+<!--							</button>-->
+<!--						</span>-->
+<!--                    </p>-->
+<!--                </td>-->
+<!--            </tr>-->
+
+            <tr>
+                <td width="25%" class="form-group required">
+                    <label class="control-label">Date of Submission of Form 121/Tax Exemption Certificate From Date</label>
+                </td>
+                <td width="25%">
+                    <p class="input-group">
+                        <input type="text" class="form-control" id="dateFrom" name="dateFrom"
+                               ng-model="vm.modifyList.C009.oldValue"
+                               uib-datepicker-popup="dd/MM/yyyy"
+                               is-open="vm.fromDatepicker.opened" close-text="Close"
+                               datepicker-options="vm.dateFromOptions"
+                               ng-change="vm.updateToDateMin()"
+                               required
+                               ng-blur="vm.textableDatePicker('dateFrom',vm.modifyList.C009.oldValue);"
+                               ng-keyup="vm.autoslashing('dateFrom')" chars="numbers-slash"
+
+                        >
+                        <span class="input-group-btn" id="fromDateIcon">
+                <button type="button" class="btn btn-secondary" id="fromDateIconPicker"
+                        ng-click="vm.fromDatepicker.opened = true">
+                    <i class="glyphicon glyphicon-calendar"></i>
+                </button>
+            </span>
+                    </p>
+                </td>
+            </tr>
+            <tr>
+                <td width="25%" class="form-group required">
+                    <label class="control-label">Date of Submission of Form 121/Tax Exemption Certificate To Date</label>
+                </td>
+                <td width="25%">
+                    <p class="input-group">
+                        <input type="text" class="form-control" id="dateTo" name="dateTo"
+                               ng-model="vm.modifyList.C010.oldValue"
+                               uib-datepicker-popup="dd/MM/yyyy"
+                               is-open="vm.toDatepicker.opened" close-text="Close"
+                               datepicker-options="vm.dateToOptions"
+                               required
+                               ng-blur="vm.textableDatePicker('dateTo',vm.modifyList.C010.oldValue);"
+                               ng-keyup="vm.autoslashing('dateTo')" chars="numbers-slash"
+
+                        >
+                        <span class="input-group-btn" id="toDateIcon">
+                <button type="button" class="btn btn-secondary" id="toDateIconPicker"
+                        ng-click="vm.toDatepicker.opened = true">
+                    <i class="glyphicon glyphicon-calendar"></i>
+                </button>
+            </span>
+                    </p>
+                </td>
+            </tr>
+            <tr>
+                <td width="25%" class="form-group required">
+                    <label class="control-label">Whether assessed to tax under the Income-Tax Act 1961</label>
+                </td>
+                <td>
+                    <input type="radio" name="incomeTaxAccount" id="incomeTaxAccountYes"
+                           ng-model="vm.modifyList.C012.oldValue" value="Y" ng-disabled="true">Yes
+                    <input type="radio" name="incomeTaxAccount" id="incomeTaxAccountNo"
+                           ng-model="vm.modifyList.C012.oldValue" value="N" ng-disabled="true">No
+                </td>
+            </tr></table>
+            <table class="table table-bordered table-striped">
+                <h4 class="form_heading">Details of income</h4>
+                <tr>
+                    <td width="25%" class="form-group required">
+                        <label class="control-label">9. Nature of income</label></td>
+                    <td>
+                        <input type="text" class="form-control" id="natureIncome"
+                               maxlength="60" name="natureIncome"
+                               ng-model="vm.modifyList.C026.oldValue" required>
+                    </td>
+                </tr>
+            <tr>
+                <td width="25%" class="form-group required">
+                    <label class="control-label">10.Estimated Income For Which Declaration Is Made</label></td>
+                <td>
+                    <input type="text" class="form-control" id="estimatedIncomeTaxDed"
+                           maxlength="26" name="estimatedIncomeTaxDed" ng-pattern="vm.amountPattern"
+                           ng-model="vm.modifyList.C013.oldValue"
+                           indian-amount-input
+                           required>
+                </td>
+            </tr>
+                <tr>
+                    <td width="25%" class="form-group required">
+                        <label class="control-label">11. Details of Form 121/TAX exemption certificate other than this form filed during the tax year, if any</label></td>
+                    <td>
+                        <select class="form-control" id="otherThanTaxYear"
+                                name="otherThanTaxYear"
+                                ng-model="vm.modifyList.C029.oldValue" required>
+                            <option value="" disabled>Select</option>
+                            <option ng-repeat="item in vm.commonYesNoMetaData" ng-value="item.value">{{item.label}}</option>
+                        </select>
+                    </td>
+                </tr>
+
+
+            <tr>
+                <td width="25%" class="form-group required">
+                    <label class="control-label">11(a).Total No. of Form 121/TAX exemption certificate filed</label></td>
+                <td>
+                    <input type="text" class="form-control" id="totalNo"  ng-change="checkForZeroModify()"
+                            name="totalNo" oninput="this.value = this.value.replace(/\s+/g, '').replace(/^0$/, '').slice(0, 1)" maxlength="1"
+                           ng-model="vm.modifyList.C015.oldValue" required>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td width="25%" class="form-group required">
+                    <label class="control-label">11(b).Aggregate amount of income for which Form 121/TAX exemption certificate filed</label></td>
+                <td>
+                    <input type="text" class="form-control" id="aggregateAmt"
+                           maxlength="26" name="aggregateAmt" ng-pattern="vm.amountPattern"
+                           ng-model="vm.modifyList.C016.oldValue"
+                           indian-amount-input
+                           required>
+                </td>
+            </tr>
+                <tr>
+                    <td width="25%" class="form-group required">
+                        <label class="control-label">12. Aggregate amount of income for which declaration is made during
+                            the tax year [sum of column 10 and 11(b)]
+                        </label></td>
+                    <td>
+                        <input type="text" class="form-control" id="estimatedTotalIncomeTaxDed"
+                               maxlength="26" name="estimatedTotalIncomeTaxDed" ng-pattern="vm.amountPattern"
+                               ng-model="vm.modifyList.C014.oldValue"
+                               indian-amount-input
+                               required>
+                    </td>
+                </tr>
+                <tr>
+                    <td width="25%" class="form-group required">
+                        <label class="control-label">13. Estimated total income of the tax
+                            year including the income mentioned in column 12
+                        </label></td>
+                    <td>
+                        <input type="text" class="form-control" id="estimateTotalTaxYearAmt"
+                               maxlength="26" name="estimateTotalTaxYearAmt" ng-pattern="vm.amountPattern"
+                               ng-model="vm.modifyList.C025.oldValue"
+                               indian-amount-input
+                               required>
+                    </td>
+                </tr>
+            <tr>
+                <td width="25%" class="form-group required">
+                    <label class="control-label">14.Declaration Received Date</label>
+                </td>
+                <td width="25%">
+                    <input type="text" class="form-control" id="effFromDate" name="effFromDate"
+                           ng-value="vm.modifyList.C017.oldValue | date : 'dd/MM/yyyy'" readonly>
+                </td>
+            </tr>
+
+            <tr>
+                <td width="25%" class="form-group">
+                    <label class="control-label">Rejection Remarks</label></td>
+                <td>
+                    <input type="text" class="form-control" id="remarks"
+                           limit-to="50" name="remarks"
+                           ng-model="vm.rejectionRemarks"  readonly>
+                </td>
+            </tr>
+        </table>
+        <table class="table table-bordered table-striped list" ng-if="vm.modifyList.C003.oldValue && vm.modifyList.C003.oldValue.trim() === 'TF006'">
+            <thead>
+            <h4 class="form_heading" ng-if="vm.modifyList.C003.oldValue && vm.modifyList.C003.oldValue.trim() === 'TF006'">15.Details of the ITR filed for previous two tax years</h4>
+            <tr>
+                <th>S.No</th>
+                <th>Tax Year</th>
+                <th>Acknowledgement Number</th>
+                <th>Return Income</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>1</td>
+                <td>
+                    <input type="text" class="form-control" id="assessmentYear0" name="assessmentYear0"
+                           ng-model="vm.modifyList.C020.oldValue" readonly>
+                </td>
+                <td>
+                    <input type="text" class="form-control" id="ackNumber0" name="ackNumber0"
+                           ng-model="vm.modifyList.C019.oldValue" readonly>
+                </td>
+                <td>
+                    <input type="text" class="form-control" id="returnIncome0" name="returnIncome0"
+                           ng-model="vm.modifyList.C021.oldValue" readonly>
+                </td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>
+                    <input type="text" class="form-control" id="assessmentYear1" name="assessmentYear1"
+                           ng-model="vm.modifyList.C023.oldValue" readonly>
+                </td>
+                <td>
+                    <input type="text" class="form-control" id="ackNumber1" name="ackNumber1"
+                           ng-model="vm.modifyList.C022.oldValue" readonly>
+                </td>
+                <td>
+                    <input type="text" class="form-control" id="returnIncome1" name="returnIncome1"
+                           ng-model="vm.modifyList.C024.oldValue" readonly>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+<!--        <input type="hidden" class="form-control" id="vm.modifyList.panId"-->
+<!--               name="vm.modifyList.panId" ng-model="vm.modifyList.panId" readonly>-->
+
+        <div class="text-center form_submit">
+            <button type="submit" class="btn btn-default" id="submitButton"
+                    ng-disabled="bondTaxExcemptionForm.$invalid"
+                    ng-click="vm.submitModifyForm()">Submit</button>
+            <button type="button" id="cancelButton" class="btn btn-cancel"
+                    ng-click="vm.showCancelConfirmation('tds_exemption_master.modify');">Cancel</button>
+
+        </div>
+        <div class="text-center">
+            <notice-message-directive></notice-message-directive>
+
+        </div>
+    </form>
+</div>
+
+
+
+
+

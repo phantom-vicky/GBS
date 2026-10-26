@@ -1,0 +1,107 @@
+<div class="loader-new" ng-if="vm.loader"></div>
+<cbs-left-menu></cbs-left-menu>
+<div class="container from_wrapper new_form_wrapper">
+	<h4 class="form_heading  feature-heading">Branch IFSC Codes - Inquiry</h4>
+		
+		<table class="table table-bordered table-striped list">
+			<thead>
+		    	<tr>
+		        	<th width="25%">Particular</th>
+		        	<th width="25%" ng-if="!vm.newValueDispay">Value</th>
+		        	<th width="12.5%" ng-if="vm.newValueDispay">New Value</th>
+		        	<th width="12.5%" ng-if="vm.newValueDispay">Old Value</th>
+		    	</tr>
+		    </thead>
+			<tbody>
+				<tr>
+					<td>
+						<label for="bankCode" class="control-label">Bank code</label>
+					</td>
+					<td ng-if="vm.newValueDispay">
+						<label class="data-bind" id="bankCode_new">{{vm.branchIfscCodeNewScope.bankCode}}</label>
+					</td>
+					<td>
+						<label class="data-bind" id="bankCode">{{vm.branchIfscCode.bankCode}}</label>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<label for="branchCode" class="control-label">Branch code</label>
+					</td>
+					<td ng-if="vm.newValueDispay">
+						<label class="data-bind" id="branchCode_new">{{vm.branchIfscCodeNewScope.branchCode}}</label>
+					</td>
+					<td>
+						<label class="data-bind" id="branchCode">{{vm.branchIfscCode.branchCode}}</label>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<label for="bankIdentifier" class="control-label">Bank identifier</label>
+					</td>
+					<td ng-if="vm.newValueDispay">
+						<label class="data-bind" id="bankIdentifier_new">{{vm.branchIfscCodeNewScope.bankIdentifier}}</label>
+					</td>
+					<td>
+						<label class="data-bind" id="bankIdentifier">{{vm.branchIfscCode.bankIdentifier}}</label>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<label for="paysysId" class="control-label">Payment System Id (RTGS)</label>
+					</td>
+					<td ng-if="vm.newValueDispay">
+						<label class="data-bind" id="paysysId_new">{{vm.branchIfscCodeNewScope.paysysId}}</label>
+					</td>
+					<td>
+						<label class="data-bind" id="paysysId">{{vm.branchIfscCode.paysysId}}</label>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<label for="additionalText1" class="control-label">Additional Text1</label>
+					</td>
+					<td ng-if="vm.newValueDispay">
+						<label class="data-bind" id="additionalText1_new">{{vm.branchIfscCodeNewScope.additionalText1}}</label>
+					</td>
+					<td>
+						<label class="data-bind" id="additionalText1">{{vm.branchIfscCode.additionalText1}}</label>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<label for="additionalText2" class="control-label">Additional Text2</label>
+					</td>
+					<td ng-if="vm.newValueDispay">
+						<label class="data-bind" id="additionalText2_new">{{vm.branchIfscCodeNewScope.additionalText2}}</label>
+					</td>
+					<td>
+						<label class="data-bind" id="additionalText2">{{vm.branchIfscCode.additionalText2}}</label>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<label for="additionalText3" class="control-label">Additional Text3</label>
+					</td>
+					<td ng-if="vm.newValueDispay">
+						<label class="data-bind" id="additionalText3_new">{{vm.branchIfscCodeNewScope.additionalText3}}</label>
+					</td>
+					<td>
+						<label class="data-bind" id="additionalText3">{{vm.branchIfscCode.additionalText3}}</label>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	<div class="row" ng-if="vm.branchIfscCode">
+		<div class="col-sm-7"></div>
+		<label  ng-if="!vm.verified" class="control-label col-sm-5"><b>Verify Status : Y</b></label>
+		<label  ng-if="vm.verified" class="control-label col-sm-5"><b>Verify Status : N</b></label>
+	</div>
+	<div class="row">
+		<div class="text-center form_submit">
+			<button type="button" class="btn btn-cancel" id="cancelButton"
+				ui-sref="branch_ifsc_codes.list()">Back</button>
+		</div>
+	</div>
+</div>
+

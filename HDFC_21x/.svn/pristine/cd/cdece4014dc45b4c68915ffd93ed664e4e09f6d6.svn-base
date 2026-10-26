@@ -1,0 +1,96 @@
+<div class="loader-new" ng-if="vm.loader"></div>
+<dc-left-menu></dc-left-menu>
+<div class="container from_wrapper new_form_wrapper">
+
+    <h4 class="form_heading"> RBI Bond TOC Sharing Maintenance - Add</h4>
+    <sol-header></sol-header>
+    <form name="tocShareMaintenanceForm" role="form">
+        <div class="row">
+            <div class="form-group">
+                <div class="col-sm-3"></div>
+                <div class="col-sm-3">
+                    <label for="moduleName" class="control-label">Name of the Module</label>
+                </div>
+                <div class="col-sm-5">
+                    <label><b>RBI Bond</b></label>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group required">
+                <div class="col-sm-3"></div>
+                <div class="col-sm-3">
+                    <label for="moduleName" class="control-label">Name of the Bond Scheme</label>
+                </div>
+                <div class="col-sm-2">
+                    <select class="form-control text-initial" id="moduleName" name="moduleName"
+                            ng-model="vm.schemeCode" ng-change="vm.checkRecordExisted(vm.schemeCode);"
+                            required>
+                        <option value="" >Select</option>
+                        <option ng-repeat="item in vm.schemeList" value="{{item.subCode}}" ng-click="vm.schemeCode =item.subCode">{{item.subCodeDescription}}</option>
+                        <!--                        <option value="{{vm.moduleNameBefore}}">{{vm.moduleNameBefore}}</option>-->
+                    </select>
+
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group required">
+                <div class="col-sm-3"></div>
+                <div class="col-sm-3">
+                    <label for="versionNo" class="control-label">Version No</label>
+                </div>
+                <div class="col-sm-2">
+                    <input type="text" class="form-control" id="versionNo"
+                           ng-model="vm.versionNo" ng-init="vm.versionNo='00001'"readonly>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group required">
+                <div class="col-sm-3"></div>
+                <div class="col-sm-3">
+                    <label for="effFromDate" class="control-label">Effective From Date</label>
+                </div>
+                <div class="col-sm-2">
+                    <p class="input-group">
+                        <input type="text" class="form-control" id="effFromDate"
+                               name="effFromDate" ng-model="vm.effFromDate"
+                               uib-datepicker-popup="dd/MM/yyyy" ng-init="vm.effFromDate=''"
+                               datepicker-options="vm.dateOptions"
+                               is-open="vm.effFromDatePicker.opened" close-text="Close"
+                               maxlength="10"
+                               ng-blur="vm.textableDatePicker('effFromDate',vm.effFromDate)"
+                               ng-keyup="vm.autoslashing('effFromDate')" chars="numbers-slash"
+
+                               required>
+                        <span class="input-group-btn">
+                            <button type="button" class="btn btn-secondary"
+                                    ng-click="vm.effFromDatePicker.opened = true"
+                                    id="effFromDateSearcher">
+                                <i class="glyphicon glyphicon-calendar"></i>
+                            </button>
+                        </span>
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="text-center form_submit">
+            <button type="submit" id="submitbutton" class="btn btn-default"
+                    ui-sref="rbi_bond_toc_share_maintanance.add_detail({obj:{
+                                    schemeCode: vm.schemeCode,
+                                    versionNo: vm.versionNo,
+                                    effFromDate: vm.effFromDate
+
+								}})"
+                    ng-disabled="tocShareMaintenanceForm.$invalid">Submit</button>
+            <button type="button" class="btn btn-cancel" id="cancelButton"
+                    onclick="window.location.href= '#!/rbi_bond_toc_share_maintanance/action/inquiry';">Cancel
+            </button>
+        </div>
+
+        <div class="text-center">
+            <notice-message-directive></notice-message-directive>
+        </div>
+    </form>
+</div>

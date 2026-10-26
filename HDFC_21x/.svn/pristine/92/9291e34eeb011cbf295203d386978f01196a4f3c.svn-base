@@ -1,0 +1,155 @@
+<left-menu-directive></left-menu-directive>
+<div class="loader-new" ng-show="loader"></div>
+<div class="container from_wrapper" ng-if="displayForm == true">
+	
+	<h4 class="form_heading  feature-heading">Office Account Place Holder - {{action}} </h4>
+	<div  ng-if="action == 'modify' || action == 'add'">
+		<notice-message-directive ></notice-message-directive>
+	</div>
+	<form name="officeAccountPlaceHolderForm" role="form" ng-submit="submitForm(officeAccountPlaceHolderForm.$valid)" novalidate>
+		<div class="row">
+		 <div class="form-group" ng-class="requiredClass">
+		    <div class="col-sm-3"></div>
+		  	<label for="bacid" class ="control-label col-sm-3">Place Holder</label>
+			<div class="col-sm-3">
+					<input type="text" class="form-control" id="bacid" name="bacid" ng-model="officeAccountPlaceHolder.bacid" maxlength="16" ng-if="action == 'modify' || action == 'add'" required>
+					<label ng-if="action == 'delete' || action == 'verify' || action == 'inquiry'">: {{officeAccountPlaceHolder.bacid}}</label> 
+			</div>
+		</div>
+	   </div>
+	    	
+	   <div class="row">
+		 <div class="form-group" ng-class="requiredClass">
+		    <div class="col-sm-3"></div>
+		  	<label for="bacidDesc" class ="control-label col-sm-3">Placeholder Description</label>
+				<div class="col-sm-3">
+					<input type="text" class="form-control" id="bacidDesc" name="bacidDesc" ng-model="officeAccountPlaceHolder.bacidDesc" maxlength="40" ng-if="action == 'modify' || action == 'add'" required>
+					<label ng-if="action == 'delete' || action == 'verify' || action == 'inquiry'">: {{officeAccountPlaceHolder.bacidDesc}}</label> 
+			</div>
+		</div>
+	   </div>	
+	  
+	   <div class="row">
+		<div class="form-group" ng-class="requiredClass">
+		    <div class="col-sm-3"></div>
+		  	<label for="schmType" class ="control-label col-sm-3">Type of Scheme</label>
+			<div class="col-sm-3">
+			 <input type="text" class="form-control" id="schmType" name="schmType" ng-model="officeAccountPlaceHolder.schmType" maxlength="5" ng-if="action == 'modify' || action == 'add'" required>
+					<label ng-if="action == 'delete' || action == 'verify' || action == 'inquiry'">: {{officeAccountPlaceHolder.schmType}}</label> 
+			</div>
+		</div>
+	   </div>
+	  
+	   <div class="row">
+			<div class="form-group">
+			<div class="col-sm-3"></div>
+				<label for="additionalText1" class="control-label col-sm-3">Additional Text1</label>
+				<div class="col-sm-3">
+					<input type="text" class="form-control" name="additionalText1" id="additionalText1" ng-model="officeAccountPlaceHolder.additionalText1" maxlength="40" ng-if="action == 'modify' || action == 'add'">
+					<label ng-if="action == 'delete' || action == 'verify' || action == 'inquiry'">: {{officeAccountPlaceHolder.additionalText1}}</label>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="form-group">
+			<div class="col-sm-3"></div>
+				<label for="additionalText2" class="control-label col-sm-3">Additional Text2</label>
+				<div class="col-sm-3">
+					<input type="text" class="form-control" name="additionalText2" id="additionalText2" ng-model="officeAccountPlaceHolder.additionalText2" maxlength="40" ng-if="action == 'modify' || action == 'add'">
+					<label ng-if="action == 'delete' || action == 'verify' || action == 'inquiry'">: {{officeAccountPlaceHolder.additionalText2}}</label>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="form-group">
+			<div class="col-sm-3"></div>
+				<label for="additionalText3" class="control-label col-sm-3">Additional Text3</label>
+				<div class="col-sm-3">
+					<input type="text" class="form-control" name="additionalText3" id="additionalText3" ng-model="officeAccountPlaceHolder.additionalText3" maxlength="40" ng-if="action == 'modify' || action == 'add'">
+					<label ng-if="action == 'delete' || action == 'verify' || action == 'inquiry'">: {{officeAccountPlaceHolder.additionalText3}}</label>
+				</div>
+			</div>
+		</div>
+	
+<div class="row">
+			 <div class="col-sm-offset-5 col-sm-8 form_submit">
+				 
+				 <button type="submit" class="btn btn-default" id="submitButton" ng-disabled="officeAccountPlaceHolderForm.$invalid" ng-if="action == 'add'">Submit</button>
+				 <button type="submit" class="btn btn-default" id="submitButton" ng-disabled="officeAccountPlaceHolderForm.$invalid" ng-if="action == 'modify'">Update</button>
+				 <button type="button" class="btn btn-default" id="submitButton" ng-click="verify(officeAccountPlaceHolder.officeId)" ng-disabled="officeAccountPlaceHolderForm.$invalid" ng-if="action == 'verify'">Verify</button>
+				 <button type="button" class="btn btn-default" id="submitButton" ng-click="delete(officeAccountPlaceHolder.officeId)" ng-disabled="officeAccountPlaceHolderForm.$invalid" ng-if="action == 'delete'">Delete</button>
+				 <button type="button" class="btn btn-default" id="submitButton" ng-click="inquiry(officeAccountPlaceHolder.officeId)" ng-disabled="officeAccountPlaceHolderForm.$invalid" ng-if="action == 'inquiry'">Back</button>
+				 
+				 <button type="button" class="btn btn-cancel" id="cancelButton" ng-click="cancelOperation(action)" >Cancel</button>
+			</div>
+		</div>
+	</form>
+</div>
+
+
+<div class="container list_wrapper" ng-if="baseRecordList.length > 0">
+<h4 class="feature-heading">Office Account Place Holder - {{action}} </h4>
+
+	<div class="col-sm-3">
+			<div class="form-group">
+				<label>
+				Show
+					<select class="form-control record-filter" ng-model="itemsPerPage" id="itemsPerPage" name="itemsPerPage"  ng-change="setItemsPerPage(itemsPerPage)" >
+						<option value='5'>5</option>
+						<option value='10'>10</option>
+						<option value='25'>25</option>
+						<option value='50'>50</option>
+					</select>
+				records per page
+				</label>
+			</div>
+		</div>
+		<div class="col-sm-3 pull-right">				    
+			  <div class="form-group">
+			       <div class="input-group">
+					      <div class="input-group-addon"><i class="glyphicon glyphicon-search"></i></div>
+					      <input type="text" class="form-control" ng-model="searchKeyword" ng-change="searchInquiryFn(searchKeyword)" placeholder="Search">
+					    </div>
+			  </div>
+		</div>
+		<div ng-if="totalItems > 0">
+	<table class="table table-bordered table-striped list">
+			<thead>
+				<tr>
+					<th>Place Holder</th>
+					<th>Placeholder Description</th>
+					<th>Type of Scheme</th>
+				    <th>Additional Text1</th>
+					<th>Additional Text2</th>
+					<th>Additional Text3</th> 
+					<th style="width: 100px;">Status</th>
+					<th>Created Date</th>
+					<th ng-if="action" class="capitalize">{{action}}</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="item in recordsList.slice(((currentPage-1)*itemsPerPage), ((currentPage)*itemsPerPage))">
+					<td>{{item.bacid}}</td>
+					<td>{{item.bacidDesc}}</td>
+					<td>{{item.schmType}}</td>
+     				<td>{{item.additionalText1}}</td>
+					<td>{{item.additionalText2}}</td>
+					<td>{{item.additionalText3}}</td> 
+					<td ng-if="item.verified == true">Verified</td>
+					<td ng-if="item.verified == false">Unverified</td>
+					<td>{{item.createdDate}}</td>
+					<td ng-if="action=='modify'"><i class="glyphicon glyphicon-edit cp" ng-click="modifyForm(item.officeId)"></i></td>
+					<td ng-if="action=='verify'"><i class="glyphicon glyphicon-ok cp" ng-click="verifyForm(item.officeId)"></i></td>
+					<td ng-if="action=='delete'"><i class="glyphicon glyphicon-remove cp" ng-click="deleteForm(item.officeId)"></i></td>
+					<td ng-if="action=='inquiry'"><i class="glyphicon glyphicon-search cp" ng-click="inquiryForm(item.officeId)"></i></td>
+				</tr>
+			</tbody>
+		</table>
+<ul uib-pagination total-items="totalItems" ng-model="currentPage" max-size="maxSize" class="pagination-sm" boundary-links="true" force-ellipses="true" items-per-page="itemsPerPage"></ul>
+</div>
+		<div class="list_wrapper no_records_message padding-top-50" ng-if="totalItems <= 0">No records matched with <i>"{{searchKeyword}}"</i>.</div>
+</div>
+<div class="container list_wrapper" ng-if="baseRecordList.length <= 0 && loader == false && displayForm == false">
+	<h4 class="feature-heading">Office Account Place Holder - {{action}} </h4>
+	<div class="no_records_message">No records found to display.</div>
+</div>

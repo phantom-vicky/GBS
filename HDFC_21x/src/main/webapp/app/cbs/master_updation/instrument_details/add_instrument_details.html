@@ -1,0 +1,120 @@
+<div class="loader-new" ng-if="vm.loader"></div>
+<cbs-left-menu></cbs-left-menu>
+<div class="container from_wrapper new_form_wrapper">
+	<h4 class="form_heading  feature-heading">Instrument Details - Add</h4>
+	<form name="instrumentDetailsForm" role="form">
+		<div class="row">
+			<div class="form-group">
+				<div class="col-sm-3"></div>
+				<div class="col-sm-3 required">
+					<label for="drCrIndicator" class="control-label">Debit or
+						Credit Indicator</label>
+				</div>
+				<div class="col-sm-3">
+					<select class="form-control" id="drCrIndicator"
+						name="drCrIndicator" ng-model="vm.instrumentDetails.drCrIndicator1"
+						required>
+						<option ng-selected="{{vm.instrumentDetails.drCrIndicator1 == ''}}"
+							value="">Select</option>
+						<option
+							ng-selected="{{vm.instrumentDetails.drCrIndicator1 == 'C'}}"
+							value="C">Credit</option>
+						<option
+							ng-selected="{{vm.instrumentDetails.drCrIndicator1 == 'D'}}"
+							value="D">Debit</option>
+					</select>
+
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="form-group">
+				<div class="col-sm-3"></div>
+				<div class="col-sm-3 required">
+					<label for="instrumentType" class="control-label">Type of
+						Instrument</label>
+				</div>
+				<div class="col-sm-3">
+					<select class="form-control" id="instrumentType"
+						name="instrumentType"
+						ng-init="vm.getInstrumentTypes();vm.instrumentDetails.instrumentType = vm.typeOfInstrumentList[0]"
+						ng-model="vm.instrumentDetails.instrumentType" required>
+						<option
+							ng-selected="{{vm.instrumentDetails.instrumentType == ''}}"
+							value="">Select</option>
+						<option ng-selected="{{x == vm.instrumentDetails.instrumentType}}"
+							ng-repeat="(x,y) in vm.typeOfInstrumentList" value="{{x}}">{{y}}</option>
+					</select>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="form-group">
+				<div class="col-sm-3"></div>
+				<div class="col-sm-3 required">
+					<label for="schemeCode" class="control-label">Scheme Code</label>
+				</div>
+				<div class="col-sm-3">
+					<input type="text" class="form-control" name="schemeCode"
+						id="schemeCode" ng-model="vm.instrumentDetails.schemeCode"
+						maxlength="5" chars="alpha-numeric" required>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="form-group">
+				<div class="col-sm-3"></div>
+				<div class="col-sm-3">
+					<label for="additionalText1" class="control-label">Additional
+						Text1</label>
+				</div>
+				<div class="col-sm-3">
+					<input type="text" class="form-control" name="additionalText1"
+						id="additionalText1" chars="alpha-numeric"
+						ng-model="vm.instrumentDetails.additionalText1" maxlength="40">
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="form-group">
+				<div class="col-sm-3"></div>
+				<div class="col-sm-3">
+					<label for="additionalText2" class="control-label">Additional
+						Text2</label>
+				</div>
+				<div class="col-sm-3">
+					<input type="text" class="form-control" name="additionalText2"
+						id="additionalText2" chars="alpha-numeric"
+						ng-model="vm.instrumentDetails.additionalText2" maxlength="40">
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="form-group">
+				<div class="col-sm-3"></div>
+				<div class="col-sm-3">
+					<label for="additionalText3" class="control-label">Additional
+						Text3</label>
+				</div>
+				<div class="col-sm-3">
+					<input type="text" class="form-control" name="additionalText3"
+						id="additionalText3" chars="alpha-numeric"
+						ng-model="vm.instrumentDetails.additionalText3" maxlength="40">
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-sm-offset-5 col-sm-8 form_submit">
+
+				<button type="submit" class="btn btn-default" id="submitButton"
+					ng-disabled="instrumentDetailsForm.$invalid" ng-click="vm.add()">Submit</button>
+				<button type="button" class="btn btn-cancel" id="cancelButton"
+					ng-click="vm.showCancelConfirmation('instrument_details.list');">Cancel</button>
+			</div>
+		</div>
+		<div class="text-center">
+			<notice-message-directive></notice-message-directive>
+		</div>
+	</form>
+</div>
+

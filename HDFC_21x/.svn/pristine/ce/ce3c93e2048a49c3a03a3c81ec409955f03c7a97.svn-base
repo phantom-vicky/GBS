@@ -1,0 +1,232 @@
+<div class="loader-new" data-ng-if="vm.loader"></div>
+<div class="container from_wrapper new_form_wrapper">
+    <h4 class="form_heading">Half Yearly Interest Scroll</h4>
+    <sol-header></sol-header>
+    <form name="halfYearlyInterestScrollForm" role="form" novalidate>
+
+        <div class="row">
+            <div class="form-group">
+                <div class="col-sm-3"></div>
+                <div class="col-sm-3">
+                    <label class="control-label">Branch Id</label>
+                </div>
+                <div class="col-sm-2">
+                    <input type="text" class="form-control" data-ng-model="vm.branchId" readonly/>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="form-group">
+                <div class="col-sm-3"></div>
+                <div class="col-sm-3">
+                    <label class="control-label">Branch Name</label>
+                </div>
+                <div class="col-sm-2">
+                    <input type="text" class="form-control" data-ng-model="vm.branchName" readonly/>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="form-group">
+                <div class="col-sm-3"></div>
+                <div class="col-sm-3">
+                    <label class="control-label">Name of the Module</label>
+                </div>
+                <div class="col-sm-3">
+                    <label class="control-label"><b>RBI Bond</b></label>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="form-group required">
+                <div class="col-sm-3"></div>
+                <div class="col-sm-3">
+                    <label class="control-label">Name of Scheme</label>
+                </div>
+                <div class="col-sm-2">
+                    <input type="text" class="form-control" data-ng-model="vm.schemeName" required readonly/>
+                </div>
+                <div class="col-sm-2" style="display: flex; align-items: center; height: 34px; gap: 5px; padding-left:0;">
+                    <span class="glyphicon glyphicon-search cp" data-ng-click="vm.getSchemeName();"></span>
+                    <span class="glyphicon glyphicon-remove clear cp"
+                          data-ng-click="vm.schemeCode=''; vm.schemeName=''; vm.schemeStatus=''; vm.halfYearMonth=''; vm.year=''; vm.halfYearMonthOptions=[];"></span>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="form-group required">
+                <div class="col-sm-3"></div>
+                <div class="col-sm-3">
+                    <label class="control-label">Interest Payment Type</label>
+                </div>
+                <div class="col-sm-2">
+                    <select class="form-control" data-ng-model="vm.interestPaymentType"
+                            data-ng-change="vm.onInterestPaymentTypeChange();" required>
+                        <option value="">Select</option>
+                        <option data-ng-repeat="t in vm.interestPaymentTypes" value="{{t.code}}">{{t.label}}</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <div class="row" data-ng-if="vm.interestPaymentType === 'HY'">
+            <div class="form-group required">
+                <div class="col-sm-3"></div>
+                <div class="col-sm-3">
+                    <label class="control-label">Half Yearly Payment</label>
+                </div>
+                <div class="col-sm-2">
+                    <select class="form-control" data-ng-model="vm.halfYearMonth"
+                            data-ng-change="vm.onHalfYearMonthChange();"
+                            data-ng-required="vm.interestPaymentType === 'HY'"
+                            data-ng-disabled="!vm.schemeCode">
+                        <option value="">Select</option>
+                        <option data-ng-repeat="opt in vm.halfYearMonthOptions" value="{{opt.halfYear}}">{{opt.halfYear}}</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+<!--        <div class="row" data-ng-if="vm.interestPaymentType === 'RR'">-->
+        <div class="row">
+            <div class="form-group required">
+                <div class="col-sm-3"></div>
+                <div class="col-sm-3">
+                    <label class="">Rejected Reinitiated From Date</label>
+                </div>
+                <div class="col-sm-2">
+                    <p class="input-group">
+                        <input type="text" class="form-control" id="rejectFromDate" name="rejectFromDate"
+                               data-ng-model="vm.fromDate" data-uib-datepicker-popup="dd/MM/yyyy"
+                               data-ng-init="vm.fromDateVal()"
+                               data-ng-change="vm.toDateVal(vm.fromDate); vm.toDate=''"
+                               data-datepicker-options="vm.fromDateOptions"
+                               data-is-open="vm.rejectFromDatePicker.opened"
+                               data-close-text="Close" maxlength="10"
+                               data-ng-blur="vm.textableDatePicker('rejectFromDate', vm.fromDate)"
+                               data-ng-keyup="vm.autoslashing('rejectFromDate')" data-chars="numbers-slash"
+                               data-ng-required="vm.interestPaymentType === 'RR'"/>
+                        <span class="input-group-btn">
+                            <button type="button" class="btn btn-secondary"
+                                    data-ng-click="vm.rejectFromDatePicker.opened = true">
+                                <span class="glyphicon glyphicon-calendar"></span>
+                            </button>
+                        </span>
+                    </p>
+                </div>
+            </div>
+        </div>
+
+<!--        <div class="row" data-ng-if="vm.interestPaymentType === 'RR'">-->
+        <div class="row">
+            <div class="form-group required">
+                <div class="col-sm-3"></div>
+                <div class="col-sm-3">
+                    <label class="">Rejected Reinitiated To Date</label>
+                </div>
+                <div class="col-sm-2">
+                    <p class="input-group">
+                        <input type="text" class="form-control" id="rejectToDate" name="rejectToDate"
+                               data-ng-model="vm.toDate" data-uib-datepicker-popup="dd/MM/yyyy"
+                               data-datepicker-options="vm.toDateOptions"
+                               data-is-open="vm.rejectToDatePicker.opened"
+                               data-close-text="Close" maxlength="10"
+                               data-ng-blur="vm.textableDatePickerTo('rejectToDate', vm.toDate, vm.fromDate)"
+                               data-ng-keyup="vm.autoslashing('rejectToDate')" data-chars="numbers-slash"
+                               data-ng-required="vm.interestPaymentType === 'RR'"/>
+                        <span class="input-group-btn" data-ng-if="vm.fromDate">
+                            <button type="button" class="btn btn-secondary"
+                                    data-ng-click="vm.rejectToDatePicker.opened = true">
+                                <span class="glyphicon glyphicon-calendar"></span>
+                            </button>
+                        </span>
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="form-group required">
+                <div class="col-sm-3"></div>
+                <div class="col-sm-3">
+                    <label class="control-label">Financial Year</label>
+                </div>
+                <div class="col-sm-2">
+                    <input type="text" class="form-control" id="financialYear" name="financialYear"
+                           data-ng-model="vm.financialYear" maxlength="9" placeholder="2025-2026"
+                           data-ng-keypress="vm.allowOnlyNumber($event)"
+                           data-ng-keyup="vm.formatFinancialYear()" required/>
+                    <span style="color:red;" data-ng-if="vm.financialYearError">{{vm.financialYearError}}</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="text-center form_submit">
+            <button type="submit" id="submitButton" class="btn btn-default"
+                    data-ng-click="vm.goToDetails()"
+                    data-ng-disabled="halfYearlyInterestScrollForm.$invalid || vm.financialYearError">
+                Submit
+            </button>
+            <button type="button" class="btn btn-cancel" id="cancelButton"
+                    onclick="window.location.href= '#!/rbibond_gu_functionality';">
+                Cancel
+            </button>
+        </div>
+
+        <div class="text-center">
+            <notice-message-directive></notice-message-directive>
+        </div>
+    </form>
+</div>
+
+<div class="modal" id="schemeModel" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-bs-dismiss="modal" data-ng-click="vm.modalSearch = ''">&times;</button>
+                <h4 class="modal-title">Scheme Code</h4>
+            </div>
+            <div class="modal-body">
+                <div class="loader_popup"></div>
+                <div class="list_wrapper" data-ng-if="vm.schemeList.length > 0">
+                    <div class="col-sm-8 form_submit">
+                        <div class="form-group">
+                            <div class="input-group">
+                                <div class="input-group-addon">
+                                    <span class="glyphicon glyphicon-search"></span>
+                                </div>
+                                <input type="text" class="form-control" data-ng-model="vm.modalSearch" placeholder="Search"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <table class="table table-bordered list scroll sort" aria-label="">
+                                <thead data-ng-init="reverseOrder=true;sortedColumn='schemeName'">
+                                <tr>
+                                    <th scope="col">Scheme Name</th>
+                                    <th scope="col">Status</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr class="cp"
+                                    data-ng-repeat="x in vm.schemeList | filter:vm.modalSearch | orderBy:sortedColumn:reverseOrder"
+                                    data-ng-click="vm.schemeCode = x.schemeCode; vm.schemeName = x.schemeName; vm.schemeStatus = x.schemeStatus; vm.onSchemeSelected();"
+                                    data-bs-dismiss="modal">
+                                    <td>{{x.schemeName}}</td>
+                                    <td>{{x.schemeStatus}}</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="list_wrapper" data-ng-if="vm.schemeList.length==0">No records found to display.</div>
+            </div>
+        </div>
+    </div>
+</div>

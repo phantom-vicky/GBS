@@ -1,0 +1,170 @@
+<div class="loader-new" ng-if="vm.loader"></div>
+<div class="container" ng-if="vm.paymentWiseList.length>0">
+    <div class="text-right form_submit">
+        <button type="submit" class="btn btn-default"
+                onclick="window.location.href ='#!/dc';" id="homeButton">Home</button>
+        <button type="submit" id="backButton" class="btn btn-cancel"
+                ng-click="vm.goPreviousState();">Back</button>
+    </div>
+    <div  class="container from_wrapper new_form_wrapper" id="tab">
+        <div class="col-sm-12">
+            <h4 class="form_heading">Bond Interest Payment Pending Report-Collecting Branch</h4>
+
+            <div class="row">
+                <div class="col-sm-12">
+                    <div>
+                        <table>
+                            <tr>
+                                <td>
+                                    <select class="form-control pageDropDown" id="pageSize" name="pageSize"
+                                            ng-model="vm.pageSize" ng-init="vm.pageSize='5'" ng-change=" vm.pageNo='1'; vm.getTdsDeductionDetail();">
+                                        <option value="5" >5 per page</option>
+                                        <option value="10">10 per page</option>
+                                        <option value="50">50 per page</option>
+
+                                    </select>
+                                </td>
+                                <td>
+                                    <select class="form-control" id="export" name="export"
+                                            ng-model="vm.downloadType" ng-init="vm.downloadType=''" ng-change="vm.getTrialRunEligibleAccountsFile()">
+                                        <option value="">EXPORT</option>
+                                        <option value="excel">EXCEL</option>
+                                        <option value="pdf">PDF</option>
+
+                                    </select>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="input-group">
+                        <input type="text" class="form-control searchButton"
+                               ng-model="vm.searchValue" ng-init="vm.searchValue = ''"
+                               placeholder="Search">
+                        <div class="input-group-addon">
+                            <i class="glyphicon glyphicon-search" ng-click="vm.getInterestTrailPaymentWise()"></i>
+                        </div>
+
+                    </div>
+                    <br>
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-striped list table-textWrap">
+                            <thead style="font-weight: bold">
+                            <tr class="thalign">
+                                <th colspan="10">Bond Interest Payment Pending Report-Collecting Branch</th>
+                            </tr>
+                            <tr class="thalign">
+                                <th colspan="10">for {{vm.interestPaid}} {{vm.financialYear}}</th>
+                            </tr>
+                            <tr class="thalign">
+                                <th colspan="10">{{vm.schemeName}}</th>
+                            </tr>
+
+                            </tr>
+                            <tr class="thalign">
+                                <th colspan="2">BranchId</th>
+                                <th colspan="3">{{vm.loginSolId}}</th>
+
+                                <th colspan="2">Branch Name</th>
+                                <th colspan="3">{{vm.loginSolDesc}}</th>
+                            </tr>
+                            <tr class="thalign">
+
+                                <td>Sl No</td>
+
+                                <td ng-click="sort('T1.BRANCHID')">Branch Id
+                                    <span class="glyphicon sort-icon" ng-show="sortKey=='T1.BRANCHID'" ng-class="{'glyphicon-chevron-up':sortReverse,'glyphicon-chevron-down':!sortReverse}"></span>
+                                </td>
+
+
+                                <td ng-click="sort('T1.BLANO')">BLA No.
+                                    <span class="glyphicon sort-icon" ng-show="sortKey=='T1.BLANO'" ng-class="{'glyphicon-chevron-up':sortReverse,'glyphicon-chevron-down':!sortReverse}"></span>
+                                </td>
+
+                                <td ng-click="sort('T2.FIRSTJOINTHOLDERNAME')">Holder Name
+                                    <span class="glyphicon sort-icon" ng-show="sortKey=='T2.FIRSTJOINTHOLDERNAME'" ng-class="{'glyphicon-chevron-up':sortReverse,'glyphicon-chevron-down':!sortReverse}"></span>
+                                </td>
+
+                                <td ng-click="sort('T2.ACCOUNTOPENDATE')">Subscription Date
+                                    <span class="glyphicon sort-icon" ng-show="sortKey=='T2.ACCOUNTOPENDATE'" ng-class="{'glyphicon-chevron-up':sortReverse,'glyphicon-chevron-down':!sortReverse}"></span>
+                                </td>
+
+                                <td ng-click="sort('T1.BONDSUBSCRIPTIONID')">Subscription Account No.
+                                    <span class="glyphicon sort-icon" ng-show="sortKey=='T1.BONDSUBSCRIPTIONID'" ng-class="{'glyphicon-chevron-up':sortReverse,'glyphicon-chevron-down':!sortReverse}"></span>
+                                </td>
+
+                                <td ng-click="sort('T2.SUBSCRIPTIONAMOUNT')">Subscription Amount
+                                    <span class="glyphicon sort-icon" ng-show="sortKey=='T2.SUBSCRIPTIONAMOUNT'" ng-class="{'glyphicon-chevron-up':sortReverse,'glyphicon-chevron-down':!sortReverse}"></span>
+                                </td>
+
+                                <td ng-click="sort('T2.MODEOFINTERESTPAYMENT')">Interest Payment mode
+                                    <span class="glyphicon sort-icon" ng-show="sortKey=='T2.MODEOFINTERESTPAYMENT'" ng-class="{'glyphicon-chevron-up':sortReverse,'glyphicon-chevron-down':!sortReverse}"></span>
+                                </td>
+
+                                <td ng-click="sort('T1.INTERESTAMT')">Gross Interest Amount (Rs)
+                                    <span class="glyphicon sort-icon" ng-show="sortKey=='T1.INTERESTAMT'" ng-class="{'glyphicon-chevron-up':sortReverse,'glyphicon-chevron-down':!sortReverse}"></span>
+                                </td>
+
+                                <td ng-click="sort('T1.INELIGIBLEREASONS')">Reasons
+                                    <span class="glyphicon sort-icon" ng-show="sortKey=='T1.INELIGIBLEREASONS'" ng-class="{'glyphicon-chevron-up':sortReverse,'glyphicon-chevron-down':!sortReverse}"></span>
+                                </td>
+
+
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr dir-paginate="x in vm.paymentWiseList | itemsPerPage: itemsPerPage" pagination-id="trailRunRep">
+                                <td>{{$index+1}}</td>
+                                <td align="left">{{x.BRANCH_ID}}</td>
+                                <td align="left">{{x.bond_ledger_account_number}}</td>
+                                <td align="left">{{x.CUSTOMER_NAME}}</td>
+                                <td align="right">{{x.SUBCRIPTION_DATE | date : 'dd/MM/yyyy'}}</td>
+                                <td align="left">{{x.BOND_SUBSCRIPTION_ID}}</td>
+                                <td align="right">{{x.SUBSCRIPTION_AMOUNT}}</td>
+                                <td align="center">{{x.INTEREST_PAYMENT_MODE}}</td>
+                                <td align="right">{{x.GROSS_INTEREST_AMOUNT}}</td>
+                                <td align="right">{{x.REASON}}</td>
+
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                </div>
+
+                <br>
+                <div class="text-center form_submit">
+                        <span ng-show="vm.showPrevious">
+                        <button type="submit" class="btn btn-default" ng-click="vm.goPreviousPage()">Prev
+                        </button>
+                        </span>
+
+                    <span>
+                          <button type="submit" class="btn btn-default" ng-disabled="true" ng-init="vm.pageNo=1" ng-model="vm.pageNo" ng-click="vm.getTdsDeductionDetail();">{{vm.pageNo}} of {{vm.maxPages}}
+                          </button>
+                        </span>
+
+                    <span ng-show="vm.showNext">
+                        <button type="submit" class="btn btn-default" ng-click="vm.goNextPage();" >Next
+                        </button>
+                        </span>
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+    </div>
+</div>
+<div class="container" ng-if="vm.paymentWiseList.length == 0 || vm.noDataFound">
+    <div class="list_wrapper no_records_message">
+        <h4 class="form_heading">Bond Interest Payment Pending Report – Collecting Branch</h4>
+        No records found to display.
+        <center>
+            <button type="button" class="btn btn-default"
+                    ng-click="vm.goPreviousState();">Back</button>
+        </center>
+    </div>
+</div>

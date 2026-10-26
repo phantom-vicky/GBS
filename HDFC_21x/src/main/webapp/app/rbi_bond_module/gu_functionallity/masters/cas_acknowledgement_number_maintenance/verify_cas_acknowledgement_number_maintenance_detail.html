@@ -1,0 +1,215 @@
+<!-- Second Page-->
+<div class="container from_wrapper">
+    <div class="loader-new" ng-if="vm.loader"></div>
+    <dc-left-menu></dc-left-menu>
+    <h4 class="form_heading">CAS ACKNOWLEDGEMENT NUMBER MAINTENANCE - Verify/Reject</h4>
+    <sol-header></sol-header>
+
+    <!--<div class="container from_wrapper new_form_wrapper">-->
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="table-responsive">
+                <table class="table table-bordered table-striped list">
+                    <tr>
+                        <td width="25%" class="form-group">
+                            <label class="control-label">Name of the Bond Scheme</label>
+                        </td>
+                        <td width="25%">
+                            <label class="control-label">{{vm.schemeName}}</label>
+                        </td>
+                        <td width="25%" class="form-group">
+                            <label class="control-label">Subscription Date</label>
+                        </td>
+                        <td width="25%">
+                            <label class="control-label">{{vm.subsDate}}</label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th width="25%">CAS Acknowledgement Number</th>
+                        <td width="25%">
+                            <input
+                                    type="text"
+                                    class="form-control"
+                                    id="casAckNum"
+                                    name="casAckNum"
+                                    chars="only-numbers"
+                                    ng-model="vm.auditInfo.casAckNum"
+                                    required
+                                    readonly
+                            />
+                        </td>
+                        <th width="25%">CAS Acknowledgement Date</th>
+                        <td width="25%">
+                            <p class="input-group">
+                                <input type="text" class="form-control" id="casAckDate" name="casAckDate"
+                                       ng-model="vm.auditInfo.casAckDate" required readonly/>
+                            </p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th width="25%">CAS Transfer Date</th>
+                        <td width="25%">
+                            <p class="input-group">
+                                <input type="text" class="form-control" id="casTranDate" name="casTranDate"
+                                       ng-model="vm.auditInfo.casTranDate" required readonly/>
+                            </p>
+                        </td>
+                        <th  width="25%">Brokerage Advice Number</th>
+                        <td  width="25%"><input type="text" ng-if="vm.brkAdviceNumber" class="form-control" id="brkAdviceNumber"
+                                                name="brkAdviceNumber" chars="only-numbers" ng-model="vm.brkAdviceNumber" required readonly></td>
+                    </tr>
+                </table>
+                <table class="table table-bordered table-striped list">
+                    <thead>
+                    <tr>
+                        <th>S.No</th>
+                        <th>Bond Ledger Account Number</th>
+                        <th>Holder Name</th>
+                        <th>Subscription ID</th>
+                        <th>Subscription Amount</th>
+                        <th>Bond Type</th>
+                        <!-- <th>CAS Acknowledgement Number</th>
+                                  <th>CAS Acknowledgement Date (dd/mm/yyyy)</th>-->
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="items in vm.modelResult" ng-init="parentIndex=$index;">
+                        <td>{{vm.itemsPerPage*(vm.currentPage-1)+$index+1}}</td>
+                        <td>{{items.bondLedgeAccNum}}</td>
+                        <td>{{items.holderName}}</td>
+                        <td>{{items.subsId}}</td>
+                        <td>{{vm.indianNumberFormat(items.subsAmt)}}</td>
+                        <td>{{items.bondType}}</td>
+                        <!--<td>
+                                      <input type="text" class="form-control" id="casAckNum"
+                                             name="casAckNum" chars="only-numbers" ng-value="items.casAckNum" ng-model="items.casAckNum" disabled>
+                                  </td>
+                                  <td>
+                                      <input type="text" class="form-control" id="casAckDate"
+                                             name="casAckDate"  ng-value="items.casAckDate" ng-model="items.casAckDate" disabled>
+                                  </td>-->
+                    </tr>
+                    </tbody>
+                    <tfoot>
+                    <th colspan="1" style="text-align: right;">Total</th>
+                    <th colspan="2">{{vm.modelResult.length}}</th>
+                    <th colspan="1" style="text-align: right;">Total Subscription Amount</th>
+                    <th colspan="2">{{vm.indianNumberFormat(vm.totalSubScriptionAmount)}}</th>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="audit-details">
+        <div class="row">
+            <div class="col-md-4">
+                <span> <b> Created By </b> : {{vm.auditInfo.createdBy}} </span>
+            </div>
+            <div class="col-md-4">
+                <span> <b> Last Verified By </b> : {{(vm.auditInfo.lastVerifiedBy) ? (vm.auditInfo.lastVerifiedBy) : ('None')}}</span>
+            </div>
+            <div class="col-md-4">
+                <span> <b> Verify Status </b> : {{vm.auditInfo.verifiedStatus | getLabelFromValuesArray : vm.commonYesNoMetaData}}</span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <span> <b> Created On </b> : {{ vm.auditInfo.createdDate | date : 'dd/MM/yyyy'}}</span>
+            </div>
+            <div class="col-md-4">
+        <span>
+          <b> Last Verified On </b> : {{(vm.auditInfo.lastVerifiedDate) ? (vm.auditInfo.lastVerifiedDate | date : 'dd/MM/yyyy') : ('None')}}</span
+        >
+            </div>
+            <div class="col-md-4"></div>
+        </div>
+    </div>
+
+    <!--</div>-->
+    <div class="text-center form_submit">
+        <button type="submit" class="btn btn-default" id="verifyButton" ng-click="vm.submitVerifyForm();">Verify
+        </button>
+        <button type="submit" class="btn btn-default" id="deleteButton" ng-click="vm.rejectReason();">Reject</button>
+        <button
+                type="button"
+                class="btn btn-cancel"
+                id="cancelButton"
+                onclick="window.location.href= '#!/cas_acknowledgement_number_maintenance/action/inquiry'"
+        >
+            Cancel
+        </button>
+    </div>
+</div>
+<!--Delete Get Remarks-->
+<div class="modal" id="permissionMappingDelete" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-bs-dismiss="modal">&times;</button>
+                <h4 class="modal-title">REJECTION REMARKS</h4>
+            </div>
+            <div class="modal-body">
+                <div class="loader_popup"></div>
+                <div class="list_wrapper">
+                    <form name="permissionDelete" role="form">
+                        <div class="row">
+                            <div class="form-group">
+                                <div class="col-sm-2"></div>
+                                <label class="control-label col-sm-3">Remarks</label>
+                                <div class="col-sm-5">
+                                    <!--                  <textarea-->
+                                    <!--                    class="form-control"-->
+                                    <!--                    ng-keypress="vm.validateInput($event,'remarks')"-->
+                                    <!--                    id="remarks"-->
+                                    <!--                    name="remarks"-->
+                                    <!--                    ng-model="vm.remarks"-->
+                                    <!--                    maxlength="80"-->
+                                    <!--                    required-->
+                                    <!--                  ></textarea>-->
+                                    <select class="form-control list_wrapper" id="remarks[$index]"
+                                            name="remarks[$index]"
+                                            ng-model="vm.remarks" ng-init="vm.getRemarksList();" required>
+                                        <option value="">Select</option>
+                                        <option ng-repeat="item in vm.remarksList"
+                                                name="{{item.subCode + parentIndex}}"
+                                                id="{{item.subCode + parentIndex}}" value="{{item.subCodeDescription}}">
+                                            {{item.subCodeDescription}}
+                                        </option>
+                                    </select>
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-offset-5 col-sm-8 form_submit">
+                            <button
+                                    type="button"
+                                    class="btn btn-default"
+                                    data-bs-dismiss="modal"
+                                    ng-disabled="permissionDelete.$invalid"
+                                    ng-click="vm.submitDeleteForm()"
+                            >
+                                Submit
+                            </button>
+                            <button type="button" class="btn btn-cancel" data-bs-dismiss="modal">Cancel</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container" ng-if="vm.noDataFound">
+    <div class="list_wrapper no_records_message">
+        <h4 class="form_heading">CAS ACKNOWLEDGEMENT NUMBER MAINTENANCE - Verify/REJECT</h4>
+        No records found to display.
+        <center>
+            <button type="button" class="btn btn-default"
+                    onclick="window.location.href= '#!/cas_acknowledgement_number_maintenance/action/inquiry';">
+                Back
+            </button>
+        </center>
+    </div>
+</div>

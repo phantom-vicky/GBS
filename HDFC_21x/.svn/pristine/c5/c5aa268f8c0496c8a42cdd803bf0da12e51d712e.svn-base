@@ -1,0 +1,265 @@
+<!-- Output Screen-->
+
+
+<div class="loader-new" ng-if="vm.loader"></div>
+
+<div class="container" data-ng-if="vm.model.length>0">
+
+
+    <div class="container from_wrapper new_form_wrapper">
+
+        <div class="text-right form_submit">
+            <button type="submit" class="btn btn-default"
+                    onclick="window.location.href ='#!';" id="homeButton">Home
+            </button>
+
+            <button type="button" id="cancel_Button" class="btn btn-cancel"
+                    onclick="window.location.href= '#!/Annual_Informatation_Report/action/inquiry';">Back
+            </button>
+        </div>
+
+
+        <table style="width:100%" class="table table-bordered" aria-label="">
+            <tr>
+                <h4 class="form_heading">AIR reporting (Annual Information report) for investors > 10 lacs at PAN level - Yearly
+                </h4>
+                <sol-header></sol-header>
+
+                <table style="width:100%" class="table table-bordered" style="padding: 10px" aria-label="">
+                    <tr>
+                        <th scope="col">Name of the Bond Scheme</th>
+                        <td>{{vm.schemeName}}</td>
+                    </tr>
+                    <tr>
+                        <th scope="col" style="width: 25%">Financial Year</th>
+                        <td style="width: 35%">{{vm.financialYear}}</td>
+                    </tr>
+                </table>
+            </tr>
+        </table>
+
+        <div class="row">
+            <div class="col-sm-12">
+
+                <br>
+
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="row" style="display: flex; align-items: center; justify-content: space-between;">
+                            <!-- Show Dropdown -->
+                            <div class="col-sm-3" style="flex: 1;">
+                                <div class="form-group">
+                                    <label>
+                                        Show
+                                        <select
+                                                id="pageSize"
+                                                class="form-control filter-control"
+                                                ng-model="vm.pageSize"
+                                                ng-change="vm.updatePageSize()"
+                                                ng-options="option for option in vm.pageSizeOptions"
+                                        ></select>
+                                        records per page
+                                    </label>
+                                </div>
+                            </div>
+
+                            <!-- Search and Export Controls -->
+                            <div class="col-sm-6" style="display: flex; align-items: center; justify-content: flex-end;">
+                                <!-- Search -->
+                                <div class="form-group" style="margin-right: 15px;">
+                                    <div class="input-group">
+                                        <div class="input-group-addon">
+                                            <span class="glyphicon glyphicon-search"></span>
+                                        </div>
+                                        <input
+                                                type="text"
+                                                id="search"
+                                                class="form-control"
+                                                ng-change="vm.updateFilteredRecords()"
+                                                ng-model="vm.searchText"
+                                                placeholder="Search"/>
+                                    </div>
+                                </div>
+
+                                <!-- Export -->
+                                <div class="form-group">
+                                    <select
+                                            class="form-control"
+                                            id="export"
+                                            name="export"
+                                            ng-model="vm.downloadType"
+                                            ng-init="vm.downloadType=''"
+                                            ng-change="vm.downloadReport()"
+                                    >
+                                        <option value="">EXPORT</option>
+                                        <option value="excel">EXCEL</option>
+                                        <option value="csv">CSV</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="table-responsive">
+
+
+
+                            <table class="table table-bordered table-striped list table-textWrap datatable" aria-label=""
+                            >
+                                <thead>
+                                <tr class="thalign">
+                                    <th scope="col">Report Serial Number</th>
+                                    <th scope="col">Original Report Serial Number</th>
+                                    <th scope="col">Person Name</th>
+                                    <th scope="col">Person Type</th>
+                                    <th scope="col">Customer Identity</th>
+                                    <th scope="col">Gender</th>
+                                    <th scope="col">Father’s Name</th>
+                                    <th scope="col">PAN</th>
+                                    <th scope="col">Aadhaar Number</th>
+                                    <th scope="col">Form 60 Acknowledgment</th>
+                                    <th scope="col">Identification Type</th>
+                                    <th scope="col">Identification Number</th>
+                                    <th scope="col">Date of birth/Incorporation</th>
+                                    <th scope="col">Nationality/Country of Incorporation</th>
+                                    <th scope="col">Address Type</th>
+                                    <th scope="col">Fix Address</th>
+                                    <th scope="col">City/Town</th>
+                                    <th scope="col">Post Code</th>
+                                    <th scope="col">State</th>
+                                    <th scope="col">Country Code</th>
+                                    <th scope="col">Business or Occupation</th>
+                                    <th scope="col">Primary STD Code</th>
+                                    <th scope="col">Primary Phone No</th>
+                                    <th scope="col">Primary Mobile No</th>
+                                    <th scope="col">Secondary STD Code</th>
+                                    <th scope="col">Secondary Phone No</th>
+                                    <th scope="col">Secondary Mobile No</th>
+                                    <th scope="col">Email</th>
+                                    <th scope="col">Remarks</th>
+                                    <th scope="col">Product Type</th>
+                                    <th scope="col">Aggregate Gross Amount Received from the Person</th>
+                                    <th scope="col">Aggregate Gross Amount Received from the Person in Cash</th>
+                                    <th scope="col">Aggregate Gross Amount Paid to the Person</th>
+                                    <th scope="col">Transaction Summary Remarks</th>
+                                    <th scope="col">Product Identifier</th>
+                                    <th scope="col">Last Date of Transaction</th>
+                                    <th scope="col">Amount Received From Person</th>
+                                    <th scope="col">Cash Amount Received From Person</th>
+                                    <th scope="col">Amount Paid To Person</th>
+                                    <th scope="col">Related Account Number</th>
+                                    <th scope="col">Related Institute Name</th>
+                                    <th scope="col">Related Institute Ref Number</th>
+                                    <th scope="col">Financial Transaction Details Remarks</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr ng-repeat="x in vm.filteredRecords.slice((vm.currentPage-1)*vm.pageSize, vm.currentPage*vm.pageSize)">
+                                    <td>{{ (vm.currentPage - 1) * vm.pageSize + $index + 1 }}</td>
+                                    <td>{{x.orginalSerialNo}}</td>
+                                    <td>{{x.personName}}</td>
+                                    <td>{{x.personType}}</td>
+                                    <td>{{x.customerIdentity}}</td>
+                                    <td>{{x.gender}}</td>
+                                    <td>{{x.fatherName}}</td>
+                                    <td>{{x.pan}}</td>
+                                    <td>{{x.aadharNo}}</td>
+                                    <td>{{x.form60Acknowledgment}}</td>
+                                    <td>{{x.identificationType}}</td>
+                                    <td>{{x.identificationNo}}</td>
+                                    <td>{{x.dateOfBirth}}</td>
+                                    <td>{{x.nationality}}</td>
+                                    <td>{{x.addressType}}</td>
+                                    <td>{{x.fixedAddress}}</td>
+                                    <td>{{x.city}}</td>
+                                    <td>{{x.postCode}}</td>
+                                    <td>{{x.state}}</td>
+                                    <td>{{x.countryCode}}</td>
+                                    <td>{{x.business}}</td>
+                                    <td>{{x.primaryStdCode}}</td>
+                                    <td>{{x.primaryPhoneNo}}</td>
+                                    <td>{{x.primaryMobileNo}}</td>
+                                    <td>{{x.secondaryStdCode}}</td>
+                                    <td>{{x.secondaryPhoneNo}}</td>
+                                    <td>{{x.secondaryMobileNo}}</td>
+                                    <td>{{x.email}}</td>
+                                    <td>{{x.remarks}}</td>
+                                    <td>{{x.productType}}</td>
+                                    <td>{{x.aggregateGrossAmountRecieved}}</td>
+                                    <td>{{x.aggregateGrossAmountCash}}</td>
+                                    <td>{{x.aggregateGrossAmountPaid}}</td>
+                                    <td>{{x.transactionSummaryRemarks}}</td>
+                                    <td>{{x.productIdentifier}}</td>
+                                    <td>{{x.lastDateOfTransaction}}</td>
+                                    <td>{{x.amountRecieved}}</td>
+                                    <td>{{x.cashAmountRecieved}}</td>
+                                    <td>{{x.amountPaidToPerson}}</td>
+                                    <td>{{x.relatedAccountNumber}}</td>
+                                    <td>{{x.relatedInstituteName}}</td>
+                                    <td>{{x.relatedRefNo}}</td>
+                                    <td>{{x.financialTransactionDtlsRemarks}}</td>
+
+                                </tr>
+
+                                </tbody>
+
+                            </table>
+                        </div>
+                        <br/>
+                        <div class="row">
+                            <div
+                                    ng-if="vm.filteredRecords.length != 0"
+                                    class="col-md-12 text-right">
+                                <div class="pagination-container">
+                                    <ul class="pagination">
+                                        <li ng-class="{disabled: vm.currentPage === 1}">
+                                            <a href="javascript:void(0)" ng-click="vm.firstPage()"
+                                            >First</a>
+                                        </li>
+                                        <li ng-class="{disabled: vm.currentPage === 1}">
+                                            <a href="javascript:void(0)" ng-click="vm.prevPage()"
+                                            >Prev</a>
+                                        </li>
+                                        <li
+                                                ng-repeat="page in vm.pages"
+                                                ng-class="{active: vm.page === vm.currentPage}">
+                                            <a href="javascript:void(0)" ng-click="vm.setPage(page)"
+                                            >{{page}}</a>
+                                        </li>
+                                        <li ng-class="{disabled: vm.currentPage === vm.totalPages}">
+                                            <a href="javascript:void(0)" ng-click="vm.nextPage()"
+                                            >Next</a>
+                                        </li>
+                                        <li ng-class="{disabled: vm.currentPage === vm.totalPages}">
+                                            <a href="javascript:void(0)" ng-click="vm.lastPage()"
+                                            >Last</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            Showing {{(vm.currentPage-1)*vm.pageSize + 1}} to
+                            {{vm.maxValue()}} of
+                            {{vm.filteredRecords.length}} records
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+</div>
+
+<div class="container" ng-if="vm.noDataFound">
+    <div class="list_wrapper no_records_message">
+        <h4 class="form_heading">AIR reporting (Annual Information report) for investors > 10 lacs at PAN level - Yearly</h4>
+        No records found to display.
+        <div style="text-align:center;">
+        <button type="button" class="btn btn-default"
+                onclick="window.location.href= '#!/Annual_Informatation_Report/action/inquiry';">Back
+        </button>
+    </div>
+    </div>
+</div>

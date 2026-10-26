@@ -1,0 +1,435 @@
+<div class="loader-new" ng-if="vm.loader"></div>
+<dc-left-menu></dc-left-menu>
+<div class="container from_wrapper new_form_wrapper">
+    <h4 class="form_heading">Broker Master Maintenance - Inquiry</h4>
+    <sol-header></sol-header>
+    <form name="tdsparameter" role="form">
+
+        <div class="row">
+            <div class="form-group">
+                <div class="col-sm-6">
+                    <label class="control-label">Name of the Module : <b>RBI Bond</b></label>
+                </div>
+                <div class="col-sm-2">
+                </div>
+                <div class="col-sm-4 text-right">
+                </div>
+            </div>
+        </div>
+
+        <table class="table table-bordered table-striped list old-new-value-table">
+            <thead>
+            <tr>
+                <th>Particular</th>
+                <th>{{(vm.verificationDetails == 'M')?('Old Value'): ('Value')}}</th>
+                <th ng-if="vm.verificationDetails == 'M'">New Value</th>
+            </tr>
+            </thead>
+            <tbody>
+
+            <tr>
+                <td>Broker Agency code</td>
+                <td class="old-value">{{(vm.tdsParameterList && vm.tdsParameterList.C002)?
+                    (vm.tdsParameterList.C002.oldValue) : ('')}}</td>
+                <td ng-if="vm.verificationDetails == 'M'" class="new-value">
+                    {{(vm.tdsParameterList && vm.tdsParameterList.C002)?
+                    (vm.tdsParameterList.C002.newValue) : ('')}}
+                </td>
+            </tr>
+
+            <tr>
+                <td>Broker Name</td>
+                <td class="old-value">{{(vm.tdsParameterList && vm.tdsParameterList.C003)?
+                    (vm.tdsParameterList.C003.oldValue) : ('')}}</td>
+                <td ng-if="vm.verificationDetails == 'M'" class="new-value">
+                    {{(vm.tdsParameterList && vm.tdsParameterList.C003)?
+                    (vm.tdsParameterList.C003.newValue) : ('')}}
+                </td>
+            </tr>
+
+            <tr>
+                <td>Broker Group</td>
+                <td class="old-value">{{(vm.tdsParameterList && vm.tdsParameterList.C005)?
+                    (vm.tdsParameterList.C005.oldValue  | getLabelFromValuesArray : vm.convertLabelValue(vm.brokerGroupList)) : ('')}}</td>
+                <td ng-if="vm.verificationDetails == 'M'" class="new-value">
+                    {{(vm.tdsParameterList && vm.tdsParameterList.C005)?
+                    (vm.tdsParameterList.C005.newValue  | getLabelFromValuesArray : vm.convertLabelValue(vm.brokerGroupList)) : ('')}}
+                </td>
+            </tr>
+            <tr>
+                <td>Broker Sort code</td>
+                <td class="old-value">{{(vm.tdsParameterList && vm.tdsParameterList.C006)?
+                    (vm.tdsParameterList.C006.oldValue) : ('')}}</td>
+                <td ng-if="vm.verificationDetails == 'M'" class="new-value">
+                    {{(vm.tdsParameterList && vm.tdsParameterList.C006)?
+                    (vm.tdsParameterList.C006.newValue) : ('')}}
+                </td>
+            </tr>
+           <!-- <tr>
+                <td>HDFC/OTHER BANK</td>
+                <td class="old-value">{{(vm.tdsParameterList && vm.tdsParameterList.C007)?
+                    (vm.tdsParameterList.C007.oldValue) : ('')}}</td>
+                <td ng-if="vm.verificationDetails == 'M'" class="new-value">
+                    {{(vm.tdsParameterList && vm.tdsParameterList.C007)?
+                    (vm.tdsParameterList.C007.newValue) : ('')}}
+                </td>
+            </tr>-->
+
+            <tr>
+                <td>Operative Account Number</td>
+                <td class="old-value">{{(vm.tdsParameterList && vm.tdsParameterList.C008)?
+                    (vm.tdsParameterList.C008.oldValue) : ('')}}</td>
+                <td ng-if="vm.verificationDetails == 'M'" class="new-value">
+                    {{(vm.tdsParameterList && vm.tdsParameterList.C008)?
+                    (vm.tdsParameterList.C008.newValue) : ('')}}
+                </td>
+            </tr>
+
+
+            <!--<tr>
+                <td>HDFC Branch Code</td>
+                <td class="old-value">{{(vm.tdsParameterList && vm.tdsParameterList.C010)?
+                    (vm.tdsParameterList.C010.oldValue) : ('')}}</td>
+                <td ng-if="vm.verificationDetails == 'M'" class="new-value">
+                    {{(vm.tdsParameterList && vm.tdsParameterList.C010)?
+                    (vm.tdsParameterList.C010.newValue) : ('')}}
+                </td>
+            </tr>-->
+            <tr>
+                <td>Type Of Broker</td>
+                <td class="old-value">
+                    {{ (vm.tdsParameterList && vm.tdsParameterList.C011 && vm.tdsParameterList.C011.oldValue === 'GR') ? 'GST REGISTERED' : '' }}
+                    {{ (vm.tdsParameterList && vm.tdsParameterList.C011 && vm.tdsParameterList.C011.oldValue === 'GUR') ? 'GST UNREGISTERED' : '' }}
+                    {{ (vm.tdsParameterList && vm.tdsParameterList.C011 && vm.tdsParameterList.C011.oldValue === 'I') ? 'INDIVIDUAL' : '' }}
+                    {{ (vm.tdsParameterList && vm.tdsParameterList.C011 && vm.tdsParameterList.C011.oldValue === 'NI') ? 'NON-INDIVIDUAL' : '' }}
+                    {{ (vm.tdsParameterList && vm.tdsParameterList.C011 && vm.tdsParameterList.C011.oldValue === 'CG') ? 'COMPOSITE GST' : '' }}
+                </td>
+                <td ng-if="vm.verificationDetails == 'M'" class="new-value">
+                    {{ (vm.tdsParameterList && vm.tdsParameterList.C011 && vm.tdsParameterList.C011.newValue === 'GR') ? 'GST REGISTERED' : '' }}
+                    {{ (vm.tdsParameterList && vm.tdsParameterList.C011 && vm.tdsParameterList.C011.newValue === 'GUR') ? 'GST UNREGISTERED' : '' }}
+                    {{ (vm.tdsParameterList && vm.tdsParameterList.C011 && vm.tdsParameterList.C011.newValue === 'I') ? 'INDIVIDUAL' : '' }}
+                    {{ (vm.tdsParameterList && vm.tdsParameterList.C011 && vm.tdsParameterList.C011.newValue === 'NI') ? 'NON-INDIVIDUAL' : '' }}
+                    {{ (vm.tdsParameterList && vm.tdsParameterList.C011 && vm.tdsParameterList.C011.newValue === 'CG') ? 'COMPOSITE GST' : '' }}
+                </td>
+            </tr>
+
+
+               <tr>
+                <td>GST No</td>
+                <td class="old-value">{{(vm.tdsParameterList && vm.tdsParameterList.C013)?
+                    (vm.tdsParameterList.C013.oldValue) : ('')}}</td>
+                <td ng-if="vm.verificationDetails == 'M'" class="new-value">
+                    {{(vm.tdsParameterList && vm.tdsParameterList.C013)?
+                    (vm.tdsParameterList.C013.newValue) : ('')}}
+                </td>
+            </tr>
+            <tr>
+                <td>PAN</td>
+                <td class="old-value">{{(vm.tdsParameterList && vm.tdsParameterList.C014)?
+                    (vm.tdsParameterList.C014.oldValue) : ('')}}</td>
+                <td ng-if="vm.verificationDetails == 'M'" class="new-value">
+                    {{(vm.tdsParameterList && vm.tdsParameterList.C014)?
+                    (vm.tdsParameterList.C014.newValue) : ('')}}
+                </td>
+            </tr>
+            <tr>
+                <td>Brokerage Create Date</td>
+                <td class="old-value">{{(vm.tdsParameterList && vm.tdsParameterList.C021)?
+                    (vm.tdsParameterList.C021.oldValue) : ('')}}</td>
+                <td ng-if="vm.verificationDetails == 'M'" class="new-value">
+                    {{(vm.tdsParameterList && vm.tdsParameterList.C021)?
+                    (vm.tdsParameterList.C021.newValue) : ('')}}
+                </td>
+            </tr>
+            <tr>
+                <td>Status</td>
+                <td class="old-value">{{(vm.tdsParameterList && vm.tdsParameterList.C036)?
+                    (vm.tdsParameterList.C036.oldValue  | getLabelFromValuesArray : vm.status) : ('')}}</td>
+                <td ng-if="vm.verificationDetails == 'M'" class="new-value">
+                    {{(vm.tdsParameterList && vm.tdsParameterList.C036)?
+                    (vm.tdsParameterList.C036.newValue  | getLabelFromValuesArray : vm.status) : ('')}}
+                </td>
+            </tr>
+            <tr>
+                <td>Payment Mode</td>
+                <td class="old-value">{{(vm.tdsParameterList && vm.tdsParameterList.C023)?
+                    (vm.tdsParameterList.C023.oldValue  | getLabelFromValuesArray : vm.convertLabelValue(vm.paymentTypeList)) : ('')}}</td>
+                <td ng-if="vm.verificationDetails == 'M'" class="new-value">
+                    {{(vm.tdsParameterList && vm.tdsParameterList.C023)?
+                    (vm.tdsParameterList.C023.newValue  | getLabelFromValuesArray : vm.convertLabelValue(vm.paymentTypeList)) : ('')}}
+                </td>
+            </tr>
+<!--            need to change column val-->
+            <tr ng-if="vm.tdsParameterList.C023.newValue == 'MP001' || vm.tdsParameterList.C023.oldValue == 'MP001'">
+                <td>Operative Account Number</td>
+                <td class="old-value">{{(vm.tdsParameterList && vm.tdsParameterList.C008)?
+                    (vm.tdsParameterList.C008.oldValue) : ('')}}</td>
+                <td ng-if="vm.verificationDetails == 'M'" class="new-value">
+                    {{(vm.tdsParameterList && vm.tdsParameterList.C008)?
+                    (vm.tdsParameterList.C008.newValue) : ('')}}
+                </td>
+            </tr>
+            <tr ng-if="vm.tdsParameterList.C023.newValue == 'MP003' || vm.tdsParameterList.C023.oldValue == 'MP003'">
+                <td>DD Account Number</td>
+                <td class="old-value">{{(vm.tdsParameterList && vm.tdsParameterList.C008)?
+                    (vm.tdsParameterList.C008.oldValue) : ('')}}</td>
+                <td ng-if="vm.verificationDetails == 'M'" class="new-value">
+                    {{(vm.tdsParameterList && vm.tdsParameterList.C008)?
+                    (vm.tdsParameterList.C008.newValue) : ('')}}
+                </td>
+            </tr>
+            <tr  ng-if="vm.tdsParameterList.C023.newValue == 'MP002' || vm.tdsParameterList.C023.oldValue == 'MP002' || vm.tdsParameterList.C023.newValue == 'MP004' || vm.tdsParameterList.C023.oldValue == 'MP004' || vm.tdsParameterList.C023.newValue == 'MP005' || vm.tdsParameterList.C023.oldValue == 'MP005'">
+                <td>Bank Name</td>
+                <td class="old-value">{{(vm.tdsParameterList && vm.tdsParameterList.C025)?
+                    (vm.tdsParameterList.C025.oldValue) : ('')}}</td>
+                <td ng-if="vm.verificationDetails == 'M'" class="new-value">
+                    {{(vm.tdsParameterList && vm.tdsParameterList.C025)?
+                    (vm.tdsParameterList.C025.newValue) : ('')}}
+                </td>
+            </tr>
+            <!--            need to change column val-->
+            <tr  ng-if="vm.tdsParameterList.C023.newValue == 'MP002' || vm.tdsParameterList.C023.oldValue == 'MP002' || vm.tdsParameterList.C023.newValue == 'MP004' || vm.tdsParameterList.C023.oldValue == 'MP004' || vm.tdsParameterList.C023.newValue == 'MP005' || vm.tdsParameterList.C023.oldValue == 'MP005'">
+                <td>Operative Account Number</td>
+                <td class="old-value">{{(vm.tdsParameterList && vm.tdsParameterList.C008)?
+                    (vm.tdsParameterList.C008.oldValue) : ('')}}</td>
+                <td ng-if="vm.verificationDetails == 'M'" class="new-value">
+                    {{(vm.tdsParameterList && vm.tdsParameterList.C008)?
+                    (vm.tdsParameterList.C008.newValue) : ('')}}
+                </td>
+            </tr>
+            <tr  ng-if="vm.tdsParameterList.C023.newValue == 'MP002' || vm.tdsParameterList.C023.oldValue == 'MP002' || vm.tdsParameterList.C023.newValue == 'MP004' || vm.tdsParameterList.C023.oldValue == 'MP004' || vm.tdsParameterList.C023.newValue == 'MP005' || vm.tdsParameterList.C023.oldValue == 'MP005'">
+                <td>IFSC Code</td>
+                <td class="old-value">{{(vm.tdsParameterList && vm.tdsParameterList.C026)?
+                    (vm.tdsParameterList.C026.oldValue) : ('')}}</td>
+                <td ng-if="vm.verificationDetails == 'M'" class="new-value">
+                    {{(vm.tdsParameterList && vm.tdsParameterList.C026)?
+                    (vm.tdsParameterList.C026.newValue) : ('')}}
+                </td>
+            </tr>
+            <tr  ng-if="vm.tdsParameterList.C023.newValue == 'MP002' || vm.tdsParameterList.C023.oldValue == 'MP002' || vm.tdsParameterList.C023.newValue == 'MP004' || vm.tdsParameterList.C023.oldValue == 'MP004' || vm.tdsParameterList.C023.newValue == 'MP005' || vm.tdsParameterList.C023.oldValue == 'MP005'">
+                <td>MICR Code Loc</td>
+                <td class="old-value">{{(vm.tdsParameterList && vm.tdsParameterList.C027)?
+                    (vm.tdsParameterList.C027.oldValue) : ('')}}</td>
+                <td ng-if="vm.verificationDetails == 'M'" class="new-value">
+                    {{(vm.tdsParameterList && vm.tdsParameterList.C027)?
+                    (vm.tdsParameterList.C027.newValue) : ('')}}
+                </td>
+            </tr>
+            <tr  ng-if="vm.tdsParameterList.C023.newValue == 'MP002' || vm.tdsParameterList.C023.oldValue == 'MP002' || vm.tdsParameterList.C023.newValue == 'MP004' || vm.tdsParameterList.C023.oldValue == 'MP004' || vm.tdsParameterList.C023.newValue == 'MP005' || vm.tdsParameterList.C023.oldValue == 'MP005'">
+                <td>MICR Bank Code</td>
+                <td class="old-value">{{(vm.tdsParameterList && vm.tdsParameterList.C028)?
+                    (vm.tdsParameterList.C028.oldValue) : ('')}}</td>
+                <td ng-if="vm.verificationDetails == 'M'" class="new-value">
+                    {{(vm.tdsParameterList && vm.tdsParameterList.C028)?
+                    (vm.tdsParameterList.C028.newValue) : ('')}}
+                </td>
+            </tr>
+            <tr  ng-if="vm.tdsParameterList.C023.newValue == 'MP002' || vm.tdsParameterList.C023.oldValue == 'MP002' || vm.tdsParameterList.C023.newValue == 'MP004' || vm.tdsParameterList.C023.oldValue == 'MP004' || vm.tdsParameterList.C023.newValue == 'MP005' || vm.tdsParameterList.C023.oldValue == 'MP005'">
+                <td>MICR Branch Code</td>
+                <td class="old-value">{{(vm.tdsParameterList && vm.tdsParameterList.C029)?
+                    (vm.tdsParameterList.C029.oldValue) : ('')}}</td>
+                <td ng-if="vm.verificationDetails == 'M'" class="new-value">
+                    {{(vm.tdsParameterList && vm.tdsParameterList.C029)?
+                    (vm.tdsParameterList.C029.newValue) : ('')}}
+                </td>
+            </tr>
+
+
+<!--            <tr  ng-if="vm.tdsParameterList.C023.newValue == 'MP004' || vm.tdsParameterList.C023.oldValue == 'MP004' || vm.tdsParameterList.C023.newValue == 'MP005' || vm.tdsParameterList.C023.oldValue == 'MP005'">-->
+<!--                <td>IFSC Code of the Credit Bank</td>-->
+<!--                <td class="old-value">{{(vm.tdsParameterList && vm.tdsParameterList.C026)?-->
+<!--                    (vm.tdsParameterList.C026.oldValue) : ('')}}</td>-->
+<!--                <td ng-if="vm.verificationDetails == 'M'" class="new-value">-->
+<!--                    {{(vm.tdsParameterList && vm.tdsParameterList.C026)?-->
+<!--                    (vm.tdsParameterList.C026.newValue) : ('')}}-->
+<!--                </td>-->
+<!--            </tr>-->
+<!--            <tr  ng-if="vm.tdsParameterList.C023.newValue == 'MP004' || vm.tdsParameterList.C023.oldValue == 'MP004' || vm.tdsParameterList.C023.newValue == 'MP005' || vm.tdsParameterList.C023.oldValue == 'MP005'">-->
+<!--                <td>Name of the Payee</td>-->
+<!--                <td class="old-value">{{(vm.tdsParameterList && vm.tdsParameterList.C037)?-->
+<!--                    (vm.tdsParameterList.C037.oldValue) : ('')}}</td>-->
+<!--                <td ng-if="vm.verificationDetails == 'M'" class="new-value">-->
+<!--                    {{(vm.tdsParameterList && vm.tdsParameterList.C037)?-->
+<!--                    (vm.tdsParameterList.C037.newValue) : ('')}}-->
+<!--                </td>-->
+<!--            </tr>-->
+<!--            <tr  ng-if="vm.tdsParameterList.C023.newValue == 'MP004' || vm.tdsParameterList.C023.oldValue == 'MP004' || vm.tdsParameterList.C023.newValue == 'MP005' || vm.tdsParameterList.C023.oldValue == 'MP005'">-->
+<!--                <td>Credit Account Number</td>-->
+<!--                <td class="old-value">{{(vm.tdsParameterList && vm.tdsParameterList.C008)?-->
+<!--                    (vm.tdsParameterList.C008.oldValue) : ('')}}</td>-->
+<!--                <td ng-if="vm.verificationDetails == 'M'" class="new-value">-->
+<!--                    {{(vm.tdsParameterList && vm.tdsParameterList.C008)?-->
+<!--                    (vm.tdsParameterList.C008.newValue) : ('')}}-->
+<!--                </td>-->
+<!--            </tr>-->
+<!--            <tr  ng-if="vm.tdsParameterList.C023.newValue == 'MP004' || vm.tdsParameterList.C023.oldValue == 'MP004' || vm.tdsParameterList.C023.newValue == 'MP005' || vm.tdsParameterList.C023.oldValue == 'MP005'">-->
+<!--                <td>Bank Code</td>-->
+<!--                <td class="old-value">{{(vm.tdsParameterList && vm.tdsParameterList.C038)?-->
+<!--                    (vm.tdsParameterList.C038.oldValue) : ('')}}</td>-->
+<!--                <td ng-if="vm.verificationDetails == 'M'" class="new-value">-->
+<!--                    {{(vm.tdsParameterList && vm.tdsParameterList.C038)?-->
+<!--                    (vm.tdsParameterList.C038.newValue) : ('')}}-->
+<!--                </td>-->
+<!--            </tr>-->
+<!--            <tr  ng-if="vm.tdsParameterList.C023.newValue == 'MP004' || vm.tdsParameterList.C023.oldValue == 'MP004' || vm.tdsParameterList.C023.newValue == 'MP005' || vm.tdsParameterList.C023.oldValue == 'MP005'">-->
+<!--                <td>Branch Code</td>-->
+<!--                <td class="old-value">{{(vm.tdsParameterList && vm.tdsParameterList.C039)?-->
+<!--                    (vm.tdsParameterList.C039.oldValue) : ('')}}</td>-->
+<!--                <td ng-if="vm.verificationDetails == 'M'" class="new-value">-->
+<!--                    {{(vm.tdsParameterList && vm.tdsParameterList.C039)?-->
+<!--                    (vm.tdsParameterList.C039.newValue) : ('')}}-->
+<!--                </td>-->
+<!--            </tr>-->
+            <tr>
+                <td>Address 1</td>
+                <td class="old-value">{{(vm.tdsParameterList && vm.tdsParameterList.C030)?
+                    (vm.tdsParameterList.C030.oldValue) : ('')}}</td>
+                <td ng-if="vm.verificationDetails == 'M'" class="new-value">
+                    {{(vm.tdsParameterList && vm.tdsParameterList.C030)?
+                    (vm.tdsParameterList.C030.newValue) : ('')}}
+                </td>
+            </tr>
+            <tr>
+                <td>Address 2</td>
+                <td class="old-value">{{(vm.tdsParameterList && vm.tdsParameterList.C031)?
+                    (vm.tdsParameterList.C031.oldValue) : ('')}}</td>
+                <td ng-if="vm.verificationDetails == 'M'" class="new-value">
+                    {{(vm.tdsParameterList && vm.tdsParameterList.C031)?
+                    (vm.tdsParameterList.C031.newValue) : ('')}}
+                </td>
+            </tr>
+            <!--<tr>
+                <td> The Broker is Registered?</td>
+                <td class="old-value">{{(vm.tdsParameterList && vm.tdsParameterList.C015)?
+                    (vm.tdsParameterList.C015.oldValue) : ('')}}</td>
+                <td ng-if="vm.verificationDetails == 'M'" class="new-value">
+                    {{(vm.tdsParameterList && vm.tdsParameterList.C015)?
+                    (vm.tdsParameterList.C015.newValue) : ('')}}
+                </td>
+            </tr>-->
+
+            <tr>
+                <td>Pin Code</td>
+                <td class="old-value">{{(vm.tdsParameterList && vm.tdsParameterList.C032)?
+                    (vm.tdsParameterList.C032.oldValue) : ('')}}</td>
+                <td ng-if="vm.verificationDetails == 'M'" class="new-value">
+                    {{(vm.tdsParameterList && vm.tdsParameterList.C032)?
+                    (vm.tdsParameterList.C032.newValue) : ('')}}
+                </td>
+            </tr>
+            <tr>
+                <td>City</td>
+                <td class="old-value">{{(vm.tdsParameterList && vm.tdsParameterList.C033)?
+                    (vm.tdsParameterList.C033.oldValue) : ('')}}</td>
+                <td ng-if="vm.verificationDetails == 'M'" class="new-value">
+                    {{(vm.tdsParameterList && vm.tdsParameterList.C033)?
+                    (vm.tdsParameterList.C033.newValue) : ('')}}
+                </td>
+            </tr>
+            <tr>
+                <td>State</td>
+                <td class="old-value">{{(vm.tdsParameterList && vm.tdsParameterList.C020)?
+                    (vm.tdsParameterList.C020.oldValue | getLabelFromValuesArray : vm.stateMetaData) : ('')}}</td>
+                <td ng-if="vm.verificationDetails == 'M'" class="new-value">
+                    {{(vm.tdsParameterList && vm.tdsParameterList.C020)?
+                    (vm.tdsParameterList.C020.newValue | getLabelFromValuesArray : vm.stateMetaData) : ('')}}
+                </td>
+            </tr>
+            <tr>
+                <td>Phone No</td>
+                <td class="old-value">{{(vm.tdsParameterList && vm.tdsParameterList.C034)?
+                    (vm.tdsParameterList.C034.oldValue) : ('')}}</td>
+                <td ng-if="vm.verificationDetails == 'M'" class="new-value">
+                    {{(vm.tdsParameterList && vm.tdsParameterList.C034)?
+                    (vm.tdsParameterList.C034.newValue) : ('')}}
+                </td>
+            </tr>
+
+            <tr>
+                <td>Fax</td>
+                <td class="old-value">{{(vm.tdsParameterList && vm.tdsParameterList.C035)?
+                    (vm.tdsParameterList.C035.oldValue) : ('')}}</td>
+                <td ng-if="vm.verificationDetails == 'M'" class="new-value">
+                    {{(vm.tdsParameterList && vm.tdsParameterList.C035)?
+                    (vm.tdsParameterList.C035.newValue) : ('')}}
+                </td>
+            </tr>
+            <tr>
+                <td>Mobile No.</td>
+                <td class="old-value">{{(vm.tdsParameterList && vm.tdsParameterList.C017)?
+                    (vm.tdsParameterList.C017.oldValue) : ('')}}</td>
+                <td ng-if="vm.verificationDetails == 'M'" class="new-value">{{(vm.tdsParameterList &&
+                    vm.tdsParameterList.C017)? (vm.tdsParameterList.C017.newValue) : ('')}}
+                </td>
+            </tr>
+
+
+            <tr>
+                <td>Email ID</td>
+                <td class="old-value">{{(vm.tdsParameterList && vm.tdsParameterList.C018)?
+                    (vm.tdsParameterList.C018.oldValue) : ('')}}</td>
+                <td ng-if="vm.verificationDetails == 'M'" class="new-value">
+                    {{(vm.tdsParameterList && vm.tdsParameterList.C018)?
+                    (vm.tdsParameterList.C018.newValue) : ('')}}
+                </td>
+            </tr>
+            <tr>
+                <td>Remarks</td>
+                <td class="old-value">{{(vm.tdsParameterList && vm.tdsParameterList.C019)?
+                    (vm.tdsParameterList.C019.oldValue) : ('')}}</td>
+                <td ng-if="vm.verificationDetails == 'M'" class="new-value">
+                    {{(vm.tdsParameterList && vm.tdsParameterList.C019)?
+                    (vm.tdsParameterList.C019.newValue) : ('')}}
+                </td>
+            </tr>
+            </tbody>
+        </table>
+
+        <table class="table table-bordered table-striped list old-new-value-table">
+            <tbody width="100%">
+            <tr>
+                <th width="50%">Rejection Remarks</th>
+                <td width="50%">{{vm.remarks}}</td>
+            </tr>
+            </tbody>
+        </table>
+
+        <div class="audit-details">
+            <div class="row">
+                <div class="col-md-3">
+                    <span> <b> Created By </b> : {{vm.verifyDetailsList.createdBy}} </span>
+                </div>
+                <div class="col-md-3">
+                    <span> <b> Last Modified By </b> : {{(vm.verifyDetailsList.modifiedBy) ? (vm.verifyDetailsList.modifiedBy) : ('None')}}</span>
+                </div>
+                <div class="col-md-3">
+                    <span> <b> Last Verified By </b> : {{(vm.verifyDetailsList.verifiedBy) ? (vm.verifyDetailsList.verifiedBy) : ('None')}}</span>
+                </div>
+                <div class="col-md-3">
+                    <span> <b> Verify Status </b> : {{vm.verifyDetailsList.verifiedStatus  | getLabelFromValuesArray : vm.commonYesNoMetaData}}</span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3">
+                    <span> <b> Created On </b> : {{ vm.verifyDetailsList.createdDate | date : 'dd/MM/yyyy'}}</span>
+                </div>
+                <div class="col-md-3">
+                    <span> <b> Last Modified On</b> : {{ (vm.verifyDetailsList.modifiedDate) ? (vm.verifyDetailsList.modifiedDate | date : 'dd/MM/yyyy') : ('None')}}</span>
+                </div>
+                <div class="col-md-3">
+                    <span> <b> Last Verified On </b> : {{(vm.verifyDetailsList.verifiedDate) ? (vm.verifyDetailsList.verifiedDate | date : 'dd/MM/yyyy') : ('None')}}</span>
+                </div>
+                <div class="col-md-3">
+                </div>
+            </div>
+        </div>
+
+        <div class="text-center form_submit">
+           <!-- <button type="submit" class="btn btn-default" id="submitButton"
+                    ng-disabled="tdsparameter.$invalid" ng-click="vm.submitAddForm()">Verify</button>-->
+            <button type="button" id="subButton" class="btn btn-cancel"
+                    onclick="window.location.href= '#!/broker_master_rbi_bond/action/inquiry';">Cancel</button>
+        </div>
+
+    </form>
+</div>

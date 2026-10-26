@@ -1,0 +1,171 @@
+<div class="loader-new" ng-if="vm.loader"></div>
+<dc-left-menu></dc-left-menu>
+<div class="container from_wrapper new_form_wrapper">
+    <h4 class="form_heading">Cash in File Upload and net banking file upload Processing - inquiry</h4>
+    <sol-header></sol-header>
+    <form name="cashFileUploadForm" role="form">
+        <div class="col-sm-6 col-sm-offset-3">
+            <div class="row">
+                <div class="form-group required">
+                    <div class="col-sm-6">
+                        <label for="moduleName" class="control-label">Name of the Module</label>
+                    </div>
+                    <div class="col-sm-4">
+                        <label><b>RBI Bond</b></label>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group required">
+                    <div class="col-sm-6">
+                        <label for="liquidationDate" class="control-label">Realization Date</label>
+                    </div>
+                    <div class="col-sm-4">
+                        <p class="input-group">
+                            <input type="text" class="form-control" id="liquidationDate"
+                                   name="liquidationDate"  ng-model="vm.liquidationDate" maxlength="10"
+                                   uib-datepicker-popup="dd/MM/yyyy" ng-init="vm.liquidationDate='';vm.fromToDateValidation()" ng-change="vm.schemeName='';"
+                                   is-open="vm.liquidationDate.opened" close-text="Close"
+                                   datepicker-options="vm.liquidationDateCalenderOptions"  ng-blur="vm.textableDatePicker('liquidationDate',vm.liquidationDate);vm.futureNotAllowed('liquidationDate',vm.liquidationDate)"
+                                   ng-keyup="vm.autoslashing('liquidationDate')" chars="numbers-slash" required>
+                            <span class="input-group-btn" >
+                                    <button type="button" class="btn btn-secondary"
+                                            ng-click="vm.liquidationDate.opened = true"
+                                            id="liquidationDatePicker">
+                                        <i class="glyphicon glyphicon-calendar"></i>
+                                    </button>
+                </span></p>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group required">
+                    <div class="col-sm-6">
+                        <label class="control-label">Scheme Name</label>
+                    </div>
+                    <div class="col-sm-4">
+                        <input type="text" class="form-control" id="schemeName"
+                               name="schemeName" ng-model="vm.schemeName" readonly required>
+                    </div>
+                    <div class="col-sm-2">
+                        <i class="glyphicon glyphicon-search cp" data-bs-toggle="modal"
+                           id="levelNameSearcher"
+                           ng-click="vm.getModuleName();vm.searchlevelName = '';"></i>
+                        <i class="glyphicon glyphicon-remove clear cp"
+                           ng-click="vm.schemeName='';vm.responseResult=''"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group" ng-if="vm.valueDate">
+                    <div class="col-sm-6">
+                        <label class="control-label">Value Date</label>
+                    </div>
+                    <div class="col-sm-4">
+                        <label>{{vm.valueDate}}</label>
+                    </div>
+                </div>
+            </div>
+        </div><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+        <div class="table-responsive" ng-if="vm.responseResult.length>0">
+            <div style="width: 90%; margin: 0 auto;">
+                <table class="table table-bordered table-striped" style="width: 100%;">
+                    <thead>
+                    <tr class="thalign">
+                        <th colspan="1">CheckBox<br>
+                            <input type="checkbox" id="selectedAllItem" ng-change="vm.optionToggled('ALL');"
+                                   name="selectedAllItem" ng-model="vm.selectedAllItem">
+                        </th>
+                        <th colspan="1">File Name</th>
+                        <th>No of Instrument</th>
+                        <th colspan="6">Total Amount</th>
+                        <th colspan="2">Download</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr data-ng-repeat="x in vm.responseResult">
+                        <td class="text-center" colspan="1">
+                            <input type="checkbox" id="selectedItem{{$index}}"
+                                   name="{{x.fileName}}" ng-model="vm.selectedCheckBox[x.fileName]" ng-change="vm.optionToggled(x.fileName);">
+                        </td>
+                        <td colspan="1" ng-if="x.fileName=='TBNB' || x.fileName=='RRBNB'">{{x.fileName}}{{vm.liquidationDate |  date: 'ddMMyy'}}.csv</td>
+                        <td colspan="1" ng-if="x.fileName=='TBNB_BB' || x.fileName=='RRBNB_BB'">{{x.fileName.slice(0,-2)}}{{vm.liquidationDate |  date: 'ddMMyyyy'}}_BB.csv</td>
+                        <td colspan="1" ng-if="x.fileName=='TBNB_SAKSHAM' || x.fileName=='RRBNB_SAKSHAM'">{{x.fileName.slice(0,-7)}}{{vm.liquidationDate |  date: 'ddMMyyyy'}}_Saksham.csv</td>
+                        <td colspan="1" ng-if="x.fileName=='TBNB_NOVOPAY' || x.fileName=='RRBNB_NOVOPAY'">{{x.fileName.slice(0,-7)}}{{vm.liquidationDate |  date: 'ddMMyyyy'}}_NOVOPAY.csv</td>
+                        <td colspan="1" ng-if="x.fileName=='TAXBOND'">{{x.fileName}}{{vm.liquidationDate |  date: 'ddMMyyyy'}}.txt</td>
+                        <td class="text-center">{{x.countOfRecord}}</td>
+                        <td colspan="6">{{vm.indianNumberFormat(x.totalAmt)}}</td>
+                        <td colspan="2" class="text-center">
+                            <button type="submit" class="btn btn-default"
+                                    ng-disabled="!vm.selectedCheckBox[x.fileName]"
+                                    id="download{{x.fileName}}"
+                                    name="download{{x.fileName}}"
+                                    ng-click="vm.download($index);">Download</button>
+                        </td>
+                    </tr>
+                    <tr ng-if="vm.overAllCount">
+                        <td class="text-center" colspan="1"></td>
+                        <td class="text-center" colspan="1">Grand Total</td>
+                        <td class="text-center">{{vm.overAllCount}}</td>
+                        <td colspan="6">{{vm.indianNumberFormat(vm.overAllAmt)}}</td>
+                        <td class="text-center" colspan="2"></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+            <div class="text-center form_submit">
+                <button type="button" class="btn btn-cancel" id="cancelButton"
+                        onclick="window.location.href= '#!/rbibond_gu_functionality'">Cancel</button>
+            </div>
+    </form>
+</div>
+<div class="modal" id="levelNameModal" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-bs-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Scheme Master Name</h4>
+            </div>
+            <div class="modal-body">
+                <div class="loader_popup"></div>
+                <div class="list_wrapper" ng-if="vm.schemeNameList.length>0">
+                    <div class="col-sm-8 form_submit">
+                        <div class="form-group">
+                            <div class="input-group">
+                                <div class="input-group-addon">
+                                    <i class="glyphicon glyphicon-search"></i>
+                                </div>
+                                <input type="text" class="form-control"
+                                       ng-model="vm.searchlevelName" ng-init="vm.searchlevelName = ''"
+                                       placeholder="Search">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4 form_submit"></div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <table class="table table-bordered list scroll">
+                                <thead ng-init="reverseOrder = false; sortedColumn = 'schemeName'">
+                                <tr>
+                                    <th class="modal-title title-case" ng-click="(sortedColumn == 'schemeName')?(reverseOrder=(!reverseOrder)): (reverseOrder = false);sortedColumn = 'schemeName';" ng-class="(sortedColumn == 'schemeName')?((reverseOrder)?('arrow-down') : ('arrow-up') ) : ('')">Scheme Name</th>
+                                    <th class="modal-title title-case" ng-click="(sortedColumn == 'status')?(reverseOrder=(!reverseOrder)): (reverseOrder = false);sortedColumn = 'status';" ng-class="(sortedColumn == 'status')?((reverseOrder)?('arrow-down') : ('arrow-up') ) : ('')">Status</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr class="cp"
+                                    ng-repeat="x in vm.schemeNameList | filter:vm.searchlevelName | orderBy:sortedColumn:reverseOrder"
+                                    ng-click="vm.schemeName=x.subCodeDescription;vm.subCode=x.subCode;vm.status=x.status;vm.inquiry();"  data-bs-dismiss="modal">
+                                    <td>{{x.subCodeDescription}}</td>
+                                    <td>{{x.status}}</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="list_wrapper" ng-if="vm.schemeNameList.length==0">No records found to display.</div>
+            </div>
+        </div>
+    </div>
+</div>

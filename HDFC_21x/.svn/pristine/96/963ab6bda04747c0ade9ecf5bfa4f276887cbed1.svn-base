@@ -1,0 +1,139 @@
+<div class="loader-new" ng-if="vm.loader"></div>
+<!--<dc-left-menu></dc-left-menu>-->
+<div class="container from_wrapper new_form_wrapper">
+
+    <h4 class="form_heading">BLA Status Report</h4>
+    <sol-header></sol-header>
+    <form name="blastatusreportFrom" role="form">
+
+        <div class="row">
+            <div class="form-group">
+                <div class="col-sm-3"></div>
+                <div class="col-sm-3">
+                    <label class="control-label">Name of the Module</label>
+                </div>
+                <div class="col-sm-5">
+                    <label><b>RBI Bond</b></label>
+                </div>
+            </div>
+        </div>
+
+        <div class="row" ng-init="vm.getModuleName();">
+            <div class="form-group required">
+                <div class="col-sm-3"></div>
+                <div class="col-sm-3">
+                    <label for="schemeCode" class="control-label">Name of the Bond Scheme</label>
+                </div>
+                <div class="col-sm-2">
+                    <select class="form-control" id="schemeCode" name="schemCode"
+                            ng-model="vm.schemeCode" required>
+                        <option value="">Select</option>
+                        <option ng-repeat="item in vm.schemeList" value="{{item.subCode}}" ng-bind="vm.schemeName=item.subCodeDescription"></option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="form-group required">
+                <div class="col-sm-3"></div>
+                <div class="col-sm-3">
+                    <label  class="control-label">From Date</label>
+                </div>
+                <div class="col-sm-2">
+                    <p class="input-group">
+                        <input type="text" class="form-control" id="effFromDate"
+                               name="effFromDate" ng-model="vm.fromDate"
+                               uib-datepicker-popup="dd/MM/yyyy" ng-init="vm.fromDate='';vm.dateValidation();"
+                               datepicker-options="vm.dateOptions" ng-change="vm.dateValidation();"
+                               is-open="vm.effFromDatePicker.opened" close-text="Close"
+                               maxlength="10"
+                               ng-blur="vm.textableDatePicker('effFromDate',vm.fromDate)"
+                               ng-keyup="vm.autoslashing('effFromDate')" chars="numbers-slash"
+                               required>
+                        <span class="input-group-btn">
+                            <button type="button" class="btn btn-secondary"
+                                    ng-click="vm.effFromDatePicker.opened = true"
+                                    id="effFromDateSearcher">
+                                <i class="glyphicon glyphicon-calendar"></i>
+                            </button>
+                        </span>
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="form-group required">
+                <div class="col-sm-3"></div>
+                <div class="col-sm-3">
+                    <label  class="control-label">To Date</label>
+                </div>
+                <div class="col-sm-2">
+                    <p class="input-group">
+                        <input type="text" class="form-control" id="effToDate"
+                               name="effToDate" ng-model="vm.toDate"
+                               uib-datepicker-popup="dd/MM/yyyy" ng-init="vm.toDate=''"
+                               datepicker-options="vm.dateToOptions"
+                               is-open="vm.effToDatePicker.opened" close-text="Close"
+                               maxlength="10"
+                               ng-blur="vm.textableDatePicker('effToDate',vm.toDate)"
+                               ng-keyup="vm.autoslashing('effToDate')" chars="numbers-slash"
+                               required>
+                        <span class="input-group-btn" ng-if="vm.fromDate">
+                            <button type="button" class="btn btn-secondary"
+                                    ng-click="vm.effToDatePicker.opened = true"
+                                    id="effToDateSearcher">
+                                <i class="glyphicon glyphicon-calendar"></i>
+                            </button>
+                        </span>
+                    </p>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="row" >
+            <div class="form-group required">
+                <div class="col-sm-3"></div>
+                <div class="col-sm-6">
+        <div class="row" ng-init="vm.getModeofHolding();">
+            <div class="form-group required">
+                <div class="col-sm-6">
+                    <label for="p_sub_sts_in" class="control-label">Subcription Status</label>
+                </div>
+                <div class="col-sm-5">
+                    <select class="form-control" id="p_sub_sts_in" name="p_sub_sts_in"
+                            ng-model="vm.subscriptionStatus" required>
+                        <option value="">Select</option>
+                        <option ng-repeat="item in vm.modeOfHoldingList" value="{{item.SUBCODE}}" ng-bind="item.DESCRIPTION"></option>
+                    </select>
+                </div>
+            </div>
+        </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="text-center form_submit">
+            <button type="submit" id="submitbutton" class="btn btn-default"
+                    ui-sref="BLA_Status_Report.inquiry_details({obj:{
+                            subscriptionStatus:vm.subscriptionStatus,
+                            fromDate:vm.fromDate,
+                            Todate:vm.toDate,
+                             schemeCode:vm.schemeCode,
+                             schemeName:vm.schemeName
+                        }})"
+                    ng-disabled="blastatusreportFrom.$invalid">Submit</button>
+            <button type="button" class="btn btn-cancel" id="cancelButton"
+                    onclick="window.location.href= '#!/rbibond_gu_functionality';">Cancel
+            </button>
+        </div>
+
+        <div class="text-center">
+            <notice-message-directive></notice-message-directive>
+        </div>
+    </form>
+</div>
+
+

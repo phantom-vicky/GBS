@@ -1,0 +1,136 @@
+<div class="loader-new" ng-if="vm.loader"></div>
+<dc-left-menu></dc-left-menu>
+<div class="container from_wrapper new_form_wrapper">
+
+    <h4 class="form_heading">TOC Slab Maintenance - Inquiry</h4>
+    <sol-header></sol-header>
+    <form name="tocSlabMaintenanceForm" role="form">
+
+        <div class="row">
+            <div class="form-group required">
+                <div class="col-sm-3"></div>
+                <div class="col-sm-3">
+                    <label for="moduleName" class="control-label">Module Name</label>
+                </div>
+                <div class="col-sm-2">
+                    <select class="form-control" id="moduleName" name="moduleName"
+                            ng-model="vm.moduleId"
+                            ng-init="vm.getModuleName();" required>
+                        <option value="" hidden="true">Select</option>
+                        <option ng-repeat="item in vm.moduleNameList" ng-hide="item.subCode == 'ALL'" value="{{item.subCode}}">{{item.subCodeDescription}}</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="form-group required">
+                <div class="col-sm-3"></div>
+                <div class="col-sm-3">
+                    <label for="version" class="control-label">Version No</label>
+                </div>
+                <div class="col-sm-2">
+                    <input type="text" class="form-control" id="version"
+                           ng-model="vm.versionNo" maxlength="5" readonly required>
+                </div>
+
+                <div class="col-sm-2" ng-show="vm.moduleId">
+                    <i class="glyphicon glyphicon-search cp" data-bs-toggle="modal"
+                       id="treasurySearch"
+                       ng-click="vm.getInquiryVersionTourch();"></i> <i
+                        class="glyphicon glyphicon-remove clear cp"
+                        ng-click="vm.versionNo='';"></i>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="form-group required">
+                <div class="col-sm-3"></div>
+                <div class="col-sm-3">
+                    <label for="effFromDate" class="control-label">Effective From Date</label>
+                </div>
+                <div class="col-sm-2">
+                    <input type="text" class="form-control" id="effFromDate" ng-init="vm.effeFromDate = ''"
+                           ng-model="vm.effeFromDate" readonly required>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="text-center form_submit">
+            <button type="submit" id="submitbutton" class="btn btn-default"
+                    ui-sref="common_toc_slab_maintenance.list_detail({obj:{
+                            moduleId: vm.moduleId,
+                            versionNo: vm.versionNo,
+                            effeFromDate: vm.effeFromDate
+                        }})"
+                    ng-disabled="tocSlabMaintenanceForm.$invalid">Submit</button>
+            <button type="button" class="btn btn-cancel" id="cancelButton"
+                    onclick="window.location.href= '#!/dc_common_menu';">Cancel
+            </button>
+        </div>
+
+        <div class="text-center">
+            <notice-message-directive></notice-message-directive>
+        </div>
+    </form>
+</div>
+
+
+<!-- Version Details Start-->
+<div class="modal" id="versionNoModal" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-bs-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Version No</h4>
+            </div>
+            <div class="modal-body">
+                <div class="loader_popup"></div>
+                <div class="list_wrapper" ng-if="vm.versionNoList.length>0">
+                    <div class="col-sm-8 form_submit">
+                        <div class="form-group">
+                            <div class="input-group">
+                                <div class="input-group-addon">
+                                    <i class="glyphicon glyphicon-search"></i>
+                                </div>
+                                <input type="text" class="form-control"
+                                       ng-model="vm.searchSolId" ng-init="vm.searchSolId = ''"
+                                       placeholder="Search">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4 form_submit"></div>
+                    <div class="row">
+
+                        <div class="col-sm-12">
+                            <table class="table table-bordered list scroll sort">
+                                <thead ng-init="reverseOrder=false;sortedColumn = 'versionNo'">
+                                <tr>
+                                    <th ng-click="(sortedColumn == 'versionNo')?(reverseOrder=(!reverseOrder)): (reverseOrder = false);sortedColumn = 'versionNo';" ng-class="(sortedColumn == 'versionNo')?((reverseOrder)?('arrow-down') : ('arrow-up') ) : ('')">Version no</th>
+                                    <th ng-click="(sortedColumn == 'effeFromDate')?(reverseOrder=(!reverseOrder)): (reverseOrder = false);sortedColumn = 'effeFromDate';" ng-class="(sortedColumn == 'effeFromDate')?((reverseOrder)?('arrow-down') : ('arrow-up') ) : ('')">Effective From date</th>
+                                    <th ng-click="(sortedColumn == 'verifiedStatus')?(reverseOrder=(!reverseOrder)): (reverseOrder = false);sortedColumn = 'verifiedStatus';" ng-class="(sortedColumn == 'verifiedStatus')?((reverseOrder)?('arrow-down') : ('arrow-up') ) : ('')">Verify Status</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr class="cp"
+                                    ng-repeat="x in vm.versionNoList | filter:vm.searchSolId | orderBy:sortedColumn:reverseOrder"
+                                    ng-click="vm.versionNo = x.versionNo; vm.effeFromDate = x.effeFromDate;" data-bs-dismiss="modal">
+                                    <td>{{x.versionNo}}</td>
+                                    <td>{{x.effeFromDate}}</td>
+                                    <td>{{x.verifiedStatus}}</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="list_wrapper" ng-if="vm.versionNoList.length==0">No records found to display.</div>
+            </div>
+
+        </div>
+    </div>
+</div>
+<!-- Version Details End-->

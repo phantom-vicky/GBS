@@ -1,0 +1,181 @@
+<div class="loader-new" ng-if="vm.loader"></div>
+<cbs-left-menu></cbs-left-menu>
+<div class="container from_wrapper new_form_wrapper">
+
+	<h4 class="form_heading  feature-heading">Maintenance of Calendar
+		Entries - Modify</h4>
+
+	<form name="maintenanceOfCalendarEntriesForm" role="form">
+		<div class="row">
+			<div class="form-group">
+				<div class="col-sm-3"></div>
+				<div class="col-sm-3 required">
+					<label for="calendarType" class="control-label">Type</label>
+				</div>
+				<div class="col-sm-3">
+					<select class="form-control" id="calendarType" name="calendarType"
+						ng-model="vm.cbsMaintenanceOfCalendarEntries.calendarType"
+						required>
+						<option
+							ng-selected="{{maintenanceOfCalendarEntries.calendarType == ''}}"
+							value="">Select</option>
+						<option
+							ng-selected="{{maintenanceOfCalendarEntries.calendarType == 'BRANCH'}}"
+							value="BRANCH">Branch</option>
+						<option
+							ng-selected="{{maintenanceOfCalendarEntries.calendarType == 'DC'}}"
+							value="DC">DC</option>
+					</select>
+				</div>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="form-group">
+				<div class="col-sm-3"></div>
+				<div class="col-sm-3 required">
+					<label for="calendarCode" class="control-label">Branch Code
+						or Data Center Code</label>
+				</div>
+				<div class="col-sm-3">
+					<input type="text" class="form-control" id="calendarCode"
+						name="calendarCode" chars="alpha-numeric"
+						ng-model="vm.cbsMaintenanceOfCalendarEntries.calendarCode"
+						maxlength="24" required>
+				</div>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="form-group">
+				<div class="col-sm-3"></div>
+				<div class="col-sm-3 required">
+					<label for="monthYear" class="control-label">Month & Year</label>
+				</div>
+				<div class="col-sm-3">
+					<div class="row">
+						<div class="col-sm-6">
+							<select name="month" class="form-control"
+								ng-model="vm.cbsMaintenanceOfCalendarEntries.month" required>
+								<option value="">Month</option>
+								<option value="01">Jan</option>
+								<option value="02">Feb</option>
+								<option value="03">Mar</option>
+								<option value="04">Apr</option>
+								<option value="05">May</option>
+								<option value="06">Jun</option>
+								<option value="07">Jul</option>
+								<option value="08">Aug</option>
+								<option value="09">Sep</option>
+								<option value="10">Oct</option>
+								<option value="11">Nov</option>
+								<option value="12">Dec</option>
+							</select>
+						</div>
+						<div class="col-sm-6">
+							<select class="form-control" id="year" name="year"
+								ng-model="vm.cbsMaintenanceOfCalendarEntries.year" required>
+								<option
+									ng-selected="{{vm.maintenanceOfCalendarEntries.year == ''}}"
+									value="">Year</option>
+								<option
+									ng-selected="{{x == vm.maintenanceOfCalendarEntries.year}}"
+									ng-repeat="year in vm.years">{{year}}</option>
+							</select>
+						</div>
+					</div>
+					<input type="hidden" class="form-control" id="monthYear"
+						name="monthYear"
+						ng-model="vm.cbsMaintenanceOfCalendarEntries.monthYear"
+						minlength="6"
+						ng-value="vm.cbsMaintenanceOfCalendarEntries.month + vm.cbsMaintenanceOfCalendarEntries.year"
+						maxlength="6" chars="only-numbers">
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="form-group">
+				<div class="col-sm-3"></div>
+				<div class="col-sm-3 required">
+					<label for="holidayString" class="control-label">Holiday
+						String</label>
+				</div>
+				<div class="col-sm-3">
+					<input type="text" class="form-control" id="holidayString"
+						name="holidayString" chars="only-letters"
+						ng-model="vm.cbsMaintenanceOfCalendarEntries.holidayString"
+						maxlength="31" required>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="form-group">
+				<div class="col-sm-3"></div>
+				<div class="col-sm-3">
+					<label for="additionalText1" class="control-label">Additional
+						Text1</label>
+				</div>
+				<div class="col-sm-3">
+					<input type="text" class="form-control" name="additionalText1"
+						id="additionalText1" chars="alpha-numeric"
+						ng-model="vm.cbsMaintenanceOfCalendarEntries.additionalText1"
+						maxlength="40">
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="form-group">
+				<div class="col-sm-3"></div>
+				<div class="col-sm-3">
+					<label for="additionalText2" class="control-label">Additional
+						Text2</label>
+				</div>
+				<div class="col-sm-3">
+					<input type="text" class="form-control" name="additionalText2"
+						id="additionalText2" chars="alpha-numeric"
+						ng-model="vm.cbsMaintenanceOfCalendarEntries.additionalText2"
+						maxlength="40">
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="form-group">
+				<div class="col-sm-3"></div>
+				<div class="col-sm-3">
+					<label for="additionalText3" class="control-label">Additional
+						Text3</label>
+				</div>
+				<div class="col-sm-3">
+					<input type="text" class="form-control" name="additionalText3"
+						id="additionalText3" chars="alpha-numeric"
+						ng-model="vm.cbsMaintenanceOfCalendarEntries.additionalText3"
+						maxlength="40">
+				</div>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-sm-offset-5 col-sm-8 form_submit">
+				<button type="submit" class="btn btn-default" id="submitButton"
+					ng-disabled="cbsMaintenanceOfCalendarEntriesForm.$invalid"
+					ng-click="vm.modify()">Update</button>
+				<button type="button" class="btn btn-cancel" id="cancelButton"
+						onclick="window.location.href= '#!/cbs_maintenance_of_calendar_entries/action/inquiry';">Cancel</button>
+			</div>
+		</div>
+		<div class="text-center notice-message text-danger" style="text-align: left;">
+			<b>Points to be remembered:</b>
+			<ul>
+				<li>Y – Holiday.</li>
+				<li>Columns marked in colour should be non-editable.</li>
+				<li>Only one letter (Y) should be accepted against the date</li>
+				<li>Columns which are kept blank against the dates are to be treated as working day</li>
+				<li>Columns which are marked with ‘Y” against the dates are to be treated as Holidays.</li>
+				<li>(*) - indicates mandatory fields. Submit/Update button will be enabled, once all the mandatory fields are filled.</li>
+			</ul>
+		</div>
+	</form>
+
+</div>
+
+

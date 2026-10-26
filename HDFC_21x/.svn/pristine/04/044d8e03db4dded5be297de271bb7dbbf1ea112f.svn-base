@@ -1,0 +1,176 @@
+<div class="loader-new" ng-if="vm.loader"></div>
+<dc-left-menu></dc-left-menu>
+<div class="container from_wrapper new_form_wrapper">
+
+    <h4 class="form_heading">CAS ACKNOWLEDGEMENT NUMBER MAINTENANCE  -Delete</h4>
+    <sol-header></sol-header>
+    <form name="bondNominationsForm" role="form">
+        <div class="col-sm-6 col-sm-offset-3">
+
+            <div class="row" ng-init="vm.getModuleName();">
+                <div class="form-group required">
+                    <div class="col-sm-6">
+                        <label for="bondScheme" class="control-label">Name of the Bond Scheme</label>
+                    </div>
+                    <div class="col-sm-4">
+                        <select class="form-control" id="bondScheme" name="bondScheme"
+                                ng-model="vm.schemeName" required>
+                            <option value="">Select</option>
+                            <option ng-repeat="item in vm.schemeList" value="{{item.subCode}}" ng-bind="item.subCodeDescription"></option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="row">
+                <div class="form-group required">
+                    <div class="col-sm-6">
+                        <label for="bondSubsId" class="control-label">Subscription Date</label>
+                    </div>
+                    <div class="col-sm-4">
+                        <input type="text" class="form-control" id="subsDate"
+                               ng-init="vm.subsDate=''" ng-model="vm.subsDate" required readonly>
+                    </div>
+                    <div class="col-sm-2"  ng-if="vm.schemeName">
+                        <i class="glyphicon glyphicon-search cp" data-bs-toggle="modal"
+                           id="subsDate1"
+                           ng-click="vm.getSubsDateDel();"></i> <i
+                            class="glyphicon glyphicon-remove clear cp"
+                            ng-click="vm.subsDate = '';"></i>
+                    </div>
+                </div>
+            </div>
+
+
+
+
+            <div class="text-center form_submit">
+                <button type="submit" class="btn btn-default" id="submitButton"
+                        ui-sref="cas_acknowledgement_number_maintenance.delete_detail({obj:{
+								schemeName: vm.schemeName,
+								subsDate: vm.subsDate
+								}})"
+                        ng-disabled="bondNominationsForm.$invalid">Submit</button>
+                <button type="button" class="btn btn-cancel" id="cancelButton"
+                        onclick="window.location.href= '#!/cas_acknowledgement_number_maintenance/action/inquiry'">Cancel</button>
+            </div>
+            <div class="text-center">
+                <notice-message-directive></notice-message-directive>
+            </div>
+        </div>
+    </form>
+</div>
+
+
+
+<div class="modal" id="bondSubsIdSearch" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-bs-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Subscription ID</h4>
+            </div>
+            <div class="modal-body">
+                <div class="loader_popup"></div>
+                <div class="list_wrapper" ng-if="vm.bondSubsList.length>0">
+                    <div class="col-sm-8 form_submit">
+                        <div class="form-group">
+                            <div class="input-group">
+                                <div class="input-group-addon">
+                                    <i class="glyphicon glyphicon-search"></i>
+                                </div>
+                                <input type="text" class="form-control"
+                                       ng-model="vm.modalSearch"
+                                       placeholder="Search">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4 form_submit"></div>
+                    <div class="row">
+
+                        <div class="col-sm-12">
+                            <table class="table table-bordered list scroll sort">
+                                <thead ng-init="reverseOrder=false;sortedColumn = 'bondSubsId'">
+                                <tr>
+                                    <th ng-click="(sortedColumn == 'bondSubsId')?(reverseOrder=(!reverseOrder)): (reverseOrder = false);sortedColumn = 'bondSubsId';" ng-class="(sortedColumn == 'bondSubsId')?((reverseOrder)?('arrow-down') : ('arrow-up') ) : ('')">Single/First Joint Holder  BLA No </th>
+                                    <th ng-click="(sortedColumn == 'jointHolderName')?(reverseOrder=(!reverseOrder)): (reverseOrder = false);sortedColumn = 'jointHolderName';" ng-class="(sortedColumn == 'jointHolderName')?((reverseOrder)?('arrow-down') : ('arrow-up') ) : ('')">Single/First Joint Holder Name</th>
+                                    <th ng-click="(sortedColumn == 'subsAmount')?(reverseOrder=(!reverseOrder)): (reverseOrder = false);sortedColumn = 'subsAmount';" ng-class="(sortedColumn == 'subsAmount')?((reverseOrder)?('arrow-down') : ('arrow-up') ) : ('')">Subscription ID </th>
+                                    <th ng-click="(sortedColumn == 'verifyStatus')?(reverseOrder=(!reverseOrder)): (reverseOrder = false);sortedColumn = 'verifyStatus';" ng-class="(sortedColumn == 'verifyStatus')?((reverseOrder)?('arrow-down') : ('arrow-up') ) : ('')">Subscription Date</th>
+                                    <th ng-click="(sortedColumn == 'verifyStatus')?(reverseOrder=(!reverseOrder)): (reverseOrder = false);sortedColumn = 'verifyStatus';" ng-class="(sortedColumn == 'verifyStatus')?((reverseOrder)?('arrow-down') : ('arrow-up') ) : ('')">Subscription Amount</th>
+
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr class="cp"
+                                    ng-repeat="x in vm.bondSubsList | filter:vm.modalSearch | orderBy:sortedColumn:reverseOrder"
+                                    ng-click="vm.bondSubsId = x.bondSubsId;" data-bs-dismiss="modal">
+                                    <td>{{x.bondSubsId}}</td>
+                                    <td>{{x.jointHolderName}}</td>
+                                    <td>{{x.subsAmount}}</td>
+                                    <td>{{x.verifyStatus}}</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="list_wrapper" ng-if="vm.bondSubsList.length==0">No records found to display.</div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+<div class="modal" id="bondSubsDateSearch" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-bs-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Subscription Date</h4>
+            </div>
+            <div class="modal-body">
+                <div class="loader_popup"></div>
+                <div class="list_wrapper" ng-if="vm.subsDateList.length>0">
+                    <div class="col-sm-8 form_submit">
+                        <div class="form-group">
+                            <div class="input-group">
+                                <div class="input-group-addon">
+                                    <i class="glyphicon glyphicon-search"></i>
+                                </div>
+                                <input type="text" class="form-control"
+                                       ng-model="vm.modalSearch"
+                                       placeholder="Search">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4 form_submit"></div>
+                    <div class="row">
+
+                        <div class="col-sm-12">
+                            <table class="table table-bordered list scroll sort">
+                                <thead ng-init="reverseOrder=false;sortedColumn = 'subsDate'">
+                                <tr>
+                                    <th ng-click="(sortedColumn == 'subsDate')?(reverseOrder=(!reverseOrder)): (reverseOrder = false);sortedColumn = 'subsDate';" ng-class="(sortedColumn == 'subsDate')?((reverseOrder)?('arrow-down') : ('arrow-up') ) : ('')">Subscription Date </th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr class="cp"
+                                    ng-repeat="x in vm.subsDateList | filter:vm.modalSearch | orderBy:sortedColumn:reverseOrder"
+                                    ng-click="vm.subsDate = x.subsDate;" data-bs-dismiss="modal">
+                                    <td>{{x.subsDate}}</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="list_wrapper" ng-if="vm.subsDateList.length==0">No records found to display.</div>
+            </div>
+
+        </div>
+    </div>
+</div>

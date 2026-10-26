@@ -1,0 +1,827 @@
+<div class="loader-new" ng-if="vm.loader"></div>
+<dc-left-menu></dc-left-menu>
+<div class="container from_wrapper new_form_wrapper">
+    <h4 class="form_heading">Bond Transfer In From Other Bank - Delete</h4>
+
+    <sol-header></sol-header>
+
+    <form name="vm.bondTransferInForm" role="form" ng-init="vm.getGuardianDetailsMetaData()">
+        <table class="table table-bordered">
+            <h5 class="form_heading">BOND HOLDER DETAILS</h5>
+
+            <tbody>
+            <tr>
+                <td width="25%">Name of the Bond Scheme</td>
+                <td width="25%">
+                    <label class="data-bind" id="bondScheme">{{vm.schemeName}}</label>
+                </td>
+                <td width="25%">Mode of Holding</td>
+                <td width="25%">
+                    <label class="data-bind" id="modeOfHolding">{{vm.modeOfHolding}}</label>
+                </td>
+            </tr>
+            <tr>
+                <td width="25%">BLA Number</td>
+                <td width="25%">
+                    <label class="data-bind" id="blaNo">{{vm.blaNo}}</label>
+                </td>
+
+                <td width="25%"> Holder Type</td>
+                <td width="25%">
+                    <label class="data-bind" id="holderType">{{vm.holderType}}</label>
+                </td>
+
+            </tr>
+
+
+            <tr ng-if="vm.modeOfHoldingCode=='MH003' || vm.modeOfHoldingCode=='MH002'">
+                <td width="25%">First Joint Bond Holder BLA No</td>
+                <td width="25%">
+                    <label class="data-bind" id="joinBlaNo">{{vm.othrBankDetailList[0].C006.oldValue}}</label>
+                </td>
+                <td width="25%">First Joint Bond Holder Name</td>
+                <td width="25%">
+                    <label class="data-bind" id="firstJointHolderName">{{vm.othrBankDetailList[0].C007.oldValue}}</label>
+                </td>
+            </tr>
+            <tr ng-if="vm.modeOfHoldingCode=='MH003' || vm.modeOfHoldingCode=='MH002'">
+                <td width="25%">Second Joint Bond Holder BLA No</td>
+                <td width="25%" >
+                    <label class="data-bind" id="secJointHolderBlaNo">{{vm.othrBankDetailList[0].C008.oldValue}}</label>
+                </td>
+                <td width="25%">Second Joint Bond Holder Name</td>
+                <td width="25%">
+                    <label class="data-bind" id="secJointHolderName">{{vm.othrBankDetailList[0].C009.oldValue}}</label>
+                </td>
+            </tr>
+
+            <tr>
+
+                <td width="25%" ng-if="vm.modeOfHoldingCode=='MH001' || vm.modeOfHoldingCode=='MH004' || vm.modeOfHoldingCode=='MH005'">Bond Holder Name</td>
+                <td width="25%" ng-if="vm.modeOfHoldingCode=='MH001' || vm.modeOfHoldingCode=='MH004' || vm.modeOfHoldingCode=='MH005'">
+                    <label class="data-bind" id="holderName">{{vm.nameOfTheBondHolder}}</label>
+                </td>
+
+
+                <td width="25%">Is NRI? Yes/No.</td>
+                 <td width="25%">
+                    <label class="data-bind" id="isNri">{{vm.othrBankDetailList[0].C010.oldValue | getLabelFromValuesArray : vm.commonYesNoMetaData }}</label>
+
+                </td>
+            </tr>
+
+            </tbody>
+        </table>
+
+
+<!--BOND SUBSCRIPTION DETAILS:-->
+
+        <table class="table table-bordered table-striped list old-new-value-table">
+            <h5 class="form_heading">BOND SUBSCRIPTION DETAILS</h5>
+
+            <tbody >
+            <tr>
+                <th>Particular</th>
+                <th>{{(vm.verificationDetails == 'M')?('Old Value'): ('Value')}}</th>
+                <th ng-if="vm.verificationDetails == 'M'">New Value</th>
+            </tr>
+            <tr>
+                <td>Transferor Bank Name</td>
+                <td class="old-value">{{(vm.othrBankDetailList[0] && vm.othrBankDetailList[0].C011)?
+                    (vm.othrBankDetailList[0].C011.oldValue) : ('-')}}
+                </td>
+                <td ng-if="vm.verificationDetails == 'M'" class="new-value">{{(vm.othrBankDetailList[0] && vm.othrBankDetailList[0].C011)?
+                    (vm.othrBankDetailList[0].C011.newValue) : ('-')}}
+                </td>
+            </tr>
+            <tr>
+                <td>Transferor Branch Name</td>
+                <td class="old-value">{{(vm.othrBankDetailList[0] && vm.othrBankDetailList[0].C012)?
+                    (vm.othrBankDetailList[0].C012.oldValue) : ('-')}}
+                </td>
+                <td ng-if="vm.verificationDetails == 'M'" class="new-value">
+                    {{(vm.othrBankDetailList[0] && vm.othrBankDetailList[0].C012)?
+                    (vm.othrBankDetailList[0].C012.newValue) : ('-')}}
+                </td>
+            </tr>
+
+            <tr>
+                <td>Account Transferred in date</td>
+                <td class="old-value">{{(vm.othrBankDetailList[0] && vm.othrBankDetailList[0].C013)?
+                    (vm.othrBankDetailList[0].C013.oldValue) : ('-')}}
+                </td>
+                <td ng-if="vm.verificationDetails == 'M'" class="new-value">
+                    {{(vm.othrBankDetailList[0] && vm.othrBankDetailList[0].C013)?
+                    (vm.othrBankDetailList[0].C013.newValue) : ('-')}}
+                </td>
+            </tr>
+            <tr>
+                <td>Old BLA No</td>
+                <td class="old-value">{{(vm.othrBankDetailList[0] && vm.othrBankDetailList[0].C014)?
+                    (vm.othrBankDetailList[0].C014.oldValue) : ('-')}}
+                </td>
+                <td ng-if="vm.verificationDetails == 'M'" class="new-value">
+                    {{(vm.othrBankDetailList[0] && vm.othrBankDetailList[0].C014)?
+                    (vm.othrBankDetailList[0].C014.newValue) : ('-')}}
+                </td>
+            </tr>
+            <tr>
+                <td>RBI Code</td>
+                <td class="old-value">{{(vm.othrBankDetailList[0] && vm.othrBankDetailList[0].C016)?
+                    (vm.othrBankDetailList[0].C016.oldValue) : ('-')}}
+                </td>
+                <td ng-if="vm.verificationDetails == 'M'" class="new-value">
+                    {{(vm.othrBankDetailList[0] && vm.othrBankDetailList[0].C016)?
+                    (vm.othrBankDetailList[0].C016.newValue) : ('-')}}
+                </td>
+            </tr>
+
+            <tr>
+                <td>Bond Subscription  Amount</td>
+                <td class="old-value">{{(vm.cursorValList[0] && vm.cursorValList[0].C014)?
+                    (vm.cursorValList[0].C014.oldValue) : ('-')}}
+                </td>
+                <td ng-if="vm.verificationDetails == 'M'" class="new-value">
+                    {{(vm.cursorValList[0] && vm.cursorValList[0].C014)?
+                    (vm.cursorValList[0].C014.newValue) : ('-')}}
+                </td>
+            </tr>
+            <tr>
+                <td>Bond Type</td>
+                <td class="old-value">{{(vm.cursorValList[0] && vm.cursorValList[0].C016)?
+                    (vm.cursorValList[0].C016.oldValue) : ('-')}}
+                </td>
+                <td ng-if="vm.verificationDetails == 'M'" class="new-value">
+                    {{(vm.cursorValList[0] && vm.cursorValList[0].C016)?
+                    (vm.cursorValList[0].C016.newValue) : ('-')}}
+                </td>
+            </tr>
+            <tr>
+                <td>Account Opened Date</td>
+                <td class="old-value">{{(vm.cursorValList[0] && vm.cursorValList[0].C017)?
+                    (vm.cursorValList[0].C017.oldValue) : ('-')}}
+                </td>
+                <td ng-if="vm.verificationDetails == 'M'" class="new-value">
+                    {{(vm.cursorValList[0] && vm.cursorValList[0].C017)?
+                    (vm.cursorValList[0].C017.newValue) : ('-')}}
+                </td>
+            </tr>
+            <tr>
+                <td>Period of Deposit (months)</td>
+                <td class="old-value">{{(vm.cursorValList[0] && vm.cursorValList[0].C019)?
+                    (vm.cursorValList[0].C019.oldValue) : ('-')}}
+                </td>
+                <td ng-if="vm.verificationDetails == 'M'" class="new-value">
+                    {{(vm.cursorValList[0] && vm.cursorValList[0].C019)?
+                    (vm.cursorValList[0].C019.newValue) : ('-')}}
+                </td>
+            </tr>
+            <tr>
+                <td>Maturity Date</td>
+                <td class="old-value">{{(vm.cursorValList[0] && vm.cursorValList[0].C020)?
+                    (vm.cursorValList[0].C020.oldValue) : ('-')}}
+                </td>
+                <td ng-if="vm.verificationDetails == 'M'" class="new-value">
+                    {{(vm.cursorValList[0] && vm.cursorValList[0].C020)?
+                    (vm.cursorValList[0].C020.newValue) : ('-')}}
+                </td>
+            </tr>
+            <tr>
+                <td>Interest Rate (%)</td>
+                <td class="old-value">{{(vm.cursorValList[0] && vm.cursorValList[0].C021)?
+                    (vm.cursorValList[0].C021.oldValue) : ('-')}}
+                </td>
+                <td ng-if="vm.verificationDetails == 'M'" class="new-value">
+                    {{(vm.cursorValList[0] && vm.cursorValList[0].C021)?
+                    (vm.cursorValList[0].C021.newValue) : ('-')}}
+                </td>
+            </tr>
+            <tr>
+                <td>Interest Paid up to</td>
+                <td class="old-value">{{(vm.othrBankDetailList[0] && vm.othrBankDetailList[0].C015)?
+                    (vm.othrBankDetailList[0].C015.oldValue) : ('-')}}
+                </td>
+                <td ng-if="vm.verificationDetails == 'M'" class="new-value">
+                    {{(vm.othrBankDetailList[0] && vm.othrBankDetailList[0].C015)?
+                    (vm.othrBankDetailList[0].C015.newValue) : ('-')}}
+                </td>
+            </tr>
+            <tr>
+                <td>Mode of Interest Payment/ Principal Repayment</td>
+                <td class="old-value">{{(vm.cursorValList[0] && vm.cursorValList[0].C022)?
+                    (vm.cursorValList[0].C022.oldValue) : ('-')}}
+                </td>
+                <td ng-if="vm.verificationDetails == 'M'" class="new-value">
+                    {{(vm.cursorValList[0] && vm.cursorValList[0].C022)?
+                    (vm.cursorValList[0].C022.newValue) : ('-')}}
+                </td>
+            </tr>
+            <tr>
+                <td>Operative Account Number</td>
+                <td class="old-value">{{(vm.cursorValList[0] && vm.cursorValList[0].C023)?
+                    (vm.cursorValList[0].C023.oldValue) : ('-')}}
+                </td>
+                <td ng-if="vm.verificationDetails == 'M'" class="new-value">
+                    {{(vm.cursorValList[0] && vm.cursorValList[0].C023)?
+                    (vm.cursorValList[0].C023.newValue) : ('-')}}
+                </td>
+            </tr>
+            <tr>
+                <td>Branch ID</td>
+                <td class="old-value">{{(vm.cursorValList[0] && vm.cursorValList[0].C033)?
+                    (vm.cursorValList[0].C033.oldValue) : ('-')}}
+                </td>
+                <td ng-if="vm.verificationDetails == 'M'" class="new-value">
+                    {{(vm.cursorValList[0] && vm.cursorValList[0].C033)?
+                    (vm.cursorValList[0].C033.newValue) : ('-')}}
+                </td>
+            </tr>
+            <tr>
+                <td>DD/PO Account Number</td>
+                <td class="old-value">{{(vm.cursorValList[0] && vm.cursorValList[0].C025)?
+                    (vm.cursorValList[0].C025.oldValue) : ('-')}}
+                </td>
+                <td ng-if="vm.verificationDetails == 'M'" class="new-value">
+                    {{(vm.cursorValList[0] && vm.cursorValList[0].C025)?
+                    (vm.cursorValList[0].C025.newValue) : ('-')}}
+                </td>
+            </tr>
+
+            <tr>
+                <td>Bank Code</td>
+                <td class="old-value">{{(vm.cursorValList[0] && vm.cursorValList[0].C026)?
+                    (vm.cursorValList[0].C026.oldValue) : ('-')}}
+                </td>
+                <td ng-if="vm.verificationDetails == 'M'" class="new-value">
+                    {{(vm.cursorValList[0] && vm.cursorValList[0].C026)?
+                    (vm.cursorValList[0].C026.newValue) : ('-')}}
+                </td>
+            </tr>
+            <tr>
+                <td>Branch Code</td>
+                <td class="old-value">{{(vm.cursorValList[0] && vm.cursorValList[0].C027)?
+                    (vm.cursorValList[0].C027.oldValue) : ('-')}}
+                </td>
+                <td ng-if="vm.verificationDetails == 'M'" class="new-value">
+                    {{(vm.cursorValList[0] && vm.cursorValList[0].C027)?
+                    (vm.cursorValList[0].C027.newValue) : ('-')}}
+                </td>
+            </tr>
+            <tr>
+                <td>IFSC Code of the Credit Bank</td>
+                <td class="old-value">{{(vm.cursorValList[0] && vm.cursorValList[0].C028)?
+                    (vm.cursorValList[0].C028.oldValue) : ('-')}}
+                </td>
+                <td ng-if="vm.verificationDetails == 'M'" class="new-value">
+                    {{(vm.cursorValList[0] && vm.cursorValList[0].C028)?
+                    (vm.cursorValList[0].C028.newValue) : ('-')}}
+                </td>
+            </tr>
+            <tr>
+                <td>Name of the Payee</td>
+                <td class="old-value">{{(vm.cursorValList[0] && vm.cursorValList[0].C029)?
+                    (vm.cursorValList[0].C029.oldValue) : ('-')}}
+                </td>
+                <td ng-if="vm.verificationDetails == 'M'" class="new-value">
+                    {{(vm.cursorValList[0] && vm.cursorValList[0].C029)?
+                    (vm.cursorValList[0].C029.newValue) : ('-')}}
+                </td>
+            </tr>
+            <tr>
+                <td>Credit Account Number</td>
+                <td class="old-value">{{(vm.cursorValList[0] && vm.cursorValList[0].C030)?
+                    (vm.cursorValList[0].C030.oldValue) : ('-')}}
+                </td>
+                <td ng-if="vm.verificationDetails == 'M'" class="new-value">
+                    {{(vm.cursorValList[0] && vm.cursorValList[0].C030)?
+                    (vm.cursorValList[0].C030.newValue) : ('-')}}
+                </td>
+            </tr>
+
+            </tbody>
+        </table>
+        <!--TRANSACTION DETAILS-->
+
+        <table class="table table-bordered table-striped list old-new-value-table">
+
+        <tbody >
+            <h5 class="form_heading">BOND SUBSCRIPTION DETAILS</h5>
+
+            <tr>
+                <th>Particular</th>
+                <th>{{(vm.verificationDetails == 'M')?('Old Value'): ('Value')}}</th>
+                <th ng-if="vm.verificationDetails == 'M'">New Value</th>
+            </tr>
+            <tr>
+                <td>Transaction Mode</td>
+                <td class="old-value">{{(vm.cursorValList[0] && vm.cursorValList[0].C031)?
+                    (vm.cursorValList[0].C031.oldValue == 'CL' ? 'CLEARING' : '') : ('-')}}
+                </td>
+                <td ng-if="vm.verificationDetails == 'M'" class="new-value">{{(vm.cursorValList[0] && vm.cursorValList[0].C031)?
+                    (vm.cursorValList[0].C031.newValue == 'CL' ? 'CLEARING' : '') : ('-')}}
+                </td>
+            </tr>
+            <tr>
+                <td>Instrument Number</td>
+                <td class="old-value">{{(vm.cursorValList[0] && vm.cursorValList[0].C035)?
+                    (vm.cursorValList[0].C035.oldValue) : ('-')}}
+                </td>
+                <td ng-if="vm.verificationDetails == 'M'" class="new-value">{{(vm.cursorValList[0] && vm.cursorValList[0].C035)?
+                    (vm.cursorValList[0].C035.newValue) : ('-')}}
+                </td>
+            </tr>
+
+            <tr>
+                <td>Instrument Date</td>
+                <td class="old-value">{{(vm.cursorValList[0] && vm.cursorValList[0].C036)?
+                    (vm.cursorValList[0].C036.oldValue) : ('-')}}
+                </td>
+                <td ng-if="vm.verificationDetails == 'M'" class="new-value">{{(vm.cursorValList[0] && vm.cursorValList[0].C036)?
+                    (vm.cursorValList[0].C036.newValue) : ('-')}}
+                </td>
+            </tr>
+            <tr>
+                <td>Instrument Amount</td>
+                <td class="old-value">{{(vm.cursorValList[0] && vm.cursorValList[0].C037)?
+                    (vm.cursorValList[0].C037.oldValue) : ('-')}}
+                </td>
+                <td ng-if="vm.verificationDetails == 'M'" class="new-value">{{(vm.cursorValList[0] && vm.cursorValList[0].C037)?
+                    (vm.cursorValList[0].C037.newValue) : ('-')}}
+                </td>
+            </tr>
+            <tr>
+                <td>Tran Code</td>
+                <td class="old-value">{{(vm.cursorValList[0] && vm.cursorValList[0].C038)?
+                    (vm.cursorValList[0].C038.oldValue) : ('-')}}
+                </td>
+                <td ng-if="vm.verificationDetails == 'M'" class="new-value">{{(vm.cursorValList[0] && vm.cursorValList[0].C038)?
+                    (vm.cursorValList[0].C038.newValue) : ('-')}}
+                </td>
+            </tr>
+
+            <tr>
+                <td>Zone Code</td>
+                <td class="old-value">{{(vm.cursorValList[0] && vm.cursorValList[0].C039)?
+                    (vm.cursorValList[0].C039.oldValue) : ('-')}}
+                </td>
+                <td ng-if="vm.verificationDetails == 'M'" class="new-value">{{(vm.cursorValList[0] && vm.cursorValList[0].C039)?
+                    (vm.cursorValList[0].C039.newValue) : ('-')}}
+                </td>
+            </tr>
+            <tr>
+                <td>Zone Date (dd/mm/yyyy)</td>
+                <td class="old-value">{{(vm.cursorValList[0] && vm.cursorValList[0].C040)?
+                    (vm.cursorValList[0].C040.oldValue) : ('-')}}
+                </td>
+                <td ng-if="vm.verificationDetails == 'M'" class="new-value">{{(vm.cursorValList[0] && vm.cursorValList[0].C040)?
+                    (vm.cursorValList[0].C040.newValue) : ('-')}}
+                </td>
+            </tr>
+            <tr>
+                <td>Bank Code (Non-MICR)</td>
+                <td class="old-value">{{(vm.cursorValList[0] && vm.cursorValList[0].C041)?
+                    (vm.cursorValList[0].C041.oldValue) : ('-')}}
+                </td>
+                <td ng-if="vm.verificationDetails == 'M'" class="new-value">
+                    {{(vm.cursorValList[0] && vm.cursorValList[0].C041)?
+                    (vm.cursorValList[0].C041.newValue) : ('-')}}
+                </td>
+            </tr>
+            <tr>
+                <td>Branch Code (Non-MICR)</td>
+                <td class="old-value">{{(vm.cursorValList[0] && vm.cursorValList[0].C042)?
+                    (vm.cursorValList[0].C042.oldValue) : ('-')}}
+                </td>
+                <td ng-if="vm.verificationDetails == 'M'" class="new-value">
+                    {{(vm.cursorValList[0] && vm.cursorValList[0].C042)?
+                    (vm.cursorValList[0].C042.newValue) : ('-')}}
+                </td>
+            </tr>
+            <tr>
+                <td>Sort Code</td>
+                <td class="old-value">{{(vm.cursorValList[0] && vm.cursorValList[0].C043)?
+                    (vm.cursorValList[0].C043.oldValue) : ('-')}}
+                </td>
+                <td ng-if="vm.verificationDetails == 'M'" class="new-value">
+                    {{(vm.cursorValList[0] && vm.cursorValList[0].C043)?
+                    (vm.cursorValList[0].C043.newValue) : ('-')}}
+                </td>
+            </tr>
+            <tr>
+                <td>Remarks</td>
+                <td class="old-value">{{(vm.cursorValList[0] && vm.cursorValList[0].C044)?
+                    (vm.cursorValList[0].C044.oldValue) : ('-')}}
+                </td>
+                <td ng-if="vm.verificationDetails == 'M'" class="new-value">
+                    {{(vm.cursorValList[0] && vm.cursorValList[0].C044)?
+                    (vm.cursorValList[0].C044.newValue) : ('-')}}
+                </td>
+            </tr>
+            <tr>
+                <td>Is Nominee Added</td>
+                <td class="old-value">{{(vm.cursorValList[0] && vm.cursorValList[0].C045)?
+                    (vm.cursorValList[0].C045.oldValue | getLabelFromValuesArray : vm.commonYesNoMetaData) : ('-')}}
+                </td>
+                <td ng-if="vm.verificationDetails == 'M'" class="new-value">{{(vm.cursorValList[0] && vm.cursorValList[0].C045)?
+                    (vm.cursorValList[0].C045.newValue | getLabelFromValuesArray : vm.commonYesNoMetaData) : ('-')}}
+                </td>
+            </tr>
+
+
+            </tbody>
+
+        </table>
+
+        <table class="table table-bordered table-striped list old-new-value-table" ng-if="vm.nomineeDetailList.length>0">
+            <tbody ng-repeat="item in vm.nomineeDetailList">
+            <h5 class="form_heading" ng-if="vm.nomineeDetailList.length>0">NOMINATION DETAILS</h5>
+            <tr>
+                <th>Particular - Nominee {{$index+1}}</th>
+                <th>{{(vm.verificationDetails == 'M')?('Old Value'): ('Value')}}</th>
+                <th ng-if="vm.verificationDetails == 'M'">New Value</th>
+            </tr>
+            <tr>
+                <td>Nominee First Name</td>
+                <td class="old-value">{{(item && item.C003)?
+                    (item.C003.oldValue) : ('-')}}
+                </td>
+                <td ng-if="vm.verificationDetails == 'M'" class="new-value">{{(item &&
+                    item.C003)? (item.C003.newValue) : ('-')}}
+                </td>
+            </tr>
+            <tr>
+                <td>Nominee Middle Name</td>
+                <td class="old-value">{{(item && item.C004)?
+                    (item.C004.oldValue) : ('-')}}
+                </td>
+                <td ng-if="vm.verificationDetails == 'M'" class="new-value">
+                    {{(item && item.C004)?
+                    (item.C004.newValue) : ('-')}}
+                </td>
+            </tr>
+
+            <tr>
+                <td>Nominee Last Name</td>
+                <td class="old-value">{{(item && item.C005)?
+                    (item.C005.oldValue) : ('-')}}
+                </td>
+                <td ng-if="vm.verificationDetails == 'M'" class="new-value">
+                    {{(item && item.C005)?
+                    (item.C005.newValue) : ('-')}}
+                </td>
+            </tr>
+            <tr>
+                <td>Address1</td>
+                <td class="old-value">{{(item && item.C006)?
+                    (item.C006.oldValue) : ('-')}}
+                </td>
+                <td ng-if="vm.verificationDetails == 'M'" class="new-value">
+                    {{(item && item.C006)?
+                    (item.C006.newValue) : ('-')}}
+                </td>
+            </tr>
+            <tr>
+                <td>Address2</td>
+                <td class="old-value">{{(item && item.C007)?
+                    (item.C007.oldValue) : ('-')}}
+                </td>
+                <td ng-if="vm.verificationDetails == 'M'" class="new-value">
+                    {{(item && item.C007)?
+                    (item.C007.newValue) : ('-')}}
+                </td>
+            </tr>
+            <tr>
+                <td>City</td>
+                <td class="old-value">{{(item && item.C008)?
+                    (item.C008.oldValue) : ('-')}}
+                </td>
+                <td ng-if="vm.verificationDetails == 'M'" class="new-value">
+                    {{(item && item.C008)?
+                    (item.C008.newValue) : ('-')}}
+                </td>
+            </tr>
+            <tr>
+                <td>State</td>
+                <td class="old-value">{{(item && item.C009)?
+                    (item.C009.oldValue) : ('-')}}
+                </td>
+                <td ng-if="vm.verificationDetails == 'M'" class="new-value">
+                    {{(item && item.C009)?
+                    (item.C009.newValue) : ('-')}}
+                </td>
+            </tr>
+            <tr>
+                <td>Pin Code</td>
+                <td class="old-value">{{(item && item.C010)?
+                    (item.C010.oldValue) : ('-')}}
+                </td>
+                <td ng-if="vm.verificationDetails == 'M'" class="new-value">
+                    {{(item && item.C010)?
+                    (item.C010.newValue) : ('-')}}
+                </td>
+            </tr>
+            <tr>
+                <td>Phone No</td>
+                <td class="old-value">{{(item && item.C011)?
+                    (item.C011.oldValue) : ('-')}}
+                </td>
+                <td ng-if="vm.verificationDetails == 'M'" class="new-value">
+                    {{(item && item.C011)?
+                    (item.C011.newValue) : ('-')}}
+                </td>
+            </tr>
+            <tr>
+                <td>Share Percentage</td>
+                <td class="old-value">{{(item && item.C012)?
+                    (item.C012.oldValue) : ('-')}}
+                </td>
+                <td ng-if="vm.verificationDetails == 'M'" class="new-value">
+                    {{(item && item.C012)?
+                    (item.C012.newValue) : ('-')}}
+                </td>
+            </tr>
+            <tr>
+                <td>Operative Account No</td>
+                <td class="old-value">{{(item && item.C013)?
+                    (item.C013.oldValue) : ('-')}}
+                </td>
+                <td ng-if="vm.verificationDetails == 'M'" class="new-value">
+                    {{(item && item.C013)?
+                    (item.C013.newValue) : ('-')}}
+                </td>
+            </tr>
+            <tr>
+                <td>Branch ID</td>
+                <td class="old-value">{{(item && item.C014)?
+                    (item.C014.oldValue) : ('-')}}
+                </td>
+                <td ng-if="vm.verificationDetails == 'M'" class="new-value">
+                    {{(item && item.C014)?
+                    (item.C014.newValue) : ('-')}}
+                </td>
+            </tr>
+            <tr>
+                <td>Is Nominee a Minor</td>
+                <td class="old-value">{{(item && item.C015)?
+                    (item.C015.oldValue | getLabelFromValuesArray : vm.commonYesNoMetaData) : ('-')}}
+                </td>
+                <td ng-if="vm.verificationDetails == 'M'" class="new-value">
+                    {{(item && item.C015)?
+                    (item.C015.newValue | getLabelFromValuesArray : vm.commonYesNoMetaData) : ('-')}}
+                </td>
+            </tr>
+            <tr>
+                <td>Relation with Holder</td>
+                <td class="old-value">{{(item && item.C016)?
+                    (item.C016.oldValue | getLabelFromValuesArray : vm.convertLabelValue(vm.guardianDetailsList)) : ('')}}
+                </td>
+                <td class="new-value" ng-if="vm.auditInfo.previousOperationType == 'M'">{{item &&
+                    item.C016? (item.C016.newValue | getLabelFromValuesArray : vm.convertLabelValue(vm.guardianDetailsList)) : ('')}}
+                </td>
+            </tr>
+            <tr>
+                <td>Date of Birth Of Minor</td>
+                <td class="old-value">{{(item && item.C017)?
+                    (item.C017.oldValue) : ('-')}}
+                </td>
+                <td ng-if="vm.verificationDetails == 'M'" class="new-value">
+                    {{(item && item.C017)?
+                    (item.C017.newValue) : ('-')}}
+                </td>
+            </tr>
+            <tr>
+                <td>Status</td>
+                <td class="old-value">{{(item && item.C029)?
+                    (item.C029.oldValue) : ('-')}}
+                </td>
+                <td ng-if="vm.verificationDetails == 'M'" class="new-value">
+                    {{(item && item.C029)?
+                    (item.C029.newValue) : ('-')}}
+                </td>
+            </tr>
+            <tr ng-if="item.C015.oldValue=='Y' || item.C015.newValue == 'Y'">
+                <th>Particular - Guardian Details  (Mandatory if Nominee is a Minor)</th>
+                <th>{{(vm.verificationDetails == 'M')?('Old Value'): ('Value')}}</th>
+                <th ng-if="vm.verificationDetails == 'M'">New Value</th>
+            </tr>
+            <tr ng-if="item.C015.oldValue=='Y' || item.C015.newValue == 'Y'">
+                <td>Guardian First Name</td>
+                <td class="old-value">{{(item && item.C018)?
+                    (item.C018.oldValue) : ('-')}}
+                </td>
+                <td ng-if="vm.verificationDetails == 'M'" class="new-value">
+                    {{(item && item.C018)?
+                    (item.C018.newValue) : ('-')}}
+                </td>
+            </tr>
+            <tr ng-if="item.C015.oldValue=='Y' || item.C015.newValue == 'Y'">
+                <td>Guardian Middle Name</td>
+                <td class="old-value">{{(item && item.C019)?
+                    (item.C019.oldValue) : ('-')}}
+                </td>
+                <td ng-if="vm.verificationDetails == 'M'" class="new-value">
+                    {{(item && item.C019)?
+                    (item.C019.newValue) : ('-')}}
+                </td>
+            </tr>
+            <tr ng-if="item.C015.oldValue=='Y' || item.C015.newValue == 'Y'">
+                <td>Guardian Last Name</td>
+                <td class="old-value">{{(item && item.C020)?
+                    (item.C020.oldValue) : ('-')}}
+                </td>
+                <td ng-if="vm.verificationDetails == 'M'" class="new-value">
+                    {{(item && item.C020)?
+                    (item.C020.newValue) : ('-')}}
+                </td>
+            </tr>
+            <tr ng-if="item.C015.oldValue=='Y' || item.C015.newValue == 'Y'">
+                <td>Address1</td>
+                <td class="old-value">{{(item && item.C021)?
+                    (item.C021.oldValue) : ('-')}}
+                </td>
+                <td ng-if="vm.verificationDetails == 'M'" class="new-value">
+                    {{(item && item.C021)?
+                    (item.C021.newValue) : ('-')}}
+                </td>
+            </tr>
+            <tr ng-if="item.C015.oldValue=='Y' || item.C015.newValue == 'Y'">
+                <td>Address2</td>
+                <td class="old-value">{{(item && item.C022)?
+                    (item.C022.oldValue) : ('-')}}
+                </td>
+                <td ng-if="vm.verificationDetails == 'M'" class="new-value">
+                    {{(item && item.C022)?
+                    (item.C022.newValue) : ('-')}}
+                </td>
+            </tr>
+            <tr ng-if="item.C015.oldValue=='Y' || item.C015.newValue == 'Y'">
+                <td>City</td>
+                <td class="old-value">{{(item && item.C023)?
+                    (item.C023.oldValue) : ('-')}}
+                </td>
+                <td ng-if="vm.verificationDetails == 'M'" class="new-value">
+                    {{(item && item.C023)?
+                    (item.C023.newValue) : ('-')}}
+                </td>
+            </tr>
+            <tr ng-if="item.C015.oldValue=='Y' || item.C015.newValue == 'Y'">
+                <td>State</td>
+                <td class="old-value">{{(item && item.C024)?
+                    (item.C024.oldValue) : ('-')}}
+                </td>
+                <td ng-if="vm.verificationDetails == 'M'" class="new-value">
+                    {{(item && item.C024)?
+                    (item.C024.newValue) : ('-')}}
+                </td>
+            </tr>
+            <tr ng-if="item.C015.oldValue=='Y' || item.C015.newValue == 'Y'">
+                <td>PIN Code</td>
+                <td class="old-value">{{(item && item.C025)?
+                    (item.C025.oldValue) : ('-')}}
+                </td>
+                <td ng-if="vm.verificationDetails == 'M'" class="new-value">
+                    {{(item && item.C025)?
+                    (item.C025.newValue) : ('-')}}
+                </td>
+            </tr>
+            <tr ng-if="item.C015.oldValue=='Y' || item.C015.newValue == 'Y'">
+                <td>Mobile No</td>
+                <td class="old-value">{{(item && item.C026)?
+                    (item.C026.oldValue) : ('-')}}
+                </td>
+                <td ng-if="vm.verificationDetails == 'M'" class="new-value">
+                    {{(item && item.C026)?
+                    (item.C026.newValue) : ('-')}}
+                </td>
+            </tr>
+            <tr ng-if="item.C015.oldValue=='Y' || item.C015.newValue == 'Y'">
+                <td>Email ID</td>
+                <td class="old-value">{{(item && item.C027)?
+                    (item.C027.oldValue) : ('-')}}
+                </td>
+                <td ng-if="vm.verificationDetails == 'M'" class="new-value">
+                    {{(item && item.C027)?
+                    (item.C027.newValue) : ('-')}}
+                </td>
+            </tr>
+
+
+            </tbody>
+            <tr ng-if="vm.cursorValList[0].C045.oldValue=='Y' || vm.cursorValList[0].C045.newValue=='Y'">
+                <td>Total (%)</td>
+                <td class="old-value">100
+                </td>
+                <td ng-if="vm.verificationDetails == 'M'" class="new-value">
+                    100
+                </td>
+            </tr>
+        </table>
+
+
+
+        <div class="audit-details">
+            <div class="row">
+                <div class="col-md-3">
+                    <span> <b> Created By </b> : {{vm.verifyDetails.createdBy}} </span>
+                </div>
+                <div class="col-md-3">
+                    <span> <b> Last Modified By </b> : {{(vm.verifyDetails.modifiedBy) ? (vm.verifyDetails.modifiedBy) : ('None')}}</span>
+                </div>
+                <div class="col-md-3">
+                    <span> <b> Last Verified By </b> : {{(vm.verifyDetails.verifiedBy) ? (vm.verifyDetails.verifiedBy) : ('None')}}</span>
+                </div>
+                <div class="col-md-3">
+                    <span> <b> Verify Status </b> : {{vm.verifyDetails.verifiedStatus  | getLabelFromValuesArray : vm.commonYesNoMetaData}}</span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3">
+                    <span> <b> Created On </b> : {{ vm.verifyDetails.createdDate | date : 'dd-MM-yyyy'}}</span>
+                </div>
+                <div class="col-md-3">
+                    <span> <b> Last Modified On</b> : {{ (vm.verifyDetails.modifiedDate) ? (vm.verifyDetails.modifiedDate | date : 'dd-MM-yyyy') : ('None')}}</span>
+                </div>
+                <div class="col-md-3">
+                    <span> <b> Last Verified On </b> : {{(vm.verifyDetails.verifiedDate) ? (vm.verifyDetails.verifiedDate | date : 'dd-MM-yyyy') : ('None')}}</span>
+                </div>
+                <div class="col-md-3">
+                </div>
+            </div>
+        </div>
+
+        <div class="text-center form_submit">
+            <button type="submit" class="btn btn-default" id="submitButton"
+                    ng-click="vm.Delete(vm.bondSubsId)">Delete</button>
+            <button type="button" class="btn btn-cancel" id="cancelButton"
+                    onclick="window.location.href= '#!/rbi_bond_transfer_in/action/inquiry';">Close
+            </button>
+        </div>
+        <div class="text-center">
+            <notice-message-directive></notice-message-directive>
+
+        </div>
+    </form>
+</div>
+
+
+
+
+<div class="modal" id="otherBankDetailslist" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-bs-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Bank Code & Branch Code (Non-MICR)</h4>
+            </div>
+            <div class="modal-body">
+                <div class="loader_popup"></div>
+                <div class="list_wrapper" ng-if="vm.otherBankDetailslist.length>0">
+                    <div class="col-sm-8 form_submit">
+                        <div class="form-group">
+                            <div class="input-group">
+                                <div class="input-group-addon">
+                                    <i class="glyphicon glyphicon-search"></i>
+                                </div>
+                                <input type="text" class="form-control"
+                                       ng-model="vm.searchSolId" ng-init="vm.searchSolId = ''"
+                                       placeholder="Search">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4 form_submit"></div>
+                    <div class="row">
+
+                        <div class="col-sm-12">
+                            <table class="table table-bordered list scroll sort">
+                                <thead ng-init="reverseOrder=false;sortedColumn = 'bankCode'">
+                                <tr>
+<!--                                    <th ng-click="(sortedColumn == 'blaNo')?(reverseOrder=(!reverseOrder)): (reverseOrder = false);sortedColumn = 'blaNo';" ng-class="(sortedColumn == 'blaNo')?((reverseOrder)?('arrow-down') : ('arrow-up') ) : ('')">Bond Ledger Account Number</th>-->
+<!--                                    <th ng-click="(sortedColumn == 'bondHolderName')?(reverseOrder=(!reverseOrder)): (reverseOrder = false);sortedColumn = 'nameOfTheBondHolder';" ng-class="(sortedColumn == 'nameOfTheBondHolder')?((reverseOrder)?('arrow-down') : ('arrow-up') ) : ('')">Name of the Bond Holder</th>-->
+                                    <th ng-click="(sortedColumn == 'bankCode')?(reverseOrder=(!reverseOrder)): (reverseOrder = false);sortedColumn = 'jointHolderType';" ng-class="(sortedColumn == 'jointHolderType')?((reverseOrder)?('arrow-down') : ('arrow-up') ) : ('')">Bank Code</th>
+                                    <th ng-click="(sortedColumn == 'branchCode')?(reverseOrder=(!reverseOrder)): (reverseOrder = false);sortedColumn = 'modeOfHolding';" ng-class="(sortedColumn == 'modeOfHolding')?((reverseOrder)?('arrow-down') : ('arrow-up') ) : ('')">Branch Code</th>
+                                    <!--                                    <th ng-click="(sortedColumn == 'verifiedStatus')?(reverseOrder=(!reverseOrder)): (reverseOrder = false);sortedColumn = 'verifiedStatus';" ng-class="(sortedColumn == 'verifiedStatus')?((reverseOrder)?('arrow-down') : ('arrow-up') ) : ('')">Verified status</th>-->
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr class="cp"
+                                    ng-repeat="x in vm.otherBankDetailslist | filter:vm.searchSolId | orderBy:sortedColumn:reverseOrder"
+                                    ng-click="vm.bankCodeMicr= x.bankCode;vm.branchCodeMicr = x.branchCode;" data-bs-dismiss="modal">
+
+                                    <td>{{x.bankCode}}</td>
+                                    <td>{{x.branchCode}}</td>
+                                    <!--                                    <td>{{x.verifiedStatus | getLabelFromValuesArray : vm.commonYesNoMetaData}}</td>-->
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="list_wrapper" ng-if="vm.blaDataList.length==0">No records found to display.</div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+

@@ -1,0 +1,103 @@
+<div class="loader-new" ng-if="vm.loader"></div>
+<cbs-left-menu></cbs-left-menu>
+
+<div class="container from_wrapper new_form_wrapper">
+	<h4 class="form_heading  feature-heading">Other Bank Details -
+		Verify</h4>
+
+		<table class="table table-bordered table-striped list">
+			<thead>
+		    	<tr>
+		        	<th width="25%">Particular</th>
+		        	<th width="25%" ng-if="!vm.newValueDisplay">Value</th>
+		        	<th width="12.5%" ng-if="vm.newValueDisplay">New Value</th>
+		        	<th width="12.5%" ng-if="vm.newValueDisplay">Old Value</th>
+		    	</tr>
+		    </thead>
+			<tbody>
+				<tr>
+					<td>
+						<label for="bankCode" class="control-label">Bank code</label>
+					</td>
+					<td ng-if="vm.newValueDisplay">
+						<label class="data-bind" id="bankCode_new">{{vm.cbsOtherBankDetailsNewScope.bankCode}}</label>
+					</td>
+					<td>
+						<label class="data-bind" id="bankCode">{{vm.cbsOtherBankDetails.bankCode}}</label>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<label for="bankName" class="control-label">Branch Name</label>
+					</td>
+					<td ng-if="vm.newValueDisplay">
+						<label class="data-bind" id="bankName_new">{{vm.cbsOtherBankDetailsNewScope.bankName}}</label>
+					</td>
+					<td>
+						<label class="data-bind" id="bankName">{{vm.cbsOtherBankDetails.bankName}}</label>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<label for="bankShortName" class="control-label">Bank identifier</label>
+					</td>
+					<td ng-if="vm.newValueDisplay">
+						<label class="data-bind" id="bankShortName_new">{{vm.cbsOtherBankDetailsNewScope.bankShortName}}</label>
+					</td>
+					<td>
+						<label class="data-bind" id="bankShortName">{{vm.cbsOtherBankDetails.bankShortName}}</label>
+					</td>
+				</tr>
+			
+				<tr>
+					<td>
+						<label for="additionalText1" class="control-label">Additional Text1</label>
+					</td>
+					<td ng-if="vm.newValueDisplay">
+						<label class="data-bind" id="additionalText1_new">{{vm.cbsOtherBankDetailsNewScope.additionalText1}}</label>
+					</td>
+					<td>
+						<label class="data-bind" id="additionalText1">{{vm.cbsOtherBankDetails.additionalText1}}</label>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<label for="additionalText2" class="control-label">Additional Text2</label>
+					</td>
+					<td ng-if="vm.newValueDisplay">
+						<label class="data-bind" id="additionalText2_new">{{vm.cbsOtherBankDetailsNewScope.additionalText2}}</label>
+					</td>
+					<td>
+						<label class="data-bind" id="additionalText2">{{vm.cbsOtherBankDetails.additionalText2}}</label>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<label for="additionalText3" class="control-label">Additional Text3</label>
+					</td>
+					<td ng-if="vm.newValueDisplay">
+						<label class="data-bind" id="additionalText3_new">{{vm.cbsOtherBankDetailsNewScope.additionalText3}}</label>
+					</td>
+					<td>
+						<label class="data-bind" id="additionalText3">{{vm.cbsOtherBankDetails.additionalText3}}</label>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+
+	<div class="row" ng-if="vm.cbsOtherBankDetails">
+		<div class="col-sm-7"></div>
+		
+		<label class="control-label col-sm-5"><b>Verify Status : N</b></label>
+	</div>
+		<div class="row">
+			<div class="text-center form_submit">
+				<button type="button" class="btn btn-default" id="submitButton"
+					ng-click="vm.verify();" ng-disabled="otherBankDetailsForm.$invalid">Verify</button>
+				<button type="button" class="btn btn-cancel" id="cancelButton"
+					onclick="window.location.href = '#!/cbs_other_bank_details/action/verify'">Cancel</button>
+			</div>
+		</div>
+	
+</div>
+

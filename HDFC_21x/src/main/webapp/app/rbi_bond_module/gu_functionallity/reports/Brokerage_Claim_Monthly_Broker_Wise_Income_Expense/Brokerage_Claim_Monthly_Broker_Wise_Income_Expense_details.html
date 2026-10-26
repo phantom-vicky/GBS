@@ -1,0 +1,322 @@
+<div class="loader-new" ng-if="vm.loader"></div>
+<div class="container" data-ng-if="vm.header1.length>0">
+  <div class="container from_wrapper new_form_wrapper">
+    <div class="text-right form_submit">
+      <button type="submit" class="btn btn-default" onclick="window.location.href ='#!/';" id="homeButton">Home</button>
+
+      <button
+        type="button"
+        id="cancel_Button"
+        class="btn btn-cancel"
+        onclick="window.location.href= '#!/brokerage_claim_monthly_broker_wise_income&expense/action/inquiry';"
+      >
+        Back
+      </button>
+    </div>
+
+    <h4 class="form_heading">Brokerage Claim_Monthly_Broker Wise Income & Expense</h4>
+
+    <sol-header></sol-header>
+
+    <form name="vm.bondNominationsForm" role="form">
+      <table
+        class="table table-bordered table-striped list nowrap table-textWrap datatable"
+
+      >
+        <thead>
+          <tr>
+            <th scope="col" ng-bind="vm.brokerageClaimHeader"></th>
+            <th scope="col">Gross Brokerage</th>
+            <th scope="col">Net Brokerage</th>
+            <th scope="col">GST</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat="row in vm.header1">
+            <td>Brokerage to Bank ( Direct Customers )</td>
+            <td>{{vm.indianNumberFormat(row.dirGrossAmt)}}</td>
+            <td>{{vm.indianNumberFormat(row.dirNetAmt)}}</td>
+            <td>{{vm.indianNumberFormat(row.dirGst)}}</td>
+          </tr>
+          <tr ng-repeat="row in vm.header1">
+            <td ng-bind="vm.brokeragePaymentHeader"></td>
+            <td>{{vm.indianNumberFormat(row.othersGrossAmt)}}</td>
+            <td>{{vm.indianNumberFormat(row.othersNetAmt)}}</td>
+            <td>{{vm.indianNumberFormat(row.othersGst)}}</td>
+          </tr>
+          <tr ng-repeat="row in vm.header1">
+            <td>Commission</td>
+            <td>{{vm.indianNumberFormat(row.commissionGross)}}</td>
+            <td>{{vm.indianNumberFormat(row.commissionNet)}}</td>
+            <td>{{vm.indianNumberFormat(row.commissionGst)}}</td>
+          </tr>
+          <tr ng-repeat="row in vm.header1">
+            <td>100% Brokerage</td>
+            <td>{{vm.indianNumberFormat(vm.dirtotal)}}</td>
+            <td>{{vm.indianNumberFormat(vm.othersTotal)}}</td>
+            <td>{{vm.indianNumberFormat(vm.commissionTotal)}}</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <table class="table table-bordered table-striped list nowrap table-textWrap datatable">
+        <thead>
+          <tr>
+            <th scope="col">Code</th>
+            <th scope="col">GL No</th>
+            <th scope="col">GL Description</th>
+            <th scope="col">Amount(Dr.)</th>
+            <th scope="col">Amount(Cr.)</th>
+            <th scope="col">Narration to be captured</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>716</td>
+            <td>190602412</td>
+            <td>Dr</td>
+            <td>1,509,648.31</td>
+            <td></td>
+            <td ng-bind="vm.brokeragetoBank"></td>
+          </tr>
+          <tr>
+            <td>542</td>
+            <td>490204234</td>
+            <td>Cr</td>
+            <td></td>
+            <td>1,509,648.31</td>
+            <td>Ser Tax code 518</td>
+          </tr>
+          <tr>
+            <td>716</td>
+            <td>190602412</td>
+            <td>Dr</td>
+            <td>1,400,723.75</td>
+            <td></td>
+            <td ng-bind="vm.commissionAmountHeader"></td>
+          </tr>
+          <tr>
+            <td>542</td>
+            <td>490204233</td>
+            <td>Cr</td>
+            <td></td>
+            <td>1,400,723.75</td>
+            <td>Ser Tax code 517</td>
+          </tr>
+          <tr>
+            <td>716</td>
+            <td>190602412</td>
+            <td>Dr</td>
+            <td>7,986,783.90</td>
+            <td></td>
+            <td ng-bind=" vm.brokerageAmount"></td>
+          </tr>
+          <tr>
+            <td>542</td>
+            <td>490204234</td>
+            <td>Cr</td>
+            <td></td>
+            <td>7,986,783.90</td>
+            <td>Ser Tax code 518</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="row" style="display: flex; align-items: center; justify-content: space-between">
+        <div class="col-sm-3" style="flex: 1">
+          <div class="form-group">
+            <table style="border-spacing: 2" aria-label="BPRR">
+              <tr>
+                <th scope="col"></th>
+              </tr>
+              <tr>
+                <td>Show&nbsp;</td>
+                <td>
+                  <select class="form-control pageDropDown" id="pageSize"
+                    name="pageSize" ng-model="vm.pageSize"
+                    ng-init="vm.pageSize='5'"
+                    ng-change="vm.pageNo='1'; vm.getDetailspage();"
+                    ng-disabled="vm.noDataFoundInSearch"
+                  >
+                    <option value="5">5 per page</option>
+                    <option value="10">10 per page</option>
+                    <option value="20">20 per page</option>
+                    <option value="50">50 per page</option>
+                  </select>
+                </td>
+              </tr>
+            </table>
+          </div>
+        </div>
+
+                <div class="col-sm-6" style="display: flex; align-items: center; justify-content: flex-end">
+                    <div class="form-group" style="margin-right: 15px">
+                        <div class="input-group">
+                            <input type="text" id="search" class="form-control" data-ng-model="vm.searchValue" placeholder="Search" />
+                            <div class="input-group-addon">
+                                <span class="glyphicon glyphicon-search" data-ng-click="vm.pageNo = 1; vm.getDetailspage()"></span>
+                            </div>
+                            <div class="input-group-addon">
+                                <span class="glyphicon glyphicon-remove clear cp" data-ng-click="vm.searchValue='';vm.pageNo = 1; vm.getDetailspage(); "></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <select
+                                class="form-control"
+                                id="export"
+                                name="export"
+                                data-ng-model="vm.downloadType"
+                                data-ng-init="vm.downloadType=''"
+                                data-ng-change="vm.downloadReport()"
+                                data-ng-disabled="vm.noDataFoundInSearch"
+                        >
+                            <option value="">EXPORT</option>
+                            <option value="excel">EXCEL</option>
+                            <option value="csv">CSV</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+      <div class="table-responsive">
+        <!-- Second Table (Only Displays If There Are Relevant Records) -->
+
+        <table
+          class="table table-bordered table-striped list nowrap table-textWrap datatable"
+
+        >
+          <thead data-ng-if="!vm.noDataFoundInSearch">
+            <tr>
+              <th scope="col">S.No</th>
+              <th scope="col">BLA_NO</th>
+              <th scope="col">INVEST_AMT</th>
+              <th scope="col">CAS_TRANSFER_DATE</th>
+              <th scope="col">MATURITY_DATE</th>
+              <th scope="col">SCHEME</th>
+              <th scope="col">CFD</th>
+              <th scope="col">BRANCH_REF_NO</th>
+              <th scope="col">Pan Number</th>
+              <th scope="col">Bank Name</th>
+              <th scope="col">Advice_No</th>
+              <th scope="col">APPLICANT_NAME</th>
+              <th scope="col">ADDR1</th>
+              <th scope="col">ADDR2</th>
+              <th scope="col">CITY</th>
+              <th scope="col">STATE</th>
+              <th scope="col">PIN_CODE</th>
+              <th scope="col">BRANCH_NAME</th>
+              <th scope="col">RCPT_DATE</th>
+              <th scope="col">GROUP_CODE</th>
+              <th scope="col">HDFC_BROKER_CODE</th>
+              <th scope="col">BROKER_NAME</th>
+              <th scope="col">ADDR1</th>
+              <th scope="col">ADDR2</th>
+              <th scope="col">CITY</th>
+              <th scope="col">STATE</th>
+              <th scope="col">PIN_CODE</th>
+              <th scope="col">PHONE</th>
+              <th scope="col">PAYMENT_MODE</th>
+              <th scope="col">ACCOUNT_TYPE_CODE</th>
+              <th scope="col">BANK_ACCOUNT</th>
+              <th scope="col">MICR_CODE</th>
+              <th scope="col">APPL_NO</th>
+              <th scope="col">Status</th>
+              <th scope="col">DE_STATUS</th>
+              <th scope="col">Broker_Amt</th>
+              <th scope="col">Gross Brok</th>
+              <th scope="col">Net Brok</th>
+              <th scope="col">GST</th>
+            </tr>
+          </thead>
+          <tbody data-ng-if="!vm.noDataFoundInSearch">
+            <tr dir-paginate="row in vm.filteredRecords | itemsPerPage: itemsPerPage" pagination-id="trailRunRep">
+              <td>{{ ($index + 1) + ((vm.pageNo - 1) * vm.pageSize) }}</td>
+              <td>{{row.blaNo}}</td>
+              <td>{{vm.indianNumberFormat(row.investAmt)}}</td>
+              <td>{{row.casTransferDate}}</td>
+              <td>{{row.maturityDate}}</td>
+              <td>{{row.scheme}}</td>
+              <td>{{row.cfd}}</td>
+              <td>{{row.branchrefno}}</td>
+              <td>{{row.panNo}}</td>
+              <td>{{row.bankName}}</td>
+              <td>{{row.adviceNo}}</td>
+              <td>{{row.appName}}</td>
+              <td>{{row.addrs1}}</td>
+              <td>{{row.addrs2}}</td>
+              <td>{{row.city}}</td>
+              <td>{{row.state}}</td>
+              <td>{{row.pincode}}</td>
+              <td>{{row.branchName}}</td>
+              <td>{{row.rcptDate}}</td>
+              <td>{{row.groupDate}}</td>
+              <td>{{row.hdfcBrokerCode}}</td>
+              <td>{{row.brokerName}}</td>
+              <td>{{row.addr1}}</td>
+              <td>{{row.addr2}}</td>
+              <td>{{row.city1}}</td>
+              <td>{{row.state1}}</td>
+              <td>{{row.pincode1}}</td>
+              <td>{{row.phone}}</td>
+              <td>{{row.paymentMode}}</td>
+              <td>{{row.accTypeCode}}</td>
+              <td>{{row.bankAcc}}</td>
+              <td>{{row.micrCode}}</td>
+              <td>{{row.appNo}}</td>
+              <td>{{row.status}}</td>
+              <td>{{row.deStatus}}</td>
+              <td>{{vm.indianNumberFormat(row.brokerAmt)}}</td>
+              <td>{{vm.indianNumberFormat(row.grossBrok)}}</td>
+              <td>{{vm.indianNumberFormat(row.netBrok)}}</td>
+              <td>{{vm.indianNumberFormat(row.gst1)}}</td>
+            </tr>
+          </tbody>
+          <tbody data-ng-if="vm.noDataFoundInSearch">
+            <tr>
+              <td style="text-align: center">No Records Found</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="text-center form_submit">
+        <span data-ng-show="vm.showPrevious">
+          <button type="submit" class="btn btn-default" data-ng-click="vm.goPreviousPage()">Prev</button>
+        </span>
+
+        <span>
+          <button
+            type="submit"
+            class="btn btn-default"
+            data-ng-disabled="true"
+            data-ng-init="vm.pageNo=1"
+            data-ng-model="vm.pageNo"
+            data-ng-click="vm.paymentStatus();"
+          >
+            {{vm.pageNo}} of {{vm.maxPages}}
+          </button>
+        </span>
+
+        <span data-ng-show="vm.showNext">
+          <button type="submit" class="btn btn-default" data-ng-click="vm.goNextPage();">Next</button>
+        </span>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div class="container" data-ng-if="vm.noDataFound">
+  <div class="list_wrapper no_records_message">
+    <h4 class="form_heading">Brokerage Claim_Monthly_Broker Wise Income & Expense</h4>
+    No records found to display.
+    <div style="text-align: center">
+      <button
+        type="button"
+        class="btn btn-default"
+        onclick="window.location.href='#!/brokerage_claim_monthly_broker_wise_income&expense/action/inquiry';"
+      >
+        Back
+      </button>
+    </div>
+  </div>
+</div>

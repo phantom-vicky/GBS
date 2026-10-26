@@ -1,0 +1,183 @@
+<div class="loader-new" ng-if="vm.loader"></div>
+<div class="container from_wrapper new_form_wrapper">
+
+    <div class="text-right form_submit">
+        <button
+                type="submit"
+                class="btn btn-default"
+                onclick="window.location.href ='#!/';"
+                id="homeButton"
+        >
+            Home
+        </button>
+        <button
+                type="button"
+                class="btn btn-cancel"
+                onclick="window.location.href= '#!/unlock_bla/action/inquiry';"
+                id="homeButton1"
+        >
+            Back
+        </button>
+    </div>
+
+    <table width="100%" class="table table-bordered">
+
+        <tr>
+            <h4 class="form_heading">Unlock BLA
+            </h4>
+            <sol-header></sol-header>
+            <th>Name of the scheme Bond</th>
+            <td>{{vm.schemeName}}</td>
+        </tr>
+    </table>
+
+<!--    <div class="col-sm-3">-->
+<!--        <div class="form-group">-->
+<!--            <label>-->
+<!--                Show-->
+<!--                <select class="form-control record-filter" ng-model="vm.itemsPerPage">-->
+<!--                    <option value='5'>5</option>-->
+<!--                    <option value='10'>10</option>-->
+<!--                    <option value='25'>25</option>-->
+<!--                    <option value='50'>50</option>-->
+<!--                </select>-->
+<!--                records per page-->
+<!--            </label>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--    <div class="col-sm-3 pull-right-search">-->
+<!--        <div class="form-group">-->
+<!--            <div class="input-group">-->
+<!--                <div class="input-group-addon"><i class="glyphicon glyphicon-search"></i></div>-->
+<!--                <input type="text" class="form-control" ng-model="search" placeholder="Search"  chars="alpha-numeric"chars="alpha-numeric">-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+
+    <div class="row" style="display: flex; align-items: center; justify-content: space-between">
+        <div class="col-sm-3" style="flex: 1">
+            <div class="form-group">
+                <table style="border-spacing: 2">
+                    <tr>
+                        <td>Show&nbsp;</td>
+                        <td>
+                            <select id="pageSize" class="form-control filter-control" data-ng-model="vm.pageSize" data-ng-change="vm.updatePageSize()" data-ng-options="option for option in vm.pageSizeOptions"></select>
+                        </td>
+                        <td>&nbsp;records per page</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+        <div class="col-sm-6" style="display: flex; align-items: center; justify-content: flex-end">
+            <div class="form-group" style="margin-right: 15px">
+                <div class="input-group">
+                    <div class="input-group-addon">
+                        <i class="glyphicon glyphicon-search"></i>
+                    </div>
+                    <input type="text" id="search" class="form-control" data-ng-change="vm.updateFilteredRecords()" data-ng-model="vm.searchText" placeholder="Search" />
+                </div>
+            </div>
+<!--            <div class="form-group">-->
+<!--                <select class="form-control" id="export" name="export" data-ng-model="vm.downloadType" data-ng-init="vm.downloadType=''" data-ng-change="vm.downloadReport()">-->
+<!--                    <option value="">EXPORT</option>-->
+<!--                    <option value="excel">EXCEL</option>-->
+<!--                    <option value="csv">CSV</option>-->
+<!--                    <option value="pdf">PDF</option>-->
+<!--                </select>-->
+<!--            </div>-->
+        </div>
+    </div>
+
+    <table class="table table-bordered table-striped list">
+        <thead>
+        <tr>
+
+            <th>
+                <input
+                        type="checkbox"
+                        name="select_all_user_name"
+                        ng-model="vm.IsAllChecked"
+                        ng-click="vm.CheckUncheckAll()"
+                        title="Select All"> Check Box
+            </th>
+            <th>S.No</th>
+            <th>PAN No</th>
+            <th>Customer Name</th>
+            <th>Locked at Maker / Checker Level</th>
+            <th>Maker Id/Checker ID</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="user in vm.filteredRecords.slice((vm.currentPage-1)*vm.pageSize, vm.currentPage*vm.pageSize)">
+            <td>
+                <input
+                        type="checkbox"
+                        id="user_{{user.userId}}"
+                        name="user_name"
+                        ng-model="user.Selected"
+                        ng-change="vm.CheckUncheckHeader()"
+                >
+            </td>
+            <td>{{(vm.currentPage - 1)*vm.pageSize + $index + 1}}</td>
+            <td>{{user.panNum}}</td>
+            <td>{{user.bondHolderName}}</td>
+            <td>{{user.lockedStatus}}</td>
+            <td>{{user.makerCheckerId}}</td>
+
+        </tr>
+        </tbody>
+    </table>
+
+
+    <div class="row">
+        <div
+                ng-if="vm.filteredRecords.length != 0"
+                class="col-md-12 text-right">
+            <div class="pagination-container">
+                <ul class="pagination">
+                    <li ng-class="{disabled: vm.currentPage === 1}">
+                        <a href="javascript:void(0)" ng-click="vm.firstPage()"
+                        >First</a>
+                    </li>
+                    <li ng-class="{disabled: vm.currentPage === 1}">
+                        <a href="javascript:void(0)" ng-click="vm.prevPage()"
+                        >Prev</a>
+                    </li>
+                    <li
+                            ng-repeat="page in vm.pages"
+                            ng-class="{active: vm.page === vm.currentPage}">
+                        <a href="javascript:void(0)" ng-click="vm.setPage(page)"
+                        >{{page}}</a>
+                    </li>
+                    <li ng-class="{disabled: vm.currentPage === vm.totalPages}">
+                        <a href="javascript:void(0)" ng-click="vm.nextPage()"
+                        >Next</a>
+                    </li>
+                    <li ng-class="{disabled: vm.currentPage === vm.totalPages}">
+                        <a href="javascript:void(0)" ng-click="vm.lastPage()"
+                        >Last</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        Showing {{(vm.currentPage-1)*vm.pageSize + 1}} to
+        {{vm.maxValue()}} of
+        {{vm.filteredRecords.length}} records
+    </div>
+<!--    <dir-pagination-controls direction-links="true" boundary-links="true">-->
+<!--    </dir-pagination-controls>-->
+
+    <div class="list_wrapper no_records_message" ng-if="vm.users.length <= 0">No records found to display.</div>
+
+
+
+    <div class="text-center form_submit">
+        <button type="submit" class="btn btn-default" id="button" ng-click="vm.unlockBlaSubmit();"
+                ng-disabled="vm.validateSubmitCheckbox()">Unlock</button>
+        <button type="button" id="cancelButton" class="btn btn-cancel"
+                onclick="window.location.href= '#!/unlock_bla/action/inquiry';">Cancel</button>
+    </div>
+</div>

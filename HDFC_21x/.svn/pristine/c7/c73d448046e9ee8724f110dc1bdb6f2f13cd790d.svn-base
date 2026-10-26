@@ -1,0 +1,278 @@
+<div class="loader-new" ng-if="vm.loader"></div>
+<cbs-left-menu></cbs-left-menu>
+<div class="container from_wrapper new_form_wrapper">
+  <h4 class="form_heading feature-heading">Branches Of the Bank - Add</h4>
+
+  <form name="cbsBranchesOfTheBankForm" role="form">
+    <div class="row">
+      <div class="form-group">
+        <div class="col-sm-3 required">
+          <label for="solId" class="control-label">Sol ID/Branch ID</label>
+        </div>
+        <div class="col-sm-2 inner-addon right-addon">
+          <input type="text" class="form-control" id="solId" name="solId" chars="only-numbers" ng-model="vm.cbsBranchesOfTheBank.solId" maxlength="5" required leading-space />
+        </div>
+        <div class="col-sm-2"></div>
+        <div class="col-sm-3 required">
+          <label for="solDesc" class="control-label">Branch Name Description</label>
+        </div>
+        <div class="col-sm-2">
+          <input type="text" class="form-control" id="solDesc" name="solDesc" ng-model="vm.cbsBranchesOfTheBank.solDesc" maxlength="30" chars="alpha-numeric" required leading-space />
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="form-group">
+        <div class="col-sm-3">
+          <label for="bankCode" class="control-label">Bank Code</label>
+        </div>
+        <div class="col-sm-2">
+          <input type="text" class="form-control" id="bankCode" chars="alpha-numeric" name="bankCode" ng-model="vm.cbsBranchesOfTheBank.bankCode" maxlength="10" leading-space />
+        </div>
+        <div class="col-sm-2"></div>
+
+        <div class="col-sm-3">
+          <label for="divisionName" class="control-label">Branch Email ID </label>
+        </div>
+        <div class="col-sm-2">
+          <input
+            type="email"
+            class="form-control"
+            id="branchEmailId"
+            name="branchEmailId"
+            ng-model="vm.cbsBranchesOfTheBank.branchEmailId"
+            maxlength="30"
+            ng-pattern="vm.emailPattern"
+            oninput="this.value = this.value.replace(/\s+/g, '')"
+            leading-space
+          />
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="form-group">
+        <div class="col-sm-3">
+          <label for="micrCertreCode" class="control-label">MICR Center Code</label>
+        </div>
+        <div class="col-sm-2">
+          <input type="text" class="form-control" id="micrCertreCode" name="micrCertreCode" chars="only-numbers" ng-model="vm.cbsBranchesOfTheBank.micrCertreCode" maxlength="3" leading-space />
+        </div>
+        <div class="col-sm-2"></div>
+        <div class="col-sm-3">
+          <label for="micrBankCode" class="control-label">MICR Bank Code</label>
+        </div>
+        <div class="col-sm-2">
+          <input type="text" class="form-control" id="micrBankCode" name="micrBankCode" chars="only-numbers" ng-model="vm.cbsBranchesOfTheBank.micrBankCode" maxlength="3" leading-space />
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="form-group">
+        <div class="col-sm-3">
+          <label for="micrBranchCode" class="control-label">MICR Branch Code</label>
+        </div>
+        <div class="col-sm-2">
+          <input type="text" class="form-control" id="micrBranchCode" name="micrBranchCode" chars="only-numbers" ng-model="vm.cbsBranchesOfTheBank.micrBranchCode" maxlength="3" leading-space />
+        </div>
+        <div class="col-sm-2"></div>
+        <div class="col-sm-3 required">
+          <label for="addr1" class="control-label">Address1</label>
+        </div>
+        <div class="col-sm-2">
+          <input
+            type="text"
+            class="form-control"
+            id="addr1"
+            name="addr1"
+            ng-model="vm.cbsBranchesOfTheBank.addr1"
+            oninput="if (!this.value.trim().startsWith(' ')) { this.value = this.value.replace(/^\s+/, ''); }"
+            maxlength="30"
+            required
+            leading-space
+          />
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="form-group">
+        <div class="col-sm-3 required">
+          <label for="addr2" class="control-label">Address2</label>
+        </div>
+        <div class="col-sm-2">
+          <input
+            type="text"
+            class="form-control"
+            id="addr2"
+            name="addr2"
+            ng-model="vm.cbsBranchesOfTheBank.addr2"
+            oninput="if (!this.value.trim().startsWith(' ')) { this.value = this.value.replace(/^\s+/, ''); }"
+            maxlength="30"
+            required
+            leading-space
+          />
+        </div>
+        <div class="col-sm-2"></div>
+        <div class="col-sm-3">
+          <label for="branchLoc" class="control-label">Branch Location </label>
+        </div>
+        <div class="col-sm-2">
+          <input type="text" class="form-control" id="branchLoc" name="branchLoc" chars="alpha-numeric" ng-model="vm.cbsBranchesOfTheBank.branchLocation" maxlength="30" leading-space />
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="form-group">
+        <div class="col-sm-3">
+          <label for="cityCode" class="control-label">City Name</label>
+        </div>
+        <div class="col-sm-2">
+          <input type="text" class="form-control" id="cityCode" chars="alpha-numeric" name="cityCode" ng-model="vm.cbsBranchesOfTheBank.cityCode" maxlength="20" leading-space />
+        </div>
+        <div class="col-sm-2"></div>
+        <div class="col-sm-3">
+          <label for="state" class="control-label">State Name</label>
+        </div>
+        <!--				<div class="col-sm-2">-->
+        <!--					<input type="text" class="form-control" name="stateCode"-->
+        <!--						   chars="only-numbers" id="stateCode"-->
+        <!--						   ng-model="vm.cbsBranchesOfTheBank.stateCode" maxlength="3"-->
+        <!--						   leading-space>-->
+
+        <div class="col-sm-2">
+          <select class="form-control" id="state" name="state" ng-model="vm.cbsBranchesOfTheBank.stateCode" ng-init="vm.getState()" required>
+            <option value="" hidden="true">Select State</option>
+            <option ng-repeat="item in vm.stateList" value="{{item.subCode}}">{{item.subCodeDescription}}</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="form-group">
+        <div class="col-sm-3 required">
+          <label for="pinCode" class="control-label">Pin Code</label>
+        </div>
+        <div class="col-sm-2">
+          <input type="text" class="form-control" id="pinCode" name="pinCode" ng-model="vm.cbsBranchesOfTheBank.pinCode" maxlength="6" chars="only-numbers" required leading-space />
+        </div>
+        <div class="col-sm-2"></div>
+        <div class="col-sm-3">
+          <label for="panGirNumber" class="control-label">PAN No</label>
+        </div>
+        <div class="col-sm-2">
+          <input type="text" class="form-control" id="panGirNumber" name="panGirNumber" chars="alpha-numeric" ng-model="vm.cbsBranchesOfTheBank.panGirNumber" maxlength="10" ng-pattern="/[a-zA-Z]{5}[0-9]{4}[a-zA-Z]{1}/" leading-space />
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="form-group">
+        <div class="col-sm-3">
+          <label for="taxDednDetails" class="control-label">TAN No</label>
+        </div>
+        <div class="col-sm-2">
+          <input type="text" class="form-control" id="taxDednDetails" name="taxDednDetails" chars="only-numbers" ng-model="vm.cbsBranchesOfTheBank.taxDednDetails" maxlength="6" leading-space />
+        </div>
+        <div class="col-sm-2"></div>
+        <div class="col-sm-3">
+          <label for="tdsCircleName" class="control-label">TDS Circle Name</label>
+        </div>
+        <div class="col-sm-2">
+          <input type="text" class="form-control" id="tdsCircleName" name="tdsCircleName" chars="alpha-numeric" ng-model="vm.cbsBranchesOfTheBank.tdsCircleName" maxlength="6" leading-space />
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="form-group">
+        <div class="col-sm-3">
+          <label for="divisionName" class="control-label">Division Name</label>
+        </div>
+        <div class="col-sm-2">
+          <input type="text" class="form-control" id="divisionName" name="divisionName" chars="alpha-numeric" ng-model="vm.cbsBranchesOfTheBank.divisionName" maxlength="12" leading-space />
+        </div>
+        <div class="col-sm-2"></div>
+        <div class="col-sm-3">
+          <label for="circlOfficeName" class="control-label">Circle Office Name</label>
+        </div>
+        <div class="col-sm-2">
+          <input type="text" class="form-control" id="circlOfficeName" name="circlOfficeName" chars="alpha-numeric" ng-model="vm.cbsBranchesOfTheBank.circlOfficeName" maxlength="30" leading-space />
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="form-group">
+        <div class="col-sm-3">
+          <label for="uniformBrCode" class="control-label">Uniform Branch Code</label>
+        </div>
+        <div class="col-sm-2">
+          <input type="text" class="form-control" id="uniformBrCode" name="uniformBrCode" ng-model="vm.cbsBranchesOfTheBank.uniformBrCode" maxlength="6" chars="only-numbers" leading-space />
+        </div>
+        <div class="col-sm-2"></div>
+        <div class="col-sm-3">
+          <label for="status" class="control-label">Bank Status</label>
+        </div>
+        <div class="col-sm-2">
+          <select class="form-control" name="status" id="status" ng-model="vm.cbsBranchesOfTheBank.branchStatus" ng-init="vm.getStatus(); vm.cbsBranchesOfTheBank.branchStatus = ''">
+            <option value="">Select</option>
+            <option ng-repeat="(value, item) in vm.statusList" ng-value="{{value}}">{{item}}</option>
+          </select>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="form-group">
+        <div class="col-sm-3">
+          <label for="divisionName" class="control-label">Zone Code </label>
+        </div>
+        <div class="col-sm-2">
+          <input type="text" class="form-control" id="zoneCode" name="zoneCode" chars="only-numbers" ng-model="vm.cbsBranchesOfTheBank.zoneCode" maxlength="3" leading-space />
+        </div>
+        <div class="col-sm-2"></div>
+        <div class="col-sm-3">
+          <label for="circlOfficeName" class="control-label">Zone Name </label>
+        </div>
+        <div class="col-sm-2">
+          <input type="text" class="form-control" id="zoneName" name="zoneName" chars="alpha-numeric" ng-model="vm.cbsBranchesOfTheBank.zoneName" maxlength="30" leading-space />
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="form-group">
+        <div class="col-sm-3 required">
+          <label for="divisionName" class="control-label">PDO Code</label>
+        </div>
+        <div class="col-sm-2">
+          <input type="text" class="form-control" id="pdoCode" name="pdoCode" chars="alpha-numeric" ng-model="vm.cbsBranchesOfTheBank.pdoCode" maxlength="30" required leading-space />
+        </div>
+        <div class="col-sm-2"></div>
+        <div class="col-sm-3 required">
+          <label for="circlOfficeName" class="control-label">Short Name</label>
+        </div>
+        <div class="col-sm-2">
+          <input type="text" class="form-control" id="shortName" name="shortName" chars="alpha-numeric" ng-model="vm.cbsBranchesOfTheBank.shortName" maxlength="10" required leading-space />
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="form-group">
+        <div class="col-sm-3">
+          <label for="divisionName" class="control-label">Branch IFSC Code</label>
+        </div>
+        <div class="col-sm-2">
+          <input type="text" class="form-control" id="ifscCode" name="ifscCode" chars="alpha-numeric" ng-model="vm.cbsBranchesOfTheBank.ifscCode" minlength="11" maxlength="11" ng-pattern="vm.ifscPattern" leading-space />
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-sm-offset-5 col-sm-8 form_submit">
+        <button type="submit" class="btn btn-default" id="submitButton" ng-disabled="cbsBranchesOfTheBankForm.$invalid" ng-click="vm.add()">Submit</button>
+        <button type="button" class="btn btn-cancel" id="cancelButton" ng-click="vm.showCancelConfirmation('cbs_branches_of_the_bank.list')">Cancel</button>
+      </div>
+    </div>
+    <div class="text-center">
+      <notice-message-directive></notice-message-directive>
+    </div>
+  </form>
+</div>

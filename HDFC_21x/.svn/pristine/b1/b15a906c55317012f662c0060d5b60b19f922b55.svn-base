@@ -1,0 +1,115 @@
+<div class="loader-new" ng-if="vm.loader"></div>
+<dc-left-menu></dc-left-menu>
+<div class="container from_wrapper new_form_wrapper" ng-if="vm.inquiryDetailsForPagination.length >0">
+
+    <h4 class="form_heading">Bond Actual Interest Payment – Inquiry</h4>
+    <sol-header></sol-header>
+
+    <form name="vm.bondNominationsForm" role="form">
+        <h4 class="form_heading">Bond Actual Interest Payment Details for the half year ended {{vm.halfYear}} month and
+            {{vm.year}} year</h4>
+        <h4 align="center">BOD Date:{{vm.bodDate}} </h4>
+
+        <div class="row">
+            <div class="pagination-container">
+                <div class="col-sm-3">
+                    <div class="form-group">
+                        <label>
+                            Show
+                            <select id="pageSize" class="form-control filter-control" ng-model="vm.pageSizeForInq"
+                                    ng-change="vm.updatePageSizeForInq()"
+                                    ng-options="option for option in vm.pageSizeOptions"></select>
+                            records per page
+                        </label>
+                    </div>
+                </div>
+                <div class="col-sm-3 pull-right">
+                    <div class="form-group">
+                        <div class="input-group">
+                            <div class="input-group-addon"><i class="glyphicon glyphicon-search"></i></div>
+                            <input type="text" id="search" class="form-control"
+                                   ng-change="vm.updateInquiryDetailsForPagination()" ng-model="vm.searchTextForInq"
+                                   Placeholder="Search">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="table-responsive">
+            <table class="table table-bordered table-striped list nowrap table-textWrap datatable">
+                <thead>
+                <tr>
+                    <th>Sr No</th>
+                    <th>Bla No</th>
+                    <th>Appl Name 1</th>
+                    <th>Appl Name 2</th>
+                    <th>Appl Name 3</th>
+                    <th>Investment Amount</th>
+                    <th>Account No</th>
+                    <th>Pan No</th>
+                    <th>Tds Amount</th>
+                    <th>Payment Date</th>
+                    <th>Total Amount To Be Paid</th>
+                    <th>Tran ID</th>
+                    <th>Payment Status(PAID/Return)</th>
+                    <th>Reject Reason</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="user in vm.inquiryDetailsForPagination.slice((vm.currentPageForInq-1)*vm.pageSizeForInq, vm.currentPageForInq*vm.pageSizeForInq)">
+                    <td>{{(vm.currentPageForInq-1)*vm.pageSizeForInq + $index+1}}</td>
+                    <td>{{user.blaNo}}</td>
+                    <td>{{user.appName1}}</td>
+                    <td>{{user.appName2}}</td>
+                    <td>{{user.appName3}}</td>
+                    <td>{{vm.indianNumberFormat(user.investmentAmount)}}</td>
+                    <td>{{user.accountNo}}</td>
+                    <td>{{user.panNoName}}</td>
+                    <td>{{vm.indianNumberFormat(user.tdsAmount)}}</td>
+                    <td>{{user.paymentDate}}</td>
+                    <td>{{vm.indianNumberFormat(user.totalAmtToBePaid)}}</td>
+                    <td>{{user.ref_no || user.refNo}}</td>
+                    <td>{{user.paymentStatus}}</td>
+                    <td>{{user.returnReason}}</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="row">
+            <div ng-if="vm.inquiryDetailsForPagination.length != 0" class="col-md-12 text-right">
+                <div class="pagination-container">
+                    <ul class="pagination">
+                        <li ng-class="{disabled: vm.currentPageForInq === 1}">
+                            <a href="javascript:void(0)" ng-click="vm.firstPageForInq()">First</a>
+                        </li>
+                        <li ng-class="{disabled: vm.currentPageForInq === 1}">
+                            <a href="javascript:void(0)" ng-click="vm.prevPageForInq()">Prev</a>
+                        </li>
+                        <li ng-repeat="page in vm.pagesForInq" ng-class="{active: vm.page === vm.currentPageForInq}">
+                            <a href="javascript:void(0)" ng-click="vm.setPageForInq(page)">{{page}}</a>
+                        </li>
+                        <li ng-class="{disabled: vm.currentPageForInq === vm.totalPagesForInq}">
+                            <a href="javascript:void(0)" ng-click="vm.nextPageForInq()">Next</a>
+                        </li>
+                        <li ng-class="{disabled: vm.currentPageForInq === vm.totalPagesForInq}">
+                            <a href="javascript:void(0)" ng-click="vm.lastPageForInq()">Last</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            Showing {{(vm.currentPageForInq-1)*vm.pageSizeForInq + 1}} to
+            {{Math.min(vm.currentPageForInq*pageSizeForInq, vm.inquiryDetailsForPagination.length)}}
+            of {{vm.inquiryDetailsForPagination.length}} records
+        </div>
+
+        <div class="text-center form_submit">
+            <button type="button" class="btn btn-cancel" id="cancelButton"
+                    onclick="window.location.href= '#!/bond_actual_interest_payment/action/inquiry';">Cancel
+            </button>
+        </div>
+    </form>
+</div>

@@ -1,0 +1,204 @@
+<div class="loader-new" ng-if="vm.loader"></div>
+<dc-left-menu></dc-left-menu>
+<div class="container" ng-if="vm.brokerageInvocieConfirmationDetials.length>0">
+    <div class="text-right form_submit" >
+        <button type="submit" class="btn btn-default"
+                onclick="window.location.href ='#!/rbibond_gu_functionality';" id="homeButton">Home</button>
+        <button type="button" id="cancel_Button" class="btn btn-cancel"
+                onclick="window.location.href= '#!/rbibond_brokerage_invoice_confirmation/add';">Back</button>
+    </div>
+    <div class="container from_wrapper new_form_wrapper">
+        <form name="brokerageInvocieConfirmation" role="form">
+
+        <div class="row">
+
+            <h4 class="text-center"></h4>
+            <h4 class="form_heading">Brokerage Invoice Confirmation -Add</h4>
+            <sol-header></sol-header>
+            <table class="table table-bordered table-striped">
+                <tr>
+                    <td  colspan="3">Name of the Bond Scheme</td>
+                    <td  colspan="3">{{vm.schemeName}}</td>
+                </tr>
+                <tr>
+                    <td colspan="1">Brokerage Payment from date</td>
+                    <td colspan="2">
+                        <span ng-if="vm.subscriptionFromDate">
+                       {{ vm.subscriptionFromDate | date:'dd/MM/yyyy' }}
+                       </span>
+                        <span ng-if="!vm.subscriptionFromDate">-</span>
+                    </td>
+
+                    <td colspan="1">Brokerage Payment to date</td>
+                    <td colspan="2">
+                        <span ng-if="vm.subscriptionToDate">
+                        {{ vm.subscriptionToDate | date:'dd/MM/yyyy' }}
+                        </span>
+                        <span ng-if="!vm.subscriptionToDate">-</span>
+
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="table-responsive">
+                    <table class="table table-bordered table-striped list nowrap table-textWrap datatable"
+                           ui-jq="dataTable">
+                        <thead>
+                        <tr class="thalign">
+                            <th><input type="checkbox" ng-model="vm.selectAll" ng-change="vm.toggleAllAdd(vm.selectAll)"></th>
+                            <th>Invoice Number</th>
+                            <th>Invoice Date</th>
+                            <th>Broker Name</th>
+                            <th>Broker Code</th>
+                            <th>Broker PAN</th>
+                            <th>Broker Email ID</th>
+                            <th>Gross Brokerage </th>
+                            <th>GST</th>
+                            <th>Net Brokerage</th>
+                            <th>VBMS Ref Number</th>
+                            <th>Invoice Receive Date</th>
+                            <th>Invoice Raised on</th>
+                            <th>VBMS Maker</th>
+                            <th>VBMS Checker</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr  ng-repeat="x in vm.brokerageInvocieConfirmationDetials">
+                            <td><input type="checkbox" ng-model="x.selected"></td>
+                            <td>
+                                <input type="text" class="form-control" id="invoiceNumber[$index]"
+                                       maxlength="50" name="invoiceNumber"
+                                       ng-model="x.invoiceNumber" ng-required="x.selected"
+                                       oninput="this.value = this.value.replace(/\s+/g, '')">
+                            <td>{{x.invoiceDate}}</td>
+                            <td>{{x.brokerName}}</td>
+                            <td>{{x.brokerCode}}</td>
+                            <td>{{x.brokerPan }}</td>
+                            <td>{{x.brokerEmailId}}</td>
+                            <td >{{x.grossBrokerage}}</td>
+                            <td >{{x.gst}}</td>
+                            <td >{{x.netBrokerage}}</td>
+                            <td>
+                                <input type="text" class="form-control" id="vbsRefNum[$index]"
+                                       chars="alpha-numeric" leading-space   oninput="this.value = this.value.replace(/\s+/g, '')"
+                                       maxlength="14" name="vbsRefNum"
+                                       ng-model="x.vbsRefNum" ng-required="x.selected"></td>
+                            <td>
+                                <p class="input-group">
+                                    <input type="text" class="form-control" id="invRecieveDate{{$index}}"
+                                           name="effFromDate" ng-model="x.invRecieveDate" ng-init="x.invRecieveDate='';vm.dateValidation();"
+                                           uib-datepicker-popup="dd/MM/yyyy" datepicker-options="vm.dateOptions"
+                                           is-open="vm.effFromDatePickerOpened[$index]" close-text="Close"
+                                           maxlength="10" readonly>
+                                    <span class="input-group-btn">
+                <button type="button" class="btn btn-secondary"
+                        ng-click="vm.effFromDatePickerOpened[$index] = true">
+                    <i class="glyphicon glyphicon-calendar"></i>
+                </button>
+            </span>
+                                </p>
+                            </td>
+
+                            <!-- Inv Raised On Date Datepicker -->
+                            <td>
+                                <p class="input-group">
+                                    <input type="text" class="form-control" id="effToDate{{$index}}"
+                                           name="effToDate" ng-model="x.invRaisedOnDate" ng-init="x.invRaisedOnDate='';vm.dateValidation();"
+                                           uib-datepicker-popup="dd/MM/yyyy" datepicker-options="vm.dateOptions"
+                                           is-open="vm.effToDatePickerOpened[$index]" close-text="Close"
+                                           maxlength="10" readonly>
+                                    <span class="input-group-btn">
+                <button type="button" class="btn btn-secondary"
+                        ng-click="vm.effToDatePickerOpened[$index] = true">
+                    <i class="glyphicon glyphicon-calendar"></i>
+                </button>
+            </span>
+                                </p>
+                            </td>
+                            <td>
+                                <input type="text" class="form-control" id="vbsMakerId[$index]"
+                                       chars="alpha-numeric" leading-space   oninput="this.value = this.value.replace(/\s+/g, '')"
+                                       limit-to="20" name="vbsMakerId"
+                                       ng-model="x.vbsMakerId"></td>
+                            <td>
+                                <input type="text" class="form-control" id="vbsCheckerId[$index]"
+                                       chars="alpha-numeric" leading-space   oninput="this.value = this.value.replace(/\s+/g, '')"
+                                       limit-to="20" name="vbsCheckerId"
+                                       ng-model="x.vbsCheckerId"></td>
+                        </tr>
+                        </tbody>
+
+                        <tfoot>
+                        <tr>
+
+                            <th colspan="5" style="text-align:right">
+                                <button type="submit" id="submitbutton" class="btn btn-default"  ng-disabled="!vm.isAnyCheckboxSelected() || brokerageInvocieConfirmation.$invalid" ng-click="vm.addSubmit()">Submit</button>
+                            </th>
+                            <th>
+                                <button type="submit" class="btn btn-default" id="deleteButton" ng-click="vm.rejectReason();"
+                                        ng-disabled="!vm.isAnyCheckboxSelected()">Reject</button>
+                            </th>
+                            <th colspan="5" style="text-align:left">
+                                <button type="button" id="cancelButton" class="btn btn-cancel"
+                                        onclick="window.location.href= '#!/rbibond_brokerage_invoice_confirmation/add';">Cancel
+                                </button>
+                            </th>
+                        </tr>
+                        </tfoot>
+                    </table>
+                </div>
+
+            </div>
+
+        </div>
+        </form>
+    </div>
+</div>
+<div class="container" ng-if="vm.noDataFound">
+    <div class="list_wrapper no_records_message">
+        <h4 class="form_heading">Brokerage Invoice Confirmation -Add</h4>
+        No records found to display.
+        <center>
+            <button type="button" class="btn btn-default"
+                    onclick="window.location.href= '#!/rbibond_brokerage_invoice_confirmation/add';" >Back</button>
+        </center>
+    </div>
+</div>
+
+<div class="modal" id="permissionMappingDelete" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-bs-dismiss="modal">&times;</button>
+                <h4 class="modal-title"> REJECTION REMARKS</h4>
+            </div>
+            <div class="modal-body">
+                <div class="loader_popup"></div>
+                <div class="list_wrapper" >
+                    <form name="permissionDelete" role="form">
+                        <div class="row">
+                            <div class="form-group">
+                                <div class="col-sm-2"></div>
+                                <label class="control-label col-sm-3">Remarks</label>
+                                <div class="col-sm-5">
+                                    <select class="form-control list_wrapper" id="remarks[$index]" name="remarks[$index]"
+                                            ng-model="vm.remarks" ng-init="vm.getRemarksList();"   required>
+                                        <option value="">Select</option>
+                                        <option ng-repeat="item in vm.remarksList"
+                                                name="{{item.subCode + parentIndex}}" id="{{item.subCode + parentIndex}}" value="{{item.subCodeDescription}}">{{item.subCodeDescription}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-offset-5 col-sm-8 form_submit">
+                            <button type="button" class="btn btn-default" data-bs-dismiss="modal" ng-disabled="permissionDelete.$invalid" ng-click="vm.submitDeleteForm()" >Submit</button>
+                            <button type="button" class="btn btn-cancel" data-bs-dismiss="modal">Cancel</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,166 @@
+<div class="loader-new" ng-if="vm.loader"></div>
+<dc-left-menu></dc-left-menu>
+
+<div class="container from_wrapper new_form_wrapper">
+
+    <h4 class="form_heading">Bond Centralized Interest Trial Run - Unverified Records</h4>
+    <sol-header></sol-header>
+
+
+    <div ng-show="vm.unverifiedDetails">
+            <ul>
+                <li><a href="" ng-click="vm.getUnverifiedBlaList();">Bond Ledger Account Maintenance</a></li>
+                <li><a href="" ng-click="vm.getUnverifiedDSubsList();">Bond Subscription Workflow</a></li>
+            </ul>
+
+            <div class="text-center form_submit">
+                <button type="button" class="btn btn-cancel" id="cancelButton"
+                        onclick="window.location.href= '#!/rbi_bond_centralized_trial_run/add';">Back
+                </button>
+            </div>
+    </div>
+
+    <div ng-show="vm.unverifiedBla">
+        <div class="row">
+            <p class="text-center"><b>Bond Ledger Account Maintenance</b></p>
+        </div>
+        <div class="row" ng-if="vm.unverifiedBlaList.length>0">
+            <div class="col-sm-12">
+                <div class="row" id="show">
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label>
+                                Show
+                                <select class="form-control record-filter"
+                                        ng-model="vm.itemsPerPage">
+                                    <option value='5'>5</option>
+                                    <option value='10'>10</option>
+                                    <option value='25'>25</option>
+                                    <option value='50'>50</option>
+                                </select>
+                                records per page
+                            </label>
+                        </div>
+                    </div>
+                    <div class="col-sm-3 pull-right">
+                        <div class="form-group">
+                            <div class="input-group">
+                                <div class="input-group-addon">
+                                    <i class="glyphicon glyphicon-search"></i>
+                                </div>
+                                <input type="text" class="form-control" ng-model="searchForCustomer"
+                                       placeholder="Search">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <table  class="table table-bordered table-striped list nowrap table-textWrap datatable"
+                        ui-jq="dataTable" ui-options="vm.dataTableOption">
+                    <thead ng-init="reverseOrder = false; sortedColumn = 'branchId'">
+                    <tr class="thalign">
+                        <th>S.NO</th>
+                        <th ng-click="(sortedColumn == 'blaNo')?(reverseOrder=(!reverseOrder)): (reverseOrder = false);sortedColumn = 'blaNo';" ng-class="(sortedColumn == 'blaNo')?((reverseOrder)?('arrow-down') : ('arrow-up') ) : ('')">BOND Ledger Account Number</th>
+                        <th ng-click="(sortedColumn == 'holderName')?(reverseOrder=(!reverseOrder)): (reverseOrder = false);sortedColumn = 'holderName';" ng-class="(sortedColumn == 'holderName')?((reverseOrder)?('arrow-down') : ('arrow-up') ) : ('')">Customer Name</th>
+                        <th ng-click="(sortedColumn == 'panNo')?(reverseOrder=(!reverseOrder)): (reverseOrder = false);sortedColumn = 'panNo';" ng-class="(sortedColumn == 'panNo')?((reverseOrder)?('arrow-down') : ('arrow-up') ) : ('')">Pan Number</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr dir-paginate="x in vm.unverifiedBlaList | orderBy:sortedColumn:reverseOrder | filter:searchForCustomer | itemsPerPage:vm.itemsPerPage" current-page="vm.currentPage">
+                        <td>{{vm.itemsPerPage *(vm.currentPage-1)+$index+1}}</td>
+                        <td align="left">{{x.blaNo}}</td>
+                        <td align="left">{{x.holderName}}</td>
+                        <td align="left">{{x.panNo}}</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div>
+                <dir-pagination-controls id="dirPaginationForCustomer" direction-links="true"
+                                         boundary-links="true"></dir-pagination-controls>
+            </div>
+        </div>
+        <div class="container" ng-if="vm.unverifiedBlaList.length == 0">
+            <div class="list_wrapper no_records_message">
+                No records found to display.
+            </div>
+        </div>
+            <div class="text-center form_submit">
+                <button type="button" class="btn btn-cancel" id="cancelButton"
+                        ng-click="vm.getUnverifiedDetailsPage();">Back
+                </button>
+            </div>
+    </div>
+
+    <div ng-show="vm.unverifiedSubs">
+        <div class="row">
+            <p class="text-center"><b>Bond Subscription Workflow</b></p>
+        </div>
+        <div class="row" ng-if="vm.unverifiedSubsList.length>0">
+            <div class="col-sm-12">
+                <div class="row" id="show">
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label>
+                                Show
+                                <select class="form-control record-filter"
+                                        ng-model="vm.itemsPerPage">
+                                    <option value='5'>5</option>
+                                    <option value='10'>10</option>
+                                    <option value='25'>25</option>
+                                    <option value='50'>50</option>
+                                </select>
+                                records per page
+                            </label>
+                        </div>
+                    </div>
+                    <div class="col-sm-3 pull-right">
+                        <div class="form-group">
+                            <div class="input-group">
+                                <div class="input-group-addon">
+                                    <i class="glyphicon glyphicon-search"></i>
+                                </div>
+                                <input type="text" class="form-control" ng-model="searchForAccount"
+                                       placeholder="Search">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <table  class="table table-bordered table-striped list nowrap table-textWrap datatable"
+                        ui-jq="dataTable" ui-options="vm.dataTableOption">
+                    <thead ng-init="reverseOrder = false; sortedColumn = 'branchId'">
+                    <tr class="thalign">
+                        <th>S.NO</th>
+                        <th ng-click="(sortedColumn == 'blaNo')?(reverseOrder=(!reverseOrder)): (reverseOrder = false);sortedColumn = 'blaNo';" ng-class="(sortedColumn == 'blaNo')?((reverseOrder)?('arrow-down') : ('arrow-up') ) : ('')">BOND Ledger Account Number</th>
+                        <th ng-click="(sortedColumn == 'bondSubsId')?(reverseOrder=(!reverseOrder)): (reverseOrder = false);sortedColumn = 'bondSubsId';" ng-class="(sortedColumn == 'bondSubsId')?((reverseOrder)?('arrow-down') : ('arrow-up') ) : ('')">BOND Subscription ID</th>
+                        <th ng-click="(sortedColumn == 'holderName')?(reverseOrder=(!reverseOrder)): (reverseOrder = false);sortedColumn = 'holderName';" ng-class="(sortedColumn == 'holderName')?((reverseOrder)?('arrow-down') : ('arrow-up') ) : ('')">Customer Name</th>
+                        <th ng-click="(sortedColumn == 'panNo')?(reverseOrder=(!reverseOrder)): (reverseOrder = false);sortedColumn = 'panNo';" ng-class="(sortedColumn == 'panNo')?((reverseOrder)?('arrow-down') : ('arrow-up') ) : ('')">Pan Number</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr dir-paginate="x in vm.unverifiedSubsList | orderBy:sortedColumn:reverseOrder | filter:searchForAccount | itemsPerPage:vm.itemsPerPage" current-page="vm.currentPage">
+                        <td>{{vm.itemsPerPage *(vm.currentPage-1)+$index+1}}</td>
+                        <td align="left">{{x.blaNo}}</td>
+                        <td align="left">{{x.bondSubsId}}</td>
+                        <td align="left">{{x.holderName}}</td>
+                        <td align="left">{{x.panNo}}</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+                <dir-pagination-controls id="dirPaginationForAccount" direction-links="true"
+                                         boundary-links="true"></dir-pagination-controls>
+        </div>
+
+        <div class="container" ng-if="vm.unverifiedSubsList.length == 0">
+            <div class="list_wrapper no_records_message">
+                No records found to display.
+            </div>
+        </div>
+            <div class="text-center form_submit">
+                <button type="button" class="btn btn-cancel" id="cancelButton"
+                        ng-click="vm.getUnverifiedDetailsPage();">Back
+                </button>
+            </div>
+    </div>
+
+</div>

@@ -1,0 +1,241 @@
+<!-- Output Screen-->
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.0/xlsx.full.min.js"></script>
+
+<!-- Load jsPDF library -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
+
+<!-- Load jsPDF-AutoTable plugin (version 3.5.13, compatible with jsPDF 2.4.0) -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.13/jspdf.plugin.autotable.min.js"></script>
+
+<div class="loader-new" ng-if="vm.loader"></div>
+
+<div class="container from_wrapper new_form_wrapper" data-ng-if="vm.report.length > 0">
+  <!--<div class="container" id="printArea">-->
+
+  <div class="text-right form_submit">
+    <button type="submit" class="btn btn-default" onclick="window.location.href ='#!/rbibond_gu_functionality';" id="homeButton">Home</button>
+
+    <button
+      type="button"
+      id="cancel_Button"
+      class="btn btn-cancel"
+      onclick="window.location.href= '#!/interest_payment_to_other_bank_report/action/inquiry';"
+    >
+      Back
+    </button>
+  </div>
+
+  <table style="width: 100%" class="table table-bordered" aria-label="">
+    <tr>
+      <h4 class="form_heading">Interest Payment to Other Bank Report(Non-HDFC)</h4>
+      <sol-header></sol-header>
+
+      <table style="width: 100%" class="table table-bordered" style="padding: 10px" aria-label="">
+        <tr>
+          <th scope="col">Name of the Bond Scheme</th>
+          <td>{{vm.schemeName}}</td>
+          <th scope="col">Total Count</th>
+          <td>{{vm.total}}</td>
+        </tr>
+        <tr>
+          <th scope="col" style="width: 25%">From Date</th>
+          <td style="width: 35%">{{vm.fromDate | date:'dd/MM/yyyy'}}</td>
+          <th scope="col" style="width: 20%">To Date</th>
+          <td style="width: 20%">{{vm.toDate | date:'dd/MM/yyyy'}}</td>
+        </tr>
+      </table>
+    </tr>
+  </table>
+
+  <div class="row">
+    <div class="col-sm-12">
+      <br />
+
+      <div class="row">
+        <div class="col-sm-12">
+          <div class="row">
+            <div class="col-sm-12">
+              <div class="row" style="display: flex; align-items: center; justify-content: space-between">
+                <div class="col-sm-3" style="flex: 1">
+                  <div class="form-group">
+                    <table style="border-spacing: 2" aria-label="BPRR">
+                      <tr>
+                        <th scope="col"></th>
+                      </tr>
+                      <tr>
+                        <td>Show&nbsp;</td>
+                        <td>
+                          <select
+                            class="form-control pageDropDown"
+                            id="pageSize"
+                            name="pageSize"
+                            ng-model="vm.pageSize"
+                            ng-init="vm.pageSize='5'"
+                            ng-change="vm.pageNo='1'; vm.getReportDetails();"
+                            ng-disabled="vm.noDataFoundInSearch"
+                          >
+                            <option value="5">5 per page</option>
+                            <option value="10">10 per page</option>
+                            <option value="20">20 per page</option>
+                            <option value="50">50 per page</option>
+                          </select>
+                        </td>
+                      </tr>
+                    </table>
+                  </div>
+                </div>
+
+                <div class="col-sm-6" style="display: flex; align-items: center; justify-content: flex-end">
+                  <div class="form-group" style="margin-right: 15px">
+                    <div class="input-group">
+                      <input type="text" id="search" class="form-control" data-ng-model="vm.searchValue" placeholder="Search" />
+                      <div class="input-group-addon">
+                        <span class="glyphicon glyphicon-search" data-ng-click="vm.pageNo = 1; vm.getReportDetails()"></span>
+                      </div>
+                      <div class="input-group-addon">
+                        <span class="glyphicon glyphicon-remove clear cp" data-ng-click="vm.searchValue='';vm.pageNo = 1; vm.getReportDetails(); "></span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <select
+                      class="form-control"
+                      id="export"
+                      name="export"
+                      data-ng-model="vm.downloadType"
+                      data-ng-init="vm.downloadType=''"
+                      data-ng-change="vm.downloadReport()"
+                      data-ng-disabled="vm.noDataFoundInSearch"
+                    >
+                      <option value="">EXPORT</option>
+                      <option value="excel">EXCEL</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+              <div class="table-responsive">
+                <table class="table table-bordered table-striped list table-textWrap datatable">
+                  <thead data-ng-if="!vm.noDataFoundInSearch">
+                    <th>S.NO</th>
+                    <th>Customer Name</th>
+                    <th>PAN No</th>
+                    <th>Bond Ledger Account Number</th>
+                    <th>Bond Subscription Id</th>
+                    <th>Subscription Date</th>
+                    <th>Subscription Amount</th>
+                    <th>Interest Paid Date</th>
+                    <th>Interest From Date</th>
+                    <th>Interest To Date</th>
+                    <th>Interest Payment Mode</th>
+                    <th>Bank Name</th>
+                    <th>IFSC Code</th>
+                    <th>MICR Code</th>
+                    <th>Credit Account Number</th>
+                    <th>TDS Certificate</th>
+                    <th>TDS Exemption Limit</th>
+                    <th>Low Tax Percentage</th>
+                    <th>PAN Status</th>
+                    <th>ITR Status</th>
+                    <th>Gross Interest</th>
+                    <th>TDS Amount</th>
+                    <th>Net Amount</th>
+                  </thead>
+
+
+                  <tbody data-ng-if="!vm.noDataFoundInSearch">
+                    <tr dir-paginate="x in vm.filteredRecords | itemsPerPage: itemsPerPage" pagination-id="trailRunRep">
+                      <td>{{ ($index + 1) + ((vm.pageNo - 1) * vm.pageSize) }}</td>
+                      <td>{{x.customerName}}</td>
+                      <td>{{x.panNo}}</td>
+                      <td>{{x.bondLedgerAccountNumber}}</td>
+                      <td>{{x.bondSubscriptionId}}</td>
+                      <td>{{x.subscriptionDate}}</td>
+                      <td>{{vm.indianNumberFormat(x.subscriptionAmount)}}</td>
+                      <td>{{x.interestPaidDate}}</td>
+                      <td>{{x.interestFromDate}}</td>
+                      <td>{{x.interestToDate}}</td>
+                      <td>{{x.interestPaymentMode}}</td>
+                      <td>{{x.bankName}}</td>
+                      <td>{{x.ifcCode}}</td>
+                      <td>{{x.micrCode}}</td>
+                      <td>{{x.creditAccountNumber}}</td>
+                      <td>{{x.tdsCertificate}}</td>
+                      <td>{{x.tdsExemptionLimit}}</td>
+                      <td>{{x.lowTaxPercentage}}</td>
+                      <td>{{x.panStatus}}</td>
+                      <td>{{x.itrStatus}}</td>
+                      <td>{{vm.indianNumberFormat(x.grossInterest)}}</td>
+                      <td>{{vm.indianNumberFormat(x.tdsAmount)}}</td>
+                      <td>{{vm.indianNumberFormat(x.netAmount)}}</td>
+                    </tr>
+                    <tr>
+                      <th class="text-bold" colspan="5"></th>
+                      <th class="text-right">Total</th>
+                      <th class="text-right">{{vm.indianNumberFormat(vm.totalSubscriptionAmount)}}</th>
+                      <th></th>
+                      <th></th>
+                      <th></th>
+                      <th></th>
+                      <th></th>
+                      <th></th>
+                      <th></th>
+                      <th></th>
+                      <th></th>
+                      <th></th>
+                      <th></th>
+                      <th></th>
+                      <th></th>
+                      <th class="text-right">{{vm.indianNumberFormat(vm.totalGrossInterest)}}</th>
+                      <th class="text-right">{{vm.indianNumberFormat(vm.totalTdsAmount)}}</th>
+                      <th></th>
+                    </tr>
+                  </tbody>
+                  <tbody data-ng-if="vm.noDataFoundInSearch">
+                    <tr>
+                      <td style="text-align: center">No Records Found</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <br />
+              <div class="text-center form_submit">
+                <span ng-show="vm.showPrevious">
+                  <button type="submit" class="btn btn-default" ng-click="vm.goPreviousPage()">Prev</button>
+                </span>
+
+                <span>
+                  <button
+                    type="submit"
+                    class="btn btn-default"
+                    ng-disabled="true"
+                    ng-init="vm.pageNo=1"
+                    ng-model="vm.pageNo"
+                    ng-click="vm.paymentStatus();"
+                  >
+                    {{vm.pageNo}} of {{vm.maxPages}}
+                  </button>
+                </span>
+
+                <span ng-show="vm.showNext">
+                  <button type="submit" class="btn btn-default" ng-click="vm.goNextPage();">Next</button>
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="container" ng-if="vm.noDataFound">
+  <div class="list_wrapper no_records_message">
+    <h4 class="form_heading">Interest Payment to Other Bank Report(Non-HDFC)</h4>
+    No records found to display.
+    <center>
+      <button type="button" class="btn btn-default" onclick="window.location.href= '#!/interest_payment_to_other_bank_report/action/inquiry';">
+        Back
+      </button>
+    </center>
+  </div>
+</div>

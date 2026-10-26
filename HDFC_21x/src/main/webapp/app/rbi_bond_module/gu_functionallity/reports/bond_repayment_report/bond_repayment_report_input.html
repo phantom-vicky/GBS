@@ -1,0 +1,183 @@
+<div class="loader-new" ng-if="vm.loader"></div>
+<!--<dc-left-menu></dc-left-menu>-->
+<div class="container from_wrapper new_form_wrapper">
+  <h4 class="form_heading">Bond Repayment Report</h4>
+  <sol-header></sol-header>
+  <form name="bondNominationFrom" role="form">
+
+
+    <div class="row">
+      <div class="form-group">
+        <div class="col-sm-3"></div>
+        <div class="col-sm-3">
+          <label class="control-label">Name of the Module</label>
+        </div>
+        <div class="col-sm-5">
+          <label><b>RBI Bond</b></label>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="form-group required">
+        <div class="col-sm-3"></div>
+        <div class="col-sm-3">
+          <label for="schemeCode" class="control-label">Name of the Bond Scheme</label>
+        </div>
+        <div class="col-sm-2">
+          <p class="input-group">
+            <input type="text" class="form-control" id="schemeCode" ng-model="vm.schemeName" chars="alpha-numeric" readonly required />
+          </p>
+        </div>
+        <div class="col-sm-2">
+          <i class="glyphicon glyphicon-search cp" data-bs-toggle="modal" ng-click="vm.getModuleName();"></i>
+          <i class="glyphicon glyphicon-remove clear cp" ng-click="vm.schemeName ='';vm.schemeCode = '';vm.fromDate='';vm.toDate='';"></i>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="form-group required">
+        <div class="col-sm-3"></div>
+        <div class="col-sm-3"><label class="control-label">Repayment From Date</label></div>
+        <div class="col-sm-2">
+          <p class="input-group">
+            <input
+              type="text"
+              class="form-control"
+              id="effFromDate"
+              name="effFromDate"
+              data-ng-model="vm.fromDate"
+              data-uib-datepicker-popup="dd/MM/yyyy"
+              data-ng-init="vm.fromDate=''; vm.fromDateVal()"
+              data-ng-change="vm.toDateVal(vm.fromDate); vm.toDate=''"
+              data-datepicker-options="vm.fromDateOptions"
+              data-is-open="vm.effFromDatePicker.opened"
+              data-close-text="Close"
+              maxlength="10"
+              ng-blur="vm.textableDatePicker('effFromDate',vm.fromDate)"
+              ng-keyup="vm.autoslashing('effFromDate')"
+              chars="numbers-slash"
+              required
+            />
+            <span class="input-group-btn">
+              <button type="button" class="btn btn-secondary" data-ng-click="vm.effFromDatePicker.opened = true" id="effFromDateSearcher1">
+                <i class="glyphicon glyphicon-calendar"></i>
+              </button>
+            </span>
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="form-group required">
+        <div class="col-sm-3"></div>
+        <div class="col-sm-3"><label class="control-label">Repayment To Date</label></div>
+        <div class="col-sm-2">
+          <p class="input-group">
+            <input
+              type="text"
+              class="form-control"
+              id="effToDate"
+              name="effToDate"
+              data-ng-model="vm.toDate"
+              data-uib-datepicker-popup="dd/MM/yyyy"
+              data-ng-init="vm.toDate=''"
+              data-datepicker-options="vm.toDateOptions"
+              data-is-open="vm.effToDatePicker.opened"
+              data-close-text="Close"
+              maxlength="10"
+              ng-blur="vm.textableDatePicker('effToDate',vm.toDate)"
+              ng-keyup="vm.autoslashing('effToDate')"
+              chars="numbers-slash"
+              required
+            />
+            <span class="input-group-btn">
+              <button type="button" class="btn btn-secondary" data-ng-click="vm.effToDatePicker.opened = true" id="effToDateSearcher">
+                <i class="glyphicon glyphicon-calendar"></i>
+              </button>
+            </span>
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="text-center form_submit">
+      <button
+        type="submit"
+        id="submitbutton"
+        class="btn btn-default"
+        ui-sref="bond_repayment_report.inquiry_details({obj:{
+                            schemeCode:vm.schemeCode,
+                            schemeName:vm.schemeName,
+                            fromDate:vm.fromDate,
+							toDate:vm.toDate,
+
+                        }})"
+        ng-disabled="bondNominationFrom.$invalid"
+      >
+        Submit
+      </button>
+      <button type="button" class="btn btn-cancel" id="cancelButton" onclick="window.location.href= '#!/rbibond_gu_functionality';">Cancel</button>
+    </div>
+
+    <div class="text-center">
+      <notice-message-directive></notice-message-directive>
+    </div>
+  </form>
+</div>
+
+<div class="modal" id="schemeModel" role="dialog">
+  <div class="modal-dialog">
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-bs-dismiss="modal" ng-click="vm.searchSolId=''">&times;</button>
+        <h4 class="modal-title">SCHEME CODE</h4>
+      </div>
+      <div class="modal-body">
+        <div class="loader_popup"></div>
+        <div class="list_wrapper" ng-if="vm.schemeList.length>0">
+          <div class="col-sm-8 form_submit">
+            <div class="form-group">
+              <div class="input-group">
+                <div class="input-group-addon">
+                  <i class="glyphicon glyphicon-search"></i>
+                </div>
+                <input type="text" class="form-control" ng-model="vm.searchSolId" ng-init="vm.searchSolId = ''" placeholder="Search" oninput="this.value = this.value.replace(/^\s+/, '').replace(/\s{2,}/g, ' ')" />
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-4 form_submit"></div>
+          <div class="row">
+            <div class="col-sm-12">
+              <table summary="This table shows a list of students with their grades." class="table table-bordered list scroll sort">
+                <thead ng-init="reverseOrder=false;sortedColumn = 'subCode'">
+                  <tr>
+                    <th class="modal-title title-case" ng-show="false">Scheme Code</th>
+                    <th ng-click="(sortedColumn == 'schemeName')?(reverseOrder=(!reverseOrder)): (reverseOrder = false);sortedColumn = 'schemeName';" ng-class="(sortedColumn == 'schemeName')?((reverseOrder)?('arrow-down') : ('arrow-up') ) : ('')">
+                      SCHEME NAME
+                    </th>
+                    <th
+                      ng-click="(sortedColumn == 'schemeStatus')?(reverseOrder=(!reverseOrder)): (reverseOrder = false);sortedColumn = 'schemeStatus';"
+                      ng-class="(sortedColumn == 'schemeStatus')?((reverseOrder)?('arrow-down') : ('arrow-up') ) : ('')"
+                    >
+                      STATUS
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr class="cp" ng-repeat="x in vm.schemeList | filter:vm.searchSolId | orderBy:sortedColumn:reverseOrder" ng-click="vm.schemeCode= x.schemeCode;vm.schemeName= x.schemeName;" data-bs-dismiss="modal">
+                    <td>{{x.schemeName}}</td>
+                    <td>{{x.schemeStatus}}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+        <div class="list_wrapper" ng-if="vm.schemeList.length==0">No records found to display.</div>
+      </div>
+    </div>
+  </div>
+</div>

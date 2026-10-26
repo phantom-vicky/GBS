@@ -1,0 +1,101 @@
+
+
+<div class="container">
+    <div class="text-right form_submit">
+        <button type="submit" class="btn btn-default"
+                onclick="window.location.href ='#!/dc';" id="homeButton">Home</button>
+        <button type="submit" class="btn btn-default"
+                id="printButton" ng-click="vm.printpage();">Print</button>
+        <button type="button" id="cancelButton" class="btn btn-cancel"
+                onclick="window.location.href= '#!/rbibond_gu_functionality';">Back</button>
+    </div>
+    <div  style="border:1px; border-style:solid; border-color:#ddd; padding:2em;" class="text-justify" id="section-to-print">
+        <table width="100%" border="0" cellspacing="0" cellpadding="1" align="center">
+            <tr>
+                <td  valign="top" height="0">
+                    <table border="0" cellspacing="0" cellpadding="0" width="100%">
+                        <tr  align="center" valign="top" height="50">
+                            <td colspan="4" >
+                                <p align="right"><font face="TIMES NEW ROMAN" size="3"><b></b></font></p><br>
+                                <p><font face="TIMES NEW ROMAN" size="4"><b>Form – B - Bond Application Form
+                                </b></font>
+                                </p><br>
+                            </td>
+                        </tr>
+                        <tr align="center" valign="top" height="40">
+                            <td colspan="4" >
+                                <p><font face="Times New Roman" size="3"><b><sol-header></sol-header></b>
+                                </font>
+                                </p><br>
+                            </td>
+                        </tr>
+                        <tr align="center" valign="top" height="40">
+                            <td colspan="4" >
+                                <p><font face="Times New Roman" size="3"><b>Acknowledgement of Application Form</b>
+                                </font>
+                                </p><br>
+                            </td>
+                        </tr>
+
+                        <tr align="right" valign="top" height="40">
+                            <td colspan="4" >
+                                <p><font face="Times New Roman" size="3">Application Number
+                                </font>
+                                </p><br>
+                            </td>
+                        </tr>
+
+                        <tr align="right" valign="top" height="40" >
+                            <td colspan="4" >
+                                <p style="border: 1px solid black;width: 20%;height: 40px;"><font face="Times New Roman" size="3">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                </font>
+                                </p><br>
+                            </td>
+                        </tr>
+
+                        <tr valign="top" align="left" height="40">
+                            <td align="left" valign="middle">
+                                <p align="justify" style="word-spacing: normal;">
+                                    <font face="Times New Roman" size="3">
+                                        Bank branch………………………………………………………………………………. Date ………/…….…/………….……….
+
+
+                                        Received	from	Mr/Mrs/Ms..........................................Cash/Draft/Pay
+
+                                        Order/Cheque No./electronic credit .………………………………………………… dated ……/………/…………drawn on (Bank	and	branch)……………………….…………………………………………………………………………………………
+                                        for`……………….. (Rupees..........................only) for the purchase of Floating Rate
+
+                                        Savings Bonds, 2020 (Taxable) for a period of 7 years, of the nominal value of `……………………..………….
+
+                                        (Rupees.......................only). The bonds are required to be issued
+
+                                        in the form of Bond Ledger Account.
+                                    </font>
+                                </p><br>
+                            </td>
+                        </tr>
+
+                        <tr align="right" valign="top" height="40">
+                            <td colspan="4" >
+                                <p style="border: 1px solid black; width: 25%;padding-top: 150px;text-align:center"><font face="Times New Roman" size="3">  </font>
+                                    Date, Bank Stamp & Signature of the authorized official of the Receiving Office  </p><br>
+                            </td>
+                        </tr>
+                        </tr>
+                        <tr valign="top" height="40" align="left">
+
+                            <td align="left" valign="middle" width="69%"><p><font face="Times New Roman" size="3">
+
+
+                                Note :	(i) This receipt is valid subject to realisation of the payment instrument.<br><br>
+                                &nbsp;&nbsp;
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(ii) The "Certificate of Holding" will be issued in electronic form by_________________________________(date).</font></p>
+                            </td>
+
+                        </tr>
+                    </table>
+
+        </table>
+
+    </div>
+</div>

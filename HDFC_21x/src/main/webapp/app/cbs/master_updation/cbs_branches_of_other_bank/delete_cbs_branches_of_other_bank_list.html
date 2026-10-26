@@ -1,0 +1,75 @@
+<div class="loader-new" ng-if="vm.loader"></div>
+<cbs-left-menu></cbs-left-menu>
+<div class="container list_wrapper" ng-if="vm.recordsList.length > 0">
+	<div class="row">
+		<div class="col-sm-1 pull-right">
+			<button type="button" class="btn btn-default pull-right" ui-sref="cbs_branches_of_other_bank.inquiry">Cancel</button>
+		</div>
+	</div>
+	<h4 class="feature-heading">Branches of Other Bank - Delete</h4>
+
+	<div class="col-sm-3">
+		<div class="form-group">
+			<label> Show <select class="form-control record-filter"
+				ng-model="vm.itemsPerPage">
+					<option value='5'>5</option>
+					<option value='10'>10</option>
+					<option value='25'>25</option>
+					<option value='50'>50</option>
+			</select> records per page
+			</label>
+		</div>
+	</div>
+	<div class="col-sm-3 pull-right">
+		<div class="form-group">
+			<div class="input-group">
+				<div class="input-group-addon">
+					<i class="glyphicon glyphicon-search"></i>
+				</div>
+				<input type="text" class="form-control" ng-model="search"
+					placeholder="Search">
+			</div>
+		</div>
+	</div>
+
+	<table class="table table-bordered table-striped list">
+		<thead>
+			<tr>
+				<th>Branch Code</th>
+				<th>Bank Code</th>
+				<th>Branch Name</th>
+				<th>Branch City Code</th>
+				<th>Branch State Code</th>
+				<th>Branch Pin Code</th>
+				<th style="width: 100px;">Status</th>
+				<th>Created Date</th>
+				<th>Delete</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr
+				dir-paginate="item in vm.recordsList | filter:search | itemsPerPage:vm.itemsPerPage">
+				<td>{{item.dto.branchCode}}</td>
+				<td>{{item.dto.bankCode}}</td>
+				<td>{{item.dto.branchName}}</td>
+				<td>{{item.dto.branchCityCode}}</td>
+				<td>{{item.dto.branchStateCode}}</td>
+				<td>{{item.dto.branchPinCode}}</td>
+				<td ng-if="item.dto.verified == true && !item.auditLogDto">VERIFIED</td>
+				<td ng-if="item.dto.verified == false || item.auditLogDto">UNVERIFIED</td>
+				<td>{{item.dto.createdDate | date:'dd/MM/yyyy'}}</td>
+				<td><i class="glyphicon glyphicon-remove cp"
+					ui-sref="cbs_branches_of_other_bank.delete_detail({obj:{id: item.dto.branchId}})"></i></td>
+			</tr>
+		</tbody>
+	</table>
+	<dir-pagination-controls direction-links="true" boundary-links="true"></dir-pagination-controls>
+</div>
+<div class="container list_wrapper" ng-if="vm.recordsList.length <= 0">
+	<h4 class="feature-heading">Branches of Other Bank - Delete</h4>
+	<div class="no_records_message">No records found to display.</div>
+	<center>
+		<button type="button" class="btn btn-default"
+			ui-sref="cbs_branches_of_other_bank.inquiry">Cancel</button>
+	</center>
+</div>

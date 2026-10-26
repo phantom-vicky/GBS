@@ -1,0 +1,110 @@
+<div class="loader-new" ng-if="vm.loader"></div>
+<cbs-left-menu></cbs-left-menu>
+<div class="container from_wrapper new_form_wrapper">
+	<h4 class="form_heading  feature-heading">List Of Transaction
+		Codes - Inquiry</h4>
+
+	<table class="table table-bordered table-striped list">
+		<thead>
+	    	<tr>
+	        	<th>Particular</th>
+	        	<th ng-if="!vm.newValueDisplay">Value</th>
+	        	<th ng-if="vm.newValueDisplay">New Value</th>
+	        	<th ng-if="vm.newValueDisplay">Old Value</th> 
+	    	</tr>
+	    </thead>
+		<tbody>
+			<tr>
+				<td>
+					<label for="clgTranCode" class="control-label">Clearing Transaction Code</label>
+				</td>
+				<td ng-if="vm.newValueDisplay">
+					<label class="data-bind" id="clgTranCode_New">{{vm.cbsListOfTransactionCodesNewScope.clgTranCode}}</label>
+				</td>
+				<td>
+					<label class="data-bind" id="clgTranCode">{{vm.cbsListOfTransactionCodes.clgTranCode}}</label>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<label for="schemeCode" class="control-label">Scheme Code</label>
+				</td>
+				<td ng-if="vm.newValueDisplay">
+					<label class="data-bind" id="schemeCode_New">{{vm.cbsListOfTransactionCodesNewScope.schemeCode}}</label>
+				</td>
+				<td>
+					<label class="data-bind" id="schemeCode">{{vm.cbsListOfTransactionCodes.schemeCode}}</label>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<label for="clgTranCodeDesc" class="control-label">Transaction Code Description</label>
+				</td>
+				<td ng-if="vm.newValueDisplay">
+					<label class="data-bind" id="clgTranCodeDesc_New">{{vm.cbsListOfTransactionCodesNewScope.clgTranCodeDesc}}</label>
+				</td>
+				<td>
+					<label class="data-bind" id="clgTranCodeDesc">{{vm.cbsListOfTransactionCodes.clgTranCodeDesc}}</label>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<label for="instrumentType" class="control-label">Type of Instrument</label>
+				</td>
+				<td ng-if="vm.newValueDisplay">
+					<label class="data-bind" id="instrumentType_New">{{vm.cbsListOfTransactionCodesNewScope.instrumentType}}</label>
+				</td>
+				<td>
+					<label class="data-bind" id="instrumentType">{{vm.cbsListOfTransactionCodes.instrumentType}}</label>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<label for="addText1" class="control-label">Additional Text1</label>
+				</td>
+				<td ng-if="vm.newValueDisplay">
+					<label class="data-bind" id="addText1_New">{{vm.cbsListOfTransactionCodesNewScope.addText1}}</label>
+				</td>
+				<td>
+					<label class="data-bind" id="addText1">{{vm.cbsListOfTransactionCodes.addText1}}</label>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<label for="addText2" class="control-label">Additional Text2</label>
+				</td>
+				<td ng-if="vm.newValueDisplay">
+					<label class="data-bind" id="addText2_New">{{vm.cbsListOfTransactionCodesNewScope.addText2}}</label>
+				</td>
+				<td>
+					<label class="data-bind" id="addText2">{{vm.cbsListOfTransactionCodes.addText2}}</label>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<label for="addText3" class="control-label">Additional Text3</label>
+				</td>
+				<td ng-if="vm.newValueDisplay">
+					<label class="data-bind" id="addText3_New">{{vm.cbsListOfTransactionCodesNewScope.addText3}}</label>
+				</td>
+				<td>
+					<label class="data-bind" id="addText3">{{vm.cbsListOfTransactionCodes.addText3}}</label>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+	
+	<div class="row" >
+		<div class="col-sm-7"></div>
+		<label  ng-if="!vm.verified" class="control-label col-sm-5"><b>Verify Status : Y</b></label>
+		<label  ng-if="vm.verified" class="control-label col-sm-5"><b>Verify Status : N</b></label>
+	</div>
+	
+	<div class="row">
+		<div class="text-center form_submit">
+			<button type="button" class="btn btn-cancel" id="cancelButton"
+				ui-sref="cbs_list_of_transaction_codes.list()">Back</button>
+		</div>
+	</div>
+
+</div>

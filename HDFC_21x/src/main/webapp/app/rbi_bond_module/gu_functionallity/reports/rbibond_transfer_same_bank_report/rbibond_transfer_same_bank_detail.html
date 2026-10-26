@@ -1,0 +1,229 @@
+<div class="loader-new" ng-if="vm.loader"></div>
+<div class="container from_wrapper new_form_wrapper ng-scope"  ng-if="vm.model">
+
+    <sol-header></sol-header>
+    <div>
+        <form name="accountOpeningForm" role="form" ng-init="vm.getTransSameBankDetail();">
+            <div class="form-group">
+                <table  class="table table-bordered" style="margin-bottom : 0px !important">
+                    <tbody>
+                    <tr>
+                        <td width="50%" class="form-group required"><label
+                                class="control-label">Transferred From Branch id</label></td>
+                        <td width="50%"><label  class="data-bind">{{vm.accTranFrom}}</label></td>
+
+                    </tr>
+                    <tr>
+                        <td width="50%" class="form-group">
+                            <label class="control-label">Transferred From Branch Name</label>
+                        </td>
+                        <td width="50%">
+                            <label  class="data-bind">{{vm.branchName}}</label>
+                        </td>
+
+                    </tr>
+                    <tr>
+                        <td width="50%" class="form-group required"><label
+                                class="control-label">Transferred To Branch id</label></td>
+                        <td width="50%"><label class="data-bind">{{vm.model.torchOne[0].transToId}}</label></td>
+
+                    </tr>
+                    <tr>
+                        <td width="50%" class="form-group">
+                            <label class="control-label">Transferred To Branch Name</label>
+                        </td>
+                        <td width="50%">
+                            <label class="data-bind">{{vm.model.torchOne[0].transToName}}</label>
+                        </td>
+
+                    </tr>
+                    <tr>
+                        <td width="50%" class="form-group readonly"><label
+                                class="control-label">BLA No.</label></td>
+                        <td width="50%">
+                            <label  class="data-bind">{{vm.model.torchOne[0].blaNo}}</label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td width="50%" class="form-group readonly"><label
+                                class="control-label">Holder Name</label></td>
+                        <td width="50%">
+                            <label class="data-bind">{{vm.model.torchOne[0].bondHolderName}}</label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td width="50%" class="form-group readonly"><label
+                                class="control-label">Subscription ID </label></td>
+                        <td width="50%">
+                            <label  class="data-bind">{{vm.model.torchOne[0].bondSubscriptionId}}</label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td width="50%" class="form-group readonly"><label
+                                class="control-label">Bond Type</label></td>
+                        <td width="50%">
+                            <label class="data-bind">{{vm.model.torchOne[0].bondType}}</label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td width="50%" class="form-group readonly"><label
+                                class="control-label">Deposit Amount</label></td>
+                        <td width="50%">
+                            <label class="data-bind">{{vm.model.torchOne[0].subscriptionAmt}}</label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td width="50%" class="form-group readonly"><label
+                                class="control-label">Account Opened Date</label></td>
+                        <td width="50%">
+                            <label  class="data-bind">{{vm.model.torchOne[0].accOpenDate}}</label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td width="50%" class="form-group readonly"><label
+                                class="control-label">Maturity Date</label></td>
+                        <td width="50%">
+                            <label  class="data-bind">{{vm.model.torchOne[0].maturityDate}}</label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td width="50%" class="form-group readonly"><label
+                                class="control-label">Interest paid up to</label></td>
+                        <td width="50%">
+                            <label class="data-bind">{{vm.model.torchOne[0].interPaidUp}}</label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td width="50%" class="form-group readonly"><label
+                                class="control-label">Operative Account Number</label></td>
+                        <td width="50%">
+                            <label  class="data-bind">{{vm.model.torchOne[0].operativeAccNo}}</label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td width="50%" class="form-group readonly"><label
+                                class="control-label">Date of Transfer</label></td>
+                        <td width="50%">
+                            <label class="data-bind">{{vm.model.torchOne[0].dateOfTran}}</label>
+                        </td>
+                    </tr>
+<tr>
+    <td width="50%"  class="text-center form_submit" ><button type="button" class="btn btn-default" id="submitButton"ng-click="vm.showDetailBtn();"
+    >INTEREST PAID DETAILS</button>
+    </td>
+    <td width="50%"  class="text-center form_submit" > <button type="button" class="btn btn-cancel" id="cancelButton"
+                                                                    onclick="window.location.href= '#!/rbibond_transfer_same_bank_report/action/inquiry';">Cancel</button>
+    </td>
+</tr>
+
+
+                    </tbody>
+                </table>
+            </div>
+
+            <div ng-if="vm.showDetails" class="container from_wrapper new_form_wrapper" style="width : auto";>
+                <div class="row">
+
+                    <h4 align="center">INTEREST PAID  DETAILS</h4>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="table-responsive">
+                            <table class="table table-bordered table-striped list nowrap table-textWrap datatable"
+                                   ui-jq="dataTable" >
+                                <thead>
+
+                                <tr class="thalign">
+                                    <!--                                <th>Check Box</th>-->
+                                    <th>S.No</th>
+                                    <th >Interest From Period</th>
+                                    <th >Interest To Period</th>
+                                    <th>Interest Amount</th>
+                                    <th>TDS Amount</th>
+                                    <th>Interest Paid Amount</th>
+                                    <th>Interest Paid Date</th>
+                                    <th>Rate of Interest (%)</th>
+                                    <th>Paid By
+                                        Branch ID</th>
+
+
+                                </tr>
+
+                                </thead>
+                                <tbody>
+                                <tr ng-repeat="x in vm.model.torchTwo">
+                                    <!--                                <td><input type="checkbox" name="selected" id="selected" ng-model="vm.bondSelected[$index]"  ></td>-->
+                                    <td>{{vm.itemsPerPage *(vm.currentPage-1)+$index+1}}</td>
+                                    <td align="center">{{x.interestFromPeriod}}</td>
+                                    <td align="center">{{x.interestToPeriod}}</td>
+                                    <td align="right">{{x.interestAmt}}</td>
+                                    <td align="right">{{x.tdsAmt}}</td>
+                                    <td align="right">{{x.interestPaidAmt}}</td>
+                                    <td align="center">{{x.interestPaidDate}}</td>
+                                    <td align="center">{{x.rateOfInterest}}</td>
+                                    <td align="center">{{x.paidByBranch}}</td>
+
+                                </tr>
+                                </tbody>
+                                <tfoot>
+                                <tr>
+
+                                    <th></th>
+                                    <th></th>
+                                    <th class="text-right">Total</th>
+                                     <th class="text-right">{{vm.model.totalInterestAmt}}</th>
+                                    <th class="text-right">{{vm.model.totalTdsAmt}}</th>
+                                    <th class="text-right">{{vm.model.totalInterPaidAmt}}</th>
+                                    <th></th>
+                                    <th></th>
+                                    <th></th>
+
+                                </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+            <br>
+            <div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <span> <b style="margin-right: 1px;"> Created By </b> : {{vm.model.createdBy}} </span>
+                    </div>
+
+                    <div class="col-md-3">
+                        <span> <b style="margin-right: 1px;"> Last Modified By </b> : {{vm.model.modifiedBy}}</span>
+                    </div>
+
+                    <div class="col-md-3">
+                        <span> <b style="margin-right: 1px;"> Last Verified By </b> : {{vm.model.verifiedBy}}</span>
+                    </div>
+
+                    <div class="col-md-3">
+                        <span> <b> Verify Status </b> : <span style="text-transform: initial;">{{vm.model.verifiedStatus}}</span></span>
+                    </div>
+                </div>
+                <br>
+                <div class="row">
+                    <div class="col-md-3">
+                        <span> <b> Created Date </b> : {{vm.model.createdDate}}</span>
+                    </div>
+
+                    <div class="col-md-3">
+                        <span> <b> Last Modified date</b> : {{vm.model.modifiedDate}}</span>
+                    </div>
+
+                    <div class="col-md-3">
+                        <span> <b> verified date </b> : {{vm.model.verifiedDate}}</span>
+                    </div>
+                    <div class="col-md-3">
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+
+</div>

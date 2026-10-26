@@ -1,0 +1,191 @@
+<div class="container from_wrapper">
+    <div class="loader-new" ng-if="vm.loader"></div>
+    <dc-left-menu></dc-left-menu>
+    <h4 class="form_heading">Bond Brokerage payment - Add</h4>
+    <sol-header></sol-header>
+
+    <div class="container" >
+        <uib-accordion close-others="oneAtATime">
+            <form name="vm.transferOutForm" role="form"
+                  ng-submit="vm.addSubmit(vm.transferOutForm.$valid)">
+
+                <div uib-accordion-group id="general-details"
+                     class="panel-default panel panel-open"
+                     heading="Bond Brokerage payment - Add" is-open="true" ng-ini="vm.getModuleName()">
+
+                    <div class="row">
+                        <div class="form-group" ng-class="requiredClass">
+                            <label class="control-label col-sm-3">Broker Agency Code
+                            </label>
+                            <div class="col-sm-2">
+                                :
+                                <label class="data-bind"  >{{vm.brokerId}}</label>
+                            </div>
+                            <div class="col-sm-1"></div>
+                            <label for="isNri" class="control-label col-sm-3">Name of the Bond Scheme
+                            </label>
+                            <div class="col-sm-2">
+                                :
+                                <label id="isNri" class="data-bind" >{{vm.schemeName}} </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="form-group" ng-class="requiredClass">
+                            <label class="control-label col-sm-3">Brokerage Payment from date
+                            </label>
+                            <div class="col-sm-2">
+                                :
+                                <label class="data-bind" >{{vm.fromDate  | date : 'dd/MM/yyyy'}}</label>
+                            </div>
+                            <div class="col-sm-1"></div>
+                            <label  class="control-label col-sm-3">Brokerage Payment to date</label>
+                            <div class="col-sm-2">
+                                :
+                                <label class="data-bind" >{{vm.toDate  | date : 'dd/MM/yyyy'}} </label>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+
+
+                <div uib-accordion-group id="bond-subscription-details" class="panel"
+                     heading='BOND Brokerage payment'
+                     is-open="vm.bondSubscriptionDetailsOpen"
+                     ng-class="(vm.bondSubscriptionDetails.$invalid) ? 'panel-danger' : 'panel-success'">
+
+                    <ng-form name="vm.bondSubscriptionDetails" >
+                        <div class="table-responsive">
+
+                            <table class="table table-bordered table-striped list table-textWrap"
+                                   >
+                                <thead>
+                                <tr>
+                                    <th>Check Box</th>
+                                    <th>BLA No</th>
+                                    <th>Subscription Date</th>
+                                    <th>Subscription Id</th>
+                                    <th>Subscription Amount</th>
+                                    <th>Brokerage Amount</th>
+                                    <th>Paid Amount</th>
+                                    <th>Narration</th>
+                                </tr>
+
+                                </thead>
+                                <tbody>
+                                <tr ng-repeat="x in vm.brokerDetailsList">
+<!--                                    <td>{{vm.itemsPerPage *(vm.currentPage-1)+$index+1}}</td>-->
+                                    <td>
+                                        <input type="checkbox" id="x.isSelected" name="x.isSelected" ng-model="x.isSelected" ng-change="vm.getNomineeDetails();"
+                                               value="x.isSelected" readonly>
+                                    </td>
+                                    <td align="center">{{x.blaNo}}</td>
+                                    <td align="center">{{x.subscriptionDate}}</td>
+                                    <td align="center">{{x.subscriptionId}}</td>
+                                    <td align="center">{{x.subscriptionAmount}}</td>
+                                    <td align="center">{{x.brokerAmount}}</td>
+                                    <td align="center">
+                                        <input type="text" class="form-control"
+                                               id="x.paidAmount" name="x.paidAmount" chars="only-numbers" maxlength="50"
+                                               ng-model="x.paidAmount" ng-change="vm.calculateTotalPaidAmount();" required>
+                                    </td>
+                                    <td align="center">
+                                        <input type="text" class="form-control"
+                                               id="x.narration" name="x.narration" chars="alpha-numeric" maxlength="100"
+                                               ng-model="x.narration">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td align="center"></td>
+                                    <td align="center"></td>
+                                    <td align="center"></td>
+                                    <td align="center"></td>
+                                    <td align="center">Total Amount</td>
+                                    <td align="center">{{vm.totalBrokerageAmount}}</td>
+                                    <td align="center">{{vm.totalPaidAmount}}</td>
+                                    <td align="center"></td>
+                                </tr>
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </ng-form>
+                </div>
+
+
+
+                <div class="text-center form_submit">
+
+                    <button type="submit" class="btn btn-default" id="submitButton"
+                            ng-disabled="transferOutForm.$invalid" >Submit</button>
+                    <button type="button" class="btn btn-cancel" id="cancelButton"
+                            onclick="window.location.href= '#!/rbi_bnd_brk_payment/action/inquiry';">Back
+                    </button>
+                </div>
+
+            </form>
+        </uib-accordion>
+    </div>
+
+
+</div>
+
+
+
+
+<!--branch Modal-->
+<div class="modal" id="branchModal" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-bs-dismiss="modal">&times;</button>
+                <h4 class="modal-title">BLA List</h4>
+            </div>
+            <div class="modal-body">
+                <div class="loader_popup"></div>
+                <div class="list_wrapper" ng-if="vm.bankDetailsList.length>0">
+                    <div class="col-sm-8 form_submit">
+                        <div class="form-group">
+                            <div class="input-group">
+                                <div class="input-group-addon">
+                                    <i class="glyphicon glyphicon-search"></i>
+                                </div>
+                                <input type="text" class="form-control"
+                                       ng-model="vm.searchCustomerId" ng-init="vm.searchCustomerId = ''"
+                                       placeholder="Search">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4 form_submit"></div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <table class="table table-bordered list scroll">
+                                <thead ng-init="reverseOrder = false; sortedColumn = 'scssCustomerId'">
+                                <tr>
+                                    <th class="modal-title title-case" ng-click="(sortedColumn == 'branchId')?(reverseOrder=(!reverseOrder)): (reverseOrder = false);sortedColumn = 'branchId';" ng-class="(sortedColumn == 'branchId')?((reverseOrder)?('arrow-down') : ('arrow-up') ) : ('')">Branch Id</th>
+                                    <th class="modal-title title-case" ng-click="(sortedColumn == 'branchDescription')?(reverseOrder=(!reverseOrder)): (reverseOrder = false);sortedColumn = 'branchDescription';" ng-class="(sortedColumn == 'branchDescription')?((reverseOrder)?('arrow-down') : ('arrow-up') ) : ('')">Branch Name</th>
+
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr class="cp"
+                                    ng-repeat="x in vm.bankDetailsList | filter:vm.searchCustomerId | orderBy:sortedColumn:reverseOrder"
+                                    ng-click="vm.transferToBranchId = x.branchId; vm.transferToSameBranchName = x.branchDescription;" data-bs-dismiss="modal">
+                                    <td>{{x.branchId}}</td>
+                                    <td>{{x.branchDescription}}</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="list_wrapper" ng-if="vm.bankDetailsList.length==0">No records found to display.</div>
+            </div>
+        </div>
+    </div>
+</div>
+

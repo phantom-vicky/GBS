@@ -1,0 +1,159 @@
+<div class="loader-new" ng-if="vm.loader"></div>
+<cbs-left-menu></cbs-left-menu>
+<div class="container from_wrapper new_form_wrapper">
+	<h4 class="form_heading  feature-heading">Other Bank Details - Add</h4>
+	<form name="otherBankDetailsForm" role="form">
+		<div class="row">
+			<div class="form-group">
+				<div class="col-sm-3"></div>
+				<div class="col-sm-3 required ">
+					<label for="bankCode" class="control-label">Bank Code</label>
+				</div>
+				<div class="col-sm-3">
+					<input type="text" class="form-control" name="bankCode"
+						id="bankCode" ng-model="vm.cbsOtherBankDetails.C001"
+						maxlength="8" chars="alpha-numeric" required oninput="this.value = this.value.replace(/\s+/g, '')">
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="form-group">
+				<div class="col-sm-3"></div>
+				<div class="col-sm-3">
+					<label for="bankName" class="control-label">Bank Name</label>
+				</div>
+				<div class="col-sm-3">
+					<input type="text" class="form-control" name="bankName"
+						id="bankName" ng-model="vm.cbsOtherBankDetails.C002" chars="only-character" oninput="this.value = this.value.replace(/[^a-zA-Z\s]/g, '').replace(/^\s/, '')"
+						maxlength="50" leading-space>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="form-group">
+				<div class="col-sm-3"></div>
+				<div class="col-sm-3">
+					<label for="bankShortName" class="control-label">Bank Short
+						Name</label>
+				</div>
+				<div class="col-sm-3">
+					<input type="text" class="form-control" name="bankShortName"
+						id="bankShortName" ng-model="vm.cbsOtherBankDetails.C003" chars="only-character" oninput="this.value = this.value.replace(/[^a-zA-Z\s]/g, '').replace(/^\s/, '')"
+						maxlength="50" leading-space>
+				</div>
+			</div>
+		</div>
+<!--		<div class="row">-->
+<!--			<div class="form-group">-->
+<!--				<div class="col-sm-3"></div>-->
+<!--				<div class="col-sm-3">-->
+<!--					<label for="additionalText1" class="control-label">Additional-->
+<!--						Text1</label>-->
+<!--				</div>-->
+<!--				<div class="col-sm-3">-->
+<!--					<input type="text" class="form-control" name="additionalText1"-->
+<!--						id="additionalText1" chars="alpha-numeric"-->
+<!--						ng-model="vm.cbsOtherBankDetails.C005" maxlength="40">-->
+<!--				</div>-->
+<!--			</div>-->
+<!--		</div>-->
+<!--		<div class="row">-->
+<!--			<div class="form-group">-->
+<!--				<div class="col-sm-3"></div>-->
+<!--				<div class="col-sm-3">-->
+<!--					<label for="additionalText2" class="control-label">Additional-->
+<!--						Text2</label>-->
+<!--				</div>-->
+<!--				<div class="col-sm-3">-->
+<!--					<input type="text" class="form-control" name="additionalText2"-->
+<!--						id="additionalText2" chars="alpha-numeric"-->
+<!--						ng-model="vm.cbsOtherBankDetails.C006" maxlength="40">-->
+<!--				</div>-->
+<!--			</div>-->
+<!--		</div>-->
+<!--		<div class="row">-->
+<!--			<div class="form-group">-->
+<!--				<div class="col-sm-3"></div>-->
+<!--				<div class="col-sm-3">-->
+<!--					<label for="additionalText3" class="control-label">Additional-->
+<!--						Text3</label>-->
+<!--				</div>-->
+<!--				<div class="col-sm-3">-->
+<!--					<input type="text" class="form-control" name="additionalText3"-->
+<!--						id="additionalText3" chars="alpha-numeric"-->
+<!--						ng-model="vm.cbsOtherBankDetails.C007" maxlength="40">-->
+<!--				</div>-->
+<!--			</div>-->
+<!--		</div>-->
+
+		<div class="row">
+			<div class="form-group">
+				<div class="col-sm-3"></div>
+				<div class="col-sm-3">
+					<label for="additionalText3" class="control-label">Addr1</label>
+				</div>
+				<div class="col-sm-3">
+					<input type="text" class="form-control" name="additionalText3"
+						   id="additionalText3"
+						   ng-model="vm.cbsOtherBankDetails.C008" maxlength="100" oninput="this.value = this.value.replace(/[^a-zA-Z0-9 ,.\-\/]/g, '').replace(/^\s+/, '').replace(/\s{2,}/g, ' ')">
+				</div>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="form-group">
+				<div class="col-sm-3"></div>
+				<div class="col-sm-3">
+					<label for="additionalText3" class="control-label">Addr2</label>
+				</div>
+				<div class="col-sm-3">
+					<input type="text" class="form-control" name="additionalText3"
+						   id="additionalText3"
+						   ng-model="vm.cbsOtherBankDetails.C009" maxlength="100" oninput="this.value = this.value.replace(/[^a-zA-Z0-9 ,.\-\/]/g, '').replace(/^\s+/, '').replace(/\s{2,}/g, ' ')">
+				</div>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="form-group">
+				<div class="col-sm-3"></div>
+				<div class="col-sm-3">
+					<label for="additionalText3" class="control-label">City</label>
+				</div>
+				<div class="col-sm-3">
+					<input type="text" class="form-control" name="additionalText3"
+						   id="additionalText3" chars="only-letters"
+						   ng-model="vm.cbsOtherBankDetails.C010" maxlength="50" oninput="this.value = this.value.replace(/\s+/g, '')">
+				</div>
+			</div>
+		</div>
+
+
+		<div class="row">
+			<div class="form-group">
+				<div class="col-sm-3"></div>
+				<div class="col-sm-3">
+					<label for="additionalText3" class="control-label">PinCode</label>
+				</div>
+				<div class="col-sm-3">
+					<input type="text" class="form-control" name="additionalText3"
+						   id="additionalText3" chars="only-numbers"
+						   ng-model="vm.cbsOtherBankDetails.C011" maxlength="6" oninput="this.value = this.value.replace(/\s+/g, '')">
+				</div>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="text-center form_submit">
+				<button type="submit" class="btn btn-default" id="submitButton"
+					ng-disabled="otherBankDetailsForm.$invalid" ng-click="vm.add()">Submit</button>
+				<button type="button" class="btn btn-cancel" id="cancelButton"
+					ng-click="vm.showCancelConfirmation('cbs_other_bank_details.list');">Cancel</button>
+			</div>
+		</div>
+		<div class="text-center">
+			<notice-message-directive></notice-message-directive>
+		</div>
+	</form>
+</div>
+

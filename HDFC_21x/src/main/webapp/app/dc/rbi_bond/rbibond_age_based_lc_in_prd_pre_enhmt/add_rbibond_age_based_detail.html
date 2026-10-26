@@ -1,0 +1,139 @@
+<div class="loader-new" ng-if="vm.loader"></div>
+<dc-left-menu></dc-left-menu>
+<div class="container from_wrapper new_form_wrapper">
+
+    <h4 class="form_heading">Age-Based Lock-in Period Details for Premature Encashment - Add</h4>
+    <sol-header></sol-header>
+    <form name="vm.rbiSchemeParameterCreationForm" role="form" ng-submit="vm.addAgeBasedCreation();" >
+
+
+                <div class="col-sm-6 col-sm-offset-3">
+
+
+                    <div class="row">
+                        <div class="form-group">
+                            <div class="col-sm-6">
+                                <label class="control-label">Name of the Module</label>
+                            </div>
+                            <div class="col-sm-6">
+                                <label><b>RBI Bond</b></label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="form-group">
+                            <div class="col-sm-6">
+                                <label class="control-label">Name of the Bond scheme</label>
+                            </div>
+                            <div class="col-sm-6">
+                                <label><b>{{vm.subCodeDescription}}</b></label>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="row">
+                        <div class="form-group">
+                            <div class="col-sm-6">
+                                <label class="control-label">Version No</label>
+                            </div>
+                            <div class="col-sm-6">
+                                <label><b>00001</b></label>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="row">
+                        <div class="form-group required">
+                            <div class="col-sm-6">
+                                <label for="effFromDate" class="control-label">Effective From Date</label>
+                            </div>
+                            <div class="col-sm-4">
+                                <p class="input-group">
+                                    <input type="text" class="form-control" id="effFromDate"
+                                           name="effFromDate" ng-init=""
+                                           ng-model="vm.effFromDate"
+                                           uib-datepicker-popup="dd/MM/yyyy"
+                                           datepicker-options="vm.effFromDateOptionsM"
+                                           is-open="vm.efffromDateOptions.opened"
+                                           close-text="Close" maxlength="10" required disabled readonly>
+                                    <span class="input-group-btn">
+                        </span>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+
+            <div class="col-sm-12 text-right form_submit">
+                <div class="row">
+                    <a data-href="#" type="button" name="addBtn" class="btn btn-primary" ng-click="vm.addRangeForAdd()">
+                        <span class="glyphicon glyphicon-plus">ADD</span>&nbsp;
+                    </a>
+                    <a data-href="#" type="button" name="removeBtn" class="btn btn-delete" ng-show="vm.disableDelete" ng-click="vm.removeRangeForAdd()">
+                        <span class="glyphicon glyphicon-trash">DELETE</span>&nbsp;
+                    </a>
+                </div>
+            </div>
+
+
+
+            <div class="col-md-12 margin-btm">
+                <div class="row">
+                    <table class="table table-bordered" >
+                        <thead>
+                        <tr class="thalign">
+                            <th>Subscriber’s Age Bracket From</th>
+                            <th>Subscriber’s Age Bracket To</th>
+                            <th>Lock-in Period (Years)</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat = "item in vm.addAgeBasedList">
+
+                            <td>
+                                <input type="text" class="form-control" id="position[$index]"
+                                       name="position"  oninput="this.value = this.value.replace(/[^0-9]/g, '')" ng-blur="vm.minValueOne($event,'subscriberAgeBracketFrom',$index)"
+                                       ng-model="item.subscriberAgeBracketFrom" required limit-to="3">
+                            </td>
+                            <td>
+                                <input type="text" class="form-control" id="colValue[$index]"
+                                       name="colValue" oninput="this.value = this.value.replace(/[^0-9]/g, '')"  ng-blur="vm.minValueOne($event,'subscriberAgeBracketTo',$index)"
+                                       ng-model="item.subscriberAgeBracketTo" required limit-to="3">
+                            </td>
+                            <td>
+                                <input type="text" class="form-control" id="colValue1[$index]"
+                                       name="colValue1" oninput="this.value = this.value.replace(/[^0-9]/g, '')" ng-blur="vm.minValueOne($event,'lockInPeriod',$index)"
+                                       ng-model="item.lockInPeriod" required limit-to="3">
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        <div class="col-sm-6 col-sm-offset-3">
+
+            <div class="text-center form_submit">
+                <button type="submit" class="btn btn-default" id="submitButton"
+                        ng-disabled="vm.rbiSchemeParameterCreationForm.$invalid">Submit
+                </button>
+                <button type="button" class="btn btn-cancel" id="cancelButton"
+                        onclick="window.location.href= '#!/rbibond_age_based/add';">Cancel
+                </button>
+            </div>
+
+            <div class="text-center">
+                <notice-message-directive></notice-message-directive>
+            </div>
+
+
+        </div>
+
+
+    </form>
+</div>

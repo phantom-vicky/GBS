@@ -1,0 +1,365 @@
+<div class="loader-new" ng-if="vm.loader"></div>
+<dc-left-menu></dc-left-menu>
+<div class="container from_wrapper new_form_wrapper">
+    <h4 class="form_heading">Scroll Number Maintenance - Add</h4>
+    <sol-header></sol-header>
+    <form name="scrollNumberMaintenanceForm" role="form" ng-submit="vm.add()">
+        <div class="col-sm-6 col-sm-offset-3">
+            <div class="row">
+                <div class="form-group required">
+                    <div class="col-sm-6">
+                        <label for="treasury" class="control-label">State Tax Name</label>
+                    </div>
+                    <div class="col-sm-4">
+                        <input type="hidden" class="form-control" id="treasury"
+                               ng-model="vm.stateTaxName" chars="only-letters" maxlength="25" readonly>
+                        <input type="text" class="form-control" id="stateTaxName" ng-model="vm.stateTaxName" required readonly>
+                    </div>
+                    <div class="col-sm-2">
+                        <i class="glyphicon glyphicon-search cp" data-bs-toggle="modal"
+                           id="treasurySearch"
+                           ng-click="vm.addScrollNumber('stateTaxCode');"></i> <i
+                            class="glyphicon glyphicon-remove clear cp"
+                            ng-click="vm.stateTaxName='';vm.stateTaxCode='';"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group required">
+                    <div class="col-sm-6">
+                        <label for="levelName" class="control-label">Level</label>
+                    </div>
+                    <div class="col-sm-4">
+                        <select class="form-control" id="levelName" name="levelName" ng-model="vm.levelId" required>
+                            <option value="">Select</option>
+                            <option ng-repeat="ln in vm.levelIdList" value="{{ln.levelId}}">{{ln.levelName}}</option>
+
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group required">
+                    <div class="col-sm-6">
+                        <label for="branchId" class="control-label">Branch ID</label>
+                    </div>
+                    <div class="col-sm-4">
+                        <input type="text" class="form-control" id="branchId"
+                               ng-model="vm.branchId" maxlength="26" required readonly>
+                    </div>
+                    <div class="col-sm-2">
+                        <i class="glyphicon glyphicon-search cp" id="telecomStateSearcher"
+                           ng-click="vm.addScrollNumber('branchId');vm.searchedValue='';"></i> <i
+                            class="glyphicon glyphicon-remove clear cp"
+                            ng-click="vm.branchId=''; vm.branchDescription=''"></i>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="form-group required">
+                    <div class="col-sm-6">
+                        <label for="branchId" class="control-label">Branch Name</label>
+                    </div>
+                    <div class="col-sm-4">
+                        <input type="text" class="form-control" id="branchDesc"
+                               ng-model="vm.branchName" maxlength="100" required readonly>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group required">
+                    <div class="col-sm-6">
+                        <label for="scrollName" class="control-label">Scroll Name</label>
+                    </div>
+                    <div class="col-sm-4">
+                        <input type="text" class="form-control" id="scrollName"
+                               ng-model="vm.scrollName" required readonly><!--maxlength="26"-->
+                    </div>
+                    <div class="col-sm-2">
+                        <i class="glyphicon glyphicon-search cp" id="scrollNameSearcher"
+                           ng-click="vm.addScrollNumber('scrollName');vm.searchedValue='';"></i> <i
+                            class="glyphicon glyphicon-remove clear cp"
+                            ng-click="vm.scrollCode=''; vm.scrollName=''"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group" ng-class="{'required' : (vm.scrollName)}">
+                    <div class="col-sm-6">
+                        <label for="majorHeadCode" class="control-label">Major Head Code</label>
+                    </div>
+                    <div class="col-sm-4">
+                        <input type="text" class="form-control" id="majorHeadCode"
+                               ng-model="vm.majorHeadCode" required
+                               ng-required="vm.scrollName"   readonly>
+                    </div>
+                    <div class="col-sm-2">
+                        <i class="glyphicon glyphicon-search cp" id="majorHeadCodeTorch"
+                           ng-click="vm.addScrollNumber('majorHeadCode');"></i> <i
+                            class="glyphicon glyphicon-remove clear cp"
+                            ng-click="vm.majorHeadCode='';"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group" ng-class="{'required' : (vm.scrollName)}">
+                    <div class="col-sm-6">
+                        <label for="frequency" class="control-label">Frequency</label>
+                    </div>
+                    <div class="col-sm-4">
+                        <select class="form-control" id="frequency" name="levelName" ng-model="vm.frequencyCode" ng-required="vm.scrollName"  required>
+                            <option value="">Select</option>
+                            <option ng-repeat="ln in vm.frequency" value="{{ln.frequencyCode}}">{{ln.frequencyDescription}}</option>
+
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group required">
+                    <div class="col-sm-6">
+                        <label for="nextScrollNumber" class="control-label">Next Scroll Number</label>
+                    </div>
+                    <div class="col-sm-4">
+                        <input type="text" class="form-control" id="nextScrollNumber"
+                               ng-model="vm.nextScrollNumber"  maxlength="5" chars="only-numbers"
+                               ng-blur="vm.scrollNumberLimit(vm.nextScrollNumber)" required>
+                    </div>
+                </div>
+            </div>
+            <div class="text-center form_submit">
+                <button type="submit" class="btn btn-default" id="submitButton" ng-disabled="scrollNumberMaintenanceForm.$invalid">Submit</button>
+                <button type="button" class="btn btn-cancel" id="cancelButton"
+                        onclick="window.location.href= '#!/scroll_number_maintenance/action/inquiry';">Cancel</button>
+            </div>
+            <div class="text-center">
+                <notice-message-directive></notice-message-directive>
+            </div>
+        </div>
+    </form>
+</div>
+
+<!-- State Tax Name -->
+<div class="modal" id="stateTaxModel" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-bs-dismiss="modal">&times;</button>
+                <h4 class="modal-title">State Tax Name</h4>
+            </div>
+            <div class="modal-body">
+                <div class="loader_popup"></div>
+                <div class="list_wrapper" ng-if="vm.stateCodeList.length>0">
+                    <div class="col-sm-8 form_submit">
+                        <div class="form-group">
+                            <div class="input-group">
+                                <div class="input-group-addon">
+                                    <i class="glyphicon glyphicon-search"></i>
+                                </div>
+                                <input type="text" class="form-control"
+                                       ng-model="vm.searchSolId" ng-init="vm.searchSolId = ''"
+                                       placeholder="Search">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4 form_submit"></div>
+                    <div class="row">
+
+                        <div class="col-sm-12">
+                            <table class="table table-bordered list scroll">
+                                <thead ng-init="reverseOrder=false;sortedColumn = 'stateTaxCode'">
+                                <tr>
+                                    <th class="modal-title title-case" ng-click="(sortedColumn == 'stateTaxCode')?(reverseOrder=(!reverseOrder)): (reverseOrder = false);sortedColumn = 'stateTaxCode';" ng-class="(sortedColumn == 'stateTaxCode')?((reverseOrder)?('arrow-down') : ('arrow-up') ) : ('')">State Tax Code</th>
+                                    <th class="modal-title title-case" ng-click="(sortedColumn == 'stateTaxName')?(reverseOrder=(!reverseOrder)): (reverseOrder = false);sortedColumn = 'stateTaxName';" ng-class="(sortedColumn == 'stateTaxName')?((reverseOrder)?('arrow-down') : ('arrow-up') ) : ('')">State Tax Name</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr class="cp"
+                                    ng-repeat="x in vm.stateCodeList | filter:vm.searchSolId | orderBy:vm.column:vm.reverse"
+                                    ng-click="vm.stateTaxCode = x.stateTaxCode; vm.stateTaxName = x.stateTaxDescription; vm.addScrollNumber('levelId');";  data-bs-dismiss="modal">
+                                    <td>{{x.stateTaxCode}}</td>
+                                    <td>{{x.stateTaxDescription}}</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="list_wrapper" ng-if="vm.stateCodeList.length==0">No records found to display.</div>
+            </div>
+
+        </div>
+    </div>
+</div>
+<!-- Treasury Details - End -->
+<!-- Branch Id Details -->
+<div class="modal" id="searchLevelBranchModal" role="dialog">
+
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-bs-dismiss="modal">&times;</button>
+                <h4 class="modal-title title-case">Level Branch</h4>
+            </div>
+
+            <div class="modal-body">
+                <div class="loader_popup"></div>
+                <div class="list_wrapper" ng-if="vm.branchIdList.length>0">
+                    <div class="col-sm-8 form_submit">
+                        <div class="form-group">
+                            <div class="input-group">
+                                <div class="input-group-addon">
+                                    <i class="glyphicon glyphicon-search"></i>
+                                </div>
+                                <input type="text" class="form-control"
+                                       ng-model="vm.searchedValue" ng-init="vm.searchedValue = ''" placeholder="Search">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4 form_submit"></div>
+                    <div class="row">
+
+                        <div class="col-sm-12">
+                            <table class="table table-bordered list scroll">
+                                <thead ng-init="reverseOrder=false;sortedColumn = 'value'">
+                                <tr>
+                                    <th class="modal-title title-case" ng-click="(sortedColumn == 'branchId')?(reverseOrder=(!reverseOrder)): (reverseOrder = false);sortedColumn = 'branchId';" ng-class="(sortedColumn == 'branchId')?((reverseOrder)?('arrow-down') : ('arrow-up') ) : ('')">Sol Id</th>
+                                    <th class="modal-title title-case" ng-click="(sortedColumn == 'branchName')?(reverseOrder=(!reverseOrder)): (reverseOrder = false);sortedColumn = 'branchName';" ng-class="(sortedColumn == 'branchName')?((reverseOrder)?('arrow-down') : ('arrow-up') ) : ('')">Sol Description</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr class="cp" ng-repeat="x in vm.branchIdList | filter: vm.searchedValue | orderBy:vm.column:vm.reverse"
+                                    ng-click="vm.branchId=x.branchId;vm.branchName = x.branchName;" data-bs-dismiss='modal'>
+                                    <td>{{x.branchId}}</td>
+                                    <td>{{x.branchName}}</td>
+                                </tr>
+                                <!--                                    <tr ng-if="vm.levelBranchList.length>0" class="cp" ng-click="vm.selectedLevelBranch='ALL';vm.selectedLevelBranchLabel = 'ALL'">-->
+                                <!--                                        <td colspan="2">ALL</td>-->
+                                <!--                                    </tr>-->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="list_wrapper" ng-if="vm.branchIdList.length==0">No
+                    records found to display.
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+<!-- Branch Id  Details - End -->
+
+<!-- Scroll Name -->
+<div class="modal" id="scrollNameModel" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-bs-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Scroll Name</h4>
+            </div>
+            <div class="modal-body">
+                <div class="loader_popup"></div>
+                <div class="list_wrapper" ng-if="vm.scrollNameList.length>0">
+                    <div class="col-sm-8 form_submit">
+                        <div class="form-group">
+                            <div class="input-group">
+                                <div class="input-group-addon">
+                                    <i class="glyphicon glyphicon-search"></i>
+                                </div>
+                                <input type="text" class="form-control"
+                                       ng-model="vm.searchSolId" ng-init="vm.searchSolId = ''"
+                                       placeholder="Search">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4 form_submit"></div>
+                    <div class="row">
+
+                        <div class="col-sm-12">
+                            <table class="table table-bordered list scroll">
+                                <thead ng-init="reverseOrder=false;sortedColumn = 'scrollCode'">
+                                <tr>
+                                    <th class="modal-title title-case" ng-click="(sortedColumn == 'scrollCode')?(reverseOrder=(!reverseOrder)): (reverseOrder = false);sortedColumn = 'scrollCode';" ng-class="(sortedColumn == 'scrollCode')?((reverseOrder)?('arrow-down') : ('arrow-up') ) : ('')">Scroll Code</th>
+                                    <th class="modal-title title-case" ng-click="(sortedColumn == 'scrollName')?(reverseOrder=(!reverseOrder)): (reverseOrder = false);sortedColumn = 'scrollName';" ng-class="(sortedColumn == 'scrollName')?((reverseOrder)?('arrow-down') : ('arrow-up') ) : ('')">Scroll Name</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr class="cp"
+                                    ng-repeat="x in vm.scrollNameList | filter:vm.searchSolId | orderBy:vm.column:vm.reverse"
+                                    ng-click="vm.scrollCode = x.scrollCode; vm.scrollName = x.scrollName;";  data-bs-dismiss="modal">
+                                    <td>{{x.scrollCode}}</td>
+                                    <td>{{x.scrollName}}</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="list_wrapper" ng-if="vm.scrollNameList.length==0">No records found to display.</div>
+            </div>
+
+        </div>
+    </div>
+</div>
+<!-- Scroll Name - End -->
+
+<!-- Major Head Code -->
+<div class="modal" id="majorHeadCodeModel" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-bs-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Major Head Codes</h4>
+            </div>
+            <div class="modal-body">
+                <div class="loader_popup"></div>
+                <div class="list_wrapper" ng-if="vm.majorHeadCodeList.length>0">
+                    <div class="col-sm-8 form_submit">
+                        <div class="form-group">
+                            <div class="input-group">
+                                <div class="input-group-addon">
+                                    <i class="glyphicon glyphicon-search"></i>
+                                </div>
+                                <input type="text" class="form-control"
+                                       ng-model="vm.searchSolId" ng-init="vm.searchSolId = ''"
+                                       placeholder="Search">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4 form_submit"></div>
+                    <div class="row">
+
+                        <div class="col-sm-12">
+                            <table class="table table-bordered list scroll">
+                                <thead ng-init="reverseOrder=false;sortedColumn = 'majorHeadCode'">
+                                <tr>
+                                    <th class="modal-title title-case" ng-click="(sortedColumn == 'majorHeadCode')?(reverseOrder=(!reverseOrder)): (reverseOrder = false);sortedColumn = 'majorHeadCode';" ng-class="(sortedColumn == 'majorHeadCode')?((reverseOrder)?('arrow-down') : ('arrow-up') ) : ('')">Major Head Code</th>
+                                    <th class="modal-title title-case" ng-click="(sortedColumn == 'majorHeadName')?(reverseOrder=(!reverseOrder)): (reverseOrder = false);sortedColumn = 'majorHeadName';" ng-class="(sortedColumn == 'majorHeadName')?((reverseOrder)?('arrow-down') : ('arrow-up') ) : ('')">Major Head Description</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr class="cp"
+                                    ng-repeat="x in vm.majorHeadCodeList | filter:vm.searchSolId | orderBy:vm.column:vm.reverse"
+                                    ng-click="vm.majorHeadCode = x.majorHeadCode; vm.majorHeadName = x.majorHeadDescription;vm.addScrollNumber('frequency');";  data-bs-dismiss="modal">
+                                    <td>{{x.majorHeadCode}}</td>
+                                    <td>{{x.majorHeadDescription}}</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="list_wrapper" ng-if="vm.majorHeadCodeList.length==0">No records found to display.</div>
+            </div>
+
+        </div>
+    </div>
+</div>
+<!-- Major Head Code - End -->

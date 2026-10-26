@@ -1,0 +1,177 @@
+<div class="loader-new" ng-if="vm.loader"></div>
+<dc-left-menu></dc-left-menu>
+<div class="container from_wrapper new_form_wrapper">
+    <h4 class="form_heading">Dash Board View Physical & INET - Add</h4>
+    <sol-header></sol-header>
+    <form name="dashBoardForm" role="form">
+        <div class="col-sm-6 col-sm-offset-3">
+            <div class="row">
+                <div class="form-group required">
+                    <div class="col-sm-6">
+                        <label for="moduleName" class="control-label">Name of the Module</label>
+                    </div>
+                    <div class="col-sm-4">
+                        <label><b>RBI Bond</b></label>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group required">
+                    <div class="col-sm-6">
+                        <label class="control-label">Scheme Name</label>
+                    </div>
+                    <div class="col-sm-4">
+                       <!-- <input type="text" class="form-control" id="schemeName"
+                               name="schemeName" ng-model="vm.schemeName" readonly required>-->
+                        <label>{{vm.schemeName}}</label>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group required">
+                    <div class="col-sm-6">
+                        <label for="fileMode" class="control-label">File Mode</label>
+                    </div>
+                    <div class="col-sm-4">
+                        <select  class="form-control" id="fileMode" name="fileMode" ng-model="vm.fileMode" required disabled>
+                            <option value="" hidden="true">Select</option>
+                            <option ng-repeat="item in vm.fileModeList" value="{{item.subCode}}">{{item.subCodeDescription}}</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group required">
+                    <div class="col-sm-6">
+                        <label for="liquidationDate" class="control-label">Realization Date</label>
+                    </div>
+                    <div class="col-sm-4">
+                        <p class="input-group">
+                            <input type="text" class="form-control" id="liquidationDate"
+                                   name="liquidationDate"  ng-model="vm.liquidationDate" maxlength="10"
+                                   uib-datepicker-popup="dd/MM/yyyy"
+                                   is-open="vm.liquidationDate.opened" close-text="Close"
+                                   datepicker-options="vm.liquidationDateCalenderOptions" readonly required>
+                            </p>
+                    </div>
+                </div>
+            </div>
+            <div class="row" ng-if="vm.fileMode=='NB'">
+                <div class="form-group required">
+                    <div class="col-sm-6">
+                        <label for="valueDate" class="control-label">Value Date</label>
+                    </div>
+                    <div class="col-sm-4">
+                        <p class="input-group">
+                            <input type="text" class="form-control" id="valueDate"
+                                   name="valueDate"  ng-model="vm.valueDate" maxlength="10"
+                                   uib-datepicker-popup="dd/MM/yyyy"
+                                   is-open="vm.valueDate.opened" close-text="Close"
+                                   datepicker-options="vm.valueDateCalenderOptions" required readonly>
+                            </p>
+                    </div>
+                </div>
+            </div>        </div>
+<br><br><br><br><br><br><br><br><br><br><br><br>
+        <div class="table-responsive text-center" ng-if="vm.responseResult.length>0">
+                <table class="table table-bordered table-striped">
+                    <thead>
+                    <tr class="thalign">
+                        <th colspan="2">CheckBox<br>
+                            <input type="checkbox" id="selectedAllItem" ng-change="vm.optionToggled('ALL');"
+                                   name="selectedAllItem" ng-model="vm.selectedAllItem">
+                        </th>
+                        <th colspan="2">File Name</th>
+                        <th>No of Instrument</th>
+                        <th colspan="4">Total Amount</th>
+                        <th colspan="2">Download</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr data-ng-repeat="x in vm.responseResult">
+                        <td class="text-center" colspan="2">
+                            <input type="checkbox" id="selectedItem{{$index}}"
+                                   name="{{x.fileName}}" ng-model="vm.selectedCheckBox[x.fileName]" ng-change="vm.optionToggled(x.fileName);">
+                        </td>
+                        <td colspan="2" ng-if="x.fileName=='TBNB' || x.fileName=='RRBNB'">{{x.fileName}}{{vm.liquidationDate |  date: 'ddMMyy'}}.csv</td>
+                        <td colspan="2" ng-if="x.fileName=='TBNB_BB' || x.fileName=='RRBNB_BB'">{{x.fileName.slice(0,-2)}}{{vm.liquidationDate |  date: 'ddMMyyyy'}}_BB.csv</td>
+                        <td colspan="2" ng-if="x.fileName=='TBNB_SAKSHAM' || x.fileName=='RRBNB_SAKSHAM'">{{x.fileName.slice(0,-7)}}{{vm.liquidationDate |  date: 'ddMMyyyy'}}_Saksham.csv</td>
+                        <td colspan="2" ng-if="x.fileName=='TBNB_NOVOPAY' || x.fileName=='RRBNB_NOVOPAY'">{{x.fileName.slice(0,-7)}}{{vm.liquidationDate |  date: 'ddMMyyyy'}}_NOVOPAY.csv</td>
+                        <td colspan="2" ng-if="x.fileName=='TAXBOND'">{{x.fileName}}{{vm.liquidationDate |  date: 'ddMMyyyy'}}.txt</td>
+                        <td class="text-center">{{x.countOfRecord}}</td>
+                        <td colspan="4">{{vm.indianNumberFormat(x.totalAmt)}}</td>
+                        <td colspan="2"><button type="submit" class="btn btn-default"  ng-disabled="!vm.selectedCheckBox[x.fileName]" id="download{{x.fileName}}" name="download{{x.fileName}}" ng-click="vm.download($index);">Download</button></td>
+                    </tr>
+                    <tr ng-if="vm.overAllCount">
+                        <td class="text-center" colspan="2"></td>
+                        <td class="text-center" colspan="2">Grand Total</td>
+                        <td class="text-center">{{vm.overAllCount}}</td>
+                        <td class="text-center" colspan="4">{{vm.indianNumberFormat(vm.overAllAmt)}}</td>
+                        <td class="text-center" colspan="2"></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="text-center form_submit">
+                <button type="submit" class="btn btn-default" id="addButton" ng-click="vm.submitAddForm();"
+                        ng-disabled="dashBoardForm.$invalid">Add</button>
+                <button type="submit" class="btn btn-default" id="deleteButton" ng-click="vm.addRejectReason();"
+                        ng-disabled="dashBoardForm.$invalid">Reject</button>
+                <button type="button" class="btn btn-cancel" id="cancelButton"
+                        onclick="window.location.href= '#!/dash_board_view_for_physical_and_inet/action/inquiry'">Cancel</button>
+            </div>
+    </form>
+</div>
+<!--Add Delete Get Remarks-->
+<div class="modal" id="permissionMappingAddDelete" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-bs-dismiss="modal">&times;</button>
+                <h4 class="modal-title">REJECTION REMARKS</h4>
+            </div>
+            <div class="modal-body">
+                <div class="loader_popup"></div>
+                <div class="list_wrapper">
+                    <form name="permissionDelete" role="form">
+                        <div class="row">
+                            <div class="form-group">
+                                <div class="col-sm-2"></div>
+                                <label class="control-label col-sm-3">Remarks</label>
+                                <div class="col-sm-5">
+                                    <select class="form-control list_wrapper" id="remarks[$index]"
+                                            name="remarks[$index]" ng-model="vm.remarks" ng-init="vm.getRemarksList();"
+                                            required>
+                                        <option value="">Select</option>
+                                        <option ng-repeat="item in vm.remarksList" name="{{item.subCode + parentIndex}}"
+                                                id="{{item.subCode + parentIndex}}" value="{{item.subCodeDescription}}">
+                                            {{item.subCodeDescription}}
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-offset-5 col-sm-8 form_submit">
+                            <button type="button" class="btn btn-default" data-bs-dismiss="modal"
+                                    ng-disabled="permissionDelete.$invalid" ng-click="vm.addDeleteSubmit()">Submit
+                            </button>
+                            <button type="button" class="btn btn-cancel" data-bs-dismiss="modal">Cancel</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+<div class="container" ng-if="vm.noDataFound">
+    <div class="list_wrapper no_records_message">
+        <h4 class="form_heading">Dash Board View Physical And Inet - Add</h4>
+        No records found to display.
+        <center>
+            <button type="button" class="btn btn-default"
+                    onclick="window.location.href= '#!/dash_board_view_for_physical_and_inet/action/inquiry';" >Back</button>
+        </center>
+    </div>
+</div>

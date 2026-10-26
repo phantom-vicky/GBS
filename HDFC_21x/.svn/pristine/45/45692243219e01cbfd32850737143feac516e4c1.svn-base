@@ -1,0 +1,97 @@
+<div class="loader-new" ng-if="vm.loader"></div>
+<div class="container" ng-if="vm.model">
+    <div class="text-right form_submit" >
+        <button type="submit" class="btn btn-default"
+                onclick="window.location.href ='#!/rbibond_gu_functionality';" id="homeButton">Home</button>
+        <button type="button" id="cancel_Button" class="btn btn-cancel"
+                onclick="window.location.href= '#!/rbibond_acc_holder_inquiry_report/action/inquiry';">Back</button>
+    </div>
+    <div class="container from_wrapper new_form_wrapper">
+        <div class="row">
+            <h4 class="form_heading">Account Holder Inquiry</h4>
+            <sol-header></sol-header>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="table-responsive">
+                    <table class="table table-bordered table-striped list nowrap table-textWrap datatable"
+                           ui-jq="dataTable" ui-options="vm.dataTableOption">
+                        <thead>
+                        <tr class="thalign">
+                            <th colspan="6">{{vm.bankName}}</th>
+                        </tr>
+                        <tr class="thalign">
+                            <th colspan="6">{{vm.loginSolDesc}} </th>
+                        </tr>
+                        <tr class="thalign">
+                            <th colspan="6">{{vm.loginSolId}}</th>
+                        </tr>
+                        <tr class="thalign">
+                            <th colspan="6">Account Holder Inquiry </th>
+                        </tr>
+                        <tr class="thalign">
+                            <th colspan="6">{{vm.schemeName}}</th>
+
+                        </tr>
+                        <tr class="thalign">
+                            <th colspan="1">BLA No.</th>
+                            <th  colspan="2">{{vm.blaAccNo}}</th>
+                            <th colspan="1">Bond Holder Name</th>
+                            <th colspan="2">{{vm.bondHolderName}}</th>
+                        </tr>
+                        <tr class="thalign">
+                            <th colspan="1">Mode of Holding</th>
+                            <th colspan="2">{{vm.modeOfHolding}}</th>
+                            <th colspan="1">Holder Type</th>
+                            <th colspan="2">{{vm.holderType}}</th>
+                        </tr>
+                        <tr class="thalign">
+                            <th>S.No</th>
+                            <th>Subscription ID</th>
+                            <th>Subscription Date</th>
+                            <th>Subscription Amount Rs.</th>
+                            <th>Maturity Date</th>
+                            <th>Subscription Status</th>
+
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="x in vm.model.item">
+                            <td align="center">{{vm.itemsPerPage *(vm.currentPage-1)+$index+1}}</td>
+                            <td align="center">{{x.subscriptionId}}</td>
+                            <td align="center">{{x.subscriptionDate}}</td>
+                            <td align="center">{{x.subscriptionAmt}}</td>
+                            <td align="center">{{x.maturityDate}}</td>
+                            <td align="center">{{x.subscriptionStatus}}</td>
+                        </tr>
+                        </tbody>
+
+                        <tfoot>
+                        <tr>
+                            <th colspan="1"></th>
+                            <th colspan="1"></th>
+                            <th  colspan="1" class="text-center">Total</th>
+                            <th colspan="1" class="text-center">{{vm.model.total}}</th>
+                            <th colspan="1"></th>
+                            <th colspan="1"></th>
+
+                        </tr>
+                        </tfoot>
+                    </table>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+<div class="container" ng-if="vm.noDataFound">
+    <div class="list_wrapper no_records_message">
+        <h4 class="form_heading">Account Holder Inquiry</h4>
+        No records found to display.
+        <center>
+            <button type="button" class="btn btn-default"
+                    onclick="window.location.href= '#!/rbibond_acc_holder_inquiry_report.inquiry/action/inquiry';" >Back</button>
+        </center>
+    </div>
+</div>

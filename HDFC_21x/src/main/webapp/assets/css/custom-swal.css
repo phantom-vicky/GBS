@@ -1,0 +1,5 @@
+/* custom-swal.css */
+.swal2-popup
+{ width: 400px !important; /* increase width */
+max-width: 980%; /* optional to keep it responsive */
+font-size: 15px; /* optional font size increase */ }

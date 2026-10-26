@@ -1,0 +1,125 @@
+<div class="loader-new" ng-if="vm.loader"></div>
+<dc-left-menu></dc-left-menu>
+<div class="container from_wrapper new_form_wrapper">
+    <h4 class="form_heading">TOC Slab Maintenance - Modify</h4>
+    <sol-header></sol-header>
+    <form name="tocSlabMaintenanceForm" role="form">
+        <table class="table table-bordered">
+            <tbody>
+            <tr ng-init="vm.getModuleName();">
+                <td width="50%" class="form-group"><label class="control-label">Module</label></td>
+                <td width="50%"><label class="text-uppercase">{{vm.moduleId | getLabelFromValuesArray : vm.moduleNameDetailsLabelValue}}</label></td>
+            </tr>
+
+            <tr>
+                <td width="50%" class="form-group required"><label class="control-label">Effective from date</label></td>
+                <td width="50%"><p class="input-group width-40">
+                    <input type="text" class="form-control" id="effFromDate"
+                           name="effFromDate" ng-model="vm.effFromDate"
+                           uib-datepicker-popup="dd/MM/yyyy" ng-init="vm.dateValidationForModify();"
+                           datepicker-options="vm.dateOptions"
+                           is-open="vm.effFromDatePicker.opened" close-text="Close"
+                           maxlength="10" readonly required>
+                    <span class="input-group-btn">
+                            <button type="button" class="btn btn-secondary"
+                                    ng-click="vm.effFromDatePicker.opened = true"
+                                    id="effFromDateSearcher">
+                                <i class="glyphicon glyphicon-calendar"></i>
+                            </button>
+                        </span>
+                </p></td>
+            </tr>
+            </tbody>
+        </table>
+
+        <table class="table table-bordered table-striped list">
+            <thead>
+            <tr>
+                <th width="10%">Flat Rate</th>
+                <th width="20%">Nature of TOC</th>
+                <th>Minimum No of Challans / Amount</th>
+                <th>Maximum No of Challans / Amount</th>
+                <th>TOC Per Amount Rs.</th>
+                <th>TOC in (Rs) per Challan / <br> TOC in (paise) Per Amount</th>
+                <th>Rounding Factor</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat = "item in vm.tocSlabList">
+                <td class="form-group">
+                    <select class="form-control" id="flatRate[$index]" name="flatRate"
+                            ng-model="item.C005.oldValue" required>
+                        <option value="" hidden="true">Select</option>
+                        <option value="Y">Yes</option>
+                        <option value="N">No</option>
+                    </select>
+                </td>
+
+                <td>
+                    <select class="form-control" id="pensionType[$index]" name="pensionType"
+                            ng-model="item.C007.oldValue" ng-init="vm.getPenionTocList();" required disabled>
+                        <option value="">Select</option>
+                        <option ng-repeat="items in vm.pensionTocList" value="{{items.value}}" ng-selected="{{item.C007.oldValue == items.value}}">{{items.label}}</option>
+                    </select>
+                </td>
+
+                <td>
+                    <input type="text" class="form-control text-right" ng-if="item.C005.oldValue == 'Y'" id="minSlabCh[$index]"
+                           chars="only-numbers" onkeypress="return isNumber(event)" placeholder="Min No.of Chellans"
+                           limit-to="11" name="minSlabCh"
+                           ng-model="item.C009.oldValue" required>
+                    <input type="text" class="form-control text-right" ng-if="item.C005.oldValue == 'N'" id="minSlabAmt[$index]"
+                           chars="only-numbers" onkeypress="return isNumber(event)"  placeholder="Min Amount"
+                           limit-to="11" name="minSlabAmt"
+                           ng-model="item.C009.oldValue" required>
+                </td>
+
+                <td>
+                    <input type="text" class="form-control text-right" ng-if="item.C005.oldValue == 'Y'" id="maxSlabCh[$index]"
+                           chars="only-numbers" onkeypress="return isNumber(event)"  placeholder="Max No.of Chellans"
+                           limit-to="8" name="maxSlabCh"
+                           ng-model="item.C010.oldValue" required>
+                    <input type="text" class="form-control text-right" ng-if="item.C005.oldValue == 'N'" id="maxSlabAmt[$index]"
+                           chars="only-numbers" onkeypress="return isNumber(event)" placeholder="Max Amount"
+                           limit-to="8" name="maxSlabAmt"
+                           ng-model="item.C010.oldValue" required>
+                </td>
+
+                <td ng-if="item.C005.oldValue == 'N'"><input type="text" class="form-control text-right" id="tocAmount[$index]"
+                                                             chars="float" name="tocAmount" maxlength="5"
+                                                             ng-model="item.C011.oldValue" required></td>
+                <td ng-if="item.C005.oldValue == 'Y'"><label class="control-label"></label></td>
+
+                <td><input type="text" class="form-control text-right" id="tocSlabValue[$index]"
+                           chars="float" name="tocSlabValue" maxlength="5"
+                           ng-model="item.C012.oldValue" required></td>
+
+                <td>
+                    <select class="form-control" id="roundOff[$index]" name="roundOff"
+                            ng-model="item.C013.oldValue" ng-init="vm.getRoundFactList();" required>
+                        <option value="">Select</option>
+                        <option ng-repeat="items in vm.roundOff" value="{{items.value}}" ng-bind="items.label"></option>
+                    </select>
+                </td>
+
+            </tr>
+            </tbody>
+
+            <tfoot>
+                <tr>
+                    <th width="25%">Verified Status</th>
+                    <th width="25%">YES</th>
+                </tr>
+            </tfoot>
+
+        </table>
+
+        <div class="text-center form_submit">
+            <button type="submit" class="btn btn-default" id="submitButton"
+                    ng-disabled="tocSlabMaintenanceForm.$invalid" ng-click="vm.modifySubmit()">Modify</button>
+            <button type="button" id="subButton" class="btn btn-cancel"
+                    ng-click="vm.showCancelConfirmation('common_toc_slab_maintenance.modify');">Cancel</button>
+        </div>
+
+    </form>
+</div>

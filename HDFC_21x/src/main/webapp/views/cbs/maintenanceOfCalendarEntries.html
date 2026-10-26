@@ -1,0 +1,201 @@
+<left-menu-directive></left-menu-directive>
+<div class="loader-new" ng-show="loader"></div>
+<div class="container from_wrapper" ng-if="displayForm == true">
+	
+	<h4 class="form_heading  feature-heading">Maintenance of Calendar Entries - {{action}} </h4>
+	<div  ng-if="action == 'modify' || action == 'add'">
+		<notice-message-directive ></notice-message-directive>
+	</div>
+	<form name="maintenanceOfCalendarEntriesForm" role="form" ng-submit="submitForm(maintenanceOfCalendarEntriesForm.$valid)" novalidate>
+		<div class="row">
+		 <div class="form-group" ng-class="requiredClass">
+		    <div class="col-sm-3"></div>
+		  	<label for="calendarType" class ="control-label col-sm-3">Type</label>
+			<div class="col-sm-3">
+					<select class="form-control" id="calendarType" name="calendarType" ng-model="maintenanceOfCalendarEntries.calendarType" ng-if="action == 'modify' || action == 'add'" required>
+						<option ng-selected= "{{maintenanceOfCalendarEntries.calendarType == ''}}" value="">Select</option>
+						<option ng-selected= "{{maintenanceOfCalendarEntries.calendarType== 'Branch'}}" value="Branch">Branch</option>
+						<option ng-selected= "{{maintenanceOfCalendarEntries.calendarType == 'DC'}}" value="DC">DC</option>
+					</select>					
+				<label ng-if="action == 'delete' || action == 'verify' || action == 'inquiry'">: {{maintenanceOfCalendarEntries.calendarType}}</label> 
+			</div>
+		</div>
+	   </div>
+	    	
+	   <div class="row">
+		 <div class="form-group" ng-class="requiredClass">
+		    <div class="col-sm-3"></div>
+		  	<label for="calendarCode" class ="control-label col-sm-3">Branch Code or Data Center Code</label>
+				<div class="col-sm-3">
+					<input type="text" class="form-control" id="calendarCode" name="calendarCode" ng-model="maintenanceOfCalendarEntries.calendarCode" maxlength="12" ng-if="action == 'modify' || action == 'add'" required>
+					<label ng-if="action == 'delete' || action == 'verify' || action == 'inquiry'">: {{maintenanceOfCalendarEntries.calendarCode}}</label> 
+			</div>
+		</div>
+	   </div>	
+	  
+	   <div class="row">
+		<div class="form-group" ng-class="requiredClass">
+		    <div class="col-sm-3"></div>
+		  	<label for="monthYear" class ="control-label col-sm-3">Month & Year</label>
+			<div class="col-sm-3">
+				<div class="row">
+					<div class="col-sm-6">
+						<select name="month" class="form-control" ng-model="maintenanceOfCalendarEntries.month" ng-if="action == 'modify' || action == 'add'" required>
+							<option value="">Month</option>
+							<option value="01">Jan</option>
+		            		<option value="02">Feb</option>
+		            		<option value="03">Mar</option>
+		            		<option value="04">Apr</option>
+		            		<option value="05">May</option>
+		            		<option value="06">Jun</option>
+		            		<option value="07">Jul</option>
+		            		<option value="08">Aug</option>
+		            		<option value="09">Sep</option>
+		            		<option value="10">Oct</option>
+		            		<option value="11">Nov</option>
+		            		<option value="12">Dec</option> 
+						</select>
+					</div>
+					<div class="col-sm-6">
+						<select class="form-control" id="year" name="year" ng-model="maintenanceOfCalendarEntries.year" ng-if="action == 'modify' || action == 'add'" required>
+							<option ng-selected = "{{maintenanceOfCalendarEntries.year == ''}}" value="">Year</option>
+							<option ng-selected= "{{x == maintenanceOfCalendarEntries.year}}" ng-repeat="year in maintenanceOfCalendarEntries.years">{{year}}</option>
+						</select>
+					</div>
+				</div>
+			 	<input type="hidden" class="form-control" id="monthYear" name="monthYear" ng-model="maintenanceOfCalendarEntries.monthYear" minlength="6" ng-value="maintenanceOfCalendarEntries.month + maintenanceOfCalendarEntries.year"  maxlength="6" ng-if="action == 'modify' || action == 'add'" allow-only-numbers>
+				<label ng-if="action == 'delete' || action == 'verify' || action == 'inquiry'">: {{maintenanceOfCalendarEntries.monthYear}}</label> 
+			</div>
+		</div>
+	   </div>
+	   <div class="row">
+		 <div class="form-group" ng-class="requiredClass">
+		    <div class="col-sm-3"></div>
+		  	<label for="holidayString" class ="control-label col-sm-3">Holiday String</label>
+			<div class="col-sm-3">
+					<input type="text" class="form-control" id="holidayString" name="holidayString" ng-model="maintenanceOfCalendarEntries.holidayString" maxlength="31" ng-if="action == 'modify' || action == 'add'" required>
+					<label ng-if="action == 'delete' || action == 'verify' || action == 'inquiry'">: {{maintenanceOfCalendarEntries.holidayString}}</label> 
+			</div>
+		</div>
+	   </div>
+	  	   <div class="row">
+			<div class="form-group">
+			<div class="col-sm-3"></div>
+				<label for="additionalText1" class="control-label col-sm-3">Additional Text1</label>
+				<div class="col-sm-3">
+					<input type="text" class="form-control" name="additionalText1" id="additionalText1" ng-model="maintenanceOfCalendarEntries.additionalText1" maxlength="40" ng-if="action == 'modify' || action == 'add'">
+					<label ng-if="action == 'delete' || action == 'verify' || action == 'inquiry'">: {{maintenanceOfCalendarEntries.additionalText1}}</label>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="form-group">
+			<div class="col-sm-3"></div>
+				<label for="additionalText2" class="control-label col-sm-3">Additional Text2</label>
+				<div class="col-sm-3">
+					<input type="text" class="form-control" name="additionalText2" id="additionalText2" ng-model="maintenanceOfCalendarEntries.additionalText2" maxlength="40" ng-if="action == 'modify' || action == 'add'">
+					<label ng-if="action == 'delete' || action == 'verify' || action == 'inquiry'">: {{maintenanceOfCalendarEntries.additionalText2}}</label>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="form-group">
+			<div class="col-sm-3"></div>
+				<label for="additionalText3" class="control-label col-sm-3">Additional Text3</label>
+				<div class="col-sm-3">
+					<input type="text" class="form-control" name="additionalText3" id="additionalText3" ng-model="maintenanceOfCalendarEntries.additionalText3" maxlength="40" ng-if="action == 'modify' || action == 'add'">
+					<label ng-if="action == 'delete' || action == 'verify' || action == 'inquiry'">: {{maintenanceOfCalendarEntries.additionalText3}}</label>
+				</div>
+			</div>
+		</div>
+	
+<div class="row">
+			 <div class="col-sm-offset-5 col-sm-8 form_submit">
+				 
+				 <button type="submit" class="btn btn-default" id="submitButton" ng-disabled="maintenanceOfCalendarEntriesForm.$invalid" ng-if="action == 'add'">Submit</button>
+				 <button type="submit" class="btn btn-default" id="submitButton" ng-disabled="maintenanceOfCalendarEntriesForm.$invalid" ng-if="action == 'modify'">Update</button>
+				 <button type="button" class="btn btn-default" id="submitButton" ng-click="verify(maintenanceOfCalendarEntries.id)" ng-disabled="maintenanceOfCalendarEntriesForm.$invalid" ng-if="action == 'verify'">Verify</button>
+				 <button type="button" class="btn btn-default" id="submitButton" ng-click="delete(maintenanceOfCalendarEntries.id)" ng-disabled="maintenanceOfCalendarEntriesForm.$invalid" ng-if="action == 'delete'">Delete</button>
+				 <button type="button" class="btn btn-default" id="submitButton" ng-click="inquiry(maintenanceOfCalendarEntries.id)" ng-disabled="maintenanceOfCalendarEntriesForm.$invalid" ng-if="action == 'inquiry'">Back</button>
+				 
+				 <button type="button" class="btn btn-cancel" id="cancelButton" ng-click="cancelOperation(action)" >Cancel</button>
+			</div>
+		</div>
+	</form>
+</div>
+
+
+<div class="container list_wrapper" ng-if="baseRecordList.length > 0">
+	<h4 class="feature-heading"> Maintenance of Calendar Entries - {{action}} </h4>
+
+		<div class="col-sm-3">
+			<div class="form-group">
+				<label>
+				Show
+					<select class="form-control record-filter" ng-model="itemsPerPage" id="itemsPerPage" name="itemsPerPage"  ng-change="setItemsPerPage(itemsPerPage)" >
+						<option value='5'>5</option>
+						<option value='10'>10</option>
+						<option value='25'>25</option>
+						<option value='50'>50</option>
+					</select>
+				records per page
+				</label>
+			</div>
+		</div>
+		<div class="col-sm-3 pull-right">				    
+			  <div class="form-group">
+			       <div class="input-group">
+					      <div class="input-group-addon"><i class="glyphicon glyphicon-search"></i></div>
+					      <input type="text" class="form-control" ng-model="searchKeyword" ng-change="searchInquiryFn(searchKeyword)" placeholder="Search">
+					    </div>
+			  </div>
+		</div>
+		
+	<div ng-if="totalItems > 0">	
+	<table class="table table-bordered table-striped list">
+			<thead>
+				<tr>
+					<th>Type</th>
+					<th>Branch Code or Data Center Code</th>
+					<th>Month & Year</th>
+					<th>Holiday String</th>
+					<!--  <th>Status</th>  
+				    <th>Additional Text1</th>
+					<th>Additional Text2</th>
+					<th>Additional Text3</th>  -->
+					<th style="width: 100px;">Status</th>
+					<th>Created Date</th>
+					<th ng-if="action" class="capitalize">{{action}}</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="item in recordsList.slice(((currentPage-1)*itemsPerPage), ((currentPage)*itemsPerPage))">
+					<td>{{item.calendarType}}</td>
+					<td>{{item.calendarCode}}</td>
+					<td>{{item.monthYear}}</td>
+					<td>{{item.holidayString}}</td>
+					<!-- <td>{{item.status}}</td> 
+					 <td>{{item.additionalText1}}</td>
+					<td>{{item.additionalText2}}</td>
+					<td>{{item.additionalText3}}</td>  -->
+					<td ng-if="item.verifiedFlag == true">Verified</td>
+					<td ng-if="item.verifiedFlag == false">Unverified</td>
+					<td>{{item.createdDate | date: 'dd/MM/y'}}</td>
+					<td ng-if="action=='modify'"><i class="glyphicon glyphicon-edit cp" ng-click="modifyForm(item.id)"></i></td>
+					<td ng-if="action=='verify'"><i class="glyphicon glyphicon-ok cp" ng-click="verifyForm(item.id)"></i></td>
+					<td ng-if="action=='delete'"><i class="glyphicon glyphicon-remove cp" ng-click="deleteForm(item.id)"></i></td>
+					<td ng-if="action=='inquiry'"><i class="glyphicon glyphicon-search cp" ng-click="inquiryForm(item.id)"></i></td>
+				</tr>
+			</tbody>
+		</table>
+		
+	<ul uib-pagination total-items="totalItems" ng-model="currentPage" max-size="maxSize" class="pagination-sm" boundary-links="true" force-ellipses="true" items-per-page="itemsPerPage"></ul>
+</div>
+		<div class="list_wrapper no_records_message padding-top-50" ng-if="totalItems <= 0">No records matched with <i>"{{searchKeyword}}"</i>.</div>
+		
+	
+</div>
+<div class="container list_wrapper" ng-if="baseRecordList.length <= 0 && loader == false && displayForm == false">
+	<h4 class="feature-heading"> Maintenance of Calendar Entries - {{action}} </h4>
+	<div class="no_records_message">No records found to display.</div>
+</div>

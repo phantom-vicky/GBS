@@ -1,0 +1,148 @@
+<left-menu-directive></left-menu-directive>
+<div class="loader-new" ng-show="loader"></div>
+<div class="container from_wrapper" ng-if="displayForm == true">
+	<h4 class="form_heading  feature-heading">Other Bank Details - {{action}}</h4>
+	<div  ng-if="action == 'modify' || action == 'add'">
+		<notice-message-directive ></notice-message-directive>
+	</div>
+	<form name="otherBankDetailsForm" role="form" ng-submit="submitForm(otherBankDetailsForm.$valid)" novalidate>
+		<div class="row">
+			<div class="form-group" ng-class="requiredClass">
+			<div class="col-sm-3"></div>
+				<label for="bankCode" class="control-label col-sm-3">Bank Code</label>
+				<div class="col-sm-3">
+					<input type="text" class="form-control" name="bankCode" id="bankCode" ng-model="otherBankDetails.bankCode" maxlength="8" ng-if="action == 'modify' || action == 'add'" required>
+					<label ng-if="action == 'delete' || action == 'verify' || action == 'inquiry'">: {{otherBankDetails.bankCode}}</label>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="form-group">
+			<div class="col-sm-3"></div>
+				<label for="bankName" class="control-label col-sm-3">Bank Name</label>
+				<div class="col-sm-3">
+					<input type="text" class="form-control" name="bankName" id="bankName" ng-model="otherBankDetails.bankName" maxlength="50" ng-if="action == 'modify' || action == 'add'">
+	                <label ng-if="action == 'delete' || action == 'verify' || action == 'inquiry'">: {{otherBankDetails.bankName}}</label>			
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="form-group">
+			<div class="col-sm-3"></div>
+				<label for="bankShortName" class="control-label col-sm-3">Bank Short Name</label>
+				<div class="col-sm-3">
+					<input type="text" class="form-control" name="bankShortName" id="bankShortName" ng-model="otherBankDetails.bankShortName" maxlength="15" ng-if="action == 'modify' || action == 'add'">
+					<label ng-if="action == 'delete' || action == 'verify' || action == 'inquiry'">: {{otherBankDetails.bankShortName}}</label>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="form-group">
+			<div class="col-sm-3"></div>
+				<label for="additionalText1" class="control-label col-sm-3">Additional Text1</label>
+				<div class="col-sm-3">
+					<input type="text" class="form-control" name="additionalText1" id="additionalText1" ng-model="otherBankDetails.additionalText1" maxlength="40" ng-if="action == 'modify' || action == 'add'">
+					<label ng-if="action == 'delete' || action == 'verify' || action == 'inquiry'">: {{otherBankDetails.additionalText1}}</label>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="form-group">
+			<div class="col-sm-3"></div>
+				<label for="additionalText2" class="control-label col-sm-3">Additional Text2</label>
+				<div class="col-sm-3">
+					<input type="text" class="form-control" name="additionalText2" id="additionalText2" ng-model="otherBankDetails.additionalText2" maxlength="40" ng-if="action == 'modify' || action == 'add'">
+					<label ng-if="action == 'delete' || action == 'verify' || action == 'inquiry'">: {{otherBankDetails.additionalText2}}</label>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="form-group">
+			<div class="col-sm-3"></div>
+				<label for="additionalText3" class="control-label col-sm-3">Additional Text3</label>
+				<div class="col-sm-3">
+					<input type="text" class="form-control" name="additionalText3" id="additionalText3" ng-model="otherBankDetails.additionalText3" maxlength="40" ng-if="action == 'modify' || action == 'add'">
+					<label ng-if="action == 'delete' || action == 'verify' || action == 'inquiry'">: {{otherBankDetails.additionalText3}}</label>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			 <div class="col-sm-offset-5 col-sm-8 form_submit">
+				 <button type="submit" class="btn btn-default" id="submitButton" ng-disabled="otherBankDetailsForm.$invalid" ng-if="action == 'add'">Submit</button>
+				 <button type="submit" class="btn btn-default" id="submitButton" ng-disabled="otherBankDetailsForm.$invalid" ng-if="action == 'modify'">Update</button>
+				 <button type="button" class="btn btn-default" id="submitButton" ng-click="verify(otherBankDetails.id)" ng-disabled="otherBankDetailsForm.$invalid" ng-if="action == 'verify'">Verify</button>
+				 <button type="button" class="btn btn-default" id="submitButton" ng-click="delete(otherBankDetails.id)" ng-disabled="otherBankDetailsForm.$invalid" ng-if="action == 'delete'">Delete</button>
+				 <button type="button" class="btn btn-default" id="submitButton" ng-click="inquiry(otherBankDetails.id)" ng-disabled="otherBankDetailsForm.$invalid" ng-if="action == 'inquiry'">Back</button>
+				 
+				 <button type="button" class="btn btn-cancel" id="cancelButton" ng-click="cancelOperation(action)" >Cancel</button>
+			</div>
+		</div>
+	</form>
+</div>
+
+
+<div class="container list_wrapper" ng-if="baseRecordList.length > 0">
+ <h4 class="feature-heading">Other Bank Details - {{action}}</h4>
+ <div class="col-sm-3">
+			<div class="form-group">
+				<label>
+				Show
+					<select class="form-control record-filter" ng-model="itemsPerPage" id="itemsPerPage" name="itemsPerPage"  ng-change="setItemsPerPage(itemsPerPage)" >
+						<option value='5'>5</option>
+						<option value='10'>10</option>
+						<option value='25'>25</option>
+						<option value='50'>50</option>
+					</select>
+				records per page
+				</label>
+			</div>
+		</div>
+		<div class="col-sm-3 pull-right">				    
+			  <div class="form-group">
+			      <div class="input-group">
+					      <div class="input-group-addon"><i class="glyphicon glyphicon-search"></i></div>
+					      <input type="text" class="form-control" ng-model="searchKeyword" ng-change="searchInquiryFn(searchKeyword)" placeholder="Search">
+					    </div>
+			  </div>
+		</div>
+		<div ng-if="totalItems > 0">
+	<table class="table table-bordered table-striped list">
+			<thead>
+				<tr>
+					<th>Bank Code</th>
+					<th>Bank Name</th>
+					<th>Bank Short Name</th>
+					<th>Additional Text1</th>
+					<th>Additional Text2</th>
+					<th>Additional Text3</th>
+					<th style="width: 100px;">Status</th>
+					<th>Created Date</th>
+					<th ng-if="action" class="capitalize">{{action}}</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="item in recordsList.slice(((currentPage-1)*itemsPerPage), ((currentPage)*itemsPerPage))">
+					<td>{{item.bankCode}}</td>
+					<td>{{item.bankName}}</td>
+					<td>{{item.bankShortName}}</td>
+					<td>{{item.additionalText1}}</td>
+					<td>{{item.additionalText2}}</td>
+					<td>{{item.additionalText3}}</td>
+					<td ng-if="item.verified == true">Verified</td>
+					<td ng-if="item.verified == false">Unverified</td>
+					<td>{{item.createdDate}}</td>
+					<td ng-if="action=='modify'"><i class="glyphicon glyphicon-edit cp" ng-click="modifyForm(item.id)"></i></td>
+					<td ng-if="action=='verify'"><i class="glyphicon glyphicon-ok cp" ng-click="verifyForm(item.id)"></i></td>
+					<td ng-if="action=='delete'"><i class="glyphicon glyphicon-remove cp" ng-click="deleteForm(item.id)"></i></td>
+					<td ng-if="action=='inquiry'"><i class="glyphicon glyphicon-search cp" ng-click="inquiryForm(item.id)"></i></td>
+				</tr>
+			</tbody>
+		</table>
+		<ul uib-pagination total-items="totalItems" ng-model="currentPage" max-size="maxSize" class="pagination-sm" boundary-links="true" force-ellipses="true" items-per-page="itemsPerPage"></ul>
+</div>
+		<div class="list_wrapper no_records_message padding-top-50" ng-if="totalItems <= 0">No records matched with <i>"{{searchKeyword}}"</i>.</div>
+</div>
+<div class="container list_wrapper" ng-if="baseRecordList.length <= 0 && loader == false && displayForm == false">
+	<h4 class="feature-heading">Other Bank Details - {{action}}</h4>
+	<div class="no_records_message">No records found to display.</div>
+</div>

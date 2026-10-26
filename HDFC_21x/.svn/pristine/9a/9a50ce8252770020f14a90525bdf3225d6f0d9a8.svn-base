@@ -1,0 +1,223 @@
+<div class="loader-new" ng-if="vm.loader"></div>
+<cbs-left-menu></cbs-left-menu>
+<div class="container from_wrapper new_form_wrapper">
+	<h4 class="form_heading  feature-heading">Scheme Codes - Verify</h4>
+	<form name="schemeCodesForm" role="form">
+		<div class="col-sm-6 col-sm-offset-3">
+			<div class="row">
+				<div class="form-group required">
+					<div class="col-sm-6">
+						<label for="schemeCode" class="control-label">Scheme Code</label>
+					</div>
+					<div class="col-sm-4">
+						<input type="text" class="form-control" id="schemeCode"
+							   ng-init="vm.schemeCode=''" ng-model="vm.schemeCode" readonly required>
+					</div>
+					<div class="col-sm-2">
+						<i class="glyphicon glyphicon-search cp" data-bs-toggle="modal"
+						   id="schemeCodeSearch"
+						   ng-click="vm.getSchemeCodeVerDelSel(); vm.searchSchemeCode =  '';"></i> <i
+							class="glyphicon glyphicon-remove clear cp"
+							ng-click="vm.schemeCode = vm.schemeDescription = vm.glSubHeadCode = vm.schemeType = '';"></i>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="form-group">
+					<div class="col-sm-6 required">
+						<label for="schemeDescription" class="control-label">Scheme
+							Description</label>
+					</div>
+					<div class="col-sm-4">
+						<input type="text" class="form-control" id="schemeDescription"
+							   name="schemeDescription" ng-model="vm.schemeDescription"
+							   maxlength="80" readonly required>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="form-group">
+					<div class="col-sm-6 required">
+						<label for="glSubHeadCode" class="control-label">GL Sub
+							Head Code</label>
+					</div>
+					<div class="col-sm-4">
+						<input type="text" class="form-control" id="glSubHeadCode"
+							   name="glSubHeadCode" ng-model="vm.glSubHeadCode"
+							   maxlength="80" readonly required>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="form-group">
+					<div class="col-sm-6 required">
+						<label for="schemeType" class="control-label">Scheme Type</label>
+					</div>
+					<div class="col-sm-4">
+						<input type="text" class="form-control" id="schemeType"
+							   name="schemeType" ng-model="vm.schemeType"
+							   maxlength="80" readonly required>
+					</div>
+				</div>
+			</div>
+
+			<div class="row" ng-if="vm.schemeType" ng-init="vm.getVerDelDetails();">
+				<table class="table table-bordered table-striped list old-new-value-table">
+					<thead>
+					<tr>
+						<th width="50%">Particular</th>
+						<th width="25%">{{(vm.result.prevOperationType == 'M')?('Old Value'): ('Value')}}</th>
+						<th width="25%" ng-if="vm.result.prevOperationType == 'M'">New Value</th>
+					</tr>
+					</thead>
+					<tbody>
+					<tr>
+						<td>Additional Text1</td>
+						<td class="old-value">{{(vm.oldNewValueList && vm.oldNewValueList.C006)?
+							(vm.oldNewValueList.C006.oldValue) : ('')}}
+						</td>
+						<td class="new-value" ng-if="vm.result.prevOperationType == 'M'">{{vm.oldNewValueList &&
+							vm.oldNewValueList.C006? (vm.oldNewValueList.C006.newValue) : ('')}}
+						</td>
+					</tr>
+					<tr>
+						<td>Additional Text2</td>
+						<td class="old-value">{{(vm.oldNewValueList && vm.oldNewValueList.C007)?
+							(vm.oldNewValueList.C007.oldValue) : ('')}}
+						</td>
+						<td class="new-value" ng-if="vm.result.prevOperationType == 'M'">{{vm.oldNewValueList &&
+							vm.oldNewValueList.C007? (vm.oldNewValueList.C007.newValue) : ('')}}
+						</td>
+					</tr>
+					<tr>
+						<td>Additional Text3</td>
+						<td class="old-value">{{(vm.oldNewValueList && vm.oldNewValueList.C008)?
+							(vm.oldNewValueList.C008.oldValue) : ('')}}
+						</td>
+						<td class="new-value" ng-if="vm.result.prevOperationType == 'M'">{{vm.oldNewValueList &&
+							vm.oldNewValueList.C008? (vm.oldNewValueList.C008.newValue) : ('')}}
+						</td>
+					</tr>
+
+					</tbody>
+				</table>
+			</div>
+
+		</div>
+
+
+
+		<div class="col-sm-12">
+			<div class="audit-details" ng-if="vm.schemeCode">
+				<div class="row">
+					<div class="col-md-3">
+						<span>
+							<b> Created By </b> : {{vm.result.createdBy}}
+						</span>
+					</div>
+					<div class="col-md-3">
+						<span>
+							<b> Last Modified By </b> : {{(vm.result.modifiedBy) ? (vm.result.modifiedBy) : ('None')}}
+						</span>
+					</div>
+					<div class="col-md-3">
+						<span>
+							<b> Last Verified By </b> : {{(vm.result.verifiedBy) ? (vm.result.verifiedBy) : ('None')}}
+						</span>
+					</div>
+					<div class="col-md-3">
+						<span>
+							<b> Verify Status </b> : {{vm.result.verifiedStatus  | getLabelFromValuesArray : vm.commonYesNoMetaData}}
+						</span>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-3">
+						<span>
+							<b> Created On </b> : {{ vm.result.createdDate1 | date : 'dd/MM/yyyy'}}
+						</span>
+					</div>
+					<div class="col-md-3">
+						<span>
+							<b> Last Modified On</b> : {{ (vm.result.modifiedDate1) ? (vm.result.modifiedDate1 | date : 'dd/MM/yyyy') : ('None')}}
+						</span>
+					</div>
+					<div class="col-md-3">
+						<span>
+							<b> Last Verified On </b> : {{(vm.result.verifiedDate1) ? (vm.result.verifiedDate1 | date : 'dd/MM/yyyy') : ('None')}}
+						</span>
+					</div>
+					<div class="col-md-3"></div>
+				</div>
+			</div>
+			<div class="text-center form_submit">
+				<button type="button" class="btn btn-default" id="submitButton"
+						ng-click="vm.verify()" ng-disabled="schemeCodesForm.$invalid">Verify</button>
+				<button type="button" class="btn btn-cancel" id="cancelButton"
+						ui-sref="scheme_codes.list">Cancel</button>
+			</div>
+		</div>
+	</form>
+</div>
+
+
+
+<div class="modal" id="schemeCodeSearcher" role="dialog">
+	<div class="modal-dialog">
+		<!-- Modal content-->
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-bs-dismiss="modal">&times;</button>
+				<h4 class="modal-title">Scheme Code</h4>
+			</div>
+			<div class="modal-body">
+				<div class="loader_popup"></div>
+				<div class="list_wrapper" ng-if="vm.schemeCodeList.length>0">
+					<div class="col-sm-8 form_submit">
+						<div class="form-group">
+							<div class="input-group">
+								<div class="input-group-addon">
+									<i class="glyphicon glyphicon-search"></i>
+								</div>
+								<input type="text" class="form-control"
+									   ng-model="vm.searchSchemeCode" ng-init="vm.searchSchemeCode = ''"
+									   placeholder="Search">
+							</div>
+						</div>
+					</div>
+					<div class="col-sm-4 form_submit"></div>
+					<div class="row">
+
+						<div class="col-sm-12">
+							<table class="table table-bordered list scroll">
+								<thead ng-init="reverseOrder = false; sortedColumn = 'schemCode'">
+								<tr>
+									<th class="modal-title title-case" ng-click="(sortedColumn == 'schemeCode')?(reverseOrder=(!reverseOrder)): (reverseOrder = false);sortedColumn = 'schemeCode';" ng-class="(sortedColumn == 'schemeCode')?((reverseOrder)?('arrow-down') : ('arrow-up') ) : ('')">Scheme Code</th>
+									<th class="modal-title title-case" ng-click="(sortedColumn == 'schemeDescription')?(reverseOrder=(!reverseOrder)): (reverseOrder = false);sortedColumn = 'schemeDescription';" ng-class="(sortedColumn == 'schemeDescription')?((reverseOrder)?('arrow-down') : ('arrow-up') ) : ('')">Scheme Description</th>
+									<th class="modal-title title-case" ng-click="(sortedColumn == 'glSubHeadCode')?(reverseOrder=(!reverseOrder)): (reverseOrder = false);sortedColumn = 'glSubHeadCode';" ng-class="(sortedColumn == 'glSubHeadCode')?((reverseOrder)?('arrow-down') : ('arrow-up') ) : ('')">GL Sub Head Code</th>
+									<th class="modal-title title-case" ng-click="(sortedColumn == 'schemeType')?(reverseOrder=(!reverseOrder)): (reverseOrder = false);sortedColumn = 'schemeType';" ng-class="(sortedColumn == 'schemeType')?((reverseOrder)?('arrow-down') : ('arrow-up') ) : ('')">Scheme Type</th>
+								</tr>
+								</thead>
+								<tbody>
+								<tr class="cp"
+									ng-repeat="x in vm.schemeCodeList | filter:vm.searchSchemeCode | orderBy:sortedColumn:reverseOrder"
+									ng-click="vm.schemeCode = x.schemCode; vm.schemeDescription = x.schemeDescription;vm.glSubHeadCode = x.glSubHeadCode;vm.schemeType = x.schemeType;" data-bs-dismiss="modal">
+									<td>{{x.schemCode}}</td>
+									<td>{{x.schemeDescription}}</td>
+									<td>{{x.glSubHeadCode}}</td>
+									<td>{{x.schemeType}}</td>
+								</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+				<div class="list_wrapper" ng-if="vm.schemeCodeList.length==0">No records found to display.</div>
+			</div>
+
+		</div>
+	</div>
+</div>
+
+
+

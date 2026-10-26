@@ -1,0 +1,202 @@
+<div class="loader-new" ng-if="vm.loader"></div>
+<dc-left-menu></dc-left-menu>
+<div class="container from_wrapper new_form_wrapper">
+    <h4 class="form_heading">Scroll Number Maintenance  - Verify</h4>
+    <sol-header></sol-header>
+    <div class="col-md-12">
+        <div class="row" >
+            <uib-accordion close-others="oneAtATime">
+                <form name="scrollNumberMaintenanceForm" role="form" novalidate >
+                    <div class="">
+                            <ng-form>
+                                <table class="table table-bordered">
+                                    <tbody>
+                                    <div class="col-sm-6 col-sm-offset-3">
+                                        <div class="row">
+                                    <div class="form-group required">
+                                        <div class="col-sm-4">
+                                            <label for="treasury" class="control-label">State Tax Name</label>
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <input type="hidden" class="form-control" id="treasury"
+                                                   ng-model="vm.stateTaxName" chars="only-letters" maxlength="25" readonly>
+                                            <input type="text" class="form-control" id="stateTaxName" ng-model="vm.stateTaxName" required readonly>
+                                        </div>
+                                        <div class="col-sm-4" ng-if = "vm.stateTaxName == null">
+                                            <i class="glyphicon glyphicon-search cp" data-bs-toggle="modal"
+                                               id="treasurySearch"
+                                               ng-click="vm.verifyScrollNumber('verifySelect');" ></i> <i
+                                                class="glyphicon glyphicon-remove clear cp"
+                                                ng-click="vm.id='';vm.stateTaxName='';vm.stateTaxCode='';vm.levelId='';vm.levelName='';vm.branchId='';vm.branchName='';vm.scrollCode=''; vm.scrollName='';vm.majorHeadCode='';vm.majorHeadName='';vm.frequencyCode='';vm.nextScrollNumber='';"></i>
+                                        </div>
+                                    </div>
+                                    </div>
+                                    </div>
+                                    <tr ng-if = "vm.stateTaxName">
+                                        <td width="25%" class="form-group">
+                                            <label class="control-label">Level</label></td>
+                                        <td width="25%">
+                                            <label class="data-bind">{{vm.levelName}}</label>
+                                        </td>
+                                    </tr>
+                                    <tr ng-if = "vm.stateTaxName">
+                                        <td width="25%" class="form-group">
+                                            <label class="control-label">Branch Id</label></td>
+                                        <td width="25%">
+                                            <label class="data-bind">{{vm.branchId}}</label>
+                                        </td>
+                                    </tr>
+                                    <tr ng-if = "vm.stateTaxName">
+                                        <td width="25%" class="form-group">
+                                            <label class="control-label">Branch Name</label></td>
+                                        <td width="25%">
+                                            <label class="data-bind">{{vm.branchName}}</label>
+                                        </td>
+                                    </tr>
+
+                                    <tr ng-if = "vm.stateTaxName">
+                                        <td width="25%" class="form-group">
+                                            <label class="control-label">Scroll Name</label></td>
+                                        <td width="25%">
+                                            <label class="data-bind">{{vm.scrollName}}</label>
+                                        </td>
+                                    </tr>
+                                    <tr ng-if = "vm.stateTaxName">
+                                        <td width="25%" class="form-group">
+                                            <label class="control-label">Major Head Code</label></td>
+                                        <td width="25%">
+                                            <label class="data-bind">{{vm.majorHeadCode}}</label>
+                                        </td>
+                                    </tr>
+                                    <tr ng-if = "vm.stateTaxName">
+                                        <td width="25%" class="form-group">
+                                            <label class="control-label">Frequency</label></td>
+                                        <td width="25%">
+                                            <label class="data-bind">{{vm.frequencyDescription}}</label>
+                                        </td>
+                                    </tr>
+                                    <tr ng-if = "vm.stateTaxName">
+                                        <td width="25%" class="form-group">
+                                            <label class="control-label">Next Scroll Number</label></td>
+                                        <td width="25%">
+                                            <label class="data-bind">{{vm.nextScrollNumber}}</label>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </ng-form>
+
+                        <div class="col-sm-12" ng-if = "vm.stateTaxName">
+                            <div class="audit-details">
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <span> <b> Created By </b> : {{vm.createdBy}} </span>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <span> <b> Last Verified By </b> : {{(vm.verifiedBy) ? (vm.verifiedBy) : ('None')}}</span>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <span> <b> Verify Status </b> : {{vm.verifiedStatus  | getLabelFromValuesArray : vm.commonYesNoMetaData}}</span>
+                                    </div>
+                                </div>
+                                <div class="row" ng-if = "vm.stateTaxName">
+                                    <div class="col-md-3">
+                                        <span> <b> Created On </b> : {{ vm.createdDate | date : 'dd/MM/yyyy'}}</span>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <span> <b> Last Verified On </b> : {{(vm.verifiedDate) ? (vm.verifiedDate | date : 'dd/MM/yyyy') : ('None')}}</span>
+                                    </div>
+                                    <div class="col-md-3">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="text-center form_submit" >
+                            <button type="submit" class="btn btn-default" id="submitButton"
+                                    ng-if = "vm.stateTaxName" ng-disabled="scrollNumberMaintenanceForm.$invalid" ng-click="vm.verify();">Verify</button>
+                            <button type="button" class="btn btn-cancel" id="cancelButton"
+                                    onclick="window.location.href= '#!/scroll_number_maintenance/action/inquiry';">Cancel</button>
+                        </div>
+                        <div class="text-center">
+                            <notice-message-directive></notice-message-directive>
+                        </div>
+
+                    </div>
+                </form>
+            </uib-accordion>
+        </div>
+    </div>
+</div>
+
+
+<!-- Scroll Number Details Name -->
+<div class="modal" id="stateTaxModel" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-bs-dismiss="modal">&times;</button>
+                <h4 class="modal-title">State Tax Name</h4>
+            </div>
+            <div class="modal-body">
+                <div class="loader_popup"></div>
+                <div class="list_wrapper" ng-if="vm.verifySelectList.length>0">
+                    <div class="col-sm-8 form_submit">
+                        <div class="form-group">
+                            <div class="input-group">
+                                <div class="input-group-addon">
+                                    <i class="glyphicon glyphicon-search"></i>
+                                </div>
+                                <input type="text" class="form-control"
+                                       ng-model="vm.searchSolId" ng-init="vm.searchSolId = ''"
+                                       placeholder="Search">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4 form_submit"></div>
+                    <div class="row">
+
+                        <div class="col-sm-12">
+                            <table class="table table-bordered list scroll">
+                                <thead ng-init="reverseOrder=false;sortedColumn = 'stateTaxCode'">
+                                <tr>
+                                    <th class="modal-title title-case" ng-click="(sortedColumn == 'stateTaxCode')?(reverseOrder=(!reverseOrder)): (reverseOrder = false);sortedColumn = 'stateTaxCode';" ng-class="(sortedColumn == 'stateTaxCode')?((reverseOrder)?('arrow-down') : ('arrow-up') ) : ('')">State Tax Code</th>
+                                    <th class="modal-title title-case" ng-click="(sortedColumn == 'stateTaxName')?(reverseOrder=(!reverseOrder)): (reverseOrder = false);sortedColumn = 'stateTaxName';" ng-class="(sortedColumn == 'stateTaxName')?((reverseOrder)?('arrow-down') : ('arrow-up') ) : ('')">State Tax Name</th>
+                                    <th class="modal-title title-case" ng-click="(sortedColumn == 'stateCode')?(reverseOrder=(!reverseOrder)): (reverseOrder = false);sortedColumn = 'stateCode';" ng-class="(sortedColumn == 'stateCode')?((reverseOrder)?('arrow-down') : ('arrow-up') ) : ('')">State Code</th>
+                                    <th class="modal-title title-case" ng-click="(sortedColumn == 'scrollCode')?(reverseOrder=(!reverseOrder)): (reverseOrder = false);sortedColumn = 'scrollCode';" ng-class="(sortedColumn == 'scrollCode')?((reverseOrder)?('arrow-down') : ('arrow-up') ) : ('')">Scroll Code</th>
+                                    <th class="modal-title title-case" ng-click="(sortedColumn == 'levelId')?(reverseOrder=(!reverseOrder)): (reverseOrder = false);sortedColumn = 'levelId';" ng-class="(sortedColumn == 'levelId')?((reverseOrder)?('arrow-down') : ('arrow-up') ) : ('')">Level Id</th>
+                                    <th class="modal-title title-case" ng-click="(sortedColumn == 'branchId')?(reverseOrder=(!reverseOrder)): (reverseOrder = false);sortedColumn = 'branchId';" ng-class="(sortedColumn == 'branchId')?((reverseOrder)?('arrow-down') : ('arrow-up') ) : ('')">Branch Id</th>
+                                    <th class="modal-title title-case" ng-click="(sortedColumn == 'majorHeadCode')?(reverseOrder=(!reverseOrder)): (reverseOrder = false);sortedColumn = 'majorHeadCode';" ng-class="(sortedColumn == 'majorHeadCode')?((reverseOrder)?('arrow-down') : ('arrow-up') ) : ('')">Major Head Code</th>
+                                    <th class="modal-title title-case" ng-click="(sortedColumn == 'frequencyCode')?(reverseOrder=(!reverseOrder)): (reverseOrder = false);sortedColumn = 'frequencyCode';" ng-class="(sortedColumn == 'frequencyCode')?((reverseOrder)?('arrow-down') : ('arrow-up') ) : ('')">Frequency</th>
+                                    <th class="modal-title title-case" ng-click="(sortedColumn == 'nextScrollNumber')?(reverseOrder=(!reverseOrder)): (reverseOrder = false);sortedColumn = 'nextScrollNumber';" ng-class="(sortedColumn == 'nextScrollNumber')?((reverseOrder)?('arrow-down') : ('arrow-up') ) : ('')">Next Scroll Number</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr class="cp"
+                                    ng-repeat="x in vm.verifySelectList | filter:vm.searchSolId | orderBy:vm.column:vm.reverse"
+                                    ng-click="vm.id = x.id;vm.stateTaxCode = x.stateTaxCode; vm.stateTaxName = x.stateTaxDescription;vm.stateCode = x.stateCode;vm.scrollCode = x.scrollCode;vm.levelId=x.levelId;vm.branchId=x.branchId;vm.majorHeadCode = x.majorHeadCode;vm.frequencyCode =x.frequencyCode;vm.nextScrollNumber=x.nextScrollNumber;
+                                     vm.createdBy = x.createdBy;vm.createdDate = x.createdDate;vm.lastModifiedBy=x.lastModifiedBy;vm.lastModifiedDate=x.lastModifiedDate;
+                                     vm.verifiedBy=x.verifiedBy;vm.verifiedDate=x.verifiedDate;vm.isDeleted=x.isDeleted;vm.verifiedStatus=x.verifiedStatus;
+                                     vm.isActive=x.isActive;vm.verifyScrollNumber('verifyDetail');";  data-bs-dismiss="modal">
+                                    <td>{{x.stateTaxCode}}</td>
+                                    <td>{{x.stateTaxDescription}}</td>
+                                    <td>{{x.stateCode}}</td>
+                                    <td>{{x.scrollCode}}</td>
+                                    <td>{{x.levelId}}</td>
+                                    <td>{{x.branchId}}</td>
+                                    <td>{{x.majorHeadCode}}</td>
+                                    <td>{{x.frequencyCode}}</td>
+                                    <td>{{x.nextScrollNumber}}</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="list_wrapper" ng-if="vm.verifySelectList.length==0">No records found to display.</div>
+            </div>
+
+        </div>
+    </div>
+</div>
+<!-- Scroll Number  - End -->

@@ -1,0 +1,55 @@
+<div class="container">
+
+    <div class="text-right form_submit">
+        <button type="submit" class="btn btn-default"
+                onclick="window.location.href='#!/dc';" id="homeButton">Home</button>
+        <button type="submit" class="btn btn-default"
+                ng-click="vm.printpage();">Print</button>
+        <button type="button" id="cancelButton" class="btn btn-cancel"
+                onclick="window.location.href='#!/rbibond_gu_functionality';">Back</button>
+    </div>
+    <div  style="border:1px; border-style:solid; border-color:#ddd; padding:2em;" class="text-justify" id="section-to-print">
+        <sol-header></sol-header>
+        <h4 align="right">Annexure – IV</h4>
+        <h4 align="right">Form – C</h4>
+        <tr  width="100%" border="0" cellspacing="0" cellpadding="1" align="center">
+
+            <td   valign="top" height="0">
+                <table  ng-repeat="x in vm.model" border="0" cellspacing="0" cellpadding="0" width="100%">
+                    <tr  align="center" valign="top" height="50">
+                        <td colspan="4">
+                            <!--                            <p align="right"><font face="TIMES NEW ROMAN" size="3"><b></b></font></p><br>-->
+                            <p><font face="TIMES NEW ROMAN" size="4"><b>Acknowledgment<br></b></font></p>
+                            <br>
+                        </td>
+                    </tr>
+
+
+
+                    <tr  valign="top" align="left" height="40">
+                        <td>
+                            <p align="justify">
+                                <font face="Times New Roman" size="3">
+                                    We acknowledge having registered the nomination made by  <b>{{x.holderName}}</b> in respect of FRSB 2020 (T) in favour of <b>{{x.nomineeName}}</b> (Name of nominees) for the BLA No.<b>{{vm.blaAccNo}}</b> for the all the investments under the BLA / specified investment  <b>{{vm.bondScbId}}</b>  and the nomination registration no. <b>{{vm.nominiId}}</b>  Please quote the above nomination registration no. in all communication pertaining to change or cancellation of nomination.
+
+
+
+
+                                </font>
+
+
+                            </p><br>
+
+                            <p align="left"> Date:.{{vm.currentDate}}</p>
+                            <br>
+
+                            <p align="right"  >Authorised Official Signature, Seal and Designation
+                        </p>
+                        <br>
+                            <p align="left">Branch:{{vm.loginSolDesc}}</p>
+                        </td>
+                    </tr>
+                </table>
+
+    </div>
+</div>

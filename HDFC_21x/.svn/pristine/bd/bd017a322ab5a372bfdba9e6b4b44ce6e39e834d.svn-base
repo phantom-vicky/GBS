@@ -1,0 +1,339 @@
+<div class="loader-new" ng-if="vm.loader"></div>
+<dc-left-menu></dc-left-menu>
+<div class="container from_wrapper new_form_wrapper">
+    <h4 class="form_heading">Cash in File Upload and net banking file upload Processing - Add</h4>
+    <sol-header></sol-header>
+    <form name="cashFileUploadForm" role="form" enctype="multipart/form-data" ng-submit="vm.submitAddForm()" novalidate>
+        <div class="col-sm-6 col-sm-offset-3">
+            <div class="row">
+                <div class="form-group required">
+                    <div class="col-sm-6">
+                        <label for="moduleName" class="control-label">Name of the Module</label>
+                    </div>
+                    <div class="col-sm-4">
+                        <label><b>RBI Bond</b></label>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group required">
+                    <div class="col-sm-6">
+                        <label for="liquidationDate" class="control-label">Realization Date</label>
+                    </div>
+                    <div class="col-sm-4">
+                        <p class="input-group">
+                            <input type="text" class="form-control" id="liquidationDate"
+                                   name="liquidationDate"  ng-model="vm.liquidationDate" maxlength="10"
+                                   uib-datepicker-popup="dd/MM/yyyy" ng-init="vm.fromToDateValidation();"
+                                   is-open="vm.liquidationDate.opened" close-text="Close"
+                                   datepicker-options="vm.liquidationDateCalenderOptions" ng-blur="vm.textableDatePicker('liquidationDate',vm.liquidationDate);vm.futureNotAllowed('liquidationDate',vm.liquidationDate)"
+                                   ng-keyup="vm.autoslashing('liquidationDate')" chars="numbers-slash" required>
+                            <span class="input-group-btn" >
+                                    <button type="button" class="btn btn-secondary"
+                                            ng-click="vm.liquidationDate.opened = true"
+                                            id="liquidationDatePicker">
+                                        <i class="glyphicon glyphicon-calendar"></i>
+                                    </button>
+                         </span></p>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group required">
+                    <div class="col-sm-6">
+                        <label class="control-label">Scheme Name</label>
+                    </div>
+                    <div class="col-sm-4">
+                        <input type="text" class="form-control" id="schemeName"
+                               name="schemeName" ng-model="vm.schemeName" readonly required>
+                    </div>
+                    <div class="col-sm-2">
+                        <i class="glyphicon glyphicon-search cp" data-bs-toggle="modal"
+                           id="levelNameSearcher"
+                           ng-click="vm.getModuleName();vm.searchlevelName = ''"></i>
+                        <i class="glyphicon glyphicon-remove clear cp"
+                           ng-click="vm.schemeName='';"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group required">
+                    <div class="col-sm-6">
+                        <label for="fileMode" class="control-label">File Mode</label>
+                    </div>
+                    <div class="col-sm-4">
+                        <select class="form-control" name="fileMode" ng-model="vm.fileMode" ng-change="vm.popupScreen()" required>
+                            <option value="" hidden="true">Select</option>
+                            <option value="C">Cash-In</option>
+                            <option value="NB">Net Banking</option>
+                        </select>
+                        <span class="text-danger" ng-show="vm.withOutFile" >{{vm.errorMessageWithoutFile}}</span>
+                    </div>
+                </div>
+            </div>
+            <div class="row" ng-if="vm.fileMode=='NB'">
+                <div class="form-group required">
+                    <div class="col-sm-6">
+                        <label for="valueDate" class="control-label">Value Date</label>
+                    </div>
+                    <div class="col-sm-4">
+                        <p class="input-group">
+                            <input type="text" class="form-control" id="valueDate"
+                                   name="valueDate"  ng-model="vm.valueDate" maxlength="10"
+                                   uib-datepicker-popup="dd/MM/yyyy" ng-init="vm.valueDateValidation();"
+                                   is-open="vm.valueDate.opened" close-text="Close"
+                                   datepicker-options="vm.valueDateCalenderOptions"
+
+                                   ng-blur="vm.textableDatePicker('valueDate',vm.valueDate);vm.futureNotAllowed('valueDate',vm.valueDate)"
+                                   ng-keyup="vm.autoslashing('valueDate')" chars="numbers-slash" readonly
+
+                                   required>
+                            <span class="input-group-btn">
+                                    <button type="button" class="btn btn-secondary"
+                                            ng-click="vm.valueDate.opened = true"
+                                            id="valueDatePicker">
+                                        <i class="glyphicon glyphicon-calendar"></i>
+                                    </button>
+                         </span></p>
+                    </div>
+                </div>
+            </div>
+
+            <!--<div class="row">
+                <div class="form-group">
+                    <div class="col-sm-6">
+                        <label for="file" class="control-label">Upload</label>
+                    </div>
+                    <div class="col-sm-4">
+                        <input type="file" class="form-control" id="file" name="file" ng-model="vm.file" accept=".csv,.txt">
+                    </div>
+                </div>
+            </div>-->
+
+            <div class="text-center form_submit">
+                <button type="submit" id="submitbutton" name="submitbutton"
+                        class="btn btn-default"
+                        ng-disabled="cashFileUploadForm.$invalid">Submit</button>
+                <button type="button" class="btn btn-cancel" id="cancelButton"
+                        onclick="window.location.href= '#!/cash_file_upload_and_net_banking_file_upload_processing/action/inquiry'">Cancel</button>
+            </div>
+            <div class="text-center">
+                <notice-message-directive></notice-message-directive>
+            </div>
+        </div>
+    </form>
+</div>
+<!-- The Modal -->
+<div id="fileUploadModal" class="modal">
+    <div class="modal-dialog">
+    <div class="modal-content">
+        <span class="close" ng-click="vm.closeModal()">&times;</span>
+        <div ng-if="vm.fileMode=='NB'"><div class="modal-header">
+            <h4 class="modal-title" align="center">NET BANKING</h4></div><br>
+        <div class="row">
+        <div class="form-group">
+            <div class="col-sm-1"></div>
+            <div class="col-sm-1">
+                <input type="checkbox" id="checkboxButton1" ng-checked="vm.files1" disabled/>
+            </div>
+            <div class="col-sm-3">
+            <label for="fileInput1" class="control-label">RRBNB_BB</label>
+            </div>
+            <div class="col-sm-4">
+        <input type="file" id="fileInput1" ng-model="vm.file1" file-model="vm.files1" name="files1" accept=".csv" onchange="angular.element(this).scope().vm.handleFiles1(this)"  runat="server" valid-file>
+                <span class="text-danger" ng-show="vm.invalidFile1" >{{vm.errorMessage}}</span>
+                <span class="text-danger" ng-show="vm.invalidNameFile1" >{{vm.errorMessageName}}</span>
+            </div>
+        </div>
+        </div>
+        <div class="row">
+            <div class="form-group">
+                <div class="col-sm-1"></div>
+                <div class="col-sm-1">
+                    <input type="checkbox" id="checkboxButton2" ng-checked="vm.files2" disabled/>
+                </div>
+                <div class="col-sm-3">
+                    <label for="fileInput2" class="control-label">TBNB_BB</label>
+                </div>
+                <div class="col-sm-4">
+                    <input type="file" id="fileInput2" ng-model="vm.file2" file-model="vm.files2" name="files2" accept=".csv" onchange="angular.element(this).scope().vm.handleFiles2(this)" runat="server" valid-file>
+                    <span class="text-danger" ng-show="vm.invalidFile2">{{vm.errorMessage}}</span>
+                    <span class="text-danger" ng-show="vm.invalidNameFile2">{{vm.errorMessageName}}</span>
+                </div>
+            </div>
+        </div>
+        <div class="row" >
+            <div class="form-group">
+                <div class="col-sm-1"></div>
+                <div class="col-sm-1">
+                    <input type="checkbox" id="checkboxButton3" ng-checked="vm.files3" disabled/>
+                </div>
+                <div class="col-sm-3">
+                    <label for="fileInput3" class="control-label">RRBNB</label>
+                </div>
+                <div class="col-sm-4">
+                    <input type="file" id="fileInput3" ng-model="vm.file3" file-model="vm.files3" name="files3" accept=".csv" onchange="angular.element(this).scope().vm.handleFiles3(this)" runat="server" valid-file>
+                    <span class="text-danger" ng-show="vm.invalidFile3">{{vm.errorMessage}}</span>
+                    <span class="text-danger" ng-show="vm.invalidNameFile3">{{vm.errorMessageName}}</span>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group">
+                <div class="col-sm-1"></div>
+                <div class="col-sm-1">
+                    <input type="checkbox" id="checkboxButton4" ng-checked="vm.files4" disabled/>
+                </div>
+                <div class="col-sm-3">
+                    <label for="fileInput4" class="control-label">TBNB</label>
+                </div>
+                <div class="col-sm-4">
+                    <input type="file" id="fileInput4" ng-model="vm.file4" file-model="vm.files4" name="files4" accept=".csv" onchange="angular.element(this).scope().vm.handleFiles4(this)" runat="server" valid-file>
+                    <span class="text-danger" ng-show="vm.invalidFile4">{{vm.errorMessage}}</span>
+                    <span class="text-danger" ng-show="vm.invalidNameFile4">{{vm.errorMessageName}}</span>
+                </div>
+            </div>
+        </div>
+            <div class="row" >
+                <div class="form-group">
+                    <div class="col-sm-1"></div>
+                    <div class="col-sm-1">
+                        <input type="checkbox" id="checkboxButton6" ng-checked="vm.files6" disabled/>
+                    </div>
+                    <div class="col-sm-3">
+                        <label for="fileInput3" class="control-label">RRBNB_Saksham</label>
+                    </div>
+                    <div class="col-sm-4">
+                        <input type="file" id="fileInput6" ng-model="vm.file6" file-model="vm.files6" name="files6" accept=".csv" onchange="angular.element(this).scope().vm.handleFiles6(this)" runat="server" valid-file>
+                        <span class="text-danger" ng-show="vm.invalidFile6">{{vm.errorMessage}}</span>
+                        <span class="text-danger" ng-show="vm.invalidNameFile6">{{vm.errorMessageName}}</span>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group">
+                    <div class="col-sm-1"></div>
+                    <div class="col-sm-1">
+                        <input type="checkbox" id="checkboxButton7" ng-checked="vm.files7" disabled/>
+                    </div>
+                    <div class="col-sm-3">
+                        <label for="fileInput7" class="control-label">TBNB_Saksham</label>
+                    </div>
+                    <div class="col-sm-4">
+                        <input type="file" id="fileInput7" ng-model="vm.file7" file-model="vm.files7" name="files7" accept=".csv" onchange="angular.element(this).scope().vm.handleFiles7(this)" runat="server" valid-file>
+                        <span class="text-danger" ng-show="vm.invalidFile7">{{vm.errorMessage}}</span>
+                        <span class="text-danger" ng-show="vm.invalidNameFile7">{{vm.errorMessageName}}</span>
+                    </div>
+                </div>
+            </div>
+            <div class="row" >
+                <div class="form-group">
+                    <div class="col-sm-1"></div>
+                    <div class="col-sm-1">
+                        <input type="checkbox" id="checkboxButton8" ng-checked="vm.files8" disabled/>
+                    </div>
+                    <div class="col-sm-3">
+                        <label for="fileInput3" class="control-label">RRBNB_NOVOPAY</label>
+                    </div>
+                    <div class="col-sm-4">
+                        <input type="file" id="fileInput8" ng-model="vm.file8" file-model="vm.files8" name="files8" accept=".csv" onchange="angular.element(this).scope().vm.handleFiles8(this)" runat="server" valid-file>
+                        <span class="text-danger" ng-show="vm.invalidFile8">{{vm.errorMessage}}</span>
+                        <span class="text-danger" ng-show="vm.invalidNameFile8">{{vm.errorMessageName}}</span>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group">
+                    <div class="col-sm-1"></div>
+                    <div class="col-sm-1">
+                        <input type="checkbox" id="checkboxButton9" ng-checked="vm.files9" disabled/>
+                    </div>
+                    <div class="col-sm-3">
+                        <label for="fileInput9" class="control-label">TBNB_NOVOPAY</label>
+                    </div>
+                    <div class="col-sm-4">
+                        <input type="file" id="fileInput9" ng-model="vm.file9" file-model="vm.files9" name="files9" accept=".csv" onchange="angular.element(this).scope().vm.handleFiles9(this)" runat="server" valid-file>
+                        <span class="text-danger" ng-show="vm.invalidFile9">{{vm.errorMessage}}</span>
+                        <span class="text-danger" ng-show="vm.invalidNameFile9">{{vm.errorMessageName}}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div ng-if="vm.fileMode=='C'">
+            <div class="modal-header"><h4 class="modal-title" align="center">CASH-IN</h4></div><br>
+            <div class="row">
+                <div class="form-group">
+                    <div class="col-sm-1"></div>
+                    <div class="col-sm-2">
+                        <input type="checkbox" id="checkboxButton5" ng-checked="vm.files5" disabled/>
+                    </div>
+                    <div class="col-sm-2">
+                        <label for="fileInput4" class="control-label">TAXBOND</label>
+                    </div>
+                    <div class="col-sm-4">
+                        <input type="file" id="fileInput5" ng-model="vm.file5" file-model="vm.files5" name="files5" accept="text/plain" onchange="angular.element(this).scope().vm.handleFiles5(this)" runat="server" valid-file>
+                        <span class="text-danger" ng-show="vm.invalidFile5">{{vm.errorMessage1}}</span>
+                        <span class="text-danger" ng-show="vm.invalidNameFile5">{{vm.errorMessageName}}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="text-center">
+        <span class="text-danger" ng-show="vm.commonError">{{vm.commonErrorMessage}}</span>
+        </div>
+        <div class="text-center form_submit">
+            <button type="submit" class="btn btn-default" align="center" ng-click="vm.uploadSubmit()">UPLOAD</button>
+        </div>
+    </div>
+</div>
+</div>
+<div class="modal" id="levelNameModal" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-bs-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Scheme Master Name</h4>
+            </div>
+            <div class="modal-body">
+                <div class="loader_popup"></div>
+                <div class="list_wrapper" ng-if="vm.schemeNameList.length>0">
+                    <div class="col-sm-8 form_submit">
+                        <div class="form-group">
+                            <div class="input-group">
+                                <div class="input-group-addon">
+                                    <i class="glyphicon glyphicon-search"></i>
+                                </div>
+                                <input type="text" class="form-control"
+                                       ng-model="vm.searchlevelName" ng-init="vm.searchlevelName = ''"
+                                       placeholder="Search">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4 form_submit"></div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <table class="table table-bordered list scroll">
+                                <thead ng-init="reverseOrder = false; sortedColumn = 'schemeName'">
+                                <tr>
+                                    <th class="modal-title title-case" ng-click="(sortedColumn == 'schemeName')?(reverseOrder=(!reverseOrder)): (reverseOrder = false);sortedColumn = 'schemeName';" ng-class="(sortedColumn == 'schemeName')?((reverseOrder)?('arrow-down') : ('arrow-up') ) : ('')">Scheme Name</th>
+                                    <th class="modal-title title-case" ng-click="(sortedColumn == 'status')?(reverseOrder=(!reverseOrder)): (reverseOrder = false);sortedColumn = 'status';" ng-class="(sortedColumn == 'status')?((reverseOrder)?('arrow-down') : ('arrow-up') ) : ('')">Status</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr class="cp"
+                                    ng-repeat="x in vm.schemeNameList | filter:vm.searchlevelName | orderBy:sortedColumn:reverseOrder"
+                                    ng-click="vm.schemeName=x.subCodeDescription;vm.subCode=x.subCode;vm.status=x.status"  data-bs-dismiss="modal">
+                                    <td>{{x.subCodeDescription}}</td>
+                                    <td>{{x.status}}</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="list_wrapper" ng-if="vm.schemeNameList.length==0">No records found to display.</div>
+            </div>
+        </div>
+    </div>
+</div>

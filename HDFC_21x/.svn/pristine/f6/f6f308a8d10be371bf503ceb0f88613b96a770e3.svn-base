@@ -1,0 +1,207 @@
+<div class="loader-new" ng-if="vm.loader"></div>
+<dc-left-menu></dc-left-menu>
+<div class="container from_wrapper new_form_wrapper">
+
+    <h4 class="form_heading">{{vm.screenModule}} Interest Rate Code Maintenance for Investment schemes - Inquiry</h4>
+    <sol-header></sol-header>
+    <form name="interestRateCodeMaintenanceforInvestmentSchemesForm" role="form">
+        <div class="col-sm-6 col-sm-offset-3">
+
+            <div class="row">
+                <div class="form-group required">
+                    <div class="col-sm-6">
+                        <label for="moduleName" class="control-label">Module Name</label>
+                    </div>
+                    <div class="col-sm-4">
+                        <select class="form-control" id="moduleName" name="moduleName"
+                                ng-model="vm.moduleId"
+                                ng-init="vm.getModuleName();" required>
+                            <option value="" hidden="true">Select</option>
+                            <option ng-repeat="item in vm.moduleList" value="{{item.subCode}}">{{item.subCodeDescription}}</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group required">
+                    <div class="col-sm-6">
+                        <label for="interestRateCode" class="control-label">Interest Rate Code</label>
+                    </div>
+                    <div class="col-sm-4">
+                        <input type="text" class="form-control" id="interestRateCode"
+                               ng-model="vm.interestRateCode" maxlength="5" required readonly>
+                    </div>
+                    <div class="col-sm-2" ng-show="vm.moduleId">
+                        <i class="glyphicon glyphicon-search cp" data-bs-toggle="modal"
+                           id="treasurySearch"
+                           ng-click="vm.getInquiryInterestTourch();"></i> <i
+                            class="glyphicon glyphicon-remove clear cp"
+                            ng-click="vm.interestRateCode = vm.intrstRateCodeDescMain = vm.versionNo = '';"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group required">
+                    <div class="col-sm-6">
+                        <label for="interestRateCodeDescription" class="control-label">Interest Rate Description</label>
+                    </div>
+                    <div class="col-sm-4">
+                        <input type="text" class="form-control" id="interestRateCodeDescription"
+                               ng-model="vm.intrstRateCodeDescMain" maxlength="50" required readonly>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group required">
+                    <div class="col-sm-6">
+                        <label for="version" class="control-label">Version</label>
+                    </div>
+                    <div class="col-sm-4">
+                        <input type="text" class="form-control" id="version"
+                               ng-model="vm.versionNo" maxlength="5" required readonly>
+                    </div>
+
+                    <div class="col-sm-2" ng-show="vm.interestRateCode">
+                        <i class="glyphicon glyphicon-search cp" data-bs-toggle="modal"
+                           id="treasurySearch"
+                           ng-click="vm.getInquiryVersionTourch();"></i> <i
+                            class="glyphicon glyphicon-remove clear cp"
+                            ng-click="vm.versionNo='';"></i>
+                    </div>
+                </div>
+            </div>
+
+            <div class="text-center form_submit">
+                <button type="submit" class="btn btn-default" id="submitButton"
+                        ng-click="vm.goNextState({
+                                moduleId : vm.moduleId,
+                              	interestRateCode : vm.interestRateCode,
+                              	interestRateCodeDesc : vm.interestRateCodeDesc,
+                              	intrstRateCodeDescMain : vm.intrstRateCodeDescMain,
+                              	screenModule : vm.screenModule,
+                              	versionNo : vm.versionNo
+                                })"
+                        ng-disabled="interestRateCodeMaintenanceforInvestmentSchemesForm.$invalid">Next</button>
+                <button type="button" class="btn btn-cancel" id="cancelButton"
+                        ng-click="vm.cancel()">Cancel</button>
+            </div>
+            <div class="text-center">
+                <notice-message-directive></notice-message-directive>
+            </div>
+        </div>
+    </form>
+</div>
+
+
+<!-- Interest Rate Code Details Start-->
+<div class="modal" id="interestRateCodeModel" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-bs-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Interest Rate Code</h4>
+            </div>
+            <div class="modal-body">
+                <div class="loader_popup"></div>
+                <div class="list_wrapper" ng-if="vm.interestRateCodeList.length>0">
+                    <div class="col-sm-8 form_submit">
+                        <div class="form-group">
+                            <div class="input-group">
+                                <div class="input-group-addon">
+                                    <i class="glyphicon glyphicon-search"></i>
+                                </div>
+                                <input type="text" class="form-control"
+                                       ng-model="vm.searchSolId" ng-init="vm.searchSolId = ''"
+                                       placeholder="Search">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4 form_submit"></div>
+                    <div class="row">
+
+                        <div class="col-sm-12">
+                            <table class="table table-bordered list scroll sort">
+                                <thead ng-init="reverseOrder=false;sortedColumn = 'INT_RATE_CODE'">
+                                <tr>
+                                    <th ng-click="(sortedColumn == 'INT_RATE_CODE')?(reverseOrder=(!reverseOrder)): (reverseOrder = false);sortedColumn = 'INT_RATE_CODE';" ng-class="(sortedColumn == 'INT_RATE_CODE')?((reverseOrder)?('arrow-down') : ('arrow-up') ) : ('')">Interest Rate Code</th>
+                                    <th ng-click="(sortedColumn == 'INT_RATE_DESC')?(reverseOrder=(!reverseOrder)): (reverseOrder = false);sortedColumn = 'INT_RATE_DESC';" ng-class="(sortedColumn == 'INT_RATE_DESC')?((reverseOrder)?('arrow-down') : ('arrow-up') ) : ('')">Interest Rate Code Description</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr class="cp"
+                                    ng-repeat="x in vm.interestRateCodeList | filter:vm.searchSolId | orderBy:sortedColumn:reverseOrder"
+                                    ng-click="vm.interestRateCode = x.INT_RATE_CODE; vm.intrstRateCodeDescMain = x.INT_RATE_DESC;" data-bs-dismiss="modal">
+                                    <td>{{x.INT_RATE_CODE}}</td>
+                                    <td>{{x.INT_RATE_DESC}}</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="list_wrapper" ng-if="vm.interestRateCodeList.length==0">No records found to display.</div>
+            </div>
+
+        </div>
+    </div>
+</div>
+<!-- Interest Rate Code Details End-->
+<!-- Version Details Start-->
+<div class="modal" id="versionNoModal" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-bs-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Version No</h4>
+            </div>
+            <div class="modal-body">
+                <div class="loader_popup"></div>
+                <div class="list_wrapper" ng-if="vm.versionNoList.length>0">
+                    <div class="col-sm-8 form_submit">
+                        <div class="form-group">
+                            <div class="input-group">
+                                <div class="input-group-addon">
+                                    <i class="glyphicon glyphicon-search"></i>
+                                </div>
+                                <input type="text" class="form-control"
+                                       ng-model="vm.searchSolId" ng-init="vm.searchSolId = ''"
+                                       placeholder="Search">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4 form_submit"></div>
+                    <div class="row">
+
+                        <div class="col-sm-12">
+                            <table class="table table-bordered list scroll sort">
+                                <thead ng-init="reverseOrder=false;sortedColumn = 'interestRateCode'">
+                                <tr>
+                                    <th ng-click="(sortedColumn == 'interestRateCode')?(reverseOrder=(!reverseOrder)): (reverseOrder = false);sortedColumn = 'interestRateCode';" ng-class="(sortedColumn == 'interestRateCode')?((reverseOrder)?('arrow-down') : ('arrow-up') ) : ('')">Interest rate code</th>
+                                    <th ng-click="(sortedColumn == 'interestRate')?(reverseOrder=(!reverseOrder)): (reverseOrder = false);sortedColumn = 'interestRate';" ng-class="(sortedColumn == 'interestRate')?((reverseOrder)?('arrow-down') : ('arrow-up') ) : ('')">Interest Rate code description</th>
+                                    <th ng-click="(sortedColumn == 'version')?(reverseOrder=(!reverseOrder)): (reverseOrder = false);sortedColumn = 'version';" ng-class="(sortedColumn == 'version')?((reverseOrder)?('arrow-down') : ('arrow-up') ) : ('')">Version no</th>
+                                    <th ng-click="(sortedColumn == 'effectiveFromDate')?(reverseOrder=(!reverseOrder)): (reverseOrder = false);sortedColumn = 'effectiveFromDate';" ng-class="(sortedColumn == 'effectiveFromDate')?((reverseOrder)?('arrow-down') : ('arrow-up') ) : ('')">Effective From date</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr class="cp"
+                                    ng-repeat="x in vm.versionNoList | filter:vm.searchSolId | orderBy:sortedColumn:reverseOrder"
+                                    ng-click="vm.versionNo = x.version; vm.interestRateCodeDesc = x.interestRateCodeDescription;" data-bs-dismiss="modal">
+                                    <td>{{x.interestRate}}</td>
+                                    <td>{{x.interestRateCodeDescription}}</td>
+                                    <td>{{x.version}}</td>
+                                    <td>{{x.effectiveFromDate}}</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="list_wrapper" ng-if="vm.versionNoList.length==0">No records found to display.</div>
+            </div>
+
+        </div>
+    </div>
+</div>
+<!-- Version Details End-->

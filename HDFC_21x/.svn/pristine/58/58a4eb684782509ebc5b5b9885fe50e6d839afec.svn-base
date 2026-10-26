@@ -1,0 +1,79 @@
+        <div class="container">
+
+    <div class="text-right form_submit">
+        <button type="submit" class="btn btn-default"
+                onclick="window.location.href='#!/dc';" id="homeButton">Home</button>
+        <button type="submit" class="btn btn-default"
+                ng-click="vm.printpage();">Print</button>
+        <button type="button" id="cancelButton" class="btn btn-cancel"
+                onclick="window.location.href='#!/rbibond_gu_functionality';">Back</button>
+    </div>
+    <div  style="border:1px; border-style:solid; border-color:#ddd; padding:2em;" class="text-justify" id="section-to-print">
+        <sol-header></sol-header>
+        <tr  width="100%" border="0" cellspacing="0" cellpadding="1" align="center">
+
+            <td   valign="top" height="0">
+                <table   border="0" cellspacing="0" cellpadding="0" width="100%">
+                    <tr  align="center" valign="top" height="50">
+                        <td colspan="4">
+                            <!--                            <p align="right"><font face="TIMES NEW ROMAN" size="3"><b></b></font></p><br>-->
+                            <p><font face="TIMES NEW ROMAN" size="4"><b>Acknowledgement of Application Form<br></b></font></p>
+                            <br>
+                        </td>
+                    </tr>
+                    <tr  align="center" valign="top" height="40">
+                        <td align="right" colspan="4">
+                            <p align="right"><font face="TIMES NEW ROMAN" size="3"><b></b></font></p><br>
+                            <p><font face="TIMES NEW ROMAN" size="4"><b>Application No.<br></b></font></p>
+                            <br>
+                        </td>
+                    </tr>
+                    <tr  align="right" valign="top" height="40">
+                        <td>
+                            <input type="text" ng-model="vm.bondAckAddList.applicationNo"
+                                   readonly >
+                        </td>
+                    </tr>
+
+
+                    <tr  valign="top" align="left" height="40">
+                        <td>
+                            <p align="justify">
+                                <font face="Times New Roman" size="3">
+
+                                    <div style="text-align:right">
+                            <p style=";display:inline">  Date   <b>{{ vm.currentDate}}</b></p>
+                        </div>
+        <p style="display:inline-block;width:85%"> Bank branch <b>{{ vm.loginSolDesc}} </b> </p><br><br>
+
+
+                        </font>
+                            <font face="Times New Roman" size="3">
+                                <p>  Received	from	Mr/Mrs/Ms <b>{{vm.bondAckRec.bondHolderName}} </b> </p>   {{vm.bondAckRec.transactionMode  | getLabelFromValuesArray : vm.transactionModeData}}
+                                  {{vm.bondAckRec.instrumentType}}   {{vm.bondAckRec.InsNo}} dated {{vm.InsDate}} drawn on
+
+                                <b>{{ vm.bankName}}</b> and <b>{{vm.loginSolDesc}}</b> for <b>{{vm.bondAckRec.amount}}</b> <b>({{vm.bondAckAddListAmount}})</b> for the
+
+                                    purchase of Floating Rate Savings Bonds, 2020 (Taxable) for a period of 7 years, of the nominal value of
+
+                                <b>{{vm.bondAckRec.amount}}</b> <b>({{vm.bondAckAddListAmount}})</b> .  The  bonds
+
+                                    are required to be issued in the form of Bond Ledger Account.
+
+                                </font>
+
+
+                            </p><br>
+
+                            <p align="right">  Date, Bank Stamp & Signature of the authorized official of the Receiving Office</p>
+                            <br>
+
+                            <p align="left"  >Note:	(i) This receipt is valid subject to realisation of the payment instrument.<br>
+                                (ii) The "Certificate of Holding" will be issued in electronic form by {{vm.bondAckRec.delDate}}.
+                            </p>
+                        </td>
+                    </tr>
+                </table>
+
+    </div>
+</div>

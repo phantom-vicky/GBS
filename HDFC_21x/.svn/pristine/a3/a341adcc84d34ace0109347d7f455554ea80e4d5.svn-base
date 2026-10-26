@@ -1,0 +1,372 @@
+<div class="loader-new" data-ng-if="vm.loader"></div>
+<div class="container" ng-if="vm.dataList.length > 0">
+    <div class="text-right form_submit">
+        <button type="submit" class="btn btn-default" onclick="window.location.href='#!/dc';" id="homeButton">Home</button>
+        <button type="submit" class="btn btn-default"
+                ng-click="vm.printpage();" id="printButton">Print</button>
+        <button type="submit" id="backButton" class="btn btn-cancel"
+                ui-sref="rbiBond_minor_major_intimation_notice.inquiry">Back</button>
+
+
+
+    </div>
+    <sol-header></sol-header>
+    <!--    style="border: 1px solid #ddd; padding: 2em"-->
+    <div class="text-justify" id="section-to-print">
+        <!-- Render different content based on vm.schemeFlag -->
+<!--        <div data-ng-if="vm.schemeFlag === 'Y' && vm.list" class="page-break" data-ng-repeat="list in vm.list">-->
+<!--            <div style="border: 1px solid #000; padding: 2em; font-family: 'Times New Roman'; margin:20px">-->
+<!--                &lt;!&ndash; Content for Scheme Y (vm.list) &ndash;&gt;-->
+<!--                <table width="100%" border="0" cellspacing="0" cellpadding="0">-->
+<!--                    <tr>-->
+<!--                        <td></td>-->
+<!--                        <td align="right">-->
+<!--                            <p><b>Certificate No: {{list.certificateNo}}</b></p>-->
+<!--                        </td>-->
+<!--                    </tr>-->
+<!--                </table>-->
+
+<!--                <h3 align="center"><b>CERTIFICATE OF INVESTMENT</b></h3>-->
+<!--                <br/>-->
+<!--                <h4 align="center"><b>{{vm.schemeName}}</b></h4>-->
+<!--                <table width="100%" border="0" cellspacing="0" cellpadding="0">-->
+<!--                    <tr align="left" height="30">-->
+<!--                        <td>-->
+<!--                            <p>-->
+<!--                                <font face="TIMES NEW ROMAN" size="3"><b>TO : </b></font>-->
+<!--                            </p>-->
+<!--                            <p><b>{{list.holderName }}</b></p>-->
+<!--                            <p><b>{{list.bondAddress}}</b></p>-->
+<!--                            <p><b>{{list.city}}</b></p>-->
+<!--                            <p><b>{{list.state}}</b></p>-->
+<!--                            <p><b>{{list.pinCode}}</b></p>-->
+<!--                        </td>-->
+<!--                    </tr>-->
+
+<!--                    <tr valign="top" height="40" style="width:100%">-->
+<!--                        <td style="width:80%">-->
+<!--                            <p>-->
+<!--                                <font face="TIMES NEW ROMAN" size="4"><b>Dear Sir/Madam,</b></font>-->
+<!--                            </p>-->
+<!--                        </td>-->
+<!--                        <td style="width:20%">-->
+<!--                            <span><b>{{list.bondType}}</b></span> <br>-->
+<!--                            <span><b>Date:{{vm.currentDate}}</b></span>-->
+<!--                        </td>-->
+<!--                    </tr>-->
+
+<!--                    <tr valign="top" height="40">-->
+<!--                        <td colspan="4">-->
+<!--                            <p align="center">-->
+<!--                                <font face="TIMES NEW ROMAN" size="4"><b>Certificate of Investment</b></font>-->
+<!--                            </p>-->
+<!--                        </td>-->
+<!--                    </tr>-->
+<!--                    <tr align="left" valign="top" height="30">-->
+<!--                        <td>-->
+<!--                            <p>-->
+<!--                                <font face="Times New Roman" size="3">-->
+<!--                                    With reference to your Application No <b>{{list.nasikDate}}</b> dated-->
+<!--                                    <b>{{list.depositeDate }}</b>, we advise that your Bond Ledger Account No.-->
+<!--                                    <b>{{list.blaNo}}</b> has been credited with an amount of Rs.-->
+<!--                                    <b>{{vm.indianFormat(list.maturityAmt) }}</b> This amount will be due for repayment on-->
+<!--                                    <b>{{list.maturityDate }}</b>. The interest on the same will be payable on 01/01 & 01/07/repayment dates.-->
+<!--                                </font>-->
+<!--                            </p>-->
+<!--                        </td>-->
+<!--                    </tr>-->
+<!--                    <tr valign="top" height="30">-->
+<!--                        <td>-->
+<!--                            <p>The interest @ {{list.intrestRate}} on the same will be payable half yearly.</p>-->
+<!--                        </td>-->
+<!--                    </tr>-->
+<!--                    <tr valign="top" height="30">-->
+<!--                        <td>-->
+<!--                            <p><b>Maturity Amount Of The Said Investment: Rs. {{vm.indianFormat(list.maturityAmt)  }}</b></p>-->
+<!--                        </td>-->
+<!--                    </tr>-->
+<!--                    <tr valign="top" height="30">-->
+<!--                        <td>-->
+<!--                            <p><b>Nomination: {{list.nomineeId}}</b></p>-->
+<!--                        </td>-->
+<!--                    </tr>-->
+<!--                    <tr valign="top" height="30">-->
+<!--                        <td>-->
+<!--                            <p><b>Mode Of Operation: {{list.modeOfHolding}}</b></p>-->
+<!--                        </td>-->
+<!--                    </tr>-->
+<!--                    <tr valign="top" height="30">-->
+<!--                        <td>-->
+<!--                            <p><b>Applicant Holder: {{list.holderName}}</b></p>-->
+<!--                        </td>-->
+<!--                    </tr>-->
+<!--                    <tr valign="top" height="30">-->
+<!--                        <td><br/><br/><br/></td>-->
+<!--                    </tr>-->
+<!--                    <tr valign="top" height="30">-->
+<!--                        <td><p align="left">Yours Sincerely,</p></td>-->
+<!--                    </tr>-->
+
+
+
+<!--                </table>-->
+
+
+
+
+<!--                <div style="margin-top: 30px">-->
+<!--                    <table border="0" style="border-collapse: collapse; width: 100%" aria-label="COI">-->
+<!--                        <tr>-->
+<!--                            <td style="text-align: left; vertical-align: top; width: 50%;">-->
+<!--                                <div style="display: flex; flex-direction: column; align-items: left;">-->
+<!--                                    <img src="assets/images/nageswaran.jpg" class="img-responsive"-->
+<!--                                         alt="nageswaran" style="width: 200px; height: auto; margin-top: 10px;">-->
+
+<!--                                </div>-->
+<!--                            </td>-->
+
+<!--                        </tr>-->
+
+<!--                    </table>-->
+
+
+<!--                    <div style="margin-top: 10px; text-align: left">-->
+<!--                        <p><b>Branch Reference Number: {{list.certificateNo}}</b></p>-->
+<!--                    </div>-->
+<!--                </div>-->
+
+<!--            </div>-->
+
+<!--        </div>-->
+
+        <div ng-if="vm.dataList.length>0" class="page-break" ng-repeat="x in vm.dataList">
+            <!-- Content for Scheme N (vm.list1) -->
+            <div style="border: 1px solid #000; padding: 2em; font-family: 'Times New Roman'; margin:20px">
+                <!-- Header Section -->
+                <!--                <div style="text-align: center">-->
+                <!--                    <h3><b>Government of India</b> </h3>-->
+                <!--                    <h3><b>Certificate of Investment</b></h3>-->
+                <!--                    <h3 style="text-align: right"><b>CHENNAI</b></h3>-->
+                <!--                    <p align="left"><u>Annexure 1</u></p>-->
+                <!--                    <p align="left">Form 'A'</p>-->
+                <!--                    <h4>{{vm.schemeName}}</h4>-->
+                <!--                    <h4><u>Bond Ledger Account :{{l1.blaNo}}</u></h4>-->
+                <!--                </div>-->
+
+
+                <table border="0" style="border-collapse: collapse; width: 100%; text-align: center" aria-label="">
+<!--                    <tr>-->
+<!--                        <th scope="col"></th>-->
+<!--                    </tr>-->
+<!--                    <tbody>-->
+<!--                    <tr>-->
+<!--                        <td style="text-align: left">Annexure 1</td>-->
+<!--                        <td style="text-align: center; font-weight: bold; font-size: 1.17em">Government of India</td>-->
+<!--                        <td style="text-align: right; font-weight: bold; font-size: 1.17em">-->
+<!--                            <span data-ng-if="vm.subscriptionId">DUPLICATE</span> <br>-->
+<!--                            <span>{{l1.receivingOffice}}</span>-->
+<!--                        </td>-->
+<!--                    </tr>-->
+<!--                    <tr>-->
+<!--                        <td style="text-align: left">Form 'A'</td>-->
+<!--                        <td style="text-align: center; font-weight: bold; font-size: 1.17em">Certificate of Investment</td>-->
+<!--                        <td style="text-align: right"></td>-->
+<!--                    </tr>-->
+<!--                    <tr>-->
+<!--                        <td style="text-align: left"></td>-->
+<!--                        <td style="text-align: center; font-size: 1.12em; padding-top:10px;padding-bottom:10px"><strong>{{vm.schemeName}}</strong></td>-->
+<!--                        <td style="text-align: right"></td>-->
+<!--                    </tr>-->
+<!--                    <tr>-->
+<!--                        <td style="text-align: left"></td>-->
+<!--                        <td style="text-align: center; font-size: 1.12em"><strong>Bond Ledger Account: {{l1.blaNo}}</strong></td>-->
+<!--                        <td style="text-align: right"></td>-->
+<!--                    </tr>-->
+<!--                    </tbody>-->
+<!--                </table>-->
+
+<!--                <div style="text-align: right">-->
+<!--                    <p><b>{{l1.location}}</b></p>-->
+<!--                    <p><b>Date: {{vm.currentDate}}</b></p>-->
+<!--                </div>-->
+
+
+                <!-- Address Section -->
+<!--                <div style="margin-top: 10px">-->
+
+<!--                    <img src="src/main/webapp/assets/images/brokerage_hdfc_logo.png" alt="bank Logo"-->
+<!--                         style="width:150px; height:auto; margin-bottom:10px;" />-->
+
+
+<!--                    <b> Date: {{vm.subsDate1}}</b><br><br>-->
+<!--                    <p><b>To:</b></p>-->
+<!--&lt;!&ndash;                    {{l1.holderName}} <br>&ndash;&gt;-->
+<!--&lt;!&ndash;                    {{l1.bondAddress}} <br>&ndash;&gt;-->
+<!--&lt;!&ndash;                    {{l1.city}} <br>&ndash;&gt;-->
+<!--&lt;!&ndash;                    {{l1.state}} {{vm.model.pinCode}} <br>&ndash;&gt;-->
+<!--                    Mr/Ms. {{x.name}} ,<br>-->
+<!--                    &lt;!&ndash; Ms. CAMERYN FAWN GEORGE MINOR U/G<br> &ndash;&gt;-->
+<!--                    {{x.add1}}{{x.add2 ? ', ' + x.add2 : ''}}{{x.add3 ? ', ' + x.add3 : ''}},<br>-->
+<!--                    {{x.city}}{{x.pinCode ? ', ' + x.pinCode : ''}},<br>-->
+<!--                    {{vm.fromStateCodeToDesc(x.state)}}<br>-->
+
+<!--                </div>-->
+
+
+
+                    <div style="display: flex; justify-content: space-between; margin-top: 10px;">
+
+                        <!-- LEFT COPY -->
+                        <div style="width: 37%;">
+                            <img src="assets/images/brokerage_hdfc_logo.png" alt="Company Logo"
+                                 style="width:150px; height:auto; margin-bottom:10px;" /><br>
+
+                            <b> Date: {{vm.subsDate1}}</b><br><br>
+
+<!--                            <p><b>To:</b></p>-->
+
+                            Mr/Ms. {{x.name}} <br>
+
+                            {{x.add1}}{{x.add2 ? ', ' + x.add2 : ''}}{{x.add3 ? ', ' + x.add3 : ''}}<br>
+                            {{x.city}}{{x.pinCode ? ', ' + x.pinCode : ''}}<br>
+                            {{x.mobileNum}}
+
+<!--                            {{vm.fromStateCodeToDesc(x.state)}}<br>-->
+                        </div>
+
+                        <!-- RIGHT COPY (SAME CONTENT) -->
+                        <div style="width: 37%;">
+                            <b>HDFC Bank Ltd</b>.,<br>
+                            GOI Bond Operations, 2nd  Flr,<br>
+                            Zone 1, G K Shetty Technology Park, No.94, Wavin Main Road,<br>
+                            SP Estate Bus Stand,<br>
+                            Mogappair, Chennai – 600058.<br>
+                            E-mail:rrb.chennai@hdfcbank.com<br>
+                            CINNo : L65920MH1994PLC080618
+
+                        </div>
+
+                    </div>
+
+                <!-- Bond Details Section -->
+                <div style="margin-top: 10px">
+
+                    Dear Sir/Madam <br><br><b>Sub: <u>Change of Status for your ‘Minor’ RBI Bonds Investment</u></b><br><br>
+                    <br><br>
+
+<!--                    Trust you are doing well.<br><br>-->
+
+
+
+                    We observe from our records, that you are the first applicant in the RBI Bonds held in the capacity of “Minor” under <b>BLA : {{x.blaNo}}.</b>
+                    and Your date of birth, as per Bank Records, is <b>{{x.bondHolderDOB}}</b><br><br>
+
+
+
+
+                    As you already turned major (i.e. 18 years of age), we request you to <b>submit the documents for accompanied by your guardian to convert the 'minor' Investment you have with us</b>(BLA : {{x.blaNo}})<b> into 'Major' status.</b><br><br>
+
+
+
+                    To facilitate the conversion of your Investment (s) with the Bank, we request you to please submit the below-mentioned documents to your nearest HDFC Bank branch:<br><br>
+
+
+
+                    <ul class="doc-list">
+
+                        <li>
+                            Request letter for converting the Investment from 'Minor' to 'Major.'
+                            If applicable, this letter should be signed by you
+                            (the minor becoming a major), your guardian,
+                            and any other co-applicants.
+                        </li>
+                        <li>
+                            Self-attested copy of your PAN card as a major.
+                        </li>
+                        <li>
+                            Self-attested proof of address. If you provide Aadhaar as address proof,
+                            please black out the first 8 digits of the Aadhaar number and include
+                            the non-DBT consent form (as per the attached format).
+                        </li>
+                        <li>
+                            Proof of becoming a major (Birth Certificate, Passport, etc.).
+                        </li>
+                        <li>
+                            ECS mandate form (attached) with Banker's verification,
+                            along with a cancelled cheque leaf.
+                        </li>
+                        <li>
+                            Original Bond certificate.
+                        </li>
+
+                    </ul>
+
+
+                    Kindly dispatch the original to the above mentioned address or the same can be submitted at our nearest hdfc bank branch.<br><br>
+                    Assuring you of the best of our services.<br><br>
+                    Warm Regards,<br><br>
+                    <b>Karthikeyan.M</b><br><br>
+                    Encl: 1. ECS Mandate Form, 2. Non- DBT consent form
+
+                </div>
+
+
+
+                    </table>
+
+
+
+                </div>
+
+                <!--                <div style="margin-top:20px; text-align:left;">-->
+                <!--                    <p>Nomination Registered</p>-->
+                <!--                    <p>at Sr No: {{vm.model.nomineeId || 'NULL'}}</p>-->
+                <!--                </div>-->
+
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container" data-ng-if="vm.noDataFound">
+    <div class="list_wrapper no_records_message">
+        <h4 class="form_heading">RBI BOND - Minor to Major Intimation Notice</h4>
+        No records found to display.
+        <center>
+            <button type="button" class="btn btn-default" onclick="window.location.href= '#!/rbiBond_minor_major_intimation_notice.inquiry/action/inquiry';">Back</button>
+        </center>
+    </div>
+</div>
+
+<style>
+    @media print {
+      .page-break {
+        page-break-before: always;
+      }
+    }
+</style>
+
+
+<style>
+    .doc-list {
+        list-style: none;
+        padding-left: 0;
+        margin-left: 0;
+    }
+
+    .doc-list li {
+        position: relative;
+        padding-left: 25px;
+        margin-bottom: 10px;
+        line-height: 1.5;
+    }
+
+    .doc-list li::before {
+        content: "➢";
+        position: absolute;
+        left: 0;
+        top: 0;
+        font-weight: bold;
+    }
+</style>

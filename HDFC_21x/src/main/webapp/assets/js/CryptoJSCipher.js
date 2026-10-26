@@ -1,0 +1,1 @@
+"use strict";function CryptoJSCipher(r,e,t){return{encode:function(n,o){if(!n)return n;if(o.length<=0)return n;var i=CryptoJS.enc.Base64.parse(o);return t.encrypt(n,i,{mode:r,padding:e}).toString()},decode:function(n,o){if(o.length<=0)return n;var i=CryptoJS.enc.Base64.parse(o);return t.decrypt(n,i,{mode:r,padding:e}).toString(CryptoJS.enc.Utf8)}}}

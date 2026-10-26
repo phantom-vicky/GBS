@@ -1,0 +1,176 @@
+
+<user-left-menu></user-left-menu>
+<div class="loader-new" ng-show="loader"></div>
+<div class="container from_wrapper">
+    <h4 class="form_heading  feature-heading">User Parameters - {{vm.action}}</h4>
+    <form name="userParamForm" role="form" ng-submit="vm.saveUserParamsConfirmation(userParamForm.$valid)" novalidate>
+        <div class="row" ng-if="vm.action === 'modify'">
+            <div class="form-group required">
+                <div class="col-sm-3"></div>
+                <div class="col-sm-3">
+                    <label for="dormancyPeriod" class="control-label required">Dormancy Period (In Days)</label>
+                </div>
+                <div class="col-sm-3 inner-addon right-addon">
+                    <input min="1" max="999" type="number" class="form-control" id="dormancyPeriod" name="dormancyPeriod" ng-model="vm.users.dormancyPeriod" maxlength="3" ng-disabled="vm.action == 'inquiry'" tabindex="1" required>
+                </div>
+            </div>
+        </div>
+        <div class="row" ng-if="vm.action === 'modify'">
+            <div class="form-group required">
+                <div class="col-sm-3"></div>
+                <div class="col-sm-3">
+                    <label for="noOfRetries" class="control-label required">No of Retries for Log in Attempts</label>
+                </div>
+
+                <div class="col-sm-3 inner-addon right-addon">
+                    <input min="1" max="99" type="number" class="form-control" id="noOfRetries" name="noOfRetries" ng-model="vm.users.noOfRetries" maxlength="2"  tabindex="2" required>
+                </div>
+
+            </div>
+        </div>
+
+
+        <div class="row" ng-if="vm.action === 'modify'">
+            <div class="form-group required">
+                <div class="col-sm-3"></div>
+                <div class="col-sm-3">
+                    <label for="activationPeriod" class="control-label required">Activation Period(In Days)</label>
+                </div>
+
+                <div class="col-sm-3 inner-addon right-addon">
+                    <input min="1" max="999" type="number" class="form-control" id="activationPeriod" name="activationPeriod" ng-model="vm.users.activationPeriod" maxlength="3" ng-disabled="vm.action == 'inquiry'" tabindex="3" required>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="row" ng-if="vm.action === 'modify'">
+            <div class="form-group required">
+                <div class="col-sm-3"></div>
+                <div class="col-sm-3">
+                    <label for="activationPeriod" class="control-label required">Maximum Acceptable Period of User inactivity</label>
+                </div>
+
+                <div class="col-sm-3 inner-addon right-addon">
+                    <input min="1" max="999" type="number" class="form-control" id="maxAccPeriod" name="maxAccPeriod" ng-model="vm.users.maxAccPeriod" maxlength="3" tabindex="4" required>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="row" ng-if="vm.action === 'modify'">
+            <div class="form-group">
+                <div class="col-sm-3"></div>
+                <div class="col-sm-3">
+                    <label for="remarks" class="control-label">Rejection Remarks</label>
+                </div>
+                <div class="col-sm-3 inner-addon right-addon">
+                    <input type="text" class="form-control" id="remarks" name="remarks" ng-model="vm.users.remarks" ng-init="vm.users.remarks = (vm.users.remarks === null ? 'Not Rejected/Verified Successfully' : vm.users.remarks)" tabindex="5" readonly >
+                </div>
+            </div>
+        </div>
+
+
+        <table class="table table-bordered table-striped list old-new-value-table" ng-if="vm.action === 'inquiry'">
+            <thead>
+
+            <tr>
+                <th>Particular</th>
+                <th>{{(vm.users.perviousOperation == 'M')?('Old Value'): ('Value')}}</th>
+                <th ng-if="vm.users.perviousOperation == 'M'">New Value</th>
+            </tr>
+            </thead>
+            <tbody>
+
+            <tr>
+                <td>Dormancy Period(In Days)</td>
+                <td class="old-value">{{(vm.users && vm.users.dormancyPeriod)?
+                    (vm.users.dormancyPeriod | getLabelFromValuesArray : vm.commonYesNoMetaData) : ('')}}
+                </td>
+                <td ng-if="vm.users.perviousOperation == 'M'" class="new-value">
+                    {{(vm.users && vm.users.dormancyPeriod1)?
+                    (vm.users.dormancyPeriod1 | getLabelFromValuesArray : vm.commonYesNoMetaData) : ('')}}
+                </td>
+            </tr>
+
+            <tr>
+                <td>No of Retries for Log in Attempts</td>
+                <td class="old-value">{{(vm.users && vm.users.noOfRetries)?
+                    (vm.users.noOfRetries) : ('')}}
+                </td>
+                <td ng-if="vm.users.perviousOperation == 'M'" class="new-value">
+                    {{(vm.users && vm.users.noOfRetries1)?
+                    (vm.users.noOfRetries1) : ('')}}
+                </td>
+            </tr>
+
+            <tr>
+                <td>Activation Period(In Days)</td>
+                <td class="old-value">{{(vm.users && vm.users.activationPeriod)?
+                    (vm.users.activationPeriod) : ('')}}
+                </td>
+                <td ng-if="vm.users.perviousOperation == 'M'" class="new-value">
+                    {{(vm.users && vm.users.activationPeriod1)?
+                    (vm.users.activationPeriod1) : ('')}}
+                </td>
+            </tr>
+
+            <tr>
+                <td>Maximum Acceptable Period of User inactivity</td>
+                <td class="old-value">{{(vm.users && vm.users.maxAccPeriod)?
+                    (vm.users.maxAccPeriod) : ('')}}
+                </td>
+                <td ng-if="vm.users.perviousOperation== 'M'" class="new-value">
+                    {{(vm.users && vm.users.maxAccPeriod1)?
+                    (vm.users.maxAccPeriod1) : ('')}}
+                </td>
+            </tr>
+            <tr>
+                <td>Rejection Remarks</td>
+                <td>{{ vm.users.remarks ? vm.users.remarks : 'Not Rejected/Verified Successfully' }}</td>
+            </tr>
+
+
+            </tbody>
+        </table>
+
+        <!-- Repeat similar structure for other form fields -->
+
+        <div class="audit-details">
+            <div class="row">
+                <div class="col-md-3">
+                    <span><b>Created By</b>: {{vm.users.createdBy}}</span>
+                </div>
+                <div class="col-md-3">
+                    <span><b>Last Modified By</b>: {{(vm.users.lastModifiedBy) ? (vm.users.lastModifiedBy) : ('None')}}</span>
+                </div>
+                <div class="col-md-3">
+                    <span><b>Last Verified By</b>: {{(vm.users.verifiedBy) ? (vm.users.verifiedBy) : ('None')}}</span>
+                </div>
+                <div class="col-md-3">
+                    <span><b>Verify Status</b>: {{vm.users.verifiedStatus | getLabelFromValuesArray: vm.commonYesNoMetaData}}</span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3">
+                    <span><b>Created On</b>: {{vm.users.createdDate | date: 'dd/MM/yyyy'}}</span>
+                </div>
+                <div class="col-md-3">
+                    <span><b>Last Modified On</b>: {{(vm.users.lastModifiedDate) ? (vm.users.lastModifiedDate | date: 'dd/MM/yyyy') : ('None')}}</span>
+                </div>
+                <div class="col-md-3">
+                    <span><b>Last Verified On</b>: {{(vm.users.verifiedDate) ? (vm.users.verifiedDate | date: 'dd/MM/yyyy') : ('None')}}</span>
+                </div>
+                <div class="col-md-3"></div>
+            </div>
+        </div>
+
+        <div class="col-sm-offset-5 col-sm-8 form_submit" ng-if="vm.action == 'modify'">
+            <button type="submit" class="btn btn-default" id="submitButton" ng-disabled="userParamForm.$invalid">Submit</button>
+            <button type="button" class="btn btn-cancel" id="cancelButton" onclick="window.location.href ='#!/';">Cancel</button>
+        </div>
+        <div class="text-center" ng-if="vm.action === 'modify'">
+            <notice-message-directive></notice-message-directive>
+        </div>
+    </form>
+</div>

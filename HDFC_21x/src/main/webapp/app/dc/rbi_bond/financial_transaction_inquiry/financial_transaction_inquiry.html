@@ -1,0 +1,349 @@
+<div class="container from_wrapper new_form_wrapper">
+    <div class="loader-new" data-ng-if="vm.loader"></div>
+    <h4 class="form_heading">Financial Transaction Inquiry - DC</h4>
+    <sol-header></sol-header>
+
+    <form name="financialTransactionInquiry" role="form">
+        <div class="row">
+            <div class="form-group">
+                <div class="col-sm-3"></div>
+                <div class="col-sm-3"><label for="moduleName" class="control-label">Module Name</label></div>
+                <div class="col-sm-2">
+                    <input type="text" class="form-control" id="moduleName" data-ng-model="vm.moduleName" data-ng-value="'RBI Bond'" readonly/>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="form-group required">
+                <div class="col-sm-3"></div>
+                <div class="col-sm-3"><label for="moduleName" class="control-label">Name of the Bond Scheme</label>
+                </div>
+                <div class="col-sm-2">
+                    <input type="text" class="form-control" id="schemeName" data-ng-model="vm.schemeName" required readonly/>
+                </div>
+                <div class="col-sm-2" style="display: flex; align-items: center; height: 34px; gap: 5px; padding-left:0;">
+                    <span class="glyphicon glyphicon-search cp" data-bs-toggle="schemeName" id="treasurySearch" data-ng-click="vm.getSchemeName();"></span>
+                    <span class="glyphicon glyphicon-remove clear cp" data-ng-click="vm.schemeCode =''; vm.schemeName='';"></span>
+                </div>
+            </div>
+        </div>
+
+<!--        <div class="row">-->
+<!--            <div class="form-group">-->
+<!--                <div class="col-sm-3"></div>-->
+<!--                <div class="col-sm-3"><label for="subscriptionID" class="control-label">Bond Subscription ID</label>-->
+<!--                </div>-->
+<!--                <div class="col-sm-2">-->
+<!--                    <input type="text" class="form-control" id="subscriptionID" data-ng-model="vm.subscriptionID" data-chars="alpha-numeric" oninput="this.value = this.value.replace(/[^0-9]/g, '')"/>-->
+<!--                </div>-->
+<!--                <div class="col-sm-2" style="display: flex; align-items: center; height: 34px; gap: 5px; padding-left:0;" data-ng-if="vm.subscriptionID">-->
+<!--                    <span class="glyphicon glyphicon-search cp" data-bs-toggle="modal" id="subscriptionIDSearch" data-ng-click="vm.getSubscriptionID();"></span>-->
+<!--                    <span class="glyphicon glyphicon-remove clear cp" data-ng-click="vm.subscriptionID = ''"></span>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+
+        <div class="row">
+            <div class="form-group required">
+                <div class="col-sm-3"></div>
+                <div class="col-sm-3"><label class="control-label">Tran From Date</label></div>
+                <div class="col-sm-2">
+                    <p class="input-group">
+                        <input
+                                type="text"
+                                class="form-control"
+                                id="effFromDate1"
+                                name="effFromDate"
+                                data-ng-model="vm.fromDate"
+                                data-uib-datepicker-popup="dd/MM/yyyy"
+                                data-ng-init="vm.fromDate=''; vm.fromDateVal()"
+                                data-ng-change="vm.toDateVal(vm.fromDate); vm.toDate=''"
+                                data-datepicker-options="vm.fromDateOptions"
+                                data-is-open="vm.effFromDatePicker.opened"
+                                data-close-text="Close"
+                                maxlength="10"
+                                ng-blur="vm.textableDatePicker('effFromDate1',vm.fromDate)"
+                                ng-keyup="vm.autoslashing('effFromDate1')" chars="numbers-slash"
+                                required
+
+                        />
+                        <span class="input-group-btn" data-ng-if="vm.schemeName">
+                          <button type="button" class="btn btn-secondary" data-ng-click="vm.effFromDatePicker.opened = true" id="effFromDateSearcher1">
+                            <span class="glyphicon glyphicon-calendar"></span>
+                          </button>
+                        </span>
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="form-group required">
+                <div class="col-sm-3"></div>
+                <div class="col-sm-3"><label class="control-label">Tran To Date</label></div>
+                <div class="col-sm-2">
+                    <p class="input-group">
+                        <input
+                                type="text"
+                                class="form-control"
+                                id="effToDate"
+                                name="effToDate"
+                                data-ng-model="vm.toDate"
+                                data-uib-datepicker-popup="dd/MM/yyyy"
+                                data-ng-init="vm.toDate=''"
+                                data-datepicker-options="vm.toDateOptions"
+                                data-is-open="vm.effToDatePicker.opened"
+                                data-close-text="Close"
+                                maxlength="10"
+                                ng-blur="vm.textableDatePicker('effToDate',vm.toDate)"
+                                ng-keyup="vm.autoslashing('effToDate')" chars="numbers-slash"
+                                required
+                        />
+                        <span class="input-group-btn" data-ng-if="vm.fromDate">
+                          <button type="button" class="btn btn-secondary" data-ng-click="vm.effToDatePicker.opened = true" id="effToDateSearcher">
+                            <span class="glyphicon glyphicon-calendar"></span>
+                          </button>
+                        </span>
+                    </p>
+                </div>
+            </div>
+        </div>
+
+<!--        <div class="row">-->
+<!--            <div class="form-group">-->
+<!--                <div class="col-sm-3"></div>-->
+<!--                <div class="col-sm-3"><label for="fromAmount" class="control-label">Amount Range From</label></div>-->
+<!--                <div class="col-sm-2">-->
+<!--                    <input-->
+<!--                            type="number"-->
+<!--                            class="form-control"-->
+<!--                            name="fromAmount"-->
+<!--                            data-ng-min="1"-->
+<!--                            id="fromAmount"-->
+<!--                            data-chars="only-numbers"-->
+<!--                            onkeypress="return event.charCode >= 48 && event.charCode <= 57"-->
+<!--                            data-limit-to="20"-->
+<!--                            maxlength="9"-->
+<!--                            data-ng-model="vm.fromAmount"-->
+<!--                            data-ng-init="vm.fromAmount=''"-->
+<!--                    />-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+
+<!--        <div class="row">-->
+<!--            <div class="form-group">-->
+<!--                <div class="col-sm-3"></div>-->
+<!--                <div class="col-sm-3"><label for="toAmount" class="control-label">Amount Range To</label></div>-->
+<!--                <div class="col-sm-2">-->
+<!--                    <input-->
+<!--                            type="number"-->
+<!--                            class="form-control"-->
+<!--                            name="toAmount"-->
+<!--                            data-ng-min="vm.fromAmount"-->
+<!--                            id="toAmount"-->
+<!--                            data-chars="only-numbers"-->
+<!--                            onkeypress="return event.charCode >= 48 && event.charCode <= 57"-->
+<!--                            data-limit-to="9"-->
+<!--                            data-ng-model="vm.toAmount"-->
+<!--                            data-ng-init="vm.toAmount=''"-->
+<!--                    />-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+
+<!--        <div class="row">-->
+<!--            <div class="form-group">-->
+<!--                <div class="col-sm-3"></div>-->
+<!--                <div class="col-sm-3"><label for="transaction" class="control-label">System or GBM Transaction</label>-->
+<!--                </div>-->
+<!--                <div class="col-sm-2">-->
+<!--                    <select class="form-control" id="transaction" name="transaction" data-ng-model="vm.transaction">-->
+<!--                        <option value="">SELECT</option>-->
+<!--                        <option value="ALL">ALL</option>-->
+<!--                        <option value="GBM">GBM</option>-->
+<!--                        <option value="SYS">SYS</option>-->
+<!--                    </select>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+
+<!--        <div class="row">-->
+<!--            <div class="form-group">-->
+<!--                <div class="col-sm-3"></div>-->
+<!--                <div class="col-sm-3">-->
+<!--                    <label for="tranType" class="control-label">Tran Type</label></div>-->
+<!--                <div class="col-sm-2">-->
+<!--                    <input type="text" class="form-control" id="tranType" data-ng-model="vm.tranType" data-ng-init="vm.tranType='ALL'" data-ng-value="'ALL'" readonly/>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+
+<!--        <div class="row">-->
+<!--            <div class="form-group">-->
+<!--                <div class="col-sm-3"></div>-->
+<!--                <div class="col-sm-3"><label for="tranID" class="control-label">GBM Tran ID</label></div>-->
+<!--                <div class="col-sm-2">-->
+<!--                    <input type="text" class="form-control" id="tranID" name="tranID" data-chars="alpha-numeric" maxlength="9" data-ng-model="vm.gbmTranIdFrom" data-ng-init="vm.gbmTranId=''" oninput="this.value = this.value.replace(/[^0-9]/g, '')"/>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+
+<!--        <div class="row">-->
+<!--            <div class="form-group">-->
+<!--                <div class="col-sm-3"></div>-->
+<!--                <div class="col-sm-3"><label for="userID" class="control-label">Created User ID</label></div>-->
+<!--                <div class="col-sm-2">-->
+<!--                    <input type="text" class="form-control" id="userID" data-ng-model="vm.userID" data-ng-init="vm.userID=''" maxlength="25" oninput="this.value = this.value.replace(/^\s+/, '')"/>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+
+        <!--SubmitButton and CancelButton-->
+        <div class="text-center form_submit">
+            <button type="submit" class="btn btn-default" id="submitButton" data-ui-sref="rbi_bond_fti_lc.inquiry_details({obj:{
+                        schemeCode : vm.schemeCode,
+								schemeName      :   vm.schemeName,
+								subscriptionID  :   vm.subscriptionID,
+								fromDate        :   vm.fromDate,
+								toDate          :   vm.toDate,
+								fromAmount      :   vm.fromAmount,
+								toAmount        :   vm.toAmount,
+								transaction     :   vm.transaction,
+								tranType        :   vm.tranType,
+								tranID          :   vm.tranID,
+								userID          :   vm.userID,
+								tranStatus      :   vm.tranStatus
+                        }})"
+                    data-ng-disabled="financialTransactionInquiry.$invalid">
+                Submit
+            </button>
+            <button type="button" class="btn btn-cancel" id="cancel_button" onclick="window.location.href ='#!/dc_rbi_bond_menu'">Cancel</button>
+        </div>
+
+        <div class="text-center">
+            <notice-message-directive></notice-message-directive>
+        </div>
+    </form>
+</div>
+
+<div class="modal" id="schemeModel" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-bs-dismiss="modal" data-ng-click="vm.modalSearch=''">&times;</button>
+                <h4 class="modal-title">Name of the Bond Scheme</h4>
+            </div>
+            <div class="modal-body">
+                <div class="loader_popup"></div>
+                <div class="list_wrapper" data-ng-if="vm.schemeList.length>0">
+                    <div class="col-sm-8 form_submit">
+                        <div class="form-group">
+                            <div class="input-group">
+                                <div class="input-group-addon"><span class="glyphicon glyphicon-search"></span></div>
+                                <input type="text" class="form-control" data-ng-model="vm.modalSearch" data-ng-init="vm.modalSearch = ''" placeholder="Search" oninput="this.value = this.value.replace(/^\s+/, '').replace(/\s{2,}/g, ' ')"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4 form_submit"></div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <table class="table table-bordered list scroll sort" aria-label="">
+                                <thead data-ng-init="reverseOrder=true;sortedColumn = 'schemeName'">
+                                <tr>
+                                    <th scope="col"
+                                            data-ng-click="(sortedColumn == 'schemeName')?(reverseOrder=(!reverseOrder)): (reverseOrder = false);sortedColumn = 'schemeName';"
+                                            data-ng-class="(sortedColumn == 'schemeName')?((reverseOrder)?('arrow-down') : ('arrow-up') ) : ('')">
+                                        SCHEME NAME
+                                    </th>
+                                    <th scope="col"
+                                            data-ng-click="(sortedColumn == 'schemeStatus')?(reverseOrder=(!reverseOrder)): (reverseOrder = false);sortedColumn = 'schemeStatus';"
+                                            data-ng-class="(sortedColumn == 'schemeStatus')?((reverseOrder)?('arrow-down') : ('arrow-up') ) : ('')">
+                                        STATUS
+                                    </th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr  class="cp"
+                                        data-ng-repeat="x in vm.schemeList | filter:vm.modalSearch | orderBy:sortedColumn:reverseOrder"
+                                        data-ng-click="vm.schemeCode = x.schemeCode; vm.schemeName = x.schemeName; vm.schemeStatus = x.schemeStatus"
+                                        data-bs-dismiss="modal">
+                                    <td>{{x.schemeName}}</td>
+                                    <td>{{x.schemeStatus}}</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="list_wrapper" data-ng-if="vm.schemeList.length==0">No records found to display.</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal" id="subscriptionDetailsModal" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-bs-dismiss="modal" data-ng-click="vm.subscriptionSearch=''">&times;</button>
+                <h4 class="modal-title">Subscription ID</h4>
+            </div>
+            <div class="modal-body">
+                <div class="loader_popup"></div>
+                <div class="list_wrapper" data-ng-if="vm.subscriptionIDList.length>0">
+                    <div class="col-sm-8 form_submit">
+                        <div class="form-group">
+                            <div class="input-group">
+                                <div class="input-group-addon">
+                                    <i class="glyphicon glyphicon-search"></i>
+                                </div>
+                                <input type="text" class="form-control" data-ng-model="vm.subscriptionSearch" data-ng-init="vm.subscriptionSearch = ''" placeholder="Search"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4 form_submit"></div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <table class="table table-bordered list scroll">
+                                <thead data-ng-init="reverseOrder = false; sortedColumn = 'scssAccountNo'">
+                                <tr>
+                                    <th
+                                            class="modal-title title-case"
+                                            data-ng-click="(sortedColumn == 'subscriptionID')?(reverseOrder=(!reverseOrder)): (reverseOrder = false);sortedColumn = 'subscriptionID';"
+                                            data-ng-class="(sortedColumn == 'subscriptionID')?((reverseOrder)?('arrow-down') : ('arrow-up') ) : ('')">
+                                        Subscription Id
+                                    </th>
+<!--                                    <th-->
+<!--                                            class="modal-title title-case"-->
+<!--                                            data-ng-click="(sortedColumn == 'modeOfHolding')?(reverseOrder=(!reverseOrder)): (reverseOrder = false);sortedColumn = 'modeOfHolding';"-->
+<!--                                            data-ng-class="(sortedColumn == 'modeOfHolding')?((reverseOrder)?('arrow-down') : ('arrow-up') ) : ('')">-->
+<!--                                        Mode of Holding-->
+<!--                                    </th>-->
+                                    <th
+                                            class="modal-title title-case"
+                                            data-ng-click="(sortedColumn == 'bondHolderName')?(reverseOrder=(!reverseOrder)): (reverseOrder = false);sortedColumn = 'bondHolderName';"
+                                            data-ng-class="(sortedColumn == 'bondHolderName')?((reverseOrder)?('arrow-down') : ('arrow-up') ) : ('')">
+                                       Name of the Holder
+                                    </th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr class="cp" data-ng-repeat="x in vm.subscriptionIDList | filter:vm.subscriptionSearch  | orderBy:sortedColumn:reverseOrder" data-ng-click="vm.subscriptionID = x.subscriptionID;;" data-bs-dismiss="modal">
+                                    <td>{{x.subscriptionID}}</td>
+<!--                                    <td>{{x.modeOfHolding}}</td>-->
+                                    <td>{{x.holderName}}</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="list_wrapper" data-ng-if="vm.subscriptionIDList.length==0">No records found to display.
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

@@ -1,0 +1,117 @@
+<div class="loader-new" ng-if="vm.loader"></div>
+<dc-left-menu></dc-left-menu>
+<div class="container from_wrapper new_form_wrapper" ng-init="vm.getModuleName();">
+
+    <h4 class="form_heading">Bond Subscription - Reversal - Change of Account number  - Delete</h4>
+    <sol-header></sol-header>
+    <form name="accountOpeningForm" role="form">
+        <div class="row" ng-init="vm.getModuleName();">
+            <div class="form-group required">
+                <div class="col-sm-3"></div>
+                <div class="col-sm-3">
+                    <label for="schemeCode" class="control-label">Name of the Bond Scheme</label>
+                </div>
+                <div class="col-sm-2">
+                    <select class="form-control" id="schemeCode" name="schemCode"
+                            ng-model="vm.schemeCode" ng-change="vm.alert(vm.schemeCode)" required>
+                        <option value="">Select</option>
+                        <option ng-repeat="item in vm.schemeList" value="{{item.subCode}}" ng-bind="vm.schemeName=item.subCodeDescription"></option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group required">
+                <div class="col-sm-3"></div>
+                <div class="col-sm-3">
+                    <label for="reversalId" class="control-label">Reversal ID</label>
+                </div>
+                <div class="col-sm-2">
+                    <input type="text" class="form-control" id="reversalId"
+                           ng-model="vm.reversalId"  readonly required>
+                </div>
+
+                <div class="col-sm-2">
+                    <i class="glyphicon glyphicon-search cp" data-bs-toggle="modal"
+                       id="customerIdSearch"
+                       ng-click="vm.getDeleteReversalId();"></i> <i
+                        class="glyphicon glyphicon-remove clear cp"
+                        ng-click="vm.reversalId='';"></i>
+                </div>
+            </div>
+        </div>
+        <div class="text-center form_submit">
+            <button type="submit" class="btn btn-default" id="submitButton"
+                    ui-sref="bond_subs_reversal_change_acc_no.delete_detail({obj:{
+								schemeCode: vm.schemeCode,
+								reversalId: vm.reversalId,
+								schemeName : vm.schemeName
+								}})"
+                    ng-disabled="accountOpeningForm.$invalid">Submit</button>
+            <button type="button" class="btn btn-cancel" id="cancelButton"
+                    onclick="window.location.href= '#!/rbibond_gu_functionality';">Cancel</button>
+        </div>
+        <div class="text-center">
+            <notice-message-directive></notice-message-directive>
+        </div>
+
+
+    </form>
+
+</div>
+<div class="modal" id="reversalIdModal" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-bs-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Reversal Id</h4>
+            </div>
+            <div class="modal-body">
+                <div class="loader_popup"></div>
+                <div class="list_wrapper" ng-if="vm.reversalIdList.length>0">
+                    <div class="col-sm-8 form_submit">
+                        <div class="form-group">
+                            <div class="input-group">
+                                <div class="input-group-addon">
+                                    <i class="glyphicon glyphicon-search"></i>
+                                </div>
+                                <input type="text" class="form-control"
+                                       ng-model="vm.searchReversalId" ng-init="vm.searchReversalId = ''"
+                                       placeholder="Search">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4 form_submit"></div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <table class="table table-bordered list scroll">
+                                <thead ng-init="reverseOrder = false; sortedColumn = 'reversalId'">
+                                <tr>
+                                    <th class="modal-title title-case" ng-click="(sortedColumn == 'reversalId')?(reverseOrder=(!reverseOrder)): (reverseOrder = false);sortedColumn = 'reversalId';" ng-class="(sortedColumn == 'reversalId')?((reverseOrder)?('arrow-down') : ('arrow-up') ) : ('')">Reversal ID</th>
+                                    <th class="modal-title title-case" ng-click="(sortedColumn == 'subscriptionId')?(reverseOrder=(!reverseOrder)): (reverseOrder = false);sortedColumn = 'subscriptionId';" ng-class="(sortedColumn == 'subscriptionId')?((reverseOrder)?('arrow-down') : ('arrow-up') ) : ('')">Subscription ID </th>
+                                    <th class="modal-title title-case" ng-click="(sortedColumn == 'fromBlaNo')?(reverseOrder=(!reverseOrder)): (reverseOrder = false);sortedColumn = 'fromBlaNo';" ng-class="(sortedColumn == 'fromBlaNo')?((reverseOrder)?('arrow-down') : ('arrow-up') ) : ('')">From BLA No</th>
+                                    <th class="modal-title title-case" ng-click="(sortedColumn == 'toBlaNo')?(reverseOrder=(!reverseOrder)): (reverseOrder = false);sortedColumn = 'toBlaNo';" ng-class="(sortedColumn == 'toBlaNo')?((reverseOrder)?('arrow-down') : ('arrow-up') ) : ('')">To BLA No</th>
+                                    <th class="modal-title title-case" ng-click="(sortedColumn == 'verifyStatus')?(reverseOrder=(!reverseOrder)): (reverseOrder = false);sortedColumn = 'verifyStatus';" ng-class="(sortedColumn == 'verifyStatus')?((reverseOrder)?('arrow-down') : ('arrow-up') ) : ('')">Verify Status</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr class="cp"
+                                    ng-repeat="x in vm.reversalIdList | filter:vm.searchReversalId | orderBy:sortedColumn:reverseOrder"
+                                    ng-click="vm.reversalId= x.reversalId;" data-bs-dismiss="modal">
+                                    <td>{{x.reversalId}}</td>
+                                    <td>{{x.subscriptionId}}</td>
+                                    <td>{{x.fromBlaNo}}</td>
+                                    <td>{{x.toBlaNo}}</td>
+                                    <td>{{x.verifyStatus}}</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="list_wrapper" ng-if="vm.reversalIdList.length==0">No records found to display.</div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,217 @@
+<div class="loader-new" ng-if="vm.loader"></div>
+<dc-left-menu></dc-left-menu>
+<div class="container from_wrapper new_form_wrapper">
+  <h4 class="form_heading">Coparceners Details of Karta - Verify/Reject</h4>
+  <sol-header></sol-header>
+  <form name="bondKartaForm" role="form">
+    <table class="table table-bordered">
+      <tbody>
+        <tr>
+          <td width="25%">Name of the Bond Scheme</td>
+          <td width="25%"><label class="data-bind" id="bondScheme">{{vm.subDesc}}</label></td>
+          <td width="25%">Mode of Holding</td>
+          <td width="25%"><label class="data-bind" id="modeOfHolding">{{vm.modeOfHolding}}</label></td>
+        </tr>
+        <tr>
+          <td width="25%">BLA Number</td>
+          <td width="25%">
+            <label class="data-bind" id="blaNo">{{vm.blaNo}}</label>
+          </td>
+          <!--<td width="25%" ng-if="vm.subDetail[0].modeOfHolding=='MH001' || vm.subDetail[0].modeOfHolding=='MH004' || vm.subDetail[0].modeOfHolding=='MH005'">Bond Holder Name</td>
+                <td width="25%" ng-if="vm.subDetail[0].modeOfHolding=='MH001' || vm.subDetail[0].modeOfHolding=='MH004' || vm.subDetail[0].modeOfHolding=='MH005'">
+                  -->
+          <td width="25%">Primary Holder Name</td>
+          <td width="25%">
+            <label class="data-bind" id="holderName">{{vm.nameOfTheBondHolder}}</label>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <table class="table table-bordered table-striped list old-new-value-table">
+      <thead></thead>
+      <tbody ng-repeat="item in vm.kartaList">
+        <tr>
+          <th>Particular - Karta Coparceners Details {{$index+1}}</th>
+          <th>{{(vm.preOprType == 'M')?('Old Value'): ('Value')}}</th>
+          <th ng-if="vm.preOprType == 'M'">New Value</th>
+        </tr>
+        <!--<tr>
+                <td>BLA No</td>
+                <td class="old-value">{{(item && vm.subDetail.blaNo)?
+                    (vm.subDetail.blaNo) : ('-')}}
+                </td>
+                <td ng-if="vm.preOprType == 'M'" class="new-value">{{(item &&
+                    vm.subDetail.blaNo)? (vm.subDetail.blaNo) : ('-')}}
+                </td>
+            </tr>
+            <tr>
+                <td>Karta Name</td>
+                <td class="old-value">{{(item && vm.subDetail.nameOfTheBondHolder)?
+                    (vm.subDetail.nameOfTheBondHolder) : ('-')}}
+                </td>
+                <td ng-if="vm.preOprType == 'M'" class="new-value">
+                    {{(item && vm.subDetail.nameOfTheBondHolder)?
+                    (vm.subDetail.nameOfTheBondHolder) : ('-')}}
+                </td>
+            </tr>-->
+        <tr>
+          <td>Coparceners Name</td>
+          <td class="old-value">{{(item && item.C004)? (item.C004.oldValue) : ('-')}}</td>
+          <td ng-if="vm.preOprType == 'M'" class="new-value text-danger">{{ (item && item.C004 && item.C004.oldValue === item.C004.newValue)
+              ? '-'
+              : item.C004.newValue }}</td>
+        </tr>
+        <tr>
+          <td>Relationship with Karta</td>
+          <td class="old-value">{{(item && item.C005)? vm.getGuardianRelationName(item.C005.oldValue) : ('-')}}</td>
+          <td ng-if="vm.preOprType == 'M'" class="new-value text-danger">{{ (item && item.C005 && item.C005.oldValue === item.C005.newValue)
+              ? '-'
+              : vm.getGuardianRelationName(item.C005.newValue) }}</td>
+        </tr>
+        <tr>
+          <td>DOB</td>
+          <td class="old-value">{{(item && item.C006)? (item.C006.oldValue) : ('-')}}</td>
+            <td ng-if="vm.preOprType === 'M'" class="new-value text-danger">
+                {{ (item && item.C006 && item.C006.oldValue === item.C006.newValue)
+                ? '-'
+                : item.C006.newValue }}
+            </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="audit-details">
+      <div class="row">
+        <div class="col-md-3">
+          <span> <b> Created By </b> : {{vm.auditInfo.createdBy}} </span>
+        </div>
+        <div class="col-md-3">
+          <span> <b> Last Modified By </b> : {{(vm.auditInfo.modifiedBy) ? (vm.auditInfo.modifiedBy) : ('None')}}</span>
+        </div>
+        <div class="col-md-3">
+          <span> <b> Last Verified By </b> : {{(vm.auditInfo.verifiedBy) ? (vm.auditInfo.verifiedBy) : ('None')}}</span>
+        </div>
+        <div class="col-md-3">
+          <span> <b> Verify Status </b> : {{vm.auditInfo.verifiedStatus | getLabelFromValuesArray : vm.commonYesNoMetaData}}</span>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-3">
+          <span> <b> Created On </b> : {{ vm.auditInfo.createdDate | date : 'dd-MM-yyyy'}}</span>
+        </div>
+        <div class="col-md-3">
+          <span> <b> Last Modified On</b> : {{ (vm.auditInfo.modifiedDate) ? (vm.auditInfo.modifiedDate | date : 'dd-MM-yyyy') : ('None')}}</span>
+        </div>
+        <div class="col-md-3">
+          <span> <b> Last Verified On </b> : {{(vm.auditInfo.verifiedDate) ? (vm.auditInfo.verifiedDate | date : 'dd-MM-yyyy') : ('None')}}</span>
+        </div>
+        <div class="col-md-3"></div>
+      </div>
+    </div>
+    <div class="text-center form_submit">
+      <button type="submit" class="btn btn-default" id="sumitButton" ng-click="vm.verifyDetails()">Verify</button>
+      <button type="submit" class="btn btn-default" id="sumitButton" ng-click="vm.rejectReason()">Reject</button>
+      <button type="button" class="btn btn-cancel" id="cancelButton" onclick="window.location.href= '#!/karta_coparceners_details/action/inquiry';">
+        Close
+      </button>
+    </div>
+    <div class="text-center">
+      <notice-message-directive></notice-message-directive>
+    </div>
+  </form>
+</div>
+
+<!--Delete Get Remarks-->
+<!--<div class="modal" id="permissionMappingDelete" role="dialog">-->
+<!--  <div class="modal-dialog">-->
+<!--    &lt;!&ndash; Modal content&ndash;&gt;-->
+<!--    <div class="modal-content">-->
+<!--      <div class="modal-header">-->
+<!--        <button type="button" class="close" data-bs-dismiss="modal">&times;</button>-->
+<!--        <h4 class="modal-title">REJECTION REMARKS</h4>-->
+<!--      </div>-->
+<!--      <div class="modal-body">-->
+<!--        <div class="loader_popup"></div>-->
+<!--        <div class="list_wrapper">-->
+<!--          <form name="permissionDelete" role="form">-->
+<!--            <div class="row">-->
+<!--              <div class="form-group">-->
+<!--                <div class="col-sm-2"></div>-->
+<!--                <label for="remarks" class="control-label col-sm-3">Remarks</label>-->
+<!--                <div class="col-sm-5">-->
+<!--                  <textarea-->
+<!--                    class="form-control"-->
+<!--                    ng-keypress="vm.validateInput($event,'remarks')"-->
+<!--                    id="remarks"-->
+<!--                    name="remarks"-->
+<!--                    ng-model="vm.remarks"-->
+<!--                    maxlength="80"-->
+<!--                    required-->
+<!--                  ></textarea>-->
+<!--                </div>-->
+<!--              </div>-->
+<!--            </div>-->
+
+<!--            <div class="col-sm-offset-5 col-sm-8 form_submit">-->
+<!--              <button-->
+<!--                type="button"-->
+<!--                class="btn btn-default"-->
+<!--                data-bs-dismiss="modal"-->
+<!--                ng-disabled="permissionDelete.$invalid"-->
+<!--                ng-click="vm.deleteDetails()"-->
+<!--              >-->
+<!--                Submit-->
+<!--              </button>-->
+<!--              <button type="button" class="btn btn-cancel" data-bs-dismiss="modal">Cancel</button>-->
+<!--            </div>-->
+<!--          </form>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--  </div>-->
+<!--</div>-->
+
+<div class="modal" id="permissionMappingDelete" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-bs-dismiss="modal">&times;</button>
+                <h4 class="modal-title"> REJECTION REMARKS</h4>
+            </div>
+            <div class="modal-body">
+                <div class="loader_popup"></div>
+                <div class="list_wrapper" >
+                    <form name="permissionDelete" role="form">
+
+                        <div class="row">
+                            <div class="form-group">
+                                <div class="col-sm-2"></div>
+                                <label class="control-label col-sm-3">Remarks</label>
+                                <div class="col-sm-5">
+                                    <!--
+                                                                        <textarea class="form-control"   ng-keypress="vm.validateInput($event,'remarks')" id="remarks" name="remarks" ng-model="vm.remarks" maxlength="80" required></textarea>
+                                    -->
+                                    <select class="form-control list_wrapper" id="remarks[$index]" name="remarks[$index]"
+                                            ng-model="vm.remarks" ng-init="vm.getRemarksList();"   required>
+                                        <option value="">Select</option>
+                                        <option ng-repeat="item in vm.remarksList"
+                                                name="{{item.subCode + parentIndex}}" id="{{item.subCode + parentIndex}}" value="{{item.subCodeDescription}}">{{item.subCodeDescription}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-offset-5 col-sm-8 form_submit">
+                            <button type="button" class="btn btn-default" data-bs-dismiss="modal" ng-disabled="permissionDelete.$invalid" ng-click="vm.deleteDetails()" >Submit</button>
+                            <button type="button" class="btn btn-cancel" data-bs-dismiss="modal">Cancel</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+

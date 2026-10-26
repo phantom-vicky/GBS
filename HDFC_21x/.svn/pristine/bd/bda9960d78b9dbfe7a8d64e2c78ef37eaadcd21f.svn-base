@@ -1,0 +1,288 @@
+<div class="loader-new" ng-if="vm.loader"></div>
+<dc-left-menu></dc-left-menu>
+<div class="container from_wrapper new_form_wrapper">
+
+    <h4 class="form_heading">Deceased Marking for BLA - Verify</h4>
+    <sol-header></sol-header>
+    <form name="blaDodfrm" role="form">
+
+        <div class="row">
+            <div class="form-group">
+                <div class="col-sm-3"></div>
+                <div class="col-sm-3">
+                    <label for="schemeCode" class="control-label">Name of the Module</label>
+                </div>
+                <div class="col-sm-2">
+                    <label><b>RBI Bond</b></label>
+                </div>
+            </div>
+        </div>
+
+<!--        <div class="row" ng-init="vm.getModuleName();">-->
+<!--            <div class="form-group required">-->
+<!--                <div class="col-sm-3"></div>-->
+<!--                <div class="col-sm-3">-->
+<!--                    <label for="schemeCode" class="control-label">Name of the Bond Scheme</label>-->
+<!--                </div>-->
+<!--                <div class="col-sm-2">-->
+<!--                    <select class="form-control" id="schemeCode" name="schemCode"-->
+<!--                            ng-model="vm.schemeCode"  ng-change="vm.alert(vm.schemeCode)"-->
+<!--                            required>-->
+<!--                        <option value="">Select</option>-->
+<!--                        <option ng-repeat="item in vm.schemeList" value="{{item.subCode}}" ng-bind="item.subCodeDescription"></option>-->
+<!--                    </select>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+
+
+<!--        <div class="row">-->
+<!--            <div class="form-group required">-->
+
+<!--                <div class="col-sm-3"></div>-->
+<!--                <div class="col-sm-3">-->
+<!--                    <label for="schemeCode" class="control-label">Name of the Bond Scheme</label>-->
+<!--                </div>-->
+<!--                <div class="col-sm-2">-->
+<!--                    <input type="text" class="form-control" id="schemeCode"-->
+<!--                           ng-model="vm.schemeCode"-->
+<!--                           chars="alpha-numeric" readonly required>-->
+<!--                </div>-->
+<!--                <div class="col-sm-2">-->
+<!--                    <i class="glyphicon glyphicon-search cp" data-bs-toggle="schemeCode"-->
+<!--                       id="treasurySearch"-->
+<!--                       ng-click="vm.getModuleName();"></i> <i-->
+<!--                        class="glyphicon glyphicon-remove clear cp"-->
+<!--                        ng-click="vm.schemeCode ='';vm.schemeCode =''"></i>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+
+
+        <div class="row">
+            <div class="form-group required">
+                <div class="col-sm-3"></div>
+                <div class="col-sm-3">
+                    <label for="panNumber" class="control-label">PAN NO.</label>
+                </div>
+                <div class="col-sm-2">
+                    <input type="text" class="form-control" id="panNumber"
+                           name="panNumber" chars="alpha-numeric"
+                           ng-model="vm.panNumber"
+
+                           required readonly>
+                    <!-- maxlength="10" minlength="10" -->
+                    <!--ng-pattern="/[a-zA-Z]{5}[0-9]{4}[a-zA-Z]{1}/"-->
+
+                    <!--ng-pattern="/[a-zA-Z]{5}[0-9]{4}[a-zA-Z]{1}/" required>-->
+<!--                    <input type="hidden" class="form-control" id="panId"-->
+<!--                           name="panId" ng-model="vm.panId"  minlength="5" maxlength="10" readonly>-->
+                </div>
+                <div class="col-sm-2"> <!--ng-if="vm.panNumber"-->
+                    <i class="glyphicon glyphicon-search cp" data-bs-toggle="modal"
+                       id="panNoSearch"
+                       ng-click="vm.getVerDelPanNumberDtls();"></i> <i
+                            class="glyphicon glyphicon-remove clear cp"
+                            ng-click="vm.panNumber = '';"></i>
+                </div>
+            </div>
+        </div>
+
+
+
+        <div class="text-center form_submit">
+            <button type="submit" class="btn btn-default" id="submitButton"
+                    ui-sref="death_marking_for_bla.verify_detail({obj:{
+								panNumber: vm.panNumber,
+								panId: vm.panId,
+
+								}})"
+                    ng-disabled="blaDodfrm.$invalid || vm.disableFlag">Submit</button>
+            <button type="button" id="subButton" class="btn btn-cancel"
+                    onclick="window.location.href= '#!/death_marking_for_bla/action/inquiry';">Cancel</button>
+        </div>
+
+        <div class="text-center">
+            <notice-message-directive></notice-message-directive>
+        </div>
+    </form>
+</div>
+
+
+
+
+
+
+<!--<div class="modal" id="schemeModel" role="dialog">-->
+<!--    <div class="modal-dialog">-->
+<!--        &lt;!&ndash; Modal content&ndash;&gt;-->
+<!--        <div class="modal-content">-->
+<!--            <div class="modal-header">-->
+<!--                <button type="button" class="close" data-bs-dismiss="modal">&times;</button>-->
+<!--                <h4 class="modal-title">SCHEME CODE</h4>-->
+<!--            </div>-->
+<!--            <div class="modal-body">-->
+<!--                <div class="loader_popup"></div>-->
+<!--                <div class="list_wrapper" ng-if="vm.schemeList.length>0">-->
+<!--                    <div class="col-sm-8 form_submit">-->
+<!--                        <div class="form-group">-->
+<!--                            <div class="input-group">-->
+<!--                                <div class="input-group-addon">-->
+<!--                                    <i class="glyphicon glyphicon-search"></i>-->
+<!--                                </div>-->
+<!--                                <input type="text" class="form-control"-->
+<!--                                       ng-model="vm.searchSolId" ng-init="vm.searchSolId = ''"-->
+<!--                                       placeholder="Search">-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                    <div class="col-sm-4 form_submit"></div>-->
+<!--                    <div class="row">-->
+
+<!--                        <div class="col-sm-12">-->
+<!--                            <table class="table table-bordered list scroll sort">-->
+<!--                                <thead ng-init="reverseOrder=false;sortedColumn = 'subCode'">-->
+<!--                                <tr>-->
+<!--                                    <th class="modal-title title-case" ng-show="false">Scheme Code</th>-->
+<!--                                    <th ng-click="(sortedColumn == 'subCodeDescription')?(reverseOrder=(!reverseOrder)): (reverseOrder = false);sortedColumn = 'subCodeDescription';" ng-class="(sortedColumn == 'subCodeDescription')?((reverseOrder)?('arrow-down') : ('arrow-up') ) : ('')">SCHEME NAME</th>-->
+<!--                                    <th ng-click="(sortedColumn == 'status')?(reverseOrder=(!reverseOrder)): (reverseOrder = false);sortedColumn = 'status';" ng-class="(sortedColumn == 'status')?((reverseOrder)?('arrow-down') : ('arrow-up') ) : ('')">STATUS</th>-->
+
+<!--                                </tr>-->
+<!--                                </thead>-->
+<!--                                <tbody>-->
+<!--                                <tr class="cp"-->
+<!--                                    ng-repeat="x in vm.schemeList | filter:vm.searchSolId | orderBy:sortedColumn:reverseOrder"-->
+<!--                                    ng-click="vm.schemeCode= x.subCode;vm.schemeName= x.subCodeDescription;" data-bs-dismiss="modal">-->
+<!--                                    <td style="display: none;">{{x.subCode}}</td>-->
+<!--                                    <td>{{x.subCodeDescription}}</td>-->
+<!--                                    <td>{{x.status}}</td>-->
+<!--                                </tr>-->
+<!--                                </tbody>-->
+<!--                            </table>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--                <div class="list_wrapper" ng-if="vm.schemeList.length==0">No records found to display.</div>-->
+<!--            </div>-->
+
+<!--        </div>-->
+<!--    </div>-->
+<!--</div>-->
+
+<!--modal-->
+<div class="modal" id="panNoModal" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-bs-dismiss="modal">&times;</button>
+                <h4 class="modal-title">PAN Details</h4>
+            </div>
+            <div class="modal-body">
+                <div class="list_wrapper" ng-if="vm.panNumberDetailList.length>0">
+                    <div class="list_wrapper">
+                        <div class="col-sm-8 form_submit">
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <div class="input-group-addon">
+                                        <i class="glyphicon glyphicon-search"></i>
+                                    </div>
+                                    <input type="text" class="form-control"
+                                           ng-model="vm.modalSearch" ng-init="vm.modalSearch = ''"
+                                           placeholder="Search">
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+
+                            <div class="col-sm-12">
+
+                                <table class="table table-bordered list scroll sort">
+
+                                    <thead ng-init="reverseOrder = false; sortedColumn = 'panNo'">
+                                    <tr>
+                                        <th width="50%" class="modal-title title-case" ng-click="(sortedColumn == 'panNo')?(reverseOrder=(!reverseOrder)): (reverseOrder = false);sortedColumn = 'panNo';" ng-class="(sortedColumn == 'panNo')?((reverseOrder)?('arrow-down') : ('arrow-up') ) : ('')">PAN Number</th>
+                                        <th width="50%" class="modal-title title-case" ng-click="(sortedColumn == 'bondHolderName')?(reverseOrder=(!reverseOrder)): (reverseOrder = false);sortedColumn = 'bondHolderName';" ng-class="(sortedColumn == 'bondHolderName')?((reverseOrder)?('arrow-down') : ('arrow-up') ) : ('')">Customer Name</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr class="cp"
+                                        ng-repeat="x in vm.panNumberDetailList | filter:vm.modalSearch | orderBy:sortedColumn:reverseOrder"
+                                        data-bs-dismiss="modal"
+                                        ng-click="vm.panNumber = x.panNo; vm.panId=x.id">
+                                        <td width="50%">{{x.panNo}}</td>
+                                        <td width="50%">{{x.bondHolderName}}</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="list_wrapper" ng-if="vm.panNumberDetailList.length==0">No records found to display.</div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="modal" id="panNoModal" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-bs-dismiss="modal">&times;</button>
+                <h4 class="modal-title">PAN Details</h4>
+            </div>
+            <div class="modal-body">
+                <div class="list_wrapper" ng-if="vm.panNumberDetailList.length>0">
+                    <div class="list_wrapper">
+                        <div class="col-sm-8 form_submit">
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <div class="input-group-addon">
+                                        <i class="glyphicon glyphicon-search"></i>
+                                    </div>
+                                    <input type="text" class="form-control"
+                                           ng-model="vm.modalSearch" ng-init="vm.modalSearch = ''"
+                                           placeholder="Search">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+
+                            <div class="col-sm-12">
+
+                                <table class="table table-bordered list scroll sort">
+
+                                    <thead ng-init="reverseOrder = false; sortedColumn = 'panNo'">
+                                    <tr>
+                                        <th width="50%" class="modal-title title-case" ng-click="(sortedColumn == 'panNo')?(reverseOrder=(!reverseOrder)): (reverseOrder = false);sortedColumn = 'panNo';" ng-class="(sortedColumn == 'panNo')?((reverseOrder)?('arrow-down') : ('arrow-up') ) : ('')">PAN Number</th>
+                                        <th width="50%" class="modal-title title-case" ng-click="(sortedColumn == 'bondHolderName')?(reverseOrder=(!reverseOrder)): (reverseOrder = false);sortedColumn = 'bondHolderName';" ng-class="(sortedColumn == 'bondHolderName')?((reverseOrder)?('arrow-down') : ('arrow-up') ) : ('')">Customer Name</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr class="cp"
+                                        ng-repeat="x in vm.panNumberDetailList | filter:vm.modalSearch | orderBy:sortedColumn:reverseOrder"
+                                        data-bs-dismiss="modal"
+                                        ng-click="vm.panNumber = x.panNo;">
+                                        <td width="50%">{{x.panNo}}</td>
+                                        <td width="50%">{{x.bondHolderName}}</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="list_wrapper" ng-if="vm.panNumberDetailList.length==0">No records found to display.</div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

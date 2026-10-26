@@ -1,0 +1,184 @@
+<div class="loader-new" ng-if="vm.loader"></div>
+<div class="container" ng-if="vm.records.length > 0">
+    <div class="container from_wrapper new_form_wrapper">
+        <div class="text-right form_submit">
+            <button
+                    type="submit"
+                    class="btn btn-default"
+                    onclick="window.location.href ='#!/';"
+                    id="homeButton"
+            >
+                Home
+            </button>
+            <button
+                    type="button"
+                    id="cancel_Button"
+                    class="btn btn-cancel"
+                    onclick="window.location.href= '#!/e_filling/action/inquiry';"
+            >
+                Back
+            </button>
+        </div>
+        <div class="row">
+            <h4 class="form_heading">
+                E-Filling
+            </h4>
+            <sol-header></sol-header>
+            <table style="width:100%" class="table table-bordered" style="padding: 10px"
+                   aria-label="Call back report name table">
+                <tr>
+<!--                    <th scope="" style="width:25%">Name of the Bond Scheme</th>-->
+<!--                    <td style="width:35%">{{vm.schemeName}}</td>-->
+                    <th scope="" style="width:20%">Total Count</th>
+                    <td style="width:20%">{{vm.totalPages}}</td>
+                </tr>
+                <tr>
+                    <th scope="" style="width:25%">From Date</th>
+                    <td style="width:35%">{{vm.fromDate | date:'dd/MM/yyyy'}}</td>
+                    <th scope="" style="width:20%">To Date</th>
+                    <td style="width:20%">{{vm.toDate | date:'dd/MM/yyyy'}}</td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="row">
+
+            <div class="row">
+                <div class="col-sm-3"  style="display: flex; align-items: center; justify-content: flex-end;">
+                    <div class="form-group" style="margin-right: 15px;">
+                        <div class="input-group">
+                            <input type="text" class="form-control searchButton"
+                                   ng-model="vm.searchValue" ng-init="vm.searchValue = ''"
+                                   placeholder="Search">
+                            <div class="input-group-addon">
+                                <span class="glyphicon glyphicon-search" data-ng-click="vm.pageNo = 1; vm.getEfilingDetails()"></span>
+                            </div>
+                            <div class="input-group-addon">
+                                <span class="glyphicon glyphicon-remove clear cp" data-ng-click="vm.searchValue='';vm.pageNo = 1; vm.getEfilingDetails()"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-2">
+                    <select class="form-control pageDropDown" id="pageSize" name="pageSize"
+                            ng-model="vm.pageSize" ng-init="vm.pageSize='5'"
+                            ng-change="vm.pageNo='1'; vm.getEfilingDetails();"
+                            ng-disabled="vm.noDataFoundInSearch">
+                        <option value="5" >5 per page</option>
+                        <option value="10" >10 per page</option>
+                        <option value="20">20 per page</option>
+                        <option value="50">50 per page</option>
+                    </select>
+                </div>
+
+                <div class=" form-group col-lg-3">
+                    <select class="form-control" id="downloadOptions"
+                            name="export" ng-model="vm.selectedOption"
+                            ng-init="vm.downloadType=''" ng-change="vm.getDownload()"
+                            data-ng-disabled="vm.noDataFoundInSearch"
+                    >
+                        <option value="">EXPORT</option>
+                        <option value="excel">EXCEL</option>
+                    </select>
+                </div>
+
+                <!--                    Pagination End-->
+            </div>
+
+
+
+
+                <div class="table-responsive">
+
+                    <table class="table table-bordered table-striped list table-textWrap">
+                        <thead >
+                        <tr class="thalign">
+
+                            <th colspan="">Serial.No</th>
+                            <th colspan="">Name of the declarant</th>
+                            <th colspan="">Permanent Account Number</th>
+                            <th colspan="">Unique Identification No.</th>
+                            <th colspan="">Date Of Birth/Incorporation</th>
+                            <th colspan="">Country/Region</th>
+                            <th colspan="">Please Specify</th>
+                            <th colspan="">Flat/Door/Building</th>
+                            <th colspan="">Road/Street/Block/Sector</th>
+                            <th colspan="">PIN Code / ZIP Code</th>
+                            <th colspan="">Post Office</th>
+                            <th colspan="">Area/ Locality</th>
+                            <th colspan="">District</th>
+                            <th colspan="">State</th>
+                            <th colspan="">Email id</th>
+                            <th colspan="">Contact number</th>
+                            <th colspan="">Estimated income  for which  this declaration is made</th>
+                            <th colspan="">Estimated total income of the tax year of the declarant</th>
+                            <th colspan="">Aggregate amount of  income for which declaration is made during the tax year</th>
+                            <th colspan="">Date on which  declaration is received</th>
+                        </tr>
+                        </thead>
+                            <tbody>
+                            <tr ng-repeat="x in vm.records" data-ng-if="!vm.noDataFoundInSearch">
+                                <td>{{ ($index + 1) + ((vm.pageNo - 1) * vm.pageSize) }}</td>
+                                <td align="center">{{x.assesseeName}}</td>
+                                <td align="center">{{x.assesseePan}}</td>
+                                <td align="center">{{x.uniqueIdNum}}</td>
+                                <td align="center">{{x.dob}}</td>
+                                <td align="center">{{x.country}}</td>
+                                <td align="center">{{x.pleaseSpecify}}</td>
+                                <td align="center">{{x.flatDoorBlockNum}}</td>
+                                <td align="center">{{x.roadStreetLane}}</td>
+                                <td align="center">{{x.pin}}</td>
+                                <td align="center">{{x.postOffice}}</td> <!-- Email not available -->
+                                <td align="center">{{x.areaLocality}}</td>
+                                <td align="center">{{x.townCityDistrict}}</td> <!-- Telephone No not available -->
+                                <td align="center">{{x.state}}</td> <!-- Mobile No not available -->
+                                <td align="center">{{x.email}}</td> <!-- Telephone No not available -->
+                                <td align="center">{{x.mobileNum}}</td> <!-- Telephone No not available -->
+                                <td align="center">{{x.estimatedIncomeForWhichDeclarationIsMade}}</td>
+                                <td align="center">{{x.estimatedTotalIncomeOfThePreviousYear}}</td>
+                                <td align="center">{{x.aggregateAmountOfIncomeForm15GFilled}}</td>
+                                <td align="center">{{x.declarationReceivedDate}}</td>
+
+
+   </tr>
+                            </tbody>
+
+                        <tbody data-ng-if="vm.noDataFoundInSearch">
+                        <tr>
+                            <td colspan="8%" style="text-align: center; vertical-align: middle; padding: 15px;">
+                                No Records Found
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <br/>
+            <div class="text-center form_submit">
+              <span data-ng-show="vm.showPrevious">
+                <button type="submit" class="btn btn-default" data-ng-click="vm.goPreviousPage()">Prev</button>
+              </span>
+
+                <span>
+                <button type="submit" class="btn btn-default" data-ng-disabled="true" data-ng-init="vm.pageNo=1" data-ng-model="vm.pageNo" data-ng-click="vm.paymentStatus();">{{vm.pageNo}} of {{vm.maxPages}}</button>
+              </span>
+
+                <span data-ng-show="vm.showNext">
+                <button type="submit" class="btn btn-default" data-ng-click="vm.goNextPage();">Next</button>
+              </span>
+            </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container" ng-if="vm.noDataFound">
+    <div class="list_wrapper no_records_message">
+        <h4 class="form_heading">E-Filling</h4>
+        No records found to display.
+        <div style="text-align:center;">
+            <button type="button" class="btn btn-default"
+                    onclick="window.location.href= '#!/e_filling/action/inquiry';">Back
+            </button>
+        </div>
+    </div>
+</div>

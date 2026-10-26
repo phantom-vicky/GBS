@@ -1,0 +1,598 @@
+<style>
+    .displayN{display:none}
+    .displayB{display:block}
+</style>
+<div class="loader-new" ng-if="vm.loader"></div>
+<dc-left-menu></dc-left-menu>
+<div class="container from_wrapper new_form_wrapper">
+        <h4 class="form_heading">HUF Transfer – ADD</h4>
+        <sol-header></sol-header>
+        <form name="hufTransferChangeForm" role="form">
+            <div class="col-sm-6 col-sm-offset-3">
+                <div class="row" >
+                <div class="form-group">
+                        <div class="col-sm-6">
+                            <label class="control-label">Name of the Module</label>
+                        </div>
+                        <div class="col-sm-4">
+                            <label class="control-label">RBI Bond</label>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="row">
+                    <div class="form-group required">
+                        <div class="col-sm-6">
+                            <label for="schemeCode" class="control-label">Name of the Bond Scheme</label>
+                        </div>
+                        <div class="col-sm-4">
+                            <input type="text" class="form-control" id="schemeCode"
+                                   ng-model="vm.schemeName"
+                                   chars="alpha-numeric" readonly required leading-space>
+                        </div>
+                        <div class="col-sm-2">
+                            <i class="glyphicon glyphicon-search cp" data-bs-toggle="schemeCode"
+                               id="treasurySearch5"
+                               ng-click="vm.getModuleNameAdd();"></i> <i
+                                class="glyphicon glyphicon-remove clear cp"
+                                ng-click="vm.schemeCode ='';vm.schemeName =''"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group">
+                        <div class="col-sm-6">
+                            <label for="hufHolderName" class="control-label">HUF Holder Name</label>
+                        </div>
+                        <div class="col-sm-4">
+                            <input type="text" class="form-control" minlength="1" maxlength="150"
+                                   id="hufHolderName" ng-model="vm.hufHolderName"
+                                   chars="only-letters" leading-space></td>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group ">
+                        <div class="col-sm-6">
+                            <label for="hufPanNo" class="control-label">HUF Holder PAN No</label>
+                        </div>
+                        <div class="col-sm-4">
+                            <input type="text" class="form-control" id="hufPanNo"
+                                   ng-model="vm.hufPanNo" ng-init="vm.hufPanNo = '';"
+                                   chars="alpha-numeric" minlength="5" maxlength="10" oninput="this.value = this.value.replace(/\s+/g, '')">
+                        </div>
+                        <div class="col-sm-2"  ng-if="vm.hufPanNo || vm.hufHolderName && vm.schemeName">
+                            <i class="glyphicon glyphicon-search cp" data-bs-toggle="modal"
+                               id="treasurySearch1"
+                               ng-click="vm.getModuleNameAdd('P');"></i> <i
+                                class="glyphicon glyphicon-remove clear cp"
+                                ng-click="vm.hufPanNo ='';vm.hufBlaNo ='';vm.hufHolderName='';"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group required">
+                        <div class="col-sm-6">
+                            <label for="hufBlaNo" class="control-label">HUF Holder BLA No</label>
+                        </div>
+                        <div class="col-sm-4">
+                            <input type="text" class="form-control" id="hufBlaNo"
+                                   ng-model="vm.hufBlaNo" ng-init="vm.hufBlaNo = '';"
+                                   chars="only-numbers" minlength="5" maxlength="20"  required>
+                        </div>
+                        <div class="col-sm-2"  ng-if="vm.hufPanNo || vm.hufBlaNo && vm.schemeName">
+                            <i class="glyphicon glyphicon-search cp" data-bs-toggle="modal"
+                               id="treasurySearch2" ng-click="vm.getModuleNameAdd('B');"></i> <i
+                                class="glyphicon glyphicon-remove clear cp"
+                                ng-click="vm.hufPanNo ='';vm.hufBlaNo ='';vm.hufHolderName='';"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="row" ng-if="!vm.flag">
+                    <div class="form-group required">
+                        <div class="col-sm-6">
+                            <label for="modeOfHolding" class="control-label">Transfer Mode of Holding type</label>
+                        </div>
+                        <div class="col-sm-4">
+
+                            <select class="form-control" id="modeOfHolding1" name="modeOfHolding"
+                                    ng-model="vm.modeOfHolding" ng-change="vm.onModeOfHoldingChange();vm.hufModeDate(vm.modeOfHolding);" required>
+                                <option value="" hidden="true">Select</option>
+                                <option ng-repeat="item in vm.modeOfHoldingList" value="{{item.SUBCODE}}"  ng-bind="item.DESCRIPTION || vm.moduleCode" ></option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="row" ng-if="vm.flag">
+                    <div class="form-group required">
+                        <div class="col-sm-6">
+                            <label for="modeOfHolding1" class="control-label">Transfer Mode of Holding type</label>
+                        </div>
+                        <div class="col-sm-4">
+                            <select class="form-control" id="modeOfHolding" name="modeOfHolding"
+                                    ng-model="vm.modeOfHolding" ng-change="vm.onModeOfHoldingChange();" ng-init="vm.hufModeDate(vm.modeOfHolding);" required>
+                                <option value="" hidden="true">Select</option>
+                                <option ng-repeat="item in vm.modeOfHoldingList" value="{{item.SUBCODE}}"
+                                        ng-bind="item.DESCRIPTION"></option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row" ng-if="vm.modeOfHolding == 'MH002' || vm.modeOfHolding == 'MH003'">
+                    <div class="form-group required">
+                        <div class="col-sm-6">
+                            <label for="noOfJointAcc" class="control-label">No. of Joint Accounts Holders</label>
+                        </div>
+                        <div class="col-sm-4">
+                            <input type="text" class="form-control" minlength="1" maxlength="3"
+                                   id="noOfJointAcc" ng-model="vm.noOfJointAcc" ng-change="vm.validateCount(vm.noOfJointAcc);"
+                                   chars="only-numbers" onkeypress="return isNumber(event)" required leading-space></td>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="row">
+                    <div class="form-group required">
+                        <div class="col-sm-6">
+                            <label for="holderName" class="control-label">Name of the Holder / Name of the First Holder</label>
+                        </div>
+                        <div class="col-sm-4">
+                            <input type="text" class="form-control" minlength="1" maxlength="150"
+                                   id="holderName" ng-model="vm.bondHolderName" ng-change="vm.splitName(vm.bondHolderName)"
+                                   chars="only-letters"  required leading-space></td>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="row" ng-if="vm.modeOfHolding != 'MH004'">
+                    <!--                <div class="form-group required =!(vm.modeOfHolding === 'MH004')">-->
+                    <div class="form-group required">
+                        <div class="col-sm-6">
+                            <label class="control-label">D.O.B</label>
+                        </div>
+                        <div class="col-sm-4">
+                            <p class="input-group">
+                                <input type="text" class="form-control" id="effFromDate1"
+                                       name="effFromDate" ng-model="vm.fromDate1"
+                                       ng-blur="vm.textableDatePickerYear('effFromDate1',vm.fromDate1);vm.futureNotAllowed('effFromDate1',vm.fromDate1)"
+                                       ng-keyup="vm.autoslashing('effFromDate1')" chars="numbers-slash"
+                                       uib-datepicker-popup="dd/MM/yyyy" ng-init="vm.fromToDateValidation();vm.isMinorAge(vm.fromDate1);"
+                                       datepicker-options="vm.dateToOptions"
+                                       ng-change="vm.fromToDateValidation();vm.isMinorAge(vm.fromDate1);"
+                                       is-open="vm.effFromDatePicker1.opened" close-text="Close"
+                                       maxlength="10"
+                                       required>
+                                <span class="input-group-btn">
+                    <button type="button" class="btn btn-secondary"
+                            ng-click="vm.effFromDatePicker1.opened = true"
+                            id="effFromDateSearcher1">
+                        <i class="glyphicon glyphicon-calendar"></i>
+                    </button>
+                </span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group required">
+                        <div class="col-sm-6">
+                            <label for="pan_No1" class="control-label">PAN NO/ First Holder PAN Number</label>
+                        </div>
+                        <div class="col-sm-4">
+                            <input type="text" class="form-control" chars="alpha-numeric" minlength="5" maxlength="10"
+                                   ng-change="vm.validatePanLetter(vm.pan_No1);"
+                                   id="pan_No1" name="pan_No1" ng-model="vm.pan_No1"
+                                   autocomplete="off"
+                                   ng-pattern="/[A-Z]{5}[0-9]{4}[A-Z]{1}/"
+                                   required leading-space
+                                   oninput="this.value = this.value.toUpperCase().replace(/\s+/g, '')">
+                            <span class="text-danger" ng-show="vm.validationMessages">{{ vm.validationMessages }}</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row" ng-if="vm.noOfJointAcc >= 2">
+                    <div class="form-group required">
+                        <div class="col-sm-6">
+                            <label for="holderName" class="control-label">Second Holder Name</label>
+                        </div>
+                        <div class="col-sm-4">
+                            <input type="text" class="form-control" minlength="1" maxlength="150"
+                                   id="appl_Name2" ng-model="vm.secondJointHolderName" ng-change="vm.splitName(vm.secondJointHolderName)"
+                                   chars="only-letters"  required leading-space></td>
+                        </div>
+                    </div>
+                </div>
+                <div class="row" ng-if="vm.noOfJointAcc >= 2">
+                    <div class="form-group required">
+                        <div class="col-sm-6">
+                            <label  class="control-label">D.O.B</label>
+                        </div>
+                        <div class="col-sm-4">
+                            <p class="input-group">
+                                <input type="text" class="form-control" id="effFromDate2"
+                                       name="effFromDate" ng-model="vm.fromDate2" chars="numbers-slash"
+                                       ng-blur="vm.textableDatePickerYear('effFromDate2',vm.fromDate2);vm.futureNotAllowed('effFromDate2',vm.fromDate2)"
+                                       ng-keyup="vm.autoslashing('effFromDate2')"
+                                       uib-datepicker-popup="dd/MM/yyyy" ng-init="vm.fromToDateValidation();vm.isMinorAge(vm.fromDate2);"
+                                       datepicker-options="vm.dateToOptions"
+                                       ng-change="vm.fromToDateValidation();vm.isMinorAge(vm.fromDate2);"
+                                       is-open="vm.effFromDatePicker2.opened" close-text="Close"
+                                       maxlength="10"  required>
+                                <span class="input-group-btn">
+                  <button type="button" class="btn btn-secondary"
+                          ng-click="vm.effFromDatePicker2.opened = true"
+                          id="effFromDateSearcher2">
+                  <i class="glyphicon glyphicon-calendar"></i>
+                  </button>
+                  </span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+
+
+                <div class="row" ng-if="vm.noOfJointAcc >= 2">
+                    <div class="form-group required">
+                        <div class="col-sm-6">
+                            <label for="holderName" class="control-label">Second Holder PAN Number</label>
+                        </div>
+                        <div class="col-sm-4">
+                            <input type="text" class="form-control" minlength="10" maxlength="10"
+                                   ng-change="vm.validatePanLetter1(vm.pan_No2, 1)"
+                                   id="pan_No2" name="pan_No2" ng-model="vm.pan_No2"
+                                   ng-pattern="/[A-Z]{5}[0-9]{4}[A-Z]{1}/"
+                                   required leading-space
+                                   oninput="this.value = this.value.toUpperCase().replace(/\s+/g, '')">
+                            <span class="text-danger" ng-if="vm.validationMessages1">{{ vm.validationMessages1 }}</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row" ng-if="vm.noOfJointAcc >= 3">
+                    <div class="form-group required">
+                        <div class="col-sm-6">
+                            <label for="holderName" class="control-label">Third Holder Name</label>
+                        </div>
+                        <div class="col-sm-4">
+                            <input type="text" class="form-control" minlength="1" maxlength="150"
+                                   id="appl_Name3" ng-model="vm.thirdJointHolderName" ng-change="vm.splitName(vm.thirdJointHolderName)"
+                                   chars="only-letters"  required leading-space></td>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="row" ng-if="vm.noOfJointAcc >= 3">
+                    <div class="form-group required">
+                        <div class="col-sm-6">
+                            <label  class="control-label">D.O.B</label>
+                        </div>
+                        <div class="col-sm-4">
+                            <p class="input-group">
+                                <input type="text" class="form-control" id="effFromDate3"
+                                       name="effFromDate" ng-model="vm.fromDate3" chars="numbers-slash"
+                                       ng-blur="vm.textableDatePickerYear('effFromDate3',vm.fromDate3);vm.futureNotAllowed('effFromDate3',vm.fromDate3)"
+                                       ng-keyup="vm.autoslashing('effFromDate3')"
+                                       uib-datepicker-popup="dd/MM/yyyy" ng-init="vm.fromToDateValidation();vm.isMinorAge(vm.fromDate3);"
+                                       datepicker-options="vm.dateToOptions"
+                                       ng-change="vm.fromToDateValidation();vm.isMinorAge(vm.fromDate3);"
+                                       is-open="vm.effFromDatePicker3.opened" close-text="Close"
+                                       maxlength="10"  required>
+                                <span class="input-group-btn">
+                  <button type="button" class="btn btn-secondary"
+                          ng-click="vm.effFromDatePicker3.opened = true"
+                          id="effFromDateSearcher3">
+                  <i class="glyphicon glyphicon-calendar"></i>
+                  </button>
+                  </span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="row" ng-if="vm.noOfJointAcc >= 3">
+                    <div class="form-group required">
+                        <div class="col-sm-6">
+                            <label for="holderName" class="control-label">Third Holder PAN Number</label>
+                        </div>
+                        <div class="col-sm-4">
+                            <input type="text" class="form-control" minlength="10" maxlength="10"
+                                   ng-change="vm.validatePanLetter2(vm.pan_No3, 2);"
+                                   id="pan_No3" name="pan_No3" ng-model="vm.pan_No3"
+                                   ng-pattern="/[A-Z]{5}[0-9]{4}[A-Z]{1}/"
+                                   required leading-space
+                                   oninput="this.value = this.value.toUpperCase().replace(/\s+/g, '')">
+                            <span class="text-danger" ng-show="vm.validationMessages2">{{ vm.validationMessages2 }}</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row" ng-if="(vm.fromDate1 && vm.checkIfMinor(vm.fromDate1)) ||
+            (vm.fromDate2 && vm.checkIfMinor(vm.fromDate2)) ||
+            (vm.fromDate3 && vm.checkIfMinor(vm.fromDate3))">
+                    <div class="form-group">
+                        <div class="col-sm-6">
+                            <label for="blaNo" class="control-label">List of BLA based on PAN</label>
+                        </div>
+                        <div class="col-sm-4">
+                            <input type="text" class="form-control" id="blaNo" ng-init="vm.blaNo=''"
+                                   ng-model="vm.blaNo"
+                                   chars="alpha-numeric" readonly leading-space>
+                        </div>
+                        <div class="col-sm-2">
+                            <i class="glyphicon glyphicon-search cp" data-bs-toggle="blaNo"
+                               id="treasurySearch"
+                               ng-click="vm.getMinorFlag();vm.blaNo='';"></i> <i
+                                class="glyphicon glyphicon-remove clear cp"
+                                ng-click="vm.blaNo ='';"></i>
+                        </div>
+                    </div>
+                </div>
+
+
+
+                <div class="text-center form_submit">
+                    <button type="submit" class="btn btn-default"  id="submitButton"
+                            ui-sref="huf_transfer_to_single_and_joint_type_change.add_detail({obj:{
+		                        modeOfHolding: vm.modeOfHolding,
+		                        noOfJointAcc: vm.noOfJointAcc,
+		                        schemeCode: vm.schemeCode,
+								schemeName: vm.schemeName,
+								bondHolderName: vm.bondHolderName,
+								fromDate1: vm.fromDate1,
+								pan_No1: vm.pan_No1,
+								secondJointHolderName: vm.secondJointHolderName,
+								fromDate2: vm.fromDate2,
+								pan_No2: vm.pan_No2,
+								thirdJointHolderName: vm.thirdJointHolderName,
+								fromDate3: vm.fromDate3,
+								pan_No3: vm.pan_No3,
+								blaNo: vm.blaNo,
+								hufHolderName: vm.hufHolderName,
+								hufPanNo: vm.hufPanNo,
+								hufBlaNo: vm.hufBlaNo
+								}})"
+                            ng-disabled="hufTransferChangeForm.$invalid || !vm.allPANsValid">Next</button>
+                    <button type="button" class="btn btn-cancel" id="cancelButton" onclick="window.location.href= '#!/huf_transfer_to_single_and_joint_type_change/action/inquiry';">Cancel</button>
+                    <button type="button" class="btn btn-default" id="PanValidation" ng-disabled="hufTransferChangeForm.$invalid" ng-click="vm.validatePan();">Validate Pan</button>
+                </div>
+                <div class="text-center">
+                    <notice-message-directive></notice-message-directive>
+                </div></div>
+        </form>
+    </div>
+<!--/****MODAL****************/-->
+<!-- Cust Id Details Start-->
+<div class="modal " id="panModel" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-bs-dismiss="modal">&times;</button>
+                <h4 class="modal-title">PAN No</h4>
+            </div>
+            <div class="modal-body">
+                <div class="loader_popup"></div>
+                <div class="list_wrapper" ng-if="vm.PanTorch.length>0">
+                    <div class="col-sm-8 form_submit">
+                        <div class="form-group">
+                            <div class="input-group">
+                                <div class="input-group-addon">
+                                    <i class="glyphicon glyphicon-search"></i>
+                                </div>
+                                <input type="text" class="form-control"
+                                       ng-model="vm.searchSolId" ng-init="vm.searchSolId = ''"
+                                       placeholder="Search">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4 form_submit"></div>
+                    <div class="row">
+
+                        <div class="col-sm-12">
+                            <table class="table table-bordered list scroll sort">
+                                <thead ng-init="reverseOrder=false;sortedColumn = 'panNum'">
+                                <tr>
+                                    <th ng-click="(sortedColumn == 'hufPanNo')?(reverseOrder=(!reverseOrder)): (reverseOrder = false);sortedColumn = 'hufPanNo';" ng-class="(sortedColumn == 'hufPanNo')?((reverseOrder)?('arrow-down') : ('arrow-up') ) : ('')">HUF PAN NO</th>
+                                    <th ng-click="(sortedColumn == 'hufHolderName')?(reverseOrder=(!reverseOrder)): (reverseOrder = false);sortedColumn = 'hufHolderName';" ng-class="(sortedColumn == 'hufHolderName')?((reverseOrder)?('arrow-down') : ('arrow-up') ) : ('')">PAN HOLDER NAME</th>
+
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr class="cp"
+                                    ng-repeat="x in vm.PanTorch | filter:vm.searchSolId | orderBy:sortedColumn:reverseOrder"
+                                    ng-click="vm.hufPanNo= x.hufPanNo;vm.hufHolderName= x.hufHolderName;" data-bs-dismiss="modal">
+                                    <td>{{x.hufPanNo}}</td>
+                                    <td>{{x.hufHolderName}}</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="list_wrapper" ng-if="vm.PanTorch.length==0">No records found to display.</div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<div class="modal " id="blaModel" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-bs-dismiss="modal">&times;</button>
+                <h4 class="modal-title">BLA List</h4>
+            </div>
+            <div class="modal-body">
+                <div class="loader_popup"></div>
+                <div class="list_wrapper" ng-if="vm.blaDataList.length>0">
+                    <div class="col-sm-8 form_submit">
+                        <div class="form-group">
+                            <div class="input-group">
+                                <div class="input-group-addon">
+                                    <i class="glyphicon glyphicon-search"></i>
+                                </div>
+                                <input type="text" class="form-control"
+                                       ng-model="vm.searchSolId" ng-init="vm.searchSolId = ''"
+                                       placeholder="Search" chars="alpha-numeric">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4 form_submit"></div>
+                    <div class="row">
+
+                        <div class="col-sm-12">
+                            <table class="table table-bordered list scroll sort">
+                                <thead ng-init="reverseOrder=false;sortedColumn = 'blaNo'">
+                                <tr>
+                                    <th ng-click="(sortedColumn == 'hufBlaNo')?(reverseOrder=(!reverseOrder)): (reverseOrder = false);sortedColumn = 'hufBlaNo';" ng-class="(sortedColumn == 'hufBlaNo')?((reverseOrder)?('arrow-down') : ('arrow-up') ) : ('')">HUF BLA NO</th>
+                                    <th ng-click="(sortedColumn == 'hufHolderName')?(reverseOrder=(!reverseOrder)): (reverseOrder = false);sortedColumn = 'hufHolderName';" ng-class="(sortedColumn == 'hufHolderName')?((reverseOrder)?('arrow-down') : ('arrow-up') ) : ('')">Name of the Bond Holder</th>
+                                    <th ng-click="(sortedColumn == 'hufPanNo')?(reverseOrder=(!reverseOrder)): (reverseOrder = false);sortedColumn = 'hufPanNo';" ng-class="(sortedColumn == 'hufPanNo')?((reverseOrder)?('arrow-down') : ('arrow-up') ) : ('')">PAN NO</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr class="cp"
+                                    ng-repeat="x in vm.blaDataList | filter:vm.searchSolId | orderBy:sortedColumn:reverseOrder"
+                                    ng-click="vm.hufBlaNo= x.hufBlaNo;vm.hufHolderName= x.hufHolderName;vm.hufPanNo= x.hufPanNo;" data-bs-dismiss="modal">
+                                    <td>{{x.hufBlaNo}}</td>
+                                    <td>{{x.hufHolderName}}</td>
+                                    <td>{{x.hufPanNo}}</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="list_wrapper" ng-if="vm.blaDataList.length==0">No records found to display.</div>
+            </div>
+
+        </div>
+    </div>
+</div>
+<!-- Cust Id Details End-->
+<div class="modal" id="schemeModel" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-bs-dismiss="modal">&times;</button>
+                <h4 class="modal-title">SCHEME CODE</h4>
+            </div>
+            <div class="modal-body">
+                <div class="loader_popup"></div>
+                <div class="list_wrapper" ng-if="vm.schemeList.length>0">
+                    <div class="col-sm-8 form_submit">
+                        <div class="form-group">
+                            <div class="input-group">
+                                <div class="input-group-addon">
+                                    <i class="glyphicon glyphicon-search"></i>
+                                </div>
+                                <input type="text" class="form-control"
+                                       ng-model="vm.searchSolId" ng-init="vm.searchSolId = ''"
+                                       placeholder="Search">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4 form_submit"></div>
+                    <div class="row">
+
+                        <div class="col-sm-12">
+                            <table class="table table-bordered list scroll sort">
+                                <thead ng-init="reverseOrder=false;sortedColumn = 'subCode'">
+                                <tr>
+                                    <th class="modal-title title-case" ng-show="false">Scheme Code</th>
+                                    <th ng-click="(sortedColumn == 'subCodeDescription')?(reverseOrder=(!reverseOrder)): (reverseOrder = false);sortedColumn = 'subCodeDescription';" ng-class="(sortedColumn == 'subCodeDescription')?((reverseOrder)?('arrow-down') : ('arrow-up') ) : ('')">SCHEME NAME</th>
+                                    <th ng-click="(sortedColumn == 'status')?(reverseOrder=(!reverseOrder)): (reverseOrder = false);sortedColumn = 'status';" ng-class="(sortedColumn == 'status')?((reverseOrder)?('arrow-down') : ('arrow-up') ) : ('')">STATUS</th>
+
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr class="cp"
+                                    ng-repeat="x in vm.schemeList | filter:vm.searchSolId | orderBy:sortedColumn:reverseOrder"
+                                    ng-click="vm.schemeCode= x.subCode;vm.schemeName= x.subCodeDescription;" data-bs-dismiss="modal">
+                                    <td style="display: none;">{{x.subCode}}</td>
+                                    <td>{{x.subCodeDescription}}</td>
+                                    <td>{{x.status}}</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="list_wrapper" ng-if="vm.schemeList.length==0">No records found to display.</div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+<div class="modal" id="MinorModel" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-bs-dismiss="modal">&times;</button>
+                <h4 class="modal-title">List of BLA based on PAN</h4>
+            </div>
+            <div class="modal-body">
+                <div class="loader_popup"></div>
+                <div class="list_wrapper" ng-if="vm.schemeList.length>0">
+                    <div class="col-sm-8 form_submit">
+                        <div class="form-group">
+                            <div class="input-group">
+                                <div class="input-group-addon">
+                                    <i class="glyphicon glyphicon-search"></i>
+                                </div>
+                                <input type="text" class="form-control"
+                                       ng-model="vm.searchSolId" ng-init="vm.searchSolId = ''"
+                                       placeholder="Search">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4 form_submit"></div>
+                    <div class="row">
+                        <div class="row">
+
+                            <div class="col-sm-12">
+                                <table class="table table-bordered list scroll sort">
+                                    <thead ng-init="reverseOrder=false;sortedColumn = 'blaNo'">
+                                    <tr>
+                                        <th ng-click="(sortedColumn == 'blaNo')?(reverseOrder=(!reverseOrder)): (reverseOrder = false);sortedColumn = 'blaNo';" ng-class="(sortedColumn == 'blaNo')?((reverseOrder)?('arrow-down') : ('arrow-up') ) : ('')">BLA NO</th>
+                                        <th ng-click="(sortedColumn == 'customerName')?(reverseOrder=(!reverseOrder)): (reverseOrder = false);sortedColumn = 'customerName';" ng-class="(sortedColumn == 'customerName')?((reverseOrder)?('arrow-down') : ('arrow-up') ) : ('')">CUSTOMER NAME</th>
+                                        <th ng-click="(sortedColumn == 'modeOfHolding')?(reverseOrder=(!reverseOrder)): (reverseOrder = false);sortedColumn = 'modeOfHolding';" ng-class="(sortedColumn == 'modeOfHolding')?((reverseOrder)?('arrow-down') : ('arrow-up') ) : ('')">MODE OF HOLDING</th>
+                                        <th ng-click="(sortedColumn == 'panNo')?(reverseOrder=(!reverseOrder)): (reverseOrder = false);sortedColumn = 'panNo';" ng-class="(sortedColumn == 'panNo')?((reverseOrder)?('arrow-down') : ('arrow-up') ) : ('')">PAN NO</th>
+                                        <th ng-click="(sortedColumn == 'isMinor')?(reverseOrder=(!reverseOrder)): (reverseOrder = false);sortedColumn = 'isMinor';" ng-class="(sortedColumn == 'isMinor')?((reverseOrder)?('arrow-down') : ('arrow-up') ) : ('')">MINOR/MAJOR</th>
+
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr class="cp"
+                                        ng-repeat="x in vm.schemeList | filter:vm.searchSolId | orderBy:sortedColumn:reverseOrder"
+                                        ng-click="vm.blaNo= x.blaNo;" data-bs-dismiss="modal">
+                                        <td>{{x.blaNo}}</td>
+                                        <td>{{x.customerName}}</td>
+                                        <td>{{x.modeOfHolding}}</td>
+                                        <td>{{x.panNo}}</td>
+                                        <td>{{x.isMinor}}</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="list_wrapper" ng-if="vm.schemeList.length==0">No records found to display.</div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--/****MODAL****************/-->

@@ -1,0 +1,127 @@
+<div class="loader-new" ng-if="vm.loader"></div>
+<div class="container" ng-if="vm.showDetails">
+    <div class="text-right form_submit">
+        <button type="submit" class="btn btn-default"
+                onclick="window.location.href ='#!';" id="homeButton">Home</button>
+        <button type="button" id="backButton" class="btn btn-cancel"
+                onclick="window.location.href='#!/appendix_iii_register_of_nomination/action/inquiry';">Back</button>
+        <button type="submit" class="btn btn-default"
+                id="printButton" ng-click="vm.printpage();">Print</button>
+    </div>
+    <div class="container from_wrapper new_form_wrapper">
+        <div class="row">
+            <div class="form-group white-bg text-center">
+                <label class="control-label text-bold">Sol ID : <span id="solId" ng-bind="globals.currentUser.solId"></span> /
+                    <span id="solDesc" ng-bind="globals.currentUser.solDesc"></span></label>
+            </div>
+            <h4 class="form_heading">Appendix III - Register of Nomination
+                For the period from {{vm.fromDate | date: 'dd/MM/yyyy'}} to {{vm.toDate | date: 'dd/MM/yyyy'}}
+            </h4>
+        </div>
+        <div class="row" id="section-to-print">
+            <div class="col-sm-12">
+                <div class="table-responsive">
+                    <!-- Table 1 – Columns 1 to 7 -->
+                    <table class="table table-bordered table-striped table-condensed list datatable">
+                        <thead>
+                        <tr>
+                            <th colspan="7" class="text-center">
+                                <p><b>REGISTER OF NOMINATION</b></p>
+                                <p><b>Floating Rate Savings Bonds, 2020 (Taxable)</b></p>
+                            </th>
+                        </tr>
+                        <tr class="thalign">
+                            <th rowspan="2">Date of entry in Register</th>
+                            <th rowspan="2">Registration No.</th>
+                            <th rowspan="2">Bond Ledger Account No.</th>
+                            <th rowspan="2">Date of nomination</th>
+                            <th colspan="3">Particular of Nominee/s</th>
+                        </tr>
+                        <tr class="thalign">
+                            <th>Full Name with expanded initials</th>
+                            <th>Address and Particulars of bank account if any</th>
+                            <th>Date of birth of nominee (to be completed only if the nominee is a minor)</th>
+                        </tr>
+                        <tr class="thalign">
+                            <th>1</th>
+                            <th>2</th>
+                            <th>3</th>
+                            <th>4</th>
+                            <th>5</th>
+                            <th>6</th>
+                            <th>7</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="x in vm.nominationDetails">
+                            <td>{{x.dateOfEntry}}</td>
+                            <td>{{x.registrationNo}}</td>
+                            <td>{{x.bondLedgerAccountNo}}</td>
+                            <td>{{x.dateOfNomination}}</td>
+                            <td>{{x.nomineeFullName}}</td>
+                            <td>{{x.nomineeAddress}}{{x.nomineeBankDetails ? (x.nomineeAddress ? ', ' : '') + x.nomineeBankDetails : ''}}</td>
+                            <td>{{x.nomineeDob}}</td>
+                        </tr>
+                        <tr ng-if="!vm.nominationDetails || vm.nominationDetails.length === 0">
+                            <td colspan="7" class="text-center">No records found.</td>
+                        </tr>
+                        </tbody>
+                    </table>
+
+                    <!-- Table 2 – Columns 8 to 14 -->
+                    <table class="table table-bordered table-striped table-condensed list datatable">
+                        <thead>
+                        <tr class="thalign">
+                            <th>Name of the person appointed to receive the amount on behalf of minor nominee</th>
+                            <th>Address</th>
+                            <th>Initials</th>
+                            <th>Date of cancellation of nomination form tendered</th>
+                            <th>Registration No. of nomination made in substitution</th>
+                            <th>Initials</th>
+                            <th>Remarks</th>
+                        </tr>
+                        <tr class="thalign">
+                            <th>8</th>
+                            <th>9</th>
+                            <th>10</th>
+                            <th>11</th>
+                            <th>12</th>
+                            <th>13</th>
+                            <th>14</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="x in vm.nominationDetails">
+                            <td>{{x.minorGuardianName}}</td>
+                            <td>{{x.guardianAddress}}</td>
+                            <td>{{x.initialsOne}}</td>
+                            <td>{{x.dateOfCancellation}}</td>
+                            <td>{{x.substitutionRegistrationNo}}</td>
+                            <td>{{x.initialsTwo}}</td>
+                            <td>{{x.remarks}}</td>
+                        </tr>
+                        <tr ng-if="!vm.nominationDetails || vm.nominationDetails.length === 0">
+                            <td colspan="7" class="text-center">No records found.</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="text-center form_submit">
+        <button type="button" class="btn btn-cancel"
+                onclick="window.location.href='#!/appendix_iii_register_of_nomination/action/inquiry';">Cancel</button>
+    </div>
+</div>
+
+<div class="container" ng-if="vm.noDataFound">
+    <div class="list_wrapper no_records_message">
+        <h4 class="form_heading">Appendix III - Register of Nomination</h4>
+        No records found to display.
+        <center>
+            <button type="button" class="btn btn-cancel"
+                    onclick="window.location.href='#!/appendix_iii_register_of_nomination/action/inquiry';">Back</button>
+        </center>
+    </div>
+</div>

@@ -1,0 +1,161 @@
+<div class="loader-new" ng-if="vm.loader"></div>
+<dc-left-menu></dc-left-menu>
+<div class="container from_wrapper new_form_wrapper">
+    <h4 class="form_heading">TDS Parameters for RBI Bond - Modify</h4>
+    <sol-header></sol-header>
+    <form name="tdsparameter" role="form" ng-submit="vm.modifySubmit();">
+        <div class="row">
+            <div class="form-group">
+                <div class="col-sm-1"></div>
+                <div class="col-sm-3">
+                    <label  class="control-label">Name of the Module</label>
+                </div>
+                <div class="col-sm-2">
+                    <label  class="form-control"><b>RBI Bond</b></label>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group">
+                <div class="col-sm-1"></div>
+                <div class="col-sm-3">
+                    <label class="control-label">Version No</label>
+                </div>
+                <div class="col-sm-2">
+                    <label class="form-control">{{vm.tdsParameterList.C004.oldValue}}</label>
+                </div>
+                <div class="col-sm-3">
+                    <label class="control-label">Name of the bond scheme</label>
+                </div>
+                <div class="col-sm-2">
+                    <label class="form-control">{{vm.moduleName}}</label>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group required">
+                <div class="col-sm-1"></div>
+                <div class="col-sm-3">
+                    <label for="effFromDate" class="control-label">TDS Effective from Date(DD/MM/YYYY)</label>
+                </div>
+                <div class="col-sm-2">
+                    <p class="input-group">
+                        <input type="text" class="form-control" id="effFromDate"
+                               name="effFromDate" ng-model="vm.tdsParameterList.C005.oldValue"
+                               uib-datepicker-popup="dd/MM/yyyy" ng-init="vm.dateValidation();"
+                               datepicker-options="vm.dateOptionsM"
+                               is-open="vm.effFromDatePicker.opened" close-text="Close"
+                               maxlength="10" readonly required>
+<!--                        <span class="input-group-btn">-->
+<!--                            <button type="button" class="btn btn-secondary"-->
+<!--                                    ng-click="vm.effFromDatePicker.opened = true"-->
+<!--                                    id="effFromDateSearcher">-->
+<!--                                <i class="glyphicon glyphicon-calendar"></i>-->
+<!--                            </button>-->
+<!--                        </span>-->
+                    </p>
+                </div>
+                <div class="col-sm-3">
+                    <label for="tdsAnnualInterest" class="control-label">TDS Exemption on Annual interest </label>
+                </div>
+                <div class="col-sm-2">
+                    <input type="text" class="form-control" id="tdsAnnualInterest" chars="only-numbers"
+                           ng-model="vm.tdsParameterList.C007.oldValue"
+                           limit-To="6" min="0"
+                           maxlength="6"  required>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group required">
+                <div class="col-sm-1"></div>
+                <div class="col-sm-3">
+                    <label for="tdsRatePan" class="control-label">TDS Rate if PAN available / Active (%)</label>
+                </div>
+                <div class="col-sm-2">
+                    <input type="text" class="form-control" id="tdsRatePan" ng-blur="vm.formatPercentage(vm.tdsRateNoPan,'MPA');"
+                           ng-model="vm.tdsParameterList.C008.oldValue" ng-keypress="vm.percentageCheck($event);" ng-change="vm.percentageCheckChangeM(vm.tdsParameterList.C008.oldValue);" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1').replace(/^(\d{1,3}(\.\d{0,2})?).*$/, '$1')"
+                           chars="float" maxlength="6" required  >
+                    <span class="alert-danger" name="errorMsg" ng-show="vm.tdsRatePanError">Min 2 Digit Decimal Number</span>
+                </div>
+                <div class="col-sm-3">
+                    <label for="tdsRateNoPan" class="control-label">TDS Rate if PAN is not available /  Double the Normal Rate (%)</label>
+                </div>
+                <div class="col-sm-2">
+                    <input type="text" class="form-control" id="tdsRateNoPan" ng-blur="vm.formatPercentage(vm.tdsRateNoPan,'MPN');"
+                           ng-keypress="vm.percentageCheck($event);" ng-change="vm.percentageCheckChangeM(vm.tdsParameterList.C009.oldValue);" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1').replace(/^(\d{1,3}(\.\d{0,2})?).*$/, '$1')"
+                           ng-model="vm.tdsParameterList.C009.oldValue" chars="float" maxlength="6" required>
+                    <span class="alert-danger" name="errorMsg" ng-show="vm.tdsRateNoPanError">Min 2 Digit Decimal Number</span>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group required">
+                <div class="col-sm-1"></div>
+                <div class="col-sm-3">
+                    <label for="educationCess" class="control-label">Education Cess (%)</label>
+                </div>
+                <div class="col-sm-2">
+                    <input type="text" class="form-control" id="educationCess" ng-keypress="vm.percentageCheck($event);" ng-change="vm.percentageCheckChangeM(vm.tdsParameterList.C010.oldValue);" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1').replace(/^(\d{1,2}(\.\d{0,2})?).*$/, '$1')"
+                           ng-model="vm.tdsParameterList.C010.oldValue"  required >
+                    <span class="alert-danger" name="errorMsg" ng-show="vm.educationCessError">Min 2 Digit Decimal Number</span>
+                </div>
+                <div class="col-sm-3">
+                    <label for="otherCess" class="control-label">Other Cess (%)</label>
+                </div>
+                <div class="col-sm-2">
+                    <input type="text" class="form-control" id="otherCess" ng-keypress="vm.percentageCheck($event);" ng-change="vm.percentageCheckChangeM(vm.tdsParameterList.C011.oldValue);" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1').replace(/^(\d{1,2}(\.\d{0,2})?).*$/, '$1')"
+                           ng-model="vm.tdsParameterList.C011.oldValue" required >
+                    <span class="alert-danger" name="errorMsg" ng-show="vm.otherCessError">Min 2 Digit Decimal Number</span>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group required">
+                <div class="col-sm-1"></div>
+                <div class="col-sm-3">
+                    <label for="fifteenGlimit" class="control-label">15 G Limit</label>
+                </div>
+                <div class="col-sm-2">
+                    <input type="text" class="form-control ng-valid-maxlength ng-not-empty ng-dirty ng-valid-parse ng-valid ng-valid-required ng-touched" id="fifteenGlimit" chars="only-numbers" ng-model="vm.tdsParameterList.C013.oldValue" limit-to="7" min="0" maxlength="7" required >
+                </div>
+                <div class="col-sm-3">
+                    <label for="fifteenHlimit" class="control-label">15 H Limit</label>
+                </div>
+                <div class="col-sm-2">
+                    <input type="text" class="form-control ng-valid-maxlength ng-not-empty ng-dirty ng-valid-parse ng-valid ng-valid-required ng-touched" id="fifteenHlimit" chars="only-numbers" ng-model="vm.tdsParameterList.C014.oldValue" limit-to="7" min="0" maxlength="7" required >
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group">
+                <div class="col-sm-1"></div>
+                <div class="col-sm-3">
+                    <label for="remark" class="control-label">Remarks</label>
+                </div>
+                <div class="col-sm-6">
+                   <textarea class="form-control" rows="3" id="remark" name="remark" maxlength="50" ng-init="vm.tdsParameterList.remark ? vm.tdsParameterList.remark : ('')" ng-model="vm.tdsParameterList.C012.oldValue"></textarea>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group">
+                <div class="col-sm-1"></div>
+                <div class="col-sm-3">
+                    <label for="rejectionRemarks" class="control-label">Rejection Remarks</label>
+                </div>
+                <div class="col-sm-2">
+                    <input type="text" class="form-control" id="rejectionRemarks" name="rejectionRemarks"
+                           ng-model="vm.verifyDetailsList.rejectionRemarks" readonly>
+                </div>
+            </div>
+        </div>
+        <div class="text-center form_submit">
+            <button type="submit" class="btn btn-default" id="submitButton"
+                    ng-disabled="tdsparameter.$invalid || tdsparameter.$pristine">Modify</button>
+            <button type="button" id="subButton" class="btn btn-cancel"
+                    ng-click="vm.showCancelConfirmation('tds_parameter_rbi_bond.modify');">Cancel</button>
+        </div>
+
+    </form>
+</div>

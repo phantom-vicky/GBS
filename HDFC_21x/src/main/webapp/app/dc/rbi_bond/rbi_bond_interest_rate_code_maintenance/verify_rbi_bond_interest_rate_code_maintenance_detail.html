@@ -1,0 +1,292 @@
+<div class="loader-new" ng-if="vm.loader"></div>
+<dc-left-menu></dc-left-menu>
+<div class="container from_wrapper new_form_wrapper">
+
+    <h4 class="form_heading">RBI Bond Interest Rate Code Maintenance - Verify/Reject</h4>
+    <sol-header></sol-header>
+    <form name="rbiBondInterestMaintenanceForm" role="form">
+
+        <div class="row">
+            <div class="form-group">
+                <div class="col-sm-3"></div>
+                <div class="col-sm-3">
+                    <label  class="control-label">Name of the Module</label>
+                </div>
+                <div class="col-sm-3">
+                    <label><b>RBI Bond</b></label>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group">
+                <div class="col-sm-3"></div>
+                <div class="col-sm-3">
+                    <label class="control-label"> Scheme Name : </label>
+                </div>
+                <div class="col-sm-3">
+                    <label>{{vm.subCodeDescription}}</label>
+                </div>
+            </div>
+        </div>
+
+
+        <table class="table table-bordered table-striped list old-new-value-table">
+            <thead>
+            <tr>
+                <th>Particular</th>
+                <th>{{(vm.verificationDetails == 'M')?('Old Value'): ('Value')}}</th>
+                <th ng-if="vm.verificationDetails == 'M'">New Value</th>
+            </tr>
+            </thead>
+            <tbody>
+            
+<!--            <tr>-->
+<!--                <td>Module Name</td>-->
+<!--                <td class="old-value">{{(vm.verifyDetail.masterOldNewValueModel && vm.verifyDetail.masterOldNewValueModel.C010)?-->
+<!--                    (vm.verifyDetail.masterOldNewValueModel.C010.oldValue) : ('')}}-->
+<!--                </td>-->
+<!--                <td ng-if="vm.verificationDetails == 'M'" class="new-value">-->
+<!--                    {{(vm.verifyDetail.masterOldNewValueModel && vm.verifyDetail.masterOldNewValueModel.C010)?-->
+<!--                    (vm.verifyDetail.masterOldNewValueModel.C010.newValue) : ('')}}-->
+<!--                </td>-->
+<!--            </tr>-->
+
+
+
+
+<!--         <tr>-->
+<!--             <td>Scheme code</td>-->
+<!--             <td class="old-value">{{(vm.verifyDetail.masterOldNewValueModel && vm.verifyDetail.masterOldNewValueModel.C010)?-->
+<!--                (vm.verifyDetail.masterOldNewValueModel.C010.oldValue) : ('')}}-->
+<!--             </td>-->
+<!--             <td ng-if="vm.verificationDetails == 'M'" class="new-value">-->
+<!--                 {{(vm.verifyDetail.masterOldNewValueModel && vm.verifyDetail.masterOldNewValueModel.C010)?-->
+<!--                 (vm.verifyDetail.masterOldNewValueModel.C010.newValue) : ('')}}-->
+<!--         </td>-->
+<!--            </tr>-->
+
+            <tr>
+                <td>Interest Rate Code</td>
+                <td class="old-value">{{(vm.verifyDetail.masterOldNewValueModel && vm.verifyDetail.masterOldNewValueModel.C001)?
+                    (vm.verifyDetail.masterOldNewValueModel.C001.oldValue) : ('')}}
+                </td>
+                <td ng-if="vm.verificationDetails == 'M'" class="new-value">
+                    {{(vm.verifyDetail.masterOldNewValueModel && vm.verifyDetail.masterOldNewValueModel.C001)?
+                    (vm.verifyDetail.masterOldNewValueModel.C001.newValue) : ('')}}
+                </td>
+            </tr>
+
+            <tr>
+                <td>Interest Rate Code Description</td>
+                <td class="old-value">{{(vm.verifyDetail.masterOldNewValueModel && vm.verifyDetail.masterOldNewValueModel.C002)?
+                    (vm.verifyDetail.masterOldNewValueModel.C002.oldValue) : ('')}}
+                </td>
+                <td ng-if="vm.verificationDetails == 'M'" class="new-value">
+                    {{(vm.verifyDetail.masterOldNewValueModel && vm.verifyDetail.masterOldNewValueModel.C002)?
+                    (vm.verifyDetail.masterOldNewValueModel.C002.newValue) : ('')}}
+                </td>
+            </tr>
+
+            <tr>
+                <td>Version</td>
+                <td class="old-value">{{(vm.verifyDetail.masterOldNewValueModel && vm.verifyDetail.masterOldNewValueModel.C003)?
+                    (vm.verifyDetail.masterOldNewValueModel.C003.oldValue) : ('')}}
+                </td>
+                <td ng-if="vm.verificationDetails == 'M'" class="new-value">
+                    {{(vm.verifyDetail.masterOldNewValueModel && vm.verifyDetail.masterOldNewValueModel.C003)?
+                    (vm.verifyDetail.masterOldNewValueModel.C003.newValue) : ('')}}
+                </td>
+            </tr>
+
+
+
+            <tr>
+                <td>Effective From  Date(dd/mm/yyyy)</td>
+                <td class="old-value">{{(vm.verifyDetail.masterOldNewValueModel && vm.verifyDetail.masterOldNewValueModel.C004)?
+                    (vm.verifyDetail.masterOldNewValueModel.C004.oldValue | date : 'dd/MM/yyyy') : ('')}}
+                </td>
+                <td ng-if="vm.verificationDetails == 'M'" class="new-value">{{(vm.verifyDetail.masterOldNewValueModel &&
+                    vm.verifyDetail.masterOldNewValueModel.C004)? (vm.verifyDetail.masterOldNewValueModel.C004.newValue | date : 'dd/MM/yyyy') : ('')}}
+                </td>
+            </tr>
+
+<!--           <tr>-->
+<!--               <td>Whether the Scheme has Fixed interest rate or Floating interest rate</td>-->
+<!--               <td class="old-value">{{(vm.verifyDetail.masterOldNewValueModel && vm.verifyDetail.masterOldNewValueModel.C011)?-->
+<!--                  (vm.verifyDetail.masterOldNewValueModel.C011.oldValue) : ('')}}-->
+<!--               </td>-->
+<!--               <td ng-if="vm.verificationDetails == 'M'" class="new-value">-->
+<!--                   {{(vm.verifyDetail.masterOldNewValueModel && vm.verifyDetail.masterOldNewValueModel.C011)?-->
+<!--                   (vm.verifyDetail.masterOldNewValueModel.C011.newValue) : ('')}}-->
+<!--               </td>-->
+<!--           </tr>-->
+
+
+<tr>
+    <td>Fixed Interest rate / Floating Interest Rate</td>
+    <td class="old-value">
+        {{ (vm.verifyDetail.masterOldNewValueModel && vm.verifyDetail.masterOldNewValueModel.C011 && vm.verifyDetail.masterOldNewValueModel.C011.oldValue === 'Y') ? 'Fixed' : 'Floating' }}
+    </td>
+    <td ng-if="vm.verificationDetails == 'M'" class="new-value">
+        {{ (vm.verifyDetail.masterOldNewValueModel && vm.verifyDetail.masterOldNewValueModel.C011 && vm.verifyDetail.masterOldNewValueModel.C011.newValue === 'Y') ? 'Fixed' : 'Floating' }}
+    </td>
+</tr>
+
+
+            <tr ng-if="vm.verifyDetail.masterOldNewValueModel.C011.oldValue == 'N'">
+                <td>Interest Rate (%) on National Savings Certificate</td>
+                <td class="old-value">{{(vm.verifyDetail.masterOldNewValueModel && vm.verifyDetail.masterOldNewValueModel.C005)?
+                    (vm.verifyDetail.masterOldNewValueModel.C005.oldValue) : ('')}}
+                </td>
+                <td ng-if="vm.verificationDetails == 'M'" class="new-value">
+                    {{(vm.verifyDetail.masterOldNewValueModel && vm.verifyDetail.masterOldNewValueModel.C005)?
+                    (vm.verifyDetail.masterOldNewValueModel.C005.newValue) : ('')}}
+                </td>
+            </tr>
+
+            <tr ng-if="vm.verifyDetail.masterOldNewValueModel.C011.oldValue == 'N'">
+                <td>Spread Rate (%)</td>
+                <td class="old-value">{{(vm.verifyDetail.masterOldNewValueModel && vm.verifyDetail.masterOldNewValueModel.C006)?
+                    (vm.verifyDetail.masterOldNewValueModel.C006.oldValue) : ('')}}
+                </td>
+                <td ng-if="vm.verificationDetails == 'M'" class="new-value">
+                    {{(vm.verifyDetail.masterOldNewValueModel && vm.verifyDetail.masterOldNewValueModel.C006)?
+                    (vm.verifyDetail.masterOldNewValueModel.C006.newValue) : ('')}}
+                </td>
+            </tr>
+
+            <tr>
+                <td>Coupon / Interest Rate for Bond (%)</td>
+                <td class="old-value">{{(vm.verifyDetail.masterOldNewValueModel && vm.verifyDetail.masterOldNewValueModel.C007)?
+                    (vm.verifyDetail.masterOldNewValueModel.C007.oldValue) : ('')}}
+                </td>
+                <td ng-if="vm.verificationDetails == 'M'" class="new-value">
+                    {{(vm.verifyDetail.masterOldNewValueModel && vm.verifyDetail.masterOldNewValueModel.C007)?
+                    (vm.verifyDetail.masterOldNewValueModel.C007.newValue) : ('')}}
+                </td>
+            </tr>
+
+            <tr>
+                <td>Remarks</td>
+                <td class="old-value">{{(vm.verifyDetail.masterOldNewValueModel && vm.verifyDetail.masterOldNewValueModel.C008)?
+                    (vm.verifyDetail.masterOldNewValueModel.C008.oldValue) : ('')}}
+                </td>
+                <td ng-if="vm.verificationDetails == 'M'" class="new-value">
+                    {{(vm.verifyDetail.masterOldNewValueModel && vm.verifyDetail.masterOldNewValueModel.C008)?
+                    (vm.verifyDetail.masterOldNewValueModel.C008.newValue) : ('')}}
+                </td>
+            </tr>
+
+
+<!--<tr>-->
+<!--    <td>Rejection Remarks</td>-->
+<!--    <td class="old-value">{{(vm.verifyDetail.masterOldNewValueModel && vm.verifyDetail.rejectionRemarks)?-->
+<!--        (vm.verifyDetail.rejectionRemarks) : ('')}}-->
+<!--    </td>-->
+<!--    <td ng-if="vm.verificationDetails == 'M'" class="new-value">-->
+<!--        {{(vm.verifyDetail.masterOldNewValueModel && vm.verifyDetail.rejectionRemarks)?-->
+<!--        (vm.verifyDetail.rejectionRemarks) : ('')}}-->
+<!--    </td>-->
+<!--</tr>-->
+
+
+
+            </tbody>
+        </table>
+
+        <table class="table table-bordered table-striped list old-new-value-table">
+            <tbody width="100%">
+            <tr>
+                <th width="50%">Rejection Remarks</th>
+                <td width="50%">{{vm.verifyDetail.rejectionRemarks}}</td>
+            </tr>
+
+
+            </tbody>
+        </table>
+        <div class="audit-details">
+            <div class="row">
+                <div class="col-md-3">
+                    <span> <b> Created By </b> : {{vm.verifyDetail.createdBy}} </span>
+                </div>
+                <div class="col-md-3">
+                    <span> <b> Last Modified By </b> : {{(vm.verifyDetail.lastModifiedBy) ? (vm.verifyDetail.lastModifiedBy) : ('None')}}</span>
+                </div>
+                <div class="col-md-3">
+                    <span> <b> Last Verified By </b> : {{(vm.verifyDetail.lastVerifiedBy) ? (vm.verifyDetail.lastVerifiedBy) : ('None')}}</span>
+                </div>
+                <div class="col-md-3">
+                    <span> <b> Verify Status </b> : {{vm.verifyDetail.verifiedStatus  | getLabelFromValuesArray : vm.commonYesNoMetaData}}</span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3">
+                    <span> <b> Created On </b> : {{ vm.verifyDetail.createdDate | date : 'dd/MM/yyyy'}}</span>
+                </div>
+                <div class="col-md-3">
+                    <span> <b> Last Modified On</b> : {{ (vm.verifyDetail.lastModifiedDate) ? (vm.verifyDetail.lastModifiedDate | date : 'dd/MM/yyyy') : ('None')}}</span>
+                </div>
+                <div class="col-md-3">
+                    <span> <b> Last Verified On </b> : {{(vm.verifyDetail.lastVerifiedDate) ? (vm.verifyDetail.lastVerifiedDate | date : 'dd/MM/yyyy') : ('None')}}</span>
+                </div>
+                <div class="col-md-3">
+                </div>
+            </div>
+        </div>
+
+            <div class="text-center form_submit">
+                <button  class="btn btn-default" id="submitButton" ng-click="vm.verify(vm.verifyDetail.pkColumnValue);">Verify</button>
+                <button  class="btn btn-default" id="submitButton" ng-click="vm.rejectReason();"
+                >Reject</button>
+                <button type="button" class="btn btn-cancel" id="cancelButton"
+                          onclick="window.location.href= '#!/rbi_bond_interest_rate_code_maintenance/action/verify'">Cancel</button>
+            </div>
+            <div class="text-center">
+                <notice-message-directive></notice-message-directive>
+            </div>
+
+    </form>
+</div>
+
+<div class="modal" id="permissionMappingDelete" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-bs-dismiss="modal">&times;</button>
+                <h4 class="modal-title"> REJECTION REMARKS</h4>
+            </div>
+            <div class="modal-body">
+                <div class="loader_popup"></div>
+                <div class="list_wrapper" >
+                    <form name="permissionDelete" role="form">
+
+                        <div class="row">
+                            <div class="form-group">
+                                <div class="col-sm-2"></div>
+                                <label class="control-label col-sm-3">Remarks</label>
+                                <div class="col-sm-5">
+                                    <!--
+                                                                        <textarea class="form-control"   ng-keypress="vm.validateInput($event,'remarks')" id="remarks" name="remarks" ng-model="vm.remarks" maxlength="80" required></textarea>
+                                    -->
+                                    <select class="form-control list_wrapper" id="remarks[$index]" name="remarks[$index]"
+                                            ng-model="vm.remarks" ng-init="vm.getRemarksList();"   required>
+                                        <option value="">Select</option>
+                                        <option ng-repeat="item in vm.remarksList"
+                                                name="{{item.subCode + parentIndex}}" id="{{item.subCode + parentIndex}}" value="{{item.subCodeDescription}}">{{item.subCodeDescription}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-offset-5 col-sm-8 form_submit">
+                            <button type="button" class="btn btn-default" data-bs-dismiss="modal" ng-disabled="permissionDelete.$invalid" ng-click="vm.deleteRecord(vm.verifyDetail.pkColumnValue)" >Submit</button>
+                            <button type="button" class="btn btn-cancel" data-bs-dismiss="modal">Cancel</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

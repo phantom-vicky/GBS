@@ -1,0 +1,182 @@
+<div class="container from_wrapper">
+		<left-menu-directive></left-menu-directive>
+		<!--  <h4 class="form_heading">NPS RECEIPT NUMBER</h3> -->
+		<form name="receiptNumberForm" role="form" ng-submit="submitForm(receiptNumberForm.$valid)" novalidate>
+			<h4 class="form_heading feature-heading">Receipt Number - {{action}}</h4>
+			
+		<notice-message-directive ></notice-message-directive>
+	
+			<div class="row">
+			<div class="col-sm-2"></div>
+			<div class="form-group" ng-if="action == 'add' || displayField == true">
+			  <label for="sol_date" class ="control-label col-sm-5">Sol Date</label>
+			 <div class="col-sm-3">
+			<!--  <input type="text" class="form-control" id="solDate" name="solDate" ng-model="receiptNumber.solDate" readonly> -->
+			 	<p id="solDate">{{receiptNumber.solDate | date: "dd/MM/y"}}</p>
+			 </div>
+			</div>
+			</div>
+			<div class="row">
+			<div class="col-sm-2"></div>	 
+	        <div class="form-group" ng-if="action == 'add' || displayField == true"> 
+		      <label for="financialYear" class ="control-label col-sm-5">Financial Year</label>
+		        <div class="col-sm-3">
+		          <input type="text" class="form-control" id="financialYear" name="financialYear" ng-model="receiptNumber.financialYear" readonly>
+		      </div>
+		        </div>
+	        </div>					
+		<div class="row">
+		<div class="col-sm-2"></div>
+			<div class="form-group required">
+				<label for="serviceCode" class ="control-label col-sm-5">Service Request Code/Description</label>
+				    <div class="col-sm-3">
+					  <select class="form-control"   name="serviceCode" id="serviceCode" ng-model="receiptNumber.serviceCode" required>
+					  <option value="">Select</option>
+						<option  ng-selected= "{{item.serviceCode == receiptNumber.serviceCode}}" ng-repeat="item in serviceCodeList" value="{{item.serviceCode}}">{{item.serviceCodeDescription}}</option>
+					  </select>
+					</div>
+			 </div>
+			 </div>
+			<div class="row">
+			<div class="col-sm-2"></div>
+				<div class="form-group required">
+					<label for="registrationNumber" class ="control-label col-sm-5">POP-SP Registration Number</label>
+					   <div class="col-sm-3"> 					  
+						  <input type="text" class="form-control" id="registrationNumber" name="registrationNumber" ng-model="receiptNumber.registrationNumber" required allow-only-numbers maxlength='7' readonly>
+					   </div>
+					   <div class="col-sm-2 torch-top" ng-if="action == 'add'">
+						  <i class="glyphicon glyphicon-search cp" data-bs-toggle="modal" data-target="#regisNum" ng-click="getregistrationNumber(receiptNumber.serviceCode,receiptNumber.registrationNumber)"></i>
+						  <i class="glyphicon glyphicon-remove clear cp" ng-click="clearTextBox('registrationNumber');clearTextBox('solDescription');clearTextBox('solId');"></i>
+	 					</div>  
+	 					 <div class="col-sm-2 torch-top" ng-if="action == 'delete' || action == 'modify' || action == 'inquiry' || action == 'verify'">
+							  <i class="glyphicon glyphicon-search cp" data-bs-toggle="modal" data-target="#regisNum" ng-click="getregistrationNumberOther(receiptNumber.serviceCode,receiptNumber.registrationNumber)"></i>
+							  <i class="glyphicon glyphicon-remove clear cp" ng-click="clearTextBox('registrationNumber');clearTextBox('solDescription');clearTextBox('solId');"></i>
+	 					 </div>
+					   </div>
+				</div>
+				
+			<div class="row">
+			<div class="col-sm-2"></div>	
+			<div class="form-group required">
+				<label for="solDescription" class ="control-label col-sm-5">POP - SP SOL ID/Description</label>
+				<div class="col-sm-3">
+				 <input type="text" class="form-control" id="solDescription" name="solDescription" ng-value="receiptNumber.solId + ' / ' + receiptNumber.solDescription"  readonly>
+			<!-- <input type="text" class="form-control" id="solDescription" name="solDescription" ng-value="  + receiptNumber.solDescription"readonly>  -->
+				</div>
+			</div>
+			</div>
+			<div class="row">
+			<div class="col-sm-2"></div>	
+			<div class="form-group required" ng-if="action == 'add' || displayField == true">
+				<label for="receiptNumber" class ="control-label col-sm-5">Last Serial Number</label>
+				<div class="col-sm-3">
+
+				  <input type="text" class="form-control" id="serialNumber" name="receiptNumber" ng-model="receiptNumber.receiptNumber"  required allow-only-numbers maxlength='8' ng-blur="padding(receiptNumber.receiptNumber)">
+				  
+				</div>
+				</div>
+			</div>
+			<div class="row">	 				
+			<div class="col-sm-offset-5 col-sm-8 form_submit">
+				 <button type="submit" class="btn btn-default" id="submitButton" ng-disabled="receiptNumberForm.$invalid" ng-if="action == 'add'">Submit</button>
+				 <button type="button" class="btn btn-default" id="submitButton" ng-click="inquiry(receiptNumber.serviceCode,receiptNumber.registrationNumber,receiptNumber.solId)" ng-disabled="receiptNumberForm.$invalid" ng-if="action == 'delete' || action == 'inquiry' || action == 'verify'|| action == 'modify' && displayField == false">submit</button>
+				<button type="submit" class="btn btn-default" id="submitButton"  ng-click="modify(corporateReceiptNumber.serviceCode,corporateReceiptNumber.corporateId,corporateReceiptNumber.corporateBoNumber)"  ng-if="action == 'modify' && displayField == true">Modify</button>
+				 
+				 <button type="submit" class="btn btn-cancel" id="cancelButton" onclick="cancelFn()">Cancel</button>
+			</div>
+			</div>
+		</form>
+
+</div>
+<!-- /.container-fluid --><!-- Modal remittance-->
+		<div class="modal" id="regisNum" role="dialog">
+
+			<div class="modal-dialog">
+				<!-- Modal content-->
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-bs-dismiss="modal">&times;</button>
+						<h4 class="modal-title">Help Index</h4>
+					</div>
+					<div class="modal-body">
+						<div class="loader_popup"></div>
+					
+						<div class="list_wrapper" ng-if="registrationNumberList.length>0">
+							<div class="row">
+							
+								<div class="col-sm-12">
+									<table class="table table-bordered list">
+										<thead>
+											<tr>
+												<th>Sol Id</th>
+												<th>Registration Number</th>
+												<th>Sol Description</th>
+											</tr>
+										</thead>
+										<tbody>
+											<tr class="cp" ng-repeat="x in registrationNumberList"
+												ng-click="setregistrationNumber(x);">
+												<td>{{x.solId}}</td>
+												<td>{{x.registrationNumber}}</td>
+												<td>{{x.solDescription}}</td>
+												
+											</tr>
+										</tbody>
+									</table>
+								</div>
+							</div>
+						</div>
+						<div class="list_wrapper" ng-if="registrationNumberList.length==0">No records
+							found to display.</div>
+					</div>
+
+				</div>
+			</div>
+		</div>		 
+				 
+
+				 
+			<div class="container list_wrapper" ng-if="InquireyList && displayTable == true" >
+		<table class="table table-bordered table-striped list" ng-if="action == 'delete' || action == 'inquiry' || action == 'modify' || action == 'verify' && displayField == false">
+		    <thead>
+		      <tr>
+		      	<!-- <th>Sl. No.</th> -->
+		      	<th>Sol ID</th>
+		      	<th>Sol Description</th>
+		      	<th>Sol Date</th>
+		      	<th>Financial Year</th>
+		      	<th>Request Description </th>
+		      	<th>Last Serial Number </th>
+		      		<th ng-if="action=='modify' || action=='delete' || action == 'verify'" class="capitalize">{{action}}</th>
+		      </tr>
+		    </thead>
+		    <tbody>
+		      <tr ng-repeat="x in InquireyList">
+		       <!--  <td>{{$index + 1}}</td> -->
+		        <td>{{x.solId}}</td>
+		        <td>{{x.solDescription}}</td>
+		        <td>{{x.solDate | date : "dd/MM/y"}}</td>
+		        <td>{{x.financialYear}}</td>
+		        <td>{{x.serviceCodeDescription}}</td>
+		          <td>{{x.receiptNumber}}</td>
+		           <td ng-if="action=='modify'"><i class="glyphicon glyphicon-edit cp" ng-click="modifyForm(x.id)"></i></td>
+		           <td ng-if="action=='delete'"><i class="glyphicon glyphicon-remove cp" ng-click="delete(x.id)"></i></td>
+		           <td ng-if="action=='verify'"><i class="glyphicon glyphicon-ok cp" ng-click="verify(x.id)"></i></td>
+		          <!--  <td ng-if="action=='delete'"><i class="glyphicon glyphicon-remove cp" ng-click="deleteReceiptNumber(x)"></i></td> -->
+		      </tr>
+		    </tbody>
+	 	</table>
+	 	</div>
+	<div class="list_wrapper no_records_message" ng-if="InquireyList.length==0">No records found to display.</div>
+				 	 
+				 
+				 
+				 
+				 
+				 
+				 
+				 
+				 
+				 
+				 
+				 

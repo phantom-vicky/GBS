@@ -1,0 +1,181 @@
+<div class="loader-new" data-ng-if="vm.loader"></div>
+<div class="container" data-ng-if="vm.model.length>0">
+  <div class="container from_wrapper new_form_wrapper">
+    <div class="text-right form_submit">
+      <button type="submit" class="btn btn-default" onclick="window.location.href ='#!/'" id="homeButton">Home</button>
+      <button type="button" id="cancel_Button" class="btn btn-cancel" onclick="window.location.href= '#!/Freeze_Un_Freeze_Report/action/inquiry';">Back</button>
+    </div>
+    <h4 class="form_heading">Freeze / Un-Freeze Report</h4>
+    <sol-header></sol-header>
+
+    <table style="width: 100%" class="table table-bordered" aria-label="">
+      <tr>
+        <th scope="col">Name of the Bond Scheme</th>
+        <td>{{vm.schemeName}}</td>
+        <th scope="col" style="width: 20%">Total Count</th>
+        <td style="width: 20%">{{vm.total}}</td>
+      </tr>
+      <tr data-ng-if="vm.holderName">
+        <th scope="col">Name</th>
+        <td>{{vm.holderName}}</td>
+      </tr>
+      <tr data-ng-if="vm.panNumber">
+        <th scope="col">PAN No.</th>
+        <td>{{vm.panNumber}}</td>
+      </tr>
+
+      <tr data-ng-if="vm.blaNumber">
+        <th scope="col">BLA No.</th>
+        <td>{{vm.blaNumber}}</td>
+      </tr>
+
+      <tr>
+        <th scope="col">From Date</th>
+        <td>{{vm.fromDate | date: 'dd/MM/yyyy'}}</td>
+      </tr>
+
+      <tr>
+        <th scope="col">To Date</th>
+        <td>{{vm.toDate | date: 'dd/MM/yyyy'}}</td>
+      </tr>
+    </table>
+
+    <div class="row">
+      <div class="col-sm-12">
+        <div class="row" style="display: flex; align-items: center; justify-content: space-between">
+          <div class="col-sm-3" style="flex: 1">
+            <div class="form-group">
+              <table style="border-spacing: 2" aria-label="">
+                <tr>
+                  <th scope="col"></th>
+                </tr>
+                <tr>
+                  <td>Show&nbsp;</td>
+                  <td>
+                    <select class="form-control pageDropDown" id="pageSize" name="pageSize" ng-model="vm.pageSize" ng-init="vm.pageSize='5'" ng-change="vm.pageNo = 1; vm.getDetails();" ng-disabled="vm.noDataFoundInSearch">
+                      <option value="5">5 per page</option>
+                      <option value="10">10 per page</option>
+                      <option value="20">20 per page</option>
+                      <option value="50">50 per page</option>
+                    </select>
+                  </td>
+                </tr>
+              </table>
+            </div>
+          </div>
+
+          <div class="col-sm-6" style="display: flex; align-items: center; justify-content: flex-end">
+            <div class="form-group" style="margin-right: 15px">
+              <div class="input-group">
+                <input type="text" id="search" class="form-control" data-ng-model="vm.searchText" placeholder="Search" />
+                <div class="input-group-addon">
+                  <span class="glyphicon glyphicon-search" data-ng-click="vm.pageNo = 1; vm.getDetails()"></span>
+                </div>
+                <div class="input-group-addon">
+                  <span class="glyphicon glyphicon-remove clear cp" data-ng-click="vm.searchText='';vm.pageNo = 1; vm.getDetails()"></span>
+                </div>
+              </div>
+            </div>
+            <div class="form-group" ng-disabled="vm.noDataFoundInSearch">
+              <select class="form-control" id="export" name="export" data-ng-disabled="vm.noDataFoundInSearch" data-ng-model="vm.downloadType" data-ng-init="vm.downloadType=''" data-ng-change="vm.downloadReport()">
+                <option value="">EXPORT</option>
+                <option value="excel">EXCEL</option>
+<!--                <option value="csv">CSV</option>-->
+              </select>
+            </div>
+          </div>
+        </div>
+        <div class="table-responsive">
+          <table class="table table-bordered table-striped list table-textWrap" aria-label="">
+            <thead data-ng-if="!vm.noDataFoundInSearch">
+              <tr class="thalign">
+                <th scope="col">S. No.</th>
+                <th scope="col">Holder Name</th>
+                <th scope="col">PAN No</th>
+                <th scope="col">BLA No</th>
+                <th scope="col">Freeze</th>
+                <th scope="col">Freeze Date</th>
+                <th scope="col">Un Freeze</th>
+                <th scope="col">Un Freeze Date</th>
+                <th scope="col">Mode of Holding</th>
+                <th scope="col">Does the principal amount need to be frozen?</th>
+                <th scope="col">Does the Interest Payment need to be frozen?</th>
+                <th scope="col">Is transferring out from another bank allowed?</th>
+                <th scope="col">Reason from Maker</th>
+                <th scope="col">Reason from Checker</th>
+
+                <th scope="col">subscription Id</th>
+                <th scope="col">Investment Amount</th>
+                <th scope="col">Investment Date</th>
+                <th scope="col">Maker Id</th>
+                <th scope="col">Maker Date</th>
+                <th scope="col">Checker Id </th>
+                <th scope="col">checker Date </th>
+                <th scope="col">Freeze Authority</th>
+
+              </tr>
+            </thead>
+            <tbody data-ng-if="!vm.noDataFoundInSearch">
+              <tr dir-paginate="x in vm.filteredRecords | itemsPerPage: itemsPerPage" pagination-id="trailRunRep">
+                <td>{{ ($index + 1) + ((vm.pageNo - 1) * vm.pageSize) }}</td>
+                <td>{{x.holderName}}</td>
+                <td>{{x.panNumber}}</td>
+                <td>{{x.blaNumber}}</td>
+                <td>{{x.freeze}}</td>
+                <td>{{x.freezeDate}}</td>
+                <td>{{x.unFreeze}}</td>
+                <td>{{x.unFreezeDate}}</td>
+                <td>{{x.modeOfHolding}}</td>
+                <td>{{x.principalAmountFrozen}}</td>
+                <td>{{x.interestPaymentFrozen}}</td>
+                <td>{{x.isTransferringOutAllowed}}</td>
+                <td>{{x.reasonFromMaker}}</td>
+                <td>{{x.reasonFromChecker}}</td>
+
+                <td>{{x.subscriptionId}}</td>
+                <td>{{x.investmentAmount}}</td>
+                <td>{{x.investmentDate}}</td>
+                <td>{{x.makerId}}</td>
+                <td>{{x.makerDate}}</td>
+                <td>{{x.checkerId}}</td>
+                <td>{{x.checkerDate}}</td>
+                <td>{{x.freezeAuth}}</td>
+
+
+              </tr>
+            </tbody>
+            <tbody data-ng-if="vm.noDataFoundInSearch">
+              <tr>
+                <td style="text-align: center">No Records Found</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <br />
+        <div class="text-center form_submit">
+          <span data-ng-show="vm.showPrevious">
+            <button type="submit" class="btn btn-default" data-ng-click="vm.goPreviousPage()">Prev</button>
+          </span>
+
+          <span>
+            <button type="submit" class="btn btn-default" data-ng-disabled="true" data-ng-init="vm.pageNo=1" data-ng-model="vm.pageNo" data-ng-click="vm.paymentStatus();">{{vm.pageNo}} of {{vm.maxPages}}</button>
+          </span>
+
+          <span data-ng-show="vm.showNext">
+            <button type="submit" class="btn btn-default" data-ng-click="vm.goNextPage();">Next</button>
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container" data-ng-if="vm.noDataFound">
+  <div class="list_wrapper no_records_message">
+    <h4 class="form_heading">Freeze / Un-Freeze Report</h4>
+    No records found to display.
+    <div style="text-align: center">
+      <button type="button" class="btn btn-default" onclick="window.location.href= '#!/Freeze_Un_Freeze_Report/action/inquiry';">Back</button>
+    </div>
+  </div>
+</div>

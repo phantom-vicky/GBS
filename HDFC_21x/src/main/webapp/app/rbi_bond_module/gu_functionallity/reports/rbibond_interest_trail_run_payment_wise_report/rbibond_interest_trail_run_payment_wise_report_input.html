@@ -1,0 +1,164 @@
+<div class="loader-new" ng-if="vm.loader"></div>
+<div class="container from_wrapper new_form_wrapper">
+    <h4 class="form_heading">BOND Interest Trial Run Report Mode of Payment Wise</h4>
+    <sol-header></sol-header>
+    <form name="bondPrincipalRepayForm" role="form">
+        <div class="row">
+            <div class="form-group">
+                <div class="col-sm-3"></div>
+                <div class="col-sm-3"><label>BOD Date</label></div>
+                <div class="col-sm-2"><label><strong>{{vm.solDate}}</strong></label></div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="form-group">
+                <div class="col-sm-3"></div>
+                <div class="col-sm-3"><label>Name of the Module</label></div>
+                <div class="col-sm-2"><label><strong>RBI Bond</strong></label></div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="form-group required">
+                <div class="col-sm-3"></div>
+                <div class="col-sm-3"><label for="schemeName" class="control-label">Name of the Bond Scheme</label>
+                </div>
+                <div class="col-sm-2">
+                    <input type="text" class="form-control" id="schemeName" ng-model="vm.schemeName" required readonly/>
+                </div>
+                <div class="col-sm-2">
+                    <i class="glyphicon glyphicon-search cp" data-bs-toggle="schemeName" id="treasurySearch"
+                       ng-click="vm.getModuleName();"></i>
+                    <i class="glyphicon glyphicon-remove clear cp" ng-click="vm.schemeCode ='';vm.schemeName=''"></i>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="form-group required">
+                <div class="col-sm-3"></div>
+                <div class="col-sm-3">
+                    <label class="control-label">Interest payment for </label>
+                </div>
+                <div class="col-sm-2">
+                    <select class="form-control" id="interestPaid" name="interestPaid" ng-model="vm.interestPaid" ng-init="vm.interestPaid=''" required>
+                        <option value="">Select</option>
+                        <option value="JAN-JUN">    JAN-JUN     </option>
+                        <option value="JUL-DEC">    JUL-DEC     </option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="form-group required">
+                <div class="col-sm-3"></div>
+                <div class="col-sm-3"><label class="control-label">Financial Year</label></div>
+                <div class="col-sm-2">
+                    <select class="form-control" id="financialYear" name="financialYear" ng-model="vm.financialYear" ng-init="vm.financialYear=''" required>
+                        <option value="">Select</option>
+                        <option value="2023-2024">  2023-2024   </option>
+                        <option value="2022-2023">  2022-2023   </option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="form-group required">
+                <div class="col-sm-3"></div>
+                <div class="col-sm-3"><label class="control-label">Interest Payment Mode</label></div>
+                <div class="col-sm-2">
+                    <select class="form-control" id="interestPaymentMode" name="interestPaymentMode" ng-model="vm.interestPaymentMode" ng-init="vm.interestPaymentMode=''" required>
+                        <option value="">Select</option>
+                        <option value="Credit Account">     Credit Account  </option>
+                        <option value="DD/PO">              DD/PO           </option>
+                        <option value="NEFT">               NEFT            </option>
+                        <option value="ACH">                ACH             </option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <div class="text-center form_submit">
+            <button
+                    type="submit"
+                    id="submitButton"
+                    class="btn btn-default"
+                    ui-sref="rbibond_interest_trail_run_payment_wise_report.inquiry_details({obj:{
+                            schemeCode              :   vm.schemeCode,
+                            interestPaymentFor      :   vm.interestPaid,
+                            financialYear           :   vm.financialYear,
+                            interestPaymentMode     :   vm.interestPaymentMode,
+                            schemeName              :   vm.schemeName
+                        }})"
+                    ng-disabled="bondPrincipalRepayForm.$invalid">
+                Submit
+            </button>
+            <button type="button" class="btn btn-cancel" id="cancelButton" onclick="window.location.href= '#!/rbibond_gu_functionality';">
+                Cancel
+            </button>
+        </div>
+        <div class="text-center">
+            <notice-message-directive></notice-message-directive>
+        </div>
+    </form>
+</div>
+
+<div class="modal" id="schemeModel" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-bs-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Scheme Code</h4>
+            </div>
+            <div class="modal-body">
+                <div class="loader_popup"></div>
+                <div class="list_wrapper" ng-if="vm.schemeList.length>0">
+                    <div class="col-sm-8 form_submit">
+                        <div class="form-group">
+                            <div class="input-group">
+                                <div class="input-group-addon">
+                                    <i class="glyphicon glyphicon-search"></i>
+                                </div>
+                                <input type="text" class="form-control" ng-model="vm.modalSearch" ng-init="vm.modalSearch = ''" placeholder="Search"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4 form_submit"></div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <table class="table table-bordered list scroll sort">
+                                <thead ng-init="reverseOrder=true;sortedColumn = 'schemeName'">
+                                <tr>
+                                    <th scope="col"
+                                        ng-click="(sortedColumn == 'schemeName')?(reverseOrder=(!reverseOrder)): (reverseOrder = false);sortedColumn = 'schemeName';"
+                                        ng-class="(sortedColumn == 'schemeName')?((reverseOrder)?('arrow-down') : ('arrow-up') ) : ('')">
+                                        SCHEME NAME
+                                    </th>
+                                    <th scope="col"
+                                        ng-click="(sortedColumn == 'schemeStatus')?(reverseOrder=(!reverseOrder)): (reverseOrder = false);sortedColumn = 'schemeStatus';"
+                                        ng-class="(sortedColumn == 'schemeStatus')?((reverseOrder)?('arrow-down') : ('arrow-up') ) : ('')">
+                                        STATUS
+                                    </th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr class="cp"
+                                    ng-repeat="x in vm.schemeList | filter:vm.modalSearch | orderBy:sortedColumn:reverseOrder"
+                                    ng-click="vm.schemeCode = x.subCode; vm.schemeName = x.subCodeDescription; vm.schemeStatus = x.schemeStatus"
+                                    data-bs-dismiss="modal">
+                                    <td>{{x.subCode}}</td>
+                                    <td>{{x.subCodeDescription}}</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="list_wrapper" ng-if="vm.schemeList.length==0">No records found to display.</div>
+            </div>
+        </div>
+    </div>
+</div>

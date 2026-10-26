@@ -1,0 +1,34 @@
+<div class="container from_wrapper" ng-if="vm.showList==false">
+    <h4 class="form_heading">Activate User</h4>
+
+        <sol-header></sol-header>
+
+    <form name="reportForm" role="form" ng-submit="vm.activateUser()" novalidate>
+
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="row">
+                    <div class="form-group ">
+                        <div class="col-sm-3"></div>
+                            <div class="col-sm-3">
+                            <label for="username" class="control-label">User Name</label>
+                        </div>
+                        <div class="col-sm-3">
+                            <input type="text" class="form-control" id="username" ng-model="vm.username" ng-init="vm.username=''" maxlength="25">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="text-center form_submit">
+                <button type="submit" id="submit" name="submit" class="btn btn-default" ng-disabled="reportForm.$invalid">Submit</button>
+                <button type="button" id="cancel" name="cancel" class="btn btn-cancel" ui-sref="report_menu_page">Cancel</button>
+                <notice-message-directive></notice-message-directive>
+            </div>
+        </div>
+    </form>
+</div>
+
+
+

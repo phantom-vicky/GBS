@@ -1,0 +1,360 @@
+<div class="container from_wrapper">
+	<left-menu-directive></left-menu-directive>
+	<h4 class="form_heading">NPS Transaction Inquiry</h4>
+	<notice-message-directive ></notice-message-directive>
+	<form name="transationInquiryForm" role="form" ng-submit="submitForm(transationInquiryForm.$valid)" novalidate>
+
+	    <div class="form-group required">
+	    <div class="col-sm-1"></div>
+	   	  <label for="max_age" class ="control-label col-sm-2">Scheme Type</label>
+			<div class="col-sm-2">
+				<b>New Pension Scheme</b>
+			</div>
+			<div class="col-sm-1"></div>
+		  	<label for="solId" class ="control-label col-sm-2">SOL ID</label>
+			<div class="col-sm-2 inner-addon right-addon">
+				<input type="text" class="form-control" id="solId" name="solId" ng-model="transationInquiry.solId" required maxlength='8'>
+			</div>
+			<div class="col-sm-2 torch-top">
+				<i class="glyphicon glyphicon-search cp" data-bs-toggle="modal" data-target="#solIDModal" ng-click="getSolID()"></i>
+		  		<i class="glyphicon glyphicon-remove clear cp" ng-click="clearTextBox('solId')"></i>
+		  		<i id="solIdDescription">{{solDescription}}</i>
+			</div>
+		</div>
+		 <div class="form-group ">
+		 <div class="col-sm-1"></div>
+		  <label for="max_age" class ="control-label col-sm-2">Tran Id Type</label>
+			<div class="col-sm-2">
+			  <select class="form-control" id="tranIdType" name="tranIdType" ng-model="transationInquiry.tranIdType">
+				<option  ng-selected= "{{item.tranIdTypeKey == transationInquiry.tranIdType}}" ng-repeat="item in tranIdTypeList" value="{{item.tranIdTypeKey}}">{{item.tranIdTypeName}}</option>
+			  </select>
+			</div>
+			<div class="col-sm-1"></div>
+		  	<label for="max_age" class ="control-label col-sm-2">Tran Type</label>
+			<div class="col-sm-2">
+			  <select class="form-control" id="tranType" name="tranType" ng-model="transationInquiry.tranType">
+				<option  ng-selected= "{{item.tranTypeKey == transationInquiry.tranType}}" ng-repeat="item in tranTypeList" value="{{item.tranTypeKey}}">{{item.tranTypeName}}</option>
+			  </select>
+			</div>
+		</div>
+		
+		<div class="form-group required">
+		<div class="col-sm-1"></div>
+		  <label for="min_num_contr" class ="control-label col-sm-2"> Date From</label>
+			<div class="col-sm-2">
+			  <input type="text" class="form-control" id="dateFromTemp" name="dateFromTemp" ng-model="transationInquiry.dateFromTemp" onkeydown="return false;">
+			</div>
+			<div class="col-sm-1"></div>
+		  	<label for="min_num_contr" class ="control-label col-sm-2"> Date To</label>
+			<div class="col-sm-2">
+			  <input type="text" class="form-control" id="dateToTemp" name="dateToTemp" ng-model="transationInquiry.dateToTemp" onkeydown="return false;">
+			</div>
+		</div>	
+		<div class="form-group ">
+		<div class="col-sm-1"></div>
+		  <label for="min_num_contr" class ="control-label col-sm-2"> Amount Range: Min</label>
+			<div class="col-sm-2">
+			  <input type="text" class="form-control" id="amountMin" name="amountMin" ng-model="transationInquiry.amountMin" ng-value="amountMin" allow-only-numbers maxlength='16'>
+			  <div ng-show="transationInquiryForm.amountMin.$error.number" class="help-block alert alert-danger">Amount Range: Min should be in numbers</div>
+			</div>
+			<div class="col-sm-1"></div>
+		  	<label for="min_num_contr" class ="control-label col-sm-2"> Amount Range: Max</label>
+			<div class="col-sm-2">
+			  <input type="text" class="form-control" id="amountMax" name="amountMax" ng-model="transationInquiry.amountMax" ng-value="amountMax" allow-only-numbers maxlength='16'>
+			  <div ng-show="transationInquiryForm.amountMax.$error.number" class="help-block alert alert-danger">Amount Range: Max should be in numbers</div>
+			</div>
+		</div>	
+		<div class="form-group ">
+		<div class="col-sm-1"></div>
+		  <label for="min_num_contr" class ="control-label col-sm-2"> Tran ID From</label>
+			<div class="col-sm-2">
+			  <input type="text" class="form-control" id="tranIdFrom" name="tranIdFrom" ng-model="transationInquiry.tranIdFrom" ng-value="tranIdFrom" allow-only-numbers maxlength='9'>
+			  <div ng-show="transationInquiryForm.tranIdFrom.$error.number" class="help-block alert alert-danger">Tran Id From should be in numbers</div>
+			</div>
+			<div class="col-sm-1"></div>
+		  	<label for="min_num_contr" class ="control-label col-sm-2"> Tran ID To</label>
+			<div class="col-sm-2">
+			  <input type="text" class="form-control" id="tranIdTo" name="tranIdTo" ng-model="transationInquiry.tranIdTo" ng-value="tranIdTo" allow-only-numbers maxlength='9'>
+			  <div ng-show="transationInquiryForm.tranIdTo.$error.number" class="help-block alert alert-danger">Tran Id To should be in numbers</div>
+			</div>
+		</div>	
+		<div class="form-group ">
+		<div class="col-sm-1"></div>
+		  <label for="min_num_contr" class ="control-label col-sm-2"> Created User Id</label>
+			<div class="col-sm-2">
+			  <input type="text" class="form-control" id="createdUserId" name="createdUserId" ng-model="transationInquiry.createdUserId" maxlength='15'>
+			</div>
+			<div class="col-sm-1"></div>
+		  		<label for="tranStatus" class ="control-label col-sm-2">Tran Status</label>
+			<div class="col-sm-2">
+			  <select class="form-control" name="tranStatus" id="tranStatus" ng-model="transationInquiry.tranStatus">
+				<option  ng-selected= "{{item.tranStatusKey == transationInquiry.tranStatus}}" ng-repeat="item in tranStatusList" value="{{item.tranStatusKey}}">{{item.tranStatusName}}</option>
+			  </select>
+			</div>
+		</div>	
+	 	<div class="col-sm-offset-5 col-sm-8 form_submit">
+		 <button type="submit" class="btn btn-default" id="submitButton"ng-disabled="transationInquiryForm.$invalid">Submit</button>
+		 <button type="submit" class="btn btn-cancel" id="cancelButton" ng-click="moveTo()">Cancel</button>
+	   </div>
+	</form>
+	
+</div>
+
+
+	
+  <!-- Modal SOL ID-->
+	<div class="modal" id="solIDModal" role="dialog">
+	  <div class="modal-dialog">
+	    <!-- Modal content-->
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <button type="button" class="close" data-bs-dismiss="modal">&times;</button>
+	        <h4 class="modal-title">Help Index</h4>
+	      </div>
+	      <div class="modal-body">
+	        <div class="list_wrapper" ng-if="list.length>0">
+		        <div class="col-sm-8 form_submit">				    
+					  <div class="form-group">
+					    <div class="input-group">
+					      <div class="input-group-addon"><i class="glyphicon glyphicon-search"></i></div>
+					      <input type="text" class="form-control" ng-model="searchSolId" placeholder="Search">
+					    </div>
+					  </div>
+				</div>
+				<div class="col-sm-4 form_submit"></div>
+				<div class="row">
+					<div class="col-sm-12">
+						<table class="table table-bordered list scroll">
+						    <thead>
+						      <tr>
+						        <th>Sol ID.</th>
+						        <th>Description</th>
+						      </tr>
+						    </thead>
+						    <tbody>
+						      <tr class="cp" ng-repeat="x in list | filter:searchSolId" ng-click="setSolID(x);">
+						        <td>{{x.solId}}</td>
+						        <td>{{x.solDescription}}</td>
+						      </tr>
+						    </tbody>
+						 </table>
+					</div>
+				</div>
+			</div>
+			<div class="list_wrapper" ng-if="list.length==0">No records found to display.</div>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+	<!-- Modal SOL ID - End -->
+	
+	<!-- list result -->
+	<div class="loader" style="display: none;"></div>
+	<div class="container list_wrapper" ng-if="vm.transactionInquiryList.length>0">
+	
+		<table class="col-sm-12 guideline-table">
+			<tr>
+				<td colspan="2" >
+					<span class="text-danger">*</span> Tran ID/Zone Code, Zone Date, Set Num 
+				</td>
+				<td colspan="2" >
+					<span class="text-danger">**</span> Verified Status/Clearing Status 
+				</td>
+				<td colspan="2" >
+					<span class="text-danger">***</span> Finacle Verified Status/Clearing Status 
+				</td>
+			</tr>
+			<tr>
+				<td rowspan="2">Verified Status</td>
+				<td>In NPS</td>
+				<td class="text-danger">N - Unverified</td>
+				<td class="text-danger">Y - Verified</td>
+				<td class="text-danger">U - Uncleared</td>
+				<td class="text-danger">F - Finacle to verify</td>
+			</tr>
+			<tr>
+				<td>In Finacle</td>
+				<td class="text-danger">E - Entered</td>
+				<td class="text-danger">P - Posted</td>
+				<td class="text-danger">V - Verified</td>
+			</tr>
+			<tr>
+				<td>Clearing Status</td>
+				<td>In NPS/Finacle</td>
+				<td class="text-danger">G - Cheque Regularized</td>  
+				<td class="text-danger">O - Cheque Returned</td>
+				<td class="text-danger">J - Regularized & Returned</td>
+			</tr>
+			<tr>
+				<td>NA</td>
+				<td>Not Applicable</td>
+			</tr>
+		</table>
+
+		<table class="table table-bordered table-striped list">
+	    <thead>
+	      <tr>
+	        <th rowspan="2">Sl. No.</th>
+	        <th rowspan="2">Scheme Name</th>
+	        <th rowspan="2">Trans. Date</th>
+	        <th rowspan="2">Trans. Mode</th>
+	        <th colspan="4" class="text-center">NPS</th>
+	        <th colspan="4" class="text-center">Finance</th>
+	      </tr>
+	      <tr>
+	      	<th>Trans Id*</th>
+	      	<th>Amount</th>
+	      	<th>Status</th>
+	      	<th>Deleted</th>
+	      	<th>Trans Id*</th>
+	      	<th>Amount</th>
+	      	<th>Status</th>
+	      	<th>Deleted</th>
+	      </tr>
+	    </thead>
+	    <tbody>
+	      <tr ng-repeat="x in transactionInquiryList">
+	        <td>{{$index + 1}}</td>
+	        <td>New Pension Scheme</td>
+	        <td>{{x.tranDate | date : "dd/MM/y"}}</td>
+	        <td>{{x.tranMode}}</td>
+	        <td class="cp" data-bs-toggle="modal" data-target="#tranIdModal" ng-click="getTranIdModal(x.npsTranId)"><span class="text-link">{{x.npsTranId}}</span></td>
+	        <td>{{x.amount}}</td>
+	        <td>{{x.npsStatus}}</td>
+	        <td>{{x.npsIsDeleted}}</td>
+	        <td>{{x.finacleTranId}}</td>
+	        <td>{{x.amount}}</td>
+	        <td>{{x.finacleStatus}}</td>
+	        <td>{{x.finalceIsDeleted}}</td>
+	      </tr>
+	    </tbody>
+	 </table>
+	</div>
+	<div class="list_wrapper no_records_message" ng-if="transactionInquiryList.length==0">No records found to display.</div>
+	<!-- list result - End -->
+	
+	<div class="modal" id="tranIdModal" role="dialog">
+		<div class="modal-dialog modal-dialog-large">
+			
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-bs-dismiss="modal">&times;</button>
+					<h4>GBM Transaction Inquiry</h4>
+				</div>
+				<div class="modal-body">
+					<div class="loader_popup"></div>
+					<div class="list_wrapper">
+						<div class="row padding-left-20 padding-right-20">
+							<table class="table table-bordered">
+								<tr>
+									<td class="text-bold">Sol ID</td>
+									<td>{{transIdList.solId}}</td>
+									
+									<td class="text-bold">Branch Name</td>
+									<td>{{transIdList.branchName}}</td>
+									
+									<td class="text-bold">Scheme Type</td>
+									<td>New Pension Scheme</td>
+								</tr>
+							</table>
+							<h4 class="modal-header">Transaction Details</h4>
+							<table  class="table table-bordered">
+								<tr>
+									<td class="text-bold">Trans ID</td>
+									<td>{{transIdList.npsTranId}}</td>
+									
+									<td class="text-bold">Trans Date (dd-mm-yyyy)</td>
+									<td>{{transIdList.tranDate | date : "dd-MM-y"}}</td>
+									
+									<td class="text-bold">Trans Status</td>
+									<td>{{transIdList.tranStatus}}</td>
+								</tr>
+								<tr>
+									<td class="text-bold">Finacle Trans ID</td>
+									<td>{{transIdList.finacleTranId}}</td>
+									
+									<td class="text-bold">Transaction Type</td>
+									<td>{{transIdList.tranType}}</td>
+									
+									<td class="text-bold">Transaction Mode</td>
+									<td>{{transIdList.tranMode}}</td>
+								</tr>
+								<tr>
+									<td colspan="2" class="text-bold">Created By</td>
+									<td>{{transIdList.createdUserId}}</td>
+									
+									<td colspan="2" class="text-bold">Created Date</td>
+									<td>{{transIdList.createdDate}}</td>
+								</tr>
+								<tr>
+									<td colspan="2" class="text-bold">Last Mode By</td>
+									<td>{{transIdList.modifiedUserId}}</td>
+									
+									<td colspan="2" class="text-bold">Last Mode Date</td>
+									<td>{{transIdList.modifiedDate}}</td>
+								</tr>
+							</table>
+							<div style="clear:both;"></div>
+							<h4 class="modal-header">Partrans</h4>
+							<table class="table table-bordered list">
+								<thead>
+									<td>Sl No</td>
+									<td>Account Number</td>
+									<td>Transaction Leg</td>
+									<td>Amount</td>
+								</thead>
+								<tbody>
+									<tr class="cp" ng-repeat="x in transIdList.transactionPartDtoList">
+										<td>{{$index + 1}}</td>
+										<td>{{x.accNum}}</td>
+										<td>{{x.tranLeg}}</td>
+										<td>{{x.amount}}</td>
+									</tr>
+								</tbody>
+							</table>
+							<table class="col-sm-12 guideline-table">
+								<tr>
+									<td colspan="2" >
+										<span class="text-danger">*</span> Tran ID/Zone Code, Zone Date, Set Num 
+									</td>
+									<td colspan="2" >
+										<span class="text-danger">**</span> Verified Status/Clearing Status 
+									</td>
+									<td colspan="2" >
+										<span class="text-danger">***</span> Finacle Verified Status/Clearing Status 
+									</td>
+								</tr>
+								<tr>
+									<td rowspan="2">Verified Status</td>
+									<td>In NPS</td>
+									<td class="text-danger">N - Unverified</td>
+									<td class="text-danger">Y - Verified</td>
+									<td class="text-danger">U - Uncleared</td>
+									<td class="text-danger">F - Finacle to verify</td>
+								</tr>
+								<tr>
+									<td>In Finacle</td>
+									<td class="text-danger">E - Entered</td>
+									<td class="text-danger">P - Posted</td>
+									<td class="text-danger">V - Verified</td>
+								</tr>
+								<tr>
+									<td>Clearing Status</td>
+									<td>In NPS/Finacle</td>
+									<td class="text-danger">G - Cheque Regularized</td>  
+									<td class="text-danger">O - Cheque Returned</td>
+									<td class="text-danger">J - Regularized & Returned</td>
+								</tr>
+								<tr>
+									<td>NA</td>
+									<td>Not Applicable</td>
+								</tr>
+							</table>
+						</div>
+					</div>
+				</div>
+
+			</div>
+		</div>
+	</div>
+	

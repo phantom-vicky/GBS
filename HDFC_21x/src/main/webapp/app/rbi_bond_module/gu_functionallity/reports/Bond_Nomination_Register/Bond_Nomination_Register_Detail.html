@@ -1,0 +1,145 @@
+<div class="loader-new" data-ng-if="vm.loader"></div>
+<div class="container" data-ng-if="vm.filteredRecords.length>0">
+  <div class="container from_wrapper new_form_wrapper">
+    <div class="text-right form_submit">
+      <button type="submit" class="btn btn-default" onclick="window.location.href ='#!/rbibond_gu_functionality';" id="homeButton">Home</button>
+      <button type="button" id="cancel_Button" class="btn btn-cancel" onclick="window.location.href= '#!/Bond_Nomination_Register/action/inquiry';">Back</button>
+    </div>
+    <h4 class="form_heading">Bond Nomination Register</h4>
+    <sol-header></sol-header>
+    <table style="width: 100%" class="table table-bordered" aria-label="Interest not Credited">
+      <tr>
+        <th scope="col">Name of the Bond Scheme</th>
+        <td>{{vm.schemeName}}</td>
+        <th scope="col" style="width: 20%">Total Count</th>
+        <td style="width: 20%">{{vm.total}}</td>
+      </tr>
+      <tr data-ng-if="vm.holderName">
+        <th scope="col">Name</th>
+        <td>{{vm.holderName}}</td>
+        <th scope="col">PAN No</th>
+        <td>{{vm.panNumber}}</td>
+      </tr>
+      <tr>
+        <th scope="col">BLA No</th>
+        <td>{{vm.blaNumber}}</td>
+        <th scope="col">Subscription ID</th>
+        <td>{{vm.subscriptionID}}</td>
+      </tr>
+    </table>
+    <div class="row">
+      <div class="col-sm-12">
+        <div class="row" style="display: flex; align-items: center; justify-content: space-between">
+          <div class="col-sm-3" style="flex: 1">
+            <div class="form-group">
+              <table style="border-spacing: 2" aria-label="NCR">
+                <tr>
+                  <th scope="col"></th>
+                </tr>
+                <tr>
+                  <td>Show&nbsp;</td>
+                  <td>
+                    <select class="form-control pageDropDown" id="pageSize" name="pageSize" ng-model="vm.pageSize" ng-init="vm.pageSize='5'" ng-change="vm.pageNo='1'; vm.getDetails();"ng-disabled="vm.noDataFoundInSearch">
+                      <option value="5">5 per page</option>
+                      <option value="10">10 per page</option>
+                      <option value="20">20 per page</option>
+                      <option value="50">50 per page</option>
+                    </select>
+                  </td>
+                </tr>
+              </table>
+            </div>
+          </div>
+
+          <div class="col-sm-6" style="display: flex; align-items: center; justify-content: flex-end">
+            <div class="form-group" style="margin-right: 15px">
+              <div class="input-group">
+                <input type="text" id="search" class="form-control" data-ng-model="vm.searchValue" placeholder="Search" />
+                <div class="input-group-addon">
+                  <span class="glyphicon glyphicon-search" data-ng-click="vm.pageNo = 1; vm.getDetails()"></span>
+                </div>
+                <div class="input-group-addon">
+                  <span class="glyphicon glyphicon-remove clear cp" data-ng-click="vm.searchValue=''; vm.pageNo = 1; vm.getDetails()"></span>
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <select class="form-control" id="export" name="export" data-ng-model="vm.downloadType" data-ng-init="vm.downloadType=''" data-ng-change="vm.downloadReport()" ng-disabled="vm.noDataFoundInSearch">
+                <option value="">EXPORT</option>
+                <option value="excel">EXCEL</option>
+                <option value="csv">CSV</option>
+                <option value="pdf">PDF</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <div class="table-responsive">
+          <table class="table table-bordered table-striped list nowrap table-textWrap datatable" aria-label="">
+            <thead data-ng-if="!vm.noDataFoundInSearch">
+              <tr class="thalign">
+                <th colspan="3" scope="col">PARTICULARS OF INVESTMENT</th>
+                <th colspan="6" scope="col">PARTICULARS OF NOMINEE</th>
+              </tr>
+              <tr class="thalign">
+                <th scope="col">S.No</th>
+                <th scope="col">Date of Issue</th>
+                <th scope="col">Amount (Rs.)</th>
+                <th scope="col">Date of Repayment</th>
+                <th scope="col">Nominee Name</th>
+                <th scope="col">Nominee Address</th>
+                <th scope="col">Date of Birth</th>
+                <th scope="col">Relationship to holder</th>
+                <th scope="col">STATUS Resident/NRI</th>
+                <th scope="col">Particulars of Bank Account</th>
+              </tr>
+            </thead>
+            <tbody data-ng-if="!vm.noDataFoundInSearch">
+              <tr dir-paginate="x in vm.filteredRecords | itemsPerPage: itemsPerPage" pagination-id="trailRunRep">
+                <td>{{ ($index + 1) + ((vm.pageNo - 1) * vm.pageSize) }}</td>
+                <td>{{x.dateOfIssue}}</td>
+                <td>{{x.amount}}</td>
+                <td>{{x.dateOfRepayment}}</td>
+                <td>{{x.nomineeName}}</td>
+                <td>{{x.nomineeAddress}}</td>
+                <td>{{x.dob}}</td>
+                <td>{{x.relationshipHolder}}</td>
+                <td>{{x.status}}</td>
+                <td>{{x.particularsOfBankAccount}}</td>
+              </tr>
+            </tbody>
+            <tbody data-ng-if="vm.noDataFoundInSearch">
+              <tr>
+                <td>No Records Found</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <br />
+        <div class="text-center form_submit">
+          <span data-ng-show="vm.showPrevious">
+            <button type="submit" class="btn btn-default" data-ng-click="vm.goPreviousPage()">Prev</button>
+          </span>
+
+          <span>
+            <button type="submit" class="btn btn-default" data-ng-disabled="true" data-ng-init="vm.pageNo=1" data-ng-model="vm.pageNo" data-ng-click="vm.paymentStatus();">{{vm.pageNo}} of {{vm.maxPages}}</button>
+          </span>
+
+          <span data-ng-show="vm.showNext">
+            <button type="submit" class="btn btn-default" data-ng-click="vm.goNextPage();">Next</button>
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container" data-ng-if="vm.noDataFound">
+  <div class="list_wrapper no_records_message">
+    <h4 class="form_heading">Bond Nomination Register</h4>
+    No records found to display.
+    <div style="text-align: center">
+      <button type="button" class="btn btn-default" onclick="window.location.href= '#!/Bond_Nomination_Register/action/inquiry';">Back</button>
+    </div>
+  </div>
+</div>

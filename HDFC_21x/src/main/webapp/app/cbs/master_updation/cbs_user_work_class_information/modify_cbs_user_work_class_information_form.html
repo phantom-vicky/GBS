@@ -1,0 +1,224 @@
+<div class="loader-new" ng-if="vm.loader"></div>
+<cbs-left-menu></cbs-left-menu>
+<div class="container from_wrapper new_form_wrapper"
+	ng-init="vm.getSolDate();">
+
+	<h4 class="form_heading  feature-heading">User Work Class
+		Information - Modify</h4>
+	<form name="userDetailsForm" role="form">
+		<div class="row">
+			<div class="form-group">
+				<div class="col-sm-3 required">
+					<label for="userId" class="control-label">User ID</label>
+				</div>
+				<div class="col-sm-2 inner-addon right-addon">
+					<input type="text" class="form-control" id="userId" name="userId"
+						ng-model="vm.cbsUserDetails.userId" maxlength="15"
+						chars="alpha-numeric" required>
+				</div>
+				<div class="col-sm-2"></div>
+				<div class="col-sm-3 required">
+					<label for="userWorkClass" class="control-label">User work
+						class</label>
+				</div>
+				<div class="col-sm-2">
+					<input type="text" class="form-control" id="userWorkClass"
+						name="userWorkClass" chars="alpha-numeric"
+						ng-model="vm.cbsUserDetails.userWorkClass" maxlength="3" 
+						required>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="form-group">
+				<div class="col-sm-3 required">
+					<label for="solId" class="control-label">Sol ID</label>
+				</div>
+				<div class="col-sm-2">
+					<input type="text" class="form-control" id="solId" name="solId"
+						ng-model="vm.cbsUserDetails.solId" maxlength="8"
+						chars="only-numbers" required>
+				</div>
+				<div class="col-sm-2"></div>
+				<div class="col-sm-3 required">
+					<label for="userSolTenor" class="control-label">User Sol
+						Tenor</label>
+				</div>
+				<div class="col-sm-2">
+					<input type="text" class="form-control" id="userSolTenor"
+						name="userSolTenor" chars="alpha-numeric"
+						ng-model="vm.cbsUserDetails.userSolTenor" maxlength="1" 
+						required>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="form-group">
+				<div class="col-sm-3 required">
+					<label for="userMaxInactiveTime" class="control-label">User
+						Max Inactive Time</label>
+				</div>
+				<div class="col-sm-2">
+					<input type="text" class="form-control" id="userMaxInactiveTime"
+						name="userMaxInactiveTime"
+						ng-model="vm.cbsUserDetails.userMaxInactiveTime" maxlength="3"
+						chars="only-numbers" required>
+				</div>
+				<div class="col-sm-2"></div>
+				<div class="col-sm-3 required">
+					<label for="userAccountExpiryDate" class="control-label">User
+						Account Expiry Date</label>
+				</div>
+				<div class="col-sm-2">
+					<p class="input-group">
+						<input type="text" class="form-control" id="userAccountExpiryDate"
+							name="userAccountExpiryDate"
+							ng-model="vm.cbsUserDetails.userAccountExpiryDate" required
+							readonly
+							ng-init="vm.cbsUserDetails.userAccountExpiryDate = ''; vm.userAccountExpiryDatepicker.opened = false"
+							uib-datepicker-popup="dd/MM/yyyy"
+							is-open="vm.userAccountExpiryDatepicker.opened"
+							close-text="Close" datepicker-options="vm.dateOptions"> <span
+							class="input-group-btn" id="userAccountExpiryDateIcon">
+							<button type="button" class="btn btn-secondary"
+								id="userAccountExpiryDateIconPicker"
+								ng-click="vm.userAccountExpiryDatepicker.opened = true">
+								<i class="glyphicon glyphicon-calendar"></i>
+							</button>
+						</span>
+					</p>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="form-group">
+				<div class="col-sm-3 required">
+					<label for="userApplicationName" class="control-label">User
+						Appl Name</label>
+				</div>
+				<div class="col-sm-2">
+					<input type="text" class="form-control" id="userApplicationName"
+						name="userApplicationName"
+						ng-model="vm.cbsUserDetails.userApplicationName"
+						chars="only-letters" maxlength="2" required>
+				</div>
+				<div class="col-sm-2"></div>
+				<div class="col-sm-3 required">
+					<label for="userPasswordExpiryDate" class="control-label">User
+						Password Expiry Date</label>
+				</div>
+				<div class="col-sm-2">
+					<p class="input-group">
+						<input type="text" class="form-control"
+							id="userPasswordExpiryDate" name="userPasswordExpiryDate"
+							ng-model="vm.cbsUserDetails.userPasswordExpiryDate" required
+							readonly
+							ng-init="vm.cbsUserDetails.userPasswordExpiryDate = ''; vm.userPasswordExpiryDatepicker.opened = false"
+							uib-datepicker-popup="dd/MM/yyyy"
+							is-open="vm.userPasswordExpiryDatepicker.opened"
+							close-text="Close" datepicker-options="vm.dateOptions"> <span
+							class="input-group-btn" id="userPasswordExpiryDateIcon">
+							<button type="button" class="btn btn-secondary"
+								id="userPasswordExpiryDateIconPicker"
+								ng-click="vm.userPasswordExpiryDatepicker.opened = true">
+								<i class="glyphicon glyphicon-calendar"></i>
+							</button>
+						</span>
+					</p>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="form-group">
+				<div class="col-sm-3 required">
+					<label for="newUserFlag" class="control-label">New User
+						Flag</label>
+				</div>
+				<div class="col-sm-2">
+					<select class="form-control" id="newUserFlag" name="newUserFlag"
+						ng-model="vm.cbsUserDetails.newUserFlag" required>
+						<option ng-selected="{{vm.cbsUserDetails.newUserFlag == ''}}"
+							value="">Select</option>
+						<option ng-selected="{{vm.cbsUserDetails.newUserFlag == true}}"
+							value="true">Yes</option>
+						<option ng-selected="{{vm.cbsUserDetails.newUserFlag == false}}"
+							value="false">No</option>
+					</select>
+				</div>
+				<div class="col-sm-2"></div>
+				<div class="col-sm-3 required">
+					<label for="defaultTermId" class="control-label">Default
+						term ID</label>
+				</div>
+				<div class="col-sm-2">
+					<input type="text" class="form-control" id="defaultTermId"
+						name="defaultTermId" chars="alpha-numeric"
+						ng-model="vm.cbsUserDetails.defaultTermId" maxlength="15" required>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="form-group">
+				<div class="col-sm-3 required">
+					<label for="virtualFlag" class="control-label">Virtual Flag</label>
+				</div>
+				<div class="col-sm-2">
+					<select class="form-control" id="virtualFlag" name="virtualFlag"
+						ng-model="vm.cbsUserDetails.virtualFlag" required>
+						<option ng-selected="{{vm.cbsUserDetails.virtualFlag == ''}}"
+							value="">Select</option>
+						<option ng-selected="{{vm.cbsUserDetails.virtualFlag == true}}"
+							value=true>Yes</option>
+						<option ng-selected="{{vm.cbsUserDetails.virtualFlag == false}}"
+							value=false>No</option>
+					</select>
+				</div>
+				<div class="col-sm-2"></div>
+				<div class="col-sm-3">
+					<label for="additionalText1" class="control-label">Additional
+						Text1</label>
+				</div>
+				<div class="col-sm-2">
+					<input type="text" class="form-control" id="additionalText1"
+						name="additionalText1" chars="alpha-numeric"
+						ng-model="vm.cbsUserDetails.additionalText1" maxlength="40">
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="form-group ">
+				<div class="col-sm-3">
+					<label for="additionalText2" class="control-label">Additional
+						Text2</label>
+				</div>
+				<div class="col-sm-2">
+					<input type="text" class="form-control" id="additionalText2"
+						name="additionalText2" chars="alpha-numeric"
+						ng-model="vm.cbsUserDetails.additionalText2" maxlength="40">
+				</div>
+				<div class="col-sm-2"></div>
+				<div class="col-sm-3">
+					<label for="additionalText3" class="control-label">Additional
+						Text3</label>
+				</div>
+				<div class="col-sm-2">
+					<input type="text" class="form-control" id="additionalText3"
+						name="additionalText3" chars="alpha-numeric"
+						ng-model="vm.cbsUserDetails.additionalText3" maxlength="40">
+				</div>
+			</div>
+		</div>
+		<div class="col-sm-offset-5 col-sm-8 form_submit">
+			<button type="submit" class="btn btn-default" id="submitButton"
+				ng-disabled="userDetailsForm.$invalid" ng-click="vm.modify()">Update</button>
+			<button type="button" class="btn btn-cancel" id="cancelButton"
+				ng-click="vm.showCancelConfirmation('cbs_user_work_class_information.modify');">Cancel</button>
+		</div>
+		<div class="text-center">
+			<notice-message-directive></notice-message-directive>
+		</div>
+	</form>
+
+</div>
+
+

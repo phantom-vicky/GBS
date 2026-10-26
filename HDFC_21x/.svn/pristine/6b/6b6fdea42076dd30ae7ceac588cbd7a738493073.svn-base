@@ -1,0 +1,146 @@
+<user-left-menu></user-left-menu>
+<div class="loader-new" ng-show="loader"></div>
+<div class="container from_wrapper">
+    <h4 class="form_heading  feature-heading">User Registration</h4>
+    <form name="userRegistrationForm" role="form" ng-submit="vm.addUserConfirmation(userRegistrationForm.$valid)" novalidate>
+        <div class="row">
+            <div class="form-group required">
+                <label for="firstName" class="control-label col-sm-3 required">First Name</label>
+                <div class="col-sm-2 inner-addon right-addon">
+                    <input type="text" class="form-control" id="firstName" name="firstName" ng-model="vm.userDetails.firstName" maxlength="15" chars="only-letters" required>
+                </div>
+                <div class="col-sm-2"></div>
+                <label for="lastName" class="control-label col-sm-3">Last Name</label>
+                <div class="col-sm-2">
+                    <input type="text" class="form-control" id="lastName" name="lastName" ng-model="vm.userDetails.lastName" maxlength="15" chars="only-letters" required>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group required">
+                <label for="solId" class="control-label col-sm-3">Sol ID</label>
+                <div class="col-sm-2">
+                    <input type="text" class="form-control" id="solId" name="solId" ng-model="vm.userDetails.solId" maxlength="8" chars="alpha-numeric" required>
+                </div>
+                <div class="col-sm-2"></div>
+                <label for="empCode" class="control-label col-sm-3">Employee Code</label>
+                <div class="col-sm-2">
+                    <input type="text" class="form-control" id="empCode" name="empCode" ng-model="vm.userDetails.employeeCode" maxlength="15" chars="alpha-numeric" required>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group required ">
+                <label for="applicationName" class="control-label col-sm-3">Application Name</label>
+                <div class="col-sm-2 ">
+                    <select class="form-control" id="applicationName" name="applicationName" ng-model="vm.userDetails.applicationName" required>
+                        <option value="">Select </option>
+                        <option value="GU">GU</option>
+                        <option value="DC">DC</option>
+                    </select>                   
+                </div>
+                <div class="col-sm-2"></div>
+                <label for="locationCode" class="control-label col-sm-3">Location Code</label>
+                <div class="col-sm-2">
+                    <input type="text" class="form-control" id="locationCode" name="locationCode" ng-model="vm.userDetails.locationCode" chars="alpha-numeric" required>
+                </div>
+            </div>
+
+        </div>
+        <div class="row">
+            <div class="form-group ">
+                <label for="supervisorCode" class="control-label col-sm-3">Supervisor Code</label>
+                <div class="col-sm-2">
+                    <input type="text" class="form-control" id="supervisorCode" name="supervisorCode" ng-model="vm.userDetails.supervisorCode" maxlength="15" chars="alpha-numeric">
+                </div>
+                <div class="col-sm-2"></div>
+                <label for="departmentCode" class="control-label col-sm-3">Department Code</label>
+                <div class="col-sm-2">
+                    <input type="text" class="form-control" id="departmentCode" name="departmentCode" ng-model="vm.userDetails.departmentCode" chars="alpha-numeric">
+                </div>
+            </div>
+
+        </div>
+        <div class="row">
+            <div class="form-group required">
+                <label for="userType" class="control-label col-sm-3">User Type</label>
+                <div class="col-sm-2" ng-init="">
+                    <select class="form-control" id="userType"
+                            name="userType" ng-model="vm.userDetails.userType" required>
+                        <option value="" hidden="true">SELECT</option>
+                        <option ng-repeat="item in vm.userTypeList" value="{{item.value}}" ng-bind="item.label"></option>
+                    </select>
+                </div>
+                <div class="col-sm-2"></div>
+                <label ng-if="vm.userDetails.userType == 'C'" for="userPasswordExpiryDate" class="control-label col-sm-3">User Account Expiry Date</label>
+                <div class="col-md-2">
+                    <p class="input-group" ng-if="vm.userDetails.userType == 'C'">
+                        <input type="text" class="form-control" uib-datepicker-popup="dd/MM/yyyy" id="userPasswordExpiryDate"
+                               ng-model="vm.userDetails.userExpiryDate" is-open="popup1.opened" datepicker-options="vm.dateOptions" ng-required="true" close-text="Close" alt-input-formats="altInputFormats" />
+                        <span class="input-group-btn">
+                            <button type="button" class="btn btn-secondary" ng-click="popup1.opened = true"><i class="glyphicon glyphicon-calendar"></i></button>
+                        </span>
+                    </p>
+                </div>
+ 
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="form-group required">
+                 <label for="username" class="control-label col-sm-3">Username</label>
+                <div class="col-sm-2">                    
+                    <input type="text" class="form-control" id="username" name="username" ng-model="vm.userDetails.username" maxlength="30" role="login" ng-pattern="/^[a-zA-Z\d\-_.]+$/" autocomplete="off" readonly onfocus="this.removeAttribute('readonly');" required>
+                </div>
+                <div class="col-sm-2"></div>
+                <label for="locationCode" class="control-label col-sm-3">User Domain</label>
+                  <div class="col-sm-2">
+                    <select class="form-control" id="userDomain" name="userDomain" ng-model="vm.userDetails.userDomain" required>
+                        <option value="">Select </option>
+                        <option value="Stand Alone">Stand Alone</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+
+
+
+<!--        <div class="row">-->
+<!--            <div class="form-group required">-->
+<!--                <label for="password" class="control-label col-sm-3">Password</label>-->
+<!--                <div class="col-sm-2">-->
+<!--                    <div style="display:none">-->
+<!--                            <input type="password" tabindex="-1"/>-->
+<!--                        </div>-->
+<!--                    <input type="password" class="form-control" id="password" name="password" ng-model="vm.userDetails.password" ng-disabled="vm.userDetails.userDomain == 'Finacle'" maxlength="15" role="login"-->
+<!--                           ng-pattern="/^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[!#$%&'()*+,-./:;<=>?@[\]^_` {|}~])[A-Za-z\d !#$%&'()*+,-./:;<=>?@[\]^_` {|}~]{6,25}$/"-->
+<!--                           ng-required="vm.userDetails.userDomain != 'Finacle'" autocomplete="off" readonly onfocus="this.removeAttribute('readonly');">-->
+<!--                    <div class="messages" ng-show="userRegistrationForm.password.$touched">-->
+<!--                        <p ng-show="userRegistrationForm.password.$error.required">This field is required</p>-->
+<!--                        <p ng-show="userRegistrationForm.password.$error.pattern">Password should be at least 8 characters long and should contain one number,one small letter,one capital letter and one special character.</p>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--                <div class="col-sm-2"></div>-->
+<!--                <label for="confirmPassword" class="control-label col-sm-3">Confirm Password</label>-->
+<!--                <div class="col-sm-2" ng-class="{ 'has-error': userRegistrationForm.confirmPassword.$dirty && (userRegistrationForm.confirmPassword.$error.required || userRegistrationForm.confirmPassword.$error.compareTo )}">-->
+<!--                    <input type="password" class="form-control" id="confirmPassword" name="confirmPassword" ng-model="vm.userDetails.confirmPassword"-->
+<!--                           ng-disabled="userRegistrationForm.password.$error.pattern || vm.userDetails.userDomain == 'Finacle'" role="login"-->
+<!--                           compare-to="vm.userDetails.password" maxlength="15" ng-required="vm.userDetails.userDomain != 'Finacle'" autocomplete="off" readonly-->
+<!--                           onfocus="this.removeAttribute('readonly');">-->
+<!--                    <div class="messages" ng-show="userRegistrationForm.confirmPassword.$touched">-->
+<!--                        <p ng-show="userRegistrationForm.confirmPassword.$error.required">This field is required</p>-->
+<!--                        <p ng-show="userRegistrationForm.confirmPassword.$dirty && userRegistrationForm.confirmPassword.$error.compareTo">Password doesn't match</p>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+        <div class="col-sm-offset-5 col-sm-8 form_submit">
+            <button type="submit" class="btn btn-default" id="submitButton" ng-disabled="userRegistrationForm.$invalid">Submit</button>
+            <button type="button" class="btn btn-cancel" id="cancelButton" ng-click="vm.showCancelConfirmation()">Cancel</button>
+        </div>
+        <div class="text-center">
+            <notice-message-directive></notice-message-directive>
+        </div>
+    </form>
+</div>

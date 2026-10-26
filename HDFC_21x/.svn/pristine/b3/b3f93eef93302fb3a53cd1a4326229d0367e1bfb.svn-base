@@ -1,0 +1,281 @@
+<div class="container from_wrapper new_form_wrapper">
+    <div class="loader-new" ng-if="vm.loader"></div>
+
+    <!-- first screen -->
+
+    <h4 class="form_heading">Report on Branch-wise / Dept.-Wise Users With Respective Roles & Privileges As of Date</h4>
+    <form name="report_on_branch_wise_dept_wise_users" role="form">
+        <div class="row">
+            <div class="form-group">
+                <div class="col-sm-1"></div>
+                <div class="col-sm-2" ng-init="vm.getReportDetails('DC')">
+                    <label class="control-label">DC ID</label>
+                </div>
+                <div class="col-sm-2">
+                    <label class="form-control">{{vm.dcId}}</label>
+                </div>
+                <div class="col-sm-1"></div>
+                <div class="col-sm-2">
+                    <label class="control-label">DC Description</label>
+                </div>
+                <div class="col-sm-2">
+                    <label class="form-control">{{vm.dcDescription}}</label>
+                </div>
+            </div>
+        </div>
+        <!--Branch ID Code-->
+        <div class="row">
+            <div class="form-group">
+                <div class="col-sm-1"></div>
+                <div class="col-sm-2" ng-class="{'required': !vm.deptCode}">
+                    <label for="branchId" class="control-label">Branch ID</label>
+                </div>
+                <div class="col-sm-2">
+                    <input type="text" class="form-control" id="branchId"
+                           ng-required="!vm.deptCode"
+                           ng-init="vm.branchId = '';"
+                           ng-change="vm.deptCode = vm.userId = '';"
+                           ng-model="vm.branchId" chars="only-numbers" maxlength="25" readonly>
+                </div>
+                <div class="col-sm-1">
+                    <i class="glyphicon glyphicon-search cp" data-bs-toggle="modal"
+                       id="branchIdSearch"
+                       ng-click="vm.getReportDetails('B'); vm.searchSolId = ''"></i> <i
+                        class="glyphicon glyphicon-remove clear cp"
+                        ng-click="vm.branchId='';vm.branchDescription=''; vm.deptCode = vm.userId = '';"></i>
+                </div>
+                <div class="col-sm-2" ng-class="{'required': !vm.branchId}">
+                    <label for="branchId" class="control-label">Dept. Code</label>
+                </div>
+                <div class="col-sm-2">
+                    <input type="text" class="form-control" id="deptCode"
+                           ng-required="!vm.branchId"
+                           ng-init="vm.deptCode = '';"
+                           ng-change="vm.userId = '';"
+                           ng-model="vm.deptCode" chars="alpha-numeric" maxlength="25" readonly>
+                </div>
+                <div class="col-sm-1">
+                    <i class="glyphicon glyphicon-search cp" data-bs-toggle="modal"
+                       id="deptCodeSearch"
+                       ng-click="vm.getReportDetails('D'); vm.searchDeptCode = ''"></i> <i
+                        class="glyphicon glyphicon-remove clear cp"
+                        ng-click="vm.deptCode = vm.userId = '';" ></i>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group">
+                <div class="col-sm-1"></div>
+                <div class="col-sm-2">
+                    <label for="branchId" class="control-label">User ID</label>
+                </div>
+                <div class="col-sm-2">
+                    <input type="text" class="form-control" id="userId"
+                           ng-init="vm.userId = '';"
+                           ng-model="vm.userId" chars="alpha-numeric" maxlength="25" readonly>
+                </div>
+                <div class="col-sm-1">
+                    <i class="glyphicon glyphicon-search cp" data-bs-toggle="modal"
+                       id="userIdSearch"
+                       ng-click="vm.getReportDetails('U'); vm.searchUserId= ''"></i> <i
+                        class="glyphicon glyphicon-remove clear cp"
+                        ng-click="vm.userId = '';" ></i>
+                </div>
+                <div class="col-sm-2">
+                    <label class="control-label">Date</label>
+                </div>
+                <div class="col-sm-2">
+                    <label class="form-control">{{vm.solDate}}</label>
+                </div>
+            </div>
+        </div>
+
+        <!--SubmitButton and CancelButton-->
+        <div class="row">
+            <div class="text-center form_submit">
+                <button type="submit" class="btn btn-default" id="submitButton"
+                        ui-sref="report_on_branch_wise_dept_wise_users.inquiry_details({obj:{
+							    dcId:vm.dcId,
+							    dcDescription:vm.dcDescription,
+							    branchId:vm.branchId,
+							    branchDescription:vm.branchDescription,
+							    deptCode:vm.deptCode,
+							    userId:vm.userId
+								}})"
+                        ng-disabled="report_on_branch_wise_dept_wise_users.$invalid" >Submit
+                </button>
+                <button type="button" class="btn btn-cancel" id="cancel"
+                        ui-sref="report_menu_page">Cancel</button>
+            </div>
+            <div class="text-center">
+                <notice-message-directive></notice-message-directive>
+            </div>
+        </div>
+    </form>
+</div>
+
+
+
+
+
+
+<!--Branch ID  Modal-->
+<div class="modal" id="branchSearcher" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-bs-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Branch ID</h4>
+            </div>
+            <div class="modal-body">
+                <div class="loader_popup"></div>
+                <div class="list_wrapper" ng-if="vm.report.length>0">
+                    <div class="col-sm-8 form_submit">
+                        <div class="form-group">
+                            <div class="input-group">
+                                <div class="input-group-addon">
+                                    <i class="glyphicon glyphicon-search"></i>
+                                </div>
+                                <input type="text" class="form-control"
+                                       ng-model="vm.searchSolId" ng-init="vm.searchSolId = ''"
+                                       placeholder="Search">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4 form_submit"></div>
+                    <div class="row">
+
+                        <div class="col-sm-12">
+                            <table class="table table-bordered list scroll">
+                                <thead ng-init="reverseOrder = false; sortedColumn = 'branchId'">
+                                <tr>
+                                    <th class="modal-title title-case" ng-click="(sortedColumn == 'branchId')?(reverseOrder=(!reverseOrder)): (reverseOrder = false);sortedColumn = 'branchId';" ng-class="(sortedColumn == 'branchId')?((reverseOrder)?('arrow-down') : ('arrow-up') ) : ('')">Branch Id</th>
+                                    <th class="modal-title title-case" ng-click="(sortedColumn == 'branchDescription')?(reverseOrder=(!reverseOrder)): (reverseOrder = false);sortedColumn = 'branchDescription';" ng-class="(sortedColumn == 'branchDescription')?((reverseOrder)?('arrow-down') : ('arrow-up') ) : ('')">Branch Description</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr class="cp"
+                                    ng-repeat="x in vm.report | filter:vm.searchSolId | orderBy:sortedColumn:reverseOrder"
+                                    ng-click="vm.branchId = x.branchId; vm.branchDescription = x.branchDescription" data-bs-dismiss="modal">
+                                    <td>{{x.branchId}}</td>
+                                    <td>{{x.branchDescription}}</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="list_wrapper" ng-if="vm.report.length==0">No records found to display.</div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!--Dept.  Modal-->
+<div class="modal" id="deptSearcher" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-bs-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Dept. Code</h4>
+            </div>
+            <div class="modal-body">
+                <div class="loader_popup"></div>
+                <div class="list_wrapper" ng-if="vm.report.length>0">
+                    <div class="col-sm-8 form_submit">
+                        <div class="form-group">
+                            <div class="input-group">
+                                <div class="input-group-addon">
+                                    <i class="glyphicon glyphicon-search"></i>
+                                </div>
+                                <input type="text" class="form-control"
+                                       ng-model="vm.searchDeptCode" ng-init="vm.searchDeptCode = ''"
+                                       placeholder="Search">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4 form_submit"></div>
+                    <div class="row">
+
+                        <div class="col-sm-12">
+                            <table class="table table-bordered list scroll">
+                                <thead ng-init="reverseOrder = false; sortedColumn = 'deptCode'">
+                                <tr>
+                                    <th class="modal-title title-case" ng-click="(sortedColumn == 'deptCode')?(reverseOrder=(!reverseOrder)): (reverseOrder = false);sortedColumn = 'deptCode';" ng-class="(sortedColumn == 'deptCode')?((reverseOrder)?('arrow-down') : ('arrow-up') ) : ('')">Dept. Code</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr class="cp"
+                                    ng-repeat="x in vm.report | filter:vm.searchDeptCode | orderBy:sortedColumn:reverseOrder"
+                                    ng-click="vm.deptCode = x.deptCode;" data-bs-dismiss="modal">
+                                    <td>{{x.deptCode}}</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="list_wrapper" ng-if="vm.report.length==0">No records found to display.</div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!--USER ID  Modal-->
+<div class="modal" id="userSearcher" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-bs-dismiss="modal">&times;</button>
+                <h4 class="modal-title">User ID</h4>
+            </div>
+            <div class="modal-body">
+                <div class="loader_popup"></div>
+                <div class="list_wrapper" ng-if="vm.report.length>0">
+                    <div class="col-sm-8 form_submit">
+                        <div class="form-group">
+                            <div class="input-group">
+                                <div class="input-group-addon">
+                                    <i class="glyphicon glyphicon-search"></i>
+                                </div>
+                                <input type="text" class="form-control"
+                                       ng-model="vm.searchUserId" ng-init="vm.searchUserId = ''"
+                                       placeholder="Search">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4 form_submit"></div>
+                    <div class="row">
+
+                        <div class="col-sm-12">
+                            <table class="table table-bordered list scroll">
+                                <thead ng-init="reverseOrder = false; sortedColumn = 'userId'">
+                                <tr>
+                                    <th class="modal-title title-case" ng-click="(sortedColumn == 'userId')?(reverseOrder=(!reverseOrder)): (reverseOrder = false);sortedColumn = 'userId';" ng-class="(sortedColumn == 'userId')?((reverseOrder)?('arrow-down') : ('arrow-up') ) : ('')">User Id</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr class="cp"
+                                    ng-repeat="x in vm.report | filter:vm.searchUserId | orderBy:sortedColumn:reverseOrder"
+                                    ng-click="vm.userId = x.userId;" data-bs-dismiss="modal">
+                                    <td>{{x.userId}}</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="list_wrapper" ng-if="vm.report.length==0">No records found to display.</div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+

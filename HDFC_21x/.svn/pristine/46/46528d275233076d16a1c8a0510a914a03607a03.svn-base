@@ -1,0 +1,218 @@
+<div class="loader-new" ng-if="vm.loader"></div>
+<cbs-left-menu></cbs-left-menu>
+<div class="container from_wrapper new_form_wrapper">
+	<h4 class="form_heading  feature-heading">Office Account Place
+		Holder - Modify</h4>
+	<form name="officeAccountsForm" role="form">
+		<div class="col-sm-6 col-sm-offset-3">
+			<div class="row">
+				<div class="form-group required">
+					<div class="col-sm-6">
+						<label for="bacId" class="control-label">Place Holder</label>
+					</div>
+					<div class="col-sm-4">
+						<input type="text" class="form-control" id="bacid"
+							   ng-init="vm.bacId=''" ng-model="vm.bacId" readonly required>
+					</div>
+					<div class="col-sm-2">
+						<i class="glyphicon glyphicon-search cp" data-bs-toggle="modal"
+						   id="schemeCodeSearch"
+						   ng-click="vm.getModSchemeCodeSel(); vm.searchSchemeCode =  '';"></i> <i
+							class="glyphicon glyphicon-remove clear cp"
+							ng-click="vm.bacId = vm.bacIdDescription = vm.schemeType  = '';"></i>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="form-group">
+					<div class="col-sm-6 required">
+						<label for="bacIdDescription" class="control-label">Placeholder Description</label>
+					</div>
+					<div class="col-sm-4">
+						<input type="text" class="form-control" id="bacIdDescription"
+							   name="bacIdDescription" ng-model="vm.bacIdDescription"
+							   maxlength="80" readonly required>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="form-group">
+					<div class="col-sm-6 required">
+						<label for="schemeType" class="control-label">Type of Scheme</label>
+					</div>
+					<div class="col-sm-4">
+						<input type="text" class="form-control" id="schemeType"
+							   name="schemeType" ng-model="vm.schemeType"
+							   maxlength="80" readonly required>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="form-group">
+					<div class="col-sm-6">
+						<label for="addText1" class="control-label">Additional
+							Text1</label>
+					</div>
+					<div class="col-sm-4">
+						<input type="text" class="form-control" name="addText1"
+							   id="addText1" ng-model="vm.result.additionalText1" maxlength="40"
+							   chars="alpha-numeric">
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="form-group">
+					<div class="col-sm-6">
+						<label for="addText2" class="control-label">Additional
+							Text2</label>
+					</div>
+					<div class="col-sm-4">
+						<input type="text" class="form-control" name="addText2"
+							   id="addText2" ng-model="vm.result.additionalText2" maxlength="40"
+							   chars="alpha-numeric">
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="form-group">
+					<div class="col-sm-6">
+						<label for="addText3" class="control-label">Additional
+							Text3</label>
+					</div>
+					<div class="col-sm-4">
+						<input type="text" class="form-control" name="addText3"
+							   id="addText3" ng-model="vm.result.additionalText3" maxlength="40"
+							   chars="alpha-numeric">
+					</div>
+				</div>
+			</div>
+		</div>
+			<div class="col-sm-12">
+				<div class="audit-details" ng-if="vm.schemeType">
+					<div class="row">
+						<div class="col-md-3">
+						<span>
+							<b> Created By </b> : {{vm.result.createdBy}}
+						</span>
+						</div>
+						<div class="col-md-3">
+						<span>
+							<b> Last Modified By </b> : {{(vm.result.lastModifiedBy) ? (vm.result.lastModifiedBy) : ('None')}}
+						</span>
+						</div>
+						<div class="col-md-3">
+						<span>
+							<b> Last Verified By </b> : {{(vm.result.verifiedBy) ? (vm.result.verifiedBy) : ('None')}}
+						</span>
+						</div>
+						<div class="col-md-3">
+						<span>
+							<b> Verify Status </b> : {{vm.result.verifiedStatus  | getLabelFromValuesArray : vm.commonYesNoMetaData}}
+						</span>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-3">
+						<span>
+							<b> Created On </b> : {{ vm.result.createdDate1 | date : 'dd/MM/yyyy'}}
+						</span>
+						</div>
+						<div class="col-md-3">
+						<span>
+							<b> Last Modified On</b> : {{ (vm.result.modifiedDate1) ? (vm.result.modifiedDate1 | date : 'dd/MM/yyyy') : ('None')}}
+						</span>
+						</div>
+						<div class="col-md-3">
+						<span>
+							<b> Last Verified On </b> : {{(vm.result.verifiedDate1) ? (vm.result.verifiedDate1 | date : 'dd/MM/yyyy') : ('None')}}
+						</span>
+						</div>
+						<div class="col-md-3"></div>
+					</div>
+				</div>
+
+
+			<div class="row">
+				<div class="text-center form_submit">
+
+					<button type="submit" class="btn btn-default" id="submitButton"
+							ng-disabled="officeAccountsForm.$invalid" ng-click="vm.modify()">Update</button>
+					<button type="button" class="btn btn-cancel" id="cancelButton"
+							ui-sref="office_account_place_holder.list">Cancel</button>
+				</div>
+			</div>
+		</div>
+
+
+
+	</form>
+</div>
+
+<div class="container list_wrapper" ng-if="vm.recordsList.length <= 0">
+
+	<h4 class="feature-heading">Scheme Codes -Inquiry</h4>
+	<div class="no_records_message">No records found to display.</div>
+	<div class="text-center">
+		<button type="button" class="btn btn-default"
+				onclick="window.location.href = '#!/cbs_master_updation'">Cancel</button>
+	</div>
+</div>
+
+
+
+<div class="modal" id="schemeCodeSearcher" role="dialog">
+	<div class="modal-dialog">
+		<!-- Modal content-->
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-bs-dismiss="modal">&times;</button>
+				<h4 class="modal-title">Place Holder</h4>
+			</div>
+			<div class="modal-body">
+				<div class="loader_popup"></div>
+				<div class="list_wrapper" ng-if="vm.schemeCodeList.length>0">
+					<div class="col-sm-8 form_submit">
+						<div class="form-group">
+							<div class="input-group">
+								<div class="input-group-addon">
+									<i class="glyphicon glyphicon-search"></i>
+								</div>
+								<input type="text" class="form-control"
+									   ng-model="vm.searchSchemeCode" ng-init="vm.searchSchemeCode = ''"
+									   placeholder="Search">
+							</div>
+						</div>
+					</div>
+					<div class="col-sm-4 form_submit"></div>
+					<div class="row">
+
+						<div class="col-sm-12">
+							<table class="table table-bordered list scroll">
+								<thead ng-init="reverseOrder = false; sortedColumn = 'bacId'">
+								<tr>
+									<th class="modal-title title-case" ng-click="(sortedColumn == 'bacId')?(reverseOrder=(!reverseOrder)): (reverseOrder = false);sortedColumn = 'schemeCode';" ng-class="(sortedColumn == 'bacId')?((reverseOrder)?('arrow-down') : ('arrow-up') ) : ('')">Place Holder</th>
+									<th class="modal-title title-case" ng-click="(sortedColumn == 'bacIdDescription')?(reverseOrder=(!reverseOrder)): (reverseOrder = false);sortedColumn = 'bacIdDescription';" ng-class="(sortedColumn == 'bacIdDescription')?((reverseOrder)?('arrow-down') : ('arrow-up') ) : ('')">Place Holder Description</th>
+									<th class="modal-title title-case" ng-click="(sortedColumn == 'schemeType')?(reverseOrder=(!reverseOrder)): (reverseOrder = false);sortedColumn = 'schemeType';" ng-class="(sortedColumn == 'schemeType')?((reverseOrder)?('arrow-down') : ('arrow-up') ) : ('')">Scheme Type</th>
+								</tr>
+								</thead>
+								<tbody>
+								<tr class="cp"
+									ng-repeat="x in vm.schemeCodeList | filter:vm.searchSchemeCode | orderBy:sortedColumn:reverseOrder"
+									ng-click="vm.bacId = x.bacId; vm.bacIdDescription = x.bacIdDescription;vm.schemeType = x.schemeType;vm.getModifyDetails();" data-bs-dismiss="modal">
+									<td>{{x.bacId}}</td>
+									<td>{{x.bacIdDescription}}</td>
+									<td>{{x.schemeType}}</td>
+								</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+				<div class="list_wrapper" ng-if="vm.schemeCodeList.length==0">No records found to display.</div>
+			</div>
+
+		</div>
+	</div>
+</div>
+
+

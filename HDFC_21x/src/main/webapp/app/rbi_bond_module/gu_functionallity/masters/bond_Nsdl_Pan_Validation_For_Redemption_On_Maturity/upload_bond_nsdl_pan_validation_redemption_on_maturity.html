@@ -1,0 +1,136 @@
+<div class="loader-new" ng-if="vm.loader"></div>
+<dc-left-menu></dc-left-menu>
+<div class="container from_wrapper new_form_wrapper">
+    <h4 class="form_heading">NSDL PAN VALIDATION for Redemption - Upload</h4>
+    <sol-header></sol-header>
+    <form name="bondNsdlPanValidationForm" role="form" enctype="multipart/form-data">
+        <div class="col-sm-6 col-sm-offset-3">
+            <div class="row">
+                <div class="form-group required">
+                    <div class="col-sm-6">
+                        <label for="moduleName" class="control-label">Name of the module</label>
+                    </div>
+                    <div class="col-sm-4">
+                        <input type="text" class="form-control" id="moduleName" ng-model="vm.moduleName"
+                               required readonly>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group required">
+                    <div class="col-sm-6">
+                        <label class="control-label">Scheme Name</label>
+                    </div>
+                    <div class="col-sm-4">
+                        <input type="text" class="form-control" id="schemeName"
+                               name="schemeName" ng-model="vm.schemeName" readonly required>
+                    </div>
+                    <div class="col-sm-2">
+                        <i class="glyphicon glyphicon-search cp" data-bs-toggle="modal"
+                           id="levelNameSearcher"
+                           ng-click="vm.getUploadModuleName();vm.searchlevelName = ''"></i>
+                        <i class="glyphicon glyphicon-remove clear cp"
+                           ng-click="vm.schemeName='';"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group required">
+                    <div class="col-sm-6">
+                        <label for="type" class="control-label">Type</label>
+                    </div>
+                    <div class="col-sm-4">
+                        <select  class="form-control" id="type" name="type" ng-model="vm.type" required>
+                            <option value="" hidden="true">Select</option>
+                            <option ng-repeat="item in vm.typeList" value="{{item.subCode}}">{{item.subCodeDescription}}</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group required">
+                    <div class="col-sm-6">
+                        <label for="fileType" class="control-label">File Type</label>
+                    </div>
+                    <div class="col-sm-4">
+                        <select  class="form-control" id="fileType" name="fileType" ng-model="vm.fileType" required>
+                            <option value="" hidden="true">Select</option>
+                            <option ng-repeat="item in vm.fileTypeList" value="{{item.subCode}}">{{item.subCodeDescription}}</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group required">
+                    <div class="col-sm-6">
+                        <label for="files" class="control-label">Upload File</label>
+                    </div>
+                    <div class="col-sm-4">
+                        <input type="file" id="fileInput" ng-model="vm.file" file-model="vm.files" name="files" accept=".xlsx" onchange="angular.element(this).scope().vm.handleFiles(this);" runat="server" valid-file required>
+                        <span class="text-danger" ng-show="vm.invalidFile" >{{vm.errorMessage}}</span>
+                    </div>
+                </div>
+            </div>
+            <div style="text-align:right">
+                <a ui-sref="{{}}" ng-click="vm.template()">download Template</a></div>
+            <div class="text-center form_submit">
+                <button type="submit" class="btn btn-default" id="submitButton"
+                        ng-disabled="bondNsdlPanValidationForm.$invalid" ng-click="vm.fileUploadSubmit();">Upload</button>
+                <button type="button" class="btn btn-cancel" id="cancelButton"
+                        onclick="window.location.href= '#!/bond_nsdl_pan_validation_redemption_on_maturity/action/inquiry'">Cancel</button>
+            </div>
+            <div class="text-center">
+                <notice-message-directive></notice-message-directive>
+            </div>
+        </div>
+    </form>
+</div>
+<div class="modal" id="levelNameModal" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-bs-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Scheme Master Name</h4>
+            </div>
+            <div class="modal-body">
+                <div class="loader_popup"></div>
+                <div class="list_wrapper" ng-if="vm.schemeNameList.length>0">
+                    <div class="col-sm-8 form_submit">
+                        <div class="form-group">
+                            <div class="input-group">
+                                <div class="input-group-addon">
+                                    <i class="glyphicon glyphicon-search"></i>
+                                </div>
+                                <input type="text" class="form-control"
+                                       ng-model="vm.searchlevelName" ng-init="vm.searchlevelName = ''"
+                                       placeholder="Search">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4 form_submit"></div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <table class="table table-bordered list scroll">
+                                <thead ng-init="reverseOrder = false; sortedColumn = 'subCodeDesc'">
+                                <tr>
+                                    <th class="modal-title title-case" ng-click="(sortedColumn == 'subCodeDesc')?(reverseOrder=(!reverseOrder)): (reverseOrder = false);sortedColumn = 'subCodeDesc';" ng-class="(sortedColumn == 'subCodeDesc')?((reverseOrder)?('arrow-down') : ('arrow-up') ) : ('')">Scheme Name</th>
+                                    <th class="modal-title title-case" ng-click="(sortedColumn == 'schemeStatus')?(reverseOrder=(!reverseOrder)): (reverseOrder = false);sortedColumn = 'schemeStatus';" ng-class="(sortedColumn == 'schemeStatus')?((reverseOrder)?('arrow-down') : ('arrow-up') ) : ('')">schemeStatus</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr class="cp"
+                                    ng-repeat="x in vm.schemeNameList | filter:vm.searchlevelName | orderBy:sortedColumn:reverseOrder"
+                                    ng-click="vm.schemeName=x.subCodeDesc;vm.schemeCode=x.subCode;vm.schemeStatus=x.schemeStatus"  data-bs-dismiss="modal">
+                                    <td>{{x.subCodeDesc}}</td>
+                                    <td>{{x.schemeStatus}}</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="list_wrapper" ng-if="vm.schemeNameList.length==0">No records found to display.</div>
+            </div>
+        </div>
+    </div>
+</div>

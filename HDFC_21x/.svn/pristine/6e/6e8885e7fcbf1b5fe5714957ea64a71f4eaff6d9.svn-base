@@ -1,0 +1,123 @@
+<div class="loader-new" ng-if="vm.loader"></div>
+<dc-left-menu></dc-left-menu>
+<div class="container from_wrapper new_form_wrapper">
+
+    <h4 class="form_heading">{{vm.screenModule}} Interest Rate Code Maintenance for Investment schemes - Add</h4>
+    <sol-header></sol-header>
+    <form name="interestRateCodeMaintenanceforInvestmentSchemesForm" role="form">
+        <div class="col-sm-6 col-sm-offset-3">
+
+            <div class="row">
+                <div class="form-group required">
+                    <div class="col-sm-6">
+                        <label for="moduleName" class="control-label">Module Name</label>
+                    </div>
+                    <div class="col-sm-4">
+                        <select class="form-control" id="moduleName" name="moduleName"
+                                ng-model="vm.moduleId"
+                                ng-init="vm.getModuleName();" required>
+                            <option value="" hidden="true">Select</option>
+                            <option ng-repeat="item in vm.moduleList" value="{{item.subCode}}">{{item.subCodeDescription}}</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group required">
+                    <div class="col-sm-6">
+                        <label for="interestRateCode" class="control-label">Interest Rate Code</label>
+                    </div>
+                    <div class="col-sm-4">
+                        <input type="text" class="form-control" id="interestRateCode"
+                               chars="alpha-numeric" onkeypress='return event.charCode != 32'
+                               ng-model="vm.interestRateCode" maxlength="5" required>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group required">
+                    <div class="col-sm-6">
+                        <label for="interestRateCodeDescription" class="control-label">Interest Rate Code Description</label>
+                    </div>
+                    <div class="col-sm-4">
+                        <input type="text" class="form-control" id="interestRateCodeDescription"
+                               chars="alpha-numeric"
+                               ng-model="vm.interestRateCodeDesc" maxlength="50" required>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group required">
+                    <div class="col-sm-6">
+                        <label for="version" class="control-label">Version</label>
+                    </div>
+                    <div class="col-sm-4">
+                        <input type="text" class="form-control" id="version"
+                               ng-init="vm.version ='00001'" ng-model="vm.version" maxlength="5" required readonly>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group required">
+                    <div class="col-sm-6">
+                        <label for="effFromDate" class="control-label">Effective From Date<br>(dd/mm/yyyy)</label>
+                    </div>
+                    <div class="col-sm-4">
+                        <p class="input-group">
+                            <input type="text" class="form-control" id="effFromDate"
+                                   name="effFromDate" ng-model="vm.effFromDate"
+                                   uib-datepicker-popup="dd/MM/yyyy"
+                                   datepicker-options="vm.dateOptions"
+                                   is-open="vm.effFromDatePicker.opened" close-text="Close"
+                                   maxlength="10" readonly required>
+                            <span class="input-group-btn">
+                            <button type="button" class="btn btn-secondary"
+                                    ng-click="vm.effFromDatePicker.opened = true"
+                                    id="effFromDateSearcher">
+                                <i class="glyphicon glyphicon-calendar"></i>
+                            </button>
+                        </span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="form-group required">
+                    <div class="col-sm-6">
+                        <label for="interestRate" class="control-label">Interest Rate (%)</label>
+                    </div>
+                    <div class="col-sm-4">
+                        <input type="text" class="form-control" id="interestRate" chars="float"
+                               ng-blur="vm.decimalConvert(vm.interestRate);"
+                               ng-model="vm.interestRate" maxlength="5" required>
+                        <span class="alert-danger" name="errorMsgAddInterestRate" ng-show="vm.errorMsgAddInterestRate">Entered Input should not exceed 100</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="form-group">
+                    <div class="col-sm-6">
+                        <label for="remarks" class="control-label">Remarks</label>
+                    </div>
+                    <div class="col-sm-4">
+                        <input type="text" class="form-control" id="remarks"
+                               ng-model="vm.remarks" maxlength="50">
+                    </div>
+                </div>
+            </div>
+
+            <div class="text-center form_submit">
+                <button type="submit" class="btn btn-default" id="submitButton" ng-disabled="interestRateCodeMaintenanceforInvestmentSchemesForm.$invalid" ng-click="vm.addSubmit();">Submit</button>
+                <button type="button" class="btn btn-cancel" id="cancelButton"
+                        ng-click="vm.goPreviousState()">Cancel</button>
+            </div>
+            <div class="text-center">
+                <notice-message-directive></notice-message-directive>
+            </div>
+        </div>
+    </form>
+</div>
+
+

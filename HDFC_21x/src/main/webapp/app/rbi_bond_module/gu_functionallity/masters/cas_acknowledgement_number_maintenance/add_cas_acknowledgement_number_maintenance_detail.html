@@ -1,0 +1,145 @@
+
+<div class="container from_wrapper">
+    <div class="loader-new" ng-if="vm.loader"></div>
+    <dc-left-menu></dc-left-menu>
+    <h4 class="form_heading">CAS ACKNOWLEDGEMENT NUMBER MAINTENANCE - Add</h4>
+    <sol-header></sol-header>
+<form name="cas_acknowledgement_number_maintenance" role="form"   novalidate>
+<!--    <div class="container from_wrapper new_form_wrapper">-->
+        <div class="row">
+            <div class="col-sm-12">
+                <table class="table table-bordered table-striped list">
+                    <tr>
+                        <td width="25%" class="form-group">
+                            <label class="control-label">Name of the Bond Scheme</label></td>
+                        <td width="25%">
+                            <label class="control-label" >{{vm.schemeName}}</label>
+                        </td>
+                        <td width="25%" class="form-group">
+                            <label class="control-label">Subscription Date</label></td>
+                        <td width="25%">
+                            <label class="control-label" >{{vm.subsDate}}</label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th  width="25%">CAS Acknowledgement Number</th>
+                        <td  width="25%"><input type="text" ng-if="vm.casAckDate" class="form-control" id="casAckNum"
+                                                name="casAckNum" chars="only-numbers" ng-model="vm.casAckNum" required readonly></td>
+                        <th  width="25%">CAS Acknowledgement Date</th>
+                        <td  width="25%"> <p class="input-group">
+                            <input type="text" class="form-control" id="casAckDate"
+                                   name="casAckDate" ng-model="vm.casAckDate"
+                                   uib-datepicker-popup="dd/MM/yyyy" ng-change="vm.uniqueAckNum(vm.casAckDate);"
+                                   datepicker-options="vm.dateOptions"
+                                   is-open="vm.dateOptions.opened" close-text="Close" required readonly  >
+                            <span class="input-group-btn">
+                    <button type="button" class="btn btn-secondary"
+                            ng-click="vm.dateOptions.opened = true"
+                            id="dateOptionsSearcher">
+                        <i class="glyphicon glyphicon-calendar"></i>
+                    </button>
+                    </span>
+                        </p></td>
+                    </tr>
+                    <tr>
+                        <th  width="25%">CAS Transfer Date</th>
+                        <td  width="25%"> <p class="input-group">
+                            <input type="text" class="form-control" id="casTranDate"
+                                   name="casTranDate" ng-model="vm.casTranDate"
+                                   uib-datepicker-popup="dd/MM/yyyy"
+                                   datepicker-options="vm.dateOptions1"
+                                   is-open="vm.dateOptions1.opened" close-text="Close" required readonly  >
+                            <span class="input-group-btn">
+                    <button type="button" class="btn btn-secondary"
+                            ng-click="vm.dateOptions1.opened = true"
+                            id="dateOptionsSearcher1">
+                        <i class="glyphicon glyphicon-calendar"></i>
+                    </button>
+                    </span>
+                        </p></td>
+                        <th  width="25%">Brokerage Advice Number</th>
+                        <td  width="25%"><input type="text" ng-if="vm.brkAdviceNumber" class="form-control" id="brkAdviceNumber"
+                                                name="brkAdviceNumber" chars="only-numbers" ng-model="vm.brkAdviceNumber" required readonly></td>
+
+                    </tr>
+                </table>
+                <input type="hidden" id="hiddenInputField" value=""/>
+                <table class="table table-bordered table-striped list">
+                        <thead>
+                        <tr>
+<!--
+                            <th>Check box</th>
+-->
+                            <th>S.No</th>
+                            <th>Bond Ledger Account Number</th>
+                            <th>Holder Name</th>
+                            <th>Subscription ID</th>
+                            <th>Subscription Amount</th>
+                            <th>Bond Type</th>
+                           <!-- <th class="form-group">CAS Acknowledgement Number</th>
+                            <th>CAS Acknowledgement Date (dd/mm/yyyy)</th>-->
+
+                        </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="items in vm.modelResult">
+                                 <!--<td>
+                                    <input type="checkbox" class="form-control" id="checkbox[$index]"
+                                           name="checkbox[$index]"  ng-model="vm.checkbox[items.subsId]" >
+                                </td>-->
+                                <td>{{vm.itemsPerPage*(vm.currentPage-1)+$index+1}} </td>
+
+                            <td>{{items.bondLedgeAccNum}}</td>
+                            <td>{{items.holderName}}</td>
+                            <td>{{items.subsId}}</td>
+                            <td>{{vm.indianNumberFormat(items.subsAmt)}}</td>
+                            <td>{{items.bondType}}</td>
+                               <!-- <td>
+                                    <input type="text"  ng-required="vm.checkbox[items.subsId]" class="form-control" id="casAckNum{{$index}}"
+                                           name="casAckNum{{$index}}" chars="only-numbers" ng-model="items.casAckNum"  >
+                                </td>
+
+                                <td width="25%">
+                                    <p class="input-group">
+                                        <input type="text"  ng-required="vm.checkbox[items.subsId]" class="form-control" id="casAckDate{{$index}}"
+                                               name="casAckDate{{$index}}" ng-model="items.casAckDate"
+                                               uib-datepicker-popup="dd/MM/yyyy"
+                                               datepicker-options="vm.dateOptions[$index]"
+                                               is-open="vm.kkkkkk[$index].opened" close-text="Close" required readonly  >
+                                        <span class="input-group-btn">
+                                                    <button type="button" class="btn btn-secondary"
+                                                            ng-click="vm.kkkkkk[$index].opened = true"
+                                                            id="kkkkkkSearcher">
+                                                        <i class="glyphicon glyphicon-calendar"></i>
+                                                    </button>
+                                                </span>
+                                    </p>
+                                </td>-->
+                        </tr>
+                        </tbody>
+                    <tfoot>
+                    <th colspan="1" style="text-align: right;">Total</th>
+                    <th colspan="2">{{vm.modelResult.length}}</th>
+                    <th colspan="1" style="text-align: right;">Total Subscription Amount</th>
+                    <th colspan="2">{{vm.indianNumberFormat(vm.totalSubScriptionAmount)}}</th>
+                    </tfoot>
+                    </table>
+                </div>
+                <div class="row">
+                    <div class="text-center form_submit">
+                        <button type="submit" class="btn btn-default" id="submitButton" ng-disabled="cas_acknowledgement_number_maintenance.$invalid"
+                                ng-click="vm.submitAddForm();">Submit
+                        </button>
+
+                        <button type="button" class="btn btn-cancel" id="cancel"
+                                onclick="window.location.href= '#!/cas_acknowledgement_number_maintenance/add';">Cancel</button>
+                    </div>
+                </div>
+
+                <div class="text-center">
+                    <notice-message-directive></notice-message-directive>
+                </div>
+            </div>
+<!--        </div>-->
+</form>
+</div>

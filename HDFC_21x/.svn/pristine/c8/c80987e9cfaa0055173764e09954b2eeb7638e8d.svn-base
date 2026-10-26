@@ -1,0 +1,297 @@
+<div class="loader-new" ng-if="vm.loader"></div>
+<!--<dc-left-menu></dc-left-menu>-->
+<div class="container" data-ng-if="!vm.noDataFound">
+    <div class="container from_wrapper new_form_wrapper" >
+
+        <div class="text-right form_submit">
+            <button type="submit" class="btn btn-default"
+                    onclick="window.location.href ='#!/';" id="homeButton">Home
+            </button>
+
+            <button type="button" id="cancel_Button" class="btn btn-cancel"
+                    onclick="window.location.href= '#!/tds_eligibility_report/action/inquiry';">Back
+            </button>
+        </div>
+
+        <h4 class="form_heading">TDS Eligibility Report</h4>
+
+        <sol-header></sol-header>
+
+
+        <div>
+            <table width="100% " class="table table-bordered" style="padding: 10px">
+                <tr>
+                    <th ng-if="vm.schemeName">Name of the Bond Scheme</th>
+                    <td ng-if="vm.schemeName">{{vm.schemeName}}</td>
+                    <th scope="col" style="width: 20%">Total Count</th>
+                    <td style="width: 20%">{{vm.total}}</td>
+                </tr>
+                <tr>
+                    <th ng-if="vm.panNo">Pan No</th>
+                    <td ng-if="vm.panNo">{{vm.panNo}}</td>
+                </tr>
+                <tr>
+                    <th >TDS Deduction From Date</th>
+                    <td>{{vm.fromDate | date: 'dd/MM/yyyy'}} </td>
+                </tr>
+                <tr>
+                    <th >TDS Deduction To Date</th>
+                    <td>{{vm.toDate | date: 'dd/MM/yyyy'}} </td>
+                </tr>
+
+            </table>
+        </div>
+
+        <form name="vm.bondNominationsForm" role="form">
+
+
+<!--            <div class="row" style="display: flex; align-items: center; justify-content: space-between;">-->
+<!--                &lt;!&ndash; Show Dropdown &ndash;&gt;-->
+<!--                <div class="col-sm-3" style="flex: 1">-->
+<!--                    <div class="form-group">-->
+<!--                        <table style="border-spacing: 2">-->
+<!--                            <caption style="display: none">-->
+<!--                                TDS eligibility report-->
+<!--                            </caption>-->
+<!--                            <tr>-->
+<!--                                <th scope="col"></th>-->
+<!--                            </tr>-->
+<!--                        </table>-->
+<!--                    </div>-->
+<!--                </div>-->
+
+                <!-- Search and Export Controls -->
+<!--                <div class="col-sm-6" style="display: flex; align-items: center; justify-content: flex-end;">-->
+<!--                    <div class="col-sm-2">-->
+<!--                        <select class="form-control pageDropDown" id="pageSize" name="pageSize"-->
+<!--                                ng-model="vm.pageSize" ng-init="vm.pageSize='10'" ng-change="vm.pageNo='1'; vm.getDetailspage();">-->
+<!--                            <option value="10" >10 per page</option>-->
+<!--                            <option value="20">20 per page</option>-->
+<!--                            <option value="50">50 per page</option>-->
+<!--                        </select>-->
+<!--                    </div>-->
+<!--                    &lt;!&ndash; Search &ndash;&gt;-->
+<!--                    <div class="col-sm-3"  style="display: flex; align-items: center; justify-content: flex-end;">-->
+<!--                        <div class="form-group" style="margin-right: 15px;">-->
+<!--                            <div class="input-group">-->
+<!--                                <input type="text" class="form-control searchButton"-->
+<!--                                       ng-model="vm.searchValue" ng-init="vm.searchValue = ''"-->
+<!--                                       placeholder="Search">-->
+<!--                                <div class="input-group-addon">-->
+<!--                                    <i class="glyphicon glyphicon-search" ng-click="vm.pageNo='1'; vm.getDetailspage()"></i>-->
+<!--                                    <i class="glyphicon glyphicon-remove clear cp" ng-click="vm.searchValue = ''; vm.pageNo='1'; vm.getDetailspage()"></i>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+
+<!--                    &lt;!&ndash; Export &ndash;&gt;-->
+<!--                    <div class=" form-group col-lg-3">-->
+<!--                        <select class="form-control"-->
+<!--                                id="downloadOptions"-->
+<!--                                name="export"-->
+<!--                                ng-disabled="vm.noDataFoundInSearch"-->
+<!--                                ng-model="vm.downloadType"-->
+<!--                                ng-init="vm.downloadType=''"-->
+<!--                                ng-change="vm.getDownload()">-->
+<!--                            <option value="">EXPORT</option>-->
+<!--                            <option value="excel">EXCEL</option>-->
+<!--                            <option value="csv">CSV</option>-->
+<!--                            &lt;!&ndash;                                <option value="pdf">PDF</option>&ndash;&gt;-->
+<!--                        </select>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+
+
+
+
+
+
+
+            <!-- Search and Export Controls -->
+            <div class="row">
+                <div class="col-sm-3"  style="display: flex; align-items: center; justify-content: flex-end;">
+                    <div class="form-group" style="margin-right: 15px;">
+                        <div class="input-group">
+                            <input type="text" class="form-control searchButton"
+                                   ng-model="vm.searchValue" ng-init="vm.searchValue = ''"
+                                   placeholder="Search">
+                            <div class="input-group-addon">
+                                <i class="glyphicon glyphicon-search" ng-click="vm.pageNo='1'; vm.getDetailspage()"></i>
+                                <i class="glyphicon glyphicon-remove clear cp" ng-click="vm.searchValue = ''; vm.pageNo='1'; vm.getDetailspage()"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+                <div class="col-sm-2">
+                    <select class="form-control pageDropDown" id="pageSize" name="pageSize"
+                            ng-model="vm.pageSize" ng-init="vm.pageSize='10'" ng-change="vm.pageNo='1'; vm.getDetailspage();" ng-disabled="vm.noDataFoundInSearch">
+                        <option value="10" >10 per page</option>
+                        <option value="20">20 per page</option>
+                        <option value="50">50 per page</option>
+                    </select>
+                </div>
+
+
+
+
+                <div class=" form-group col-lg-3" ng-disabled="vm.noDataFoundInSearch">
+                    <select class="form-control"
+                            id="downloadOptions"
+                            name="export"
+                            ng-disabled="vm.noDataFoundInSearch"
+                            ng-model="vm.downloadType"
+                            ng-init="vm.downloadType=''"
+                            ng-change="vm.getDownload()">
+                        <option value="">EXPORT</option>
+                        <option value="excel">EXCEL</option>
+                        <option value="csv">CSV</option>
+                        <!--                                <option value="pdf">PDF</option>-->
+                    </select>
+                </div>
+                <!--                    Pagination End-->
+            </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+            <div class="table-responsive">
+                <table class="table table-bordered table-striped list nowrap table-textWrap datatable">
+                    <thead>
+                    <tr>
+                        <th>S.No</th>
+                        <th>Customer Name</th>
+                        <th>PAN No</th>
+                        <th>Bond Ledger Account Number</th>
+                        <th>Bond Subscription ID</th>
+                        <th>Subscription on Date</th>
+                        <th>Subscription on Amount</th>
+                        <th>Interest Rate</th>
+                        <th>TDS Deduction From Period</th>
+                        <th>TDS Deduction To period</th>
+                        <th>Interest Paid Date</th>
+                        <th>Interest Payment Mode</th>
+                        <th>Credit Account Number</th>
+                        <th>Type of Certificate</th>
+                        <th>TDS Exemption Limit</th>
+                        <th>Low Tax Percentage</th>
+                        <th>PAN Status</th>
+                        <th>Gross Total Interest Amount Rs</th>
+                        <th>TDS Amount Rs</th>
+                        <th>TDS Deducted Percentage</th>
+                        <th>New Interest Amount Rs</th>
+                    </tr>
+                    </thead>
+                    <tbody ng-if="!vm.noDataFoundInSearch">
+<!--                    <tr ng-repeat="x in vm.filteredRecords.slice((vm.currentPage-1)*vm.pageSize, vm.currentPage*vm.pageSize)">-->
+                        <tr dir-paginate="x in vm.filteredRecords | itemsPerPage: itemsPerPage" pagination-id="trailRunRep">
+                            <td>{{ ($index + 1) + ((vm.pageNo - 1) * vm.pageSize) }}</td>
+                        <td>{{x.holderName}}</td>
+                        <td>{{x.panNo}}</td>
+                        <td>{{x.blaNo}}</td>
+                        <td>{{x.subsId}}</td>
+                        <td>{{x.subsDate}}</td>
+                        <td>{{x.subsAmt}}</td>
+                        <td>{{x.interestRate}}</td>
+                        <td>{{x.tdsDeductionFrom}}</td>
+                        <td>{{x.tdsDeductionTo}}</td>
+                        <td>{{x.interestPaidDate}}</td>
+                        <td>{{x.modeOfPaymentDescription}}</td>
+                        <td>{{x.creditAccNo}}</td>
+                        <td>{{x.typeOfCertificate}}</td>
+                        <td>{{x.tdsExemptionLimit}}</td>
+                        <td>{{x.lowTAxPercentage}}</td>
+                        <td>{{x.panStatus}}</td>
+                        <td>{{x.grosstotalInterestAmt}}</td>
+                        <td>{{x.tdsAmt}}</td>
+                        <td>{{x.tdsDeductionPercentage}}</td>
+                        <td>{{x.newInterestAmt}}</td>
+                    </tr>
+                    </tbody>
+
+                    <tfoot ng-if="!vm.noDataFoundInSearch">
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th>{{vm.subsAmt}}</th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th>{{vm.indianNumberFormat(vm.grosstotalInterestAmt | number:2)}}</th>
+                    <th>{{vm.indianNumberFormat(vm.tdsAmt | number : 2)}}</th>
+                    <th>{{vm.indianNumberFormat(vm.tdsDeductionPercentage | number : 2)}}</th>
+                    <th>{{vm.indianNumberFormat(vm.newInterestAmt| number : 2)}}</th>
+
+                    </tfoot>
+                    <tbody data-ng-if="vm.noDataFoundInSearch">
+                    <tr>
+                        <td>No Records Found</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="row">
+                <div
+                        ng-if="vm.filteredRecords.length != 0"
+                        class="col-md-12 text-right"
+                >
+                    <div class="text-center form_submit">
+                        <span ng-show="vm.showPrevious">
+                        <button type="submit" class="btn btn-default" ng-click="vm.goPreviousPage()">Prev
+                        </button>
+                        </span>
+
+                        <span>
+                          <button type="submit" class="btn btn-default" ng-disabled="true" ng-init="vm.pageNo=1" ng-model="vm.pageNo" ng-click="vm.paymentStatus();">{{vm.pageNo}} of {{vm.maxPages}}
+                          </button>
+                        </span>
+
+                        <span ng-show="vm.showNext">
+                        <button type="submit" class="btn btn-default" ng-click="vm.goNextPage();" >Next
+                        </button>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                Showing {{(vm.currentPage-1)*vm.pageSize + 1}} to
+                {{vm.maxValue()}} of
+                {{vm.filteredRecords.length}} records
+            </div>
+
+        </form>
+    </div>
+</div>
+
+<div class="container" data-ng-if="vm.noDataFound">
+    <div class="list_wrapper no_records_message">
+        <h4 class="form_heading">TDS Eligibility Report</h4>
+        No records found to display.
+        <div style="text-align: center">
+            <button type="button" class="btn btn-default" onclick="window.location.href='#!/tds_eligibility_report/action/inquiry';">Back</button>
+        </div>
+    </div>
+</div>

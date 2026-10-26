@@ -1,0 +1,330 @@
+<div class="loader-new" ng-if="vm.loader"></div>
+<cbs-left-menu></cbs-left-menu>
+<div class="container from_wrapper new_form_wrapper" ng-if="!vm.newValueDispay">
+
+	<h4 class="form_heading  feature-heading">Branch IFSC Codes -
+		Modify</h4>
+
+	<form name="vm.branchIfscCodeForm" role="form"
+		ng-submit="vm.submitForm(branchIfscCodeForm.$valid)" novalidate>
+		<div class="row">
+			<div class="form-group">
+				<div class="col-sm-3"></div>
+				<div class="col-sm-3 required">
+					<label for="bankCode" class="control-label">Bank code</label>
+				</div>
+				<div class="col-sm-3">
+					<input type="text" class="form-control" name="bankCode"
+						id="bankCode" ng-model="vm.branchIfscCode.C002" ng-disabled = "vm.result.isVerified =='Y'" ng-init="vm.branchIfscCode.C002 = vm.result.bankCode" maxlength="15"
+						chars="alpha-numeric" required>
+
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="form-group">
+				<div class="col-sm-3"></div>
+				<div class="col-sm-3 required">
+					<label for="branchCode" class="control-label">Branch code</label>
+				</div>
+				<div class="col-sm-3">
+					<input type="text" class="form-control" name="branchCode"
+						id="branchCode" ng-model="vm.branchIfscCode.C001" ng-disabled = "vm.result.isVerified =='Y'" ng-init="vm.branchIfscCode.C001 = vm.result.branchCode"
+						maxlength="15" chars="alpha-numeric" required>
+
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="form-group">
+				<div class="col-sm-3"></div>
+				<div class="col-sm-3 required">
+					<label for="bankIdentifier" class="control-label">Branch IFSC code</label>
+				</div>
+				<div class="col-sm-3">
+					<input type="text" class="form-control" name="bankIdentifier"
+						id="bankIdentifier" ng-model="vm.branchIfscCode.C003" ng-disabled = "vm.result.isVerified =='Y'" ng-init="vm.branchIfscCode.C003 = vm.result.bankIdentifier"
+						   maxlength="11" chars="alpha-numeric"
+						   ng-pattern="'^[a-zA-Z]{4}[0-9]{1}[a-zA-Z0-9]{6}$'" required>
+
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="form-group">
+				<div class="col-sm-3"></div>
+				<div class="col-sm-3 ">
+					<label for="paysysId" class="control-label">Payment System
+						Id (RTGS)</label>
+				</div>
+				<div class="col-sm-3">
+					<input type="text" class="form-control" name="paysysId"
+						id="paysysId" ng-model="vm.branchIfscCode.C004"  ng-init="vm.branchIfscCode.C004 = vm.result.paysysId" maxlength="15"
+						chars="alpha-numeric" >
+
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="form-group">
+				<div class="col-sm-3"></div>
+				<div class="col-sm-3">
+					<label for="additionalText1" class="control-label">Additional
+						Text1</label>
+				</div>
+				<div class="col-sm-3">
+					<input type="text" class="form-control" name="additionalText1"
+						id="additionalText1" ng-model="vm.branchIfscCode.C006" ng-init="vm.branchIfscCode.C006 = vm.result.additionalText1"
+						maxlength="40" chars="alpha-numeric">
+
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="form-group">
+				<div class="col-sm-3"></div>
+				<div class="col-sm-3">
+					<label for="additionalText2" class="control-label">Additional
+						Text2</label>
+				</div>
+				<div class="col-sm-3">
+					<input type="text" class="form-control" name="additionalText2"
+						id="additionalText2" ng-model="vm.branchIfscCode.C007" ng-init="vm.branchIfscCode.C007 = vm.result.additionalText2"
+						maxlength="40" chars="alpha-numeric">
+
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="form-group">
+				<div class="col-sm-3"></div>
+				<div class="col-sm-3">
+					<label for="additionalText3" class="control-label">Additional
+						Text3</label>
+				</div>
+				<div class="col-sm-3">
+					<input type="text" class="form-control" name="additionalText3"
+						id="additionalText3" ng-model="vm.branchIfscCode.C008" ng-init="vm.branchIfscCode.C008 = vm.result.additionalText3"
+						maxlength="40" chars="alpha-numeric">
+
+				</div>
+			</div>
+		</div>
+		<div class="audit-details">
+			<div class="row">
+				<div class="col-md-3">
+					<span> <b> Created By </b> : {{vm.result.createdBy}} </span>
+				</div>
+				<div class="col-md-3">
+					<span> <b> Last Modified By </b> : {{(vm.result.modifiedBy) ? (vm.result.modifiedBy) : ('None')}}</span>
+				</div>
+				<div class="col-md-3">
+					<span> <b> Last Verified By </b> : {{(vm.result.verifiedBy) ? (vm.result.verifiedBy) : ('None')}}</span>
+				</div>
+				<div class="col-md-3">
+					<span> <b> Verify Status </b> : {{vm.result.isVerified  | getLabelFromValuesArray : vm.commonYesNoMetaData}}</span>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-3">
+					<span> <b> Created On </b> : {{ vm.result.creatDate | date : 'dd/MM/yyyy'}}</span>
+				</div>
+				<div class="col-md-3">
+					<span> <b> Last Modified On</b> : {{ (vm.result.modDate) ? (vm.result.modDate | date : 'dd/MM/yyyy') : ('None')}}</span>
+				</div>
+				<div class="col-md-3">
+					<span> <b> Last Verified On </b> : {{(vm.result.verDate) ? (vm.result.verDate | date : 'dd/MM/yyyy') : ('None')}}</span>
+				</div>
+				<div class="col-md-3">
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-sm-offset-5 col-sm-8 form_submit">
+
+				<button type="submit" class="btn btn-default" id="submitButton"
+					ng-disabled="vm.branchIfscCodeForm.$invalid" ng-click="vm.modify()">Update</button>
+				<button type="button" class="btn btn-cancel" id="cancelButton"
+					ng-click="vm.showCancelConfirmation('branch_ifsc_codes.modify');">Cancel</button>
+			</div>
+		</div>
+		<div class="text-center">
+			<notice-message-directive></notice-message-directive>
+		</div>
+	</form>
+</div>
+
+<div class="container from_wrapper new_form_wrapper" ng-if="vm.newValueDispay">
+
+	<h4 class="form_heading  feature-heading">Branch IFSC Codes -
+		Modify</h4>
+
+	<form name="vm.branchIfscCodeForm" role="form"
+		ng-submit="vm.submitForm(branchIfscCodeForm.$valid)" novalidate>
+		<div class="row form-group">
+			<div class="col-sm-6"></div>
+			<div class="col-sm-2">New Value</div>
+			<div class="col-sm-2">Old Value</div>
+		</div>
+		<div class="row">
+			<div class="form-group">
+				<div class="col-sm-3"></div>
+				<div class="col-sm-3 required">
+					<label for="bankCode" class="control-label">Bank code</label>
+				</div>
+				<div class="col-sm-2">
+					<input type="text" class="form-control" name="bankCode"
+						id="bankCode" ng-model="vm.branchIfscCodeNewScope.bankCode" maxlength="15"
+						chars="alpha-numeric" required>
+
+				</div>
+				<div class="col-sm-2">
+					<input type="text" class="form-control" name="bankCode_old"
+						id="bankCode_old" ng-model="vm.branchIfscCode.bankCode" maxlength="15"
+						chars="alpha-numeric" readonly>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="form-group">
+				<div class="col-sm-3"></div>
+				<div class="col-sm-3 required">
+					<label for="branchCode" class="control-label">Branch code</label>
+				</div>
+				<div class="col-sm-2">
+					<input type="text" class="form-control" name="branchCode"
+						id="branchCode" ng-model="vm.branchIfscCodeNewScope.branchCode"
+						maxlength="15" chars="alpha-numeric" required>
+
+				</div>
+				<div class="col-sm-2">
+					<input type="text" class="form-control" name="branchCode_old"
+						id="branchCode_old" ng-model="vm.branchIfscCode.branchCode"
+						maxlength="15" chars="alpha-numeric" readonly>
+
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="form-group">
+				<div class="col-sm-3"></div>
+				<div class="col-sm-3 required">
+					<label for="bankIdentifier" class="control-label">Bank
+						identifier</label>
+				</div>
+				<div class="col-sm-2">
+					<input type="text" class="form-control" name="bankIdentifier"
+						id="bankIdentifier" ng-model="vm.branchIfscCodeNewScope.bankIdentifier"
+						maxlength="15" chars="alpha-numeric" required>
+
+				</div>
+				<div class="col-sm-2">
+					<input type="text" class="form-control" name="bankIdentifier_old"
+						id="bankIdentifier_old" ng-model="vm.branchIfscCode.bankIdentifier"
+						maxlength="15" chars="alpha-numeric" readonly>
+
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="form-group">
+				<div class="col-sm-3"></div>
+				<div class="col-sm-3 required">
+					<label for="paysysId" class="control-label">Payment System
+						Id (RTGS)</label>
+				</div>
+				<div class="col-sm-2">
+					<input type="text" class="form-control" name="paysysId"
+						id="paysysId" ng-model="vm.branchIfscCodeNewScope.paysysId" maxlength="15"
+						chars="alpha-numeric" required>
+
+				</div>
+				<div class="col-sm-2">
+					<input type="text" class="form-control" name="paysysId_old"
+						id="paysysId_old" ng-model="vm.branchIfscCode.paysysId" maxlength="15"
+						chars="alpha-numeric" readonly>
+
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="form-group">
+				<div class="col-sm-3"></div>
+				<div class="col-sm-3">
+					<label for="additionalText1" class="control-label">Additional
+						Text1</label>
+				</div>
+				<div class="col-sm-2">
+					<input type="text" class="form-control" name="additionalText1"
+						id="additionalText1" ng-model="vm.branchIfscCodeNewScope.additionalText1"
+						maxlength="40" chars="alpha-numeric">
+
+				</div>
+				<div class="col-sm-2">
+					<input type="text" class="form-control" name="additionalText1_old"
+						id="additionalText1_old" ng-model="vm.branchIfscCode.additionalText1"
+						maxlength="40" chars="alpha-numeric" readonly>
+
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="form-group">
+				<div class="col-sm-3"></div>
+				<div class="col-sm-3">
+					<label for="additionalText2" class="control-label">Additional
+						Text2</label>
+				</div>
+				<div class="col-sm-2">
+					<input type="text" class="form-control" name="additionalText2"
+						id="additionalText2" ng-model="vm.branchIfscCodeNewScope.additionalText2"
+						maxlength="40" chars="alpha-numeric">
+
+				</div>
+				<div class="col-sm-2">
+					<input type="text" class="form-control" name="additionalText2_old"
+						id="additionalText2_old" ng-model="vm.branchIfscCode.additionalText2"
+						maxlength="40" chars="alpha-numeric" readonly>
+
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="form-group">
+				<div class="col-sm-3"></div>
+				<div class="col-sm-3">
+					<label for="additionalText3" class="control-label">Additional
+						Text3</label>
+				</div>
+				<div class="col-sm-2">
+					<input type="text" class="form-control" name="additionalText3"
+						id="additionalText3" ng-model="vm.branchIfscCodeNewScope.additionalText3"
+						maxlength="40" chars="alpha-numeric">
+
+				</div>
+				<div class="col-sm-2">
+					<input type="text" class="form-control" name="additionalText3_old"
+						id="additionalText3_old" ng-model="vm.branchIfscCode.additionalText3"
+						maxlength="40" chars="alpha-numeric" readonly>
+
+				</div>
+			</div>
+		</div>
+		<div class="row" >
+			<div class="col-sm-7"></div>
+			<label  ng-if="!vm.verified" class="control-label col-sm-5"><b>Verify Status : Y</b></label>
+			<label  ng-if="vm.verified" class="control-label col-sm-5"><b>Verify Status : N</b></label>
+		</div>
+		<div class="row">
+			<div class="text-center form_submit">
+				<button type="submit" class="btn btn-default" id="submitButton"
+					ng-disabled="vm.branchIfscCodeForm.$invalid" ng-click="vm.modify()">Update</button>
+				<button type="button" class="btn btn-cancel" id="cancelButton"
+					ng-click="vm.showCancelConfirmation('branch_ifsc_codes.modify');">Cancel</button>
+			</div>
+		</div>
+		<div class="text-center">
+			<notice-message-directive></notice-message-directive>
+		</div>
+	</form>
+</div>

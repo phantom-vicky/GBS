@@ -1,0 +1,138 @@
+<div class="loader-new" ng-if="vm.loader"></div>
+<div class="container from_wrapper new_form_wrapper">
+	<h4 class="form_heading">
+		Sack User
+	</h4>
+	<sol-header></sol-header>
+	<div class="form_block">
+		<div class="col-sm-6 col-sm-offset-3">
+			<form name="sackUserForm" role="form"
+				  novalidate>
+				<div ng-show="vm.inputDetails">
+					<div class="row required">
+						<div class="form-group" >
+							<div class="col-sm-6">
+								<label  class="control-label">Collecting Branch Id</label>
+							</div>
+							<div class="col-sm-4">
+								<input type="text" class="form-control" id="Collecting Branch Id" name="fromTime" ng-model="vm.branchId"  readonly  required >
+							</div>
+							<div class="col-sm-2">
+								<i class="glyphicon glyphicon-search cp" data-bs-toggle="modal"
+								   id="branchIdSearch"
+								   ng-click="vm.getBranchIdDetails();vm.searchSolId ='';"></i>
+								<i class="glyphicon glyphicon-remove clear cp"
+								   ng-click="vm.branchId=''; vm.userId='';" ></i>
+							</div>
+						</div>
+						<div class="form_submit col-sm-offset-4 col-sm-4">
+							<button type="submit" class="btn btn-default" ng-disabled="!vm.branchId"
+									ng-click="vm.getSackUsers(); vm.getOutputPage();">Submit</button>
+							<button type="button" id="cancelButton" class="btn btn-cancel"
+									onclick="window.location.href ='#!/';">Cancel</button>
+						</div>
+					</div>
+				</div>
+				<div ng-show="vm.outputDetails">
+					<div class="row" ng-if="vm.sackUsers.length > 0">
+						<div class="col-sm-12 ">
+							<table class="table table-bordered table-striped list"
+								   width="100%">
+								<thead>
+								<!--								ng-change="vm.CheckUncheckAll($event)"-->
+								<tr>
+									<th><input type="checkbox" name="select_all_user_name" ng-checked="vm.checkAll"
+											   ng-model="vm.IsAllChecked" ng-click="vm.selectAll();" title="Select All" ng-init="vm.IsAllChecked = false;vm.formSubmitValidationFlg = true"></th>
+									<th>User Name</th>
+									<th>Login Time</th>
+								</tr>
+								</thead>
+								<tbody>
+								<tr ng-repeat="sackUser in vm.sackUsers">
+									<td><input type="checkbox" id="user_{{sackUser.id}}"
+											   name="user_name" ng-model="sackUser.Selected"
+											   ng-change="vm.CheckUncheckHeader($event)">
+									</td>
+									<td>{{sackUser.username}}</td>
+									<td>{{sackUser.loggedInSince | date: 'dd/MM/y hh:mm:ss'}}</td>
+								</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+					<div class="form_submit col-sm-offset-4 col-sm-4" ng-if="vm.sackUsers.length > 0">
+						<button type="submit" class="btn btn-default"
+								ng-disabled="sackUserForm.$invalid || vm.formSubmitValidationFlg" ng-click="vm.submitForm()">Submit</button>
+						<button type="button" id="cancelButton2" class="btn btn-cancel"
+								ng-click="vm.getInputPage();">Cancel</button>
+					</div>
+					<div class="row" ng-if="vm.sackUsers.length <= 0">
+						<div class="col-sm-12 ">
+							<div class="col-sm-6 col-sm-offset-3">
+								<label  class="control-label">No Users Currently Logged in.</label>
+							</div>
+						</div>
+						<div class="form_submit col-sm-offset-4 col-sm-4">
+							<button type="button" id="cancelButton3" class="btn btn-cancel"
+									ng-click="vm.getInputPage();">Cancel</button>
+						</div>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+<!--<div class="container list_wrapper" ng-if="vm.sackUsers.length <= 0">-->
+<!--	<h4 class="feature-heading">Sack User</h4>-->
+<!--	<div class="no_records_message">No Users Currently Logged in.</div>-->
+<!--</div>-->
+<div class="modal" id="treasurySearcher" role="dialog">
+	<div class="modal-dialog">
+		<!-- Modal content-->
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-bs-dismiss="modal">&times;</button>
+				<h4 class="modal-title">Branch ID</h4>
+			</div>
+			<div class="modal-body">
+				<div class="loader_popup"></div>
+				<div class="list_wrapper" ng-if="vm.branchIdList.length>0">
+					<div class="col-sm-8 form_submit">
+						<div class="form-group">
+							<div class="input-group">
+								<div class="input-group-addon">
+									<i class="glyphicon glyphicon-search"></i>
+								</div>
+								<input type="text" class="form-control"
+									   ng-model="vm.searchtreasuryId" ng-init="vm.searchtreasuryId = ''"
+									   oninput="this.value = this.value.replace(/\s+/g, '').replace(/[^a-zA-Z0-9]/g, '')"  placeholder="Search">
+							</div>
+						</div>
+					</div>
+					<div class="col-sm-4 form_submit"></div>
+					<div class="row">
+						<div class="col-sm-12">
+							<table class="table table-bordered list scroll">
+								<thead ng-init="reverseOrder = false; sortedColumn = 'branchId'">
+								<tr>
+									<th class="modal-title title-case" ng-click="(sortedColumn == 'branchId')?(reverseOrder=(!reverseOrder)): (reverseOrder = false);sortedColumn = 'branchId';" ng-class="(sortedColumn == 'branchId')?((reverseOrder)?('arrow-down') : ('arrow-up') ) : ('')">Branch Id</th>
+									<th class="modal-title title-case" ng-click="(sortedColumn == 'branchDescription')?(reverseOrder=(!reverseOrder)): (reverseOrder = false);sortedColumn = 'branchDescription';" ng-class="(sortedColumn == 'branchDescription')?((reverseOrder)?('arrow-down') : ('arrow-up') ) : ('')">Branch Name</th>
+								</tr>
+								</thead>
+								<tbody>
+								<tr class="cp"
+									ng-repeat="x in vm.branchIdList"
+									ng-click="vm.branchId = x.branchId; vm.branchDescription = x.branchDescription" data-bs-dismiss="modal">
+									<td>{{x.branchId}}</td>
+									<td>{{x.branchDescription}}</td>
+								</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+				<div class="list_wrapper" ng-if="vm.branchIdList.length==0">No records found to display.</div>
+			</div>
+		</div>
+	</div>
+</div>

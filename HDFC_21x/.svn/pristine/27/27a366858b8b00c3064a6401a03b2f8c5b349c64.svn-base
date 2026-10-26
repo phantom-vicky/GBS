@@ -1,0 +1,60 @@
+<user-left-menu></user-left-menu>
+<!-- list result -->
+<div class="loader-new" ng-if="vm.loader"></div>
+<div class="container list_wrapper">
+    <h4 class="form_heading  feature-heading">Roles and Permissions</h4>
+
+    <div class="col-sm-3">
+        <div class="form-group">
+            <label>
+                Show
+                <select class="form-control record-filter" ng-model="vm.itemsPerPage" >
+                    <option value='5'>5</option>
+                    <option value='10'>10</option>
+                    <option value='25'>25</option>
+                    <option value='50'>50</option>
+                </select>
+                records per page
+            </label>
+        </div>
+    </div>
+    <div class="col-sm-3 pull-right-search">
+        <div class="form-group">
+            <div class="input-group">
+                <div class="input-group-addon"><i class="glyphicon glyphicon-search"></i></div>
+                <input type="text" class="form-control" ng-model="search" chars="alpha-numeric" no_underscore laceholder="Search">
+            </div>
+        </div>
+    </div>
+
+
+    <table class="table table-bordered table-striped list">
+        <thead>
+        <tr>
+            <th>Role Name</th>
+            <th>Description</th>
+            <th>Status</th>
+            <th>Action</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr dir-paginate="role in vm.roles|filter:search|itemsPerPage:vm.itemsPerPage">
+            <td>{{role.name}}</td>
+            <td>{{role.description}}</td>
+            <td>{{role.disableRole | getLabelFromValuesArray : vm.commonYesNoMetaData}}</td>
+
+            <td ng-if="vm.action != 'modify'">
+                <i ui-sref="role_permission_mapping.list_details({action: vm.action, id: role.id, name: role.name})" class="glyphicons-regular glyphicons-user-structure" style="cursor:pointer;"  title="Manage Roles"></i>
+            </td>
+            <td  ng-if="vm.action == 'modify'">
+                <i class="glyphicons-regular glyphicons-user-structure" style="cursor:pointer;" ui-sref="role_permission_mapping.modify_details({obj:{id: role.id, name: role.name}})" title="Manage Roles"></i>
+            </td>
+
+        </tr>
+        </tbody>
+    </table>
+    <dir-pagination-controls direction-links="true" boundary-links="true">
+    </dir-pagination-controls>
+</div>
+<div class="list_wrapper no_records_message" ng-if="vm.roles.length==0">No records found to display.</div>
+<!-- list result - End -->

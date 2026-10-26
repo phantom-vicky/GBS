@@ -1,0 +1,49 @@
+
+<div class="container from_wrapper">
+	<h4 class="form_heading">POP Operations</h3>
+		<ul>
+			<li><b>Master Updation</b></li>
+				<ul>
+					<li><a href="#/updationOfCorrectPranNumber">Walk-In-Customers-Updation of Correct Pran Number</a></li>
+					<li><a href="#/craAcknowledgementNumberBulkUpdation">CRA Acknowledgement Number Bulk Updation  </a></li>
+				</ul>
+			<li><b>Corporate</b></li>
+				<ul>
+					<li><a href="#/corporateMasterMaintenance">Corporate Master-Maintenance at POP</a></li>
+					<li><a href="#/corporateSolMappingPop">Corporate - Sol Mapping at POP  </a></li>
+					<li><a href="#/corporateMainSolMapping">Corporate - Main Sol Mapping </a></li>
+				</ul>
+			<li><b>e-Scrolls</b></li>
+				<ul>
+					<li><a href="#">MIS file generation for UOS </a></li>
+					<li><a href="#">SRF file for both UOS and Corporate</a></li>
+					<li><a href="#/">SCF File Generation </a></li>
+					<li><a href="#/misFileGeneration">MIS File Report</a></li>
+					<li><a href="#/scfFileReport">SCF File Report</a></li>
+				</ul>
+			<li><b>Reports</b></li>
+				<ul>
+					<li><a href="#/popspWiseCommissionEarned">POP-SP Wise Commission Earned - Range of Date </a></li>
+					<li><a href="#/popspWiseReportonTransactionWiseCommission">POP-SP Wise Report on Transaction Wise Commission-Range of Date </a></li>
+					<li><a href="#/popspWiseSummaryofCollections">POP-SP Wise Summary of Collections for a Range of Date</a></li>
+					<li><a href="#/popspWiseReportonAccountsOpened">POP-SP Wise Report on Accounts Opened - Range of Date</a></li>
+					<li><a href="#/popspWiseMonitoringofServiceRequests">POP-SP Wise Monitoring of Service Requests</a></li>
+					<li><a href="#/listofHighValueTransactions">List of High Value Transactions (All POP-SPs) - Range of Date</a></li>
+					<li><a href="#/craAcknowledgementNumberUpdationReport">CRA Acknowledgement Number Updation Report </a></li>
+					<li><a href="#/centralisedRegistrationMis">Centralised Registration MIS (All POP-SPs) - Range of Date </a></li>
+				</ul>
+			<li><b>Inquiry</b></li>
+				<ul>
+					<li><a href="#/transationInquiry">NPS Transactions Inquiry </a></li>
+					<li><a href="#/">NPS Transactions Inquiry for All POP - SP </a></li>
+					<li><a href="#/mcpStatusInquiry">NPS MCP Status Inquiry   </a></li>
+				</ul>
+			<li><b>Admin</b></li>
+				<ul>
+					<li><a href="#/"> Upload of Pran for Allotment of NPS Sunscribers</a></li>
+					<li><a href="#/"> Report on uploaded PRAN with allotted status - POP-SP wise - Range of Date</a></li>
+				</ul>
+							
+		</ul>
+</div>
+<!-- /.container-fluid -->

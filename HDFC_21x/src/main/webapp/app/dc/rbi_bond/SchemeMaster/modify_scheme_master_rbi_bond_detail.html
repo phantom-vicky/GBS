@@ -1,0 +1,118 @@
+<div class="loader-new" ng-if="vm.loader"></div>
+<dc-left-menu></dc-left-menu>
+<div class="container from_wrapper new_form_wrapper">
+    <h4 class="form_heading">Scheme Master - Modify</h4>
+    <sol-header></sol-header>
+    <form name="schemeMaster" role="form">
+        <div class="row">
+            <div class="form-group">
+                <div class="col-sm-3"></div>
+                <div class="col-sm-3">
+                    <label  class="control-label">Name of the Module</label>
+                </div>
+                <div class="col-sm-4">
+                    <label><b>RBI Bond</b></label>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group required">
+                <div class="col-sm-3"></div>
+                <div class="col-sm-3">
+                    <label for="solId" class="control-label">Branch Id</label>
+                </div>
+                <div class="col-sm-2">
+                    <input type="text" class="form-control" id="solId"
+                           ng-model="vm.solId" required readonly>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group required">
+                <div class="col-sm-3"></div>
+                <div class="col-sm-3">
+                    <label class="control-label">Branch Name</label>
+                </div>
+                <div class="col-sm-2">
+                    <input type="text" class="form-control" id="username"
+                           name="username" ng-model="vm.username" required readonly>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group required">
+                <div class="col-sm-3"></div>
+                <div class="col-sm-3">
+                    <label class="control-label">Scheme Name</label>
+                </div>
+                <div class="col-sm-2">
+                    <textarea type="text" class="form-control" id="schemeName"
+                              name="schemeName" ng-model="vm.masterOldNewValueModel.C003.oldValue" required readonly></textarea>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group required">
+                <div class="col-sm-3"></div>
+                <div class="col-sm-3">
+                    <label class="control-label">Status</label>
+                </div>
+                <div class="col-sm-5">
+                    <select name="status" id="status" ng-model="vm.masterOldNewValueModel.C004.oldValue" required class="w36-h30">
+                        <option value="" hidden="true">Select</option>
+                        <option value="Y">Enable</option>
+                        <option value="N">Disable</option>
+                    </select>
+                </div>
+            </div></div>
+        <div class="audit-details">
+            <div class="row">
+                <div class="col-md-3">
+					<span>
+						<b> Created By </b> : {{vm.details.createdBy}}
+					</span>
+                </div>
+                <div class="col-md-3">
+                    <span> <b> Last Modified By </b> : {{(vm.details.modifiedBy) ? (vm.details.modifiedBy) : ('None')}}</span>
+                </div>
+                <div class="col-md-3">
+					<span>
+						<b> Last Verified By </b> : {{(vm.details.verifiedBy) ? (vm.details.verifiedBy) : ('None')}}
+					</span>
+                </div>
+                <div class="col-md-3">
+					<span>
+						<b> Verify Status </b> : {{vm.details.verifiedStatus  | getLabelFromValuesArray : vm.commonYesNoMetaData}}
+					</span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3">
+					<span>
+						<b> Created On </b> : {{ vm.details.createdDate | date : 'dd/MM/yyyy'}}
+					</span>
+                </div>
+                <div class="col-md-3">
+                    <span> <b> Last Modified On</b> : {{ (vm.details.modifiedDate) ? (vm.details.modifiedDate | date : 'dd/MM/yyyy') : ('None')}}</span>
+                </div>
+                <div class="col-md-3">
+					<span>
+						<b> Last Verified On </b> : {{(vm.details.verifiedDate) ? (vm.details.verifiedDate | date : 'dd/MM/yyyy') : ('None')}}
+					</span>
+                </div>
+                <div class="col-md-3"></div>
+            </div>
+        </div>
+        <div class="text-center form_submit">
+            <button type="submit" class="btn btn-default" id="verifyButton" ng-click="vm.modifySubmit();"
+                    ng-disabled="schemeMaster.$invalid">Modify</button>
+            <button type="button" class="btn btn-cancel" id="cancelButton"
+                    onclick="window.location.href= '#!/scheme_master_rbi_bond/action/modify';">Cancel
+            </button>
+        </div>
+        <div class="text-center">
+            <notice-message-directive></notice-message-directive>
+        </div>
+    </form>
+</div>
+

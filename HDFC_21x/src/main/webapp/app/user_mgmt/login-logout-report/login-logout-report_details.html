@@ -1,0 +1,62 @@
+<div class="loader-new" ng-if="vm.loader"></div>
+<div class="container"  ng-if="vm.resultSetList.length>0">
+    <div class="text-right form_submit">
+        <button type="submit" class="btn btn-default"
+                onclick="window.location.href ='#!/';" id="homeButton">Home</button>
+        <button type="submit" id="backButton" class="btn btn-cancel"
+                onclick="window.location.href= '#!/login_logout_report/action/inquiry';" >Back</button>
+    </div>
+    <div class="container from_wrapper new_form_wrapper">
+        <div class="col-sm-12">
+            <h4 class="form_heading">Login & Logout Report</h4>
+            <div class="row">
+                <sol-header></sol-header>
+            </div>
+            <div>
+                <table  width="100%" class="table table-bordered">
+                    <tr height="40">
+                        <td align="left"><b>From Date</b></td>
+                        <td align="left">{{vm.fromDate}}</td>
+                        <td align="left"><b>To Date</b></td>
+                        <td align="left">{{vm.toDate}}</td>
+                    </tr>
+                </table>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-striped list table-textWrap datatable"
+                               ui-jq="dataTable" ui-options="vm.dataTableOption">
+                            <thead>
+                            <tr class="thalign">
+                                <th>User ID</th>
+                                <th>Employee Code</th>
+                                <th>Employee Name</th>
+                                <th>Login Date</th>
+                                <th>Login Time</th>
+                                <th>Logout Time</th>
+                                <th>Application Name</th>
+                                <th>IP Address</th>
+<!--                                <th>Asset/Host Details</th>-->
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr ng-repeat="x in vm.resultSetList">
+                                <td>{{x.userId}}</td>
+                                <td>{{x.employeeCode}}</td>
+                                <td>{{x.employeeName}}</td>
+                                <td>{{x.loginDate}}</td>
+                                <td>{{x.loginTime}}</td>
+                                <td>{{x.logoutTime}}</td>
+                                <td>{{x.applicationName}}</td>
+                                <td>{{x.ipAddress}}</td>
+<!--                                <td>{{x.hostDetails}}</td>-->
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

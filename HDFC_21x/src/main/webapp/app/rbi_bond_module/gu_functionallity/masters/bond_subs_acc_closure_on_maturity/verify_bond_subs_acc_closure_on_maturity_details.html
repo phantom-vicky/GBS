@@ -1,0 +1,256 @@
+<div class="loader-new" ng-if="vm.loader"></div>
+<dc-left-menu></dc-left-menu>
+<div class="container" ng-if="vm.responseResultForVer.length > 0">
+    <div class="container from_wrapper new_form_wrapper">
+        <div class="row">
+            <h4 class="form_heading">Bond Subscription Account Closure on Maturity - Normal - Verify/Reject</h4>
+        </div>
+        <sol-header></sol-header>
+        <form name="preMaturityForm" role="form">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-striped list nowrap table-textWrap datatable">
+                            <tr>
+                                <th align="center">Name of the Bond Scheme</th>
+                                <th align="center">{{vm.schemeName}}</th>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-striped list nowrap table-textWrap datatable"
+                               ui-jq="dataTable" ui-options="vm.dataTableOption">
+                            <thead>
+                            <tr>
+                                <th colspan="1"></th>
+                                <th colspan="21" class="text-center">Basic Details From BLA cum Subscription</th>
+                                <th colspan="11" class="text-center">Other Scheme Interest Related Info</th>
+                                <th colspan="2" class="text-center">PAN Status</th>
+                                <th colspan="18" class="text-center">TDS Exemption DETAILS</th>
+                                <th colspan="12" class="text-center">FRSB Interest Payout Details</th>
+                            </tr>
+                            <tr class="thalign">
+                                <th>
+                                    <input type="checkbox" ng-model="vm.checkAllForVer"
+                                           ng-change="vm.toggleAllSelectionForVer();"/>
+                                    Check All
+                                </th>
+                                <th>Mode of Payment</th>
+                                <th>Subscription ID</th>
+                                <th>BLA No</th>
+                                <th>Ref No</th>
+                                <th>App Name 1</th>
+                                <th>App Name 2</th>
+                                <th>App Name 3</th>
+                                <th>Address 1</th>
+                                <th>Address 2</th>
+                                <th>Rec Name</th>
+                                <th>Rec Parent Name</th>
+                                <th>PIN Code</th>
+                                <th>Phone No</th>
+                                <th>App Status</th>
+                                <th>Investment Amount</th>
+                                <th>CFD</th>
+                                <th>Maturity Date</th>
+                                <th>Account No</th>
+                                <th>Subscription Count</th>
+                                <th>Bank Sort Code</th>
+                                <th>Bank Name</th>
+                                <th>Pan No</th>
+                                <th>8 % Interest Payout</th>
+                                <th>Non Cumulative Int</th>
+                                <th>Cumulative Int</th>
+                                <th>7.75% interest payout</th>
+                                <th>Non Cumulative Int 775</th>
+                                <th>Cumulative Int 775</th>
+                                <th>8.05% interest payout</th>
+                                <th>Non Cumulative Int 8.05%</th>
+                                <th>Cumulative Int 8.05</th>
+                                <th>Total</th>
+                                <th>In-Operative PAN</th>
+                                <th>Non-Filers</th>
+                                <th>Age</th>
+                                <th>Taxable Limit</th>
+                                <th>Waiver Document</th>
+                                <th>Waiver Document Ref No</th>
+                                <th>RRB-TDS rate</th>
+                                <th>Threshold Exceed Amount</th>
+                                <th>Threshold Exceed TDS Amount</th>
+                                <th>Exemption Rate %</th>
+                                <th>Exemption Amount</th>
+                                <th>Exemption TDS Amount</th>
+                                <th>Surcharge %</th>
+                                <th>Edu Cess %</th>
+                                <th>Base Rate Amount</th>
+                                <th>Surcharge Amount</th>
+                                <th>Edu cess Amount</th>
+                                <th>TDS Amount</th>
+                                <th>TDS Recovery Amount</th>
+                                <th>TDS Refund Amount</th>
+                                <th>Int Rate</th>
+                                <th>Last Int Paid</th>
+                                <th>Pending Interest</th>
+                                <th>Current Half Yearly Interest</th>
+                                <th>Future Interest</th>
+                                <th>Gross Interest Amount</th>
+                                <th>Int Paid (Net Interest Amount)</th>
+                                <th>Principal Amount</th>
+                                <th>Total Amount to be Paid</th>
+                                <th>Payment Date</th>
+                                <th>Closure Remarks</th>
+                                <th>Total Pay out of the Year</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr data-ng-repeat="x in vm.responseResultForVer">
+                                <td><input type="checkbox" ng-model="x.selectedForVer"
+                                           ng-change="vm.updateSelectionForVer();"
+                                           checked/></td>
+                                <td>{{x.modeOfPayment}}</td>
+                                <td>{{x.branchRefNo}}</td>
+                                <td>{{x.blaNo}}</td>
+                                <td>{{x.refNo}}</td>
+                                <td>{{x.appName1}}</td>
+                                <td>{{x.appName2}}</td>
+                                <td>{{x.appName3}}</td>
+                                <td>{{x.address1}}</td>
+                                <td>{{x.address2}}</td>
+                                <td>{{x.recName}}</td>
+                                <td>{{x.recParentName}}</td>
+                                <td>{{x.pinCode}}</td>
+                                <td>{{x.phoneNo}}</td>
+                                <td>{{x.appStatus}}</td>
+                                <td>{{x.investmentAmount}}</td>
+                                <td>{{x.cfd}}</td>
+                                <td>{{x.maturityDate}}</td>
+                                <td>{{x.accountNo}}</td>
+                                <td>{{x.subscriptionCount}}</td>
+                                <td>{{x.bankSortCode}}</td>
+                                <td>{{x.bankName}}</td>
+                                <td>{{x.panNoName}}</td>
+                                <td>{{x.interestPayOut8Per}}</td>
+                                <td>{{x.nonCumulativeInt}}</td>
+                                <td>{{x.cumulativeInt}}</td>
+                                <td>{{x.interestPayOut7Per}}</td>
+                                <td>{{x.nonCumulativeIntFor7}}</td>
+                                <td>{{x.cumulativeIntFor7}}</td>
+                                <td>{{x.interestPayOut85Per}}</td>
+                                <td>{{x.nonCumulativeIntFor85}}</td>
+                                <td>{{x.cumulativeIntFor85}}</td>
+                                <td>{{x.total}}</td>
+                                <td>{{x.inOperativePAN}}</td>
+                                <td>{{x.nonFilers}}</td>
+                                <td>{{x.age}}</td>
+                                <td>{{x.taxableLimit}}</td>
+                                <td>{{x.waiverDocument}}</td>
+                                <td>{{x.waiverDocumentRefNo}}</td>
+                                <td>{{x.rrbTDSRate}}</td>
+                                <td>{{x.thresholdExceedAmount}}</td>
+                                <td>{{x.thresholdExceedTDSAmount}}</td>
+                                <td>{{x.exemptionRate}}</td>
+                                <td>{{x.exemptionAmount}}</td>
+                                <td>{{x.exemptionTDSAmount}}</td>
+                                <td>{{x.surcharge}}</td>
+                                <td>{{x.eduCess}}</td>
+                                <td>{{x.baseRateAmount}}</td>
+                                <td>{{x.surchargeAmount}}</td>
+                                <td>{{x.eduCessAmount}}</td>
+                                <td>{{x.tdsAmount}}</td>
+                                <td>{{x.tdsRecoveryAmount}}</td>
+                                <td>{{x.tdsRefundAmount}}</td>
+                                <td>{{x.intRate}}</td>
+                                <td>{{x.lastIntPaid}}</td>
+                                <td>{{x.pendingInterest}}</td>
+                                <td>{{x.currentHalfYearlyInterest}}</td>
+                                <td>{{x.futureInterest}}</td>
+                                <td>{{x.grossInterestAmount}}</td>
+                                <td>{{x.intPaid}}</td>
+                                <td>{{x.principalAmt}}</td>
+                                <td>{{x.totalAmtToBePaid}}</td>
+                                <td>{{x.paymentDate}}</td>
+                                <td>{{x.closureRemark}}</td>
+                                <td>{{x.totalPayOutOfTheYear}}</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group required">
+                    <div class="col-sm-3"></div>
+                    <div class="col-sm-3">
+                        <label for="closureType" class="control-label">Checker Remarks for Closure</label>
+                    </div>
+                    <div class="col-sm-4">
+                        <input type="text" class="form-control" id="closureType"
+                               name="closureType"
+                               ng-model="vm.closureRemarks" required>
+                    </div>
+                </div>
+            </div>
+
+            <div class="text-center form_submit">
+                <button type="submit" class="btn btn-default" id="submitButton"
+                        ng-disabled="preMaturityForm.$invalid" ng-click="vm.verifySubmit(vm.closureRemarks);">Verify
+                </button>
+                <button type="submit" class="btn btn-default" id="deleteButton" ng-click="vm.rejectReason();">
+                    Reject
+                </button>
+                <button type="button" id="otherpen_cancelButton" class="btn btn-cancel"
+                        onclick="window.location.href= '#!/rbi_bnd_acc_cls_mty/action/inquiry';">Cancel
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="modal" id="permissionMappingDelete" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-bs-dismiss="modal">&times;</button>
+                <h4 class="modal-title"> REJECTION REMARKS</h4>
+            </div>
+            <div class="modal-body">
+                <div class="loader_popup"></div>
+                <div class="list_wrapper">
+                    <form name="permissionDelete" role="form">
+
+                        <div class="row">
+                            <div class="form-group">
+                                <div class="col-sm-2"></div>
+                                <label class="control-label col-sm-3">Remarks</label>
+                                <div class="col-sm-5">
+                                    <select class="form-control list_wrapper" id="remarks[$index]"
+                                            name="remarks[$index]"
+                                            ng-model="vm.remarks" ng-init="vm.getRemarksList();" required>
+                                        <option value="">Select</option>
+                                        <option ng-repeat="item in vm.remarksList"
+                                                name="{{item.subCode + parentIndex}}"
+                                                id="{{item.subCode + parentIndex}}" value="{{item.subCodeDescription}}">
+                                            {{item.subCodeDescription}}
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-offset-5 col-sm-8 form_submit">
+                            <button type="button" class="btn btn-default" data-bs-dismiss="modal"
+                                    ng-disabled="permissionDelete.$invalid"
+                                    ng-click="vm.deleteSubmit(vm.remarks)">
+                                Submit
+                            </button>
+                            <button type="button" class="btn btn-cancel" data-bs-dismiss="modal">Cancel</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

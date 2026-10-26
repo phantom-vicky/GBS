@@ -1,0 +1,614 @@
+<div class="loader-new" ng-if="vm.loader"></div>
+<dc-left-menu></dc-left-menu>
+<div class="container from_wrapper new_form_wrapper">
+
+    <h4 class="form_heading">Bond Closure - {{vm.closerType}} – ADD</h4>
+    <sol-header></sol-header>
+
+    <ul class="nav nav-tabs" ng-init="vm.tabReferenceAdd = 'pensionMastersaForm'">
+        <li ng-class="{ 'active': vm.tabReferenceAdd == 'pensionMastersaForm'}" ><a ng-click="vm.tabReferenceAdd = 'pensionMastersaForm'" >BLA Opening – ADD</a></li>
+        <li ng-class="{ 'active': vm.tabReferenceAdd == 'pensionMastersaForm1'}"><a ng-click="vm.tabReferenceAdd = 'pensionMastersaForm1'">BOND SUBSCRIPTION WORKFLOW - ADD</a></li>
+    </ul>
+    <div class="tab-content">
+        <div ng-show="vm.tabReferenceAdd=='pensionMastersaForm'"   id="pensionMastersaForm" class="tab-pane fade in active">
+            <div class="tab-body">
+                <uib-accordion close-others="oneAtATime">
+                    <form name="pensionMastersaForm" role="form" novalidate>
+                        <div uib-accordion-group id="satreasury-details" class="panel"
+                             heading="BOND LEDGER ACCOUNT MAINTENANCE"
+                             ng-class="(vm.treasuryDetailsForm.$invalid) ? 'panel-danger' : 'panel-default'">
+                            <ng-form name="vm.treasuryDetailsForm">
+                                <table class="table table-bordered">
+                                    <tbody>
+                                    <tr>
+                                        <td width="25%" class="form-group">
+                                            <label class="control-label">Name of the Bond Scheme</label></td>
+                                        <td width="25%">
+                                            <label class="control-label">{{vm.schemeName}}</label>
+                                        </td>
+                                        <td width="25%" class="form-group">
+                                            <label class="control-label">Mode of Holding</label></td>
+                                        <td width="25%">
+                                            <label class="control-label">{{vm.subscriptionList.MODE_OF_HOLDING}}</label>
+                                        </td>
+                                    </tr>
+
+                                    </tbody>
+                                </table>
+                            </ng-form>
+                        </div>
+
+                        <div uib-accordion-group id="sapensioner-details" class="panel panel-default"
+                             heading="BOND HOLDER DETAILS">
+                            <table class="table table-bordered table-striped list old-new-value-table">
+                                <thead>
+                                <tr>
+                                    <th width="50%">Particular</th>
+                                    <th>Value</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+
+                                <tr ng-if="vm.subscriptionList.SINGLE_BLA_NO !=null">
+                                    <td>BLA Number</td>
+                                    <td>{{vm.subscriptionList.SINGLE_BLA_NO}}</td>
+                                </tr>
+                                <tr ng-if="vm.subscriptionList.SINGLE_BLA_NO !=null">
+                                    <td>Bond Holder Name</td>
+                                    <td>{{vm.subscriptionList.SINGLE_BOND_HOLDER_NAME}}</td>
+                                </tr>
+                                <tr ng-if="vm.subscriptionList.SINGLE_BLA_NO !=null">
+                                    <td>PAN Number</td>
+                                    <td>{{vm.subscriptionList.SINGLE_HLDR_PAN}}</td>
+                                </tr>
+                                <tr ng-if="vm.subscriptionList.SINGLE_BLA_NO !=null">
+                                    <td>Bond Holder DOB</td>
+                                    <td>{{vm.subscriptionList.SINGLE_HLDR_DOB}}</td>
+                                </tr>
+                                <tr ng-if="vm.subscriptionList.FIRST_JOINT_BLA_NO!=null">
+                                    <td>First Joint Bond Holder BLA No.</td>
+                                    <td>{{vm.subscriptionList.FIRST_JOINT_BLA_NO}}</td>
+                                </tr>
+                                <tr ng-if="vm.subscriptionList.FIRST_JOINT_BLA_NO!=null">
+                                    <td>First Joint Bond Holder Name</td>
+                                    <td>{{vm.subscriptionList.FIRST_BOND_HOLDER_NAME}}</td>
+                                </tr>
+                                <tr ng-if="vm.subscriptionList.FIRST_JOINT_BLA_NO!=null">
+                                    <td>First Joint Bond Holder PAN No.</td>
+                                    <td>{{vm.subscriptionList.FIRST_JOINT_HLDR_PAN}}</td>
+                                </tr>
+                                <tr ng-if="vm.subscriptionList.FIRST_JOINT_BLA_NO!=null">
+                                    <td>First Joint Bond Holder DOB.</td>
+                                    <td>{{vm.subscriptionList.FIRST_JOINT_HLDR_DOB}}</td>
+                                </tr>
+                                <tr ng-if="vm.subscriptionList.SEC_JOINT_BLA_NO!=null">
+                                    <td>Second Joint Bond Holder BLA No.</td>
+                                    <td>{{vm.subscriptionList.SEC_JOINT_BLA_NO}}</td>
+                                </tr>
+                                <tr ng-if="vm.subscriptionList.SEC_JOINT_BLA_NO!=null">
+                                    <td>Second Joint Bond Holder Name</td>
+                                    <td>{{vm.subscriptionList.SEC_BOND_HOLDER_NAME}}</td>
+                                </tr>
+                                <tr ng-if="vm.subscriptionList.SEC_JOINT_BLA_NO!=null">
+                                    <td>Second Joint Bond Holder PAN No.</td>
+                                    <td>{{vm.subscriptionList.SEC_JOINT_HLDR_PAN}}</td>
+                                </tr>
+                                <tr ng-if="vm.subscriptionList.SEC_JOINT_BLA_NO!=null">
+                                    <td>Second Joint Bond Holder DOB.</td>
+                                    <td>{{vm.subscriptionList.SEC_JOINT_HLDR_DOB}}</td>
+                                </tr>
+                                <tr ng-if="vm.subscriptionList.THIRD_JOINT_BLA_NO!=null">
+                                    <td>Third Joint Bond Holder BLA No.</td>
+                                    <td>{{vm.subscriptionList.THIRD_JOINT_BLA_NO}}</td>
+                                </tr>
+                                <tr ng-if="vm.subscriptionList.THIRD_JOINT_BLA_NO!=null">
+                                    <td>Third Joint Bond Holder Name</td>
+                                    <td>{{vm.subscriptionList.THIRD_BOND_HOLDER_NAME}}</td>
+                                </tr>
+                                <tr ng-if="vm.subscriptionList.THIRD_JOINT_BLA_NO!=null">
+                                    <td>Third Joint Bond Holder PAN No.</td>
+                                    <td>{{vm.subscriptionList.THIRD_JOINT_HLDR_PAN}}</td>
+                                </tr>
+                                <tr ng-if="vm.subscriptionList.THIRD_JOINT_BLA_NO!=null">
+                                    <td>Third Joint Bond Holder DOB.</td>
+                                    <td>{{vm.subscriptionList.THIRD_JOINT_HLDR_DOB}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Mode of Interest Payment/ Principal Repayment</td>
+                                    <td>{{vm.subscriptionList.MODE_OF_INTEREST}}</td>
+                                </tr>
+                                <tr ng-if="vm.subscriptionList.MODE_OF_INTEREST == 'CREDIT ACCOUNT' || vm.subscriptionList.MODE_OF_INTEREST == 'ACH'">
+                                    <td>Operative Account Number </td>
+                                    <td>{{vm.subscriptionList.BLA_OPER_ACC_NO}}</td>
+                                </tr>
+                                <tr ng-if="vm.subscriptionList.MODE_OF_INTEREST == 'DD/PO'">
+                                    <td>DD/PO Account Number</td>
+                                    <td>{{vm.subscriptionList.DDPO_ACCT_NUM}}</td>
+                                </tr>
+                                <tr  ng-if="vm.subscriptionList.MODE_OF_INTEREST == 'NEFT' || vm.subscriptionList.MODE_OF_INTEREST == 'ACH'">
+                                    <td>Bank Code</td>
+                                    <td>{{vm.subscriptionList.BANK_CODE}}</td>
+                                </tr>
+                                <tr ng-if="vm.subscriptionList.MODE_OF_INTEREST == 'NEFT' || vm.subscriptionList.MODE_OF_INTEREST == 'ACH'">
+                                    <td>Branch Code</td>
+                                    <td>{{vm.subscriptionList.BRANCH_CODE}}</td>
+                                </tr>
+                                <tr ng-if="vm.subscriptionList.MODE_OF_INTEREST == 'NEFT'">
+                                    <td>IFSC Code of the Credit Bank</td>
+                                    <td>{{vm.subscriptionList.CREDIT_IFSC_CODE}}</td>
+                                </tr>
+                                <tr ng-if="vm.subscriptionList.MODE_OF_INTEREST == 'NEFT'">
+                                    <td>Name of the Payee</td>
+                                    <td>{{vm.subscriptionList.PAYEE_NAME}}</td>
+                                </tr>
+                                <tr ng-if="vm.subscriptionList.MODE_OF_INTEREST == 'NEFT'">
+                                    <td>Credit Account Number</td>
+                                    <td>{{vm.subscriptionList.CREDIT_ACCT_NUM}}</td>
+                                </tr>
+                                <!--<tr ng-if="vm.subscriptionList.MODE_OF_INTEREST == 'CREDIT ACCOUNT' || vm.subscriptionList.MODE_OF_INTEREST == 'ACH'">
+                                    <td>Operative Account Number</td>
+                                    <td>{{vm.subscriptionList.OPER_ACC_NO}}</td>
+                                </tr>-->
+                                <tr ng-if="vm.subscriptionList.MODE_OF_INTEREST == 'ACH'">
+                                    <td>IFSC Code</td>
+                                    <td>{{vm.subscriptionList.IFSC_CODE}}</td>
+                                </tr>
+                                <tr ng-if="vm.subscriptionList.MODE_OF_INTEREST == 'ACH'">
+                                    <td>MICR Code</td>
+                                    <td>{{vm.subscriptionList.MICR_CODE}}</td>
+                                </tr>
+
+                                </tbody>
+
+
+                            </table>
+                           <table class="table table-bordered table-striped list old-new-value-table" ng-if="vm.subscriptionList.GUARD_ID">
+                                <thead>
+                                <tr>
+                                    <th>Particular</th>
+                                    <th>Value</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <h4 class="form_heading" >GUARDIAN DETAILS</h4>
+                                <tr>
+                                    <td>Guardian ID</td>
+                                    <td>{{vm.subscriptionList.GUARD_ID}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Guardian First Name</td>
+                                    <td>{{vm.subscriptionList.GUARD_FIRST_NAME}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Guardian Middle Name</td>
+                                    <td>{{vm.subscriptionList.GUARD_MIDDLE_NAME}}</td>
+                                </tr>
+
+                                <tr>
+                                    <td>Guardian Last Name</td>
+                                    <td>{{vm.subscriptionList.GUARD_LAST_NAME }}</td>
+                                </tr>
+
+                                <tr>
+                                    <td>Relation with Minor</td>
+                                    <td>{{vm.subscriptionList.RELATION_WITH_MINOR | getLabelFromValuesArray : vm.convertLabelValue(vm.guardianDetailsListMetaData) : ('')}}</td>
+                                </tr>
+
+                                <tr>
+                                    <td>Date of Birth</td>
+                                    <td>{{vm.subscriptionList.GUARD_DATE_OF_BIRTH}}</td>
+                                </tr>
+
+                                <tr>
+                                    <td>Communication Address</td>
+                                    <td>{{vm.subscriptionList.GUARD_COM_ADDR}}</td>
+                                </tr>
+
+                                <tr>
+                                    <td>Mobile No.</td>
+                                    <td>{{vm.subscriptionList.GUARD_MOBILE_NO}}</td>
+                                </tr>
+
+                                <tr>
+                                    <td>Email ID</td>
+                                    <td>{{vm.subscriptionList.GUARD_EMAIL_ID}}</td>
+                                </tr>
+                                </tbody>
+                            </table>
+
+                        </div>
+
+                        <div class="text-center form_submit">
+                            <button type="submit" class="btn btn-default" id="submitButton" ng-click="vm.tabReferenceAdd = 'pensionMastersaForm1'">
+                                Next
+                            </button>
+                        </div>
+
+                    </form>
+                </uib-accordion>
+            </div>
+        </div>
+
+        <div  ng-show="vm.tabReferenceAdd=='pensionMastersaForm1'"  id="pensionMastersaForm1" class="tab-pane fade in active">
+            <div class="tab-body">
+                <uib-accordion close-others="oneAtATime">
+                    <form name="pensionMastersaForm1" role="form" novalidate>
+
+                        <div uib-accordion-group id="bond-sub-details" class="panel panel-default"
+                             heading="BOND SUBSCRIPTION  DETAILS">
+                            <table class="table table-bordered table-striped list old-new-value-table">
+                                <thead>
+                                <tr>
+                                    <th>Particular</th>
+                                    <th>Value</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+
+                                <tr>
+                                    <td>Broker ID</td>
+                                    <td>{{vm.subscriptionList.BROKER_ID}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Subscription Amount</td>
+                                    <td>{{vm.subscriptionList.SUBSCRIPTION_AMOUNT}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Bond Type</td>
+                                    <td>{{vm.subscriptionList.BOND_TYPE}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Account Open Date (dd/mm/yyyy)</td>
+                                    <td>{{vm.subscriptionList.ACCOUNT_OPEN_DATE}}</td>
+                                </tr>
+
+                                <tr>
+                                    <td>Value Date (dd/mm/yyyy)</td>
+                                    <td>{{vm.subscriptionList.VALUE_DATE}}</td>
+                                </tr>
+
+                                <tr>
+                                    <td>Period Of Deposit (months)</td>
+                                    <td>{{vm.subscriptionList.PERIOD_OF_DEPOSIT}}</td>
+                                </tr>
+
+                                <tr>
+                                    <td>Maturity Date (dd/mm/yyyy)</td>
+                                    <td>{{vm.subscriptionList.MATURITY_DATE}}</td>
+                                </tr>
+
+                                <tr>
+                                    <td>Rate of Interest (%)</td>
+                                    <td>{{vm.subscriptionList.RATE_OF_INTEREST}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Maturity Amount</td>
+                                    <td>{{vm.subscriptionList.MATURITY_AMT}}</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div uib-accordion-group id="transaction-details" class="panel panel-default"
+                             heading="TRANSACTION DETAILS">
+                            <table class="table table-bordered table-striped list old-new-value-table">
+                                <thead>
+                                <tr>
+                                    <th>Particular</th>
+                                    <th>Value</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+
+                                <tr>
+                                    <td>Transaction Mode</td>
+                                    <td>{{vm.subscriptionList.TRAN_MODE | getLabelFromValuesArray : vm.convertLabelValue(vm.transactionModeList)}}</td>
+                                <tr>
+                                    <td>Debit Account Number</td>
+                                    <td>{{vm.subscriptionList.TNF_DEC_ACC_NUM}}</td>
+                                </tr>
+
+                                <tr>
+                                    <td>Instrument Type</td>
+                                    <td>{{vm.subscriptionList.INSTRUMENT_TYPE}}</td>
+                                </tr>
+
+                                <tr>
+                                    <td>Instrument Number</td>
+                                    <td>{{vm.subscriptionList.INSTRUMENT_NUMBER}}</td>
+                                </tr>
+
+                                <tr>
+                                    <td>Instrument Date (dd/mm/yyyy)</td>
+                                    <td>{{vm.subscriptionList.INSTRUMENT_DATE}}</td>
+                                </tr>
+
+                                <tr>
+                                    <td>Instrument Amount</td>
+                                    <td>{{vm.subscriptionList.INSTRUMENT_AMT}}</td>
+                                </tr>
+
+                                <tr>
+                                    <td>Tran Code</td>
+                                    <td>{{vm.subscriptionList.TRAN_CODE}}</td>
+                                </tr>
+
+                                <tr>
+                                    <td>Bank Code (Non-MICR)</td>
+                                    <td>{{vm.subscriptionList.BANK_CODE_NON_MICR}}</td>
+                                </tr>
+
+                                <tr>
+                                    <td>Branch Code (Non-MICR)</td>
+                                    <td>{{vm.subscriptionList.BRANCH_CODE_NON_MICR}}</td>
+                                </tr>
+
+                                <tr>
+                                    <td>Sort Code</td>
+                                    <td>{{vm.subscriptionList.SORT_CODE}}</td>
+                                </tr>
+
+                                <tr>
+                                    <td>Remarks</td>
+                                    <td>{{vm.subscriptionList.REMARKS}}</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                       <!--
+                        <div ng-if ="vm.subscriptionList.IS_NOMINEE =='Y'"uib-accordion-group id="nomination-details" class="panel panel-default"
+                             heading="NOMINATION  DETAILS">
+                            <table class="table table-bordered table-striped list old-new-value-table">
+                                <thead>
+                                <tr>
+                                    <th>Particular</th>
+                                    <th>Value</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+
+                                <tr>
+                                    <td>Nominee First Name</td>
+                                    <td>{{vm.subscriptionList.NOMINEE_FIRST_NAME}}</td>
+                                <tr>
+                                    <td>Nominee Middle Name</td>
+                                    <td>{{vm.subscriptionList.NOMINEE_MID_NAME}}</td>
+                                </tr>
+
+                                <tr>
+                                    <td>Nominee Last Name</td>
+                                    <td>{{vm.subscriptionList.NOMINEE_LAST_NAME}}</td>
+                                </tr>
+
+                                <tr>
+                                    <td>Address1</td>
+                                    <td>{{vm.subscriptionList.ADDRESS1}}</td>
+                                </tr>
+
+                                <tr>
+                                    <td>Address2</td>
+                                    <td>{{vm.subscriptionList.ADDRESS2}}</td>
+                                </tr>
+
+                                <tr>
+                                    <td>Pin Code</td>
+                                    <td>{{vm.subscriptionList.PIN_CODE}}</td>
+                                </tr>
+
+                                <tr>
+                                    <td>State</td>
+                                    <td>{{vm.subscriptionList.STATE}}</td>
+                                </tr>
+
+                                <tr>
+                                    <td>City</td>
+                                    <td>{{vm.subscriptionList.CITY}}</td>
+                                </tr>
+
+                                <tr>
+                                    <td>Phone No </td>
+                                    <td>{{vm.subscriptionList.PHONE_NO}}</td>
+                                </tr>
+
+                                <tr>
+                                    <td>Share Percentage</td>
+                                    <td>{{vm.subscriptionList.SHARE_PERCENTAGE}}</td>
+                                </tr>
+
+                                <tr>
+                                    <td>Operative Account No</td>
+                                    <td>{{vm.subscriptionList.OPERATIVE_ACCOUNT_NO}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Is Nominee a Minor</td>
+                                    <td>{{vm.subscriptionList.IS_NOMINEE_MINOR}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Relation with Holder</td>
+                                    <td>{{vm.subscriptionList.RELATION_WITH_HOLDER | getLabelFromValuesArray : vm.convertLabelValue(vm.guardianDetailsListMetaData)}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Date of Birth Of Minor</td>
+                                    <td>{{vm.subscriptionList.DATE_OF_BIRTH_OF_MINOR}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Total Percentage</td>
+                                    <td>{{vm.subscriptionList.SHARE_PERCENTAGE}}</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div ng-if ="vm.subscriptionList.IS_NOMINEE_MINOR =='Y'" uib-accordion-group id="guardian-details" class="panel panel-default"
+                             heading="Guardian Details  (Mandatory if Nominee is a Minor)">
+                            <table class="table table-bordered table-striped list old-new-value-table">
+                                <thead>
+                                <tr>
+                                    <th>Particular</th>
+                                    <th>Value</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+
+                                <tr>
+                                    <td>Guardian First Name</td>
+                                    <td>{{vm.subscriptionList.GUARD_FIRST_NAME}}</td>
+                                <tr>
+                                    <td>Guardian Middle Name</td>
+                                    <td>{{vm.subscriptionList.GUARD_MIDDLE_NAME}}</td>
+                                </tr>
+
+                                <tr>
+                                    <td>Guardian Last Name</td>
+                                    <td>{{vm.subscriptionList.GUARD_LAST_NAME }}</td>
+                                </tr>
+
+                                <tr>
+                                    <td>Address1</td>
+                                    <td>{{vm.subscriptionList.GUARD_ADDRESS1}}</td>
+                                </tr>
+
+                                <tr>
+                                    <td>Address2</td>
+                                    <td>{{vm.subscriptionList.GUARD_ADDRESS2}}</td>
+                                </tr>
+
+                                <tr>
+                                    <td>PIN Code</td>
+                                    <td>{{vm.subscriptionList.GUARD_PIN_CODE}}</td>
+                                </tr>
+
+                                <tr>
+                                    <td>State</td>
+                                    <td>{{vm.subscriptionList.GUARD_STATE}}</td>
+                                </tr>
+
+                                <tr>
+                                    <td>City</td>
+                                    <td>{{vm.subscriptionList.GUARD_CITY}}</td>
+                                </tr>
+
+                                <tr>
+                                    <td>Mobile No.</td>
+                                    <td>{{vm.subscriptionList.GUARD_MOBILE_NO}}</td>
+                                </tr>
+
+                                <tr>
+                                    <td>Email ID</td>
+                                    <td>{{vm.subscriptionList.GUARD_EMAIL_ID}}</td>
+                                </tr>
+
+                              &lt;!&ndash;  <tr>
+                                    <td>Total (%)</td>
+                                    <td>{{vm.subscriptionList.REMARKS}}</td>
+                                </tr>&ndash;&gt;
+                                </tbody>
+                            </table>
+                        </div>
+                        -->
+                        <div ng-if="vm.closerType == 'CBT'" uib-accordion-group id="cbt-details" class="panel"
+                             heading='CBT DETAILS'
+                             is-open="vm.cbtDetailsOpen"
+                             ng-class="(vm.cbtDetails.$invalid) ? 'panel-danger' : 'panel-success'">
+
+                            <ng-form name="vm.cbtDetails" ng-init="vm.customerMasterDetails">
+                                <table class="table table-bordered">
+                                    <tbody>
+
+                                    <tr>
+                                        <td width="25%" class="form-group" required>
+                                            <label class="control-label">Remarks</label></td>
+                                        <td width="25%">
+                                            <input type="text" class="form-control" ng-model="vm.catCbtRemarks"
+                                                   id="cbtremarks" name="cbtremarks"
+                                                   maxlength="200" required>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </ng-form>
+                        </div>
+
+                        <div ng-if="vm.closerType == 'CAT'" uib-accordion-group id="cat-details" class="panel"
+                             heading='CAT DETAILS'
+                             is-open="vm.catDetailsOpen"
+                             ng-class="(vm.catDetails.$invalid) ? 'panel-danger' : 'panel-success'">
+
+                            <ng-form name="vm.catDetails" ng-init="vm.customerMasterDetails">
+                                <table class="table table-bordered">
+                                    <tbody>
+
+                                    <tr>
+                                        <td width="25%" class="form-group">
+                                            <label class="control-label">Court Order Number/ Approval received From RBI</label></td>
+                                        <td width="25%">
+                                            <input type="text" class="form-control" ng-model="vm.courtOrder"
+                                                   id="courtOrder" name="courtOrder"
+                                                   maxlength="30">
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td width="25%" class="form-group">
+                                            <label class="control-label">Court Order Date/ RBI Approval
+                                                date(dd/MM/yyyy)</label>
+                                        </td>
+                                        <td width="25%">
+                                            <p class="input-group">
+                                                <input type="text" class="form-control" id="courtOrderDate"
+                                                       name="courtOrderDate" ng-model="vm.courtOrderDate"
+                                                       uib-datepicker-popup="dd/MM/yyyy"
+                                                       datepicker-options="vm.valueDateOptions"
+                                                       is-open="vm.efffromDateOptions1.opened"
+                                                       close-text="Close" maxlength="10"
+
+                                                       ng-blur="vm.textableDatePicker('courtOrderDate',vm.courtOrderDate)"
+                                                       ng-keyup="vm.autoslashing('courtOrderDate')" chars="numbers-slash"
+                                                >
+                                                 <span class="input-group-btn">
+                                                     <button type="button" class="btn btn-secondary"
+                                                             ng-click="vm.efffromDateOptions1.opened = true"
+                                                             id="efffromDateOptions1">
+                                                         <i class="glyphicon glyphicon-calendar"></i>
+                                                     </button>
+                                                 </span>
+                                            </p>
+                                        </td>
+
+                                    </tr>
+
+                                    <tr>
+                                        <td width="25%" class="form-group" required>
+                                            <label class="control-label">Remarks</label></td>
+                                        <td width="25%">
+                                            <input type="text" class="form-control" ng-model="vm.catCbtRemarks"
+                                                   id="catremarks" name="catremarks"
+                                                   maxlength="200" required>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </ng-form>
+                        </div>
+
+                        <div class="text-center form_submit">
+                            <button type="submit" class="btn btn-default" id="submitButton1"
+                                    ng-disabled="vm.catDetails.$invalid || vm.cbtDetails.$invalid"
+                                    ng-click="vm.addcustomerMaster();">Submit
+                            </button>
+                            <button type="button" class="btn btn-cancel" id="cancelButton"
+                                    onclick="window.location.href= '#!/cancellation_subscription_cat_cbt/action/inquiry';">
+                                Cancel
+                            </button>
+
+                        </div>
+
+
+                    </form>
+                </uib-accordion>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>

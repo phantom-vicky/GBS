@@ -1,0 +1,219 @@
+<!--<div class="loader-new" ng-if="vm.loader"></div>-->
+<!--<dc-left-menu></dc-left-menu>-->
+<!--    <div class="container form_wrapper" ng-if="vm.stateMasterDetails">-->
+<!--        <h4 class="form_heading  feature-heading">-->
+<!--            State/District/Pin code Master - Inquiry-->
+<!--        </h4>-->
+
+
+
+<!--                        <table class="table table-bordered table-striped list nowrap table-textWrap datatable"-->
+<!--                               ui-jq="dataTable" ui-options="vm.dataTableOption">-->
+<!--                            <thead>-->
+<!--                            <tr class="thalign">-->
+<!--                                <th>S No</th>-->
+<!--                                <th>State</th>-->
+<!--                                <th>City</th>-->
+<!--                                <th>Pin Code</th>-->
+<!--                                <th>Post Office Name</th>-->
+
+
+<!--                            </tr>-->
+<!--                            <tbody>-->
+
+<!--                            <tr ng-repeat="x in vm.stateMasterDetails">-->
+<!--                                <td align="center">{{$index+1}}</td>-->
+<!--                                <td align="center">{{x.state}}</td>-->
+<!--                                <td align="center">{{x.city}}</td>-->
+<!--                                <td align="center">{{x.pinCode}}</td>-->
+<!--                                <td align="center">{{x.postOfficeName}}</td>-->
+
+<!--                            </tr>-->
+<!--                            </tbody>-->
+<!--                        </table>-->
+
+
+<!--        <div class="col-sm-12">-->
+<!--            <div class="audit-details">-->
+<!--                <div class="row">-->
+<!--                    <div class="col-md-3">-->
+<!--						<span>-->
+<!--							<b> Created By </b> : {{vm.auditDetails.createdBy}}-->
+<!--						</span>-->
+<!--                    </div>-->
+
+<!--                    <div class="col-md-3">-->
+<!--						<span>-->
+<!--							<b> Last Verified By </b> : {{(vm.auditDetails.lastVerifiedBy) ? (vm.auditDetails.lastVerifiedBy) : ('None')}}-->
+<!--						</span>-->
+<!--                    </div>-->
+<!--                    <div class="col-md-3">-->
+<!--						<span>-->
+<!--							<b> Verify Status </b> : {{vm.auditDetails.verifyStatus  | getLabelFromValuesArray : vm.commonYesNoMetaData}}-->
+<!--						</span>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--                <div class="row">-->
+<!--                    <div class="col-md-3">-->
+<!--						<span>-->
+<!--							<b> Created On </b> : {{ vm.auditDetails.createdDate | date : 'dd/MM/yyyy'}}-->
+<!--						</span>-->
+<!--                    </div>-->
+
+<!--                    <div class="col-md-3">-->
+<!--						<span>-->
+<!--							<b> Last Verified On </b> : {{(vm.auditDetails.lastVerifiedDate) ? (vm.auditDetails.lastVerifiedDate | date : 'dd/MM/yyyy') : ('None')}}-->
+<!--						</span>-->
+<!--                    </div>-->
+<!--                    <div class="col-md-3"></div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+
+<!--    </div>-->
+
+<!--<div class="container" ng-if="vm.stateMasterDetails.length <= 0 ">-->
+<!--    <div class="list_wrapper no_records_message">-->
+<!--        <h4 class="form_heading"> State/District/Pin code Master - Inquiry</h4>-->
+<!--        No records found to display.-->
+<!--        <center>-->
+<!--            <button type="button" class="btn btn-default"-->
+<!--                    onclick="window.location.href= '#!/state_district_pin/action/inquiry';" >Back</button>-->
+<!--        </center>-->
+<!--    </div>-->
+<!--</div>-->
+
+<div class="loader-new" ng-if="vm.loader" xmlns="http://www.w3.org/1999/html"></div>
+<dc-left-menu></dc-left-menu>
+<!-- list result -->
+<div class="container list_wrapper" ng-if="vm.stateMasterDetails.length> 0">
+    <h4 class="form_heading">State/District/Pin Code Master - Inquiry</h4>
+    <sol-header></sol-header><br>
+
+    <div class="row">
+        <div class="col-sm-12">
+    <div class="row">
+        <div class="col-sm-3"  style="display: flex; align-items: center; justify-content: flex-end;">
+            <div class="form-group" style="margin-right: 15px;">
+                <div class="input-group">
+                    <input type="text" class="form-control searchButton"
+                           ng-model="vm.searchValue" ng-init="vm.searchValue = ''"
+                           placeholder="Search">
+                    <div class="input-group-addon">
+                        <i class="glyphicon glyphicon-search" ng-click="vm.getInquiryDetails()"></i>
+                        <i class="glyphicon glyphicon-remove clear cp" ng-click="vm.searchValue = '';vm.pageNo = 1;vm.getInquiryDetails()"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-2">
+            <select class="form-control pageDropDown" id="pageSize" name="pageSize"
+                    ng-model="vm.pageSize" ng-init="vm.pageSize='5'"
+                    ng-change="vm.pageNo='1'; vm.getInquiryDetails();"
+                    ng-disabled="vm.noDataFoundInSearch">
+                <option value="5" >5 per page</option>
+                <option value="10" >10 per page</option>
+                <option value="20">20 per page</option>
+                <option value="50">50 per page</option>
+            </select>
+        </div>
+
+        <div class="col-sm-2">
+            <label><strong>TOTAL COUNT : {{vm.total}}</strong></label>
+        </div>
+
+
+
+    </div>
+
+    <table class="table table-bordered table-striped list">
+        <thead data-ng-if="!vm.noDataFoundInSearch">
+        <tr>
+        <th>S No</th>
+        <th>State</th>
+        <th>City</th>
+        <th>Pin Code</th>
+        <th>Post Office Name</th>
+        </tr>
+        </thead>
+        <tbody data-ng-if="!vm.noDataFoundInSearch">
+        <tr dir-paginate="x in vm.stateMasterDetails| itemsPerPage: itemsPerPage" pagination-id="trailRunRep">
+            <td>{{ ($index + 1) + ((vm.pageNo - 1) * vm.pageSize) }}</td>
+            <td>{{x.state}}</td>
+            <td>{{x.city}}</td>
+            <td>{{x.pinCode}}</td>
+            <td>{{x.postOfficeName}}</td>
+
+        </tr>
+        </tbody>
+        <tbody data-ng-if="vm.noDataFoundInSearch">
+        <tr>
+            <td style="text-align:center">No Records Found</td>
+        </tr>
+        </tbody>
+    </table>
+            <br>
+            <div class="text-center form_submit">
+                        <span ng-show="vm.showPrevious">
+                        <button type="submit" class="btn btn-default" ng-click="vm.goPreviousPage()">Prev
+                        </button>
+                        </span>
+
+                <span>
+                          <button type="submit" class="btn btn-default" ng-disabled="true" ng-init="vm.pageNo=1" ng-model="vm.pageNo" ng-click="vm.paymentStatus();">{{vm.pageNo}} of {{vm.maxPages}}
+                          </button>
+                        </span>
+
+                <span ng-show="vm.showNext">
+                        <button type="submit" class="btn btn-default" ng-click="vm.goNextPage();" >Next
+                        </button>
+                        </span>
+            </div>
+        </div>
+    </div>
+
+    <div class="audit-details">
+        <div class="row">
+            <div class="col-md-3">
+                <span> <b> Created By </b> : {{vm.auditDetails.createdBy}} </span>
+            </div>
+
+            <div class="col-md-3">
+                <span> <b> Last Verified By </b> : {{(vm.auditDetails.verifiedBy) ? (vm.auditDetails.verifiedBy) : ('None')}}</span>
+            </div>
+            <div class="col-md-3">
+                <span> <b> Verify Status </b> : {{vm.auditDetails.verifiedStatus  | getLabelFromValuesArray : vm.commonYesNoMetaData}}</span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3">
+                <span> <b> Created On </b> : {{ vm.auditDetails.createdDate }}</span>
+            </div>
+
+            <div class="col-md-3">
+                <span> <b> Last Verified On </b> : {{(vm.auditDetails.verifiedDate) ? (vm.auditDetails.verifiedDate) : ('None')}}</span>
+            </div>
+            <div class="col-md-3">
+            </div>
+        </div>
+    </div>
+
+    <div class="text-center form_submit">
+        <button type="button" class="btn btn-cancel" id="cancelButton"
+                onclick="window.location.href= '#!/dc_rbi_bond_menu';">Cancel</button>
+    </div>
+</div>
+<div class="container" data-ng-if="vm.noDataFound">
+    <div class="list_wrapper no_records_message">
+        <h4 class="form_heading"> State/District/Pin Code Master - Inquiry</h4>
+        No records found to display.
+        <center>
+            <button type="button" class="btn btn-default"
+                    onclick="window.location.href= '#!/dc_rbi_bond_menu';" >Back</button>
+        </center>
+    </div>
+</div>
+<!-- list result - End -->
+
+
+

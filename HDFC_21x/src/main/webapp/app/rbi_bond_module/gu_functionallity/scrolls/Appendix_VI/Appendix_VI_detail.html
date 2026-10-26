@@ -1,0 +1,146 @@
+<div class="loader-new" ng-if="vm.loader"></div>
+<div class="container" ng-if="vm.showDetails">
+    <div class="text-right form_submit">
+        <button type="submit" class="btn btn-default"
+                onclick="window.location.href ='#!';" id="homeButton">Home</button>
+        <button type="button" id="backButton" class="btn btn-cancel"
+                onclick="window.location.href='#!/appendix_vi/action/inquiry';">Back</button>
+        <button type="submit" class="btn btn-default"
+                id="printButton" ng-click="vm.printpage();">Print</button>
+    </div>
+    <div class="container from_wrapper new_form_wrapper" id="section-to-print">
+        <div class="row">
+            <div class="form-group white-bg text-center">
+                <label class="control-label text-bold">Sol ID : <span id="solId" ng-bind="globals.currentUser.solId"></span> /
+                    <span id="solDesc" ng-bind="globals.currentUser.solDesc"></span></label>
+            </div>
+            <h4 class="form_heading">Appendix VI - Statement of Bonds Issued/Repaid for the Month
+                For the period from {{vm.fromDate | date: 'dd/MM/yyyy'}} to {{vm.toDate | date: 'dd/MM/yyyy'}}
+            </h4>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="table-responsive">
+                    <!-- PART A – ISSUE OF BONDS -->
+                    <table class="table table-bordered table-striped list nowrap table-textWrap datatable">
+                        <thead>
+                        <tr>
+                            <th colspan="7">PART A – ISSUE OF BONDS</th>
+                        </tr>
+                        <tr>
+                            <th>Serial No.</th>
+                            <th>Bond Ledger Account Number</th>
+                            <th>Amount</th>
+                            <th>Date of Investment</th>
+                            <th>Date of Repayment</th>
+                            <th>CAS Advice No</th>
+                            <th>CAS Advice Date</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="x in vm.StatementBondDetailsOne">
+                            <td>{{$index + 1}}</td>
+                            <td>{{x.bondLedgerAccountNumber}}</td>
+                            <td align="right">{{x.amount}}</td>
+                            <td>{{x.dateofInvestment}}</td>
+                            <td>{{x.dueDateofRepayment}}</td>
+                            <td>{{x.casadviceNo}}</td>
+                            <td>{{x.casadviceDate}}</td>
+                        </tr>
+                        <tr ng-if="!vm.StatementBondDetailsOne || vm.StatementBondDetailsOne.length === 0">
+                            <td colspan="7" class="text-center">No records found.</td>
+                        </tr>
+                        </tbody>
+                    </table>
+
+                    <!-- PART B – REPAYMENT -->
+                    <table class="table table-bordered table-striped list nowrap table-textWrap datatable">
+                        <thead>
+                        <tr>
+                            <th colspan="5">PART B – REPAYMENT</th>
+                        </tr>
+                        <tr class="thalign">
+                            <th>Serial No.</th>
+                            <th>Bond Ledger Account Number</th>
+                            <th>Amount</th>
+                            <th>Due Date of Repayment</th>
+                            <th>Repaid on</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="x in vm.StatementBondDetailsTwo">
+                            <td>{{$index + 1}}</td>
+                            <td>{{x.bondLedgerAccountNumber}}</td>
+                            <td class="text-right">{{x.amount}}</td>
+                            <td>{{x.dueDateofRepayment}}</td>
+                            <td>{{x.repaidon}}</td>
+                        </tr>
+                        <tr ng-if="!vm.StatementBondDetailsTwo || vm.StatementBondDetailsTwo.length === 0">
+                            <td colspan="5" class="text-center">No records found.</td>
+                        </tr>
+                        </tbody>
+                    </table>
+
+                    <!-- PART C – SUMMARY POSITION -->
+                    <table class="table table-bordered table-striped list nowrap table-textWrap datatable">
+                        <thead>
+                        <tr>
+                            <th colspan="3">PART C – SUMMARY POSITION</th>
+                        </tr>
+                        <tr>
+                            <th></th>
+                            <th>Number of BLAs</th>
+                            <th>Amount</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat-start="x in vm.StatementBondDetailsThree">
+                            <th>Progressive Opening Balance B/f</th>
+                            <td>{{x.balanceacc}}</td>
+                            <td class="text-right">{{x.balanceamt}}</td>
+                        </tr>
+                        <tr>
+                            <th>(+) Part A</th>
+                            <td>{{x.vnoofsubscriptions}}</td>
+                            <td class="text-right">{{x.vtotsubamt}}</td>
+                        </tr>
+                        <tr>
+                            <th>Total</th>
+                            <td>{{x.vnoofsubclosed}}</td>
+                            <td class="text-right">{{x.vtotclosedamt}}</td>
+                        </tr>
+                        <tr>
+                            <th>(-) Part B</th>
+                            <td>{{x.totalacc}}</td>
+                            <td class="text-right">{{x.totalamt}}</td>
+                        </tr>
+                        <tr ng-repeat-end>
+                            <th>Net Outstanding</th>
+                            <td>{{x.nettotalacc}}</td>
+                            <td class="text-right">{{x.nettotalam}}</td>
+                        </tr>
+                        <tr ng-if="!vm.StatementBondDetailsThree || vm.StatementBondDetailsThree.length === 0">
+                            <td colspan="3" class="text-center">No records found.</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="text-center form_submit">
+        <button type="button" class="btn btn-cancel"
+                onclick="window.location.href='#!/appendix_vi/action/inquiry';">Cancel</button>
+    </div>
+</div>
+
+<div class="container" ng-if="vm.noDataFound">
+    <div class="list_wrapper no_records_message">
+        <h4 class="form_heading">Appendix VI - Statement of Bonds Issued/Repaid for the Month</h4>
+        No records found to display.
+        <center>
+            <button type="button" class="btn btn-cancel"
+                    onclick="window.location.href='#!/appendix_vi/action/inquiry';">Back</button>
+        </center>
+    </div>
+</div>

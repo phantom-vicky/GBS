@@ -1,0 +1,393 @@
+<div class="container from_wrapper">
+    <div class="loader-new" ng-if="vm.loader"></div>
+    <dc-left-menu></dc-left-menu>
+    <h4 class="form_heading">Bond Account Transfer Out - Add</h4>
+    <sol-header></sol-header>
+
+    <div class="container" >
+        <uib-accordion close-others="oneAtATime">
+            <form name="vm.transferOutForm" role="form"
+                  ng-submit="vm.addSubmit(vm.transferOutForm.$valid)">
+
+                <div uib-accordion-group id="general-details"
+                     class="panel-default panel panel-open"
+                     heading="Bond Account Transfer Out - Add" is-open="true" ng-ini="vm.getModuleName()">
+
+                    <div class="row">
+                        <div class="form-group" ng-class="requiredClass">
+                            <label class="control-label col-sm-3">Name of the Bond Scheme
+                            </label>
+                            <div class="col-sm-2">
+                                :
+                                <label class="data-bind" >{{vm.schemeName}}</label>
+                            </div>
+                            <div class="col-sm-1"></div>
+                            <label  class="control-label col-sm-3">Transfer Out To Other Banks</label>
+                            <div class="col-sm-2">
+                                :
+                                <label class="data-bind" >{{vm.isTranOutToOtherBank | getLabelFromValuesArray : vm.commonYesNoMetaData}} </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+
+                        <div class="form-group" ng-class="requiredClass">
+                            <label class="control-label col-sm-3">Mode of Holding
+                            </label>
+                            <div class="col-sm-2">
+                                :
+                                <label class="data-bind"  >{{vm.modeOfHolding}}</label>
+                            </div>
+                            <div class="col-sm-1"></div>
+                            <label for="isNri" class="control-label col-sm-3">Holder Type
+                            </label>
+                            <div class="col-sm-2">
+                                :
+                                <label id="isNri" class="data-bind" >{{vm.bondHolderDetails[0].holderType }} </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+
+                        <div class="form-group" ng-class="requiredClass">
+                            <label class="control-label col-sm-3">BLA Number
+                            </label>
+                            <div class="col-sm-2">
+                                :
+                                <label class="data-bind"  >{{vm.blaNo}}</label>
+                            </div>
+                            <div class="col-sm-1" ng-if="vm.bondHolderDetails[0].singleBondHolderName"></div>
+                            <label for="isNri" class="control-label col-sm-3" ng-if="vm.bondHolderDetails[0].singleBondHolderName">Bond Holder Name
+                            </label>
+                            <div class="col-sm-2" ng-if="vm.bondHolderDetails[0].singleBondHolderName">
+                                :
+                                <label id="isNri" class="data-bind" >{{vm.bondHolderDetails[0].singleBondHolderName}} </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" ng-if="vm.bondHolderDetails[0].firstJointHolderName || vm.bondHolderDetails[0].firstJointHolderBlaNo">
+
+                        <div class="form-group" ng-class="requiredClass">
+                            <label class="control-label col-sm-3">First Joint Bond Holder BLA No.
+                            </label>
+                            <div class="col-sm-2">
+                                :
+                                <label class="data-bind"  >{{vm.bondHolderDetails[0].firstJointHolderBlaNo}}</label>
+                            </div>
+                            <div class="col-sm-1"></div>
+                            <label for="isNri" class="control-label col-sm-3">First joint Bond Holder Name
+                            </label>
+                            <div class="col-sm-2">
+                                :
+                                <label id="isNri" class="data-bind" >{{vm.bondHolderDetails[0].firstJointHolderName}} </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row"  ng-if="vm.bondHolderDetails[0].secondJointHolderBlaNo || vm.bondHolderDetails[0].secondJointHolderName">
+
+                        <div class="form-group" ng-class="requiredClass">
+                            <label class="control-label col-sm-3">Second Joint Bond Holder BLA No.
+                            </label>
+                            <div class="col-sm-2">
+                                :
+                                <label class="data-bind"  >{{vm.bondHolderDetails[0].secondJointHolderBlaNo}}</label>
+                            </div>
+                            <div class="col-sm-1"></div>
+                            <label for="isNri" class="control-label col-sm-3">Second Joint Bond Holder Name
+                            </label>
+                            <div class="col-sm-2">
+                                :
+                                <label id="isNri" class="data-bind" >{{vm.bondHolderDetails[0].secondJointHolderName}} </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" ng-if="vm.bondHolderDetails[0].isNri">
+
+                        <div class="form-group" ng-class="requiredClass">
+                            <label class="control-label col-sm-3">Is NRI?
+                            </label>
+                            <div class="col-sm-2">
+                                :
+                                <label class="data-bind"  >{{vm.bondHolderDetails[0].isNri | getLabelFromValuesArray : vm.commonYesNoMetaData}}</label>
+                            </div>
+                            <div class="col-sm-1"></div>
+
+                            <div class="col-sm-2"></div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+                <div uib-accordion-group id="bond-subscription-details" class="panel"
+                     heading='BOND SUBSCRIPTION  DETAILS'
+                     is-open="vm.bondSubscriptionDetailsOpen"
+                     ng-class="(vm.bondSubscriptionDetails.$invalid) ? 'panel-danger' : 'panel-success'">
+
+                    <ng-form name="vm.bondSubscriptionDetails" >
+                        <div class="table-responsive">
+
+                            <table class="table table-bordered table-striped list table-textWrap"
+                                   >
+                                <thead>
+                                <tr>
+                                    <th>Check Box</th>
+                                    <th>Subscription Date</th>
+                                    <th>Subscription Id</th>
+                                    <th>Subscription Amount</th>
+                                    <th>Bond Type</th>
+
+                                    <th>Maturity Date</th>
+                                    <th>Rate Of Interest %</th>
+                                    <th>Transfer Amount</th>
+                                    <th>Interest Paid up to</th>
+
+                                </tr>
+
+                                </thead>
+                                <tbody>
+                                <tr ng-repeat="x in vm.bondSubscriptionDetails">
+<!--                                    <td>{{vm.itemsPerPage *(vm.currentPage-1)+$index+1}}</td>-->
+                                    <td>
+                                        <input type="checkbox" id="x.isSelected" name="x.isSelected" ng-model="x.isSelected" ng-change="vm.getNomineeDetails();"
+                                               value="x.isSelected" ng-init="x.isSelected=true">
+                                    </td>
+                                    <td align="center">{{x.subscriptionDate}}</td>
+                                    <td align="center">{{x.subscriptionId}}</td>
+                                    <td align="center">{{x.subscriptionAmount}}</td>
+                                    <td align="center">{{x.bondType}}</td>
+                                    <td align="center">{{x.maturityDate}}</td>
+                                    <td align="center">{{x.rateOfInterest}}</td>
+                                    <td align="center">{{x.transferAmount}}</td>
+                                    <td align="center">{{x.interestPaidUpTo}}</td>
+
+                                </tr>
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </ng-form>
+                </div>
+
+                <div uib-accordion-group id="bond-nominee-details" class="panel"
+                     heading='NOMINATION DETAILS'
+                     is-open="vm.bondNomineeDetailsOpen" ng-if="vm.getNomineeDetailsList.length > 0"
+                     ng-class="(vm.bondNomineeDetails.$invalid) ? 'panel-danger' : 'panel-success'">
+
+                    <ng-form name="vm.bondNomineeDetails" >
+                        <div class="table-responsive">
+
+                            <table class="table table-bordered table-striped list table-textWrap">
+                                <thead>
+                                <tr>
+                                    <th>Sl No</th>
+                                    <th>Subscription ID</th>
+                                    <th>Nominee Name</th>
+                                    <th>Nominee Share(%)</th>
+                                </tr>
+
+                                </thead>
+                                <tbody>
+                                <tr ng-repeat="x in vm.getNomineeDetailsList">
+
+                                    <!--                                    <td>{{vm.itemsPerPage *(vm.currentPage-1)+$index+1}}</td>-->
+                                    <td>{{$index+1}}</td>
+                                    <td align="center">{{x.subscriptionId}}</td>
+                                    <td align="center">{{x.nomineeName}}</td>
+                                    <td align="center">{{x.nomineeShare}}</td>
+                                </tr>
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </ng-form>
+
+
+                </div>
+
+                <div uib-accordion-group id="bond-transaction-details" class="panel"
+                     heading='TRANSFER OUT DETAILS'
+                     is-open="vm.bondTransactionDetailsOpen"
+                     ng-class="(vm.bondTransactionDetails.$invalid) ? 'panel-danger' : 'panel-success'">
+
+                    <ng-form name="vm.bondTransactionDetails" >
+                        <table class="table table-bordered">
+                            <tbody>
+
+                            <tr ng-if="vm.isTranOutToOtherBank =='Y'">
+                                <td width="25%" class="form-group required">
+                                    <label class="control-labelaria-controls">Transfer to Bank Name</label></td>
+                                <td width="25%">
+                                    <input type="text" class="form-control"
+                                           id="transferToBankName" name="transferToBankName" chars="only-letters" maxlength="20"
+                                           ng-model="vm.transferToBankName" required>
+                                </td>
+
+                                <td width="25%" class="form-group required">
+                                    <label class="control-label">Transfer to Branch Name</label></td>
+                                <td width="25%">
+                                    <input type="text" class="form-control"
+                                           id="transferToBranchName" name="transferToBranchName" chars="only-letters" maxlength="50"
+                                           ng-model="vm.transferToBranchName" required>
+                                </td>
+                            </tr>
+
+                            <!--<tr ng-if="vm.isTranOutToOtherBank =='Y'">
+
+                                <td width="25%" class="form-group required">
+                                    <label class="control-label">Transfer through</label>
+                                </td>
+                                <td width="25%">
+                                    <select class="form-control" id="transferThrough"
+                                            name="transferThrough" ng-model="vm.transferThrough"
+                                            required>
+                                        <option value="" >Select</option>
+                                        <option value="PO/DD">PO/DD</option>
+                                    </select>
+                                </td>
+
+
+                                <td width="25%" class="form-group required">
+                                    <label class="control-label">Proceeds Credit Account Number</label></td>
+                                <td width="25%">
+                                    <input type="text" class="form-control"
+                                           id="creditAccNo" name="creditAccNo" chars="alpha-numeric" maxlength="20"
+                                           ng-model="vm.creditAccNo" required>
+                                </td>
+
+
+                            </tr>-->
+
+                            <tr ng-if="vm.isTranOutToOtherBank =='N'">
+                                <td width="25%" class="form-group required">
+                                    <label class="control-label">Transfer to Branch Id</label>
+                                </td>
+                                <td width="25%" class="form-group required">
+                                    <div class="row">
+                                        <div class="col-sm-9">
+                                            <input type="text" class="form-control" id="transferToBranchId"
+                                                   name="transferToBranchId"
+                                                   ng-model="vm.transferToBranchId"
+                                                   chars="alpha-numeric" disabled required>
+                                        </div>
+                                        <div class="col-sm-3 torch-top">
+                                            <i class="glyphicon glyphicon-eye-open" data-bs-toggle="modal"
+                                               ng-click="vm.getBankDetailsTorch();" id="solISearcher"></i>
+                                            <i class="glyphicon glyphicon-remove clear cp"
+                                               ng-click="vm.transferToBranchId = ''; vm.transferToSameBranchName = ''" id="tranolIdClose"></i>
+                                        </div>
+                                    </div>
+                                </td>
+
+                                <td width="25%" class="form-group required">
+                                    <label class="control-label">Transfer to Branch Name</label>
+                                </td>
+                                <td width="25%" class="form-group required">
+                                    <div class="row">
+                                        <div class="col-sm-9">
+                                            <input type="text" class="form-control" id="transferToSameBranchName"
+                                                   name="transferToSameBranchName"
+                                                   ng-model="vm.transferToSameBranchName" chars="alpha-numeric" readonly required>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+
+
+                            <tr>
+                                <td width="25%" class="form-group">
+                                    <label class="control-label">Remarks</label></td>
+                                <td width="25%">
+                                    <input type="text" class="form-control" ng-model="vm.remarks"
+                                           id="remarks" name="remarks" oninput="this.value = this.value.replace(/^\s/, '')" maxlength="200">
+                                </td>
+
+                                <td width="25%" class="form-group required">
+<!--                                    <label class="control-label">Do You want to add Nominee?</label></td>-->
+                                <td width="25%">
+
+                                </td>
+                            </tr>
+
+
+
+                            </tbody>
+                        </table>
+                    </ng-form>
+                </div>
+
+
+
+                <div class="text-center form_submit">
+
+                    <button type="submit" class="btn btn-default" id="submitButton"
+                            ng-disabled="transferOutForm.$invalid" >Submit</button>
+                    <button type="button" class="btn btn-cancel" id="cancelButton"
+                            onclick="window.location.href= '#!/rbi_bnd_acc_trans_out/action/inquiry';">Back
+                    </button>
+                </div>
+
+            </form>
+        </uib-accordion>
+    </div>
+
+
+</div>
+
+
+
+
+<!--branch Modal-->
+<div class="modal" id="branchModal" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-bs-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Branch Id List</h4>
+            </div>
+            <div class="modal-body">
+                <div class="loader_popup"></div>
+                <div class="list_wrapper" ng-if="vm.bankDetailsList.length>0">
+                    <div class="col-sm-8 form_submit">
+                        <div class="form-group">
+                            <div class="input-group">
+                                <div class="input-group-addon">
+                                    <i class="glyphicon glyphicon-search"></i>
+                                </div>
+                                <input type="text" class="form-control"
+                                       ng-model="vm.searchCustomerId" ng-init="vm.searchCustomerId = ''"
+                                       placeholder="Search">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4 form_submit"></div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <table class="table table-bordered list scroll">
+                                <thead ng-init="reverseOrder = false; sortedColumn = 'scssCustomerId'">
+                                <tr>
+                                    <th class="modal-title title-case" ng-click="(sortedColumn == 'branchId')?(reverseOrder=(!reverseOrder)): (reverseOrder = false);sortedColumn = 'branchId';" ng-class="(sortedColumn == 'branchId')?((reverseOrder)?('arrow-down') : ('arrow-up') ) : ('')">Branch Id</th>
+                                    <th class="modal-title title-case" ng-click="(sortedColumn == 'branchDescription')?(reverseOrder=(!reverseOrder)): (reverseOrder = false);sortedColumn = 'branchDescription';" ng-class="(sortedColumn == 'branchDescription')?((reverseOrder)?('arrow-down') : ('arrow-up') ) : ('')">Branch Name</th>
+
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr class="cp"
+                                    ng-repeat="x in vm.bankDetailsList | filter:vm.searchCustomerId | orderBy:sortedColumn:reverseOrder"
+                                    ng-click="vm.transferToBranchId = x.branchId; vm.transferToSameBranchName = x.branchDescription;" data-bs-dismiss="modal">
+                                    <td>{{x.branchId}}</td>
+                                    <td>{{x.branchDescription}}</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="list_wrapper" ng-if="vm.bankDetailsList.length==0">No records found to display.</div>
+            </div>
+        </div>
+    </div>
+</div>
+

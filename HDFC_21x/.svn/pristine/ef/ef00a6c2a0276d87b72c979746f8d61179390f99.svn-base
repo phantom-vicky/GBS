@@ -1,0 +1,167 @@
+<div class="loader-new" ng-if="vm.loader"></div>
+<dc-left-menu></dc-left-menu>
+<div class="container from_wrapper new_form_wrapper">
+    <h4 class="form_heading">TOC Slab Maintenance - Verify</h4>
+    <sol-header></sol-header>
+    <form name="tocSlabMaintenanceForm" role="form">
+        <table class="table table-bordered">
+            <tbody>
+            <tr ng-init="vm.getModuleName();">
+                <td width="50%" class="form-group"><label class="control-label">Module</label></td>
+                <td width="50%"><label class="text-uppercase">{{vm.moduleId | getLabelFromValuesArray : vm.moduleNameDetailsLabelValue}}</label></td>
+            </tr>
+
+            <tr>
+                <td width="50%" class="form-group"><label class="control-label">Version No</label></td>
+                <td width="50%" ng-if="vm.auditInfo.previousOperationType == 'I'"><label>{{vm.verifySubmitList.C002.newValue}}</label></td>
+                <td width="50%" ng-if="vm.auditInfo.previousOperationType == 'M'"><label>{{vm.verifySubmitList.C002.oldValue}}</label></td>
+            </tr>
+            </tbody>
+        </table>
+
+        <table class="table table-bordered table-striped list old-new-value-table matrix-table">
+            <thead>
+            <tr>
+                <th ng-if="vm.auditInfo.previousOperationType == 'M'" width="4%"></th>
+
+                <th width="7%">Flat Rate</th>
+                <th width="17%">Nature of TOC</th>
+                <th>Minimum No of Challans / Amount</th>
+                <th>Maximum No of Challans / Amount</th>
+                <th>TOC Per Amount Rs.</th>
+                <th>TOC in (Rs) per Challan / <br>TOC in (paise) Per Amount</th>
+                <th width="9%">Rounding Factor</th>
+                <th>Effective From Date</th>
+                <th width="8%">Effective To Date</th>
+            </tr>
+            </thead>
+            <tbody class="oldNewTableBody" ng-repeat = "item in vm.tocSlabList">
+            <tr>
+                <td class="newValue" align="right" ng-if="vm.auditInfo.previousOperationType == 'M'">
+                    <span>New</span>
+                </td>
+
+                <td>
+                    <span class="old-value">
+                        {{(item && item.C005)?(item.C005.oldValue | getLabelFromValuesArray : vm.commonYesNoMetaData) : ('')}}
+                    </span>
+                    <span class="new-value" ng-if="vm.auditInfo.previousOperationType == 'M'">
+                        {{item && item.C005.newValue? (item.C005.newValue | getLabelFromValuesArray : vm.commonYesNoMetaData) : ('-')}}
+                    </span>
+                </td>
+
+                <td>
+                    <span class="old-value">
+                        {{(item && item.C007)?(item.C007.oldValue | getLabelFromValuesArray : vm.pensionTocList) : ('')}}
+                    </span>
+                    <span class="new-value" ng-if="vm.auditInfo.previousOperationType == 'M'">
+                        {{item && item.C007.newValue? (item.C007.newValue | getLabelFromValuesArray : vm.pensionTocList) : ('-')}}
+                    </span>
+                </td>
+
+                <td>
+                    <span class="old-value">
+                        {{(item && item.C009)?(item.C009.oldValue) : ('')}}
+                    </span>
+                    <span class="new-value" ng-if="vm.auditInfo.previousOperationType == 'M'">
+                        {{item && item.C009.newValue? (item.C009.newValue) : ('-')}}
+                    </span>
+                </td>
+
+                <td>
+                    <span class="old-value">
+                        {{(item && item.C010)?(item.C010.oldValue) : ('')}}
+                    </span>
+                    <span class="new-value" ng-if="vm.auditInfo.previousOperationType == 'M'">
+                        {{item && item.C010.newValue? (item.C010.newValue) : ('-')}}
+                    </span>
+                </td>
+
+                <td>
+                    <span class="old-value">
+                        {{(item && item.C011)?(item.C011.oldValue) : ('')}}
+                    </span>
+                    <span class="new-value" ng-if="vm.auditInfo.previousOperationType == 'M'">
+                        {{item && item.C011.newValue? (item.C011.newValue) : ('-')}}
+                    </span>
+                </td>
+
+                <td>
+                    <span class="old-value">
+                        {{(item && item.C012)?(item.C012.oldValue) : ('')}}
+                    </span>
+                    <span class="new-value" ng-if="vm.auditInfo.previousOperationType == 'M'">
+                        {{item && item.C012.newValue? (item.C012.newValue) : ('-')}}
+                    </span>
+                </td>
+
+                <td>
+                    <span class="old-value text-uppercase">
+                        {{(item && item.C013)?(item.C013.oldValue | getLabelFromValuesArray : vm.roundOff) : ('')}}
+                    </span>
+                    <span class="new-value text-uppercase" ng-if="vm.auditInfo.previousOperationType == 'M'">
+                        {{item && item.C013.newValue? (item.C013.newValue | getLabelFromValuesArray : vm.roundOff) : ('-')}}
+                    </span>
+                </td>
+
+                <td>
+                    <span class="old-value">
+                        {{(item && item.C003)?(item.C003.oldValue) : ('')}}
+                    </span>
+                    <span class="new-value" ng-if="vm.auditInfo.previousOperationType == 'M'">
+                        {{item && item.C003.newValue? (item.C003.newValue) : ('-')}}
+                    </span>
+                </td>
+
+                <td>
+                    <span class="old-value">
+                        {{(item && item.C004)?(item.C004.oldValue) : ('')}}
+                    </span>
+                    <span class="new-value" ng-if="vm.auditInfo.previousOperationType == 'M'">
+                        {{item && item.C004.newValue? (item.C004.newValue) : ('-')}}
+                    </span>
+                </td>
+
+            </tr>
+            </tbody>
+        </table>
+
+        <div class="audit-details">
+            <div class="row">
+                <div class="col-md-3">
+                    <span> <b class="margin-right-1px"> Created By </b> : {{vm.auditInfo.createdBy}} </span>
+                </div>
+                <div class="col-md-3">
+                    <span> <b class="margin-right-1px"> Last Modified By </b> : {{(vm.auditInfo.modifiedBy) ? (vm.auditInfo.modifiedBy) : ('None')}}</span>
+                </div>
+                <div class="col-md-3">
+                    <span> <b class="margin-right-1px"> Last Verified By </b> : {{(vm.auditInfo.verifiedBy) ? (vm.auditInfo.verifiedBy) : ('None')}}</span>
+                </div>
+                <div class="col-md-3">
+                    <span> <b> Verify Status </b> : <span class="text-uppercase">{{vm.auditInfo.verifiedStatus  | getLabelFromValuesArray : vm.commonYesNoMetaData}}</span></span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3">
+                    <span> <b> Created On </b> : {{ vm.auditInfo.createdDate | date : 'dd/MM/yyyy'}}</span>
+                </div>
+                <div class="col-md-3">
+                    <span> <b> Last Modified On</b> : {{ (vm.auditInfo.modifiedDate) ? (vm.auditInfo.modifiedDate | date : 'dd/MM/yyyy') : ('None')}}</span>
+                </div>
+                <div class="col-md-3">
+                    <span> <b> Last Verified On </b> : {{(vm.auditInfo.verifiedDate) ? (vm.auditInfo.verifiedDate | date : 'dd/MM/yyyy') : ('None')}}</span>
+                </div>
+                <div class="col-md-3">
+                </div>
+            </div>
+        </div>
+
+        <div class="text-center form_submit">
+            <button type="submit" class="btn btn-default" id="submitButton"
+                    ng-disabled="tocSlabMaintenanceForm.$invalid" ng-click="vm.submitVerifyForm()">Verify</button>
+            <button type="button" id="subButton" class="btn btn-cancel"
+                    ng-click="vm.showCancelConfirmation('common_toc_slab_maintenance.verify');">Cancel</button>
+        </div>
+
+    </form>
+</div>

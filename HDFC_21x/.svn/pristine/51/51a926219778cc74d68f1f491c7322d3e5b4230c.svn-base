@@ -1,0 +1,89 @@
+<div class="loader-new" ng-if="vm.loader"></div>
+<dc-left-menu></dc-left-menu>
+<div class="container from_wrapper new_form_wrapper">
+
+    <h4 class="form_heading">Appendix VIII - Statement of Charges for Turnover Commission</h4>
+    <sol-header></sol-header>
+    <form name="blastatusreportFrom" role="form">
+
+        <div class="row">
+            <div class="form-group">
+                <div class="col-sm-3"></div>
+                <div class="col-sm-3">
+                    <label for="moduleName" class="control-label">Name of the Module</label>
+                </div>
+                <div class="col-sm-2">
+                    <input type="text" class="form-control" id="moduleName" data-ng-model="vm.moduleName" data-ng-init="vm.moduleName='RBI Bond'" readonly/>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="row">
+            <div class="form-group required">
+                <div class="col-sm-3"></div>
+
+                <div class="col-sm-3">
+                    <label class="control-label">
+                        Financial Year (YYYY-YYYY)
+                    </label>
+                </div>
+
+                <div class="col-sm-2">
+                    <input type="text"
+                           class="form-control"
+                           id="financialYear"
+                           name="financialYear"
+                           ng-model="vm.financialYear"
+                           maxlength="9"
+                           placeholder="2025-2026"
+                           ng-keypress="vm.allowOnlyNumber($event)"
+                           ng-keyup="vm.formatFinancialYear()"
+                           required>
+                    <span style="color:red;"
+                          ng-if="vm.financialYearError">
+                {{vm.financialYearError}}
+            </span>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group required">
+                <div class="col-sm-3"></div>
+                <div class="col-sm-3">
+                    <label class="control-label">Quarter</label>
+                </div>
+                <div class="col-sm-2">
+                    <select class="form-control" id="quarter" name="quarter" ng-model="vm.quarter" ng-init="vm.quarter=''" required>
+                        <option value="">Select</option>
+                        <option value="Q1">Q1</option>
+                        <option value="Q2">Q2</option>
+                        <option value="Q3">Q3</option>
+                        <option value="Q4">Q4</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+
+
+        <div class="text-center form_submit">
+            <button type="submit" id="submitbutton" class="btn btn-default"
+                    ui-sref="rbibond_appendixVIII_Statement_of_Charges_for_Turnover_Commission.inquiry_details({obj:{
+                        moduleName:vm.moduleName,
+                          financialYear:vm.financialYear,
+                          quarter:vm.quarter,
+                        }})"
+                    ng-disabled="blastatusreportFrom.$invalid">Submit</button>
+            <button type="button" class="btn btn-cancel" id="cancelButton"
+                    onclick="window.location.href= '#!/rbibond_gu_functionality';">Cancel
+            </button>
+        </div>
+
+        <div class="text-center">
+            <notice-message-directive></notice-message-directive>
+        </div>
+    </form>
+</div>
+
+

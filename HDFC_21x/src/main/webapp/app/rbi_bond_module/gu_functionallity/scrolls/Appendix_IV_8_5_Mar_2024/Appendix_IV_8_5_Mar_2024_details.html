@@ -1,0 +1,573 @@
+<!-- Output Screen-->
+
+<div class="loader-new" ng-if="vm.loader"></div>
+
+<div
+  class="container"
+  data-ng-if="
+     vm.partACumList.length > 0 || vm.partANonCumList.length > 0 ||
+            vm.partBCumList.length > 0 || vm.partBNonCumList.length > 0 ||
+            vm.partCCumList.length > 0 || vm.partCNonCumList.length > 0 ||
+            vm.partDCumList.length > 0 || vm.partDNonCumList.length > 0
+"
+>
+  <div class="container from_wrapper new_form_wrapper">
+    <div class="text-right form_submit">
+      <button type="submit" class="btn btn-default" onclick="window.location.href ='#!';" id="homeButton">Home</button>
+
+      <button type="button" id="cancel_Button" class="btn btn-cancel" onclick="window.location.href= '#!/Appendix_IV_8_5_Mar_2024/action/inquiry';">Back</button>
+    </div>
+
+    <table style="width: 100%" class="table table-bordered" aria-label="">
+      <tr>
+        <h4 class="form_heading">Appendix IV 8.5%</h4>
+        <sol-header></sol-header>
+
+        <table style="width: 100%" class="table table-bordered" style="padding: 10px" aria-label="">
+          <tr>
+            <th scope="col">Name of the Bond Scheme</th>
+            <td>{{vm.schemeName}}</td>
+          </tr>
+          <tr>
+            <th scope="col" style="width: 25%">From Date</th>
+            <td style="width: 35%">{{vm.fromDate | date:'dd/MM/yyyy'}}</td>
+            <th scope="col" style="width: 20%">To Date</th>
+            <td style="width: 20%">{{vm.toDate | date:'dd/MM/yyyy'}}</td>
+          </tr>
+        </table>
+      </tr>
+    </table>
+
+    <div class="row">
+      <div class="col-sm-12">
+        <br />
+
+        <div class="row">
+          <div class="col-sm-12">
+            <div class="row" style="display: flex; align-items: center; justify-content: space-between">
+              <!-- Show Dropdown -->
+              <div class="col-sm-3" style="flex: 1; visibility: hidden">
+                <div class="form-group">
+                  <label>
+                    Show
+                    <select id="pageSize" class="form-control filter-control" ng-model="vm.pageSize" ng-change="vm.updatePageSize()" ng-options="option for option in vm.pageSizeOptions"></select>
+                    records per page
+                  </label>
+                </div>
+              </div>
+
+              <!-- Search and Export Controls -->
+              <div class="col-sm-6" style="display: flex; align-items: center; justify-content: flex-end">
+                <!-- Search -->
+                <div class="form-group" style="margin-right: 15px; visibility: hidden">
+                  <div class="input-group">
+                    <div class="input-group-addon">
+                      <span class="glyphicon glyphicon-search"></span>
+                    </div>
+                    <input type="text" id="search" class="form-control" ng-change="vm.updateFilteredRecords()" ng-model="vm.searchText" placeholder="Search" />
+                  </div>
+                </div>
+
+                <!-- Export -->
+                <div class="form-group">
+                  <select class="form-control" id="export" name="export" ng-model="vm.downloadType" ng-init="vm.downloadType=''" ng-change="vm.downloadReport()">
+                    <option value="">EXPORT</option>
+                    <option value="excel">EXCEL</option>
+                   <!-- <option value="csv">CSV</option>-->
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <div id="myTable" class="table-responsive">
+              <table class="table table-bordered table-striped list table-textWrap datatable" aria-label="">
+                <thead>
+                  <tr>
+                    <th>Pune</th>
+                    <th></th>
+                    <th colspan="7" rowspan="2" style="text-align: center; vertical-align: middle">HDFC BANK LTD</th>
+                    <th></th>
+                    <th colspan="">PART A</th>
+                  </tr>
+                  <tr>
+                    <th>8.5% Relief Bond</th>
+                    <th></th>
+                    <th></th>
+                    <th>APPENDIX IV</th>
+                  </tr>
+                  <tr>
+                    <th colspan="11" style="text-align: center">Statement of Bonds Issued/Transfered/Repaid etc for the month of {{vm.fromDate ? (vm.fromDate | date:'MMM yyyy' | uppercase) : '' }}</th>
+                  </tr>
+                  <tr>
+                    <th colspan="11" style="text-align: center">Bond Ledger Accounts Opened during the month of {{vm.fromDate ? (vm.fromDate | date:'MMM yyyy' | uppercase) : '' }}</th>
+                  </tr>
+                  <tr>
+                    <th colspan="5">NON-CUMULATIVE</th>
+                    <th></th>
+                    <th></th>
+                    <th colspan="4">CUMULATIVE</th>
+                  </tr>
+
+                  <tr>
+                    <th>B.L.NO.</th>
+                    <th></th>
+                    <th>AMOUNT</th>
+                    <th>CAS</th>
+                    <th>DUE DATE</th>
+                    <th>SCH</th>
+                    <th></th>
+                    <th>B.L.NO.</th>
+                    <th>AMOUNT</th>
+                    <th>CAS</th>
+                    <th>DUE DATE</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr data-ng-repeat="x in vm.mergedPartAList track by $index">
+                    <td>{{x.nonCumulative.blaNoNonCumA}}</td>
+                    <td></td>
+                    <td style="text-align: right">{{x.nonCumulative.amountNonCumA}}</td>
+                    <td>{{x.nonCumulative.casanonCumA}}</td>
+                    <td>{{x.nonCumulative.dueDateNonCumA}}</td>
+                    <td>{{x.nonCumulative.schemeCode}}</td>
+                    <td></td>
+                    <td>{{x.cumulative.blaNoCumA}}</td>
+                    <td style="text-align: right">{{x.cumulative.amountCumA}}</td>
+                    <td>{{x.cumulative.cascumA}}</td>
+                    <td>{{x.cumulative.dueDateCumA}}</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Total</strong></td>
+                    <td></td>
+                    <td style="text-align: right">{{vm.partANonCumulativeTotalAmount}}</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td style="text-align: right">{{vm.partACumulativeTotalAmount}}</td>
+                    <td></td>
+                    <td></td>
+                  </tr>
+                </tbody>
+                <thead>
+                  <tr>
+                    <th>Part B</th>
+                    <th></th>
+                    <th colspan="7" rowspan="2" style="text-align: center; vertical-align: middle">HDFC BANK LTD</th>
+                    <th></th>
+                    <th>APPENDIX IV</th>
+                  </tr>
+                  <tr>
+                    <th>Pune</th>
+                    <th></th>
+                    <th></th>
+                    <th>8.5% Relief Bond</th>
+                  </tr>
+                  <tr>
+                    <th colspan="11" style="text-align: center">Transferred from other branches / banks (Inflow)</th>
+                  </tr>
+                  <tr>
+                    <th colspan="4">Bond Ledger Accounts Opened during the month of {{vm.fromDate ? (vm.fromDate | date:'MMM yyyy' | uppercase) : '' }}</th>
+                  </tr>
+                  <tr>
+                    <th colspan="5">NON-CUMULATIVE</th>
+                    <th></th>
+                    <th></th>
+                    <th colspan="4">CUMULATIVE</th>
+                  </tr>
+
+                  <tr>
+                    <th>B.L.NO.</th>
+                    <th></th>
+                    <th>AMOUNT</th>
+                    <th>DUE DATE OF REPAYMENT</th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th>B.L.NO.</th>
+                    <th>AMOUNT</th>
+                    <th>DUE DATE</th>
+                    <th>TRANSFEROR BRANCH NAME</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr data-ng-repeat="x in vm.mergedPartBList track by $index">
+                    <td>{{x.nonCumulative.blaNoNonCumB}}</td>
+                    <td></td>
+                    <td style="text-align: right">{{x.nonCumulative.amountNonCumB}}</td>
+                    <td>{{x.nonCumulative.dueDateNonCumB}}</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td>{{x.cumulative.blaNoCumB}}</td>
+                    <td style="text-align: right">{{x.cumulative.amountCumB}}</td>
+                    <td>{{x.cumulative.cascumB}}</td>
+                    <td>{{x.cumulative.dueDateCumB}}</td>
+                  </tr>
+                  <!--                  <tr>-->
+                  <!--                    <td><strong>II.Part Transfers</strong></td>-->
+                  <!--                    <td></td>-->
+                  <!--                    <th>Nil</th>-->
+                  <!--                    <td></td>-->
+                  <!--                    <td></td>-->
+                  <!--                    <td></td>-->
+                  <!--                    <td></td>-->
+                  <!--                    <td></td>-->
+                  <!--                    <td></td>-->
+                  <!--                    <td></td>-->
+                  <!--                    <td></td>-->
+                  <!--                  </tr>-->
+                  <!--                  <tr>-->
+                  <!--                    <td></td>-->
+                  <!--                    <td></td>-->
+                  <!--                    <td></td>-->
+                  <!--                    <td></td>-->
+                  <!--                    <td></td>-->
+                  <!--                    <td></td>-->
+                  <!--                    <td></td>-->
+                  <!--                    <td></td>-->
+                  <!--                    <td></td>-->
+                  <!--                    <td></td>-->
+                  <!--                    <td></td>-->
+                  <!--                  </tr>-->
+                  <tr>
+                    <td><strong>Total</strong></td>
+                    <td></td>
+                    <td style="text-align: right">{{vm.partBNonCumulativeTotalAmount}}</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td style="text-align: right">{{vm.partBCumulativeTotalAmount}}</td>
+                    <td></td>
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                  </tr>
+                </tbody>
+                <thead>
+                  <tr>
+                    <th>Part C</th>
+                    <th></th>
+                    <th colspan="7" rowspan="2" style="text-align: center; vertical-align: middle">HDFC BANK LTD</th>
+                    <th></th>
+                    <th>APPENDIX IV</th>
+                  </tr>
+                  <tr>
+                    <th>Pune</th>
+                    <th></th>
+                    <th></th>
+                    <th>8.5% Relief Bond</th>
+                  </tr>
+                  <tr>
+                    <th colspan="11" style="text-align: center">Transferred from other branches / banks (Inflow)</th>
+                  </tr>
+                  <tr></tr>
+                  <tr>
+                    <th colspan="11" style="text-align: center">Bond Ledger Accounts opened during the month of {{vm.fromDate ? (vm.fromDate | date:'MMM yyyy' | uppercase) : '' }}</th>
+                  </tr>
+                  <tr>
+                    <th colspan="4">NON-CUMULATIVE</th>
+                    <th></th>
+                    <th colspan="6">CUMULATIVE</th>
+                  </tr>
+                  <tr>
+                    <th>BLA NO.</th>
+                    <th></th>
+                    <th>AMOUNT</th>
+                    <th>DUE DATE OF PAYMENT</th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th>BLA NO.</th>
+                    <th>AMOUNT</th>
+                    <th>DUE DATE OF PAYMENT</th>
+                    <th>NAME OF TRANSFEROR BRANCH</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr data-ng-repeat="x in vm.mergedPartCList track by $index">
+                    <td>{{x.nonCumulative.blaNoNonCumC}}</td>
+                    <td></td>
+                    <td>{{x.nonCumulative.amountNonCumC}}</td>
+                    <td>{{x.nonCumulative.dueDateNonCumC}}</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td>{{x.cumulative.blaNoNonCumC}}</td>
+                    <td>{{x.cumulative.amountNonCumC}}</td>
+                    <td>{{x.cumulative.dueDateNonCumC}}</td>
+                    <td>{{x.cumulative.transferorBranchNameC}}</td>
+                    <td></td>
+                  </tr>
+                  <!--                  <tr>-->
+                  <!--                    <td colspan="2"><strong>I. Transfer of entire Balance</strong></td>-->
+                  <!--                    <td>NIL</td>-->
+                  <!--                    <td></td>-->
+                  <!--                    <td></td>-->
+                  <!--                    <td></td>-->
+                  <!--                    <td></td>-->
+                  <!--                    <td></td>-->
+                  <!--                    <td></td>-->
+                  <!--                    <td></td>-->
+                  <!--                    <td></td>-->
+                  <!--                    <td></td>-->
+                  <!--                  </tr>-->
+                  <!--                  <tr>-->
+                  <!--                    <td></td>-->
+                  <!--                    <td></td>-->
+                  <!--                    <td></td>-->
+                  <!--                    <td></td>-->
+                  <!--                    <td></td>-->
+                  <!--                    <td></td>-->
+                  <!--                    <td></td>-->
+                  <!--                    <td></td>-->
+                  <!--                    <td></td>-->
+                  <!--                    <td></td>-->
+                  <!--                    <td></td>-->
+                  <!--                  </tr>-->
+                  <!--                  <tr>-->
+                  <!--                    <td><strong>II.Part Transfers</strong></td>-->
+                  <!--                    <td></td>-->
+                  <!--                    <td>NIL</td>-->
+                  <!--                    <td></td>-->
+                  <!--                    <td></td>-->
+                  <!--                    <td></td>-->
+                  <!--                    <td></td>-->
+                  <!--                    <td></td>-->
+                  <!--                    <td></td>-->
+                  <!--                    <td></td>-->
+                  <!--                    <td></td>-->
+                  <!--                  </tr>-->
+                  <!--                  <tr>-->
+                  <!--                    <td></td>-->
+                  <!--                    <td></td>-->
+                  <!--                    <td></td>-->
+                  <!--                    <td></td>-->
+                  <!--                    <td></td>-->
+                  <!--                    <td></td>-->
+                  <!--                    <td></td>-->
+                  <!--                    <td></td>-->
+                  <!--                    <td></td>-->
+                  <!--                    <td></td>-->
+                  <!--                    <td></td>-->
+                  <!--                  </tr>-->
+                  <tr>
+                    <td><strong>Total</strong></td>
+                    <td></td>
+                    <td style="text-align: right">{{vm.partCNonCumulativeTotalAmount}}</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td style="text-align: right">{{vm.partCCumulativeTotalAmount}}</td>
+                    <td></td>
+                    <td></td>
+                  </tr>
+                </tbody>
+
+                <thead>
+                  <tr>
+                    <th>Part D</th>
+                    <th></th>
+                    <th colspan="7" rowspan="2" style="text-align: center; vertical-align: middle">HDFC BANK LTD</th>
+                    <th></th>
+                    <th>APPENDIX IV</th>
+                  </tr>
+                  <tr>
+                    <th>Pune</th>
+                    <th></th>
+                    <th></th>
+                    <th>8.5% Relief Bond</th>
+                  </tr>
+                  <tr>
+                    <th colspan="11" style="text-align: center">REPAYMENT POSITION {{vm.fromDate ? (vm.fromDate | date:'MMM yyyy' | uppercase) : '' }}</th>
+                  </tr>
+                  <tr>
+                    <th colspan="4">NON-CUMULATIVE</th>
+                    <th></th>
+                    <th colspan="6">CUMULATIVE</th>
+                  </tr>
+                  <tr>
+                    <th>S.No</th>
+                    <th>BLA No</th>
+                    <th>AMOUNT</th>
+                    <th>DUE DATE OF REPAYMENT</th>
+                    <th>REPAYMENT ON</th>
+                    <th></th>
+                    <th>S.NO</th>
+                    <th>BLA NO</th>
+                    <th>AMOUNT</th>
+                    <th>DUE DATE OF REPAYMENT</th>
+                    <th>REPAYMENT ON</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr data-ng-repeat="x in vm.mergedPartDList track by $index">
+                    <td></td>
+                    <td>{{x.nonCumulative.blaNoNonCumD}}</td>
+                    <td>{{x.nonCumulative.amountNonCumD}}</td>
+                    <td>{{x.nonCumulative.dueDateNonCumD}}</td>
+                    <td>{{x.nonCumulative.repaymentOnNonCum}}</td>
+                    <td></td>
+                    <td></td>
+                    <td>{{x.nonCumulative.blaNoCumD}}</td>
+                    <td>{{x.nonCumulative.amountCumD}}</td>
+                    <td>{{x.nonCumulative.dueDateCumD}}</td>
+                    <td>{{x.nonCumulative.repaymentOnCum}}</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Total</strong></td>
+                    <td></td>
+                    <td style="text-align: right">{{vm.partDNonCumulativeTotalAmount}}</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td style="text-align: right">{{vm.partDCumulativeTotalAmount}}</td>
+                    <td></td>
+                    <td></td>
+                  </tr>
+                </tbody>
+
+                <thead>
+                  <tr>
+                    <th>Part E</th>
+                    <th></th>
+                    <th colspan="7" rowspan="2" style="text-align: center; vertical-align: middle">HDFC BANK LTD</th>
+                    <th></th>
+                    <th>APPENDIX IV</th>
+                  </tr>
+                  <tr>
+                    <th>Pune</th>
+                    <th></th>
+                    <th></th>
+                    <th>0</th>
+                  </tr>
+                  <tr>
+                    <th colspan="11" style="text-align: center">SUMDecY POSITION {{vm.fromDate ? (vm.fromDate | date:'MMM yyyy' | uppercase) : '' }}</th>
+                  </tr>
+                  <tr>
+                    <th colspan="4">NON-CUMULATIVE</th>
+                    <th></th>
+                    <th colspan="6">CUMULATIVE</th>
+                  </tr>
+                  <tr>
+                    <th></th>
+                    <th></th>
+                    <th>No of Accounts</th>
+                    <th>Amount</th>
+                    <th></th>
+                    <th colspan="4"></th>
+                    <th>No of Accounts</th>
+                    <th>Amount</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td colspan="2"><strong>Progressive Opening Balance B/F</strong></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td colspan="4"><strong>Progressive Opening Balance B/F</strong></td>
+                    <td></td>
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <td><strong>Part A + (Add)</strong></td>
+                    <td></td>
+                    <td style="text-align: right">{{vm.partANonCumList.length}}</td>
+                    <td style="text-align: right">{{vm.partANonCumulativeTotalAmount}}</td>
+                    <td></td>
+                    <td colspan="4"><strong>Part A + (Add)</strong></td>
+                    <td style="text-align: right">{{vm.partACumList.length}}</td>
+                    <td style="text-align: right">{{vm.partACumulativeTotalAmount}}</td>
+                  </tr>
+
+                  <tr>
+                    <td><strong>Part B + (Add)</strong></td>
+                    <td></td>
+                    <td style="text-align: right">{{vm.partBNonCumList.length}}</td>
+                    <td style="text-align: right">{{vm.partBNonCumulativeTotalAmount}}</td>
+                    <td></td>
+                    <td colspan="4"><strong>Part B + (Add)</strong></td>
+                    <td style="text-align: right">{{vm.partBCumList.length}}</td>
+                    <td style="text-align: right">{{vm.partBCumulativeTotalAmount}}</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Total</strong></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td colspan="4"><strong>Total</strong></td>
+                    <td></td>
+                    <td></td>
+                  </tr>
+                  <tr></tr>
+                  <tr>
+                    <td><strong>Part C + (Less)</strong></td>
+                    <td></td>
+                    <td style="text-align: right">{{vm.partCNonCumList.length}}</td>
+                    <td style="text-align: right">{{vm.partCNonCumulativeTotalAmount}}</td>
+                    <td></td>
+                    <td colspan="4"><strong>Part C + (Less)</strong></td>
+                    <td style="text-align: right">{{vm.partCCumList.length}}</td>
+                    <td style="text-align: right">{{vm.partCCumulativeTotalAmount}}</td>
+                  </tr>
+                  <tr></tr>
+                  <tr>
+                    <td><strong>Part D + (Less)</strong></td>
+                    <td></td>
+                    <td style="text-align: right">{{vm.partDNonCumList.length}}</td>
+                    <td style="text-align: right">{{vm.partDNonCumulativeTotalAmount}}</td>
+                    <td></td>
+                    <td colspan="4"><strong>Part D + (Less)</strong></td>
+                    <td style="text-align: right">{{vm.partDCumList.length}}</td>
+                    <td style="text-align: right">{{vm.partDCumulativeTotalAmount}}</td>
+                  </tr>
+                  <tr></tr>
+                  <tr>
+                    <td><strong>Balance</strong></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td colspan="4"><strong>Balance</strong></td>
+                    <td></td>
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <td><strong>Net i.e. Total of Part A + Part B - Total of Part C + Part D</strong></td>
+                    <td></td>
+                    <td></td>
+                    <td style="text-align: right">{{vm.nonCumulativeNetTotal}}</td>
+                    <td></td>
+                    <td colspan="4"><strong>Net i.e. Total of Part A + Part B - Total of Part C + Part D</strong></td>
+                    <td></td>
+                    <td style="text-align: right">{{vm.cumulativeNetTotal}}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container" ng-if="vm.noDataFound">
+  <div class="list_wrapper no_records_message">
+    <h4 class="form_heading">Appendix IV 8.5%</h4>
+    No records found to display.
+    <div style="text-align: center">
+      <button type="button" class="btn btn-default" onclick="window.location.href= '#!/Appendix_IV_8_5_Mar_2024/action/inquiry';">Back</button>
+    </div>
+  </div>
+</div>

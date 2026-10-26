@@ -1,0 +1,90 @@
+<div class="loader-new" ng-if="vm.loader"></div>
+<div class="container" ng-if="vm.model">
+    <div class="text-right form_submit" >
+        <button type="submit" class="btn btn-default"
+                onclick="window.location.href ='#!/rbibond_gu_functionality';" id="homeButton">Home</button>
+        <button type="button" id="cancel_Button" class="btn btn-cancel"
+                onclick="window.location.href= '#!/rbibond_interest_repayment_scroll/action/inquiry';">Back</button>
+    </div>
+    <div class="container from_wrapper new_form_wrapper">
+        <div class="row">
+            <sol-header></sol-header>
+        </div>
+        <div class="row">
+
+            <div class="col-sm-12">
+                <div class="table-responsive">
+                    <table class="table table-bordered table-striped list nowrap table-textWrap datatable"
+                           ui-jq="dataTable" ui-options="vm.dataTableOption">
+                        <thead>
+
+                        <tr>
+                            <th style="border: none;border-bottom-color: #333333;text-align: center;" colspan="9"><p>{{vm.schemeName}}</p></th>
+                        </tr>
+                        <tr>
+                            <th style="border: none;text-align: center;" colspan="9"><p>Appendix IV Interest Payment Scroll </p></th>
+                        </tr>
+                        <tr >
+                            <th  style="border: none;text-align: center;"  colspan="9" ><p>{{vm.interestPaid}}{{vm.financialYear}}</p></th>
+                        </tr>
+                        <tr>
+                            <th  style="border: none;text-align: center;"  colspan="9"><p>Date : {{ vm.currentDate}} </p></th>
+                        </tr>
+
+                        <tr class="thalign">
+                            <th>S.No</th>
+                            <th>Bond Ledger Account Number</th>
+                            <th>Principal Amount</th>
+                            <th>Due Date of Repayment</th>
+                            <th>Interest Amount</th>
+                            <th>Date of Interest Credit</th>
+                            <th>Credited to Bank Account Number</th>
+                            <th>Remarks</th>
+                            <th>Initials</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="x in vm.model">
+                            <td>{{vm.itemsPerPage *(vm.currentPage-1)+$index+1}}</td>
+                            <td>{{x.blaNo}}</td>
+                            <td align="right">{{x.principalAmt}}</td>
+                            <td align="center">{{x.dueDateRepay}}</td>
+                            <td align="right">{{x.interestAmt}}</td>
+                            <td align="center">{{x.dateOfInterCredit}}</td>
+                            <td>{{x.creditAccNo}}</td>
+                            <td>{{x.remarks}}</td>
+                            <td align="right">{{x.initials}}</td>
+                        </tr>
+                        </tbody>
+                        <tfoot>
+                        <tr>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th class="text-center"> Total Rs.</th>
+                            <th class="text-right">{{vm.mod}}</th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+
+                        </tr>
+                        </tfoot>
+                    </table>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+<div class="container" ng-if="vm.noDataFound">
+    <div class="list_wrapper no_records_message">
+        <h4 class="form_heading">Appendix IV Interest Payment Scroll</h4>
+        No records found to display.
+        <center>
+            <button type="button" class="btn btn-default"
+                    onclick="window.location.href= '#!/rbibond_interest_repayment_scroll.inquiry/action/inquiry';" >Back</button>
+        </center>
+    </div>
+</div>

@@ -1,0 +1,120 @@
+ <div class="loader-new" ng-if="vm.loader"></div>
+<dc-left-menu></dc-left-menu>
+<div class="container from_wrapper new_form_wrapper">
+
+    <h4 class="form_heading">RBI Code mapping for Branches - Verify/Reject</h4>
+    <sol-header></sol-header>
+    <form name="tdsparameter" role="form">
+
+        <div class="row">
+            <div class="form-group">
+                <div class="col-sm-3"></div>
+                <div class="col-sm-3">
+                    <label for="moduleName" class="control-label">Name of the Module</label>
+                </div>
+                <div class="col-sm-4">
+                    <label><b>RBI Bond</b></label>
+                </div>
+            </div>
+        </div>
+
+
+
+        <div class="row">
+            <div class="form-group required">
+                <div class="col-sm-3"></div>
+                <div class="col-sm-3">
+                    <label for="pdoCode" class="control-label">PDO Code/Branch Code</label>
+                </div>
+                <div class="col-sm-2">
+                    <input type="text" class="form-control" id="pdoCode"
+                           ng-model="vm.pdoCode" chars="alpha-numeric" required readonly>
+                </div>
+                <div class="col-sm-1">
+                        <i class="glyphicon glyphicon-search cp" data-bs-toggle="modal"
+                           id="branchIdSearch"
+                           ng-click="vm.pdoCode='';vm.getVerifyDeleteTorch('torch');"></i> <i
+                            class="glyphicon glyphicon-remove clear cp"
+                            ng-click="vm.pdoCode='';"></i>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="text-center form_submit">
+            <button type="submit" id="submitbutton" class="btn btn-default"
+                    ui-sref="code_mapping_rbi_bond.verify_detail({obj:{
+                                    pdoCode: vm.pdoCode
+								}})"
+                    ng-disabled="tdsparameter.$invalid">Submit</button>
+            <button type="button" class="btn btn-cancel" id="cancelButton"
+                    onclick="window.location.href= '#!/code_mapping_rbi_bond/action/inquiry';">Cancel
+            </button>
+        </div>
+
+        <div class="text-center">
+            <notice-message-directive></notice-message-directive>
+        </div>
+    </form>
+</div>
+
+
+
+
+
+
+<div class="modal" id="pdoCodeModal" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-bs-dismiss="modal">&times;</button>
+                <h4 class="modal-title">PDO Code/Branch Code List</h4>
+            </div>
+            <div class="modal-body">
+                <div class="loader_popup"></div>
+                <div class="list_wrapper" ng-if="vm.pdoCodeList.length>0">
+                    <div class="col-sm-8 form_submit">
+                        <div class="form-group">
+                            <div class="input-group">
+                                <div class="input-group-addon">
+                                    <i class="glyphicon glyphicon-search"></i>
+                                </div>
+                                <input type="text" class="form-control"
+                                       ng-model="vm.searchSolId" ng-init="vm.searchSolId = ''" chars="alpha-numeric"
+                                       placeholder="Search">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4 form_submit"></div>
+                    <div class="row">
+
+                        <div class="col-sm-12">
+
+                            <table class="table table-bordered list scroll">
+                                <thead ng-init="reverseOrder = false; sortedColumn = 'tdsCode'">
+                                <tr>
+                                    <th class="modal-title title-case" ng-click="(sortedColumn == 'pdoCode')?(reverseOrder=(!reverseOrder)): (reverseOrder = false);sortedColumn = 'pdoCode';" ng-class="(sortedColumn == 'pdoCode')?((reverseOrder)?('arrow-down') : ('arrow-up') ) : ('')">PDO Code/Branch Code</th>
+                                    <th class="modal-title title-case" ng-click="(sortedColumn == 'pdoCode')?(reverseOrder=(!reverseOrder)): (reverseOrder = false);sortedColumn = 'pdoCode';" ng-class="(sortedColumn == 'pdoCode')?((reverseOrder)?('arrow-down') : ('arrow-up') ) : ('')">Verified Status</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr class="cp"
+                                    ng-repeat="x in vm.pdoCodeList | filter:vm.searchSolId | orderBy:sortedColumn:reverseOrder"
+                                    ng-click="vm.pdoCode=x.branchCode;"  data-bs-dismiss="modal">
+                                    <td>{{x.branchCode}}</td>
+                                    <td>{{x.verifiedStatus | getLabelFromValuesArray : vm.commonYesNoMetaData}}</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="list_wrapper" ng-if="vm.pdoCodeList.length==0">No records found to display.</div>
+            </div>
+
+        </div>
+    </div>
+</div>
+

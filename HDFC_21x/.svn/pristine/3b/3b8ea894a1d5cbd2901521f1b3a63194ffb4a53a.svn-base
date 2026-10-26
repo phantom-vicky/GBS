@@ -1,0 +1,147 @@
+<div class="loader-new" ng-if="vm.loader"></div>
+<dc-left-menu></dc-left-menu>
+<div class="container from_wrapper new_form_wrapper">
+    <h4 class="form_heading">RBI Bond TOC Sharing Maintenance - Modify</h4>
+    <sol-header></sol-header>
+    <form name="tocSharingMaintenanceForm" role="form">
+
+        <div class="row">
+            <div class="form-group">
+                <div class="col-sm-3"></div>
+                <div class="col-sm-3">
+                    <label class="control-label">Name of the Module</label>
+                </div>
+                <div class="col-sm-5">
+                    <label><b>RBI Bond</b></label>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="form-group">
+                <div class="col-sm-3"></div>
+                <div class="col-sm-3">
+                    <label class="control-label">Name of the Bond Scheme</label>
+                </div>
+                <div class="col-sm-4">
+                    <label class="text-initial">{{vm.schemeCode | getLabelFromValuesArray : vm.moduleNameDetailsLabelValue}}</label>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="form-group">
+                <div class="col-sm-3"></div>
+                <div class="col-sm-3">
+                    <label class="control-label">Version No</label>
+                </div>
+                <div class="col-sm-4">
+                    <label>{{vm.versionNo}}</label>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="form-group required">
+                <div class="col-sm-3"></div>
+                <div class="col-sm-3">
+                    <label class="control-label">Effective From Date</label>
+                </div>
+                <div class="col-sm-2">
+                    <p class="input-group">
+                        <input type="text" class="form-control" id="effFromDate"
+                               name="effFromDate" ng-model="vm.effFromDate"
+                               uib-datepicker-popup="dd/MM/yyyy" ng-init="vm.dateValidationForModify();"
+                               datepicker-options="vm.effFromDateOptions"
+                               is-open="vm.effFromDateOptions.opened" close-text="Close"
+                               maxlength="10"
+                               ng-blur="vm.textableDatePicker('effFromDate',vm.effFromDate)"
+                               ng-keyup="vm.autoslashing('effFromDate')" chars="numbers-slash"
+                               required>
+                        <span class="input-group-btn">
+                            <button type="button" class="btn btn-secondary"
+                                    ng-click="vm.effFromDateOptions.opened = true"
+                                    id="effFromDateSearcher">
+                                <i class="glyphicon glyphicon-calendar"></i>
+                            </button>
+                        </span>
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="row" ng-repeat="item in vm.levelDetailsTocSharingDto">
+            <div class="form-group required">
+                <div class="col-sm-3"></div>
+                <div class="col-sm-3">
+                    <label for="sharingPercentage{{$index}}" class="control-label">Sharing of {{item.C003.oldValue}} %</label>
+                </div>
+                <div class="col-sm-2">
+                    <input type="text" class="form-control text-right" name="sharingPercentage{{$index}}" id="sharingPercentage{{$index}}" ng-change="vm.calculateSumForModify();vm.decimalConvertForModify(item.C007.oldValue, $index, $event)" chars="float" ng-model="item.C007.oldValue" maxlength="5" required>
+                    <span class="alert-danger" name="errorMsg{{$index}}" ng-show="vm.errorMsg[{{$index}}]">Entered Valid Input</span>
+                </div>
+
+            </div>
+        </div>
+
+
+
+        <div class="row">
+            <div class="form-group">
+                <div class="col-sm-3"></div>
+                <div class="col-sm-3">
+                    <label for="total" class="control-label">Total %</label>
+                </div>
+                <div class="col-sm-2">
+                    <input type="text" class="form-control text-right" id="total" ng-init="vm.calculateSumForModify();"
+                           chars="float" maxlength="5" ng-model="vm.total" readonly>
+                </div>
+
+            </div>
+        </div>
+
+
+
+
+        <div class="row" >
+            <div class="form-group required">
+                <div class="col-sm-3"></div>
+                <div class="col-sm-3">
+                    <label class="control-label">Rounding Factor</label>
+                </div>
+                <div class="col-sm-2">
+                    <select class="form-control" id="roundOff[$index]" name="roundOff"
+                            ng-model="vm.roundOff"  required>
+                        <option value="">Select</option>
+                        <option ng-repeat="items in vm.roundingFactorMetaData" value="{{items.value}}">{{items.label}}</option>
+
+                    </select>
+                </div>
+
+            </div>
+        </div>
+<!--        <div class="row" >-->
+<!--            <div class="form-group required">-->
+<!--                <div class="col-sm-3"></div>-->
+<!--                <div class="col-sm-3">-->
+<!--                    <span> <b> Verify Status </b> :</span>-->
+<!--                </div>-->
+<!--                <div class="col-sm-2">-->
+<!--                    <span style="text-transform: initial;">{{vm.all.verifiedStatus  | getLabelFromValuesArray : vm.commonYesNoMetaData}}</span>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+        <div class="text-center form_submit">
+            <button type="submit" class="btn btn-default" id="submitButton"
+                    ng-disabled="tocSharingMaintenanceForm.$invalid || tocSharingMaintenanceForm.$pristine" ng-click="vm.modifySubmit()">Submit</button>
+            <button type="button" id="cancelButton" class="btn btn-cancel"
+                    ng-click="vm.showCancelConfirmation('rbi_bond_toc_share_maintanance.modify');">Cancel
+            </button>
+        </div>
+
+        <div class="text-center">
+            <notice-message-directive></notice-message-directive>
+        </div>
+
+    </form>
+</div>

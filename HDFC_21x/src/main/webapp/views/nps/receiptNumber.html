@@ -1,0 +1,131 @@
+<div class="container from_wrapper">
+		<left-menu-directive></left-menu-directive>
+		<!--  <h4 class="form_heading">NPS RECEIPT NUMBER</h3> -->
+		<form name="receiptNumberForm" role="form" ng-submit="submitForm(receiptNumberForm.$valid)" novalidate>
+			<h4 class="form_heading">Receipt Number Add</h3>
+			<div class="form-group">
+			  <label for="sol_date" class ="control-label col-sm-5">Sol Date</label>
+			 <div class="col-sm-4">
+			<!--  <input type="text" class="form-control" id="solDate" name="solDate" ng-model="receiptNumber.solDate" readonly> -->
+			 	<p id="solDate">{{receiptNumber.solDate | date: "dd/MM/y"}}</p>
+			 </div>
+			</div>
+				 
+	        <div class="form-group"> 
+		      <label for="financialYear" class ="control-label col-sm-5">Financial Year</label>
+		        <div class="col-sm-4">
+		          <input type="text" class="form-control" id="financialYear" name="financialYear" ng-model="receiptNumber.financialYear" readonly>
+		      
+		        </div>
+	        </div>					
+		
+			<div class="form-group required">
+				<label for="serviceCode" class ="control-label col-sm-5">Service Request Code/Description</label>
+				    <div class="col-sm-4">
+					  <select class="form-control"   name="serviceCode" id="serviceCode" ng-model="receiptNumber.serviceCode" required>
+						<option  ng-selected= "{{item.serviceCode == receiptNumber.serviceCode}}" ng-repeat="item in serviceCodeList" value="{{item.serviceCode}}">{{item.serviceCodeDescription}}</option>
+					  </select>
+					</div>
+			 </div>
+				
+			<div class="form-group required">
+				<label for="registrationNumber" class ="control-label col-sm-5">POP-SP Registration Number</label>
+				   <div class="col-sm-4 "> 					  
+					  <input type="text" class="form-control" id="registrationNumber" name="registrationNumber" ng-model="receiptNumber.registrationNumber" required allow-only-numbers maxlength='7'>
+				   </div>
+				   <div class="col-sm-3 torch-top">
+					  <i class="glyphicon glyphicon-search cp" data-bs-toggle="modal" data-target="#regisNum" ng-click="getregistrationNumber()"></i>
+					  <i class="glyphicon glyphicon-remove clear cp" ng-click="clearTextBox('registrationNumber');clearTextBox('solDescription');clearTextBox('solId');"></i>
+ 					  
+				   </div>
+			</div>
+				 
+				
+			<div class="form-group required">
+				<label for="solDescription" class ="control-label col-sm-5">POP - SP SOL ID/Description</label>
+				<div class="col-sm-4">
+				 <input type="text" class="form-control" id="solDescription" name="solDescription" ng-value="receiptNumber.solId + ' / ' + receiptNumber.solDescription">
+			<!-- <input type="text" class="form-control" id="solDescription" name="solDescription" ng-value="  + receiptNumber.solDescription"readonly>  -->
+				</div>
+			</div>
+				
+			<div class="form-group required">
+				<label for="last_num" class ="control-label col-sm-5">Last Serial Number</label>
+				<div class="col-sm-4">
+
+				  <input type="text" class="form-control" id="last_num" name="last_num" ng-model="receiptNumber.last_num"  required allow-only-numbers maxlength='8'>
+				   <div ng-show="receiptNumberForm.last_num.$invalid && !receiptNumberForm.last_num.$pristine" class="help-block alert alert-danger"> Last Serial Number should be in numbers  </div>
+
+				
+				</div>
+			</div>
+				 				
+			<div class="col-sm-offset-5 col-sm-8 form_submit">
+				 <button type="submit" class="btn btn-default" ng-disabled="receiptNumberForm.$invalid">Submit</button>
+				 <button type="submit" class="btn btn-cancel" ng-click="moveTo()">Cancel</button>
+			</div>
+		</form>
+
+</div>
+<!-- /.container-fluid --><!-- Modal remittance-->
+		<div class="modal" id="regisNum" role="dialog">
+
+			<div class="modal-dialog">
+				<!-- Modal content-->
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-bs-dismiss="modal">&times;</button>
+						<h4 class="modal-title">Help Index</h4>
+					</div>
+					<div class="modal-body">
+						<div class="loader_popup"></div>
+					
+						<div class="list_wrapper" ng-if="list.length>0">
+							<div class="row">
+							
+								<div class="col-sm-12">
+									<table class="table table-bordered list">
+										<thead>
+											<tr>
+												<th>Sol Id</th>
+												<th>Registration Number</th>
+												<th>Sol Description</th>
+											</tr>
+										</thead>
+										<tbody>
+											<tr class="cp" ng-repeat="x in list"
+												ng-click="setregistrationNumber(x);">
+												<td>{{x.solId}}</td>
+												<td>{{x.registrationNumber}}</td>
+												<td>{{x.solDescription}}</td>
+												
+											</tr>
+										</tbody>
+									</table>
+								</div>
+							</div>
+						</div>
+						<div class="list_wrapper" ng-if="list.length==0">No records
+							found to display.</div>
+					</div>
+
+				</div>
+			</div>
+		</div>		 
+				 
+				 
+				 
+				 
+				 
+				 
+				 
+				 
+				 
+				 
+				 
+				 
+				 
+				 
+				 
+				 
+				 

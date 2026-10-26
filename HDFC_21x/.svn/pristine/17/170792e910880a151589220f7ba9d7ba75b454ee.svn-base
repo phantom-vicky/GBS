@@ -1,0 +1,130 @@
+<div class="loader-new" ng-if="vm.loader"></div>
+<div class="container from_wrapper new_form_wrapper">
+    <h4 class="form_heading">{{(vm.levelCode == '1')?('LINK Cell EOD for Rbi Bond') : ('Collecting Branch EOD for Rbi Bond') }}</h4>
+    <sol-header></sol-header>
+    <div class="col-sm-6 col-sm-offset-3">
+        <form name="scssEodForm" role="form">
+            <div class="row margin-btm">
+                <h5 class="text-center sub-title">EOD for SolDate : {{vm.masterSolDate}}</h5>
+                <div class="map-div">
+                    <table class="table table-bordered">
+                        <tbody>
+                        <tr>
+                            <p ng-hide="!vm.loader">
+                                <b>Processing.......</b>
+                            </p>
+                        </tr>
+                        <tr>
+                            <p ng-hide="!vm.loader">
+                                <b>=======================</b>
+                            </p>
+                        </tr>
+                        <tr>
+                            <td width="25%"><b>Status</b></td>
+                            <td>{{(vm.eodResponseModel.eodStatus == 'S')?('Completed'):('Failed')}}</td>
+                        </tr>
+                        <tr ng-if="vm.eodResponseModel.eodStatus == 'F'">
+                            <td width="25%"><b>Failure Reason</b></td>
+                            <td>{{vm.eodResponseModel.eodStatusDesc}}</td>
+                        </tr>
+                        <tr ng-if="vm.eodResponseModel.transactionReponseDto && vm.eodResponseModel.transactionReponseDto.gbmTranId">
+                            <td width="25%"><b>GBM Tran ID</b></td>
+                            <td>{{vm.eodResponseModel.transactionReponseDto.gbmTranId}}</td>
+                        </tr>
+                        <tr ng-if="vm.eodResponseModel.transactionReponseDto && vm.eodResponseModel.transactionReponseDto.cbsTranId">
+                            <td width="25%"><b>CBS Tran ID</b></td>
+                            <td>{{vm.eodResponseModel.transactionReponseDto.cbsTranId}}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+
+                    <div name="unverifiedTransactionsDet" ng-if="vm.eodResponseModel.eodFailedReason == 'UVF'">
+                        <div class="warning-alert text-center">
+                            <i class="fa fa-exclamation-circle" aria-hidden="true"></i>
+                            <p><b>Unverified Transactions Pending... Kindly Verify those transactions</b></p>
+                        </div>
+                        <table class="table table-bordered">
+                            <thead>
+                            <th>
+                                Module Name
+                            </th>
+                            <th>
+                                Link Name
+                            </th>
+                            <th>
+                                GBM Transaction ID
+                            </th>
+                            </thead>
+                            <tbody ng-if="vm.eodResponseModel.financialUnverifiedTranList && vm.eodResponseModel.financialUnverifiedTranList.length > 0">
+                            <tr dir-paginate="item in vm.eodResponseModel.financialUnverifiedTranList | itemsPerPage : 20">
+                                <td>{{item.moduleName}}</td>
+                                <td>{{item.linkName}}</td>
+                                <td>{{item.desc}}</td>
+                            </tr>
+                            </tbody>
+                            <tbody ng-if="!vm.eodResponseModel.financialUnverifiedTranList || vm.eodResponseModel.financialUnverifiedTranList.length == 0">
+                            <tr>
+                                <td colspan="3">No Records Found</td>
+                            </tr>
+                            </tbody>
+                            <tfoot>
+                            <dir-pagination-controls></dir-pagination-controls>
+                            </tfoot>
+
+                        </table>
+
+                    </div>
+
+                    <div name="unverifiedNonFinTran" ng-if="vm.eodResponseModel.eodFailedReason == 'UVN'">
+                        <div class="warning-alert text-center">
+                            <i class="fa fa-exclamation-circle" aria-hidden="true"></i>
+                            <p><b>Non-Financial Transactions Pending... Kindly Verify those Transactions</b></p>
+                        </div>
+                        <table class="table table-bordered">
+                            <thead>
+                            <th>
+                                Module Name
+                            </th>
+                            <th>
+                                Link Name
+                            </th>
+                            <th>
+                                Record Count
+                            </th>
+                            </thead>
+                            <tbody ng-if="vm.eodResponseModel.nonFinancialUnverifiedTranList && vm.eodResponseModel.nonFinancialUnverifiedTranList.length > 0">
+                            <tr dir-paginate="item in vm.eodResponseModel.nonFinancialUnverifiedTranList | itemsPerPage : 20">
+                                <td>{{item.moduleName}}</td>
+                                <td>{{item.linkName}}</td>
+                                <td>{{item.desc}}</td>
+                            </tr>
+                            </tbody>
+                            <tbody ng-if="!vm.eodResponseModel.nonFinancialUnverifiedTranList || vm.eodResponseModel.nonFinancialUnverifiedTranList.length == 0">
+                            <tr>
+                                <td colspan="3">No Records Found</td>
+                            </tr>
+                            </tbody>
+                            <tfoot>
+                            <dir-pagination-controls></dir-pagination-controls>
+                            </tfoot>
+                        </table>
+
+                    </div>
+
+                </div>
+            </div>
+
+
+
+            <div class="text-center form_submit">
+                <button type="button" id="cancelButton" class="btn btn-cancel"
+                        ng-click="vm.navigateToPreviousState()">Back
+                </button>
+            </div>
+        </form>
+
+    </div>
+</div>
+
+<!-- To Chech Unverified Records- End -->
+

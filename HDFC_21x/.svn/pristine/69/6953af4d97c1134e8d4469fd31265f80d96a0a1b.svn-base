@@ -1,0 +1,970 @@
+<div class="loader-new" ng-if="vm.loader"></div>
+<dc-left-menu></dc-left-menu>
+<div class="container from_wrapper new_form_wrapper">
+    <h4 class="form_heading">Broker Master Maintenance - Modify</h4>
+    <sol-header></sol-header>
+    <form name="tdsparameter" role="form">
+
+        <div class="row">
+            <div class="form-group">
+                <div class="col-sm-2"></div>
+                <div class="col-sm-5">
+                    <label for="moduleName" class="control-label">Name of the Module</label>
+                </div>
+                <div class="col-sm-2">
+                    <label><b>RBI Bond</b></label>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="form-group required">
+                <div class="col-sm-2"></div>
+                <div class="col-sm-5">
+                    <label class="control-label">Broker Agency Code</label>
+                </div>
+                <div class="col-sm-2">
+                    <input type="text" class="form-control" id="brokerAgencyCode" ng-init="vm.brokerAgencyCode=''" limit-To="30" min="1"
+                           name="brokerAgencyCode" ng-model="vm.brokerMasterList.C002.oldValue" required readonly>
+                    <span class="alert-danger" ng-if="vm.brokerAgencyCodeErrorMessage">{{vm.brokerAgencyCodeErrorMessage}}</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="form-group required">
+                <div class="col-sm-2"></div>
+                <div class="col-sm-5">
+                    <label class="control-label">Broker Name</label>
+                </div>
+                <div class="col-sm-2">
+                    <input type="text" class="form-control" id="brokerName" ng-init="" limit-To="20" min="1"
+                           name="brokerName" ng-model="vm.brokerMasterList.C003.oldValue" required  ng-keypress="vm.validateInput($event,'brokerName')" >
+                </div>
+            </div>
+        </div>
+
+
+
+
+
+
+
+        <div class="row">
+            <div class="form-group required">
+                <div class="col-sm-2"></div>
+                <div class="col-sm-5">
+                    <label class="control-label">Broker Group</label>
+                </div>
+                <div class="col-sm-2">
+                    <select class="form-control" id="brokerGroup" name="brokerGroup"
+                            ng-model="vm.brokerMasterList.C005.oldValue" ng-init="vm.getBrokerGroupMetaData()" required disabled>
+                        <option value="" >Select</option>
+                        <option ng-repeat="item in vm.brokerGroupList" value="{{item.SUBCODE}}">{{item.DESCRIPTION}}</option>
+
+                    </select>
+                </div>
+
+
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group required">
+                <div class="col-sm-2"></div>
+                <div class="col-sm-5">
+                    <label class="control-label">Broker Sort code</label>
+                </div>
+                <div class="col-sm-2">
+                    <input type="text" class="form-control" id="brokerSortCode" chars="alpha-numeric" maxlength="10"
+                           name="brokerSortCode" ng-model="vm.brokerMasterList.C006.oldValue" required readonly leading-space>
+                </div>
+            </div>
+        </div>
+
+        <!--<div class="row">
+        <div class="form-group required">
+            <div class="col-sm-2"></div>
+
+                <label class="control-label col-sm-5">HDFC/OTHER BANK</label>
+            <div class="col-sm-2">
+                <input type="radio" id="hdfcOtherBankY" name="hdfcOtherBank" ng-model="vm.brokerMasterList.C007.oldValue" required value="Y">Yes
+                <input type="radio" id="hdfcOtherBankN" name="hdfcOtherBank" ng-model="vm.brokerMasterList.C007.oldValue" required value="N">No
+            </div>
+        </div>
+        </div>.-->
+
+
+
+        <div class="row">
+            <div class="form-group required">
+                <div class="col-sm-2"></div>
+                <div class="col-sm-5">
+                    <label class="control-label">Operative Account Number</label>
+                </div>
+                <div class="col-sm-2" >
+                    <input type="text" class="form-control" id="operativeAccNoY" ng-init="vm.operativeAccNo=''" chars="only-numbers" maxlength="25"
+                           name="operativeAccNo" ng-model="vm.brokerMasterList.C008.oldValue" required>
+                </div>
+
+            </div>
+        </div>
+
+
+
+       <!-- <div class="row">
+            <div class="form-group required">
+                <div class="col-sm-2"></div>
+                <div class="col-sm-5">
+                    <label class="control-label">HDFC Branch Code</label>
+                </div>
+                <div class="col-sm-2">
+                    <input type="text" class="form-control" id="branchCode" ng-init=""
+                           name="branchCode" ng-model="vm.brokerMasterList.C010.oldValue"  chars="alpha-numeric"  required leading-space>
+                </div>
+            </div>
+        </div>-->
+
+        <div class="row" ng-if="vm.brokerMasterList.C005.oldValue=='I001'">
+            <div class="form-group required">
+                <div class="col-sm-2"></div>
+                <div class="col-sm-5">
+                    <label class="control-label">Type Of Broker</label>
+                </div>
+                <div class="col-sm-2">
+                    <select class="form-control" id="brokerType" name="brokerType"
+                            ng-model="vm.brokerMasterList.C011.oldValue"  ng-init="vm.getMetaData()" required>
+                        <option value="" >Select</option>
+                        <option ng-repeat="item in vm.brokerTypeList" value="{{item.SUBCODE}}">{{item.DESCRIPTION}}</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+
+
+        <div class="row">
+            <div class="form-group">
+                <div class="col-sm-2"></div>
+                <div class="col-sm-5">
+                    <label for="gstNo" class="control-label" >GST No</label>
+                </div>
+                <div class="col-sm-2">
+                    <input type="text"  class="form-control" id="gstNo" ng-model="vm.brokerMasterList.C013.oldValue" name="gstNo"
+                           maxlength="15"  chars="alpha-numeric" oninput="this.value = this.value.replace(/\s+/g, '')">
+                </div>
+            </div>
+        </div>
+
+        <div class="row" >
+            <div class="form-group required">
+                <div class="col-sm-2"></div>
+                <div class="col-sm-5">
+                    <label for="panTan" class="control-label">PAN</label>
+                </div>
+                <div class="col-sm-2" >
+                    <input type="text"  class="form-control"  ng-pattern="vm.panPattern"name="panTan" id="panTan"
+                           ng-model="vm.brokerMasterList.C014.oldValue"  chars="alpha-numeric"
+                           maxlength="10"
+                           oninput="this.value = this.value.replace(/\s+/g, '')"
+                           required>
+                </div>
+            </div>
+        </div>
+       <!-- <div class="row">
+            <div class="form-group required">
+                <div class="col-sm-2"></div>
+                <div class="col-sm-5">
+                    <label for="dateOfBirth" class="control-label">Brokerage Create Date</label>
+                </div>
+                <div class="col-sm-2">
+
+                    <p class="input-group">
+                        <input type="text" class="form-control" id="brokerageCreateDate"
+                               name="brokerageCreateDate"  ng-model="vm.brokerMasterList.C021.oldValue" maxlength="10"
+                               uib-datepicker-popup="dd/MM/yyyy" ng-init="vm.toDate='';vm.fromToDateValidation()"
+                               is-open="vm.brokerageCreateDate.opened" close-text="Close"
+                               datepicker-options="vm.dobCalenderOptions" required readonly>
+                        <span class="input-group-btn" >
+                                    <button type="button" class="btn btn-secondary"
+                                            ng-click="vm.brokerageCreateDate.opened = true"
+                                            id="brokerageCreateDatePicker">
+                                        <i class="glyphicon glyphicon-calendar"></i>
+                                    </button>
+                </span></p>
+
+                </div>
+            </div>
+        </div>-->
+        <div class="row">
+            <div class="form-group required">
+                <div class="col-sm-2"></div>
+                <div class="col-sm-5">
+                    <label for="brokerageCreateDate" class="control-label">Brokerage Create Date</label>
+                </div>
+                <div class="col-sm-2">
+                    <p class="input-group">
+                        <input type="text" class="form-control" id="brokerageCreateDate"
+                               name="brokerageCreateDate" maxlength="10"
+                               uib-datepicker-popup="dd/MM/yyyy"
+                               is-open="vm.brokerageCreateDate.opened" close-text="Close"
+                               ng-model="vm.brokerMasterList.C021.oldValue"
+                               datepicker-options="vm.dobCalenderOptions"  ng-blur="vm.textableDatePicker('brokerageCreateDate',vm.brokerMasterList.C021.oldValue);vm.futureNotAllowed('brokerageCreateDate',vm.brokerMasterList.C021.oldValue)"
+                               ng-keyup="vm.autoslashing('brokerageCreateDate')" chars="numbers-slash"
+                               required>
+                        <!--                            <span class="input-group-btn">-->
+                        <!--                    <button type="button" class="btn btn-secondary" id="dateOfBirthPicker"-->
+                        <!--                            ng-click="vm.dateOfBirth.opened = true">-->
+                        <!--                        <i class="glyphicon glyphicon-calendar"></i>-->
+                        <!--                    </button>-->
+                        <!--                </span>-->
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group">
+                <div class="col-sm-2"></div>
+                <div class="col-sm-5">
+                    <label class="control-label">Status</label>
+                </div>
+                <div class="col-sm-2">
+                    <input type="radio" id="enable" name="status" ng-model="vm.brokerMasterList.C036.oldValue"  value="Y">Enable
+                    <input type="radio" id="disable" name="status" ng-model="vm.brokerMasterList.C036.oldValue"  value="N">Disable
+
+                    <!--                        <option value="GR">GST registered</option>-->
+                        <!--                        <option value="GU">GST unregistered</option>-->
+                        <!--                        <option value="I">Individual</option>-->
+                        <!--                        <option value="NI">Non-individual</option>-->
+                        <!--                        <option value="CG">Composite GST</option>-->
+                        <!--                        <option ng-repeat="item in vm.moduleNameList" value="{{item.subCode}}">{{item.subCodeDescription}}</option>-->
+
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group required">
+                <div class="col-sm-2"></div>
+                <div class="col-sm-5">
+                    <label class="control-label">Payment Mode</label>
+                </div>
+                <div class="col-sm-2">
+                    <select class="form-control" id="paymentMode" name="paymentMode"  ng-change="vm.bankCode='';vm.branchCode='';"
+                            ng-model="vm.brokerMasterList.C023.oldValue" ng-init="vm.getPaymentMetaData()" required>
+                        <option value="" >Select</option>
+                        <option ng-repeat="item in vm.paymentTypeList" value="{{item.SUBCODE}}">{{item.DESCRIPTION}}</option>
+
+                        <!--                        <option value="GR">GST registered</option>-->
+                        <!--                        <option value="GU">GST unregistered</option>-->
+                        <!--                        <option value="I">Individual</option>-->
+                        <!--                        <option value="NI">Non-individual</option>-->
+                        <!--                        <option value="CG">Composite GST</option>-->
+                        <!--                        <option ng-repeat="item in vm.moduleNameList" value="{{item.subCode}}">{{item.subCodeDescription}}</option>-->
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="row" ng-if="vm.brokerMasterList.C023.oldValue == 'MP001'">
+            <div class="form-group required">
+                <div class="col-sm-2"></div>
+                <div class="col-sm-5">
+                    <label class="control-label">Operative Account Number</label>
+                </div>
+                <div class="col-sm-2">
+                    <input type="text" class="form-control" id="operativeAccNo" ng-init="vm.operativeAccNo=''" chars="alpha-numeric" maxlength="25"
+                           name="operativeAccNo" ng-model="vm.brokerMasterList.C008.oldValue"    oninput="this.value = this.value.replace(/\s+/g, '')" required>
+                </div>
+            </div>
+        </div>
+
+        <div class="row"  ng-if="vm.brokerMasterList.C023.oldValue == 'MP003'">
+            <div class="form-group required">
+                <div class="col-sm-2"></div>
+                <div class="col-sm-5">
+                    <label class="control-label">DD Account Number</label>
+                </div>
+                <div class="col-sm-2">
+                    <input type="text" class="form-control" id="ddAccNo" chars="alpha-numeric" maxlength="25"
+                           name="ddAccNo" ng-model="vm.brokerMasterList.C008.oldValue" required>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="row" ng-if="vm.brokerMasterList.C023.oldValue == 'MP002'|| vm.brokerMasterList.C023.oldValue == 'MP004' || vm.brokerMasterList.C023.oldValue == 'MP005'">
+                <div class="col-sm-2"></div>
+                <div class="col-sm-5">
+                    <label for="rbiCode" class="control-label">Bank Name</label>
+                </div>
+                <div class="col-sm-2">
+                    <input type="text" class="form-control" id="nonBankName"
+                           ng-model="vm.brokerMasterList.C025.oldValue" chars="alpha-numeric" required readonly>
+                </div>
+                <div class="col-sm-1">
+                    <div>
+                        <i class="glyphicon glyphicon-search cp" data-bs-toggle="modal"
+                           id="nonBankNameSearch"
+                           ng-click="vm.nonHdfcTorchM('bankName');"></i> <i
+                            class="glyphicon glyphicon-remove clear cp"
+                            ng-click="vm.brokerMasterList.C025.oldValue='';vm.brokerMasterBankCode='';"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row" ng-if="vm.brokerMasterList.C023.oldValue == 'MP002'|| vm.brokerMasterList.C023.oldValue == 'MP004' || vm.brokerMasterList.C023.oldValue == 'MP005'">
+            <div class="form-group required">
+                <div class="col-sm-2"></div>
+                <div class="col-sm-5">
+                    <label class="control-label">Operative Account Number</label>
+                </div>
+                <div class="col-sm-2">
+                    <input type="text" class="form-control" id="operativeAccNo" ng-init="vm.operativeAccNo=''" chars="alpha-numeric" maxlength="25"
+                           name="operativeAccNo" ng-model="vm.brokerMasterList.C008.oldValue"  oninput="this.value = this.value.replace(/\s+/g, '')" required>
+                </div>
+            </div>
+        </div>
+        <div class="row" ng-if="vm.brokerMasterList.C023.oldValue == 'MP002'|| vm.brokerMasterList.C023.oldValue == 'MP004' || vm.brokerMasterList.C023.oldValue == 'MP005'">
+            <div class="form-group">
+                <div class="col-sm-2"></div>
+                <div class="col-sm-5">
+                    <label  class="control-label">IFSC Code</label>
+                </div>
+                <div class="col-sm-2">
+                    <input type="text" class="form-control" id="instIfscCode" name="instIfscCode"
+                           ng-model="vm.brokerMasterList.C026.oldValue"
+                           ng-keypress="vm.ifscKeypress($event)"
+                           ng-blur="vm.applyIfscToModifyField()"
+                           ng-pattern="vm.ifscPattern" maxlength="11"
+                           ng-required="!(vm.brokerMasterList.C027 && vm.brokerMasterList.C027.oldValue && vm.brokerMasterList.C027.oldValue.length > 0)">
+                </div>
+                <div class="col-sm-1">
+                    <div>
+                        <i class="glyphicon glyphicon-search cp" data-bs-toggle="modal"
+                           id="instIfscCodeSearch"
+                           ng-click="vm.nonHdfcTorchM('ifsc');"></i> <i
+                            class="glyphicon glyphicon-remove clear cp"
+                            ng-click="vm.brokerMasterList.C026.oldValue='';"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row" ng-if="vm.brokerMasterList.C023.oldValue == 'MP002'|| vm.brokerMasterList.C023.oldValue == 'MP004' || vm.brokerMasterList.C023.oldValue == 'MP005'">
+            <div class="form-group">
+                <div class="col-sm-2"></div>
+                <div class="col-sm-5">
+                    <label  class="control-label">MICR Code Loc</label>
+                </div>
+                <div class="col-sm-2">
+                    <input type="text" class="form-control" id="micrCodeLoc" maxlength="3"
+                           ng-model="vm.brokerMasterList.C027.oldValue" chars="alpha-numeric"
+                           ng-required="!(vm.brokerMasterList.C026 && vm.brokerMasterList.C026.oldValue && vm.brokerMasterList.C026.oldValue.length > 0)">
+                </div>
+
+            </div>
+        </div>
+        <div class="row" ng-if="vm.brokerMasterList.C023.oldValue == 'MP002'|| vm.brokerMasterList.C023.oldValue == 'MP004' || vm.brokerMasterList.C023.oldValue == 'MP005'">
+            <div class="form-group">
+                <div class="col-sm-2"></div>
+                <div class="col-sm-5">
+                    <label  class="control-label">MICR Bank Code</label>
+                </div>
+                <div class="col-sm-2">
+                    <input type="text" class="form-control" id="micrBankCode"
+                           ng-model="vm.brokerMasterList.C028.oldValue" chars="alpha-numeric"  maxlength="3">
+                </div>
+                <div class="col-sm-1">
+                    <div>
+                        <i class="glyphicon glyphicon-search cp" data-bs-toggle="modal"
+                           id="micrBankCodeSearch"
+                           ng-click="vm.nonHdfcTorchM('micrCodeBank');"></i> <i
+                            class="glyphicon glyphicon-remove clear cp"
+                            ng-click="vm.brokerMasterList.C028.oldValue='';"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row" ng-if="vm.brokerMasterList.C023.oldValue == 'MP002'|| vm.brokerMasterList.C023.oldValue == 'MP004' || vm.brokerMasterList.C023.oldValue == 'MP005'">
+            <div class="form-group">
+                <div class="col-sm-2"></div>
+                <div class="col-sm-5">
+                    <label  class="control-label">MICR Branch Code</label>
+                </div>
+                <div class="col-sm-2">
+                    <input type="text" class="form-control" id="micrBranchCode"
+                           ng-model="vm.brokerMasterList.C029.oldValue" chars="alpha-numeric" maxlength="3">
+                </div>
+                <div class="col-sm-1">
+                    <div>
+                        <i class="glyphicon glyphicon-search cp" data-bs-toggle="modal"
+                           id="micrBranchCodeSearch"
+                           ng-click="vm.nonHdfcTorchM('micrBranchCode');"></i> <i
+                            class="glyphicon glyphicon-remove clear cp"
+                            ng-click="vm.brokerMasterList.C029.oldValue='';"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+<!--        <div class="row" ng-if="vm.brokerMasterList.C023.oldValue == 'MP004' || vm.brokerMasterList.C023.oldValue == 'MP005'">-->
+<!--            <div class="form-group required">-->
+<!--                <div class="col-sm-2"></div>-->
+<!--                <div class="col-sm-5">-->
+<!--                    <label class="control-label">IFSC Code of the Credit Bank</label>-->
+<!--                </div>-->
+<!--                <div class="col-sm-2">-->
+<!--                    <input type="text" class="form-control"-->
+<!--                           id="creditBankIfscCode" name="creditBankIfscCode" chars="alpha-numeric"  minlength="11" maxlength="11"-->
+<!--                           ng-model="vm.brokerMasterList.C026.oldValue" required>-->
+<!--                </div>-->
+
+<!--            </div>-->
+<!--        </div>-->
+<!--        <div class="row" ng-if="vm.brokerMasterList.C023.oldValue == 'MP004' || vm.brokerMasterList.C023.oldValue == 'MP005'">-->
+<!--            <div class="form-group">-->
+<!--                <div class="col-sm-2"></div>-->
+<!--                <div class="col-sm-5">-->
+<!--                    <label class="control-label">Name of the Payee</label>-->
+<!--                </div>-->
+<!--                <div class="col-sm-2">-->
+<!--                    <input type="text" class="form-control"-->
+<!--                           id="nameOfthePayee" name="nameOfthePayee" chars="alpha-numeric" maxlength="20"-->
+<!--                           ng-model="vm.brokerMasterList.C037.oldValue" required>-->
+<!--                </div>-->
+
+<!--            </div>-->
+<!--        </div>-->
+<!--        <div class="row" ng-if="vm.brokerMasterList.C023.oldValue == 'MP004' || vm.brokerMasterList.C023.oldValue == 'MP005'">-->
+<!--            <div class="form-group">-->
+<!--                <div class="col-sm-2"></div>-->
+<!--                <div class="col-sm-5">-->
+<!--                    <label class="control-label">Credit Account Number</label>-->
+<!--                </div>-->
+<!--                <div class="col-sm-2">-->
+<!--                    <input type="text" class="form-control"-->
+<!--                           id="creditAccNo" name="creditAccNo" chars="alpha-numeric" maxlength="20"-->
+<!--                           ng-model="vm.brokerMasterList.C008.oldValue" required>-->
+<!--                </div>-->
+
+<!--            </div>-->
+<!--        </div>-->
+<!--        <div class="row" ng-if="vm.brokerMasterList.C023.oldValue == 'MP004' || vm.brokerMasterList.C023.oldValue == 'MP005'">-->
+<!--            <div class="form-group">-->
+<!--                <div class="col-sm-2"></div>-->
+<!--                <div class="col-sm-5">-->
+<!--                    <label class="control-labelaria-controls">Bank Code</label>-->
+<!--                </div>-->
+<!--                <div class="col-sm-2">-->
+<!--                    <input type="text" class="form-control" id="bankCodeNonMicr"-->
+<!--                           name="bankCodeNonMicr"-->
+<!--                           ng-model="vm.brokerMasterList.C038.oldValue"-->
+<!--                           chars="alpha-numeric" disabled readonly required>-->
+<!--                </div>-->
+<!--                <div class="col-sm-1">-->
+<!--                    <div>-->
+<!--                        <i class="glyphicon glyphicon-search cp" data-bs-toggle="modal"-->
+<!--                           id="otherBankSearcher"-->
+<!--                           ng-click="vm.getOtherBankDetailsTorch('torch');"></i> <i-->
+<!--                            class="glyphicon glyphicon-remove clear cp"-->
+<!--                            ng-click="vm.brokerMasterList.C038.oldValue='';vm.brokerMasterList.C039.oldValue=''"></i>-->
+<!--                    </div>-->
+<!--                </div>-->
+
+<!--            </div>-->
+<!--        </div>-->
+<!--        <div class="row" ng-if="vm.brokerMasterList.C023.oldValue == 'MP004' || vm.brokerMasterList.C023.oldValue == 'MP005'">-->
+<!--            <div class="form-group">-->
+<!--                <div class="col-sm-2"></div>-->
+<!--                <div class="col-sm-5">-->
+<!--                    <label class="control-label">Branch Code</label>-->
+<!--                </div>-->
+<!--                <div class="col-sm-2">-->
+<!--                    <input type="text" class="form-control" id="branchCode"-->
+<!--                           name="branchCodeNonMicr"-->
+<!--                           ng-model="vm.brokerMasterList.C039.oldValue"-->
+<!--                           chars="alpha-numeric" disabled required>-->
+<!--                </div>-->
+<!--                <div class="col-sm-1">-->
+<!--                    <div>-->
+<!--                        <i class="glyphicon glyphicon-search cp" data-bs-toggle="modal"-->
+<!--                           id="branchCode"-->
+<!--                           ng-click="vm.getOtherBankDetailsTorch('branchCode');"></i> <i-->
+<!--                            class="glyphicon glyphicon-remove clear cp"-->
+<!--                            ng-click="vm.brokerMasterList.C039.oldValue='';"></i>-->
+<!--                    </div>-->
+<!--                </div>-->
+
+<!--            </div>-->
+<!--        </div>-->
+
+        <div class="row">
+            <div class="form-group required">
+                <div class="col-sm-2"></div>
+                <div class="col-sm-5">
+                    <label class="control-label">Address 1</label>
+                </div>
+                <div class="col-sm-2">
+                    <input type="text" class="form-control"
+                           id="address1" name="address1" ng-model="vm.brokerMasterList.C030.oldValue" oninput="this.value = this.value.replace(/^\s*/, '')"
+                           maxlength="200" required>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group">
+                <div class="col-sm-2"></div>
+                <div class="col-sm-5">
+                    <label class="control-label">Address 2</label>
+                </div>
+                <div class="col-sm-2">
+                    <input type="text" class="form-control"
+                           id="address2" name="address2" ng-model="vm.brokerMasterList.C031.oldValue" oninput="this.value = this.value.replace(/^\s*/, '')"
+                           maxlength="200">
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group required">
+                <div class="col-sm-2"></div>
+                <div class="col-sm-5">
+                    <label for="gstNo" class="control-label" >Pin Code</label>
+                </div>
+                <div class="col-sm-2">
+                    <input type="text"  class="form-control" id="pinCode" ng-model="vm.brokerMasterList.C032.oldValue" name="pinCode"
+                           maxlength="6" chars="only-numbers"  ng-pattern="/^\d{6}$/"  required leading-space>
+                    <span ng-show="tdsparameter.pinCode.$error.pattern && tdsparameter.pinCode.$touched" style="color: red;">
+                        Please enter a valid 6-digit pin code.
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group required">
+                <div class="col-sm-2"></div>
+                <div class="col-sm-5">
+                    <label for="gstNo" class="control-label" >City</label>
+                </div>
+                <div class="col-sm-2">
+                    <input type="text"  class="form-control" id="city" ng-model="vm.brokerMasterList.C033.oldValue" name="city"
+                           maxlength="50" chars="only-letters"   required leading-space>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group required">
+                <div class="col-sm-2"></div>
+                <div class="col-sm-5">
+                    <label for="gstNo" class="control-label" >State</label>
+                </div>
+                <div class="col-sm-2">
+
+                    <select class="form-control" id="state" name="state"
+                            ng-model="vm.brokerMasterList.C020.oldValue" ng-init="vm.getState()" required>
+                        <option value="" >Select</option>
+                        <option ng-repeat="item in vm.stateList" value="{{item.SUBCODE}}">{{item.DESCRIPTION}}</option>
+
+                    </select>
+
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group">
+                <div class="col-sm-2"></div>
+                <div class="col-sm-5">
+                    <label class="control-label">Phone No</label>
+                </div>
+                <div class="col-sm-2">
+                    <input type="text" class="form-control" minlength="6" maxlength="12"
+                           id="phoneNumber" ng-model="vm.brokerMasterList.C034.oldValue"
+                           chars="only-numbers" onkeypress="return isNumber(event)">
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group">
+                <div class="col-sm-2"></div>
+                <div class="col-sm-5">
+                    <label for="gstNo" class="control-label" >Fax</label>
+                </div>
+                <div class="col-sm-2">
+                    <input type="text"  class="form-control" id="fax" ng-model="vm.brokerMasterList.C035.oldValue" name="fax"
+                           maxlength="20" chars="only-numbers" leading-space>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group">
+                <div class="col-sm-2"></div>
+                <div class="col-sm-5">
+                    <label class="control-label">Mobile No</label>
+                </div>
+                <div class="col-sm-2">
+                    <input type="text" class="form-control" minlength="10" maxlength="10"
+                           id="mobileNumber" ng-model="vm.brokerMasterList.C017.oldValue"
+                           chars="only-numbers" onkeypress="return isNumber(event)">
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="form-group">
+                <div class="col-sm-2"></div>
+                <div class="col-sm-5">
+                    <label class="control-label">Email</label>
+                </div>
+                <div class="col-sm-2">
+                    <textarea type="email" class="form-control"
+                           id="emailId" name="emailId" maxlength="50"
+                              ng-model="vm.brokerMasterList.C018.oldValue" ng-pattern="vm.emailPattern" oninput="this.value = this.value.replace(/\s+/g, '')" chars="email"></textarea>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="form-group">
+                <div class="col-sm-2"></div>
+                <div class="col-sm-5">
+                    <label for="remark" class="control-label">Remarks</label>
+                </div>
+                <div class="col-sm-2">
+                    <textarea class="form-control" chars="alpha-numeric" id="remarks" name="remarks" ng-model="vm.brokerMasterList.C019.oldValue" maxlength="80"></textarea>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="form-group">
+                <div class="col-sm-2"></div>
+                <div class="col-sm-5">
+
+                    <label for="rejectionremarks" class="control-label">Rejection Remarks</label>
+                </div>
+                <div class="col-sm-2">
+                    <textarea class="form-control" id="rejectionRemarks" name="remarks" ng-model="vm.remarks" readonly ></textarea>
+                </div>
+            </div>
+        </div>
+
+
+
+        <div class="text-center form_submit">
+            <button type="submit" class="btn btn-default" id="submitButton"
+                    ng-disabled="tdsparameter.$invalid || tdsparameter.$pristine" ng-click="vm.modifySubmit()">Modify</button>
+            <button type="button" id="subButton" class="btn btn-cancel"
+                    ng-click="vm.showCancelConfirmation('broker_master_rbi_bond.modify');">Cancel</button>
+        </div>
+
+
+        <div class="audit-details">
+            <div class="row">
+                <div class="col-md-3">
+                    <span> <b> Created By </b> : {{vm.verifyDetailsList.createdBy}} </span>
+                </div>
+                <div class="col-md-3">
+                    <span> <b> Last Modified By </b> : {{(vm.verifyDetailsList.modifiedBy) ? (vm.verifyDetailsList.modifiedBy) : ('None')}}</span>
+                </div>
+                <div class="col-md-3">
+                    <span> <b> Last Verified By </b> : {{(vm.verifyDetailsList.verifiedBy) ? (vm.verifyDetailsList.verifiedBy) : ('None')}}</span>
+                </div>
+                <div class="col-md-3">
+                    <span> <b> Verify Status </b> : {{vm.verifyDetailsList.verifiedStatus  | getLabelFromValuesArray : vm.commonYesNoMetaData}}</span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3">
+                    <span> <b> Created On </b> : {{ vm.verifyDetailsList.createdDate | date : 'dd/MM/yyyy'}}</span>
+                </div>
+                <div class="col-md-3">
+                    <span> <b> Last Modified On</b> : {{ (vm.verifyDetailsList.modifiedDate) ? (vm.verifyDetailsList.modifiedDate | date : 'dd/MM/yyyy') : ('None')}}</span>
+                </div>
+                <div class="col-md-3">
+                    <span> <b> Last Verified On </b> : {{(vm.verifyDetailsList.verifiedDate) ? (vm.verifyDetailsList.verifiedDate | date : 'dd/MM/yyyy') : ('None')}}</span>
+                </div>
+                <div class="col-md-3">
+                </div>
+            </div>
+        </div>
+
+    </form>
+</div>
+<!--modal-->
+<div class="modal" id="rbiCodeModal" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-bs-dismiss="modal">&times;</button>
+                <h4 class="modal-title"></h4>
+            </div>
+            <div class="modal-body">
+                <div class="loader_popup"></div>
+                <div class="list_wrapper" ng-if="vm.nonHdfcTorchList">
+                    <div class="col-sm-8 form_submit">
+                        <div class="form-group">
+                            <div class="input-group">
+                                <div class="input-group-addon">
+                                    <i class="glyphicon glyphicon-search"></i>
+                                </div>
+                                <input type="text" class="form-control" chars="alpha-numeric"
+                                       ng-model="vm.search" ng-init="vm.search = ''"
+                                       placeholder="Search">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4 form_submit"></div>
+                    <div class="row">
+
+                        <div class="col-sm-12">
+                            <table class="table table-bordered list scroll sort">
+                                <thead ng-init="reverseOrder=false;sortedColumn = 'panNo'">
+                                <tr>
+                                    <th ng-click="(sortedColumn == 'bankName')?(reverseOrder=(!reverseOrder)): (reverseOrder = false);sortedColumn = 'bankName';" ng-class="(sortedColumn == 'bankName')?((reverseOrder)?('arrow-down') : ('arrow-up') ) : ('')">Bank Name</th>
+                                    <!--  <th ng-click="(sortedColumn == 'instIfscCode')?(reverseOrder=(!reverseOrder)): (reverseOrder = false);sortedColumn = 'instIfscCode';" ng-class="(sortedColumn == 'instIfscCode')?((reverseOrder)?('arrow-down') : ('arrow-up') ) : ('')">IFSC Code</th>
+                                      <th ng-click="(sortedColumn == 'micrBankCode')?(reverseOrder=(!reverseOrder)): (reverseOrder = false);sortedColumn = 'micrBankCode';" ng-class="(sortedColumn == 'micrBankCode')?((reverseOrder)?('arrow-down') : ('arrow-up') ) : ('')">MICR Bank Code</th>
+                                      <th ng-click="(sortedColumn == 'micrBranchCode')?(reverseOrder=(!reverseOrder)): (reverseOrder = false);sortedColumn = 'micrBranchCode';" ng-class="(sortedColumn == 'micrBranchCode')?((reverseOrder)?('arrow-down') : ('arrow-up') ) : ('')">MICR Branch Code</th>
+                                 -->     <!--                                    <th ng-click="(sortedColumn == 'blaNo')?(reverseOrder=(!reverseOrder)): (reverseOrder = false);sortedColumn = 'blaNo';" ng-class="(sortedColumn == 'blaNo')?((reverseOrder)?('arrow-down') : ('arrow-up') ) : ('')">Bla No</th>-->
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr class="cp"
+                                    ng-repeat="x in vm.nonHdfcTorchList | filter:vm.search | orderBy:sortedColumn:reverseOrder"
+                                    ng-click="vm.brokerMasterList.C025.oldValue= x.bankName;vm.brokerMasterBankCode= x.bankCode;" data-bs-dismiss="modal">
+                                    <td>{{x.bankName}}</td>
+                                    <!--     <td>{{x.instIfscCode}}</td>
+                                         <td>{{x.micrBankCode}}</td>
+                                         <td>{{x.micrBranchCode}}</td>-->
+                                    <!--                                    <td>{{x.blaNo}}</td>-->
+
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="list_wrapper" ng-if="vm.panDataList.length==0">No records found to display.</div>
+            </div>
+
+        </div>
+    </div>
+</div>
+<div class="modal" id="rbiCodeModalIfsc" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-bs-dismiss="modal">&times;</button>
+                <h4 class="modal-title"></h4>
+            </div>
+            <div class="modal-body">
+                <div class="loader_popup"></div>
+                <div class="list_wrapper" ng-if="vm.nonHdfcTorchList">
+                    <div class="col-sm-8 form_submit">
+                        <div class="form-group">
+                            <div class="input-group">
+                                <div class="input-group-addon">
+                                    <i class="glyphicon glyphicon-search"></i>
+                                </div>
+                                <input type="text" class="form-control" chars="alpha-numeric"
+                                       ng-model="vm.search" ng-init="vm.search = ''"
+                                       placeholder="Search">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4 form_submit"></div>
+                    <div class="row">
+
+                        <div class="col-sm-12">
+                            <table class="table table-bordered list scroll sort">
+                                <thead ng-init="reverseOrder=false;sortedColumn = 'panNo'">
+                                <tr>
+                                    <th ng-click="(sortedColumn == 'bankName')?(reverseOrder=(!reverseOrder)): (reverseOrder = false);sortedColumn = 'bankName';" ng-class="(sortedColumn == 'bankName')?((reverseOrder)?('arrow-down') : ('arrow-up') ) : ('')">Bank Name</th>
+                                    <th ng-click="(sortedColumn == 'instIfscCode')?(reverseOrder=(!reverseOrder)): (reverseOrder = false);sortedColumn = 'instIfscCode';" ng-class="(sortedColumn == 'instIfscCode')?((reverseOrder)?('arrow-down') : ('arrow-up') ) : ('')">IFSC Code</th>
+                                    <th ng-click="(sortedColumn == 'micrBankCode')?(reverseOrder=(!reverseOrder)): (reverseOrder = false);sortedColumn = 'micrBankCode';" ng-class="(sortedColumn == 'micrBankCode')?((reverseOrder)?('arrow-down') : ('arrow-up') ) : ('')">MICR Bank Code</th>
+                                    <th ng-click="(sortedColumn == 'micrBranchCode')?(reverseOrder=(!reverseOrder)): (reverseOrder = false);sortedColumn = 'micrBranchCode';" ng-class="(sortedColumn == 'micrBranchCode')?((reverseOrder)?('arrow-down') : ('arrow-up') ) : ('')">MICR Branch Code</th>
+                                    <!--                                    <th ng-click="(sortedColumn == 'blaNo')?(reverseOrder=(!reverseOrder)): (reverseOrder = false);sortedColumn = 'blaNo';" ng-class="(sortedColumn == 'blaNo')?((reverseOrder)?('arrow-down') : ('arrow-up') ) : ('')">Bla No</th>-->
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr class="cp"
+                                    ng-repeat="x in vm.nonHdfcTorchList | filter:vm.search | orderBy:sortedColumn:reverseOrder"
+                                    ng-click="vm.brokerMasterList.C026.oldValue=vm.sanitizeIfscCode(x.instIfscCode);vm.brokerMasterList.C028.oldValue=x.micrBankCode;vm.brokerMasterList.C029.oldValue=x.micrBranchCode;vm.brokerMasterList.C027.oldValue = x.micrCodeLoc;" data-bs-dismiss="modal">
+                                    <td>{{x.bankName}}</td>
+                                    <td>{{x.instIfscCode}}</td>
+                                    <td>{{x.micrBankCode}}</td>
+                                    <td>{{x.micrBranchCode}}</td>
+                                    <!--                                    <td>{{x.blaNo}}</td>-->
+
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="list_wrapper" ng-if="vm.panDataList.length==0">No records found to display.</div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+
+<!--<div class="modal" id="getBranchCode" role="dialog">-->
+<!--    <div class="modal-dialog">-->
+<!--        &lt;!&ndash; Modal content&ndash;&gt;-->
+<!--        <div class="modal-content">-->
+<!--            <div class="modal-header">-->
+<!--                <button type="button" class="close" data-bs-dismiss="modal">&times;</button>-->
+<!--                <h4 class="modal-title">Branch Code Model</h4>-->
+<!--            </div>-->
+<!--            <div class="modal-body">-->
+<!--                <div class="loader_popup"></div>-->
+<!--                <div class="list_wrapper" ng-if="vm.branchCodeList.length>0">-->
+<!--                    <div class="col-sm-8 form_submit">-->
+<!--                        <div class="form-group">-->
+<!--                            <div class="input-group">-->
+<!--                                <div class="input-group-addon">-->
+<!--                                    <i class="glyphicon glyphicon-search"></i>-->
+<!--                                </div>-->
+<!--                                <input type="text" class="form-control"-->
+<!--                                       ng-model="vm.InterestRateModalSearch"-->
+<!--                                       placeholder="Search">-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                    <div class="col-sm-4 form_submit"></div>-->
+<!--                    <div class="row">-->
+
+<!--                        <div class="col-sm-12">-->
+<!--                            <table class="table table-bordered list scroll sort">-->
+<!--                                <thead ng-init="reverseOrder=true;sortedColumn = 'InterestRate'">-->
+<!--                                <tr>-->
+<!--                                    <th ng-click="(sortedColumn == 'branchCode')?(reverseOrder=(!reverseOrder)): (reverseOrder = false);sortedColumn = 'branchCode';" ng-class="(sortedColumn == 'branchCode')?((reverseOrder)?('arrow-down') : ('arrow-up') ) : ('')">Branch Code</th>-->
+<!--                                    <th ng-click="(sortedColumn == 'branchDescription')?(reverseOrder=(!reverseOrder)): (reverseOrder = false);sortedColumn = 'branchDescription';" ng-class="(sortedColumn == 'branchDescription')?((reverseOrder)?('arrow-down') : ('arrow-up') ) : ('')">Branch Description</th>-->
+<!--                                </tr>-->
+<!--                                </thead>-->
+<!--                                <tbody>-->
+<!--                                <tr class="cp"-->
+<!--                                    ng-repeat="x in vm.branchCodeList | filter:vm.InterestRateModalSearch | orderBy:sortedColumn:reverseOrder"-->
+<!--                                    ng-click="vm.tdsParameterList.C002.oldValue = x.branchCode; vm.tdsParameterList.C010.oldValue=x.branchDescription" data-bs-dismiss="modal">-->
+<!--                                    <td>{{x.branchCode}}</td>-->
+<!--                                    <td>{{x.branchDescription}}</td>-->
+<!--                                </tr>-->
+<!--                                </tbody>-->
+<!--                            </table>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--                <div class="list_wrapper" ng-if="vm.branchCodeList.length==0">No records found to display.</div>-->
+<!--            </div>-->
+
+<!--        </div>-->
+<!--    </div>-->
+<!--</div>-->
+<div class="modal" id="otherBankDetailsModal" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-bs-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Other Bank Details List</h4>
+            </div>
+            <div class="modal-body">
+                <div class="loader_popup"></div>
+                <div class="list_wrapper" ng-if="vm.otherBankDetailsTorchList.length>0">
+                    <div class="col-sm-8 form_submit">
+                        <div class="form-group">
+                            <div class="input-group">
+                                <div class="input-group-addon">
+                                    <i class="glyphicon glyphicon-search"></i>
+                                </div>
+                                <input type="text" class="form-control"
+                                       ng-model="vm.searchTranCode"
+                                       ng-init="vm.searchTranCode = ''"
+                                       placeholder="Search">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4 form_submit"></div>
+                    <div class="row">
+
+                        <div class="col-sm-12">
+                            <table class="table table-bordered list scroll">
+                                <thead ng-init="reverseOrder = false; sortedColumn = 'clgTranCode'">
+                                <tr>
+                                    <th class="modal-title title-case" ng-click="(sortedColumn == 'bankCode')?(reverseOrder=(!reverseOrder)): (reverseOrder = false);sortedColumn = 'bankCode';" ng-class="(sortedColumn == 'bankCode')?((reverseOrder)?('arrow-down') : ('arrow-up') ) : ('')">Bank Code</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr class="cp"
+                                    ng-repeat="x in vm.otherBankDetailsTorchList | filter:vm.searchTranCode | orderBy:sortedColumn:reverseOrder"
+                                    ng-click="vm.brokerMasterList.C038.oldValue = x.bankCode;"
+                                    data-bs-dismiss="modal">
+                                    <td>{{x.bankCode}}</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="list_wrapper" ng-if="vm.otherBankDetailsTorchList.length==0">No
+                    records found to display.</div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<div class="modal" id="otherBankDetailsModal1" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-bs-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Other Branch Details List</h4>
+            </div>
+            <div class="modal-body">
+                <div class="loader_popup"></div>
+                <div class="list_wrapper" ng-if="vm.otherBankDetailsTorchList.length>0">
+                    <div class="col-sm-8 form_submit">
+                        <div class="form-group">
+                            <div class="input-group">
+                                <div class="input-group-addon">
+                                    <i class="glyphicon glyphicon-search"></i>
+                                </div>
+                                <input type="text" class="form-control"
+                                       ng-model="vm.searchTranCode"
+                                       ng-init="vm.searchTranCode = ''"
+                                       placeholder="Search">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4 form_submit"></div>
+                    <div class="row">
+
+                        <div class="col-sm-12">
+                            <table class="table table-bordered list scroll">
+                                <thead ng-init="reverseOrder = false; sortedColumn = 'clgTranCode'">
+                                <tr>
+                                    <th class="modal-title title-case" ng-click="(sortedColumn == 'branchCode')?(reverseOrder=(!reverseOrder)): (reverseOrder = false);sortedColumn = 'branchCode';" ng-class="(sortedColumn == 'branchCode')?((reverseOrder)?('arrow-down') : ('arrow-up') ) : ('')">Branch Code</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr class="cp"
+                                    ng-repeat="x in vm.otherBankDetailsTorchList | filter:vm.searchTranCode | orderBy:sortedColumn:reverseOrder"
+                                    ng-click="vm.brokerMasterList.C039.oldValue = x.branchCode;"
+                                    data-bs-dismiss="modal">
+                                    <td>{{x.branchCode}}</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="list_wrapper" ng-if="vm.otherBankDetailsTorchList.length==0">No
+                    records found to display.</div>
+            </div>
+
+        </div>
+    </div>
+</div>

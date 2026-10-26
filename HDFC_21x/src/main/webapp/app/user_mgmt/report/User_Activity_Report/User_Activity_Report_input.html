@@ -1,0 +1,216 @@
+<div class="loader-new" ng-if="vm.loader"></div>
+
+<div class="container from_wrapper new_form_wrapper">
+
+    <h4 class="form_heading">User Activity Report</h4>
+    <sol-header></sol-header>
+    <form name="blastatusreportFrom" role="form">
+
+        <div class="row">
+            <div class="col-sm-6 col-sm-offset-3">
+                <div class="row">
+                    <div class="form-group required">
+                        <div class="col-sm-6">
+                            <label for="branchId" class="control-label">Branch Id</label>
+                        </div>
+                        <div class="col-sm-4">
+                            <input type="text" class="form-control" id="branchId"
+                                   ng-model="vm.branchId" ng-init="vm.branchId=vm.loginSolId"   maxlength="25" required>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group required">
+                        <div class="col-sm-6">
+                            <label class="control-label">Branch Name</label>
+                        </div>
+                        <div class="col-sm-4">
+                            <input type="text" class="form-control" id="branchDesc"
+                                   ng-model="vm.branchDesc" ng-init="vm.branchDesc= vm.loginSolDesc"   maxlength="25" required>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-6 col-sm-offset-3">
+                <div class="row">
+                    <div class="form-group required">
+                        <div class="col-sm-6">
+                            <label for="effFromDate" class="control-label">From Date</label>
+                        </div>
+                        <div class="col-sm-4">
+                            <p class="input-group">
+                                <input type="text" class="form-control" id="effFromDate"
+                                       name="effFromDate" ng-model="vm.fromDate"
+                                       uib-datepicker-popup="dd/MM/yyyy" ng-init="vm.fromDate='';vm.dateValidation();"
+                                       datepicker-options="vm.dateOptions" ng-change="vm.dateValidation();"
+                                       is-open="vm.effFromDatePicker.opened" close-text="Close"
+                                       maxlength="10" readonly required>
+                                <span class="input-group-btn">
+                            <button type="button" class="btn btn-secondary"
+                                    ng-click="vm.effFromDatePicker.opened = true"
+                                    id="effFromDateSearcher">
+                                <i class="glyphicon glyphicon-calendar"></i>
+                            </button>
+                        </span>
+                            </p>
+                        </div>
+                        <div class="col-sm-3">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-6 col-sm-offset-3">
+                <div class="row">
+                    <div class="form-group required">
+                        <div class="col-sm-6">
+                            <label for="effToDate" class="control-label">To Date</label>
+                        </div>
+                        <div class="col-sm-4">
+                            <p class="input-group">
+                                <input type="text" class="form-control" id="effToDate"
+                                       name="effToDate" ng-model="vm.toDate"
+                                       uib-datepicker-popup="dd/MM/yyyy" ng-init="vm.toDate=''"
+                                       datepicker-options="vm.dateToOptions"
+                                       is-open="vm.effToDatePicker.opened" close-text="Close"
+                                       maxlength="10" readonly required>
+                                <span class="input-group-btn" ng-if="vm.fromDate">
+                            <button type="button" class="btn btn-secondary"
+                                    ng-click="vm.effToDatePicker.opened = true"
+                                    id="effToDateSearcher">
+                                <i class="glyphicon glyphicon-calendar"></i>
+                            </button>
+                        </span>
+                            </p>
+                        </div>
+                        <div class="col-sm-3">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-6 col-sm-offset-3">
+                <div class="row">
+                    <div class="form-group required">
+                        <div class="col-sm-6">
+                            <label for="username" class="control-label">User name</label>
+                        </div>
+                        <div class="col-sm-4">
+                            <input type="text" class="form-control" id="username" name="username" ng-model="vm.username"  maxlength='20' chars="alpha-numeric" required>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-6 col-sm-offset-3">
+                <div class="row">
+                    <div class="form-group ">
+                        <div class="col-sm-6">
+                            <label for="moduleId" class="control-label">Module Id</label>
+                        </div>
+                        <div class="col-sm-4">
+                            <input type="text" class="form-control" id="moduleId" ng-init="vm.moduleId=''"
+                                   ng-model="vm.moduleId"  readonly>
+                        </div>
+                        <div class="col-sm-2">
+                            <i class="glyphicon glyphicon-search cp" data-bs-toggle="modal"
+                               id="subscriptionIdSearch"
+                               ng-click="vm.getModuleNameDetails();vm.searchSolId='';"></i> <i
+                                class="glyphicon glyphicon-remove clear cp"
+                                ng-click="vm.moduleId = ''"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="text-center form_submit">
+            <button type="submit" id="submitbutton" class="btn btn-default"
+                    ui-sref="User_Activity_Report.inquiry_details({obj:{
+                            branchId:vm.branchId,
+                            branchDesc:vm.branchDesc,
+                            fromDate:vm.fromDate,
+                            toDate:vm.toDate,
+                            username:vm.username,
+                            moduleId:vm.moduleId
+                        }})"
+                    ng-disabled="blastatusreportFrom.$invalid">Submit</button>
+            <button type="button" class="btn btn-cancel" id="cancelButton"
+                    onclick="window.location.href= '#!/rbibond_gu_functionality';">Cancel
+            </button>
+        </div>
+
+        <div class="text-center">
+            <notice-message-directive></notice-message-directive>
+        </div>
+    </form>
+</div>
+
+
+
+
+
+
+<div class="modal" id="subScriptionIdModal" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-bs-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Bond Subscription ID</h4>
+            </div>
+            <div class="modal-body">
+                <div class="loader_popup"></div>
+                <div class="list_wrapper" ng-if="vm.subscriptionIdList.length>0">
+                    <div class="col-sm-8 form_submit">
+                        <div class="form-group">
+                            <div class="input-group">
+                                <div class="input-group-addon">
+                                    <i class="glyphicon glyphicon-search"></i>
+                                </div>
+                                <input type="text" class="form-control"
+                                       ng-model="vm.searchSolId" ng-init="vm.searchSolId = ''"
+                                       placeholder="Search">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4 form_submit"></div>
+                    <div class="row">
+
+                        <div class="col-sm-12">
+                            <table class="table table-bordered list scroll sort">
+                                <thead ng-init="reverseOrder=true;sortedColumn = 'bondScbId'">
+                                <tr>
+                                    <th ng-click="(sortedColumn == 'moduleName')?(reverseOrder=(!reverseOrder)): (reverseOrder = false);sortedColumn = 'moduleName';" ng-class="(sortedColumn == 'moduleName')?((reverseOrder)?('arrow-down') : ('arrow-up') ) : ('')">Module Name </th>
+
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr class="cp"
+                                    ng-repeat="x in vm.subscriptionIdList | filter:vm.searchSolId | orderBy:sortedColumn:reverseOrder"
+                                    ng-click="vm.moduleId = x.moduleName" data-bs-dismiss="modal">
+                                    <td>{{x.moduleName}}</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="list_wrapper" ng-if="vm.subscriptionIdList.length==0">No records found to display.</div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+

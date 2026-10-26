@@ -1,0 +1,251 @@
+<div class="loader-new" ng-if="vm.loader"></div>
+<div class="container from_wrapper new_form_wrapper">
+    <h4 class="form_heading">Pending Brokerage Payment Status & Brokerage Claim Status Report</h4>
+    <form name="successFailureBrokerageFrom" role="form">
+        <div class="row">
+            <sol-header></sol-header>
+        </div>
+        <div class="row">
+            <div class="form-group">
+                <div class="col-sm-3"></div>
+                <div class="col-sm-3">
+                    <label for="moduleName" class="control-label">Name of the Module</label>
+                </div>
+                <div class="col-sm-4">
+                    <label><strong>RBI Bond</strong></label>
+                </div>
+            </div>
+        </div>
+
+<!--Broker Agency Code Field-->
+        <div class="row">
+            <div class="form-group required">
+                <div class="col-sm-3"></div>
+                <div class="col-sm-3">
+                    <label class="control-label">Broker Agency Code</label>
+                </div>
+                <div class="col-sm-2">
+                    <input type="text" class="form-control" id="brokerId" ng-model="vm.brokerId" chars="alpha-numeric"
+                           oninput = "this.value = this.value.replace(/^\s+/, '').replace(/[^a-zA-Z0-9\s]/g, '').replace(/\s{2,}/g, ' ')" required>
+                </div>
+                <div class="col-sm-2">
+                    <i class="glyphicon glyphicon-search cp" data-bs-toggle="modal"
+                       id="brokerSearch" ng-click="vm.BrokerTorch();"></i>
+                    <i class="glyphicon glyphicon-remove clear cp" ng-click="vm.brokerId ='';"></i>
+                </div>
+            </div>
+        </div>
+
+<!--Name of the Bond Scheme Field-->
+        <div class="row">
+            <div class="form-group required">
+                <div class="col-sm-3"></div>
+                <div class="col-sm-3">
+                    <label for="moduleName" class="control-label">Name of the Bond Scheme</label>
+                </div>
+                <div class="col-sm-2">
+                    <input type="text" class="form-control" id="moduleName" ng-model="vm.subCodeDesc" required readonly>
+                </div>
+                <div class="col-sm-2">
+                    <i class="glyphicon glyphicon-search cp" data-bs-toggle="schemeName" id="treasurySearch"
+                       ng-click="vm.getModuleName();" ng-model="vm.schemeCode;" ng-model="vm.subCodeDesc"></i>
+                    <i class="glyphicon glyphicon-remove clear cp" ng-click="vm.subCodeDesc ='';"></i>
+                </div>
+            </div>
+        </div>
+
+<!--Status Type Field-->
+        <div class="row">
+            <div class="form-group required">
+                <div class="col-sm-3"></div>
+                <div class="col-sm-3">
+                    <label class="control-label">Status</label>
+                </div>
+                <div class="col-sm-2">
+                    <select class="form-control" id="status" name="status" ng-model="vm.status" required>
+                        <option value="">Select</option>
+                        <option value="P">PENDING</option>
+                        <option value="C">CLAIM</option>
+                    </select>
+                </div></div>
+        </div>
+
+<!--Brokerage Payment From Date Field-->
+        <div class="row">
+            <div class="form-group required">
+                <div class="col-sm-3"></div>
+                <div class="col-sm-3">
+                    <label  class="control-label">Brokerage Paid From Date(DD/MM/YYYY)</label>
+                </div>
+                <div class="col-sm-2">
+                    <p class="input-group">
+                        <input type="text" class="form-control" id="effFromDate1" name="effFromDate" ng-model="vm.fromDate"
+                               uib-datepicker-popup="dd/MM/yyyy" ng-init="vm.fromDate=''; vm.fromDateVal()"
+                               ng-change="vm.toDateVal(vm.fromDate); vm.toDate=''" datepicker-options="vm.fromDateOptions"
+                               is-open="vm.effFromDatePicker.opened" close-text="Close" maxlength="10"
+                               ng-blur="vm.textableDatePicker('effFromDate1',vm.fromDate)"
+                               ng-keyup="vm.autoslashing('effFromDate1')" chars="numbers-slash"
+                               required>
+                  <span class="input-group-btn">
+                  <button type="button" class="btn btn-secondary" ng-click="vm.effFromDatePicker.opened = true" id="effFromDateSearcher1">
+                  <i class="glyphicon glyphicon-calendar"></i>
+                  </button>
+                  </span>
+                    </p>
+                </div>
+            </div>
+        </div>
+
+<!--Brokerage Payment To Date Field-->
+        <div class="row">
+            <div class="form-group required">
+                <div class="col-sm-3"></div>
+                <div class="col-sm-3">
+                    <label  class="control-label">Brokerage Paid To Date(DD/MM/YYYY)</label>
+                </div>
+                <div class="col-sm-2">
+                    <p class="input-group">
+                        <input type="text" class="form-control" id="effToDate" name="effToDate" ng-model="vm.toDate"
+                               uib-datepicker-popup="dd/MM/yyyy"
+                               ng-init="vm.toDate=''" datepicker-options="vm.toDateOptions" is-open="vm.effToDatePicker.opened" close-text="Close"
+                               maxlength="10"   ng-blur="vm.textableDatePicker('effToDate',vm.toDate)"
+                               ng-keyup="vm.autoslashing('effToDate')" chars="numbers-slash" required>
+                  <span class="input-group-btn" ng-if="vm.fromDate">
+                      <button type="button" class="btn btn-secondary" ng-click="vm.effToDatePicker.opened = true" id="effToDateSearcher">
+                      <i class="glyphicon glyphicon-calendar"></i>
+                      </button>
+                  </span>
+                    </p>
+                </div>
+            </div>
+        </div>
+
+<!--Submit & Cancel Button-->
+        <div class="text-center form_submit">
+            <button type="submit" id="submitbutton" class="btn btn-default"
+                    ui-sref="pending_brokerage_payment_status_brokerage_claim_status.inquiry_details({obj:{
+                             status:vm.status,
+                             fromDate:vm.fromDate,
+                             toDate:vm.toDate,
+                             schemeCode:vm.schemeCode,
+                             schemeName: vm.subCodeDesc,
+                        }})"
+                    ng-disabled="successFailureBrokerageFrom.$invalid">Submit</button>
+            <button type="button" class="btn btn-cancel" id="cancelButton"
+                    onclick="window.location.href= '#!/rbibond_gu_functionality';">Cancel
+            </button>
+        </div>
+        <div class="text-center">
+            <notice-message-directive></notice-message-directive>
+        </div>
+    </form>
+</div>
+
+<!--bond scheme name-->
+<div class="modal" id="schemeModel" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-bs-dismiss="modal" ng-click="vm.modalSearch=''">&times;</button>
+                <h4 class="modal-title">Scheme Code</h4>
+            </div>
+            <div class="modal-body">
+                <div class="loader_popup"></div>
+                <div class="list_wrapper" ng-if="vm.schemeList.length>0">
+                    <div class="col-sm-8 form_submit">
+                        <div class="form-group">
+                            <div class="input-group">
+                                <div class="input-group-addon">
+                                    <i class="glyphicon glyphicon-search"></i>
+                                </div>
+                                <input type="text" class="form-control" ng-model="vm.modalSearch" ng-init="vm.modalSearch = ''" placeholder="Search"
+                                       oninput = "this.value = this.value.replace(/^\s+/, '').replace(/\s{2,}/g, ' ')">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4 form_submit"></div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <table class="table table-bordered list scroll sort">
+                                <thead ng-init="reverseOrder=true;sortedColumn = 'subCodeDesc'">
+                                <tr>
+                                    <th class="modal-title title-case" ng-show="false">Scheme Code</th>
+                                    <th class="modal-title title-case" ng-click="(sortedColumn == 'subCodeDesc')?(reverseOrder=(!reverseOrder)): (reverseOrder = false);sortedColumn = 'subCodeDesc';" ng-class="(sortedColumn == 'subCodeDesc')?((reverseOrder)?('arrow-down') : ('arrow-up') ) : ('')">Scheme Name</th>
+                                    <th class="modal-title title-case" ng-click="(sortedColumn == 'schemeStatus')?(reverseOrder=(!reverseOrder)): (reverseOrder = false);sortedColumn = 'schemeStatus';" ng-class="(sortedColumn == 'schemeStatus')?((reverseOrder)?('arrow-down') : ('arrow-up') ) : ('')">Status</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr class="cp"
+                                    ng-repeat="x in vm.schemeList | filter:vm.modalSearch | orderBy:sortedColumn:reverseOrder"
+                                    ng-click="vm.subCode = x.subCode; vm.subCodeDesc = x.subCodeDesc; vm.schemeStatus = x.schemeStatus"
+                                    data-bs-dismiss="modal">
+                                    <td style="display: none;">{{x.subCode}}</td>
+                                    <td>{{x.subCodeDesc}}</td>
+                                    <td>{{x.schemeStatus}}</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="list_wrapper" ng-if="vm.schemeList.length==0">No records found to display.</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--brokerModal Modal-->
+<div class="modal" id="brokerModal" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-bs-dismiss="modal" ng-click="vm.searchCustomerId=''">&times;</button>
+                <h4 class="modal-title">Broker List</h4>
+            </div>
+            <div class="modal-body">
+                <div class="loader_popup"></div>
+                <div class="list_wrapper" ng-if="vm.brokerTorchList.length>0">
+                    <div class="col-sm-8 form_submit">
+                        <div class="form-group">
+                            <div class="input-group">
+                                <div class="input-group-addon">
+                                    <i class="glyphicon glyphicon-search"></i>
+                                </div>
+                                <input type="text" class="form-control" ng-model="vm.searchCustomerId" ng-init="vm.searchCustomerId = ''" placeholder="Search"
+                                       oninput = "this.value = this.value.replace(/^\s+/, '').replace(/[^a-zA-Z0-9\s]/g, '').replace(/\s{2,}/g, ' ')"
+                                >
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4 form_submit"></div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <table class="table table-bordered list scroll">
+                                <thead ng-init="reverseOrder = false; sortedColumn = 'scssCustomerId'">
+                                <tr>
+                                    <th class="modal-title title-case" ng-click="(sortedColumn == 'brokerAgencyCode')?(reverseOrder=(!reverseOrder)): (reverseOrder = false);sortedColumn = 'brokerAgencyCode';" ng-class="(sortedColumn == 'brokerAgencyCode')?((reverseOrder)?('arrow-down') : ('arrow-up') ) : ('')">Broker Agency Code</th>
+                                    <th class="modal-title title-case" ng-click="(sortedColumn == 'brokerName')?(reverseOrder=(!reverseOrder)): (reverseOrder = false);sortedColumn = 'brokerName';" ng-class="(sortedColumn == 'brokerName')?((reverseOrder)?('arrow-down') : ('arrow-up') ) : ('')">Broker Name</th>
+                                    <th class="modal-title title-case" ng-click="(sortedColumn == 'verifiedStatus')?(reverseOrder=(!reverseOrder)): (reverseOrder = false);sortedColumn = 'verifiedStatus';" ng-class="(sortedColumn == 'verifiedStatus')?((reverseOrder)?('arrow-down') : ('arrow-up') ) : ('')">Verified status</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr class="cp"
+                                    ng-repeat="x in vm.brokerTorchList | filter:vm.searchCustomerId | orderBy:sortedColumn:reverseOrder"
+                                    ng-click="vm.brokerId = x.brokerCode;" data-bs-dismiss="modal">
+                                    <td>{{x.brokerCode}}</td>
+                                    <td>{{x.brokerName}}</td>
+                                    <td>{{x.verifiedStatus | getLabelFromValuesArray : vm.commonYesNoMetaData}}</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="list_wrapper" ng-if="vm.brokerTorchList.length==0">No records found to display.</div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>

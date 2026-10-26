@@ -1,0 +1,108 @@
+<div class="loader-new" ng-if="vm.loader"></div>
+<cbs-left-menu></cbs-left-menu>
+<div class="container from_wrapper new_form_wrapper">
+	<h4 class="form_heading  feature-heading">Scheme Codes - Inquiry</h4>
+	
+	<table class="table table-bordered table-striped list">
+		<thead>
+	    	<tr>
+	        	<th>Particular</th>
+	        	<th ng-if="!vm.newValueDisplay">Value</th>
+	        	<th ng-if="vm.newValueDisplay">New Value</th>
+	        	<th ng-if="vm.newValueDisplay">Old Value</th> 
+	    	</tr>
+	    </thead>
+		<tbody>
+			<tr>
+				<td>
+					<label for="schemeCode" class="control-label">Scheme Code</label>
+				</td>
+				<td ng-if="vm.newValueDisplay">
+					<label class="data-bind" id="schemeCode_New">{{vm.schemeCodesNewScope.schemeCode}}</label>
+				</td>
+				<td>
+					<label class="data-bind" id="schemeCode">{{vm.schemeCodes.schemeCode}}</label>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<label for="description" class="control-label">Scheme Description</label>
+				</td>
+				<td ng-if="vm.newValueDisplay">
+					<label class="data-bind" id="description_New">{{vm.schemeCodesNewScope.description}}</label>
+				</td>
+				<td>
+					<label class="data-bind" id="description">{{vm.schemeCodes.description}}</label>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<label for="glSubHeadCode" class="control-label">GL Sub Head Code</label>
+				</td>
+				<td ng-if="vm.newValueDisplay">
+					<label class="data-bind" id="glSubHeadCode_New">{{vm.schemeCodesNewScope.glSubHeadCode}}</label>
+				</td>
+				<td>
+					<label class="data-bind" id="glSubHeadCode">{{vm.schemeCodes.glSubHeadCode}}</label>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<label for="schemeType" class="control-label">Scheme Type</label>
+				</td>
+				<td ng-if="vm.newValueDisplay">
+					<label class="data-bind" id="schemeType_New">{{vm.schemeCodesNewScope.schemeType}}</label>
+				</td>
+				<td>
+					<label class="data-bind" id="schemeType">{{vm.schemeCodes.schemeType}}</label>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<label for="addText1" class="control-label">Additional Text1</label>
+				</td>
+				<td ng-if="vm.newValueDisplay">
+					<label class="data-bind" id="addText1_New">{{vm.schemeCodesNewScope.addText1}}</label>
+				</td>
+				<td>
+					<label class="data-bind" id="addText1">{{vm.schemeCodes.addText1}}</label>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<label for="addText2" class="control-label">Additional Text2</label>
+				</td>
+				<td ng-if="vm.newValueDisplay">
+					<label class="data-bind" id="addText2_New">{{vm.schemeCodesNewScope.addText2}}</label>
+				</td>
+				<td>
+					<label class="data-bind" id="addText2">{{vm.schemeCodes.addText2}}</label>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<label for="addText3" class="control-label">Additional Text3</label>
+				</td>
+				<td ng-if="vm.newValueDisplay">
+					<label class="data-bind" id="addText3_New">{{vm.schemeCodesNewScope.addText3}}</label>
+				</td>
+				<td>
+					<label class="data-bind" id="addText3">{{vm.schemeCodes.addText3}}</label>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+
+	<div class="row" >
+		<div class="col-sm-7"></div>
+		<label  ng-if="!vm.verified" class="control-label col-sm-5"><b>Verify Status : Y</b></label>
+		<label  ng-if="vm.verified" class="control-label col-sm-5"><b>Verify Status : N</b></label>
+	</div>
+	
+	<div class="text-center form_submit">
+		<button type="button" class="btn btn-cancel" id="cancelButton"
+				ui-sref="scheme_codes.list()">Back</button>
+	</div>
+</div>
+
+

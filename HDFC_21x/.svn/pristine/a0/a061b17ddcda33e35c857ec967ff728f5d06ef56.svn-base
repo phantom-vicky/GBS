@@ -1,0 +1,507 @@
+<div class="container from_wrapper">
+<div class="loader-new" ng-if="vm.loader"></div>
+<left-menu-directive></left-menu-directive> 
+
+        <h4 class="form_heading">Place Holders Definition - Inquiry	</h4>
+        
+        	<div class="row">
+			 <div class="form-group">
+			 <div class="col-sm-2"></div>
+				  <label for="schemeType" class ="control-label col-sm-5"> Scheme Type</label>
+				<div class="col-sm-2">
+					<select class="form-control" id="schemeType" name="schemeType" ng-model="vm.schemeType" >
+						 <option value="">Select</option>
+						  <option value="common">Common</option>
+					      <option value="cbdt">CBDT</option>
+					      <option value="cbec">CBEC</option>
+					</select>
+					</div>
+				</div>
+	    </div>
+	    
+<!-- <div id="schemeType"  ng-if="vm.schemeType == ''" >  -->
+<!-- common -->
+<div id="schemeType"  ng-if="vm.schemeType == 'common'" >
+
+      <h4 class="form_heading">Common	</h4>
+      
+      
+      <div class="loader"></div>
+	<table class="table table-bordered table-striped list">
+	    <thead>
+	      <tr>
+	        <th>Particular</th>
+	        <th>Value</th>
+	        <th>Description</th>
+	       
+	      </tr>
+	    </thead>
+	    <tbody>
+	      <tr>
+	        <td>Budget Year End Period</td>
+	        <td>{{vm.budgetEndDate / vm.budgetEndMonth}}</td>
+	        <td></td>
+	      </tr>
+	       <tr>
+	        <td>Budget Year Start Period</td>
+	        <td>{{vm.budgetStartDate / vm.budgetStartMonth}}</td>
+	        <td></td>
+	      </tr>
+	       <tr>
+	        <td>Can EOD Continue If NFT Verification Is Pending</td>
+	        <td>{{vm.eodpending}}</td>
+	        <td></td>
+	      </tr>
+	       <tr>
+	        <td>Financial Year End Period</td>
+	        <td>{{vm.financialYearEndDate / vm.financialYearEndMonth}}</td>
+	        <td></td>
+	      </tr>
+	       <tr>
+	        <td>Financial Year Start Period</td>
+	        <td>{{vm.financialYearStartDate / vm.financialYearStartMonth}}</td>
+	        <td></td>
+	      </tr>
+	       <tr>
+	        <td>Instrument Type for Instrument Validation</td>
+	        <td>{{vm.instrumentValidation}}</td>
+	        <td></td>
+	      </tr>
+	       <tr>
+	        <td> Minimum TOC Amount</td>
+	        <td>{{vm.tocAmount}}</td>
+	        <td></td>
+	      </tr>
+	       <tr>
+	        <td>Minor Age</td>
+	        <td>{{vm.age}}</td>
+	        <td></td>
+	      </tr>
+	      <tr>
+	        <td>Cash Account Place Holder</td>
+	        <td>{{vm.cashAccount}}</td>
+	        <td>{{vm.cashAccountTitle}}</td>
+	      </tr>
+	       <tr>
+	        <td>Clearing Sundry Account Place Holder</td>
+	        <td>{{vm.clearingAccount}}</td>
+	        <td>{{vm.clearingAccountTitle}}</td>
+	      </tr>
+	       <tr>
+	        <td>DD Account Place Holder</td>
+	        <td>{{vm.ddAccount}}</td>
+	        <td>{{vm.ddAccountTitle}}</td>
+	      </tr>
+	       <tr>
+	        <td>ECS Account Place Holder</td>
+	        <td>{{vm.ecsAccount}}</td>
+	        <td>{{vm.ecsAccountTitle}}</td>
+	      </tr>
+	        <tr>
+	        <td>Focal Point Consolidation Account Place Holder</td>
+	        <td>{{vm.focalPointAccount}}</td>
+	        <td></td>
+	      </tr>
+	       <tr>
+	        <td>RBI Relief Bond LC Consolidation Place Holder</td>
+	        <td>{{vm.rbiBond}}</td>
+	        <td>{{vm.rbiBondTitle}}</td>
+	      </tr>
+	       <tr>
+	        <td>RBI/PSB Account Place Holder</td>
+	        <td>{{vm.rbiAccount}}</td>
+	        <td>{{vm.rbiAccountTitle}}</td>
+	      </tr>
+	       <tr>
+	        <td>Local RBI Account Place Holder</td>
+	        <td>{{vm.localRbiAccount}}</td>
+	        <td>{{vm.localRbiAccountTitle}}</td>
+	      </tr>
+	       <tr>
+	        <td>Pay Order Account Place Holder</td>
+	        <td>{{vm.payOrderAccount}}</td>
+	        <td>{{vm.payOrderAccountTitle}}</td>
+	      </tr>
+	       <tr>
+	        <td>Sundry Account Place Holder</td>
+	        <td>{{vm.sundryAccount}}</td>
+	        <td></td>
+	      </tr>
+	       <tr>
+	        <td>TDS A/C Place Holder</td>
+	        <td>{{vm.tdsAccount}}</td>
+	        <td>{{vm.tdsAccountTitle}}</td>
+	      </tr>
+	      <tr>
+	        <td>Turn Over Commission Mode</td>
+	        <td>{{vm.tocMode}}</td>
+	        <td></td>
+	      </tr>
+    </tbody>
+</table>
+        </div>	      
+	      
+	<!-- common -->
+	
+	
+	
+	<!-- CBDT -->
+	
+<div id="schemeType"  ng-if="vm.schemeType == 'cbdt'" >
+
+      <h4 class="form_heading">CBDT	</h4>
+      
+      
+      <div class="loader"></div>
+	<table class="table table-bordered table-striped list">
+	    <thead>
+	      <tr>
+	        <th>Particular</th>
+	        <th>Value</th>
+	        <th>Description</th>
+	       
+	      </tr>
+	    </thead>
+	    <tbody>
+	      <tr>
+	        <td>Bank Rate of Remittance</td>
+	        <td>{{}}</td>
+	        <td></td>
+	      </tr>
+	       <tr>
+	        <td>Penalty Rate for Late Remittance</td>
+	        <td>{{}}</td>
+	        <td></td>
+	      </tr>
+	       <tr>
+	         <td>  </td>
+	         <td>N</td>
+	         <td></td>
+	      </tr>
+	       <tr>
+	         <td>  </td>
+	         <td>N</td>
+	         <td></td>
+	      </tr>
+	       <tr>
+	        <td>Is CROWN Data file Received - Link Cell</td>
+	        <td>{{vm.crownLinkCell}}</td>
+	        <td></td>
+	      </tr>
+	       <tr>
+	        <td>Is MCP be allowed, even If Consolidation is pending for Braches </td>
+	        <td>{{vm.cbdtMcpAllowed}}</td>
+	        <td></td>
+	      </tr>
+	       <tr>
+	        <td>Is CROWN Data file Received - Nodal Branch</td>
+	        <td>{{vm.crownNodalBranch}}</td>
+	        <td></td>
+	      </tr>
+	       <tr>
+	        <td> Is Non CBS Consolidation allowed at FP & LC </td>
+	        <td>{{}}</td>
+	        <td></td>
+	      </tr>
+	       <tr>
+	        <td>Is Retention allowed</td>
+	        <td>{{vm.isRetensionAllowed}}</td>
+	        <td></td>
+	      </tr>
+	      <tr>
+	        <td>Is Retention inclusive of holidays</td>
+	        <td>{{}}</td>
+	        <td></td>
+	      </tr>
+	       <tr>
+	        <td>Is Scroll No Gaps allowed during Consolidation at FP & LC</td>
+	        <td>{{}}</td>
+	        <td></td>
+	      </tr>
+	       <tr>
+	        <td>CBDT Collection Account Place Holder</td>
+	        <td>{{vm.cbdtCollectionAccount}}</td>
+	        <td>{{vm.cbdtCollectionAccountTitle}}</td>
+	      </tr>
+	       <tr>
+	        <td>CBDT Focal Point Consolidation Account Place Holder</td>
+	        <td>{{vm.cbdtFocalPoint}}</td>
+	        <td>{{vm.cbdtFocalPointTitle}}</td>
+	      </tr>
+	        <tr>
+	        <td>CBDT Scheme HO Account Place Holder</td>
+	        <td>{{}}</td>
+	        <td></td>
+	      </tr>
+	       <tr>
+	         <td>  </td>
+	         <td>N</td>
+	         <td>{{}}</td>
+	      </tr>
+	      
+	      <tr>
+	        <td>CBDT Income Account Place Holder</td>
+	        <td>{{vm.cbdtIncome}}</td>
+	        <td>{{vm.cbdtIncomeTitle}}</td>
+	      </tr>
+	    
+	       <tr>
+	         <td>  </td>
+	         <td>N</td>
+	         <td>{{}}</td>
+	      </tr>
+	    
+	       <tr>
+	        <td>CBDT Link Cell Consolidation Account Place Holder</td>
+	        <td>{{vm.cbdtLinkCell}}</td>
+	        <td>{{vm.cbdtLinkCellTitle}}</td>
+	      </tr>
+	       <tr>
+	        <td>Error Challan Link Cell Collection Place Holder</td>
+	        <td>{{vm.errorLinkCell}}</td>
+	        <td>{{vm.errorLinkCellTitle}}</td>
+	      </tr>
+	       <tr>
+	        <td>Error Challan Nodal Branch Collection Place Holder</td>
+	        <td>{{vm.errorNodalBranch}}</td>
+	        <td>{{vm.errorNodalBranchTitle}}</td>
+	      </tr>
+	       <tr>
+	        <td>Error Challan Place Holder</td>
+	        <td>{{}}</td>
+	        <td>{{}}</td>
+	      </tr>
+	       <tr>
+	        <td>Error Challan Collection Place Holder</td>
+	        <td>{{vm.errorCollection}}</td>
+	        <td>{{vm.errorCollectionTitle}}</td>
+	      </tr>
+	      <tr>
+	        <td>Error Challan Place Holder for Drop Challan</td>
+	        <td>{{vm.errorDropChallan}}</td>
+	        <td>{{vm.errorDropChallanTitle}}</td>
+	      </tr>
+	      
+	       <tr>
+	        <td>Head Office Account Place Holder(Up Country)</td>
+	        <td>{{}}</td>
+	        <td>{{}}</td>
+	      </tr>
+	       <tr>
+	        <td>Inter-Sol Accounting Place Holder</td>
+	        <td>{{}}</td>
+	        <td>{{}}</td>
+	      </tr>
+	      <tr>
+	        <td>Suspense Account</td>
+	        <td>{{}}</td>
+	        <td> </td>
+	      </tr>
+	      
+	       <tr>
+	        <td>Residual Year End Period</td>
+	         <td>{{vm.residualYearEndDate / vm.residualYearEndMonth}}</td>
+	         <td> </td>
+	      </tr>
+	      
+	       <tr>
+	        <td>Residual Year Start Period</td>
+	        <td>{{vm.residualYearStartDate / vm.residualYearStartMonth}}</td>
+	        <td> </td>
+	      </tr>
+    </tbody>
+</table>
+        </div>	      
+	
+	 	<!-- CBDT -->
+	 	
+	 	<!-- CBEC -->
+	
+<div id="schemeType"  ng-if="vm.schemeType == 'cbec'" >
+
+      <h4 class="form_heading">CBEC	</h4>
+      
+      
+      <div class="loader"></div>
+	<table class="table table-bordered table-striped list">
+	    <thead>
+	      <tr>
+	        <th>Particular</th>
+	        <th>Value</th>
+	        <th>Description</th>
+	       
+	      </tr>
+	    </thead>
+	    <tbody>
+	      <tr>
+	        <td>Bank Rate of Remittance</td>
+	        <td>{{}}</td>
+	        <td></td>
+	      </tr>
+	       <tr>
+	        <td>Penalty Rate for Late Remittance</td>
+	        <td>{{}}</td>
+	        <td></td>
+	      </tr>
+	       <tr>
+	         <td>  </td>
+	         <td>N</td>
+	         <td></td>
+	      </tr>
+	       <tr>
+	         <td> Is funds transfer to LC instead of FP permitted during MCP </td>
+	         <td>{{vm.cbecLcInsteadofFp}}</td>
+	         <td></td>
+	      </tr>
+	       <tr>
+	        <td>Is CROWN Data file Received - Link Cell</td>
+	        <td>{{vm.cbecCrownLinkCell}}</td>
+	        <td></td>
+	      </tr>
+	       <tr>
+	        <td>Is MCP be allowed, even If Consolidation is pending for Braches </td>
+	        <td>{{vm.mcpAllowed}}</td>
+	        <td></td>
+	      </tr>
+	       <tr>
+	        <td>Is CROWN Data file Received - Nodal Branch</td>
+	        <td>{{vm.cbecCrownNodalBranch}}</td>
+	        <td></td>
+	      </tr>
+	       <tr>
+	        <td> Is Non CBS Consolidation allowed at FP & LC </td>
+	        <td>{{}}</td>
+	        <td></td>
+	      </tr>
+	       <tr>
+	        <td>Is Retention allowed</td>
+	        <td>{{vm.cbecRetentionAllowed}}</td>
+	        <td></td>
+	      </tr>
+	      <tr>
+	        <td>Is Retention inclusive of holidays</td>
+	        <td>{{}}</td>
+	        <td></td>
+	      </tr>
+	       <tr>
+	        <td>Is Scroll No Gaps allowed during Consolidation at FP & LC</td>
+	        <td>{{vm.gapsInScroll}}</td>
+	        <td></td>
+	      </tr>
+	       <tr>
+	        <td>CBDT Collection Account Place Holder</td>
+	        <td>{{vm.cbecCollectionAccount}}</td>
+	        <td>{{vm.cbecCollectionAccountTitle}}</td>
+	      </tr>
+	       <tr>
+	         <td>  </td>
+	         <td>10005001</td>
+	         <td></td>
+	      </tr>
+	       <tr>
+	         <td>  </td>
+	         <td>10009001</td>
+	         <td></td>
+	      </tr>
+	       <tr>
+	         <td>  </td>
+	         <td>10007001</td>
+	         <td></td>
+	      </tr>
+	       <tr>
+	         <td>  </td>
+	         <td>10012001</td>
+	         <td></td>
+	      </tr>
+	       <tr>
+	         <td>  </td>
+	         <td>SUNCR020</td>
+	         <td>{{}}</td>
+	      </tr>
+	       <tr>
+	         <td>  </td>
+	         <td>10008001</td>
+	         <td></td>
+	      </tr>
+	       <tr>
+	        <td>CBDT Focal Point Consolidation Account Place Holder</td>
+	        <td>{{vm.cbecFocalPoint}}</td>
+	        <td>{{vm.cbecFocalPointTitle}}</td>
+	      </tr>
+	        <tr>
+	        <td>CBDT Scheme HO Account Place Holder</td>
+	        <td>{{}}</td>
+	        <td></td>
+	      </tr>
+	       <tr>
+	         <td>  </td>
+	         <td>SUNCR050</td>
+	         <td>{{}}</td>
+	      </tr>
+	      
+	      <tr>
+	        <td>CBDT Income Account Place Holder</td>
+	        <td>{{vm.cbdtIncome}}</td>
+	        <td>{{vm.cbdtIncomeTitle}}</td>
+	      </tr>
+	    
+	       <tr>
+	         <td>  </td>
+	         <td>15040071</td>
+	         <td></td>
+	      </tr>
+	       <tr>
+	         <td>  </td>
+	         <td>10012001</td>
+	         <td></td>
+	      </tr>
+	       <tr>
+	         <td>  </td>
+	         <td>10009001</td>
+	         <td></td>
+	      </tr>
+	    
+	       <tr>
+	        <td>CBDT Link Cell Consolidation Account Place Holder</td>
+	        <td>{{vm.cbecLinkCell}}</td>
+	        <td>{{vm.cbecLinkCellTitle}}</td>
+	      </tr>
+	       <tr>
+	         <td>  </td>
+	         <td>SUNCR050</td>
+	         <td></td>
+	      </tr>
+	       <tr>
+	         <td>  </td>
+	         <td>SUNCR050</td>
+	         <td></td>
+	      </tr>
+
+	      <tr>
+	        <td>Suspense Account</td>
+	        <td>{{}}</td>
+	        <td> </td>
+	      </tr>
+	      
+	       <tr>
+	        <td>Residual Year End Period</td>
+	         <td>{{vm.residualYearEndDate / vm.residualYearEndMonth}}</td>
+	         <td> </td>
+	      </tr>
+	      
+	       <tr>
+	        <td>Residual Year Start Period</td>
+	        <td>{{vm.residualYearStartDate / vm.residualYearStartMonth}}</td>
+	        <td> </td>
+	      </tr>
+    </tbody>
+</table>
+        </div>	     
+        
+        
+       <div class="col-sm-offset-5 col-sm-8 form_submit">
+		       <button type="button"  id="cancelButton" class="btn btn-cancel" onclick="window.location.href ='#!/dc';">Back</button>
+		    </div>
+     </div>
+     
+		    

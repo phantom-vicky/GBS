@@ -1,0 +1,484 @@
+<div class="loader-new" ng-if="vm.loader"></div>
+<dc-left-menu></dc-left-menu>
+<div class="container from_wrapper new_form_wrapper">
+    <h4 class="form_heading">BOND SUBSCRIPTION ACCOUNT CLOSURE BEFORE MATURITY - DEATH - add</h4>
+
+
+    <form name="vm.bondClosureBefMaturForm" role="form">
+        <table class="table table-bordered">
+            <h5 class="form_heading">BOND HOLDER DETAILS</h5>
+
+            <tbody>
+            <tr>
+                <td width="25%">Name of the Bond Scheme</td>
+                <td width="25%">
+                    <label class="data-bind" id="bondScheme">{{vm.schemeName}}</label>
+                </td>
+                <td width="25%">Mode of Holding</td>
+                <td width="25%">
+                    <label class="data-bind" id="modeOfHolding">{{vm.blaDetails.modeOfHolding}}</label>
+                </td>
+            </tr>
+            <tr>
+                <td width="25%">BLA Number</td>
+                <td width="25%">
+                    <label class="data-bind" id="blaNo">{{vm.blaNo}}</label>
+                </td>
+
+                <td width="25%"> Holder Type</td>
+                <td width="25%">
+                    <label class="data-bind" id="holderType">{{vm.blaDetails.holderType}}</label>
+                </td>
+
+            </tr>
+
+
+            <tr ng-if="vm.blaDetails.modeOfHoldingCode=='MH003' || vm.blaDetails.modeOfHoldingCode=='MH002'">
+                <td width="25%">First Joint Bond Holder BLA No</td>
+                <td width="25%">
+                    <label class="data-bind" id="joinBlaNo">{{vm.blaDetails.firstJointBondHolderBLA}}</label>
+                </td>
+                <td width="25%">First Joint Bond Holder Name</td>
+                <td width="25%">
+                    <label class="data-bind" id="firstJointHolderName">{{vm.blaDetails.firstJointBondHolderName}}</label>
+                </td>
+            </tr>
+            <tr ng-if="vm.blaDetails.modeOfHoldingCode=='MH003' || vm.blaDetails.modeOfHoldingCode=='MH002'">
+                <td width="25%">Second Joint Bond Holder BLA No</td>
+                <td width="25%" >
+                    <label class="data-bind" id="secJointHolderBlaNo">{{vm.blaDetails.secondJointBondHolderBLA}}</label>
+                </td>
+                <td width="25%">Second Joint Bond Holder Name</td>
+                <td width="25%">
+                    <label class="data-bind" id="secJointHolderName">{{vm.blaDetails.secondJointBondHolderName}}</label>
+                </td>
+            </tr>
+
+            <tr>
+
+                <td width="25%" ng-if="vm.blaDetails.modeOfHoldingCode=='MH001' || vm.blaDetails.modeOfHoldingCode=='MH004' || vm.blaDetails.modeOfHoldingCode=='MH005'">Bond Holder Name</td>
+                <td width="25%" ng-if="vm.blaDetails.modeOfHoldingCode=='MH001' || vm.blaDetails.modeOfHoldingCode=='MH004' || vm.blaDetails.modeOfHoldingCode=='MH005'">
+                    <label class="data-bind" id="holderName">{{vm.blaDetails.bondHolderName}}</label>
+                </td>
+
+
+                <td width="25%">Is NRI? Yes/No.</td>
+                 <td width="25%">
+                    <label class="data-bind" id="isNri">{{vm.blaDetails.isNri | getLabelFromValuesArray : vm.commonYesNoMetaData}}</label>
+
+                </td>
+            </tr>
+
+            <tr>
+
+                <td width="25%" >Date of Death of Bond Holder</td>
+                <td width="25%" >
+                    <label class="data-bind" id="dodBondHolder">{{vm.bondDetails.dodBondHolder}}</label>
+                </td>
+
+
+                <td width="25%">Date of Receipt of Death Certificate</td>
+                <td width="25%">
+                    <label class="data-bind" id="dateOfReceiptDod">{{vm.bondDetails.dateOfReceiptDod}}</label>
+
+                </td>
+            </tr>
+
+
+
+            </tbody>
+        </table>
+
+<!--BOND SUBSCRIPTION DETAILS:-->
+        <table class="table table-bordered">
+            <h5 class="form_heading">BOND SUBSCRIPTION DETAILS</h5>
+            <tbody>
+
+            <tr>
+                <td width="25%" ><label>Subscription Date</label></td>
+                <td width="25%" ><label>{{vm.bondDetails.subsDate | uppercase}}</label>
+                </td>
+                <td width="25%" ><label>Subscription ID</label></td>
+                <td width="25%" ><label>{{vm.bondDetails.boSubsId}}</label>
+            </tr>
+
+
+            <tr>
+
+                <td width="25%" ><label>Subscription  Amount</label></td>
+                <td width="25%" ><label>{{vm.bondDetails.subsAmt}}</label>
+
+                <td width="25%" ><label>Bond Type</label></td>
+                <td width="25%" ><label>{{vm.bondDetails.bondType}}</label>
+
+            </tr>
+
+
+
+            <tr>
+
+                <td width="25%" ><label>Maturity Date</label></td>
+                <td width="25%" ><label>{{vm.bondDetails.maturityDate |uppercase}}</label>
+
+            </tr>
+
+            </tbody>
+    </table>
+
+
+<!--ACCOUNT CLOSURE  DETAILS-->
+
+        <table class="table table-bordered">
+            <h5 class="form_heading">ACCOUNT CLOSURE  DETAILS</h5>
+            <tbody>
+
+
+
+
+            <tr>
+                <td width="25%" ><label>Account Closed Date</label></td>
+                <td width="25%" > <label>{{vm.subsDate | uppercase}}</label> </td>
+
+
+                <td width="25%" ><label>Proceeds to be Paid to</label></td>
+                <td width="25%" > <label>{{vm.proceedsToBePaidDetail}}</label> </td>
+            </tr>
+
+
+
+            <tr>
+            <td width="25%" ><label>Interest Paid up to</label></td>
+            <td width="25%" > <label>{{vm.bondDetails.intPaidUpto }}</label> </td>
+            </tr>
+
+            <tr>
+                <td width="25%" ><label>Interest Calculation From Date</label></td>
+                <td width="25%" ><label>{{vm.bondDetails.intCalFromDate | uppercase }}</label>
+                </td>
+
+                <td width="25%" ><label>Interest Calculation to Date</label></td>
+                <td width="25%" > <label>{{vm.bondDetails.intCalToDate | uppercase}}</label>
+            </tr>
+
+            <tr>
+                <td width="25%" ><label>Last half Year Period Interest Rate</label></td>
+                <td width="25%" ><label>{{vm.bondDetails.lastHalfYrIntRate}}</label>
+                </td>
+
+                <td width="25%" ><label>Last half Year Period Interest amount</label></td>
+                <td width="25%" > <label>{{vm.bondDetails.lastHalfYrIntAmt}}</label>
+            </tr>
+
+
+<!--            <tr>-->
+<!--                <td width="25%" ><label>Whether Last half year interest is paid</label></td>-->
+<!--                <td width="25%" ><label>{{vm.bondDetails.islastYearIntPaid | getLabelFromValuesArray : vm.commonYesNoMetaData}}</label></td>-->
+
+<!--            </tr>-->
+
+            <tr>
+            <td width="25%" ><label>Penalty To be recovered</label></td>
+            <td width="25%" > <label>{{vm.bondDetails.penality}}</label>
+
+<!--                <td width="25%" ng-if="vm.bondDetails.islastYearIntPaid=='N'"><label>Net Interest for the Last half year period</label></td>-->
+<!--                <td width="25%" ng-if="vm.bondDetails.islastYearIntPaid=='N'"> <label>{{vm.bondDetails.netIntLastHalfYr}}</label>-->
+                <td width="25%" ><label>Net Interest for the Last half year period</label></td>
+                <td width="25%" > <label>{{vm.bondDetails.netIntLastHalfYr}}</label>
+            </tr>
+
+            <tr>
+                <td width="25%" ><label>Pending Interest</label></td>
+                <td width="25%" ><label>{{vm.bondDetails.pendIntLastHalfYr}}</label>
+
+                <td width="25%" ><label>Total Interest before TDS</label></td>
+                <td width="25%" ><label>{{vm.bondDetails.totIntBefTDS }}</label>
+
+            </tr>
+
+            <tr>
+                <td width="25%" ><label>TDS Amount</label></td>
+                <td width="25%" ><label>{{vm.bondDetails.tdsAmt}}</label>
+
+                <td width="25%" ><label>Total Interest after TDS</label></td>
+                <td width="25%" ><label>{{vm.bondDetails.totIntAftTDS}}</label>
+
+            </tr>
+
+
+            <tr>
+                <td width="25%" ><label>Total Amount to be paid</label></td>
+                <td width="25%" ><label>{{vm.bondDetails.amtPaid}}</label>
+
+                <td width="25%" >
+                <div class="row">
+                    <div class="form-group required">
+                        <div class="col-sm-6">
+                            <label for="closeRemarks" class="control-label">Closure Remarks</label>
+                        </div>
+                    </div>
+                </div>
+
+
+            </td>
+                <td width="25%" ><input type="text" class="form-control" id="closeRemarks"
+                                        chars="alpha-numeric"
+                                        limit-to="100" name="closeRemarks"
+                                        ng-model="vm.bondDetails.closureRemarks" required>
+<!--                    //value="Due to Death"-->
+                </td>
+
+            </tr>
+
+
+            </tbody>
+        </table>
+
+
+<!--            *********************          -->
+<!--                <td width="25%" ><label>Mode of Interest Payment/ Principal Repayment</label></td>-->
+<!--                <td width="25%" > <select class="form-control" id="modeOfInterestPay" name="modeOfInterestPay"-->
+<!--                                          ng-model="vm.bondDetails.modeOfInterestPay"-->
+<!--                                          ng-change="vm.bondDetails.oprAccNum='';-->
+<!--                                                     vm.bondDetails.oprAccBrId='';" required>-->
+<!--                    <option value="">Select</option>-->
+<!--                    <option  value="MP001" >Credit Account</option>-->
+<!--                    <option  value="MP002" >DD/PO</option>-->
+<!--                    <option  value="MP003" >NEFT</option>-->
+<!--                </select>-->
+<!--                </td>-->
+<!--            *********************          -->
+             <div ng-if="vm.proceedsToBePaid=='N'" >
+            <table class="table table-bordered"  ng-if="vm.proceedsToBePaid=='N'">
+                <h5 class="form_heading">NOMINEE  DETAILS </h5>
+<!--                <table class="table table-bordered table-striped list table-textWrap">-->
+                    <thead>
+                    <tr>
+
+
+                        <th>S.No.</th>
+                        <th width="25%">Nominee ID</th>
+                        <th width="25%">Nominee Name</th>
+                        <th >Share %</th>
+                        <th width="25%">Amount Settled Rs.</th>
+
+                        <th>Payment Mode</th>
+                        <th width="25%">Credit Account Number</th>
+                        <th width="25%">Credit Account Branch</th>
+                        <th width="25%">Remarks</th>
+<!--                        <th>Total</th>-->
+
+                    </tr>
+                    </thead>
+
+
+
+                <tbody>
+                <tr ng-repeat="x in vm.nomineeDetailsList">
+
+                    <td align="center">{{$index+1}}</td>
+                    <td align="center">{{x.nomineeId}}</td>
+                    <td align="center">{{x.nomineeName}}</td>
+                    <td align="center">{{x.sharePercentage}}</td>
+                    <td align="center">{{x.shareAmountSettled}}</td>
+
+<!--                    <td align="center">{{x.payMode}}</td>-->
+                    <td width="25%" > <select class="form-control" id="modeOfInterestPay" name="modeOfInterestPay"
+                                              ng-change="x.accNum=''; x.accBranch=''" ng-model="x.modeOfInterestPay" required>
+                        <option value="">Select</option>
+                        <option  value="MP001" >Credit Account</option>
+                        <option  value="MP002" >DD/PO</option>
+<!--                        <option  value="MP003" >NEFT</option>-->
+                    </select>
+                    </td>
+<!--
+               x.creditAccNo  creditAccBranch-->
+                    <td width="25%"><input type="text" class="form-control" id="x.accNum" name="x.creditAccNo"
+                                           ng-change="vm.creditAccAndBranch(x)"  ng-model="x.accNum"  required
+                                           style="width: fit-content;">
+                        <span class="alert-danger" ng-if="vm.message">{{vm.message}}</span>
+                    </td>
+                    <td width="25%"> <input type="text" class="form-control" id="x.accBranch" name="x.creditAccBranch"
+                                            ng-model="x.accBranch"   required
+                                            style="width: 100%;"></td>
+                    <td> <input type="text" id="x.remarks" name="x.remarks" ng-model="x.remarks"  ></td>
+                </tr>
+
+
+                </tbody>
+
+
+
+
+
+                <table>
+                    <tr>
+                    <td width="30%" align="right"
+                        style="padding-right: 15px;
+                               font-weight: bolder;">Total (%)</td>
+                    <td width="5%" align="center" >
+                        <input type="text" class="form-control" id="totalPer[$index]"
+                               limit-to="3" min="1" max="100"
+                               ng-model="vm.totalPer='100'" required readonly>
+<!--                        <span class="alert-danger" ng-if="vm.shareTotalPerCutOffErrMsg" ng-bind="vm.shareTotalPerCutOffErrMsg"></span>-->
+
+                    </td>
+                </tr>
+                </table>
+
+
+            </table>
+             </div>
+
+
+<!--        <table class="table table-bordered" ng-if="vm.proceedsToBePaid=='L'">-->
+
+
+                <div ng-if="vm.proceedsToBePaid=='L'">
+
+
+                <h5 class="form_heading" >LEGAL HEIRS DETAILS</h5>
+                <div align="right"><a data-href="#" type="button" name="addBtn" class="btn btn-primary" ng-click="vm.addRange()">ADD</a></div>
+
+        <table class="table table-bordered table-striped" style="margin-bottom: 40px;" ng-repeat="x in vm.legalHeirDeatailList">
+
+            <tbody  ng-init="vm.getTotalSharePer()">
+
+
+            <tr>
+                <td colspan="4"><h4 class="form_heading" style="height: 17px;padding: 0;margin:0;font-size: 15px;">LEGAL HEIRS DETAILS {{$index+1}}</h4></td>
+            </tr>
+            <tr>
+<!--                                   <div class="col-sm-10 text-right form_submit">-->
+<!--                        <div class="row">-->
+
+                            <td colspan="4" align="right"><a data-href="#" type="button" name="removeBtn" class="btn btn-delete" ng-if="vm.enableDelete" ng-click="vm.removeRange($index)">
+                                <span class="glyphicon glyphicon-trash"></span>&nbsp;DELETE
+                                 </a>
+                            </td>
+<!--                        </div>-->
+<!--                    </div>-->
+                </td>
+            </tr>
+            <tr>
+                <td width="25%" class="form-group required">
+                    <label for="legalheirName[$index]" class="required control-label">Name</label></td>
+                <td class="form-group">
+                    <input type="text" class="form-control" id="legalheirName[$index]"
+                           chars="only-letters"
+                           limit-to="50" name="legalheirName"
+                           ng-model="x.legalheirName" required>
+                </td>
+                <td width="25%" class="form-group required"><label  class="required control-label">Relation</label></td>
+
+                <td>
+                    <select class="form-control" id="relationShip[$index]" name="relationShip[$index]"
+                            ng-model="x.relationShip" required>
+                        <option value="" hidden="true">Select</option>
+                        <option ng-repeat="items in vm.guardianDetailsList" value="{{items.SUBCODE}}" ng-bind="items.DESCRIPTION"></option>
+                    </select>
+                </td>
+
+            </tr>
+
+            <tr>
+                <td width="25%" class="form-group required"><label for="sharePercentage[$index]" class="required control-label">Share %</label></td>
+                <td>
+                    <input type="number" class="form-control" id="sharePercentage[$index]"
+                           limit-to="3" name="sharePercentage"
+                           min="1" max="100"
+                           ng-model="x.sharePercentage" ng-change="vm.totSharePercen(vm.legalHeirDeatailList,x);" required>
+                </td>
+                <td width="25%" class="form-group required"><label for="shareAmountSettled[$index]" class="required control-label">Amount Settled</label></td>
+
+                <td><input type="number" class="form-control" id="shareAmountSettled[$index]"
+                           limit-to="250" name="shareAmountSettled"
+                           ng-model="x.shareAmountSettled" required readonly>
+                </td>
+            </tr>
+            <tr>
+
+                <td width="25%" class="form-group required"> <label  class="required control-label">Payment Mode</label></td>
+
+                <td>
+                    <select class="form-control" id="modeOfInterestPaymenmt" name="modeOfInterestPay"
+                            ng-change="x.accNum='';x.accBranch='';"  ng-model="x.modeOfInterestPay" required>
+                        <option value="">Select</option>
+                        <option  value="MP001" >Credit Account</option>
+                        <option  value="MP002" >DD/PO</option>
+                        <!--                        <option  value="MP003" >NEFT</option>-->
+                    </select>
+                </td>
+
+                <td width="25%" class="form-group required"><label class="control-label">Credit Account Number</label></td>
+                <td>
+                    <input type="text" class="form-control" id="accNum[$index]"
+                           chars="alpha-numeric"
+                           limit-to="20" name="city"
+                           ng-model="x.accNum" ng-change="vm.legalHeirPayBranchId(x)" required>
+                    <span class="alert-danger" ng-if="vm.message">{{vm.message}}</span>
+
+                </td>
+
+            </tr>
+            <tr >
+                <td width="25%" class="form-group required"><label class="control-label">Credit Account Branch ID</label></td>
+                <td>
+                    <input type="text" class="form-control" id="phoneNo[$index]"
+                           chars="only-numbers"
+                           limit-to="10" name="phoneNo"
+                           ng-model="x.accBranch" readonly>
+                </td>
+                <td width="25%" class="form-group "><label class="control-label">Remarks</label></td>
+                <td>
+                    <input type="text" class="form-control" id="remarks[$index]"
+                           limit-to="6" name="remarks"
+                           ng-model="x.remarks" >
+<!--                    // chars="only-numbers"-->
+                </td>
+            </tr>
+
+            <tr></tr>
+            <tr></tr>
+
+            </tbody>
+        </table>
+            <table class="table" ng-if="vm.legalHeirDeatailList.length >=1">
+<!--                <div  ng-if="vm.legalHeirDeatailList.length >=1">-->
+                <tr ng-if="vm.legalHeirDeatailList.length >=1">
+
+                    <td width="25%" class="form-group required"><label class="control-label">Total (%)</label></td>
+                    <td width="25%"> <input type="text" class="form-control" id="totSharePercenValue[$index]"
+                    limit-to="3" min="1" max="100" name="totSharePercenErr"
+                    ng-model="vm.totSharePercenValue" required readonly>
+                    <span class="alert-danger" ng-if="vm.totSharePercenErr" ng-bind="vm.totSharePercenErr"></span>
+                    </td>
+
+                </tr>
+<!--                </div>-->
+<br>
+            </table>
+        </div>
+
+
+
+
+
+        <div class="text-center form_submit">
+            <button type="submit" class="btn btn-default" id="submitButton"
+                    ng-disabled="vm.bondClosureBefMaturForm.$invalid || vm.creditBankAccountNoErrMsg || (vm.legalHeirDeatailList.length<1 && vm.proceedsToBePaid=='L')||vm.totSharePercenErr"
+                    ng-click="vm.addClosureBefMaturDeath()">Submit</button>
+            <button type="button" class="btn btn-cancel" id="cancelButton"
+                    onclick="window.location.href= '/#!/rbi_bond_sub_acc_closure_before_matur_death/add';">Close
+            </button>
+        </div>
+        <div class="text-center">
+            <notice-message-directive></notice-message-directive>
+
+        </div>
+    </form>
+</div>
+
+
+
+
+

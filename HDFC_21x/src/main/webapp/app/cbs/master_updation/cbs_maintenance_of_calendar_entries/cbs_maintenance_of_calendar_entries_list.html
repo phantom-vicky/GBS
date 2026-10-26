@@ -1,0 +1,872 @@
+<div class="loader-new" ng-if="vm.loader"></div>
+<div class="container from_wrapper new_form_wrapper">
+	<cbs-left-menu></cbs-left-menu>
+	<h4 class="form_heading  feature-heading">Maintenance of Calendar Entries - Inquiry</h4>
+	<form name="maintenanceOfCalendarEntriesForm" role="form"  novalidate>
+		<div class="col-sm-6 col-sm-offset-3">
+			<div class="row">
+				<div class="form-group required">
+					<div class="col-sm-6">
+						<label for="calendarType" class ="control-label">Type</label>
+					</div>
+					<div class="col-sm-4">
+					<select class="form-control" 	ng-change="vm.cbsMaintenanceOfCalendarEntries.calendarCode=vm.monthYear =vm.cbsMaintenanceOfCalendarEntries.dayOrder= vm.cbsMaintenanceOfCalendarEntries.option=vm.cbsMaintenanceOfCalendarEntries.optionNew=vm.model='';" id="calendarType" name="calendarType" ng-model="vm.cbsMaintenanceOfCalendarEntries.calendarType"  required >
+							<option ng-selected= "{{maintenanceOfCalendarEntries.calendarType == ''}}" value="">Select</option>
+							<option ng-selected= "{{maintenanceOfCalendarEntries.calendarType== 'Branch'}}" value="Branch">Branch</option>
+							<option ng-selected= "{{maintenanceOfCalendarEntries.calendarType == 'DC'}}" value="DC">DC</option>
+						</select>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="form-group required">
+					<div class="col-sm-6">
+						<label for="calendarCode" class ="control-label">Branch Code or Data Center Code</label>
+					</div>
+					<div class="col-sm-4">
+						<input type="text"
+							   ng-change="vm.monthYear =vm.cbsMaintenanceOfCalendarEntries.dayOrder= vm.cbsMaintenanceOfCalendarEntries.option=vm.cbsMaintenanceOfCalendarEntries.optionNew=vm.model='';" chars="alpha-numeric"
+							   class="form-control" id="calendarCode" name="calendarCode" ng-model="vm.cbsMaintenanceOfCalendarEntries.calendarCode" maxlength="12"  required oninput="this.value = this.value.replace(/\s+/g, '')">
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="form-group required">
+					<div class="col-sm-6">
+						<label for="monthYear" class="control-label">MM/YYYY</label>
+					</div>
+					<div class="col-sm-4">
+						<input type="text" class="form-control" name="monthYear" id="monthYear"
+							   ng-init="vm.monthYear = ''" ng-model="vm.monthYear"  readonly required>
+					</div>
+					<div class="col-sm-2" ng-if="((vm.cbsMaintenanceOfCalendarEntries.calendarCode && vm.cbsMaintenanceOfCalendarEntries.calendarType) && !vm.monthYear)" >
+						<i class="glyphicon glyphicon-search cp" data-bs-toggle="modal" ng-click="vm.inquirySelect('get',vm.monthYear);"
+						   id="customerIdSearch" ></i> <i
+							class="glyphicon glyphicon-remove clear cp"
+							ng-click="vm.monthYear =vm.cbsMaintenanceOfCalendarEntries.dayOrder= vm.cbsMaintenanceOfCalendarEntries.option=vm.cbsMaintenanceOfCalendarEntries.optionNew=vm.model='';"></i>
+					</div>
+				</div>
+			</div>
+            <div class="row" ng-if="vm.monthYear">
+                <div class="form-group">
+                    <div class="col-sm-6">
+                        <label for="rejectionRemarks" class ="control-label">Rejection Remarks</label>
+                    </div>
+                    <div class="col-sm-4">
+                        <input type="text"
+                               class="form-control" id="rejectionRemarks" name="rejectionRemarks" ng-model="vm.model[0].rejectionRemarks" disabled>
+                    </div>
+                </div>
+            </div>
+			<div class="row">
+				<div class="form-group required">
+					<div class="col-md-12">
+					<table class="table table-bordered list" ng-if="vm.monthYear">
+						<thead>
+						<tr>
+							<th ng-if="vm.model[0].prevOprType == 'M' " class="modal-title title-case text-center" style="padding:18px">Old/New</th>
+							<th class="modal-title title-case text-center" style="padding:18px">SUN</th>
+							<th class="modal-title title-case text-center" style="padding:18px">MON</th>
+							<th class="modal-title title-case text-center" style="padding:18px">TUE</th>
+							<th class="modal-title title-case text-center" style="padding:18px">WED</th>
+							<th class="modal-title title-case text-center" style="padding:18px">THU</th>
+							<th class="modal-title title-case text-center" style="padding:18px">FRI</th>
+							<th class="modal-title title-case text-center" style="padding:18px">SAT</th>
+						</tr>
+						</thead>
+						<tbody>
+						<tr>
+							<td ng-if="vm.model[0].prevOprType == 'M' "></td>
+							<td  class="text-center"><b  ng-if="vm.cbsMaintenanceOfCalendarEntries.dayOrder[0] !='x'">{{vm.cbsMaintenanceOfCalendarEntries.dayOrder[0]}}</b></td>
+							<td class="text-center"><b  ng-if="vm.cbsMaintenanceOfCalendarEntries.dayOrder[1] !='x'">{{vm.cbsMaintenanceOfCalendarEntries.dayOrder[1]}}</b></td>
+							<td class="text-center"><b  ng-if="vm.cbsMaintenanceOfCalendarEntries.dayOrder[2] !='x'">{{vm.cbsMaintenanceOfCalendarEntries.dayOrder[2]}}</b></td>
+							<td class="text-center"><b  ng-if="vm.cbsMaintenanceOfCalendarEntries.dayOrder[3] !='x'">{{vm.cbsMaintenanceOfCalendarEntries.dayOrder[3]}}</b></td>
+							<td class="text-center"><b  ng-if="vm.cbsMaintenanceOfCalendarEntries.dayOrder[4] !='x'">{{vm.cbsMaintenanceOfCalendarEntries.dayOrder[4]}}</b></td>
+							<td class="text-center"><b  ng-if="vm.cbsMaintenanceOfCalendarEntries.dayOrder[5] !='x'">{{vm.cbsMaintenanceOfCalendarEntries.dayOrder[5]}}</b></td>
+							<td class="text-center"><b  ng-if="vm.cbsMaintenanceOfCalendarEntries.dayOrder[6] !='x'">{{vm.cbsMaintenanceOfCalendarEntries.dayOrder[6]}}</b></td>
+						</tr>
+						<tr>
+							<td style="padding: 18px;text-align:center" ng-if="vm.model[0].prevOprType == 'M' ">Old</td>
+                            <td>
+                                <div class="tooltip-container" ng-if="vm.cbsMaintenanceOfCalendarEntries.dayOrder[0] != 'x'">
+                                    <input readonly type="text"   style="color: red;"   class="form-control text-center"
+                                           ng-model="vm.cbsMaintenanceOfCalendarEntries.option[vm.cbsMaintenanceOfCalendarEntries.dayOrder[0]]">
+                                    <span class="custom-tooltip" ng-if="vm.cbsMaintenanceOfCalendarEntries.remarks[vm.cbsMaintenanceOfCalendarEntries.dayOrder[0]]">{{vm.cbsMaintenanceOfCalendarEntries.remarks[vm.cbsMaintenanceOfCalendarEntries.dayOrder[0]]}}</span>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="tooltip-container" ng-if="vm.cbsMaintenanceOfCalendarEntries.dayOrder[1] != 'x'">
+                                    <input readonly type="text"   style="color: red;"   class="form-control text-center"
+                                           ng-model="vm.cbsMaintenanceOfCalendarEntries.option[vm.cbsMaintenanceOfCalendarEntries.dayOrder[1]]">
+                                    <span class="custom-tooltip" ng-if="vm.cbsMaintenanceOfCalendarEntries.remarks[vm.cbsMaintenanceOfCalendarEntries.dayOrder[1]]">{{vm.cbsMaintenanceOfCalendarEntries.remarks[vm.cbsMaintenanceOfCalendarEntries.dayOrder[1]]}}</span>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="tooltip-container" ng-if="vm.cbsMaintenanceOfCalendarEntries.dayOrder[2] != 'x'">
+                                    <input readonly type="text"   style="color: red;"   class="form-control text-center"
+                                           ng-model="vm.cbsMaintenanceOfCalendarEntries.option[vm.cbsMaintenanceOfCalendarEntries.dayOrder[2]]">
+                                    <span class="custom-tooltip" ng-if="vm.cbsMaintenanceOfCalendarEntries.remarks[vm.cbsMaintenanceOfCalendarEntries.dayOrder[2]]">{{vm.cbsMaintenanceOfCalendarEntries.remarks[vm.cbsMaintenanceOfCalendarEntries.dayOrder[2]]}}</span>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="tooltip-container" ng-if="vm.cbsMaintenanceOfCalendarEntries.dayOrder[3] != 'x'">
+                                    <input readonly type="text"   style="color: red;"   class="form-control text-center"
+                                           ng-model="vm.cbsMaintenanceOfCalendarEntries.option[vm.cbsMaintenanceOfCalendarEntries.dayOrder[3]]">
+                                    <span class="custom-tooltip" ng-if="vm.cbsMaintenanceOfCalendarEntries.remarks[vm.cbsMaintenanceOfCalendarEntries.dayOrder[3]]">{{vm.cbsMaintenanceOfCalendarEntries.remarks[vm.cbsMaintenanceOfCalendarEntries.dayOrder[3]]}}</span>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="tooltip-container" ng-if="vm.cbsMaintenanceOfCalendarEntries.dayOrder[4] != 'x'">
+                                    <input readonly type="text"   style="color: red;"   class="form-control text-center"
+                                           ng-model="vm.cbsMaintenanceOfCalendarEntries.option[vm.cbsMaintenanceOfCalendarEntries.dayOrder[4]]">
+                                    <span class="custom-tooltip" ng-if="vm.cbsMaintenanceOfCalendarEntries.remarks[vm.cbsMaintenanceOfCalendarEntries.dayOrder[4]]">{{vm.cbsMaintenanceOfCalendarEntries.remarks[vm.cbsMaintenanceOfCalendarEntries.dayOrder[4]]}}</span>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="tooltip-container" ng-if="vm.cbsMaintenanceOfCalendarEntries.dayOrder[5] != 'x'">
+                                    <input readonly type="text"   style="color: red;"   class="form-control text-center"
+                                           ng-model="vm.cbsMaintenanceOfCalendarEntries.option[vm.cbsMaintenanceOfCalendarEntries.dayOrder[5]]">
+                                    <span class="custom-tooltip" ng-if="vm.cbsMaintenanceOfCalendarEntries.remarks[vm.cbsMaintenanceOfCalendarEntries.dayOrder[5]]">{{vm.cbsMaintenanceOfCalendarEntries.remarks[vm.cbsMaintenanceOfCalendarEntries.dayOrder[5]]}}</span>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="tooltip-container" ng-if="vm.cbsMaintenanceOfCalendarEntries.dayOrder[6] != 'x'">
+                                    <input readonly type="text"   style="color: red;"   class="form-control text-center"
+                                           ng-model="vm.cbsMaintenanceOfCalendarEntries.option[vm.cbsMaintenanceOfCalendarEntries.dayOrder[6]]">
+                                    <span class="custom-tooltip" ng-if="vm.cbsMaintenanceOfCalendarEntries.remarks[vm.cbsMaintenanceOfCalendarEntries.dayOrder[6]]">{{vm.cbsMaintenanceOfCalendarEntries.remarks[vm.cbsMaintenanceOfCalendarEntries.dayOrder[6]]}}</span>
+                                </div>
+                            </td>
+						</tr>
+						<tr ng-if="vm.model[0].prevOprType == 'M' ">
+							<td style="padding: 18px;text-align:center" ng-if="vm.model[0].prevOprType == 'M' ">New</td>
+							<td>
+                                <div class="tooltip-container" ng-if="vm.cbsMaintenanceOfCalendarEntries.dayOrder[0] != 'x'">
+								<input readonly type="text"   style="color: red;"   class="form-control text-center"
+									   ng-model="vm.cbsMaintenanceOfCalendarEntries.optionNew[vm.cbsMaintenanceOfCalendarEntries.dayOrder[0]]">
+                                    <span class="custom-tooltip" ng-if="vm.cbsMaintenanceOfCalendarEntries.remarksNew[vm.cbsMaintenanceOfCalendarEntries.dayOrder[0]]">{{vm.cbsMaintenanceOfCalendarEntries.remarksNew[vm.cbsMaintenanceOfCalendarEntries.dayOrder[0]]}}</span>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="tooltip-container" ng-if="vm.cbsMaintenanceOfCalendarEntries.dayOrder[1] != 'x'">
+                                    <input readonly type="text"   style="color: red;"   class="form-control text-center"
+                                           ng-model="vm.cbsMaintenanceOfCalendarEntries.optionNew[vm.cbsMaintenanceOfCalendarEntries.dayOrder[1]]">
+                                    <span class="custom-tooltip" ng-if="vm.cbsMaintenanceOfCalendarEntries.remarksNew[vm.cbsMaintenanceOfCalendarEntries.dayOrder[1]]">{{vm.cbsMaintenanceOfCalendarEntries.remarksNew[vm.cbsMaintenanceOfCalendarEntries.dayOrder[1]]}}</span>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="tooltip-container" ng-if="vm.cbsMaintenanceOfCalendarEntries.dayOrder[2] != 'x'">
+                                    <input readonly type="text"   style="color: red;"   class="form-control text-center"
+                                           ng-model="vm.cbsMaintenanceOfCalendarEntries.optionNew[vm.cbsMaintenanceOfCalendarEntries.dayOrder[2]]">
+                                    <span class="custom-tooltip" ng-if="vm.cbsMaintenanceOfCalendarEntries.remarksNew[vm.cbsMaintenanceOfCalendarEntries.dayOrder[2]]">{{vm.cbsMaintenanceOfCalendarEntries.remarksNew[vm.cbsMaintenanceOfCalendarEntries.dayOrder[2]]}}</span>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="tooltip-container" ng-if="vm.cbsMaintenanceOfCalendarEntries.dayOrder[3] != 'x'">
+                                    <input readonly type="text"   style="color: red;"   class="form-control text-center"
+                                           ng-model="vm.cbsMaintenanceOfCalendarEntries.optionNew[vm.cbsMaintenanceOfCalendarEntries.dayOrder[3]]">
+                                    <span class="custom-tooltip" ng-if="vm.cbsMaintenanceOfCalendarEntries.remarksNew[vm.cbsMaintenanceOfCalendarEntries.dayOrder[3]]">{{vm.cbsMaintenanceOfCalendarEntries.remarksNew[vm.cbsMaintenanceOfCalendarEntries.dayOrder[3]]}}</span>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="tooltip-container" ng-if="vm.cbsMaintenanceOfCalendarEntries.dayOrder[4] != 'x'">
+                                    <input readonly type="text"   style="color: red;"   class="form-control text-center"
+                                           ng-model="vm.cbsMaintenanceOfCalendarEntries.optionNew[vm.cbsMaintenanceOfCalendarEntries.dayOrder[4]]">
+                                    <span class="custom-tooltip" ng-if="vm.cbsMaintenanceOfCalendarEntries.remarksNew[vm.cbsMaintenanceOfCalendarEntries.dayOrder[4]]">{{vm.cbsMaintenanceOfCalendarEntries.remarksNew[vm.cbsMaintenanceOfCalendarEntries.dayOrder[4]]}}</span>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="tooltip-container" ng-if="vm.cbsMaintenanceOfCalendarEntries.dayOrder[5] != 'x'">
+                                    <input readonly type="text"   style="color: red;"   class="form-control text-center"
+                                           ng-model="vm.cbsMaintenanceOfCalendarEntries.optionNew[vm.cbsMaintenanceOfCalendarEntries.dayOrder[5]]">
+                                    <span class="custom-tooltip" ng-if="vm.cbsMaintenanceOfCalendarEntries.remarksNew[vm.cbsMaintenanceOfCalendarEntries.dayOrder[5]]">{{vm.cbsMaintenanceOfCalendarEntries.remarksNew[vm.cbsMaintenanceOfCalendarEntries.dayOrder[5]]}}</span>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="tooltip-container" ng-if="vm.cbsMaintenanceOfCalendarEntries.dayOrder[6] != 'x'">
+                                    <input readonly type="text"   style="color: red;"   class="form-control text-center"
+                                           ng-model="vm.cbsMaintenanceOfCalendarEntries.optionNew[vm.cbsMaintenanceOfCalendarEntries.dayOrder[6]]">
+                                    <span class="custom-tooltip" ng-if="vm.cbsMaintenanceOfCalendarEntries.remarksNew[vm.cbsMaintenanceOfCalendarEntries.dayOrder[6]]">{{vm.cbsMaintenanceOfCalendarEntries.remarksNew[vm.cbsMaintenanceOfCalendarEntries.dayOrder[6]]}}</span>
+                                </div>
+                            </td>
+						</tr>
+						<tr>
+							<td ng-if="vm.model[0].prevOprType == 'M' "></td>
+							<td class="text-center"><b>{{vm.cbsMaintenanceOfCalendarEntries.dayOrder[7]}}</b></td>
+							<td class="text-center"><b>{{vm.cbsMaintenanceOfCalendarEntries.dayOrder[8]}}</b></td>
+							<td class="text-center"><b>{{vm.cbsMaintenanceOfCalendarEntries.dayOrder[9]}}</b></td>
+							<td class="text-center"><b>{{vm.cbsMaintenanceOfCalendarEntries.dayOrder[10]}}</b></td>
+							<td class="text-center"><b>{{vm.cbsMaintenanceOfCalendarEntries.dayOrder[11]}}</b></td>
+							<td class="text-center"><b>{{vm.cbsMaintenanceOfCalendarEntries.dayOrder[12]}}</b></td>
+							<td class="text-center"><b>{{vm.cbsMaintenanceOfCalendarEntries.dayOrder[13]}}</b></td>
+						</tr>
+						<tr>
+							<td style="padding: 18px;text-align:center" ng-if="vm.model[0].prevOprType == 'M' ">Old</td>
+							<td>
+                                <div class="tooltip-container" ng-if="vm.cbsMaintenanceOfCalendarEntries.dayOrder[7] != 'x'">
+                                    <input readonly type="text" style="color: red;" class="form-control text-center"
+                                           ng-model="vm.cbsMaintenanceOfCalendarEntries.option[vm.cbsMaintenanceOfCalendarEntries.dayOrder[7]]">
+                                    <span class="custom-tooltip" ng-if="vm.cbsMaintenanceOfCalendarEntries.remarks[vm.cbsMaintenanceOfCalendarEntries.dayOrder[7]]">{{vm.cbsMaintenanceOfCalendarEntries.remarks[vm.cbsMaintenanceOfCalendarEntries.dayOrder[7]]}}</span>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="tooltip-container" ng-if="vm.cbsMaintenanceOfCalendarEntries.dayOrder[8] != 'x'">
+                                    <input readonly type="text" style="color: red;" class="form-control text-center"
+                                           ng-model="vm.cbsMaintenanceOfCalendarEntries.option[vm.cbsMaintenanceOfCalendarEntries.dayOrder[8]]">
+                                    <span class="custom-tooltip" ng-if="vm.cbsMaintenanceOfCalendarEntries.remarks[vm.cbsMaintenanceOfCalendarEntries.dayOrder[8]]">{{vm.cbsMaintenanceOfCalendarEntries.remarks[vm.cbsMaintenanceOfCalendarEntries.dayOrder[8]]}}</span>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="tooltip-container" ng-if="vm.cbsMaintenanceOfCalendarEntries.dayOrder[9] != 'x'">
+                                    <input readonly type="text" style="color: red;" class="form-control text-center"
+                                           ng-model="vm.cbsMaintenanceOfCalendarEntries.option[vm.cbsMaintenanceOfCalendarEntries.dayOrder[9]]">
+                                    <span class="custom-tooltip" ng-if="vm.cbsMaintenanceOfCalendarEntries.remarks[vm.cbsMaintenanceOfCalendarEntries.dayOrder[9]]">{{vm.cbsMaintenanceOfCalendarEntries.remarks[vm.cbsMaintenanceOfCalendarEntries.dayOrder[9]]}}</span>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="tooltip-container" ng-if="vm.cbsMaintenanceOfCalendarEntries.dayOrder[10] != 'x'">
+                                    <input readonly type="text" style="color: red;" class="form-control text-center"
+                                           ng-model="vm.cbsMaintenanceOfCalendarEntries.option[vm.cbsMaintenanceOfCalendarEntries.dayOrder[10]]">
+                                    <span class="custom-tooltip" ng-if="vm.cbsMaintenanceOfCalendarEntries.remarks[vm.cbsMaintenanceOfCalendarEntries.dayOrder[10]]">{{vm.cbsMaintenanceOfCalendarEntries.remarks[vm.cbsMaintenanceOfCalendarEntries.dayOrder[10]]}}</span>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="tooltip-container" ng-if="vm.cbsMaintenanceOfCalendarEntries.dayOrder[11] != 'x'">
+                                    <input readonly type="text" style="color: red;" class="form-control text-center"
+                                           ng-model="vm.cbsMaintenanceOfCalendarEntries.option[vm.cbsMaintenanceOfCalendarEntries.dayOrder[11]]">
+                                    <span class="custom-tooltip" ng-if="vm.cbsMaintenanceOfCalendarEntries.remarks[vm.cbsMaintenanceOfCalendarEntries.dayOrder[11]]">{{vm.cbsMaintenanceOfCalendarEntries.remarks[vm.cbsMaintenanceOfCalendarEntries.dayOrder[11]]}}</span>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="tooltip-container" ng-if="vm.cbsMaintenanceOfCalendarEntries.dayOrder[12] != 'x'">
+                                    <input readonly type="text" style="color: red;" class="form-control text-center"
+                                           ng-model="vm.cbsMaintenanceOfCalendarEntries.option[vm.cbsMaintenanceOfCalendarEntries.dayOrder[12]]">
+                                    <span class="custom-tooltip" ng-if="vm.cbsMaintenanceOfCalendarEntries.remarks[vm.cbsMaintenanceOfCalendarEntries.dayOrder[12]]">{{vm.cbsMaintenanceOfCalendarEntries.remarks[vm.cbsMaintenanceOfCalendarEntries.dayOrder[12]]}}</span>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="tooltip-container" ng-if="vm.cbsMaintenanceOfCalendarEntries.dayOrder[13] != 'x'">
+                                    <input readonly type="text" style="color: red;" class="form-control text-center"
+                                           ng-model="vm.cbsMaintenanceOfCalendarEntries.option[vm.cbsMaintenanceOfCalendarEntries.dayOrder[13]]">
+                                    <span class="custom-tooltip" ng-if="vm.cbsMaintenanceOfCalendarEntries.remarks[vm.cbsMaintenanceOfCalendarEntries.dayOrder[13]]">{{vm.cbsMaintenanceOfCalendarEntries.remarks[vm.cbsMaintenanceOfCalendarEntries.dayOrder[13]]}}</span>
+                                </div>
+                            </td>
+						</tr>
+						<tr ng-if="vm.model[0].prevOprType == 'M' ">
+							<td style="padding: 18px;text-align:center" ng-if="vm.model[0].prevOprType == 'M' ">New</td>
+							<td>
+                                <div class="tooltip-container" ng-if="vm.cbsMaintenanceOfCalendarEntries.dayOrder[7] != 'x'">
+                                    <input readonly type="text" style="color: red;" class="form-control text-center"
+                                           ng-model="vm.cbsMaintenanceOfCalendarEntries.optionNew[vm.cbsMaintenanceOfCalendarEntries.dayOrder[7]]">
+                                    <span class="custom-tooltip" ng-if="vm.cbsMaintenanceOfCalendarEntries.remarksNew[vm.cbsMaintenanceOfCalendarEntries.dayOrder[7]]">{{vm.cbsMaintenanceOfCalendarEntries.remarksNew[vm.cbsMaintenanceOfCalendarEntries.dayOrder[7]]}}</span>
+                                </div>
+							</td>
+                            <td>
+                                <div class="tooltip-container" ng-if="vm.cbsMaintenanceOfCalendarEntries.dayOrder[8] != 'x'">
+                                    <input readonly type="text" style="color: red;" class="form-control text-center"
+                                           ng-model="vm.cbsMaintenanceOfCalendarEntries.optionNew[vm.cbsMaintenanceOfCalendarEntries.dayOrder[8]]">
+                                    <span class="custom-tooltip" ng-if="vm.cbsMaintenanceOfCalendarEntries.remarksNew[vm.cbsMaintenanceOfCalendarEntries.dayOrder[8]]">{{vm.cbsMaintenanceOfCalendarEntries.remarksNew[vm.cbsMaintenanceOfCalendarEntries.dayOrder[8]]}}</span>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="tooltip-container" ng-if="vm.cbsMaintenanceOfCalendarEntries.dayOrder[9] != 'x'">
+                                    <input readonly type="text" style="color: red;" class="form-control text-center"
+                                           ng-model="vm.cbsMaintenanceOfCalendarEntries.optionNew[vm.cbsMaintenanceOfCalendarEntries.dayOrder[9]]">
+                                    <span class="custom-tooltip" ng-if="vm.cbsMaintenanceOfCalendarEntries.remarksNew[vm.cbsMaintenanceOfCalendarEntries.dayOrder[9]]">{{vm.cbsMaintenanceOfCalendarEntries.remarksNew[vm.cbsMaintenanceOfCalendarEntries.dayOrder[9]]}}</span>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="tooltip-container" ng-if="vm.cbsMaintenanceOfCalendarEntries.dayOrder[10] != 'x'">
+                                    <input readonly type="text" style="color: red;" class="form-control text-center"
+                                           ng-model="vm.cbsMaintenanceOfCalendarEntries.optionNew[vm.cbsMaintenanceOfCalendarEntries.dayOrder[10]]">
+                                    <span class="custom-tooltip" ng-if="vm.cbsMaintenanceOfCalendarEntries.remarksNew[vm.cbsMaintenanceOfCalendarEntries.dayOrder[10]]">{{vm.cbsMaintenanceOfCalendarEntries.remarksNew[vm.cbsMaintenanceOfCalendarEntries.dayOrder[10]]}}</span>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="tooltip-container" ng-if="vm.cbsMaintenanceOfCalendarEntries.dayOrder[11] != 'x'">
+                                    <input readonly type="text" style="color: red;" class="form-control text-center"
+                                           ng-model="vm.cbsMaintenanceOfCalendarEntries.optionNew[vm.cbsMaintenanceOfCalendarEntries.dayOrder[11]]">
+                                    <span class="custom-tooltip" ng-if="vm.cbsMaintenanceOfCalendarEntries.remarksNew[vm.cbsMaintenanceOfCalendarEntries.dayOrder[11]]">{{vm.cbsMaintenanceOfCalendarEntries.remarksNew[vm.cbsMaintenanceOfCalendarEntries.dayOrder[11]]}}</span>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="tooltip-container" ng-if="vm.cbsMaintenanceOfCalendarEntries.dayOrder[12] != 'x'">
+                                    <input readonly type="text" style="color: red;" class="form-control text-center"
+                                           ng-model="vm.cbsMaintenanceOfCalendarEntries.optionNew[vm.cbsMaintenanceOfCalendarEntries.dayOrder[12]]">
+                                    <span class="custom-tooltip" ng-if="vm.cbsMaintenanceOfCalendarEntries.remarksNew[vm.cbsMaintenanceOfCalendarEntries.dayOrder[12]]">{{vm.cbsMaintenanceOfCalendarEntries.remarksNew[vm.cbsMaintenanceOfCalendarEntries.dayOrder[12]]}}</span>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="tooltip-container" ng-if="vm.cbsMaintenanceOfCalendarEntries.dayOrder[13] != 'x'">
+                                    <input readonly type="text" style="color: red;" class="form-control text-center"
+                                           ng-model="vm.cbsMaintenanceOfCalendarEntries.optionNew[vm.cbsMaintenanceOfCalendarEntries.dayOrder[13]]">
+                                    <span class="custom-tooltip" ng-if="vm.cbsMaintenanceOfCalendarEntries.remarksNew[vm.cbsMaintenanceOfCalendarEntries.dayOrder[13]]">{{vm.cbsMaintenanceOfCalendarEntries.remarksNew[vm.cbsMaintenanceOfCalendarEntries.dayOrder[13]]}}</span>
+                                </div>
+                            </td>
+						</tr>
+						<tr>
+							<td ng-if="vm.model[0].prevOprType == 'M' "></td>
+							<td class="text-center"><b>{{vm.cbsMaintenanceOfCalendarEntries.dayOrder[14]}}</b></td>
+							<td class="text-center"><b>{{vm.cbsMaintenanceOfCalendarEntries.dayOrder[15]}}</b></td>
+							<td class="text-center"><b>{{vm.cbsMaintenanceOfCalendarEntries.dayOrder[16]}}</b></td>
+							<td class="text-center"><b>{{vm.cbsMaintenanceOfCalendarEntries.dayOrder[17]}}</b></td>
+							<td class="text-center"><b>{{vm.cbsMaintenanceOfCalendarEntries.dayOrder[18]}}</b></td>
+							<td class="text-center"><b>{{vm.cbsMaintenanceOfCalendarEntries.dayOrder[19]}}</b></td>
+							<td class="text-center"><b>{{vm.cbsMaintenanceOfCalendarEntries.dayOrder[20]}}</b></td>
+						</tr>
+						<tr>
+							<td style="padding: 18px;text-align:center" ng-if="vm.model[0].prevOprType == 'M' ">Old</td>
+                            <td>
+                                <div class="tooltip-container" ng-if="vm.cbsMaintenanceOfCalendarEntries.dayOrder[14] != 'x'">
+                                    <input readonly type="text" style="color: red;" class="form-control text-center"
+                                           ng-model="vm.cbsMaintenanceOfCalendarEntries.option[vm.cbsMaintenanceOfCalendarEntries.dayOrder[14]]">
+                                    <span class="custom-tooltip" ng-if="vm.cbsMaintenanceOfCalendarEntries.remarks[vm.cbsMaintenanceOfCalendarEntries.dayOrder[14]]">{{vm.cbsMaintenanceOfCalendarEntries.remarks[vm.cbsMaintenanceOfCalendarEntries.dayOrder[14]]}}</span>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="tooltip-container" ng-if="vm.cbsMaintenanceOfCalendarEntries.dayOrder[15] != 'x'">
+                                    <input readonly type="text" style="color: red;" class="form-control text-center"
+                                           ng-model="vm.cbsMaintenanceOfCalendarEntries.option[vm.cbsMaintenanceOfCalendarEntries.dayOrder[15]]">
+                                    <span class="custom-tooltip" ng-if="vm.cbsMaintenanceOfCalendarEntries.remarks[vm.cbsMaintenanceOfCalendarEntries.dayOrder[15]]">{{vm.cbsMaintenanceOfCalendarEntries.remarks[vm.cbsMaintenanceOfCalendarEntries.dayOrder[15]]}}</span>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="tooltip-container" ng-if="vm.cbsMaintenanceOfCalendarEntries.dayOrder[16] != 'x'">
+                                    <input readonly type="text" style="color: red;" class="form-control text-center"
+                                           ng-model="vm.cbsMaintenanceOfCalendarEntries.option[vm.cbsMaintenanceOfCalendarEntries.dayOrder[16]]">
+                                    <span class="custom-tooltip" ng-if="vm.cbsMaintenanceOfCalendarEntries.remarks[vm.cbsMaintenanceOfCalendarEntries.dayOrder[16]]">{{vm.cbsMaintenanceOfCalendarEntries.remarks[vm.cbsMaintenanceOfCalendarEntries.dayOrder[16]]}}</span>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="tooltip-container" ng-if="vm.cbsMaintenanceOfCalendarEntries.dayOrder[17] != 'x'">
+                                    <input readonly type="text" style="color: red;" class="form-control text-center"
+                                           ng-model="vm.cbsMaintenanceOfCalendarEntries.option[vm.cbsMaintenanceOfCalendarEntries.dayOrder[17]]">
+                                    <span class="custom-tooltip" ng-if="vm.cbsMaintenanceOfCalendarEntries.remarks[vm.cbsMaintenanceOfCalendarEntries.dayOrder[17]]">{{vm.cbsMaintenanceOfCalendarEntries.remarks[vm.cbsMaintenanceOfCalendarEntries.dayOrder[17]]}}</span>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="tooltip-container" ng-if="vm.cbsMaintenanceOfCalendarEntries.dayOrder[18] != 'x'">
+                                    <input readonly type="text" style="color: red;" class="form-control text-center"
+                                           ng-model="vm.cbsMaintenanceOfCalendarEntries.option[vm.cbsMaintenanceOfCalendarEntries.dayOrder[18]]">
+                                    <span class="custom-tooltip" ng-if="vm.cbsMaintenanceOfCalendarEntries.remarks[vm.cbsMaintenanceOfCalendarEntries.dayOrder[18]]">{{vm.cbsMaintenanceOfCalendarEntries.remarks[vm.cbsMaintenanceOfCalendarEntries.dayOrder[18]]}}</span>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="tooltip-container" ng-if="vm.cbsMaintenanceOfCalendarEntries.dayOrder[19] != 'x'">
+                                    <input readonly type="text" style="color: red;" class="form-control text-center"
+                                           ng-model="vm.cbsMaintenanceOfCalendarEntries.option[vm.cbsMaintenanceOfCalendarEntries.dayOrder[19]]">
+                                    <span class="custom-tooltip" ng-if="vm.cbsMaintenanceOfCalendarEntries.remarks[vm.cbsMaintenanceOfCalendarEntries.dayOrder[19]]">{{vm.cbsMaintenanceOfCalendarEntries.remarks[vm.cbsMaintenanceOfCalendarEntries.dayOrder[19]]}}</span>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="tooltip-container" ng-if="vm.cbsMaintenanceOfCalendarEntries.dayOrder[20] != 'x'">
+                                    <input readonly type="text" style="color: red;" class="form-control text-center"
+                                           ng-model="vm.cbsMaintenanceOfCalendarEntries.option[vm.cbsMaintenanceOfCalendarEntries.dayOrder[20]]">
+                                    <span class="custom-tooltip" ng-if="vm.cbsMaintenanceOfCalendarEntries.remarks[vm.cbsMaintenanceOfCalendarEntries.dayOrder[20]]">{{vm.cbsMaintenanceOfCalendarEntries.remarks[vm.cbsMaintenanceOfCalendarEntries.dayOrder[20]]}}</span>
+                                </div>
+                            </td>
+						</tr>
+						<tr ng-if="vm.model[0].prevOprType == 'M' ">
+							<td style="padding: 18px;text-align:center" ng-if="vm.model[0].prevOprType == 'M' ">New</td>
+                            <td>
+                                <div class="tooltip-container" ng-if="vm.cbsMaintenanceOfCalendarEntries.dayOrder[14] != 'x'">
+                                    <input readonly type="text" style="color: red;" class="form-control text-center"
+                                           ng-model="vm.cbsMaintenanceOfCalendarEntries.optionNew[vm.cbsMaintenanceOfCalendarEntries.dayOrder[14]]">
+                                    <span class="custom-tooltip" ng-if="vm.cbsMaintenanceOfCalendarEntries.remarksNew[vm.cbsMaintenanceOfCalendarEntries.dayOrder[14]]">{{vm.cbsMaintenanceOfCalendarEntries.remarksNew[vm.cbsMaintenanceOfCalendarEntries.dayOrder[14]]}}</span>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="tooltip-container" ng-if="vm.cbsMaintenanceOfCalendarEntries.dayOrder[15] != 'x'">
+                                    <input readonly type="text" style="color: red;" class="form-control text-center"
+                                           ng-model="vm.cbsMaintenanceOfCalendarEntries.optionNew[vm.cbsMaintenanceOfCalendarEntries.dayOrder[15]]">
+                                    <span class="custom-tooltip" ng-if="vm.cbsMaintenanceOfCalendarEntries.remarksNew[vm.cbsMaintenanceOfCalendarEntries.dayOrder[15]]">{{vm.cbsMaintenanceOfCalendarEntries.remarksNew[vm.cbsMaintenanceOfCalendarEntries.dayOrder[15]]}}</span>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="tooltip-container" ng-if="vm.cbsMaintenanceOfCalendarEntries.dayOrder[16] != 'x'">
+                                    <input readonly type="text" style="color: red;" class="form-control text-center"
+                                           ng-model="vm.cbsMaintenanceOfCalendarEntries.optionNew[vm.cbsMaintenanceOfCalendarEntries.dayOrder[16]]">
+                                    <span class="custom-tooltip" ng-if="vm.cbsMaintenanceOfCalendarEntries.remarksNew[vm.cbsMaintenanceOfCalendarEntries.dayOrder[16]]">{{vm.cbsMaintenanceOfCalendarEntries.remarksNew[vm.cbsMaintenanceOfCalendarEntries.dayOrder[16]]}}</span>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="tooltip-container" ng-if="vm.cbsMaintenanceOfCalendarEntries.dayOrder[17] != 'x'">
+                                    <input readonly type="text" style="color: red;" class="form-control text-center"
+                                           ng-model="vm.cbsMaintenanceOfCalendarEntries.optionNew[vm.cbsMaintenanceOfCalendarEntries.dayOrder[17]]">
+                                    <span class="custom-tooltip" ng-if="vm.cbsMaintenanceOfCalendarEntries.remarksNew[vm.cbsMaintenanceOfCalendarEntries.dayOrder[17]]">{{vm.cbsMaintenanceOfCalendarEntries.remarksNew[vm.cbsMaintenanceOfCalendarEntries.dayOrder[17]]}}</span>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="tooltip-container" ng-if="vm.cbsMaintenanceOfCalendarEntries.dayOrder[18] != 'x'">
+                                    <input readonly type="text" style="color: red;" class="form-control text-center"
+                                           ng-model="vm.cbsMaintenanceOfCalendarEntries.optionNew[vm.cbsMaintenanceOfCalendarEntries.dayOrder[18]]">
+                                    <span class="custom-tooltip" ng-if="vm.cbsMaintenanceOfCalendarEntries.remarksNew[vm.cbsMaintenanceOfCalendarEntries.dayOrder[18]]">{{vm.cbsMaintenanceOfCalendarEntries.remarksNew[vm.cbsMaintenanceOfCalendarEntries.dayOrder[18]]}}</span>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="tooltip-container" ng-if="vm.cbsMaintenanceOfCalendarEntries.dayOrder[19] != 'x'">
+                                    <input readonly type="text" style="color: red;" class="form-control text-center"
+                                           ng-model="vm.cbsMaintenanceOfCalendarEntries.optionNew[vm.cbsMaintenanceOfCalendarEntries.dayOrder[19]]">
+                                    <span class="custom-tooltip" ng-if="vm.cbsMaintenanceOfCalendarEntries.remarksNew[vm.cbsMaintenanceOfCalendarEntries.dayOrder[19]]">{{vm.cbsMaintenanceOfCalendarEntries.remarksNew[vm.cbsMaintenanceOfCalendarEntries.dayOrder[19]]}}</span>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="tooltip-container" ng-if="vm.cbsMaintenanceOfCalendarEntries.dayOrder[20] != 'x'">
+                                    <input readonly type="text" style="color: red;" class="form-control text-center"
+                                           ng-model="vm.cbsMaintenanceOfCalendarEntries.optionNew[vm.cbsMaintenanceOfCalendarEntries.dayOrder[20]]">
+                                    <span class="custom-tooltip" ng-if="vm.cbsMaintenanceOfCalendarEntries.remarksNew[vm.cbsMaintenanceOfCalendarEntries.dayOrder[20]]">{{vm.cbsMaintenanceOfCalendarEntries.remarksNew[vm.cbsMaintenanceOfCalendarEntries.dayOrder[20]]}}</span>
+                                </div>
+                            </td>
+						</tr>
+						<tr>
+							<td ng-if="vm.model[0].prevOprType == 'M' "></td>
+							<td class="text-center"><b>{{vm.cbsMaintenanceOfCalendarEntries.dayOrder[21]}}</b></td>
+							<td class="text-center"><b>{{vm.cbsMaintenanceOfCalendarEntries.dayOrder[22]}}</b></td>
+							<td class="text-center"><b>{{vm.cbsMaintenanceOfCalendarEntries.dayOrder[23]}}</b></td>
+							<td class="text-center"><b>{{vm.cbsMaintenanceOfCalendarEntries.dayOrder[24]}}</b></td>
+							<td class="text-center"><b>{{vm.cbsMaintenanceOfCalendarEntries.dayOrder[25]}}</b></td>
+							<td class="text-center"><b>{{vm.cbsMaintenanceOfCalendarEntries.dayOrder[26]}}</b></td>
+							<td class="text-center"><b>{{vm.cbsMaintenanceOfCalendarEntries.dayOrder[27]}}</b></td>
+						</tr>
+						<tr>
+							<td style="padding: 18px;text-align:center" ng-if="vm.model[0].prevOprType == 'M' ">Old</td>
+                            <td>
+                                <div class="tooltip-container" ng-if="vm.cbsMaintenanceOfCalendarEntries.dayOrder[21] != 'x'">
+                                    <input readonly type="text" style="color: red;" class="form-control text-center"
+                                           ng-model="vm.cbsMaintenanceOfCalendarEntries.option[vm.cbsMaintenanceOfCalendarEntries.dayOrder[21]]">
+                                    <span class="custom-tooltip" ng-if="vm.cbsMaintenanceOfCalendarEntries.remarks[vm.cbsMaintenanceOfCalendarEntries.dayOrder[21]]">{{vm.cbsMaintenanceOfCalendarEntries.remarks[vm.cbsMaintenanceOfCalendarEntries.dayOrder[21]]}}</span>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="tooltip-container" ng-if="vm.cbsMaintenanceOfCalendarEntries.dayOrder[22] != 'x'">
+                                    <input readonly type="text" style="color: red;" class="form-control text-center"
+                                           ng-model="vm.cbsMaintenanceOfCalendarEntries.option[vm.cbsMaintenanceOfCalendarEntries.dayOrder[22]]">
+                                    <span class="custom-tooltip" ng-if="vm.cbsMaintenanceOfCalendarEntries.remarks[vm.cbsMaintenanceOfCalendarEntries.dayOrder[22]]">{{vm.cbsMaintenanceOfCalendarEntries.remarks[vm.cbsMaintenanceOfCalendarEntries.dayOrder[22]]}}</span>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="tooltip-container" ng-if="vm.cbsMaintenanceOfCalendarEntries.dayOrder[23] != 'x'">
+                                    <input readonly type="text" style="color: red;" class="form-control text-center"
+                                           ng-model="vm.cbsMaintenanceOfCalendarEntries.option[vm.cbsMaintenanceOfCalendarEntries.dayOrder[23]]">
+                                    <span class="custom-tooltip" ng-if="vm.cbsMaintenanceOfCalendarEntries.remarks[vm.cbsMaintenanceOfCalendarEntries.dayOrder[23]]">{{vm.cbsMaintenanceOfCalendarEntries.remarks[vm.cbsMaintenanceOfCalendarEntries.dayOrder[23]]}}</span>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="tooltip-container" ng-if="vm.cbsMaintenanceOfCalendarEntries.dayOrder[24] != 'x'">
+                                    <input readonly type="text" style="color: red;" class="form-control text-center"
+                                           ng-model="vm.cbsMaintenanceOfCalendarEntries.option[vm.cbsMaintenanceOfCalendarEntries.dayOrder[24]]">
+                                    <span class="custom-tooltip" ng-if="vm.cbsMaintenanceOfCalendarEntries.remarks[vm.cbsMaintenanceOfCalendarEntries.dayOrder[24]]">{{vm.cbsMaintenanceOfCalendarEntries.remarks[vm.cbsMaintenanceOfCalendarEntries.dayOrder[24]]}}</span>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="tooltip-container" ng-if="vm.cbsMaintenanceOfCalendarEntries.dayOrder[25] != 'x'">
+                                    <input readonly type="text" style="color: red;" class="form-control text-center"
+                                           ng-model="vm.cbsMaintenanceOfCalendarEntries.option[vm.cbsMaintenanceOfCalendarEntries.dayOrder[25]]">
+                                    <span class="custom-tooltip" ng-if="vm.cbsMaintenanceOfCalendarEntries.remarks[vm.cbsMaintenanceOfCalendarEntries.dayOrder[25]]">{{vm.cbsMaintenanceOfCalendarEntries.remarks[vm.cbsMaintenanceOfCalendarEntries.dayOrder[25]]}}</span>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="tooltip-container" ng-if="vm.cbsMaintenanceOfCalendarEntries.dayOrder[26] != 'x'">
+                                    <input readonly type="text" style="color: red;" class="form-control text-center"
+                                           ng-model="vm.cbsMaintenanceOfCalendarEntries.option[vm.cbsMaintenanceOfCalendarEntries.dayOrder[26]]">
+                                    <span class="custom-tooltip" ng-if="vm.cbsMaintenanceOfCalendarEntries.remarks[vm.cbsMaintenanceOfCalendarEntries.dayOrder[26]]">{{vm.cbsMaintenanceOfCalendarEntries.remarks[vm.cbsMaintenanceOfCalendarEntries.dayOrder[26]]}}</span>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="tooltip-container" ng-if="vm.cbsMaintenanceOfCalendarEntries.dayOrder[27] != 'x'">
+                                    <input readonly type="text" style="color: red;" class="form-control text-center"
+                                           ng-model="vm.cbsMaintenanceOfCalendarEntries.option[vm.cbsMaintenanceOfCalendarEntries.dayOrder[27]]">
+                                    <span class="custom-tooltip" ng-if="vm.cbsMaintenanceOfCalendarEntries.remarks[vm.cbsMaintenanceOfCalendarEntries.dayOrder[27]]">{{vm.cbsMaintenanceOfCalendarEntries.remarks[vm.cbsMaintenanceOfCalendarEntries.dayOrder[27]]}}</span>
+                                </div>
+                            </td>
+						</tr>
+						<tr ng-if="vm.model[0].prevOprType == 'M' ">
+							<td style="padding: 18px;text-align:center" ng-if="vm.model[0].prevOprType == 'M' ">New</td>
+                            <td>
+                                <div class="tooltip-container" ng-if="vm.cbsMaintenanceOfCalendarEntries.dayOrder[21] != 'x'">
+                                    <input readonly type="text" style="color: red;" class="form-control text-center"
+                                           ng-model="vm.cbsMaintenanceOfCalendarEntries.optionNew[vm.cbsMaintenanceOfCalendarEntries.dayOrder[21]]">
+                                    <span class="custom-tooltip" ng-if="vm.cbsMaintenanceOfCalendarEntries.remarksNew[vm.cbsMaintenanceOfCalendarEntries.dayOrder[21]]">{{vm.cbsMaintenanceOfCalendarEntries.remarksNew[vm.cbsMaintenanceOfCalendarEntries.dayOrder[21]]}}</span>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="tooltip-container" ng-if="vm.cbsMaintenanceOfCalendarEntries.dayOrder[22] != 'x'">
+                                    <input readonly type="text" style="color: red;" class="form-control text-center"
+                                           ng-model="vm.cbsMaintenanceOfCalendarEntries.optionNew[vm.cbsMaintenanceOfCalendarEntries.dayOrder[22]]">
+                                    <span class="custom-tooltip" ng-if="vm.cbsMaintenanceOfCalendarEntries.remarksNew[vm.cbsMaintenanceOfCalendarEntries.dayOrder[22]]">{{vm.cbsMaintenanceOfCalendarEntries.remarksNew[vm.cbsMaintenanceOfCalendarEntries.dayOrder[22]]}}</span>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="tooltip-container" ng-if="vm.cbsMaintenanceOfCalendarEntries.dayOrder[23] != 'x'">
+                                    <input readonly type="text" style="color: red;" class="form-control text-center"
+                                           ng-model="vm.cbsMaintenanceOfCalendarEntries.optionNew[vm.cbsMaintenanceOfCalendarEntries.dayOrder[23]]">
+                                    <span class="custom-tooltip" ng-if="vm.cbsMaintenanceOfCalendarEntries.remarksNew[vm.cbsMaintenanceOfCalendarEntries.dayOrder[23]]">{{vm.cbsMaintenanceOfCalendarEntries.remarksNew[vm.cbsMaintenanceOfCalendarEntries.dayOrder[23]]}}</span>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="tooltip-container" ng-if="vm.cbsMaintenanceOfCalendarEntries.dayOrder[24] != 'x'">
+                                    <input readonly type="text" style="color: red;" class="form-control text-center"
+                                           ng-model="vm.cbsMaintenanceOfCalendarEntries.optionNew[vm.cbsMaintenanceOfCalendarEntries.dayOrder[24]]">
+                                    <span class="custom-tooltip" ng-if="vm.cbsMaintenanceOfCalendarEntries.remarksNew[vm.cbsMaintenanceOfCalendarEntries.dayOrder[24]]">{{vm.cbsMaintenanceOfCalendarEntries.remarksNew[vm.cbsMaintenanceOfCalendarEntries.dayOrder[24]]}}</span>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="tooltip-container" ng-if="vm.cbsMaintenanceOfCalendarEntries.dayOrder[25] != 'x'">
+                                    <input readonly type="text" style="color: red;" class="form-control text-center"
+                                           ng-model="vm.cbsMaintenanceOfCalendarEntries.optionNew[vm.cbsMaintenanceOfCalendarEntries.dayOrder[25]]">
+                                    <span class="custom-tooltip" ng-if="vm.cbsMaintenanceOfCalendarEntries.remarksNew[vm.cbsMaintenanceOfCalendarEntries.dayOrder[25]]">{{vm.cbsMaintenanceOfCalendarEntries.remarksNew[vm.cbsMaintenanceOfCalendarEntries.dayOrder[25]]}}</span>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="tooltip-container" ng-if="vm.cbsMaintenanceOfCalendarEntries.dayOrder[26] != 'x'">
+                                    <input readonly type="text" style="color: red;" class="form-control text-center"
+                                           ng-model="vm.cbsMaintenanceOfCalendarEntries.optionNew[vm.cbsMaintenanceOfCalendarEntries.dayOrder[26]]">
+                                    <span class="custom-tooltip" ng-if="vm.cbsMaintenanceOfCalendarEntries.remarksNew[vm.cbsMaintenanceOfCalendarEntries.dayOrder[26]]">{{vm.cbsMaintenanceOfCalendarEntries.remarksNew[vm.cbsMaintenanceOfCalendarEntries.dayOrder[26]]}}</span>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="tooltip-container" ng-if="vm.cbsMaintenanceOfCalendarEntries.dayOrder[27] != 'x'">
+                                    <input readonly type="text" style="color: red;" class="form-control text-center"
+                                           ng-model="vm.cbsMaintenanceOfCalendarEntries.optionNew[vm.cbsMaintenanceOfCalendarEntries.dayOrder[27]]">
+                                    <span class="custom-tooltip" ng-if="vm.cbsMaintenanceOfCalendarEntries.remarksNew[vm.cbsMaintenanceOfCalendarEntries.dayOrder[27]]">{{vm.cbsMaintenanceOfCalendarEntries.remarksNew[vm.cbsMaintenanceOfCalendarEntries.dayOrder[27]]}}</span>
+                                </div>
+                            </td>
+						</tr>
+						<tr ng-if="vm.cbsMaintenanceOfCalendarEntries.dayOrder[28] !='x'">
+							<td ng-if="vm.model[0].prevOprType == 'M' "></td>
+							<td class="text-center"><b  ng-if="vm.cbsMaintenanceOfCalendarEntries.dayOrder[28] !='x'">{{vm.cbsMaintenanceOfCalendarEntries.dayOrder[28]}}</b></td>
+							<td class="text-center"><b  ng-if="vm.cbsMaintenanceOfCalendarEntries.dayOrder[29] !='x'">{{vm.cbsMaintenanceOfCalendarEntries.dayOrder[29]}}</b></td>
+							<td class="text-center"><b  ng-if="vm.cbsMaintenanceOfCalendarEntries.dayOrder[30] !='x'">{{vm.cbsMaintenanceOfCalendarEntries.dayOrder[30]}}</b></td>
+							<td class="text-center"><b  ng-if="vm.cbsMaintenanceOfCalendarEntries.dayOrder[31] !='x'">{{vm.cbsMaintenanceOfCalendarEntries.dayOrder[31]}}</b></td>
+							<td class="text-center"><b  ng-if="vm.cbsMaintenanceOfCalendarEntries.dayOrder[32] !='x'">{{vm.cbsMaintenanceOfCalendarEntries.dayOrder[32]}}</b></td>
+							<td class="text-center"><b  ng-if="vm.cbsMaintenanceOfCalendarEntries.dayOrder[33] !='x'">{{vm.cbsMaintenanceOfCalendarEntries.dayOrder[33]}}</b></td>
+							<td class="text-center"><b  ng-if="vm.cbsMaintenanceOfCalendarEntries.dayOrder[34] !='x'">{{vm.cbsMaintenanceOfCalendarEntries.dayOrder[34]}}</b></td>
+						</tr>
+						<tr ng-if="vm.cbsMaintenanceOfCalendarEntries.dayOrder[28] !='x'">
+							<td style="padding: 18px;text-align:center" ng-if="vm.model[0].prevOprType == 'M' ">Old</td>
+                            <td>
+                                <div class="tooltip-container" ng-if="vm.cbsMaintenanceOfCalendarEntries.dayOrder[28] != 'x'">
+                                    <input readonly type="text" style="color: red;" class="form-control text-center"
+                                           ng-model="vm.cbsMaintenanceOfCalendarEntries.option[vm.cbsMaintenanceOfCalendarEntries.dayOrder[28]]">
+                                    <span class="custom-tooltip" ng-if="vm.cbsMaintenanceOfCalendarEntries.remarks[vm.cbsMaintenanceOfCalendarEntries.dayOrder[28]]">{{vm.cbsMaintenanceOfCalendarEntries.remarks[vm.cbsMaintenanceOfCalendarEntries.dayOrder[28]]}}</span>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="tooltip-container" ng-if="vm.cbsMaintenanceOfCalendarEntries.dayOrder[29] != 'x'">
+                                    <input readonly type="text" style="color: red;" class="form-control text-center"
+                                           ng-model="vm.cbsMaintenanceOfCalendarEntries.option[vm.cbsMaintenanceOfCalendarEntries.dayOrder[29]]">
+                                    <span class="custom-tooltip" ng-if="vm.cbsMaintenanceOfCalendarEntries.remarks[vm.cbsMaintenanceOfCalendarEntries.dayOrder[29]]">{{vm.cbsMaintenanceOfCalendarEntries.remarks[vm.cbsMaintenanceOfCalendarEntries.dayOrder[29]]}}</span>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="tooltip-container" ng-if="vm.cbsMaintenanceOfCalendarEntries.dayOrder[30] != 'x'">
+                                    <input readonly type="text" style="color: red;" class="form-control text-center"
+                                           ng-model="vm.cbsMaintenanceOfCalendarEntries.option[vm.cbsMaintenanceOfCalendarEntries.dayOrder[30]]">
+                                    <span class="custom-tooltip" ng-if="vm.cbsMaintenanceOfCalendarEntries.remarks[vm.cbsMaintenanceOfCalendarEntries.dayOrder[30]]">{{vm.cbsMaintenanceOfCalendarEntries.remarks[vm.cbsMaintenanceOfCalendarEntries.dayOrder[30]]}}</span>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="tooltip-container" ng-if="vm.cbsMaintenanceOfCalendarEntries.dayOrder[31] != 'x'">
+                                    <input readonly type="text" style="color: red;" class="form-control text-center"
+                                           ng-model="vm.cbsMaintenanceOfCalendarEntries.option[vm.cbsMaintenanceOfCalendarEntries.dayOrder[31]]">
+                                    <span class="custom-tooltip" ng-if="vm.cbsMaintenanceOfCalendarEntries.remarks[vm.cbsMaintenanceOfCalendarEntries.dayOrder[31]]">{{vm.cbsMaintenanceOfCalendarEntries.remarks[vm.cbsMaintenanceOfCalendarEntries.dayOrder[31]]}}</span>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="tooltip-container" ng-if="vm.cbsMaintenanceOfCalendarEntries.dayOrder[32] != 'x'">
+                                    <input readonly type="text" style="color: red;" class="form-control text-center"
+                                           ng-model="vm.cbsMaintenanceOfCalendarEntries.option[vm.cbsMaintenanceOfCalendarEntries.dayOrder[32]]">
+                                    <span class="custom-tooltip" ng-if="vm.cbsMaintenanceOfCalendarEntries.remarks[vm.cbsMaintenanceOfCalendarEntries.dayOrder[32]]">{{vm.cbsMaintenanceOfCalendarEntries.remarks[vm.cbsMaintenanceOfCalendarEntries.dayOrder[32]]}}</span>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="tooltip-container" ng-if="vm.cbsMaintenanceOfCalendarEntries.dayOrder[33] != 'x'">
+                                    <input readonly type="text" style="color: red;" class="form-control text-center"
+                                           ng-model="vm.cbsMaintenanceOfCalendarEntries.option[vm.cbsMaintenanceOfCalendarEntries.dayOrder[33]]">
+                                    <span class="custom-tooltip" ng-if="vm.cbsMaintenanceOfCalendarEntries.remarks[vm.cbsMaintenanceOfCalendarEntries.dayOrder[33]]">{{vm.cbsMaintenanceOfCalendarEntries.remarks[vm.cbsMaintenanceOfCalendarEntries.dayOrder[33]]}}</span>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="tooltip-container" ng-if="vm.cbsMaintenanceOfCalendarEntries.dayOrder[34] != 'x'">
+                                    <input readonly type="text" style="color: red;" class="form-control text-center"
+                                           ng-model="vm.cbsMaintenanceOfCalendarEntries.option[vm.cbsMaintenanceOfCalendarEntries.dayOrder[34]]">
+                                    <span class="custom-tooltip" ng-if="vm.cbsMaintenanceOfCalendarEntries.remarks[vm.cbsMaintenanceOfCalendarEntries.dayOrder[34]]">{{vm.cbsMaintenanceOfCalendarEntries.remarks[vm.cbsMaintenanceOfCalendarEntries.dayOrder[34]]}}</span>
+                                </div>
+                            </td>
+						</tr>
+						<tr ng-if="(vm.cbsMaintenanceOfCalendarEntries.dayOrder[28] !='x' && vm.model[0].prevOprType == 'M' )">
+							<td style="padding: 18px;text-align:center" ng-if="vm.model[0].prevOprType == 'M' ">New</td>
+                            <td>
+                                <div class="tooltip-container" ng-if="vm.cbsMaintenanceOfCalendarEntries.dayOrder[28] != 'x'">
+                                    <input readonly type="text" style="color: red;" class="form-control text-center"
+                                           ng-model="vm.cbsMaintenanceOfCalendarEntries.optionNew[vm.cbsMaintenanceOfCalendarEntries.dayOrder[28]]">
+                                    <span class="custom-tooltip" ng-if="vm.cbsMaintenanceOfCalendarEntries.remarksNew[vm.cbsMaintenanceOfCalendarEntries.dayOrder[28]]">{{vm.cbsMaintenanceOfCalendarEntries.remarksNew[vm.cbsMaintenanceOfCalendarEntries.dayOrder[28]]}}</span>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="tooltip-container" ng-if="vm.cbsMaintenanceOfCalendarEntries.dayOrder[29] != 'x'">
+                                    <input readonly type="text" style="color: red;" class="form-control text-center"
+                                           ng-model="vm.cbsMaintenanceOfCalendarEntries.optionNew[vm.cbsMaintenanceOfCalendarEntries.dayOrder[29]]">
+                                    <span class="custom-tooltip" ng-if="vm.cbsMaintenanceOfCalendarEntries.remarksNew[vm.cbsMaintenanceOfCalendarEntries.dayOrder[29]]">{{vm.cbsMaintenanceOfCalendarEntries.remarksNew[vm.cbsMaintenanceOfCalendarEntries.dayOrder[29]]}}</span>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="tooltip-container" ng-if="vm.cbsMaintenanceOfCalendarEntries.dayOrder[30] != 'x'">
+                                    <input readonly type="text" style="color: red;" class="form-control text-center"
+                                           ng-model="vm.cbsMaintenanceOfCalendarEntries.optionNew[vm.cbsMaintenanceOfCalendarEntries.dayOrder[30]]">
+                                    <span class="custom-tooltip" ng-if="vm.cbsMaintenanceOfCalendarEntries.remarksNew[vm.cbsMaintenanceOfCalendarEntries.dayOrder[30]]">{{vm.cbsMaintenanceOfCalendarEntries.remarksNew[vm.cbsMaintenanceOfCalendarEntries.dayOrder[30]]}}</span>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="tooltip-container" ng-if="vm.cbsMaintenanceOfCalendarEntries.dayOrder[31] != 'x'">
+                                    <input readonly type="text" style="color: red;" class="form-control text-center"
+                                           ng-model="vm.cbsMaintenanceOfCalendarEntries.optionNew[vm.cbsMaintenanceOfCalendarEntries.dayOrder[31]]">
+                                    <span class="custom-tooltip" ng-if="vm.cbsMaintenanceOfCalendarEntries.remarksNew[vm.cbsMaintenanceOfCalendarEntries.dayOrder[31]]">{{vm.cbsMaintenanceOfCalendarEntries.remarksNew[vm.cbsMaintenanceOfCalendarEntries.dayOrder[31]]}}</span>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="tooltip-container" ng-if="vm.cbsMaintenanceOfCalendarEntries.dayOrder[32] != 'x'">
+                                    <input readonly type="text" style="color: red;" class="form-control text-center"
+                                           ng-model="vm.cbsMaintenanceOfCalendarEntries.optionNew[vm.cbsMaintenanceOfCalendarEntries.dayOrder[32]]">
+                                    <span class="custom-tooltip" ng-if="vm.cbsMaintenanceOfCalendarEntries.remarksNew[vm.cbsMaintenanceOfCalendarEntries.dayOrder[32]]">{{vm.cbsMaintenanceOfCalendarEntries.remarksNew[vm.cbsMaintenanceOfCalendarEntries.dayOrder[32]]}}</span>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="tooltip-container" ng-if="vm.cbsMaintenanceOfCalendarEntries.dayOrder[33] != 'x'">
+                                    <input readonly type="text" style="color: red;" class="form-control text-center"
+                                           ng-model="vm.cbsMaintenanceOfCalendarEntries.optionNew[vm.cbsMaintenanceOfCalendarEntries.dayOrder[33]]">
+                                    <span class="custom-tooltip" ng-if="vm.cbsMaintenanceOfCalendarEntries.remarksNew[vm.cbsMaintenanceOfCalendarEntries.dayOrder[33]]">{{vm.cbsMaintenanceOfCalendarEntries.remarksNew[vm.cbsMaintenanceOfCalendarEntries.dayOrder[33]]}}</span>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="tooltip-container" ng-if="vm.cbsMaintenanceOfCalendarEntries.dayOrder[34] != 'x'">
+                                    <input readonly type="text" style="color: red;" class="form-control text-center"
+                                           ng-model="vm.cbsMaintenanceOfCalendarEntries.optionNew[vm.cbsMaintenanceOfCalendarEntries.dayOrder[34]]">
+                                    <span class="custom-tooltip" ng-if="vm.cbsMaintenanceOfCalendarEntries.remarksNew[vm.cbsMaintenanceOfCalendarEntries.dayOrder[34]]">{{vm.cbsMaintenanceOfCalendarEntries.remarksNew[vm.cbsMaintenanceOfCalendarEntries.dayOrder[34]]}}</span>
+                                </div>
+                            </td>
+						</tr>
+						<tr ng-if="vm.cbsMaintenanceOfCalendarEntries.dayOrder[35] !='x'">
+							<td ng-if="vm.model[0].prevOprType == 'M' "></td>
+							<td class="text-center"><b  ng-if="vm.cbsMaintenanceOfCalendarEntries.dayOrder[35] !='x'">{{vm.cbsMaintenanceOfCalendarEntries.dayOrder[35]}}</b></td>
+							<td class="text-center"><b  ng-if="vm.cbsMaintenanceOfCalendarEntries.dayOrder[36] !='x'">{{vm.cbsMaintenanceOfCalendarEntries.dayOrder[36]}}</b></td>
+							<td class="text-center"><b  ng-if="vm.cbsMaintenanceOfCalendarEntries.dayOrder[37] !='x'">{{vm.cbsMaintenanceOfCalendarEntries.dayOrder[37]}}</b></td>
+							<td class="text-center"><b  ng-if="vm.cbsMaintenanceOfCalendarEntries.dayOrder[38] !='x'">{{vm.cbsMaintenanceOfCalendarEntries.dayOrder[38]}}</b></td>
+							<td class="text-center"><b  ng-if="vm.cbsMaintenanceOfCalendarEntries.dayOrder[39] !='x'">{{vm.cbsMaintenanceOfCalendarEntries.dayOrder[39]}}</b></td>
+							<td class="text-center"><b  ng-if="vm.cbsMaintenanceOfCalendarEntries.dayOrder[40] !='x'">{{vm.cbsMaintenanceOfCalendarEntries.dayOrder[40]}}</b></td>
+							<td class="text-center"><b  ng-if="vm.cbsMaintenanceOfCalendarEntries.dayOrder[41] !='x'">{{vm.cbsMaintenanceOfCalendarEntries.dayOrder[41]}}</b></td>
+						</tr>
+						<tr ng-if="vm.cbsMaintenanceOfCalendarEntries.dayOrder[35] !='x'">
+							<td style="padding: 18px;text-align:center" ng-if="vm.model[0].prevOprType == 'M' ">Old</td>
+                            <td>
+                                <div class="tooltip-container" ng-if="vm.cbsMaintenanceOfCalendarEntries.dayOrder[35] != 'x'">
+                                    <input readonly type="text" style="color: red;" class="form-control text-center"
+                                           ng-model="vm.cbsMaintenanceOfCalendarEntries.option[vm.cbsMaintenanceOfCalendarEntries.dayOrder[35]]">
+                                    <span class="custom-tooltip" ng-if="vm.cbsMaintenanceOfCalendarEntries.remarks[vm.cbsMaintenanceOfCalendarEntries.dayOrder[35]]">{{vm.cbsMaintenanceOfCalendarEntries.remarks[vm.cbsMaintenanceOfCalendarEntries.dayOrder[35]]}}</span>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="tooltip-container" ng-if="vm.cbsMaintenanceOfCalendarEntries.dayOrder[36] != 'x'">
+                                    <input readonly type="text" style="color: red;" class="form-control text-center"
+                                           ng-model="vm.cbsMaintenanceOfCalendarEntries.option[vm.cbsMaintenanceOfCalendarEntries.dayOrder[36]]">
+                                    <span class="custom-tooltip" ng-if="vm.cbsMaintenanceOfCalendarEntries.remarks[vm.cbsMaintenanceOfCalendarEntries.dayOrder[36]]">{{vm.cbsMaintenanceOfCalendarEntries.remarks[vm.cbsMaintenanceOfCalendarEntries.dayOrder[36]]}}</span>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="tooltip-container" ng-if="vm.cbsMaintenanceOfCalendarEntries.dayOrder[37] != 'x'">
+                                    <input readonly type="text" style="color: red;" class="form-control text-center"
+                                           ng-model="vm.cbsMaintenanceOfCalendarEntries.option[vm.cbsMaintenanceOfCalendarEntries.dayOrder[37]]">
+                                    <span class="custom-tooltip" ng-if="vm.cbsMaintenanceOfCalendarEntries.remarks[vm.cbsMaintenanceOfCalendarEntries.dayOrder[37]]">{{vm.cbsMaintenanceOfCalendarEntries.remarks[vm.cbsMaintenanceOfCalendarEntries.dayOrder[37]]}}</span>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="tooltip-container" ng-if="vm.cbsMaintenanceOfCalendarEntries.dayOrder[38] != 'x'">
+                                    <input readonly type="text" style="color: red;" class="form-control text-center"
+                                           ng-model="vm.cbsMaintenanceOfCalendarEntries.option[vm.cbsMaintenanceOfCalendarEntries.dayOrder[38]]">
+                                    <span class="custom-tooltip" ng-if="vm.cbsMaintenanceOfCalendarEntries.remarks[vm.cbsMaintenanceOfCalendarEntries.dayOrder[38]]">{{vm.cbsMaintenanceOfCalendarEntries.remarks[vm.cbsMaintenanceOfCalendarEntries.dayOrder[38]]}}</span>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="tooltip-container" ng-if="vm.cbsMaintenanceOfCalendarEntries.dayOrder[39] != 'x'">
+                                    <input readonly type="text" style="color: red;" class="form-control text-center"
+                                           ng-model="vm.cbsMaintenanceOfCalendarEntries.option[vm.cbsMaintenanceOfCalendarEntries.dayOrder[39]]">
+                                    <span class="custom-tooltip" ng-if="vm.cbsMaintenanceOfCalendarEntries.remarks[vm.cbsMaintenanceOfCalendarEntries.dayOrder[39]]">{{vm.cbsMaintenanceOfCalendarEntries.remarks[vm.cbsMaintenanceOfCalendarEntries.dayOrder[39]]}}</span>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="tooltip-container" ng-if="vm.cbsMaintenanceOfCalendarEntries.dayOrder[40] != 'x'">
+                                    <input readonly type="text" style="color: red;" class="form-control text-center"
+                                           ng-model="vm.cbsMaintenanceOfCalendarEntries.option[vm.cbsMaintenanceOfCalendarEntries.dayOrder[40]]">
+                                    <span class="custom-tooltip" ng-if="vm.cbsMaintenanceOfCalendarEntries.remarks[vm.cbsMaintenanceOfCalendarEntries.dayOrder[40]]">{{vm.cbsMaintenanceOfCalendarEntries.remarks[vm.cbsMaintenanceOfCalendarEntries.dayOrder[40]]}}</span>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="tooltip-container" ng-if="vm.cbsMaintenanceOfCalendarEntries.dayOrder[41] != 'x'">
+                                    <input readonly type="text" style="color: red;" class="form-control text-center"
+                                           ng-model="vm.cbsMaintenanceOfCalendarEntries.option[vm.cbsMaintenanceOfCalendarEntries.dayOrder[41]]">
+                                    <span class="custom-tooltip" ng-if="vm.cbsMaintenanceOfCalendarEntries.remarks[vm.cbsMaintenanceOfCalendarEntries.dayOrder[41]]">{{vm.cbsMaintenanceOfCalendarEntries.remarks[vm.cbsMaintenanceOfCalendarEntries.dayOrder[41]]}}</span>
+                                </div>
+                            </td>
+						</tr>
+						<tr ng-if="(vm.cbsMaintenanceOfCalendarEntries.dayOrder[35] !='x' && vm.model[0].prevOprType == 'M' )">
+							<td style="padding: 18px;text-align:center" ng-if="vm.model[0].prevOprType == 'M' ">New</td>
+                            <td>
+                                <div class="tooltip-container" ng-if="vm.cbsMaintenanceOfCalendarEntries.dayOrder[35] != 'x'">
+                                    <input readonly type="text" style="color: red;" class="form-control text-center"
+                                           ng-model="vm.cbsMaintenanceOfCalendarEntries.optionNew[vm.cbsMaintenanceOfCalendarEntries.dayOrder[35]]">
+                                    <span class="custom-tooltip" ng-if="vm.cbsMaintenanceOfCalendarEntries.remarksNew[vm.cbsMaintenanceOfCalendarEntries.dayOrder[35]]">{{vm.cbsMaintenanceOfCalendarEntries.remarksNew[vm.cbsMaintenanceOfCalendarEntries.dayOrder[35]]}}</span>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="tooltip-container" ng-if="vm.cbsMaintenanceOfCalendarEntries.dayOrder[36] != 'x'">
+                                    <input readonly type="text" style="color: red;" class="form-control text-center"
+                                           ng-model="vm.cbsMaintenanceOfCalendarEntries.optionNew[vm.cbsMaintenanceOfCalendarEntries.dayOrder[36]]">
+                                    <span class="custom-tooltip" ng-if="vm.cbsMaintenanceOfCalendarEntries.remarksNew[vm.cbsMaintenanceOfCalendarEntries.dayOrder[36]]">{{vm.cbsMaintenanceOfCalendarEntries.remarksNew[vm.cbsMaintenanceOfCalendarEntries.dayOrder[36]]}}</span>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="tooltip-container" ng-if="vm.cbsMaintenanceOfCalendarEntries.dayOrder[37] != 'x'">
+                                    <input readonly type="text" style="color: red;" class="form-control text-center"
+                                           ng-model="vm.cbsMaintenanceOfCalendarEntries.optionNew[vm.cbsMaintenanceOfCalendarEntries.dayOrder[37]]">
+                                    <span class="custom-tooltip" ng-if="vm.cbsMaintenanceOfCalendarEntries.remarksNew[vm.cbsMaintenanceOfCalendarEntries.dayOrder[37]]">{{vm.cbsMaintenanceOfCalendarEntries.remarksNew[vm.cbsMaintenanceOfCalendarEntries.dayOrder[37]]}}</span>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="tooltip-container" ng-if="vm.cbsMaintenanceOfCalendarEntries.dayOrder[38] != 'x'">
+                                    <input readonly type="text" style="color: red;" class="form-control text-center"
+                                           ng-model="vm.cbsMaintenanceOfCalendarEntries.optionNew[vm.cbsMaintenanceOfCalendarEntries.dayOrder[38]]">
+                                    <span class="custom-tooltip" ng-if="vm.cbsMaintenanceOfCalendarEntries.remarksNew[vm.cbsMaintenanceOfCalendarEntries.dayOrder[38]]">{{vm.cbsMaintenanceOfCalendarEntries.remarksNew[vm.cbsMaintenanceOfCalendarEntries.dayOrder[38]]}}</span>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="tooltip-container" ng-if="vm.cbsMaintenanceOfCalendarEntries.dayOrder[39] != 'x'">
+                                    <input readonly type="text" style="color: red;" class="form-control text-center"
+                                           ng-model="vm.cbsMaintenanceOfCalendarEntries.optionNew[vm.cbsMaintenanceOfCalendarEntries.dayOrder[39]]">
+                                    <span class="custom-tooltip" ng-if="vm.cbsMaintenanceOfCalendarEntries.remarksNew[vm.cbsMaintenanceOfCalendarEntries.dayOrder[39]]">{{vm.cbsMaintenanceOfCalendarEntries.remarksNew[vm.cbsMaintenanceOfCalendarEntries.dayOrder[39]]}}</span>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="tooltip-container" ng-if="vm.cbsMaintenanceOfCalendarEntries.dayOrder[40] != 'x'">
+                                    <input readonly type="text" style="color: red;" class="form-control text-center"
+                                           ng-model="vm.cbsMaintenanceOfCalendarEntries.optionNew[vm.cbsMaintenanceOfCalendarEntries.dayOrder[40]]">
+                                    <span class="custom-tooltip" ng-if="vm.cbsMaintenanceOfCalendarEntries.remarksNew[vm.cbsMaintenanceOfCalendarEntries.dayOrder[40]]">{{vm.cbsMaintenanceOfCalendarEntries.remarksNew[vm.cbsMaintenanceOfCalendarEntries.dayOrder[40]]}}</span>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="tooltip-container" ng-if="vm.cbsMaintenanceOfCalendarEntries.dayOrder[41] != 'x'">
+                                    <input readonly type="text" style="color: red;" class="form-control text-center"
+                                           ng-model="vm.cbsMaintenanceOfCalendarEntries.optionNew[vm.cbsMaintenanceOfCalendarEntries.dayOrder[41]]">
+                                    <span class="custom-tooltip" ng-if="vm.cbsMaintenanceOfCalendarEntries.remarksNew[vm.cbsMaintenanceOfCalendarEntries.dayOrder[41]]">{{vm.cbsMaintenanceOfCalendarEntries.remarksNew[vm.cbsMaintenanceOfCalendarEntries.dayOrder[41]]}}</span>
+                                </div>
+                            </td>
+						</tr>
+						</tbody>
+					</table>
+				</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-sm-offset-5 col-sm-8 form_submit">
+
+					<button type="button" class="btn btn-cancel" id="cancelButton"  onclick="window.location.href= '#!/cbs_master_updation';" >Cancel</button>
+				</div>
+			</div>
+		</div>
+
+
+		<div class="col-sm-12" ng-if="vm.model[0].createdBy" >
+			<div class="audit-details">
+				<div class="row">
+					<div class="col-md-3">
+						<span> <b> Created By </b> : {{vm.model[0].createdBy}} </span>
+					</div>
+					<div class="col-md-3">
+						<span> <b> Last Modified By </b> : {{(vm.model[0].modifiedBy) ? ( vm.model[0].modifiedBy) : ('None')}}</span>
+					</div>
+					<div class="col-md-3">
+						<span> <b> Last Verified By </b> : {{(vm.model[0].verifiedBy) ? ( vm.model[0].verifiedBy) : ('None')}}</span>
+					</div>
+					<div class="col-md-3">
+						<span> <b> Verify Status </b> : {{ vm.model[0].verfiedStatus  | getLabelFromValuesArray : vm.commonYesNoMetaData}}</span>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-3">
+						<span> <b> Created On </b> : {{vm.model[0].createdDate | date : 'dd/MM/yyyy'}}</span>
+					</div>
+
+					<div class="col-md-3">
+						<span> <b> Last Modified On </b> : {{(vm.model[0].modifiedDate) ? ( vm.model[0].modifiedDate | date : 'dd/MM/yyyy') : ('None')}}</span>
+					</div>
+					<div class="col-md-3">
+						<span> <b> Last Verified On </b> : {{(vm.model[0].verifiedDate) ? ( vm.model[0].verifiedDate | date : 'dd/MM/yyyy') : ('None')}}</span>
+					</div>
+					<div class="col-md-3">
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-sm-12">
+			<div class="text-center notice-message text-danger" style="text-align: left;">
+				<b>Note :</b>
+				<ul>
+					<li>Y – Holiday.</li>
+					<li>(*) - indicates mandatory fields. Submit/Update button will be enabled, once all the mandatory fields are filled.</li>
+				</ul>
+			</div>
+		</div>
+	</form>
+</div>
+
+
+<!-- month / year Details -->
+<div class="modal" id="monthYearDetailModal" role="dialog">
+	<div class="modal-dialog">
+		<!-- Modal content-->
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-bs-dismiss="modal">&times;</button>
+				<h4 class="modal-title">Month/Year Details</h4>
+			</div>
+			<div class="modal-body">
+				<div class="loader_popup"></div>
+				<div class="list_wrapper" ng-if="vm.model.length>0">
+					<div class="col-sm-8 form_submit">
+						<div class="form-group">
+							<div class="input-group">
+								<div class="input-group-addon">
+									<i class="glyphicon glyphicon-search"></i>
+								</div>
+								<input type="text" class="form-control"
+									   ng-model="vm.modalSearch" chars="alpha-numeric" ng-init="vm.modalSearch = ''"
+									   placeholder="Search">
+							</div>
+						</div>
+					</div>
+					<div class="col-sm-4 form_submit"></div>
+					<div class="row">
+						<div class="col-sm-12">
+							<table class="table table-bordered list scroll sort">
+								<thead ng-init="reverseOrder=false; sortedColumn = 'mmyyyy'">
+								<tr>
+									<th ng-click="(sortedColumn == 'mmyyyy')?(reverseOrder=(!reverseOrder)): (reverseOrder = false);sortedColumn = 'mmyyyy';" ng-class="(sortedColumn == 'mmyyyy')?((reverseOrder)?('arrow-down') : ('arrow-up') ) : ('')">MM/YYYY</th>
+								</tr>
+								</thead>
+								<tbody>
+								<tr class="cp"
+									ng-repeat="x in vm.model | filter:vm.modalSearch | orderBy:sortedColumn:reverseOrder"
+									ng-click="vm.monthYear = x.MMYYYY;vm.inquirySelect('all',vm.monthYear);"  data-bs-dismiss="modal">
+									<td>{{x.MMYYYY}}</td>
+								</tr>
+								</tbody>
+							</table>
+						</div>
+
+					</div>
+				</div>
+				<div class="list_wrapper" ng-if="vm.model.length==0">No records found to display.</div>
+			</div>
+
+		</div>
+	</div>
+</div>
+<!-- Month / Year  Details - End -->

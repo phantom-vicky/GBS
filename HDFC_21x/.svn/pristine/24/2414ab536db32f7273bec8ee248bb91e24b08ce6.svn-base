@@ -1,0 +1,291 @@
+<div class="loader-new" ng-if="vm.loader"></div>
+<dc-left-menu></dc-left-menu>
+<div class="container from_wrapper new_form_wrapper">
+
+    <h4 class="form_heading">RBI BOND Trial run for Brokerage - Verify/Reject</h4>
+    <sol-header></sol-header>
+    <table class="table table-bordered">
+        <tbody>
+
+        <tr>
+            <td width="25%" class="form-group">
+                <label class="control-label">Name of the Bond Scheme</label></td>
+            <td width="25%">
+                <label class="control-label" >{{vm.schemeName}}</label>
+            </td>
+
+            <td width="25%" class="form-group">
+                <label class="control-label">Agency Code</label></td>
+            <td width="25%">
+                <label class="control-label" >{{vm.agencyCode}}</label>
+            </td>
+        </tr>
+
+
+
+
+
+        </tbody>
+    </table>
+    <form name="trailRunBrokerageForm" role="form" novalidate>
+        <!-- First Table -->
+        <div class="row">
+            <h4 class="form_heading">Trail Run Brokerage BLA Details</h4>
+            <div class="col-sm-12">
+                <div class="row" id="show">
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label>
+                                Show
+                                <select class="form-control record-filter" ng-model="vm.itemsPerPage" ng-options="option for option in vm.pageSizeOptions">
+                                </select>
+                                records per page
+                            </label>
+                        </div>
+                    </div>
+                    <div class="col-sm-3 pull-right-search">
+                        <div class="form-group">
+                            <div class="input-group">
+                                <div class="input-group-addon"><i class="glyphicon glyphicon-search"></i></div>
+                                <input type="text" class="form-control" ng-model="search1" placeholder="Search">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="table-responsive">
+                    <table class="table table-bordered table-striped list table-textWrap" style="width: max-content;">
+                        <thead>
+                        <tr>
+                            <th>S.No</th>
+                            <th>BLA No</th>
+                            <th>Investment Amount</th>
+                            <th>CAS Transfer Date</th>
+                            <th>Maturity Date</th>
+                            <th>Scheme</th>
+                            <th>CFD</th>
+                            <th>SUBSCRIPTION_ID</th>
+                            <th>APPLICANT PAN NO 1</th>
+                            <th>APPLICANT PAN NO 2</th>
+                            <th>APPLICANT PAN NO 3</th>
+                            <th>Bank Name</th>
+                            <th>Applicant Name</th>
+                            <th>Advice No</th>
+                            <th>Applicant Address1</th>
+                            <th>Applicant Adddress2</th>
+                            <th>City</th>
+                            <th>State</th>
+                            <th>Pin Code</th>
+                            <th>Branch Name</th>
+                            <th>Reciept Date</th>
+                            <th>Group Code</th>
+                            <th>HDFC Broker Code</th>
+                            <th>Broker Name</th>
+                            <th>Broker Address1</th>
+                            <th>Broker Address2</th>
+                            <th>Broker City</th>
+                            <th>State1</th>
+                            <th>Broker Pin Code</th>
+                            <th>Broker Phone</th>
+                            <th>Broker Email Id</th>
+                            <th>Broker Pan</th>
+                            <th>Payment Mode</th>
+                            <th>Account Type Code</th>
+                            <th>Bank Account</th>
+                            <th>MICR CODE</th>
+                            <th>Applicant No</th>
+                            <th>Status</th>
+                            <th>DE Status</th>
+                            <th>Gross Broker</th>
+                            <th>GST</th>
+                            <th>Net Broker</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr dir-paginate="x in vm.trailRunBlaDetail | filter:search1 | itemsPerPage:vm.itemsPerPage"
+                            pagination-id="firstTable"
+                            current-page="vm.currentPage1">
+                            <td>{{(vm.currentPage1 - 1) * vm.itemsPerPage + $index + 1}}</td>
+                            <td align="center">{{x.blaNo}}</td>
+                            <td align="center">{{x.investAmt}}</td>
+                            <td align="center">{{x.casTransferDate}}</td>
+                            <td align="center">{{x.maturityDate}}</td>
+                            <td align="center">{{x.scheme}}</td>
+                            <td align="center">{{x.cfd}}</td>
+                            <td align="center">{{x.branchRefNo}}</td>
+                            <td align="center">{{x.panNo}}</td>
+                            <td align="center">{{x.applPanNo1}}</td>
+                            <td align="center">{{x.applPanNo2}}</td>
+                            <td align="center">{{x.bankName}}</td>
+                            <td align="center">{{x.applicantName}}</td>
+                            <td align="center">{{x.adviceNo}}</td>
+                            <td align="center">{{x.applAdd1}}</td>
+                            <td align="center">{{x.applAdd2}}</td>
+                            <td align="center">{{x.city}}</td>
+                            <td align="center">{{x.state}}</td>
+                            <td align="center">{{x.pincode}}</td>
+                            <td align="center">{{x.branchName}}</td>
+                            <td align="center">{{x.rcptDate}}</td>
+                            <td align="center">{{x.groupCode}}</td>
+                            <td align="center">{{x.hdfcBrokerCode}}</td>
+                            <td align="center">{{x.brokerName}}</td>
+                            <td align="center">{{x.brokerAdd1}}</td>
+                            <td align="center">{{x.brokerAdd2}}</td>
+                            <td align="center">{{x.brokerCity}}</td>
+                            <td align="center">{{x.state1}}</td>
+                            <td align="center">{{x.brokerPinCode}}</td>
+                            <td align="center">{{x.bPhone}}</td>
+                            <td align="center">{{x.brokerEmailId}}</td>
+                            <td align="center">{{x.brokerPan}}</td>
+                            <td align="center">{{x.paymentMode}}</td>
+                            <td align="center">{{x.accountTypeCode}}</td>
+                            <td align="center">{{x.bankAccount}}</td>
+                            <td align="center">{{x.micrCode}}</td>
+                            <td align="center">{{x.applNo}}</td>
+                            <td align="center">{{x.status}}</td>
+                            <td align="center">{{x.deStatus}}</td>
+                            <td align="center">{{x.grossBrok}}</td>
+                            <td align="center">{{x.gst}}</td>
+                            <td align="center">{{x.netBrok}}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <dir-pagination-controls direction-links="true" boundary-links="true"  pagination-id="firstTable">
+                </dir-pagination-controls>
+            </div>
+        </div>
+
+        <!-- Second Table -->
+        <div class="row">
+            <h4 class="form_heading">Broker Wise Consolidated Brokerage Details</h4>
+
+            <div class="col-sm-12">
+                <div class="row" id="show2">
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label>
+                                Show
+                                <select class="form-control record-filter" ng-model="vm.itemsPerPageBLA" ng-options="option for option in vm.pageSizeOptionsBLA">
+                                </select>
+                                records per page
+                            </label>
+                        </div>
+                    </div>
+                    <div class="col-sm-3 pull-right-search">
+                        <div class="form-group">
+                            <div class="input-group">
+                                <div class="input-group-addon"><i class="glyphicon glyphicon-search"></i></div>
+                                <input type="text" class="form-control" ng-model="search2" placeholder="Search">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="table-responsive">
+                    <table class="table table-bordered table-striped list table-textWrap"  style="width: max-content;">
+                        <thead>
+                        <tr>
+                            <th width="40px">
+                                <input type="checkbox" id="selectedAllItem" ng-change="vm.optionToggled('ALL');" ng-init="vm.selectedAllItem = false"
+                                       name="selectedAllItem" ng-model="vm.selectedAllItem" >
+                            </th>
+                            <th>S.No</th>
+                            <th>Broker Name</th>
+                            <th>Broker Code</th>
+                            <th>GSTIN Number</th>
+                            <th>Broker PAN</th>
+                            <th>Broker Email id</th>
+                            <th>Total Investment Amount</th>
+                            <th>Gross Brokerage</th>
+                            <th>Net Brokerage</th>
+                            <th>GST</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr dir-paginate="x in vm.trailRunBrokerDetail | filter:search2 | itemsPerPage:vm.itemsPerPageBLA"
+                            pagination-id="secondTable"
+                            current-page="vm.currentPage2">
+                            <td>
+                                <input type="checkbox" id="selectedItem{{$index}}" ng-change="vm.optionToggled();"
+                                       name="selectedItem{{$index}}" ng-model="x.selected">
+                            </td>
+                            <td>{{(vm.currentPage2 - 1) * vm.itemsPerPageBLA + $index + 1}}</td>
+                            <td align="center">{{x.brokerName}}</td>
+                            <td align="center">{{x.brokerCode}}</td>
+                            <td align="center">{{x.gstinNo}}</td>
+                            <td align="center">{{x.brokerPan}}</td>
+                            <td align="center">{{x.brokerEmailId}}</td>
+                            <td align="center">{{x.totalInvstAmt}}</td>
+                            <td align="center">{{x.grossBrokerage}}</td>
+                            <td align="center">{{x.netBrokerage}}</td>
+                            <td align="center">{{x.gst}}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <dir-pagination-controls direction-links="true" boundary-links="true" pagination-id="secondTable">
+                </dir-pagination-controls>
+            </div>
+        </div>
+
+        <div class="alert alert-danger" ng-show="vm.selectionError">
+            Please select at least one item.
+        </div>
+
+        <div class="text-center form_submit">
+            <button type="submit" class="btn btn-default" id="submitButton"
+                    ng-click="vm.verifySubmit();">Verify</button>
+            <button type="button" class="btn btn-default" id="downloadButton"
+                    ng-disabled="trailRunBrokerageForm.$invalid" ng-click="vm.downloadVerify(
+                        vm.schemeCode,
+                        vm.agencyCode
+                    );">Download</button>
+            <button type="submit" class="btn btn-default" id="rejectButton"
+                    ng-disabled="trailRunBrokerage.$invalid" ng-click="vm.rejectReason()">Reject</button>
+            <button type="button" id="cancel" class="btn btn-cancel"
+                    onclick="window.location.href= '#!/rbibond_trail_run_brokerage/action/verify';">Cancel</button>
+        </div>
+    </form>
+
+    <!-- Rejection Modal -->
+    <div class="modal" id="permissionMappingDelete" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-bs-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">REJECTION REMARKS</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="loader_popup"></div>
+                    <div class="list_wrapper">
+                        <form name="permissionDelete" role="form">
+                            <div class="row">
+                                <div class="form-group">
+                                    <div class="col-sm-2"></div>
+                                    <label class="control-label col-sm-3">Remarks</label>
+                                    <div class="col-sm-5">
+                                        <select class="form-control list_wrapper" id="remarks" name="remarks"
+                                                ng-model="vm.remarks" ng-init="vm.getRemarksList();" required>
+                                            <option value="">Select</option>
+                                            <option ng-repeat="item in vm.remarksList"
+                                                    value="{{item.subCodeDescription}}">{{item.subCodeDescription}}</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-offset-5 col-sm-8 form_submit">
+                                <button type="button" class="btn btn-default" data-bs-dismiss="modal"
+                                        ng-disabled="permissionDelete.$invalid" ng-click="vm.deleteSubmit()">Submit</button>
+                                <button type="button" class="btn btn-cancel" data-bs-dismiss="modal">Cancel</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

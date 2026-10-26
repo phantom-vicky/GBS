@@ -1,0 +1,145 @@
+<div class="loader-new" ng-if="vm.loader"></div>
+<dc-left-menu></dc-left-menu>
+<div class="container from_wrapper new_form_wrapper">
+    <h4 class="form_heading">Accounting Entries - Modify</h4>
+    <sol-header></sol-header>
+    <form name="accountOpeningForm" role="form">
+<!--Name of the Module-->
+        <div class="row">
+            <div class="form-group">
+                <div class="col-sm-3"></div>
+                <div class="col-sm-3">
+                    <label class="control-label">Name of the Module</label>
+                </div>
+                <div class="col-sm-4">
+                    <label><strong>RBI Bond</strong></label>
+                </div>
+            </div>
+        </div>
+<!--Name of the Bond Scheme-->
+        <div class="row">
+            <div class="form-group ">
+                <div class="col-sm-3"></div>
+                <div class="col-sm-3">
+                    <label for="schemeCode" class="control-label">Name of the Bond Scheme</label>
+                </div>
+                <div class="col-sm-2">
+                    <input type="text" class="form-control" id="schemeCode" ng-model="vm.schemeName" required readonly>
+                </div>
+                <div class="col-sm-2"
+                     style="display: flex; align-items: center; height: 34px; gap: 5px; padding-left:0;">
+                    <span class="glyphicon glyphicon-search cp" data-bs-toggle="schemeName" id="treasurySearcher"
+                          ng-click="vm.getModifyModuleName();"></span>
+                    <span class="glyphicon glyphicon-remove clear cp"
+                          ng-click="vm.schemeCode ='';vm.schemeName =''; vm.schemeStatus='';"></span>
+                </div>
+            </div>
+        </div>
+<!--Effective From Date-->
+        <div class="row">
+            <div class="form-group ">
+                <div class="col-sm-3"></div>
+                <div class="col-sm-3">
+                    <label class="control-label">Effective From Date</label>
+                </div>
+                <div class="col-sm-2">
+                    <p class="input-group">
+                        <input type="text" class="form-control" id="fromDate" name="fromDate"
+                               ng-model="vm.effectiveFromDate" required>
+                    </p>
+                </div>
+            </div>
+        </div>
+<!--Version No.-->
+        <div class="row">
+            <div class="form-group required">
+                <div class="col-sm-3"></div>
+                <div class="col-sm-3">
+                    <label class="control-label">Version No.</label>
+                </div>
+                <div class="col-sm-2">
+                    <input type="text" class="form-control" id="versionNo" ng-model="vm.versionNo" readonly required>
+                </div>
+            </div>
+        </div>
+        <!--Submit & Cancel Button-->
+        <div class="text-center form_submit">
+            <button type="submit" class="btn btn-default" id="nextButton" ng-disabled="accountOpeningForm.$invalid"
+                    ui-sref="accounting_entries.modify_detail({obj:{
+								schemeCode: vm.schemeCode,
+								schemeName: vm.schemeName,
+								effectiveFromDate: vm.effectiveFromDate,
+								}})">Next
+            </button>
+            <button type="button" id="otherpen_cancelButton" class="btn btn-cancel"
+                    onclick="window.location.href= '#!/accounting_entries/action/inquiry';">Cancel
+            </button>
+        </div>
+
+        <div class="text-center">
+            <notice-message-directive></notice-message-directive>
+        </div>
+    </form>
+</div>
+
+<!--Bond Scheme Name-->
+<div class="modal" id="schemeModel" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-bs-dismiss="modal" ng-click="vm.searchSolId=''">&times;</button>
+                <h4 class="modal-title">Name of the Bond Scheme</h4>
+            </div>
+            <div class="modal-body">
+                <div class="loader_popup"></div>
+                <div class="list_wrapper" ng-if="vm.schemeList.length>0">
+                    <div class="col-sm-8 form_submit">
+                        <div class="form-group">
+                            <div class="input-group">
+                                <div class="input-group-addon">
+                                    <span class="glyphicon glyphicon-search"></span>
+                                </div>
+                                <input type="text" class="form-control" ng-model="vm.searchSolId"
+                                       ng-Byinit="vm.searchSolId = ''" placeholder="Search"
+                                       oninput="this.value = this.value.replace(/^\s+/, '').replace(/\s{2,}/g, ' ')">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4 form_submit"></div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <table class="table table-bordered list scroll sort" aria-label="">
+                                <thead ng-init="reverseOrder=true;sortedColumn = 'blaAccNo'">
+                                <tr>
+                                    <th ng-click="(sortedColumn == 'bondType')?(reverseOrder=(!reverseOrder)): (reverseOrder = false);sortedColumn = 'bondType';"
+                                        ng-class="(sortedColumn == 'bondType')?((reverseOrder)?('arrow-down') : ('arrow-up') ) : ('')"
+                                        scope="">
+                                        Name of the Bond Scheme
+                                    </th>
+                                    <th ng-click="(sortedColumn == 'bondType')?(reverseOrder=(!reverseOrder)): (reverseOrder = false);sortedColumn = 'bondType';"
+                                        ng-class="(sortedColumn == 'bondType')?((reverseOrder)?('arrow-down') : ('arrow-up') ) : ('')"
+                                        scope="">
+                                        Scheme Status
+                                    </th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr class="cp"
+                                    ng-repeat="x in vm.schemeList | filter:vm.searchSolId | orderBy:sortedColumn:reverseOrder"
+                                    ng-click="vm.schemeName = x.schemeName;vm.schemeCode = x.schemeCode;vm.schemeStatus = x.schemeStatus;vm.effectiveFromDate = x.effectiveFromDate;
+                                    vm.versionNo= x.versionNo;vm.pkColumnValues= x.pkColumnValues;"
+                                    data-bs-dismiss="modal">
+                                    <td>{{x.schemeName}}</td>
+                                    <td>{{x.schemeStatus}}</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="list_wrapper" ng-if="vm.schemeList.length==0">No records found to display.</div>
+            </div>
+        </div>
+    </div>
+</div>

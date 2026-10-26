@@ -1,0 +1,217 @@
+<div class="loader-new" data-ng-if="vm.loader"></div>
+<div class="container" data-ng-if="vm.model.length>0">
+    <div class="container from_wrapper new_form_wrapper">
+        <div class="text-right form_submit">
+            <button type="submit" class="btn btn-default" onclick="window.location.href ='#!/'"
+                id="homeButton">Home</button>
+            <button type="button" id="cancel_Button" class="btn btn-cancel"
+                onclick="window.location.href= '#!/AIR/action/inquiry';">Back
+            </button>
+        </div>
+        <h4 class="form_heading">AIR</h4>
+
+        <table style="width:100%" class="table table-bordered" aria-label="">
+            <tr>
+                <th scope="col">Name of the Bond Scheme</th>
+                <td>{{vm.schemeName}}</td>
+            </tr>
+            <tr>
+                <th scope="col">Financial Year</th>
+                <td>{{vm.financialYear}}</td>
+            </tr>
+            <tr>
+                <th scope="col" colspan="2" style="text-align:center">Annual Information reporting of customers who have
+                    invested in RBI bonds for amount greater than equal to 10 lacs at PAN level for the FY
+                </th>
+            </tr>
+            <tr>
+                <th scope="col" colspan="2" style="text-align:center">Format of reporting</th>
+            </tr>
+        </table>
+
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="row" style="display: flex; align-items: center; justify-content: space-between">
+                    <div class="col-sm-3" style="flex: 1">
+                        <div class="form-group">
+                            <table style="border-spacing: 2" aria-label="">
+                                <tr>
+                                    <th scope="col"></th>
+                                </tr>
+                                <tr>
+                                    <td>Show&nbsp;</td>
+                                    <td>
+                                        <select id="pageSize" class="form-control filter-control"
+                                            data-ng-model="vm.pageSize" data-ng-change="vm.updatePageSize()"
+                                            data-ng-options="option for option in vm.pageSizeOptions"></select>
+                                    </td>
+                                    <td>&nbsp;records per page</td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-6" style="display: flex; align-items: center; justify-content: flex-end">
+                        <div class="form-group" style="margin-right: 15px">
+                            <div class="input-group">
+                                <div class="input-group-addon">
+                                    <span class="glyphicon glyphicon-search"></span>
+                                </div>
+                                <input type="text" id="search" class="form-control"
+                                    data-ng-change="vm.updateFilteredRecords()" data-ng-model="vm.searchText"
+                                    placeholder="Search" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <select class="form-control" id="export" name="export" data-ng-model="vm.downloadType"
+                                data-ng-init="vm.downloadType=''" data-ng-change="vm.downloadReport()">
+                                <option value="">EXPORT</option>
+                                <option value="excel">EXCEL</option>
+                                <!--<option value="csv">CSV</option>-->
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="table-responsive">
+                    <table class="table table-bordered table-striped list table-textWrap" aria-label="">
+                        <thead>
+                            <tr class="thalign">
+                                <th scope="col"> Report Serial Number</th>
+                                <th scope="col"> Original Report Serial Number</th>
+                                <th scope="col"> Person Name</th>
+                                <th scope="col"> Person Type</th>
+                                <th scope="col"> Customer Identity</th>
+                                <th scope="col"> Gender</th>
+                                <th scope="col"> Father’s Name</th>
+                                <th scope="col"> PAN</th>
+                                <th scope="col"> Aadhaar Number</th>
+                                <th scope="col"> Form 60 Acknowledgment</th>
+                                <th scope="col"> Identification Type</th>
+                                <th scope="col"> Identification Number</th>
+                                <th scope="col"> Date of birth/Incorporation</th>
+                                <th scope="col"> Nationality/Country of Incorporation</th>
+                                <th scope="col"> Address Type</th>
+                                <th scope="col"> Fix Address</th>
+                                <th scope="col"> City/Town</th>
+                                <th scope="col"> Postcode</th>
+                                <th scope="col"> State</th>
+                                <th scope="col"> Country Code</th>
+                                <th scope="col"> Business or occupation</th>
+                                <th scope="col"> Primary STD Code</th>
+                                <th scope="col"> Primary Phone No</th>
+                                <th scope="col"> Primary Mobile No</th>
+                                <th scope="col"> Secondary STD Code</th>
+                                <th scope="col"> Secondary Phone No</th>
+                                <th scope="col"> Secondary Mobile No</th>
+                                <th scope="col"> Email</th>
+                                <th scope="col"> Remarks</th>
+                                <th scope="col"> Product Type</th>
+                                <th scope="col"> Aggregate gross amount received from the person</th>
+                                <th scope="col"> Aggregate gross amount received from the person in cash</th>
+                                <th scope="col"> Aggregate gross amount paid to the person</th>
+                                <th scope="col"> Transaction Summary Remarks</th>
+                                <th scope="col"> Product Identifier</th>
+                                <th scope="col"> Last Date of Transaction</th>
+                                <th scope="col"> Amount Received From Person</th>
+                                <th scope="col"> Cash Amount Received From Person</th>
+                                <th scope="col"> Amount Paid To Person</th>
+                                <th scope="col"> Related Account Number</th>
+                                <th scope="col"> Related Institute Name</th>
+                                <th scope="col"> Related Institute Ref Number</th>
+                                <th scope="col"> Financial Transaction Details Remarks</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr
+                                data-ng-repeat="x in vm.filteredRecords.slice((vm.currentPage-1)*vm.pageSize, vm.currentPage*vm.pageSize)">
+                                <td>{{ (vm.currentPage - 1) * vm.pageSize + $index + 1 }}</td>
+                                <td>{{x.originalReportSerialNumber}}</td>
+                                <td>{{x.personName}}</td>
+                                <td>{{x.personType}}</td>
+                                <td>{{x.customerIdentity}}</td>
+                                <td>{{x.gender}}</td>
+                                <td>{{x.fatherName}}</td>
+                                <td>{{x.panNumber}}</td>
+                                <td>{{x.aadhaarNumber}}</td>
+                                <td>{{x.form60Acknowledgment}}</td>
+                                <td>{{x.identificationType}}</td>
+                                <td>{{x.identificationNumber}}</td>
+                                <td>{{x.dateOfBirth}}</td>
+                                <td>{{x.nationality}}</td>
+                                <td>{{x.addressType}}</td>
+                                <td>{{x.fixAddress}}</td>
+                                <td>{{x.city}}</td>
+                                <td>{{x.postcode}}</td>
+                                <td>{{x.state}}</td>
+                                <td>{{x.countryCode}}</td>
+                                <td>{{x.business}}</td>
+                                <td>{{x.primarySTDCode}}</td>
+                                <td>{{x.primaryPhoneNo}}</td>
+                                <td>{{x.primaryMobileNo}}</td>
+                                <td>{{x.secondarySTDCode}}</td>
+                                <td>{{x.secondaryPhoneNo}}</td>
+                                <td>{{x.secondaryMobileNo}}</td>
+                                <td>{{x.email}}</td>
+                                <td>{{x.remarks}}</td>
+                                <td>{{x.productType}}</td>
+                                <td>{{x.grossAmountReceivedPerson}}</td>
+                                <td>{{x.grossAmountReceivedPersonInCash}}</td>
+                                <td>{{x.grossAmountPaidToPerson}}</td>
+                                <td>{{x.transactionSummaryRemarks}}</td>
+                                <td>{{x.productIdentifier}}</td>
+                                <td>{{x.lastDateOfTransaction}}</td>
+                                <td>{{x.amountReceivedFromPerson}}</td>
+                                <td>{{x.cashAmountReceivedFromPerson}}</td>
+                                <td>{{x.amountPaidToPerson}}</td>
+                                <td>{{x.relatedAccountNumber}}</td>
+                                <td>{{x.relatedInstituteName}}</td>
+                                <td>{{x.relatedInstituteRefNumber}}</td>
+                                <td>{{x.financialTransactionDtlsRemarks}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <br />
+                <div class="row">
+                    <div data-ng-if="vm.filteredRecords.length != 0" class="col-md-12 text-right">
+                        <div class="pagination-container">
+                            <ul class="pagination">
+                                <li data-ng-class="{disabled: vm.currentPage === 1}">
+                                    <a href="javascript:void(0)" data-ng-click="vm.firstPage()">First</a>
+                                </li>
+                                <li data-ng-class="{disabled: vm.currentPage === 1}">
+                                    <a href="javascript:void(0)" data-ng-click="vm.prevPage()">Prev</a>
+                                </li>
+                                <li data-ng-repeat="page in vm.pages"
+                                    data-ng-class="{active: vm.page === vm.currentPage}">
+                                    <a href="javascript:void(0)" data-ng-click="vm.setPage(page)">{{page}}</a>
+                                </li>
+                                <li data-ng-class="{disabled: vm.currentPage === vm.totalPages}">
+                                    <a href="javascript:void(0)" data-ng-click="vm.nextPage()">Next</a>
+                                </li>
+                                <li data-ng-class="{disabled: vm.currentPage === vm.totalPages}">
+                                    <a href="javascript:void(0)" data-ng-click="vm.lastPage()">Last</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">Showing {{(vm.currentPage-1)*vm.pageSize + 1}} to {{vm.maxValue()}} of
+                    {{vm.filteredRecords.length}} records
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container" data-ng-if="vm.noDataFound">
+    <div class="list_wrapper no_records_message">
+        <h4 class="form_heading">AIR</h4>
+        No records found to display.
+        <div style="text-align: center">
+            <button type="button" class="btn btn-default" onclick="window.location.href= '#!/AIR/action/inquiry';">Back
+            </button>
+        </div>
+    </div>
+</div>

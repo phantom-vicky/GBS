@@ -1,0 +1,209 @@
+ <left-menu-directive></left-menu-directive>
+<div class="loader-new" ng-show="loader"></div>
+<div class="container from_wrapper" ng-show="displayForm == true">
+	
+	<h4 class="form_heading  feature-heading">User Work Class Information -	{{action}}</h4>
+	<div  ng-if="action == 'modify' || action == 'add'">
+		<notice-message-directive ></notice-message-directive>
+	</div>
+	<form name="userDetailsForm" role="form" ng-submit="submitForm(userDetailsForm.$valid)" enctype="multipart/form-data" novalidate>
+		<div class="row">
+		    <div class="form-group" ng-class="requiredClass">	
+			  	<label for="userId" class ="control-label col-sm-3">User ID</label>
+				<div class="col-sm-2 inner-addon right-addon">
+					<input type="text" class="form-control" id="userId" name="userId" ng-model="userDetails.userId" maxlength="15"  ng-if="action == 'modify' || action == 'add'" required ng-disabled="action === 'modify'">
+					<label ng-if="action == 'delete' || action == 'verify' || action == 'inquiry'">: {{userDetails.userId}}</label>
+				</div>
+				<div class="col-sm-2"></div>
+				 <label for="userWorkClass" class ="control-label col-sm-3">User work class</label>
+				<div class="col-sm-2">
+					<input type="text" class="form-control" id="userWorkClass" name="userWorkClass" ng-model="userDetails.userWorkClass" maxlength="3" ng-if="action == 'modify' || action == 'add'">
+					<label ng-if="action == 'delete' || action == 'verify' || action == 'inquiry'">: {{userDetails.userWorkClass}}</label>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+		 <div class="form-group" ng-class="requiredClass">
+		  	<label for="solId" class ="control-label col-sm-3">Sol ID</label>
+			<div class="col-sm-2">
+			  <input type="text" class="form-control" id="solId" name="solId" ng-model="userDetails.solId" maxlength="8" ng-if="action == 'modify' || action == 'add'" required>
+			  <label ng-if="action == 'delete' || action == 'verify' || action == 'inquiry'">: {{userDetails.solId}}</label>
+				<!-- <option  ng-selected= "{{item.tranTypeKey == branchesOfTheBank.bankCode}}" ng-repeat="item in tranTypeList" value="{{item.tranTypeKey}}">{{item.tranTypeName}}</option> -->
+			</div>
+			<div class="col-sm-2"></div>
+			<label for="userSolTenor" class ="control-label col-sm-3">User Sol Tenor</label>
+			<div class="col-sm-2">
+			  <input type="text" class="form-control" id="userSolTenor" name="userSolTenor" ng-model="userDetails.userSolTenor" maxlength="1" ng-if="action == 'modify' || action == 'add'" >
+			  <label ng-if="action == 'delete' || action == 'verify' || action == 'inquiry'">: {{userDetails.userSolTenor}}</label>
+			</div>
+		</div>
+		</div>
+		<div class="row">
+		<div class="form-group" ng-class="requiredClass">
+		  	<label for="userMaxInactiveTime" class ="control-label col-sm-3">User Max Inactive Time</label>
+			<div class="col-sm-2">
+			  <input type="text" class="form-control" id="userMaxInactiveTime" name="userMaxInactiveTime" ng-model="userDetails.userMaxInactiveTime" maxlength="3" ng-if="action == 'modify' || action == 'add'" allow-only-numbers required>
+			  <label ng-if="action == 'delete' || action == 'verify' || action == 'inquiry'">: {{userDetails.userMaxInactiveTime}}</label>
+			</div>
+			<div class="col-sm-2"></div>
+			 <label for="userAccountExpiryDate" class ="control-label col-sm-3">User Account Expiry Date</label>
+	
+			<div class="col-sm-2">
+			  <input type="text" class="form-control" id="userAccountExpiryDate" name="userAccountExpiryDate" ng-model="userDetails.userAccountExpiryDate"  ng-show="action == 'modify' || action == 'add'" onkeydown="return false;">
+			  <label ng-if="action == 'delete' || action == 'verify' || action == 'inquiry'">: {{userDetails.userAccountExpiryDate| date: 'dd/MM/y'}}</label>
+			 
+			</div>
+		</div>	
+		</div>
+		<div class="row">
+		<div class="form-group" ng-class="requiredClass">
+		  	<label for="userApplicationName" class ="control-label col-sm-3">User Appl Name</label>
+			<div class="col-sm-2">
+			  <input type="text" class="form-control" id="userApplicationName" name="userApplicationName" ng-model="userDetails.userApplicationName" maxlength="2" ng-if="action == 'modify' || action == 'add'" required>
+			  <label ng-if="action == 'delete' || action == 'verify' || action == 'inquiry'">: {{userDetails.userApplicationName}}</label>
+			  
+			</div>
+			<div class="col-sm-2"></div>
+			<label for="userPasswordExpiryDate" class ="control-label col-sm-3">User Password Expiry Date</label>
+			<div class="col-sm-2">
+			  <input type="text" class="form-control" id="userPasswordExpiryDate" name="userPasswordExpiryDate" ng-model="userDetails.userPasswordExpiryDate"  onkeydown="return false" ng-show="action == 'modify' || action == 'add'" required >
+			  <label ng-if="action == 'delete' || action == 'verify' || action == 'inquiry'">: {{userDetails.userPasswordExpiryDate| date: 'dd/MM/y'}}</label>
+			  <!-- <div ng-show="branchesOfTheBankForm.tranIdFrom.$error.number" class="help-block alert alert-danger">Tran Id From should be in numbers</div> -->
+			</div>
+		</div>	
+		</div>
+		<div class="row">
+		<div class="form-group" ng-class="requiredClass">
+		  	<label for="newUserFlag" class ="control-label col-sm-3">New User Flag</label>
+			<div class="col-sm-2">
+			  <select class="form-control" id="newUserFlag" name="newUserFlag" ng-model="userDetails.newUserFlag" ng-if="action == 'modify' || action == 'add'" required>
+						<option ng-selected= "{{userDetails.newUserFlag == ''}}" value="">Select</option>
+						<option ng-selected= "{{userDetails.newUserFlag == 'true'}}" value="true" >Yes</option>
+						<option ng-selected= "{{userDetails.newUserFlag == 'false'}}" value="false">No</option>
+					</select>					
+					<label ng-if="action == 'delete' || action == 'verify' || action == 'inquiry'">: {{userDetails.newUserFlag}}</label>
+			</div>
+			<div class="col-sm-2"></div>
+			<label for="defaultTermId" class ="control-label col-sm-3">Default term ID</label>
+			<div class="col-sm-2">
+			  <input type="text" class="form-control" id="defaultTermId" name="defaultTermId" ng-model="userDetails.defaultTermId" maxlength="15" ng-if="action == 'modify' || action == 'add'" required>
+			  <label ng-if="action == 'delete' || action == 'verify' || action == 'inquiry'">: {{userDetails.defaultTermId}}</label>
+			</div>
+		</div>	
+		</div>
+		<div class="row">
+		<div class="form-group ">
+		  	<div ng-class="requiredClass">	<label for="virtualFlag" class ="control-label col-sm-3">Virtual Flag</label></div>
+			<div class="col-sm-2">
+			  <select class="form-control" id="virtualFlag" name="virtualFlag" ng-model="userDetails.virtualFlag" ng-if="action == 'modify' || action == 'add'" required>
+						<option ng-selected= "{{userDetails.virtualFlag == ''}}" value="">Select</option>
+						<option  ng-selected= "{{userDetails.virtualFlag == 'true'}}" value="true" >Yes</option>
+						<option ng-selected= "{{userDetails.virtualFlag == 'false'}}" value="false">No</option>
+					</select>					
+					<label ng-if="action == 'delete' || action == 'verify' || action == 'inquiry'">: {{userDetails.virtualFlag}}</label>
+			</div>
+			<div class="col-sm-2"></div>
+			 <label for="additionalText1" class ="control-label col-sm-3">Additional Text1</label>
+			<div class="col-sm-2">
+			  <input type="text" class="form-control" id="additionalText1" name="additionalText1" ng-model="userDetails.additionalText1" maxlength="40" ng-if="action == 'modify' || action == 'add'" >
+			  <label ng-if="action == 'delete' || action == 'verify' || action == 'inquiry'">: {{userDetails.additionalText1}}</label>
+			</div>
+		</div>	
+		</div>
+		<div class="row">
+		<div class="form-group ">
+		  	<label for="additionalText2" class ="control-label col-sm-3">Additional Text2</label>
+			<div class="col-sm-2">
+			  <input type="text" class="form-control" id="additionalText2" name="additionalText2" ng-model="userDetails.additionalText2" maxlength="40" ng-if="action == 'modify' || action == 'add'">
+			  <label ng-if="action == 'delete' || action == 'verify' || action == 'inquiry'">: {{userDetails.additionalText2}}</label>
+			  <!-- <div ng-show="branchesOfTheBankForm.tranIdTo.$error.number" class="help-block alert alert-danger">Tran Id To should be in numbers</div> -->
+			</div>
+			<div class="col-sm-2"></div>
+			 <label for="additionalText3" class ="control-label col-sm-3">Additional Text3</label>
+			<div class="col-sm-2">
+			  <input type="text" class="form-control" id="additionalText3" name="additionalText3" ng-model="userDetails.additionalText3" maxlength="40" ng-if="action == 'modify' || action == 'add'">
+			  <label ng-if="action == 'delete' || action == 'verify' || action == 'inquiry'">: {{userDetails.additionalText3}}</label>
+			</div>
+		</div>	
+		</div>
+	 	<div class="col-sm-offset-5 col-sm-8 form_submit">
+	 			<button type="submit" class="btn btn-default" id="submitButton" ng-disabled="userDetailsForm.$invalid" ng-if="action == 'add'">Submit</button>
+				<button type="submit" class="btn btn-default" id="submitButton" ng-disabled="userDetailsForm.$invalid" ng-if="action == 'modify'">Update</button>
+				<button type="button" class="btn btn-default" id="submitButton" ng-click="verify(userDetails.gbmUserDetailsId)" ng-disabled="userDetailsForm.$invalid" ng-if="action == 'verify'">Verify</button>
+				<button type="button" class="btn btn-default" id="submitButton" ng-click="delete(userDetails.gbmUserDetailsId)" ng-disabled="userDetailsForm.$invalid" ng-if="action == 'delete'">Delete</button>
+				<button type="button" class="btn btn-default" id="submitButton" ng-click="inquiry(userDetails.gbmUserDetailsId)" ng-disabled="userDetailsForm.$invalid" ng-if="action == 'inquiry'">Back</button>
+		 		<button type="button" class="btn btn-cancel" id="cancelButton" ng-click="cancelOperation(action)" >Cancel</button>
+	   </div>
+	</form>
+	
+</div>
+
+
+<div class="container list_wrapper" ng-if="baseRecordList.length > 0">
+	<h4 class="feature-heading">User Work Class Information - {{action}}</h4>
+	<div class="col-sm-3">
+			<div class="form-group">
+				<label>
+				Show
+					<select class="form-control record-filter" ng-model="itemsPerPage" id="itemsPerPage" name="itemsPerPage"  ng-change="setItemsPerPage(itemsPerPage)" >
+						<option value='5'>5</option>
+						<option value='10'>10</option>
+						<option value='25'>25</option>
+						<option value='50'>50</option>
+					</select>
+				records per page
+				</label>
+			</div>
+		</div>
+		<div class="col-sm-3 pull-right">				    
+			  <div class="form-group">
+			      <div class="input-group">
+					      <div class="input-group-addon"><i class="glyphicon glyphicon-search"></i></div>
+					      <input type="text" class="form-control" ng-model="searchKeyword" ng-change="searchInquiryFn(searchKeyword)" placeholder="Search">
+					    </div>
+			  </div>
+		</div>
+		<div ng-if="totalItems > 0">
+	<table class="table table-bordered table-striped list">
+			<thead>
+				<tr>
+					<th>User ID</th>
+					<th>User Work Class</th>
+					<th>Sol ID</th>
+					<th>User App Name</th>
+					<th>Additional Text1</th>
+					<th>Additional Text2</th>
+					<th>Additional Text3</th>
+					<th style="width: 100px;">Status</th>
+					<th>Created Date</th>
+					<th ng-if="action" class="capitalize">{{action}}</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="item in recordsList.slice(((currentPage-1)*itemsPerPage), ((currentPage)*itemsPerPage))">
+					<td>{{item.userId}}</td>
+					<td>{{item.userWorkClass}}</td>
+					<td>{{item.solId}}</td>
+					<td>{{item.userApplicationName}}</td>
+					<td>{{item.additionalText1}}</td>
+					<td>{{item.additionalText2}}</td>
+					<td>{{item.additionalText3}}</td>
+					<td ng-if="item.verified == true">Verified</td>
+					<td ng-if="item.verified == false">Unverified</td>
+					<td>{{item.createdDate}}</td>
+					<td ng-if="action=='modify'"><i class="glyphicon glyphicon-edit cp" ng-click="modifyForm(item.gbmUserDetailsId)"></i></td>
+					<td ng-if="action=='verify'"><i class="glyphicon glyphicon-ok cp" ng-click="verifyForm(item.gbmUserDetailsId)"></i></td>
+					<td ng-if="action=='delete'"><i class="glyphicon glyphicon-remove cp" ng-click="deleteForm(item.gbmUserDetailsId)"></i></td>
+					<td ng-if="action=='inquiry'"><i class="glyphicon glyphicon-search cp" ng-click="inquiryForm(item.gbmUserDetailsId)"></i></td>
+				</tr>
+			</tbody>
+		</table>
+		<ul uib-pagination total-items="totalItems" ng-model="currentPage" max-size="maxSize" class="pagination-sm" boundary-links="true" force-ellipses="true" items-per-page="itemsPerPage"></ul>
+</div>
+		<div class="list_wrapper no_records_message padding-top-50" ng-if="totalItems <= 0">No records matched with <i>"{{searchKeyword}}"</i>.</div>
+</div>
+
+<div class="container list_wrapper" ng-if="baseRecordList.length <= 0 && loader == false && displayForm == false">
+	<h4 class="feature-heading">User Work Details - {{action}}</h4>
+	<div class="no_records_message">No records found to display.</div>
+</div>

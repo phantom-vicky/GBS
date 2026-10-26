@@ -1,0 +1,291 @@
+<div class="loader-new" ng-if="vm.loader"></div>
+<dc-left-menu></dc-left-menu>
+<div class="container from_wrapper new_form_wrapper">
+    <form name="blaDodfrm" role="form">
+        <h4 class="form_heading">HUF Death Marking - Add</h4>
+        <sol-header></sol-header>
+        <div class="row">
+            <div class="col-sm-12">
+
+                <table class="table table-bordered table-striped list">
+                    <thead>
+                    <tr>
+                        <td width="50%">Old Karta Name</td>
+                        <td width="50%">
+                            <label class="data-bind" id="blaNo" ng-model="vm.power">{{vm.power}}</label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td width="50%">PAN No</td>
+                        <td width="50%">
+                            <label class="data-bind" id="panNo" ng-model="vm.panNumber">{{vm.panNumber}}</label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td width="50%" class="form-group required"><label class="control-label">Date of Death of Karta (dd/mm/yyyy)</label></td>
+
+                        <td width="50%">
+                            <p class="input-group">
+                                <input type="text" class="form-control" id="dodDate" name="dateFrom"
+                                       ng-model="vm.dodDate"
+                                       uib-datepicker-popup="dd/MM/yyyy"
+                                       is-open="vm.dodDatepicker.opened" close-text="Close"
+                                       datepicker-options="vm.dateToOptions"
+                                       required
+                                       ng-blur="vm.textableDatePicker('dodDate',vm.dodDate)"
+                                       ng-keyup="vm.autoslashing('dodDate')" chars="numbers-slash"
+
+                                >
+                               <span class="input-group-btn" id="dodDateIcon">
+							<button type="button" class="btn btn-secondary" id="dodDateIconPicker"
+                                    ng-click="vm.dodDatepicker.opened = true">
+								<i class="glyphicon glyphicon-calendar"></i>
+							</button>
+						</span>
+                            </p>
+                        </td>
+
+                    </tr>
+                    <tr >
+                        <td width="50%" class="form-group required"><label class="control-label">Date of Receipt of Inward Request(dd/mm/yyyy)</label></td>
+
+                        <td width="50%">
+                            <p class="input-group">
+                                <input type="text" class="form-control" id="certDate" name="certDate"
+                                       ng-model="vm.certDate"
+                                       uib-datepicker-popup="dd/MM/yyyy"
+                                       ng-init="vm.dateValidation('cert');"
+                                       is-open="vm.certDatepicker.opened" close-text="Close"
+                                       datepicker-options="vm.dateOptions"
+                                       ng-change="vm.dateValidation('cert');" ng-required="vm.dodDate" required
+                                       ng-blur="vm.textableDatePicker('certDate',vm.certDate)"
+                                       ng-keyup="vm.autoslashing('certDate')" chars="numbers-slash"
+
+                                >
+                                <span class="input-group-btn" id="certDateIcon">
+							<button type="button" class="btn btn-secondary" id="certDateIconPicker"
+                                    ng-click="vm.certDatepicker.opened = true">
+								<i class="glyphicon glyphicon-calendar"></i>
+							</button>
+						</span>
+                            </p>
+                        </td>
+
+                    </tr>
+                    <tr>
+                        <td width="50%" class="form-group required">Karta Death Marking Date (dd/mm/yyyy)</td>
+
+                        <td width="50%">
+                            <p class="input-group">
+                                <input type="text" class="form-control" id="dateFrom" name="dateFrom"
+                                       ng-model="vm.dateFrom"
+                                       uib-datepicker-popup="dd/MM/yyyy"
+                                       ng-init="vm.dateValidationMark('marking');"
+                                       is-open="vm.fromDatepicker.opened" close-text="Close"
+                                       datepicker-options="vm.dateMarkOptions"
+                                       required disabled
+                                       ng-blur="vm.textableDatePicker('dateFrom',vm.dateFrom)"
+                                       ng-keyup="vm.autoslashing('dateFrom')" chars="numbers-slash"
+                                >
+
+                            </p>
+                        </td>
+
+                    </tr>
+                    <tr>
+                        <td width="50%" class="form-group required">
+                            Karta Death Marking Remarks <span class="text-danger">*</span>
+                        </td>
+
+                        <td width="50%">
+        <textarea class="form-control"
+                  ng-keypress="vm.validateInput($event,'remarks')"
+                  rows="3"
+                  maxlength="50"
+                  id="remarks"
+                  name="remarks"
+                  ng-model="vm.remarks"
+                  ng-required="true"
+                  required>
+        </textarea>
+
+                            <span class="text-danger"
+                                  ng-show="yourFormName.remarks.$touched && yourFormName.remarks.$error.required">
+            Remarks is required.
+        </span>
+                        </td>
+                    </tr>
+                    </tr>
+                    <tr>
+                        <td width="50%" class="form-group required">
+                            <label class="control-label">Next Eligible Co-Parcener (New Karta Name)</label>
+                        </td>
+
+                        <td width="50%">
+                            <div class="input-group">
+                                <input type="text"
+                                       class="form-control"
+                                       id="newKartaName"
+                                       name="newKartaName"
+                                       ng-model="vm.newKartaName"
+                                       placeholder="Select Co-Parcener"
+                                       readonly
+                                       required>
+
+                                <span class="input-group-btn">
+                <button type="button"
+                        class="btn btn-secondary"
+                        ng-click="vm.getCoParcenerDtls()">
+                    <i class="glyphicon glyphicon-search"></i>
+                </button>
+
+                <button type="button"
+                        class="btn btn-secondary"
+                        ng-click="vm.clearCoParcener()"
+                        ng-show="vm.newKartaName">
+                    <i class="glyphicon glyphicon-remove"></i>
+                </button>
+            </span>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td width="50%" class="form-group required">
+                            <label class="control-label">Relationship with Karta</label>
+                        </td>
+                        <td width="50%">
+                            <label class="data-bind" id="relationshipWithKarta" ng-model="vm.relationshipWithKarta">{{vm.relationshipWithKarta}}</label>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td width="50%" class="form-group required">
+                            <label class="control-label">DOB</label>
+                        </td>
+                        <td width="50%">
+                            <label class="data-bind" id="coParcenerDob" ng-model="vm.coParcenerDob">{{vm.coParcenerDob}}</label>
+                        </td>
+                    </tr>
+
+                </table>
+                <table class="table table-bordered table-striped list">
+                    <thead>
+
+                        <th>S.No</th>
+                        <th>Scheme Name</th>
+                        <th>BLA No</th>
+                        <th>Bond Subscription Id</th>
+
+
+
+                    </thead>
+                   <!-- </thead>-->
+                    <tbody>
+                    <tr ng-repeat="items in vm.addResList" ng-init="parentIndex=$index;">
+                        <td>{{vm.itemsPerPage*(vm.currentPage-1)+$index+1}} </td>
+
+                        <td>{{items.schemeName}}</td>
+                        <td>{{items.blaNo}}</td>
+                        <td>{{items.bondSubscriptionId}}</td>
+
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+
+
+
+        <div class="text-center form_submit">
+            <button type="submit" class="btn btn-default" id="submitButton"
+                    ng-disabled="blaDodfrm.$invalid"
+                    ng-click="vm.submitAddForm()">Submit</button>
+            <button type="button" id="cancelButton" class="btn btn-cancel"
+                    ng-click="vm.showCancelConfirmation('huf_death_marking_menu.add');">Cancel</button>
+
+        </div>
+        <div class="text-center">
+            <notice-message-directive></notice-message-directive>
+
+        </div>
+        </div>
+    </form>
+
+</div>
+
+
+
+
+<div class="modal" id="coParcenerModal" role="dialog">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <button type="button" class="close" data-bs-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Select Co-Parcener</h4>
+            </div>
+
+            <div class="modal-body">
+
+                <div ng-if="vm.coParcenerDtlsList.length>0">
+
+                    <div class="col-sm-8 form_submit">
+                        <div class="form-group">
+                            <div class="input-group">
+                                <div class="input-group-addon">
+                                    <i class="glyphicon glyphicon-search"></i>
+                                </div>
+
+                                <input type="text"
+                                       class="form-control"
+                                       ng-model="vm.coParcenerSearch"
+                                       placeholder="Search">
+                            </div>
+                        </div>
+                    </div>
+
+                    <table class="table table-bordered list scroll sort">
+
+                        <thead ng-init="reverseOrder=false; sortedColumn='coParcenerName'">
+                        <tr>
+                            <th ng-click="(sortedColumn=='coParcenerName')?(reverseOrder=!reverseOrder):(reverseOrder=false);sortedColumn='coParcenerName'">
+                                Co-Parcener Name
+                            </th>
+
+                            <th ng-click="(sortedColumn=='relationship')?(reverseOrder=!reverseOrder):(reverseOrder=false);sortedColumn='relationship'">
+                                Relationship
+                            </th>
+
+                            <th ng-click="(sortedColumn=='dob')?(reverseOrder=!reverseOrder):(reverseOrder=false);sortedColumn='dob'">
+                                DOB
+                            </th>
+                        </tr>
+                        </thead>
+
+                        <tbody>
+
+                        <tr class="cp"
+                            ng-repeat="x in vm.coParcenerDtlsList | filter:vm.coParcenerSearch | orderBy:sortedColumn:reverseOrder"
+                            data-bs-dismiss="modal"
+                            ng-click="vm.selectCoParcener(x)">
+
+                            <td>{{x.coParcenerName}}</td>
+                            <td>{{x.relationship}}</td>
+                            <td>{{vm.formatDate(x.dob)}}</td>
+
+                        </tr>
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+                <div ng-if="vm.coParcenerDtlsList.length==0">
+                    No records found.
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</div>

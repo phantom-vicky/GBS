@@ -1,0 +1,141 @@
+<div class="loader-new" ng-if="vm.loader"></div>
+<dc-left-menu></dc-left-menu>
+<div class="container from_wrapper new_form_wrapper">
+
+    <h4 class="form_heading">RBI Code mapping for Branches - Delete</h4>
+    <sol-header></sol-header>
+    <form name="tdsparameter" role="form">
+
+
+        <div class="row">
+            <div class="form-group">
+                <div class="col-sm-3"></div>
+                <div class="col-sm-3">
+                    <label for="moduleName" class="control-label">Name of the Module</label>
+                </div>
+                <div class="col-sm-4">
+                    <label><b>RBI Bond</b></label>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="form-group required">
+                <div class="col-sm-3"></div>
+                <div class="col-sm-3">
+                    <label for="moduleName" class="control-label">Name of the Bond Scheme</label>
+                </div>
+                <div class="col-sm-2">
+                    <select class="form-control" id="moduleName" name="moduleName"
+                            ng-model="vm.moduleId"
+                            ng-init="vm.getModuleName();"
+                            ng-change="vm.getVerifyDeleteTorch();"
+                            required>
+                        <option value="" >Select</option>
+                        <option ng-repeat="item in vm.moduleNameList" value="{{item.subCode}}">{{item.subCodeDescription}}</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <div class="row" ng-if="vm.moduleId">
+            <div class="form-group required">
+                <div class="col-sm-3"></div>
+                <div class="col-sm-3">
+                    <label for="rbiCode" class="control-label">RBI Code</label>
+                </div>
+                <div class="col-sm-2">
+                    <input type="text" class="form-control" id="rbiCode"
+                           ng-model="vm.rbiCode" chars="alpha-numeric" required readonly>
+                </div>
+                <div class="col-sm-1">
+                    <div ng-if="vm.moduleId">
+                        <i class="glyphicon glyphicon-search cp" data-bs-toggle="modal"
+                           id="branchIdSearch"
+                           ng-click="vm.getVerifyDeleteTorch('torch');vm.searchSolId='';"></i> <i
+                            class="glyphicon glyphicon-remove clear cp"
+                            ng-click="vm.rbiCode='';"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="text-center form_submit">
+            <button type="submit" id="submitbutton" class="btn btn-default"
+                    ui-sref="code_mapping_rbi_bond.delete_detail({obj:{
+                                    moduleId: vm.moduleId,
+                                    rbiCode: vm.rbiCode
+								}})"
+                    ng-disabled="tdsparameter.$invalid">Submit</button>
+
+            <button type="button" class="btn btn-cancel" id="cancelButton"
+                    onclick="window.location.href= '#!/code_mapping_rbi_bond/action/inquiry';">Cancel
+            </button>
+        </div>
+
+        <div class="text-center">
+            <notice-message-directive></notice-message-directive>
+        </div>
+    </form>
+</div>
+
+
+<div class="modal" id="rbiCodeModal" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-bs-dismiss="modal">&times;</button>
+                <h4 class="modal-title">RBI Code List</h4>
+            </div>
+            <div class="modal-body">
+                <div class="loader_popup"></div>
+                <div class="list_wrapper" ng-if="vm.rbiCodeList.length>0">
+                    <div class="col-sm-8 form_submit">
+                        <div class="form-group">
+                            <div class="input-group">
+                                <div class="input-group-addon">
+                                    <i class="glyphicon glyphicon-search"></i>
+                                </div>
+                                <input type="text" class="form-control"
+                                       ng-model="vm.searchSolId" ng-init="vm.searchSolId = ''"
+                                       placeholder="Search">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4 form_submit"></div>
+                    <div class="row">
+
+                        <div class="col-sm-12">
+
+                            <table class="table table-bordered list scroll">
+                                <thead ng-init="reverseOrder = false; sortedColumn = 'tdsCode'">
+                                <tr>
+                                    <th class="modal-title title-case" ng-click="(sortedColumn == 'rbiCode')?(reverseOrder=(!reverseOrder)): (reverseOrder = false);sortedColumn = 'rbiCode';" ng-class="(sortedColumn == 'rbiCode')?((reverseOrder)?('arrow-down') : ('arrow-up') ) : ('')">RBI Code</th>
+                                    <th class="modal-title title-case" ng-click="(sortedColumn == 'branchCode')?(reverseOrder=(!reverseOrder)): (reverseOrder = false);sortedColumn = 'branchCode';" ng-class="(sortedColumn == 'branchCode')?((reverseOrder)?('arrow-down') : ('arrow-up') ) : ('')">Branch Code</th>
+                                    <th class="modal-title title-case" ng-click="(sortedColumn == 'branchCode')?(reverseOrder=(!reverseOrder)): (reverseOrder = false);sortedColumn = 'branchCode';" ng-class="(sortedColumn == 'branchCode')?((reverseOrder)?('arrow-down') : ('arrow-up') ) : ('')">Branch Description</th>
+                                    <th class="modal-title title-case" ng-click="(sortedColumn == 'branchCode')?(reverseOrder=(!reverseOrder)): (reverseOrder = false);sortedColumn = 'branchCode';" ng-class="(sortedColumn == 'branchCode')?((reverseOrder)?('arrow-down') : ('arrow-up') ) : ('')">Verified Status</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr class="cp"
+                                    ng-repeat="x in vm.rbiCodeList | filter:vm.searchSolId | orderBy:sortedColumn:reverseOrder"
+                                    ng-click="vm.rbiCode=x.rbiCode;"  data-bs-dismiss="modal">
+                                    <td>{{x.rbiCode}}</td>
+                                    <td>{{x.branchCode}}</td>
+                                    <td>{{x.branchDescription}}</td>
+                                    <td>{{x.verifiedStatus | getLabelFromValuesArray : vm.commonYesNoMetaData}}</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="list_wrapper" ng-if="vm.rbiCodeList.length==0">No records found to display.</div>
+            </div>
+
+        </div>
+    </div>
+</div>
+

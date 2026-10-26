@@ -1,0 +1,183 @@
+<div class="loader-new" ng-if="vm.loader"></div>
+<dc-left-menu></dc-left-menu>
+<div class="container from_wrapper new_form_wrapper">
+
+    <h4 class="form_heading">RBI Code mapping for Branches - Add</h4>
+    <sol-header></sol-header>
+    <form name="tdsparameter" role="form">
+
+        <div class="row">
+            <div class="form-group">
+                <div class="col-sm-2"></div>
+                <div class="col-sm-5">
+                    <label class="control-label">Name of the Module</label>
+                </div>
+                <div class="col-sm-2">
+                    <label><b>RBI Bond</b></label>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="row">
+
+            <div class="form-group required">
+                <div class="col-sm-2"></div>
+                <div class="col-sm-5">
+                    <label  class="control-label"> Effective From Date</label>
+                </div>
+                <div class="col-sm-2">
+                    <p class="input-group">
+                        <input type="text" class="form-control" id="effFromDate"
+                               name="effFromDate"
+                               uib-datepicker-popup="dd/MM/yyyy" ng-init="vm.fromDate=''"
+                               datepicker-options="vm.dateOptions"
+                               ng-model="vm.effFromDate"
+                               is-open="vm.effFromDatePicker.opened" close-text="Close"
+                               maxlength="10"
+                               ng-blur="vm.textableDatePicker('effFromDate',vm.effFromDate)"
+                               ng-keyup="vm.autoslashing('effFromDate')" chars="numbers-slash"
+
+                               required>
+                        <span class="input-group-btn">
+                  <button type="button" class="btn btn-secondary"
+                          ng-click="vm.effFromDatePicker.opened = true"
+                          id="effFromDateSearcher1">
+                  <i class="glyphicon glyphicon-calendar"></i>
+                  </button>
+                  </span>
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="form-group required">
+                <div class="col-sm-2"></div>
+                <div class="col-sm-5">
+                    <label  class="control-label">RBI Code</label>
+                </div>
+                <div class="col-sm-2">
+                        <input type="text" class="form-control" id="rbiCode"
+                               name="rbiCode"
+                               ng-model="vm.rbiCode"
+                               maxlength="10" chars="alpha-numeric"  required  oninput="this.value = this.value.replace(/\s/g, '')">
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="form-group required">
+                <div class="col-sm-2"></div>
+                <div class="col-sm-5">
+                    <label  class="control-label">PDO Code/Branch Code</label>
+                </div>
+                <div class="col-sm-2">
+                    <input type="text" class="form-control" id="pdoCode"
+                           name="pdoCode"
+                           ng-model="vm.pdoCode"
+                           maxlength="10" chars="alpha-numeric"  required oninput="this.value = this.value.replace(/\s/g, '')">
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="form-group required">
+                <div class="col-sm-2"></div>
+                <div class="col-sm-5">
+                    <label  class="control-label">BLA Prefix</label>
+                </div>
+                <div class="col-sm-2">
+                    <input type="text" class="form-control" id="blaPrefix"
+                           name="blaPrefix"
+                           ng-model="vm.blaPrefix"
+                           maxlength="7" minlength="7" oninput="this.value = this.value.replace(/[^\w\s]|_/g, '').replace(/\s+/g, '');" pattern="[A-Za-z]{3}[0-9]{4}"  required>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="row" >
+            <div class="form-group">
+                <div class="col-sm-2"></div>
+                <div class="col-sm-5">
+                    <label for="remark" class="control-label">Remarks</label>
+                </div>
+                <div class="col-sm-2">
+                   <textarea class="form-control" rows="3" id="remark" maxlength="50" name="remark" ng-model="vm.remark" oninput="this.value = this.value.replace(/^\s*/, '')" ></textarea>
+                </div>
+            </div>
+        </div>
+
+
+
+        <div class="text-center form_submit">
+            <button type="submit" class="btn btn-default" id="submitButton"
+                    ng-disabled="tdsparameter.$invalid" ng-click="vm.submitAddForm()">Submit</button>
+            <button type="button" id="subButton" class="btn btn-cancel"
+                    ng-click="vm.showCancelConfirmation('code_mapping_rbi_bond.inquiry');">Cancel</button>
+        </div>
+
+        <div class="text-center">
+            <notice-message-directive></notice-message-directive>
+        </div>
+    </form>
+</div>
+
+
+
+
+<!-- branch code Details -->
+<div class="modal" id="getBranchCode" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-bs-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Branch Code Model</h4>
+            </div>
+            <div class="modal-body">
+                <div class="loader_popup"></div>
+                <div class="list_wrapper" ng-if="vm.branchCodeList.length>0">
+                    <div class="col-sm-8 form_submit">
+                        <div class="form-group">
+                            <div class="input-group">
+                                <div class="input-group-addon">
+                                    <i class="glyphicon glyphicon-search"></i>
+                                </div>
+                                <input type="text" class="form-control"
+                                       ng-model="vm.InterestRateModalSearch"
+                                       chars="alpha-numeric"   placeholder="Search">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4 form_submit"></div>
+                    <div class="row">
+
+                        <div class="col-sm-12">
+                            <table class="table table-bordered list scroll sort">
+                                <thead ng-init="reverseOrder=true;sortedColumn = 'InterestRate'">
+                                <tr>
+                                    <th ng-click="(sortedColumn == 'branchCode')?(reverseOrder=(!reverseOrder)): (reverseOrder = false);sortedColumn = 'branchCode';" ng-class="(sortedColumn == 'branchCode')?((reverseOrder)?('arrow-down') : ('arrow-up') ) : ('')">Branch Code</th>
+                                    <th ng-click="(sortedColumn == 'branchDescription')?(reverseOrder=(!reverseOrder)): (reverseOrder = false);sortedColumn = 'branchDescription';" ng-class="(sortedColumn == 'branchDescription')?((reverseOrder)?('arrow-down') : ('arrow-up') ) : ('')">Branch Description</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr class="cp"
+                                    ng-repeat="x in vm.branchCodeList | filter:vm.InterestRateModalSearch | orderBy:sortedColumn:reverseOrder"
+                                    ng-click="vm.branchCode = x.branchCode; vm.branchDescription = x.branchDescription; vm.addValidation()" data-bs-dismiss="modal">
+                                    <td>{{x.branchCode}}</td>
+                                    <td>{{x.branchDescription}}</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="list_wrapper" ng-if="vm.branchCodeList.length==0">No records found to display.</div>
+            </div>
+
+        </div>
+    </div>
+</div>
+<!-- branch code Details -->

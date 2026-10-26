@@ -1,0 +1,195 @@
+
+<!DOCTYPE html>
+<html lang="en" ng-app="gbmUltraApp">
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Government Business Suite</title>
+    <!-- Bootstrap -->
+    <link rel="stylesheet" type="text/css" href="assets/css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/bootstrap-datetimepicker.css" >
+    <link rel="stylesheet" type="text/css" href="assets/css/style.css" />
+    <link rel="stylesheet" type="text/css" href="assets/css/sweetalert.css" />
+    <link rel="stylesheet" type="text/css" href="assets/css/sweetalert2.min.css" />
+    <link rel="stylesheet" type="text/css" href="assets/css/custom-swal.css" />
+    <link rel="stylesheet" type="text/css" href="assets/css/datatables/dataTables.bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="assets/css/datatables/buttons.dataTables.min.css" />
+
+    <script type="text/javascript" nonce="rAnd0m">
+        if(!(window.console && console.log)) {
+          console = {
+            log: function(){},
+            debug: function(){},
+            info: function(){},
+            warn: function(){},
+            error: function(){}
+          };
+        }
+
+    if (/MSIE 9/i.test(navigator.userAgent) || /rv:11.0/i.test(navigator.userAgent)) {
+        // This is internet explorer 10
+        window.alert('BROWSER UNSUPPORTED\nSorry, This Application is not supported on Internet Explorer, Please use Google chrome or microsoft edge');
+        var ngViewTag = document.getElementById("page-wrapper");
+        ngViewTag.setAttribute("class", "hidden inline");
+    }
+    </script>
+</head>
+<body ng-controller="commonCtrl" oncontextmenu='return false'>
+<div class="header_portion">
+    <div class="header_top">
+        <div class="container-fluid">
+            <div class="col-xs-2">
+                <img class="img-responsive inspiri_logo">
+            </div>
+            <div class="col-xs-8">
+                <h3 id="gbs_wording">Government Business Suite</h3>
+            </div>
+
+            <div class="col-xs-2">
+                <img src="assets/images/HDFC-Logo.png" class="img-responsive" alt="HDFC" style="margin-bottom: 15px;margin-top: 10px;width: 250px;height: 45px;">
+            </div>
+        </div>
+    </div>
+
+    <top-menu-directive ng-if="globals.currentUser" username="globals.currentUser.username" sol-date="globals.currentUser.solDate" menu-lists="menuLists"></top-menu-directive>
+
+    <idle-service-directive></idle-service-directive>
+</div>
+<div class="clearfix"></div>
+<div ng-class="alertClass" class="alert top-msg" ng-if="showAlert">
+    <p ng-bind="alert"></p>
+</div>
+
+
+
+<div id="page-wrapper" ui-view>
+
+</div>
+<script src="assets/js/jquery.min.js" nonce="rAnd0m"></script>
+
+<!--
+<script src="assets/js/angular.js" type="text/javascript" nonce="rAnd0m"></script>
+-->
+<script src="assets/js/angular.min.js"></script>
+<script src="assets/js/charts.min.js"></script>
+<script src="assets/js/angular-charts.min.js"></script>
+<script src="assets/js/crypto-js.min.js"></script>
+
+<script src="assets/js/bootstrap.min.js" nonce="rAnd0m"></script>
+<script src="assets/js/angular-cookies.min.js" nonce="rAnd0m"></script>
+<script src="assets/js/angular-messages.min.js" nonce="rAnd0m"></script>
+
+<script src="assets/js/pdf.js" nonce="rAnd0m"></script>
+
+<script src="assets/js/moment-with-locales.js" nonce="rAnd0m"></script>
+<script src="assets/js/bootstrap-datetimepicker.js" nonce="rAnd0m"></script>
+<script src="assets/js/angular-table.min.js" nonce="rAnd0m"></script>
+
+<script src="assets/js/ngduallist.js" nonce="rAnd0m"></script>
+<script src="assets/js/dirPagination.js" nonce="rAnd0m"></script>
+<script src="assets/js/angular-route.js" nonce="rAnd0m"></script>
+<script src="assets/js/angular-idle.js" nonce="rAnd0m"></script>
+
+<script src="assets/js/angular-ui-router.min.js" nonce="rAnd0m"></script>
+<script src="assets/js/ocLazyLoad.js" nonce="rAnd0m"></script>
+<script src="assets/js/ui-bootstrap-tpls-2.5.0.min.js" nonce="rAnd0m"></script>
+
+<script src="assets/js/sweetalert.min.js" nonce="rAnd0m"></script>
+<script src="assets/js/sweetalert2.min.js" nonce="rAnd0m"></script>
+
+<script src="assets/js/file-saver.js" nonce="rAnd0m"></script>
+
+<!-- DataTables Scripts --->
+<!-- for export to excel and pdf ---->
+<script src="assets/js/datatables/angular-ui-utils.min.js" type="text/javascript" nonce="rAnd0m"></script>
+<script src="assets/js/datatables/jquery.dataTables.min.js" type="text/javascript" nonce="rAnd0m"></script>
+<script src="assets/js/datatables/dataTables.bootstrap.min.js" type="text/javascript" nonce="rAnd0m"></script>
+<script src="assets/js/datatables/dataTables.buttons.min.js" type="text/javascript" nonce="rAnd0m"></script>
+<script src="assets/js/datatables/buttons.print.min.js" type="text/javascript" nonce="rAnd0m"></script>
+<script src="assets/js/datatables/jszip.min.js" type="text/javascript" nonce="rAnd0m"></script>
+<script src="assets/js/datatables/pdfmake.min.js" type="text/javascript" nonce="rAnd0m"></script>
+<script src="assets/js/datatables/vfs_fonts.js" type="text/javascript" nonce="rAnd0m"></script>
+<script src="assets/js/datatables/buttons.html5.min.js" type="text/javascript" nonce="rAnd0m"></script>
+
+
+<script src="assets/js/angularjs-crypto.js" nonce="rAnd0m"></script>
+<script src="assets/js/aes.min.js" nonce="rAnd0m"></script>
+
+
+<script src="assets/js/less.min.js" type="text/javascript" nonce="rAnd0m"></script>
+<!-- Style-capable SheetJS build so font/border styles written via cell.s work in Excel -->
+<script src="assets/js/xlsx-js-style.bundle.js?ver=1.2.0" type="text/javascript" nonce="rAnd0m"></script>
+<script src="assets/js/common.js?ver=1.1" type="text/javascript" nonce="rAnd0m"></script>
+
+<script type="text/javascript">
+    var versionNum = '0.001';
+    
+    // Detect context path dynamically
+    var contextPath = window.location.pathname.split('/')[1];
+    if (contextPath && contextPath !== '') {
+        window.APP_CONTEXT_PATH = '/' + contextPath;
+    } else {
+        window.APP_CONTEXT_PATH = '';
+    }
+    
+    // Make context path available globally
+    window.getApiUrl = function(path) {
+        return window.APP_CONTEXT_PATH + '/' + path;
+    };
+    
+window.history.pushState(null, '', window.location.href);
+window.addEventListener('popstate', function () {
+  window.history.pushState(null, '', window.location.href);
+});
+</script>
+
+<!--- New External Link --->
+
+<script src="assets/js/config/common/app.js?ver=1.1"></script>
+<script src="assets/js/config/common/app.js?ver=1.1"></script>
+<script src="assets/js/config/common/app.dc.config.js?ver=1.1"></script>
+<script src="assets/js/config/common/commonController.js?ver=1.1"></script>
+<script src="assets/js/config/common/commonService.js?ver=1.1"></script>
+<script src="assets/js/config/common/solHeader.directive.js?ver=1.1"></script>
+<script src="assets/js/config/common/leadingSpace.directive.js?ver=1.1"></script>
+<script src="assets/js/config/common/common.service.js?ver=1.1"></script>
+<script src="assets/js/config/common/app.common.config.js?ver=1.1"></script>
+<script src="assets/js/config/common/commonDirective.js?ver=1.1"></script>
+<script src="assets/js/config/common/noUnderscore.directive.js?ver=1.1"></script>
+
+
+
+
+
+
+<script src="assets/js/config/cbs/app.cbs.config.js?ver=1.1"></script>
+<script src="assets/js/config/cbs/common.service.js?ver=1.1"></script>
+
+
+
+<script src="assets/js/config/userManagement/app.user_mgmt.config.js?ver=1.1"></script>
+<script src="assets/js/config/userManagement/common.service.js?ver=1.1"></script>
+<script src="assets/js/config/userManagement/base64.service.js?ver=1.1"></script>
+
+<script src="assets/js/config/auth/auth.service.js?ver=1.1"></script>
+
+
+<script src="assets/js/config/rbi_bond/app.rbibond.common.config.js?ver=1.1"></script>
+<script src="assets/js/config/rbi_bond/app_rbi_formats_config.js?ver=1.1"></script>
+<script src="assets/js/config/rbi_bond/app.rbibond.gufunctionality.cancellationcatcbt.config.js?ver=1.1"></script>
+<script src="assets/js/config/rbi_bond/app.rbibond.gufunctionality.config.js?ver=1.1"></script>
+
+
+<script src="assets/js/config/rbi_bond/app.rbibond.config.js?ver=1.1"></script>
+
+<script src="assets/js/jspdf.umd.min.js"></script>
+<script src="assets/js/jspdf.plugin.autotable.js"></script>
+<script src="assets/js/html2pdf.bundle.min.js"></script>
+
+</body>
+</html>

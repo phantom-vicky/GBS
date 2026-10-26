@@ -1,0 +1,218 @@
+<div class="loader-new" ng-if="vm.loader"></div>
+<dc-left-menu></dc-left-menu>
+<div class="container from_wrapper new_form_wrapper" ng-init="vm.getSubCodeList();">
+
+    <h4 class="form_heading">Bond Account Transfer Out - Modify</h4>
+    <sol-header></sol-header>
+    <form name="accountOpeningForm" role="form">
+
+
+        <div class="row">
+            <div class="form-group">
+                <div class="col-sm-3"></div>
+                <div class="col-sm-3">
+                    <label for="moduleName" class="control-label">Name of the Module</label>
+                </div>
+                <div class="col-sm-4">
+                    <label><b>RBI Bond</b></label>
+                </div>
+            </div>
+        </div>
+
+        <div class="row" ng-init="vm.getModuleName();">
+            <div class="form-group required">
+                <div class="col-sm-3"></div>
+                <div class="col-sm-3">
+                    <label for="schemeCode" class="control-label">Name of the Bond Scheme</label>
+                </div>
+                <div class="col-sm-2">
+                    <select class="form-control" id="schemeCode" name="schemCode"
+                            ng-model="vm.schemeCode"  ng-change="vm.alert(vm.schemeCode)"
+                            required>
+                        <option value="">Select</option>
+                        <option ng-repeat="item in vm.schemeList" value="{{item.subCode}}" ng-bind="item.subCodeDescription"></option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <div class="row" ng-if="vm.schemeCode">
+            <div class="form-group required">
+                <div class="col-sm-3"></div>
+                <div class="col-sm-3">
+                    <label for="custId" class="control-label">Bond BLA No</label>
+                </div>
+                <div class="col-sm-2">
+                    <input type="text" class="form-control" id="custId"
+                           ng-model="vm.blaNo" ng-init="vm.blaNo = '';"
+                           chars="alpha-numeric" minlength="5" maxlength="20" disabled required>
+                </div>
+                <div class="col-sm-2" ng-if="!vm.disableTorchFlag">
+                    <i class="glyphicon glyphicon-search cp" data-bs-toggle="modal"
+                       id="treasurySearch"
+                       ng-click="vm.modifySelectBlaTorch();"></i> <i
+                        class="glyphicon glyphicon-remove clear cp"
+                        ng-click="vm.blaNo =''; vm.gbsTranId='';"></i>
+                </div>
+            </div>
+        </div>
+
+        <div class="row" ng-if="vm.schemeCode && vm.blaNo && vm.isTransferToOtherBank=='Y'">
+            <div class="form-group required">
+                <div class="col-sm-3"></div>
+                <div class="col-sm-3">
+                    <label class="control-label">GBS Tran Id</label>
+                </div>
+                <div class="col-sm-2">
+                    <input type="text" class="form-control" id="gbsTranId"
+                           ng-model="vm.gbsTranId"
+                           chars="alpha-numeric" disabled required>
+                </div>
+                <div class="col-sm-2" ng-if="!vm.disableTorchFlag">
+                    <i class="glyphicon glyphicon-search cp" data-bs-toggle="modal"
+                       id="gbsTranIdTor"
+                       ng-click="vm.modifySelectGbmTranIdTorch();"></i> <i
+                        class="glyphicon glyphicon-remove clear cp"
+                        ng-click="vm.gbsTranId ='';"></i>
+                </div>
+            </div>
+        </div>
+
+
+
+        <div class="text-center form_submit">
+            <button type="submit" class="btn btn-default" id="submitButton"
+                    ui-sref="rbi_bnd_acc_trans_out.modify_detail({obj:{
+                                schemeCode: vm.schemeCode,
+								schemeName: vm.schemeName,
+								blaNo: vm.blaNo,
+								isTransferToOtherBank: vm.isTransferToOtherBank,
+								gbsTranId: vm.gbsTranId,
+								}})"
+                    ng-disabled="accountOpeningForm.$invalid">Submit</button>
+            <button type="button" class="btn btn-cancel" id="cancelButton"
+                    onclick="window.location.href= '#!/rbi_bnd_acc_trans_out/action/inquiry';">Cancel</button>
+        </div>
+        <div class="text-center">
+            <notice-message-directive></notice-message-directive>
+        </div>
+    </form>
+</div>
+
+
+
+
+
+<!--bla modal-->
+<div class="modal" id="blaModal" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-bs-dismiss="modal">&times;</button>
+                <h4 class="modal-title">BLA List</h4>
+            </div>
+            <div class="modal-body">
+                <div class="loader_popup"></div>
+                <div class="list_wrapper" ng-if="vm.blaTorchList.length>0">
+                    <div class="col-sm-8 form_submit">
+                        <div class="form-group">
+                            <div class="input-group">
+                                <div class="input-group-addon">
+                                    <i class="glyphicon glyphicon-search"></i>
+                                </div>
+                                <input type="text" class="form-control"
+                                       ng-model="vm.searchCustomerId" ng-init="vm.searchCustomerId = ''"
+                                       placeholder="Search">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4 form_submit"></div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <table class="table table-bordered list scroll">
+                                <thead ng-init="reverseOrder = false; sortedColumn = 'scssCustomerId'">
+                                <tr>
+                                    <th class="modal-title title-case" ng-click="(sortedColumn == 'blaNo')?(reverseOrder=(!reverseOrder)): (reverseOrder = false);sortedColumn = 'blaNo';" ng-class="(sortedColumn == 'blaNo')?((reverseOrder)?('arrow-down') : ('arrow-up') ) : ('')">BLA No</th>
+                                    <th class="modal-title title-case" ng-click="(sortedColumn == 'holderName')?(reverseOrder=(!reverseOrder)): (reverseOrder = false);sortedColumn = 'holderName';" ng-class="(sortedColumn == 'holderName')?((reverseOrder)?('arrow-down') : ('arrow-up') ) : ('')">Name of the Bond Holder</th>
+                                    <th class="modal-title title-case" ng-click="(sortedColumn == 'modeOfHolding')?(reverseOrder=(!reverseOrder)): (reverseOrder = false);sortedColumn = 'modeOfHolding';" ng-class="(sortedColumn == 'modeOfHolding')?((reverseOrder)?('arrow-down') : ('arrow-up') ) : ('')">Mode of Holding</th>
+                                    <th class="modal-title title-case" ng-click="(sortedColumn == 'verifiedStatus')?(reverseOrder=(!reverseOrder)): (reverseOrder = false);sortedColumn = 'verifiedStatus';" ng-class="(sortedColumn == 'verifiedStatus')?((reverseOrder)?('arrow-down') : ('arrow-up') ) : ('')">Verified status</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr class="cp"
+                                    ng-repeat="x in vm.blaTorchList | filter:vm.searchCustomerId | orderBy:sortedColumn:reverseOrder"
+                                    ng-click="vm.blaNo = x.blaNo; vm.isTransferToOtherBank = x.isTransferToOtherBank;" data-bs-dismiss="modal">
+                                    <td>{{x.blaNo}}</td>
+                                    <td>{{x.holderName}}</td>
+                                    <td>{{x.modeOfHolding}}</td>
+                                    <td>{{x.verifiedStatus | getLabelFromValuesArray : vm.commonYesNoMetaData}}</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="list_wrapper" ng-if="vm.blaTorchList.length==0">No records found to display.</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--gbmTranIdList modal-->
+<div class="modal" id="gbsTranModal" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-bs-dismiss="modal">&times;</button>
+                <h4 class="modal-title">GBS Tran Id List</h4>
+            </div>
+            <div class="modal-body">
+                <div class="loader_popup"></div>
+                <div class="list_wrapper" ng-if="vm.gbmTranIdList.length>0">
+                    <div class="col-sm-8 form_submit">
+                        <div class="form-group">
+                            <div class="input-group">
+                                <div class="input-group-addon">
+                                    <i class="glyphicon glyphicon-search"></i>
+                                </div>
+                                <input type="text" class="form-control"
+                                       ng-model="vm.searchCustomerId" ng-init="vm.searchCustomerId = ''"
+                                       placeholder="Search">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4 form_submit"></div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <table class="table table-bordered list scroll">
+                                <thead ng-init="reverseOrder = false; sortedColumn = 'scssCustomerId'">
+                                <tr>
+                                    <th class="modal-title title-case" ng-click="(sortedColumn == 'blaNo')?(reverseOrder=(!reverseOrder)): (reverseOrder = false);sortedColumn = 'blaNo';" ng-class="(sortedColumn == 'blaNo')?((reverseOrder)?('arrow-down') : ('arrow-up') ) : ('')">BLA No</th>
+                                    <th class="modal-title title-case" ng-click="(sortedColumn == 'holderName')?(reverseOrder=(!reverseOrder)): (reverseOrder = false);sortedColumn = 'holderName';" ng-class="(sortedColumn == 'holderName')?((reverseOrder)?('arrow-down') : ('arrow-up') ) : ('')">Holder Name</th>
+                                    <th class="modal-title title-case" ng-click="(sortedColumn == 'gbsTranId')?(reverseOrder=(!reverseOrder)): (reverseOrder = false);sortedColumn = 'gbsTranId';" ng-class="(sortedColumn == 'gbsTranId')?((reverseOrder)?('arrow-down') : ('arrow-up') ) : ('')">GBS Tran Id</th>
+                                    <th class="modal-title title-case" ng-click="(sortedColumn == 'verifiedStatus')?(reverseOrder=(!reverseOrder)): (reverseOrder = false);sortedColumn = 'verifiedStatus';" ng-class="(sortedColumn == 'verifiedStatus')?((reverseOrder)?('arrow-down') : ('arrow-up') ) : ('')">Verified Status</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr class="cp"
+                                    ng-repeat="x in vm.gbmTranIdList | filter:vm.searchCustomerId | orderBy:sortedColumn:reverseOrder"
+                                    ng-click="vm.gbsTranId = x.bondSubscriptionId;  vm.gbsTranId = x.gbsTranId;" data-bs-dismiss="modal">
+                                    <td>{{x.blaNo}}</td>
+                                    <td>{{x.holderName}}</td>
+                                    <td>{{x.gbsTranId}}</td>
+                                    <td>{{x.verifiedStatus | getLabelFromValuesArray : vm.commonYesNoMetaData}}</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="list_wrapper" ng-if="vm.gbmTranIdList.length==0">No records found to display.</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+

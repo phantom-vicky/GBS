@@ -1,0 +1,491 @@
+<div class="loader-new" ng-if="vm.loader"></div>
+<div class="container">
+    <div class="container from_wrapper new_form_wrapper">
+        <div class="text-right form_submit">
+            <button
+                    type="submit"
+                    class="btn btn-default"
+                    onclick="window.location.href ='#!/';"
+                    id="homeButton"
+            >
+                Home
+            </button>
+            <button
+                    type="button"
+                    id="cancel_Button"
+                    class="btn btn-cancel"
+                    onclick="window.location.href= '#!/appendix_iv_75_mar_2024/action/inquiry';"
+            >
+                Back
+            </button>
+        </div>
+        <div class="row">
+            <h4 class="form_heading">
+                Appendix 7.5%
+            </h4>
+            <sol-header></sol-header>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-12">
+                <div
+                        class="row"
+                        style="
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+          "
+                >
+                    <div class="col-sm-3" style="flex: 1">
+                        <div class="form-group">
+                            <table style="border-spacing: 2">
+                                <tr>
+                                    <td>Show&nbsp;</td>
+                                    <td>
+                                        <select
+                                                id="pageSize"
+                                                class="form-control filter-control"
+                                                ng-model="vm.pageSize"
+                                                ng-change="vm.updatePageSize()"
+                                                ng-options="option for option in vm.pageSizeOptions"
+                                        ></select>
+                                    </td>
+                                    <td>&nbsp;records per page</td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div
+                            class="col-sm-6"
+                            style="
+              display: flex;
+              align-items: center;
+              justify-content: flex-end;
+            "
+                    >
+                        <div class="form-group" style="margin-right: 15px">
+                            <div class="input-group">
+                                <div class="input-group-addon">
+                                    <i class="glyphicon glyphicon-search"></i>
+                                </div>
+                                <input
+                                        type="text"
+                                        id="search"
+                                        class="form-control"
+                                        ng-change="vm.updateFilteredRecords()"
+                                        ng-model="vm.searchText"
+                                        placeholder="Search"
+                                />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <select
+                                    class="form-control"
+                                    id="downloadOptions"
+                                    name="export"
+                                    ng-model="vm.selectedOption"
+                                    ng-change="vm.handleDownloadOption()"
+                            >
+                                <option value="">EXPORT</option>
+                                <option value="excel">EXCEL</option>
+                                <!--<option value="csv">CSV</option>-->
+<!--                                <option value="pdf">PDF</option>-->
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="table-responsive">
+                    <table
+                            class="table table-bordered table-striped list nowrap table-textWrap datatable"
+                    >
+                        <thead>
+                        <tr class="thalign">
+                            <th colspan="2">Mumbai</th>
+                            <th colspan="11" rowspan="2">HDFC BANK LTD</th>
+                            <th colspan="2">PART A</th>
+                        </tr>
+                        <tr class="thalign">
+                            <th colspan="2">7.75% Taxable Savings Bond</th>
+                            <th colspan="2">APPENDIX IV</th>
+                        </tr>
+                        <tr class="thalign">
+                            <th colspan="15">Statement of Bonds Issued/Transfered/Repaid etc for the month of Mar 2024
+                            </th>
+                        </tr>
+                        <tr class="thalign">
+                            <th colspan="15">Bond Ledger Accounts Opened during the month of {{vm.fromDate ? (vm.fromDate | date:'MMM yyyy' | uppercase) : '' }}</th>
+                        </tr>
+                        <tr class="thalign">
+                            <th colspan="7.5">NON-CUMULATIVE</th>
+                            <th colspan="7.5">CUMULATIVE</th>
+                        </tr>
+                        <tr class="thalign">
+                            <th colspan="">S No</th>
+                            <th colspan="">B.L.NO.</th>
+                            <th colspan="">AMOUNT</th>
+                            <th colspan="">CAS Adv No & CAS Dt</th>
+                            <th colspan="">DUE DATE</th>
+                            <th colspan="2">SCH</th>
+                            <th colspan="">S No</th>
+                            <th colspan="2">B.L.NO.</th>
+                            <th colspan="">AMOUNT</th>
+                            <th colspan="">CAS Adv No & CAS Dt</th>
+                            <th colspan="2">DUE DATE</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+<!--                        <tr ng-repeat="x in vm.filteredRecords.slice((vm.currentPage-1)*vm.pageSize, vm.currentPage*vm.pageSize)">-->
+                        <tr ng-repeat="x in vm.mergedPartAList track by $index">
+                            <td align="center">{{$index+1}}</td>
+                            <td align="center">{{x.nonCumulative.partANCblano}}</td>
+                            <td align="center">{{x.nonCumulative.partANCamount}}</td>
+                            <td align="center">{{x.nonCumulative.partANCcasAdvNoCasDate}}</td>
+                            <td align="center">{{x.nonCumulative.partANCDueDate}}</td>
+                            <td align="center">123456</td>
+                            <td align="center" colspan="2">{{$index+1}}</td>
+                            <td align="center"colspan="2">{{x.cumulative.partACblano}}</td>
+                            <td align="center">{{x.cumulative.partACamount}}</td>
+                            <td align="center">{{x.cumulative.partACcasAdvNoCasDate}}</td>
+                            <td align="center" colspan="2">{{x.cumulative.partACDueDate}}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+
+                    <table class="table table-bordered table-striped list nowrap table-textWrap datatable">
+                        <thead>
+                        <tr class="thalign">
+                            <th colspan="1">Part B</th>
+                            <th colspan="9" rowspan="2">HDFC BANK LTD</th>
+                            <th colspan="2">APPENDIX IV</th>
+                        </tr>
+                        <tr class="thalign">
+                            <th colspan="1">Mumbai</th>
+                            <th colspan="2">7.75% (TAXABLE) SAVINGS BOND</th>
+                        </tr>
+                        <tr class="thalign">
+                            <th colspan="12">Transferred from other branches / banks (Inflow)</th>
+                        </tr>
+                        <tr class="thalign">
+                            <th colspan="12">Bond Ledger Accounts opened during the month of {{vm.fromDate ? (vm.fromDate | date:'MMM yyyy' | uppercase) : '' }}</th>
+                        </tr>
+                        <tr class="thalign">
+                            <th colspan="7.5">NON-CUMULATIVE</th>
+                            <th colspan="7.5">CUMULATIVE</th>
+                        </tr>
+                        <tr class="thalign">
+                            <th colspan="1">S No</th>
+                            <th colspan="1">BLA NO.</th>
+                            <th colspan="1">AMOUNT</th>
+                            <th colspan="1">DUE DATE OF PAYMENT</th>
+                            <th colspan="2">aaa</th>
+                            <th colspan="1">S No</th>
+                            <th colspan="1">BLA NO.</th>
+                            <th colspan="1">AMOUNT</th>
+                            <th colspan="1">DUE DATE OF PAYMENT</th>
+                            <th colspan="1">aaa</th>
+                            <th colspan="1">Name of transferor Branch</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="x in vm.filteredRecords.slice((vm.currentPage-1)*vm.pageSize, vm.currentPage*vm.pageSize)">
+                            <td align="center">1</td>
+                            <td align="center">12345</td>
+                            <td align="center">12345</td>
+                            <td align="center">12345</td>
+                            <td align="center" colspan="2">12345</td>
+                            <td align="center">12345</td>
+                            <td align="center">12345</td>
+                            <td align="center">12345</td>
+                            <td align="center">12345</td>
+                            <td align="center">12345</td>
+                            <td align="center">12345</td>
+                        </tr>
+                        <tr>
+                            <td align="center">Total</td>
+                            <td align="center"></td>
+                            <td align="center">{Total Value}</td>
+<!--                            <td align="center"></td>-->
+                            <td align="center"></td>
+                            <td align="center"></td>
+                            <td align="center"></td>
+                            <td align="center"></td>
+                        </tr>
+                        </tbody>
+                    </table>
+
+                    <table class="table table-bordered table-striped list nowrap table-textWrap datatable">
+                        <thead>
+                        <tr class="thalign">
+                            <th colspan="1">Part C</th>
+                            <th colspan="9" rowspan="2">HDFC BANK LTD</th>
+                            <th colspan="2">APPENDIX IV</th>
+                        </tr>
+                        <tr class="thalign">
+                            <th colspan="1">Mumbai</th>
+                            <th colspan="2">7.75% (TAXABLE) SAVINGS BOND</th>
+                        </tr>
+                        <tr class="thalign">
+                            <th colspan="12">Transferred from other branches / banks (Inflow)</th>
+                        </tr>
+                        <tr class="thalign">
+                            <th colspan="12">Bond Ledger Accounts opened during the month of {{vm.fromDate ? (vm.fromDate | date:'MMM yyyy' | uppercase) : '' }}</th>
+                        </tr>
+                        <tr class="thalign">
+                            <th colspan="7.5">NON-CUMULATIVE</th>
+                            <th colspan="7.5">CUMULATIVE</th>
+                        </tr>
+                        <tr class="thalign">
+                            <th>S No</th>
+                            <th colspan="1">BLA NO.</th>
+                            <th colspan="2">Amount</th>
+                            <th colspan="1">Due date of Repayment</th>
+                            <th colspan="1">Repayment On</th>
+                            <th colspan="1">S No</th>
+                            <th colspan="2">BLA No</th>
+                            <th colspan="1">Amount</th>
+                            <th colspan="1">Due date of Repayment</th>
+                            <th colspan="1">Repayment On</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="x in vm.filteredRecords.slice((vm.currentPage-1)*vm.pageSize, vm.currentPage*vm.pageSize)">
+                            <td align="center">01</td>
+                            <td align="center">12345</td>
+                            <td align="center" colspan="2">12345</td>
+<!--                            <td align="center">12345</td>-->
+                            <td align="center">12345</td>
+                            <td align="center">12345</td>
+                            <td align="center">01</td>
+                            <td align="center" colspan="2">12345</td>
+<!--                            <td align="center">12345</td>-->
+                            <td align="center">12345</td>
+                            <td align="center">12345</td>
+                            <td align="center">12345</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <table class="table table-bordered table-striped list nowrap table-textWrap datatable">
+                        <thead>
+                        <tr class="thalign">
+                            <th colspan="1">Part D</th>
+                            <th colspan="9" rowspan="2">HDFC BANK LTD</th>
+                            <th colspan="2">APPENDIX IV</th>
+                        </tr>
+                        <tr class="thalign">
+                            <th colspan="1">Mumbai</th>
+                            <th colspan="2">7.75% (TAXABLE) SAVINGS BOND</th>
+                        </tr>
+                        <tr class="thalign">
+                            <th colspan="12">REPAYMENT POSITION {{vm.fromDate ? (vm.fromDate | date:'MMM yyyy' | uppercase) : '' }}</th>
+                        </tr>
+                        <tr class="thalign">
+                            <th colspan="6">NON-CUMULATIVE</th>
+                            <th colspan="6">CUMULATIVE</th>
+                        </tr>
+                        <tr class="thalign">
+                            <th>S No</th>
+                            <th colspan="1">BLA NO.</th>
+                            <th colspan="2">Amount</th>
+                            <th colspan="1">Due date of Repayment</th>
+                            <th colspan="1">Repayment On</th>
+                            <th colspan="1">S No</th>
+                            <th colspan="2">BLA No</th>
+                            <th colspan="1">Amount</th>
+                            <th colspan="1">Due date of Repayment</th>
+                            <th colspan="1">Repayment On</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="x in vm.filteredRecords.slice((vm.currentPage-1)*vm.pageSize, vm.currentPage*vm.pageSize)">
+                            <td align="center">01</td>
+                            <td align="center">TBH51060225200</td>
+                            <td align="center" colspan="2">10000</td>
+                            <td align="center">{x.duedate}}</td>
+                            <td align="center" colspan="1">{x.repay}}</td>
+                            <td align="center" colspan="1">01</td>
+                            <td align="center" colspan="2">TBH51060225026</td>
+                            <td align="center" colspan="1">10000</td>
+                            <td align="center">{x.duedate}}</td>
+                            <td align="center" colspan="1">{x.repay}}</td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td style="text-align: center">Total</td>
+                            <td style="text-align: center" colspan="2">{Total value}</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td style="text-align: center" colspan="2">Total</td>
+                            <td style="text-align: center">{Total value}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <table class="table table-bordered table-striped list nowrap table-textWrap datatable">
+                        <thead>
+                            <tr class="thalign">
+                                <th colspan="1">Part E</th>
+                                <th colspan="9" rowspan="2">HDFC BANK LTD</th>
+                                <th colspan="2">APPENDIX IV</th>
+                            </tr>
+                            <tr class="thalign">
+                                <th colspan="1">Mumbai</th>
+                                <th colspan="2"></th>
+                            </tr>
+                            <tr class="thalign">
+                                <th colspan="12">SUMDecust POSITION  {{vm.fromDate ? (vm.fromDate | date:'MMM yyyy' | uppercase) : '' }}</th>
+                            </tr>
+                            <tr class="thalign">
+                                <th colspan="6">NON-CUMULATIVE</th>
+                                <th colspan="6">CUMULATIVE</th>
+                            </tr>
+                            <tr class="thalign">
+                                <th colspan="1"></th>
+                                <th colspan="1"></th>
+                                <th colspan="2">No of Accounts</th>
+                                <th colspan="2">Amount</th>
+                                <th colspan="1"></th>
+                                <th colspan="1"></th>
+                                <th colspan="2">No of Accounts</th>
+                                <th colspan="2">Amount</th>
+                            </tr>
+                            <tr class="thalign">
+                                <th colspan="1"></th>
+                                <th colspan="1">Progressive Opening Balance B/F</th>
+                                <td colspan="2" style="text-align: center">{1234}</td>
+                                <td colspan="2" style="text-align: center">{1234}</td>
+                                <th colspan="1"></th>
+                                <th colspan="1">Progressive Opening Balance B/F</th>
+                                <td colspan="2" style="text-align: center">{1234}</td>
+                                <td colspan="2" style="text-align: center">{1234}</td>
+                            </tr>
+                            <tr class="thalign">
+                                <th></th>
+                                <th colspan="1">Part A + (Add)</th>
+                                <td colspan="2" style="text-align: center">{1234}</td>
+                                <td colspan="2" style="text-align: center">{partA1amount}</td>
+                                <th colspan="1"></th>
+                                <th colspan="1"> Part A + (Add)</th>
+                                <td colspan="2" style="text-align: center">{1234}</td>
+                                <td colspan="2" style="text-align: center">{partA2amount}</td>
+                            </tr>
+                            <tr class="thalign">
+                                <th colspan="12"></th>
+                            </tr>
+                            <tr class="thalign">
+                                <th></th>
+                                <th colspan="1">Part B + (Add)</th>
+                                <td colspan="2" style="text-align: center">{1234}</td>
+                                <td colspan="2" style="text-align: center">{partB1amount}</td>
+                                <th colspan="1"></th>
+                                <th colspan="1">Part B + (Add)</th>
+                                <td colspan="2" style="text-align: center">{1234}</td>
+                                <td colspan="2" style="text-align: center">{partB2amount}</td>
+                            </tr>
+                            <tr class="thalign">
+                                <th colspan="12"></th>
+                            </tr>
+                            <tr class="thalign">
+                                <th></th>
+                                <th colspan="1">Total</th>
+                                <td colspan="2" style="text-align: center">{1234}</td>
+                                <td colspan="2" style="text-align: center">{1234}</td>
+                                <th colspan="1"></th>
+                                <th colspan="1">Total</th>
+                                <td colspan="2" style="text-align: center">{1234}</td>
+                                <td colspan="2" style="text-align: center">{1234}</td>
+                            </tr>
+                            <tr class="thalign">
+                                <th colspan="12"></th>
+                            </tr>
+                            <tr class="thalign">
+                                <th></th>
+                                <th colspan="1">Part C - (Less)</th>
+                                <td colspan="2" style="text-align: center">{1234}</td>
+                                <td colspan="2" style="text-align: center">{partC1amount}</td>
+                                <th colspan="1"></th>
+                                <th colspan="1">Part C - (Less)</th>
+                                <td colspan="2" style="text-align: center">{1234}</td>
+                                <td colspan="2" style="text-align: center">{partC2amount}</td>
+                            </tr>
+                            <tr class="thalign">
+                                <th colspan="12"></th>
+                            </tr>
+                            <tr class="thalign">
+                                <th></th>
+                                <th colspan="1">Part D - (Less)</th>
+                                <td colspan="2" style="text-align: center">{1234}</td>
+                                <td colspan="2" style="text-align: center">{partD1amount}</td>
+                                <th colspan="1"></th>
+                                <th colspan="1">Part D - (Less)</th>
+                                <td colspan="2" style="text-align: center">{1234}</td>
+                                <td colspan="2" style="text-align: center">{partD2amount}</td>
+                            </tr>
+                            <tr class="thalign">
+                                <th></th>
+                                <th colspan="1">Balance</th>
+                                <td colspan="2" style="text-align: center">{1234}</td>
+                                <td colspan="2" style="text-align: center">{1234}</td>
+                                <th colspan="1"></th>
+                                <th colspan="1">Balance</th>
+                                <td colspan="2" style="text-align: center">{1234}</td>
+                                <td colspan="2" style="text-align: center">{1234}</td>
+                            </tr>
+                            <tr class="thalign">
+                                <th></th>
+                                <th colspan="1">Net i.e. Total of Part A + <br>Part B - Total of Part C + Part D</th>
+                                <td colspan="2" style="text-align: center">{5678}</td>
+                                <td colspan="2" style="text-align: center">{pa+pb-pc+pd}</td>
+                                <th colspan="1"></th>
+                                <th colspan="1">Net i.e. Total of Part A + <br>Part B - Total of Part C + Part D</th>
+                                <td colspan="2" style="text-align: center">{5678}</td>
+                                <td colspan="2" style="text-align: center">{pa+pb-pc+pd}</td>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                        </tbody>
+                    </table>
+                </div>
+                <br/>
+                <div class="row">
+                    <div
+                            ng-if="vm.filteredRecords.length != 0"
+                            class="col-md-12 text-right"
+                    >
+                        <div class="pagination-container">
+                            <ul class="pagination">
+                                <li ng-class="{disabled: vm.currentPage === 1}">
+                                    <a href="javascript:void(0)" ng-click="vm.firstPage()"
+                                    >First</a
+                                    >
+                                </li>
+                                <li ng-class="{disabled: vm.currentPage === 1}">
+                                    <a href="javascript:void(0)" ng-click="vm.prevPage()">Prev</a>
+                                </li>
+                                <li
+                                        ng-repeat="page in vm.pages"
+                                        ng-class="{active: vm.page === vm.currentPage}"
+                                >
+                                    <a href="javascript:void(0)" ng-click="vm.setPage(page)"
+                                    >{{page}}</a
+                                    >
+                                </li>
+                                <li ng-class="{disabled: vm.currentPage === vm.totalPages}">
+                                    <a href="javascript:void(0)" ng-click="vm.nextPage()">Next</a>
+                                </li>
+                                <li ng-class="{disabled: vm.currentPage === vm.totalPages}">
+                                    <a href="javascript:void(0)" ng-click="vm.lastPage()">Last</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    Showing {{(vm.currentPage-1)*vm.pageSize + 1}} to {{vm.maxValue()}} of
+                    {{vm.filteredRecords.length}} records
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

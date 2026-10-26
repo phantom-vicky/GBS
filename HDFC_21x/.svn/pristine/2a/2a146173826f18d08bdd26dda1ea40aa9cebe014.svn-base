@@ -1,0 +1,304 @@
+<div class="loader-new" data-ng-if="vm.loader"></div>
+<div class="container" data-ng-if="vm.model.length>0">
+  <div class="container from_wrapper new_form_wrapper">
+    <div class="text-right form_submit">
+      <button type="submit" class="btn btn-default" onclick="window.location.href ='#!/rbibond_gu_functionality';" id="homeButton">Home</button>
+      <button type="button" id="cancel_Button" class="btn btn-cancel" onclick="window.location.href= '#!/bla_modification_report/action/inquiry';">Back</button>
+    </div>
+    <h4 class="form_heading">BLA Modification Report</h4>
+    <sol-header></sol-header>
+
+    <table class="table table-bordered" aria-label="BLA Modification">
+      <tr>
+        <th scope="col">Name of the Bond Scheme</th>
+        <td>{{vm.schemeName}}</td>
+        <th scope="col" style="width: 20%">Total Count</th>
+        <td style="width: 20%">{{vm.total}}</td>
+      </tr>
+
+      <tr>
+        <th scope="col">From Date</th>
+        <td>{{vm.fromDate | date: 'dd/MM/yyyy'}}</td>
+      </tr>
+
+      <tr>
+        <th scope="col">To Date</th>
+        <td>{{vm.toDate | date: 'dd/MM/yyyy'}}</td>
+      </tr>
+    </table>
+
+    <div class="row">
+      <div class="col-sm-12">
+        <div class="row" style="display: flex; align-items: center; justify-content: space-between">
+          <div class="col-sm-3" style="flex: 1">
+            <div class="form-group">
+              <table style="border-spacing: 2" aria-label="BLA Modification">
+                <tr>
+                  <th scope="col"></th>
+                </tr>
+                <tr>
+                  <td>Show&nbsp;</td>
+                  <td>
+                    <select class="form-control pageDropDown" id="pageSize"
+                            name="pageSize" data-ng-model="vm.pageSize"
+                            data-ng-init="vm.pageSize='5'"
+                            data-ng-change="vm.pageNo = 1; vm.getDetails();"
+                            ng-disabled="vm.noDataFoundInSearch">
+                      <option value="5">5 per page</option>
+                      <option value="10">10 per page</option>
+                      <option value="20">20 per page</option>
+                      <option value="50">50 per page</option>
+                    </select>
+                  </td>
+                </tr>
+              </table>
+            </div>
+          </div>
+
+          <div class="col-sm-6" style="display: flex; align-items: center; justify-content: flex-end">
+            <div class="form-group" style="margin-right: 15px">
+              <div class="input-group">
+                <input type="text" id="search" class="form-control" data-ng-model="vm.searchText" placeholder="Search" />
+                <div class="input-group-addon">
+                  <span class="glyphicon glyphicon-search" data-ng-click="vm.pageNo = 1; vm.getDetails()"></span>
+                </div>
+                <div class="input-group-addon">
+                  <span class="glyphicon glyphicon-remove clear cp" data-ng-click="vm.searchText='';vm.pageNo = 1; vm.getDetails()"></span>
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <select class="form-control" id="export"
+                      name="export" data-ng-model="vm.downloadType"
+                      data-ng-disabled="vm.noDataFoundInSearch"
+                      data-ng-init="vm.downloadType=''" data-ng-change="vm.downloadReport()">
+                <option value="">EXPORT</option>
+                <option value="excel">EXCEL</option>
+                <option value="csv">CSV</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div class="table-responsive">
+          <table class="table table-bordered table-striped list table-textWrap datatable" aria-label="BLA">
+            <thead data-ng-if="!vm.noDataFoundInSearch">
+              <tr>
+                <th>S.NO.</th>
+                <th scope="col">Scheme ID</th>
+                <th scope="col">Scheme Name</th>
+                <th scope="col">Inward Reference Number</th>
+                <th scope="col">Inward Reference Date</th>
+                <th scope="col">BLA Number</th>
+                  <th scope="col">Applicant Name</th>
+                  <th scope="col">Old Applicant Name</th>
+                <th scope="col">First Applicant</th>
+                <th scope="col">Old first Applicant</th>
+                <th scope="col">Second Applicant</th>
+                <th scope="col">Old Second Applicant</th>
+                <th scope="col">Third Applicant</th>
+                <th scope="col">Old Third Applicant</th>
+                <th scope="col">Address</th>
+                  <th scope="col">Old Address</th>
+                  <th scope="col">First Applicant Address</th>
+                  <th scope="col">First Applicant Old Address</th>
+                  <th scope="col">Second Applicant Address</th>
+                  <th scope="col">Second Applicant Old Address</th>
+                  <th scope="col">Third Applicant Address</th>
+                  <th scope="col">Third Applicant Old Address</th>
+                <th scope="col">Mode of Holding</th>
+                <th scope="col">Old Mode of Holding</th>
+                <th scope="col">Date of Birth (DOB)</th>
+                <th scope="col">Old DOB</th>
+
+                  <th scope="col">First Applicant DOB</th>
+                  <th scope="col">First Applicant Old DOB</th>
+                  <th scope="col">Second Applicant DOB</th>
+                  <th scope="col">Second Applicant Old DOB</th>
+                  <th scope="col">Third Applicant DOB</th>
+                  <th scope="col">Third Applicant Old DOB</th>
+                <th scope="col">Mode of Payment</th>
+                <th scope="col">Old Mode of Payment</th>
+                <th scope="col">Account Type</th>
+                <th scope="col">Old Account Type</th>
+                <th scope="col">Account Number</th>
+                <th scope="col">Old Account Number</th>
+                <th scope="col">MICR</th>
+                <th scope="col">Old MICR</th>
+                <th scope="col">Email Id</th>
+                <th scope="col">Old Email Id</th>
+                  <th scope="col">First Applicant Email Id</th>
+                  <th scope="col">First Applicant Old Email Id</th>
+                  <th scope="col">Second Applicant Email Id</th>
+                  <th scope="col">Second Applicant Old Email Id</th>
+                  <th scope="col">Third Applicant Email Id</th>
+                  <th scope="col">Third Applicant Old Email Id</th>
+                <th scope="col">Mobile No</th>
+                <th scope="col">Old Mobile No</th>
+                  <th scope="col">First Applicant Mobile No</th>
+                  <th scope="col">First Applicant Old Mobile No</th>
+                  <th scope="col">Second Applicant Mobile No</th>
+                  <th scope="col">Second Applicant Old Mobile No</th>
+                  <th scope="col">Third Applicant Mobile No</th>
+                  <th scope="col">Third Applicant Old Mobile No</th>
+                <th scope="col">nominee 1</th>
+                <th scope="col">Nominee 1 Old</th>
+                <th scope="col">nominee 2</th>
+                <th scope="col">Nominee 2 Old</th>
+                <th scope="col">nominee 3</th>
+                <th scope="col">Nominee 3 Old</th>
+                <th scope="col">nominee 4</th>
+                <th scope="col">Nominee 4 Old</th>
+                <th scope="col">Application Status</th>
+                <th scope="col">Old Application Status</th>
+                <th scope="col">Pan 1</th>
+                <th scope="col">Pan 1 Old</th>
+                <th scope="col">Pan 2</th>
+                <th scope="col">Pan 2 Old</th>
+                <th scope="col">Pan 3</th>
+                <th scope="col">Pan 3 Old</th>
+                <th scope="col">PAN Number</th>
+                <th scope="col">Old PAN Number</th>
+                <th scope="col">Maker ID</th>
+                <th scope="col">Maker Date</th>
+                <th scope="col">Checker ID</th>
+                <th scope="col">Checker Date</th>
+                <th scope="col">Authorized Status</th>
+                <th scope="col"> Branch Code</th>
+                <th scope="col">Old Branch Code</th>
+                <th scope="col">Remarks</th>
+              </tr>
+            </thead>
+
+            <tbody data-ng-if="!vm.noDataFoundInSearch">
+              <tr dir-paginate="x in vm.model | itemsPerPage: itemsPerPage" pagination-id="trailRunRep">
+                <td>{{ ($index + 1) + ((vm.pageNo - 1) * vm.pageSize) }}</td>
+                <td>{{x.schemeCode}}</td>
+                <td>{{x.schemeName}}</td>
+                <td>{{x.inwardRefNo}}</td>
+                <td>{{x.inwardRefDate}}</td>
+                <td>{{x.blaNo}}</td>
+
+                  <td>{{x.applicant}}</td>
+                  <td>{{x.oldApplicant}}</td>
+
+                  <td>{{x.firstApplicant}}</td>
+                  <td>{{x.oldFirstApplicant}}</td>
+
+                  <td>{{x.secondApplicant}}</td>
+                  <td>{{x.oldSecondApplicant}}</td>
+
+                  <td>{{x.thirdApplicant}}</td>
+                  <td>{{x.oldThirdApplicant}}</td>
+                  <td>{{x.address}}</td>
+                 <td>{{x.oldAddress}}</td>
+                  <td>{{x.addressOne}}</td>
+                  <td>{{x.oldAddressOne}}</td>
+                  <td>{{x.addressTwo}}</td>
+                  <td>{{x.oldAddressTwo}}</td>
+                  <td>{{x.addressThree}}</td>
+                  <td>{{x.oldAddressThree}}</td>
+                  <td>{{x.modeOfHolding}}</td>
+                <td>{{x.oldModeOfHolding}}</td>
+                <td>{{x.dob}}</td>
+                  <td>{{formatDate(x.oldDob)}}</td>
+                  <td>{{x.dobOne}}</td>
+                  <td>{{formatDate(x.oldDobOne)}}</td>
+                  <td>{{x.dobTwo}}</td>
+                  <td>{{formatDate(x.oldDobTwo)}}</td>
+                  <td>{{x.dobThree}}</td>
+                  <td>{{formatDate(x.oldDobThree)}}</td>
+                  <td>{{x.modeOfPayment}}</td>
+                <td>{{x.oldModeOfPayment}}</td>
+                <td>{{x.accountType}}</td>
+                  <!--<td ng-switch="x.oldAccountType">
+                      <span ng-switch-when="SB002">SB</span>
+                      <span ng-switch-when="SB003">CR</span>
+                      <span ng-switch-when="SB004">CR</span>
+                      <span ng-switch-when="SB005">CAS</span>
+                      <span ng-switch-default></span> &lt;!&ndash; Handles null or unknown &ndash;&gt;
+                  </td>-->
+                <td>{{x.oldAccountType}}</td>
+
+                <td>{{x.accountNo}}</td>
+                <td>{{x.oldAccountNo}}</td>
+                <td>{{x.micr}}</td>
+                <td>{{x.oldMicr}}</td>
+                <td>{{x.email}}</td>
+                <td>{{x.oldEmail}}</td>
+
+                  <td>{{x.emailOne}}</td>
+                  <td>{{x.oldEmailOne}}</td>
+                  <td>{{x.emailTwo}}</td>
+                  <td>{{x.oldEmailTwo}}</td>
+                  <td>{{x.emailThree}}</td>
+                  <td>{{x.oldEmailThree}}</td>
+
+                <td>{{x.mobileNo}}</td>
+                 <td>{{x.oldMobileNo}}</td>
+                  <td>{{x.mobileNoOne}}</td>
+                  <td>{{x.oldMobileNoOne}}</td>
+                  <td>{{x.mobileNoTwo}}</td>
+                  <td>{{x.oldMobileNoTwo}}</td>
+                  <td>{{x.mobileNoThree}}</td>
+                  <td>{{x.oldMobileNoThree}}</td>
+                  <td>{{x.nomineeOne}}</td>
+                <td>{{x.nomineeOneOld}}</td>
+                <td>{{x.nomineeTwo}}</td>
+                <td>{{x.nomineeTwoOld}}</td>
+                <td>{{x.nomineeThree}}</td>
+                <td>{{x.nomineeThreeOld}}</td>
+                <td>{{x.nomineeFour}}</td>
+                <td>{{x.nomineeFourOld}}</td>
+                <td>{{x.applStatus}}</td>
+                 <td>{{x.oldApplStatus}}</td>
+                  <td>{{x.panOne}}</td>
+                  <td>{{x.panOneOld}}</td>
+                  <td>{{x.panTwo}}</td>
+                  <td>{{x.panTwoOld}}</td>
+                  <td>{{x.panThree}}</td>
+                  <td>{{x.panThreeOld}}</td>
+                <td>{{x.panNo}}</td>
+                <td>{{x.oldPanNo}}</td>
+                  <td>{{x.makerId}}</td>
+                <td>{{x.makerDate}}</td>
+                <td>{{x.checkerId}}</td>
+                <td>{{x.checkerDate}}</td>
+                <td>{{x.authorizedStatus}}</td>
+                <td>{{x.hdfcBranchCode}}</td>
+                <td>{{x.oldHdfcBranchCode}}</td>
+                <td>{{x.remarks}}</td>
+              </tr>
+            </tbody>
+            <tbody data-ng-if="vm.noDataFoundInSearch">
+              <tr>
+                <td style="text-align: center">No Records Found</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <br />
+      <div class="text-center form_submit">
+        <span data-ng-show="vm.showPrevious">
+          <button type="submit" class="btn btn-default" data-ng-click="vm.goPreviousPage()">Prev</button>
+        </span>
+        <span>
+          <button type="submit" class="btn btn-default" data-ng-disabled="true" data-ng-init="vm.pageNo=1" data-ng-model="vm.pageNo" data-ng-click="vm.paymentStatus();">{{vm.pageNo}} of {{vm.maxPages}}</button>
+        </span>
+        <span data-ng-show="vm.showNext">
+          <button type="submit" class="btn btn-default" data-ng-click="vm.goNextPage();">Next</button>
+        </span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container" data-ng-if="vm.noDataFound">
+  <div class="list_wrapper no_records_message">
+    <h4 class="form_heading">BLA Modification Report</h4>
+    No records found to display.
+    <div style="text-align: center">
+      <button type="button" class="btn btn-default" onclick="window.location.href= '#!/bla_modification_report/action/inquiry';">Back</button>
+    </div>
+  </div>
+</div>

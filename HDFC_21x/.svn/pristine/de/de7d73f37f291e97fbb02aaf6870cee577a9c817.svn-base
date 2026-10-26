@@ -1,0 +1,111 @@
+<div class="loader-new" data-ng-if="vm.loader"></div>
+<div class="container" data-ng-if="vm.model && vm.model.length > 0">
+    <div class="container from_wrapper new_form_wrapper">
+        <div class="text-right form_submit">
+            <button type="button" class="btn btn-default" onclick="window.location.href ='#!/'">Home</button>
+        </div>
+        <h4 class="form_heading">Half Yearly Interest Scroll</h4>
+
+        <table class="table table-bordered" style="width:100%" aria-label="">
+            <tr>
+                <th scope="col">Branch Id</th>
+                <td>{{vm.branchId}}</td>
+
+                <th scope="col">Branch Name</th>
+                <td>{{vm.branchName}}</td>
+            </tr>
+            <tr>
+                <th scope="col">Name of Scheme</th>
+                <td>{{vm.schemeName}}</td>
+
+                <th scope="col">Interest Payment Type</th>
+                <td>{{vm.interestPaymentTypeLabel}}</td>
+            </tr>
+            <tr >
+                <th scope="col" data-ng-if="vm.interestPaymentType === 'HY'">Half Yearly Payment</th>
+                <td data-ng-if="vm.interestPaymentType === 'HY'">{{vm.halfYearMonth}}<span data-ng-if="vm.year"> / {{vm.year}}</span></td>
+
+                <th scope="col">Financial Year</th>
+                <td>{{vm.financialYear}}</td>
+            </tr>
+            <tr data-ng-if="vm.interestPaymentType === 'RR'">
+                <th scope="col">Rejected Reinitiated From Date</th>
+                <td>{{vm.fromDate | date:'dd/MM/yyyy'}}</td>
+
+                <th scope="col">Rejected Reinitiated To Date</th>
+                <td>{{vm.toDate | date:'dd/MM/yyyy'}}</td>
+            </tr>
+        </table>
+
+        <div class="row">
+            <div class="col-sm-3">
+                <div class="form-group">
+                    <div class="input-group">
+                        <div class="input-group-addon">
+                            <span class="glyphicon glyphicon-search"></span>
+                        </div>
+                        <input type="text" class="form-control" data-ng-model="vm.searchText" placeholder="Search"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="table-responsive">
+            <table class="table table-bordered table-striped" aria-label="">
+                <thead>
+                <tr>
+                    <th scope="col">Break Up Details</th>
+                    <th scope="col">Break Up Amount</th>
+                    <th scope="col">Payment Date</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr data-ng-repeat="row in vm.pageDetails">
+                    <td>{{row.breakUpDetails}}</td>
+                    <td>{{row.breakUpAmount}}</td>
+                    <td>{{row.breakUpPaymentDate}}</td>
+                </tr>
+                </tbody>
+                <tfoot>
+                <tr>
+                    <th scope="row">Total Interest Amount</th>
+                    <th colspan="2">{{vm.model[0].totalInterestAmount}}</th>
+                </tr>
+                </tfoot>
+            </table>
+        </div>
+
+        <div class="text-center form_submit">
+            <button type="button" class="btn btn-default" data-ng-click="vm.downloadCertificationLetter();">
+                Download Certification Letter
+            </button>
+            <button type="button" class="btn btn-default" data-ng-click="vm.downloadAnnexureLetter();">
+                Download Annexure
+            </button>
+            <button type="button" class="btn btn-default" data-ng-click="vm.downloadPdoTallyLetter();">
+                Download PDO-Wise Interest Tally
+            </button>
+            <button type="button" class="btn btn-default" data-ng-click="vm.downloadPdoInterestFile();">
+                Download PDO Interest File
+            </button>
+        </div>
+        <div class="text-center form_submit" style="margin-top: 12px;">
+<!--            <button type="button" class="btn btn-default" data-ng-click="vm.printpage();">Print</button>-->
+            <button type="button" class="btn btn-cancel"
+                    onclick="window.location.href= '#!/half_yearly_interest_scroll/action/inquiry';">Back
+            </button>
+        </div>
+    </div>
+</div>
+
+<div class="container" data-ng-if="vm.noDataFound">
+    <div class="list_wrapper no_records_message">
+        <h4 class="form_heading">Half Yearly Interest Scroll</h4>
+        No records found to display.
+        <div style="text-align: center">
+            <button type="button" class="btn btn-default"
+                    onclick="window.location.href= '#!/half_yearly_interest_scroll/action/inquiry';">Back
+            </button>
+        </div>
+    </div>
+</div>

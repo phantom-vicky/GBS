@@ -1,0 +1,117 @@
+<div class="loader-new" ng-if="vm.loader"></div>
+<dc-left-menu></dc-left-menu>
+<div class="container from_wrapper new_form_wrapper" ng-init="vm.getModuleName();">
+
+    <h4 class="form_heading">Bond Acknowledgement Receipt  - Inquiry</h4>
+    <sol-header></sol-header>
+    <form name="accountOpeningForm" role="form">
+        <div class="row" ng-init="vm.getModuleName();">
+            <div class="form-group required">
+                <div class="col-sm-3"></div>
+                <div class="col-sm-3">
+                    <label for="applicationNo" class="control-label">Name of the Bond Scheme</label>
+                </div>
+                <div class="col-sm-3">
+                    <select class="form-control" id="schemeCode" name="schemCode"
+                            ng-model="vm.schemeCode" required>
+                        <option value="">Select</option>
+                        <option ng-repeat="item in vm.schemeListMetaData"  value="{{item.subCode}}">{{item.subCodeDescription}}</option>
+
+                        <!--                            <option ng-repeat="item in vm.schemeListMetaData" value="{{item.subCode}}" ng-bind="{{item.subCodeDescription}}"></option>-->
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group required">
+                <div class="col-sm-3"></div>
+                <div class="col-sm-3">
+                    <label for="applicationNo" class="control-label">Application No</label>
+                </div>
+                <div class="col-sm-2">
+                    <input type="text" class="form-control" id="applicationNo"
+                           ng-model="vm.accountOpening.applicationNo" maxlength="15" readonly required>
+                </div>
+
+                <div class="col-sm-2">
+                    <i class="glyphicon glyphicon-search cp" data-bs-toggle="modal"
+                       id="customerIdSearch"
+                       ng-click="vm.getCustomerIdForInquiry();"></i> <i
+                        class="glyphicon glyphicon-remove clear cp"
+                        ng-click="vm.accountOpening.applicationNo='';"></i>
+                </div>
+            </div>
+        </div>
+        <div class="text-center form_submit">
+            <button type="submit" class="btn btn-default" id="submitButton"
+                    ui-sref="rbi_bond_ack_receipt.inquiry_detail({obj:{
+
+								applicationNo: vm.accountOpening.applicationNo,
+								schemeCode: vm.schemeCode
+								}})"
+                    ng-disabled="accountOpeningForm.$invalid">Submit</button>
+            <button type="button" class="btn btn-cancel" id="cancelButton"
+                    onclick="window.location.href= '#!/rbibond_gu_functionality';">Cancel</button>
+        </div>
+        <div class="text-center">
+            <notice-message-directive></notice-message-directive>
+        </div>
+
+
+    </form>
+
+</div>
+<div class="modal" id="customerIdModalInquiry" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-bs-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Application No</h4>
+            </div>
+            <div class="modal-body">
+                <div class="loader_popup"></div>
+                <div class="list_wrapper" ng-if="vm.customerIdInquiryList.length>0">
+                    <div class="col-sm-8 form_submit">
+                        <div class="form-group">
+                            <div class="input-group">
+                                <div class="input-group-addon">
+                                    <i class="glyphicon glyphicon-search"></i>
+                                </div>
+                                <input type="text" class="form-control"
+                                       ng-model="vm.searchCustomerId" ng-init="vm.searchCustomerId = ''"
+                                       placeholder="Search">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4 form_submit"></div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <table class="table table-bordered list scroll">
+                                <thead ng-init="reverseOrder = false; sortedColumn = 'scssCustomerId'">
+                                <tr>
+                                    <th class="modal-title title-case" ng-click="(sortedColumn == 'applicationNo')?(reverseOrder=(!reverseOrder)): (reverseOrder = false);sortedColumn = 'applicationNo';" ng-class="(sortedColumn == 'applicationNo')?((reverseOrder)?('arrow-down') : ('arrow-up') ) : ('')">Application No</th>
+                                    <th class="modal-title title-case" ng-click="(sortedColumn == 'bondHolderName')?(reverseOrder=(!reverseOrder)): (reverseOrder = false);sortedColumn = 'bondHolderName';" ng-class="(sortedColumn == 'bondHolderName')?((reverseOrder)?('arrow-down') : ('arrow-up') ) : ('')">Bond Holder Name</th>
+                                    <th class="modal-title title-case" ng-click="(sortedColumn == 'applicationDate')?(reverseOrder=(!reverseOrder)): (reverseOrder = false);sortedColumn = 'applicationDate';" ng-class="(sortedColumn == 'applicationDate')?((reverseOrder)?('arrow-down') : ('arrow-up') ) : ('')">Application Date</th>
+                                    <th class="modal-title title-case" ng-click="(sortedColumn == 'amount')?(reverseOrder=(!reverseOrder)): (reverseOrder = false);sortedColumn = 'amount';" ng-class="(sortedColumn == 'amount')?((reverseOrder)?('arrow-down') : ('arrow-up') ) : ('')">Amount</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr class="cp"
+                                    ng-repeat="x in vm.customerIdInquiryList | filter:vm.searchCustomerId | orderBy:sortedColumn:reverseOrder"
+                                    ng-click="vm.accountOpening.applicationNo = x.applicationNo;" data-bs-dismiss="modal">
+                                    <td>{{x.applicationNo}}</td>
+                                    <td>{{x.bondHolderName}}</td>
+                                    <td>{{x.applicationDate}}</td>
+                                    <td>{{x.amount}}</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="list_wrapper" ng-if="vm.customerIdInquiryList.length==0">No records found to display.</div>
+            </div>
+        </div>
+    </div>
+</div>

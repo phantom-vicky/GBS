@@ -1,0 +1,211 @@
+<!-- Second Page-->
+<div class="container from_wrapper">
+
+<div class="loader-new" ng-if="vm.loader"></div>
+<dc-left-menu></dc-left-menu>
+<h4 class="form_heading">CAS ACKNOWLEDGEMENT NUMBER MAINTENANCE - Modify</h4>
+<sol-header></sol-header>
+<form name="vm.bondNominationsForm" role="form" ng-submit="vm.modifySubmit();">
+
+
+<!--<div class="container from_wrapper new_form_wrapper">-->
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="table">
+                <table class="table table-bordered table-striped list">
+
+                    <thead>
+                    <tr>
+                        <th>Check box</th>
+                        <th>S.No</th>
+                        <th>Bond Ledger Account Number</th>
+                        <th>Holder Name</th>
+                        <th>Subscription ID</th>
+                        <th>Subscription Amount</th>
+                        <th>Bond Type</th>
+                        <th>CAS Acknowledgement Number</th>
+                        <th>CAS Acknowledgement Date (dd/mm/yyyy)</th>
+
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="items in vm.model" ng-init="parentIndex=$index;" ng-init="vm.modifySelectDetails[$index]={};">
+                        <td>
+                            <input type="checkbox" class="form-control" id="checkbox[$index]"
+                                   name="checkbox[$index]"  ng-model="vm.checkbox[items.C004.oldValue]" >
+                        </td>
+                        <td>{{vm.itemsPerPage*(vm.currentPage-1)+$index+1}}</td>
+                        <td>{{items.C005.oldValue}}</td>
+                        <td>{{items.C006.oldValue}}</td>
+                        <td>{{items.C004.oldValue}}</td>
+                        <td>{{items.C010.oldValue}}</td>
+                        <td>{{items.C007.oldValue}}</td>
+                        <td ><input type="text" ng-required="vm.checkbox[items.C005.oldValue]" class="form-control" id="items.C008.oldValue"  name="items.C008.oldValue"  ng-model="items.C008.oldValue"
+                        ng-value="items.C008.oldValue" chars="only-numbers"></td>
+<!--                            <p class="input-group">-->
+<!--                                <input type="text" ng-required="vm.checkbox[items.C005.oldValue]" class="form-control" id="items.oldNewValueList[0].C009.oldValue{{$index}}"-->
+<!--                                       name="items.oldNewValueList[0].C009.oldValue{{$index}}"-->
+<!--                                       ng-model="items.C009.oldValue"-->
+<!--                                       ng-value="items.C009.oldValue"-->
+<!--                                       uib-datepicker-popup="dd/MM/yyyy"-->
+<!--                                       datepicker-options="vm.dateOptions[$index]"-->
+<!--                                       is-open="vm.kkkkkk[$index].opened" close-text="Close" maxlength="10"  readonly>-->
+<!--                                <span class="input-group-btn">-->
+<!--                            <button type="button" class="btn btn-secondary"-->
+<!--                                    ng-click="vm.kkkkkk[$index].opened = true"-->
+<!--                                    id="kkkkkkSearcher">-->
+<!--                                <i class="glyphicon glyphicon-calendar"></i>-->
+<!--                            </button>-->
+<!--                        </span>-->
+<!--                            </p>-->
+
+
+<!--                        <td width="25%">-->
+<!--                            <p class="input-group">-->
+<!--                                <input type="text"  ng-required="vm.checkbox[items.subsId]" class="form-control" id="casAckDate{{$index}}"-->
+<!--                                       name="casAckDate{{$index}}" ng-model="items.casAckDate"-->
+<!--                                       uib-datepicker-popup="dd/MM/yyyy"-->
+<!--                                       datepicker-options="vm.dateOptions[$index]"-->
+<!--                                       is-open="vm.kkkkkk[$index].opened" close-text="Close" required readonly  >-->
+<!--                                <span class="input-group-btn">-->
+<!--                                                    <button type="button" class="btn btn-secondary"-->
+<!--                                                            ng-click="vm.kkkkkk[$index].opened = true"-->
+<!--                                                            id="kkkkkkSearcher">-->
+<!--                                                        <i class="glyphicon glyphicon-calendar"></i>-->
+<!--                                                    </button>-->
+<!--                                                </span>-->
+<!--                            </p>-->
+<!--                        </td>      -->
+
+
+
+
+                        <td width="25%">
+                            <p class="input-group">
+                                <input type="text"  class="form-control" id="items.oldNewValueList.C009.oldValue{{$index}}"
+                                       name="items.oldNewValueList.C009.oldValue{{$index}}" ng-model="items.C009.oldValue"
+                                       uib-datepicker-popup="dd/MM/yyyy" ng-init="vm.modifySelectDetails[$index].C009=items.C009.oldValue;"
+                                       datepicker-options="vm.dateOptions"
+                                       is-open="items.kkkkkk[$index].opened" close-text="Close" maxlength="10"  readonly  >
+                                <span class="input-group-btn">
+                                                    <button type="button" class="btn btn-secondary"
+                                                            ng-click="items.kkkkkk[$index].opened = true"
+                                                            id="kkkkkkSearcher">
+                                                        <i class="glyphicon glyphicon-calendar"></i>
+                                                    </button>
+                                        </span>
+                            </p>
+<!--                        </td>-->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!--                        <td width="25%">-->
+<!--                            <p class="input-group">-->
+<!--                                <input type="text" class="form-control" id="casAckDate{{$index}}"-->
+<!--                                       name="casAckDate{{$index}}" ng-model="items.casAckDate"-->
+<!--                                       uib-datepicker-popup="dd/MM/yyyy"-->
+<!--                                       datepicker-options="vm.dateOptions[$index]"-->
+<!--                                       is-open="vm.kkkkkk[$index].opened" close-text="Close" readonly >-->
+<!--                                <span class="input-group-btn">-->
+<!--                                                    <button type="button" class="btn btn-secondary"-->
+<!--                                                            ng-click="vm.kkkkkk[$index].opened = true"-->
+<!--                                                            id="kkkkkkSearcher">-->
+<!--                                                        <i class="glyphicon glyphicon-calendar"></i>-->
+<!--                                                    </button>-->
+<!--                                                </span>-->
+<!--                            </p>-->
+<!--                        </td>-->
+                        </td>
+
+<!--                        <td width="25%">-->
+<!--                            <p class="input-group">-->
+<!--                                <input type="text" class="form-control" id="casAckDate{{$index}}"-->
+<!--                                       name="casAckDate{{$index}}" ng-model="items.casAckDate"-->
+<!--                                       uib-datepicker-popup="dd/MM/yyyy"-->
+<!--                                       datepicker-options="vm.dateOptions[$index]"-->
+<!--                                       is-open="vm.kkkkkk[$index].opened" close-text="Close" readonly >-->
+<!--                                <span class="input-group-btn">-->
+<!--                                                    <button type="button" class="btn btn-secondary"-->
+<!--                                                            ng-click="vm.kkkkkk[$index].opened = true"-->
+<!--                                                            id="kkkkkkSearcher">-->
+<!--                                                        <i class="glyphicon glyphicon-calendar"></i>-->
+<!--                                                    </button>-->
+<!--                                                </span>-->
+<!--                            </p>-->
+<!--                        </td>-->
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+<!--            <div class="row">-->
+<!--                <div class="text-center form_submit">-->
+<!--                    <button type="submit" class="btn btn-default" id="submitButton" ng-disabled="cas_acknowledgement_number_maintenance.$invalid"-->
+<!--                            ng-click="vm.modifySubmit();">Submit-->
+<!--                    </button>-->
+<!--                    <button type="button" class="btn btn-cancel" id="cancel"-->
+<!--                            onclick="window.location.href= '#!/cas_acknowledgement_number_maintenance/modify';">Cancel</button>-->
+<!--                </div>-->
+<!--            </div>-->
+        </div>
+        </div>
+    <div class="audit-details">
+        <div class="row">
+            <div class="col-md-3">
+                <span> <b> Created By </b> : {{vm.auditInfo.createdBy}} </span>
+            </div>
+            <div class="col-md-3">
+                <span> <b> Last Modified By </b> : {{(vm.auditInfo.lastModifiedBy) ? (vm.auditInfo.lastModifiedBy) : ('None')}}</span>
+            </div>
+            <div class="col-md-3">
+                <span> <b> Last Verified By </b> : {{(vm.auditInfo.verifiedBy) ? (vm.auditInfo.lastVerifiedBy) : ('None')}}</span>
+            </div>
+            <div class="col-md-3">
+                <span> <b> Verify Status </b> : {{vm.auditInfo.verifiedStatus  | getLabelFromValuesArray : vm.commonYesNoMetaData}}</span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3">
+                <span> <b> Created On </b> : {{ vm.auditInfo.createdDate | date : 'dd/MM/yyyy'}}</span>
+            </div>
+            <div class="col-md-3">
+                <span> <b> Last Modified On</b> : {{ (vm.auditInfo.lastModifiedDate) ? (vm.auditInfo.lastModifiedDate | date : 'dd/MM/yyyy') : ('None')}}</span>
+            </div>
+            <div class="col-md-3">
+                <span> <b> Last Verified On </b> : {{(vm.auditInfo.verifiedDate) ? (vm.auditInfo.lastVerifiedDate | date : 'dd/MM/yyyy') : ('None')}}</span>
+            </div>
+            <div class="col-md-3">
+            </div>
+        </div>
+    </div>
+
+<!--</div>-->
+
+
+    <div class="text-center form_submit">
+        <button type="submit" class="btn btn-default" id="submitButton" ng-disabled="vm.bondNominationsForm.$invalid || vm.bondNominationsForm.$pristine">Submit
+            <!--                        ng-disabled="cbdtSchemeParameterCreationForm.$invalid || cbdtSchemeParameterCreationForm.$pristine || vm.cbdtOTCCashActErrMsg">Submit-->
+        </button>
+        <button type="button" class="btn btn-cancel" id="cancelButton"
+                onclick="window.location.href= '#!/cas_acknowledgement_number_maintenance/action/modify';">Cancel
+        </button>
+    </div>
+
+    <div class="text-center">
+        <notice-message-directive></notice-message-directive>
+    </div>
+</form>
+</div>

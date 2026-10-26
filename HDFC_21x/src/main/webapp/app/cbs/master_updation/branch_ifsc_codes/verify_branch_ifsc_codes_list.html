@@ -1,0 +1,82 @@
+<div class="loader-new" ng-if="vm.loader"></div>
+	<cbs-left-menu></cbs-left-menu>
+	
+<div class="container list_wrapper" ng-if="vm.recordsList.length > 0">
+<div class="row">
+		<div class="col-sm-1 pull-right">	
+			<button type="button" class="btn btn-default pull-right" ui-sref="branch_ifsc_codes.list">Cancel</button>
+		</div>
+	</div>
+	<h4 class="feature-heading">Branch IFSC Codes - Verify</h4>
+	
+	<div class="row">
+		<div class="col-sm-3">
+		    <div class="form-group">
+		        <label>
+		        Show
+		            <select class="form-control record-filter" ng-model="vm.itemsPerPage" >
+		                <option value='5'>5</option>
+		                <option value='10'>10</option>
+		                <option value='25'>25</option>
+		                <option value='50'>50</option>
+		            </select>
+		        records per page
+		        </label>
+		    </div>
+		</div>
+		
+		<div class="col-sm-3 pull-right">
+			<div class="form-group">
+				<div class="input-group">
+					<div class="input-group-addon"><i class="glyphicon glyphicon-search"></i></div>
+					<input type="text" class="form-control" ng-model="search" placeholder="Search">
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	
+	<table class="table table-bordered table-striped list">
+		<thead>
+				<tr>
+					<th>Bank code</th>
+					<th>Branch code</th>
+					<th>Bank identifier</th>
+					<th>Payment System Id (RTGS)</th>
+					<th>Additional Text1</th>
+					<th>Additional Text2</th>
+					<th>Additional Text3</th>
+					<th style="width: 110px;">Status</th>
+					<th>Created Date</th>
+					<th>Verify</th>
+				</tr>
+			</thead>
+		<tbody>
+			<tr  dir-paginate="item in vm.recordsList | filter:search | itemsPerPage:vm.itemsPerPage">
+				<td>{{item.dto.bankCode}}</td>
+					<td>{{item.dto.branchCode}}</td>
+					<td>{{item.dto.bankIdentifier}}</td>
+					<td>{{item.dto.paysysId}}</td>
+					<td>{{item.dto.additionalText1}}</td>
+					<td>{{item.dto.additionalText2}}</td>
+					<td>{{item.dto.additionalText3}}</td>
+					<td ng-if="item.dto.verified == true && !item.auditLogDto">VERIFIED</td>
+					<td ng-if="item.dto.verified == false || item.auditLogDto">UNVERIFIED</td>
+					<td>{{item.dto.createdDate | date:'dd/MM/yyyy'}}</td>
+					<td><i class="glyphicon glyphicon-ok cp" ui-sref="branch_ifsc_codes.verify_detail({obj:{id: item.dto.branchDetailsId}})"></i></td>
+			</tr>
+		</tbody>
+	</table>
+	
+<dir-pagination-controls direction-links="true" boundary-links="true"></dir-pagination-controls>
+		
+
+
+</div>
+<div class="container list_wrapper" ng-if="vm.recordsList.length <= 0 ">
+	<h4 class="feature-heading">Branch IFSC Codes - Verify</h4>
+	<div class="no_records_message">No records found to display.</div>
+	<center>
+		<button type="button" class="btn btn-default" onclick="window.location.href = '#!/'">Cancel</button>
+	</center>
+</div>

@@ -1,0 +1,111 @@
+
+<div class="loader-new" ng-if="vm.loader"></div>
+<dc-left-menu></dc-left-menu>
+<div class="container from_wrapper new_form_wrapper">
+
+    <h4 class="form_heading">Rejection Reason Master - Inquiry</h4>
+    <sol-header></sol-header>
+
+    <form name="vm.bondNominationsForm" role="form">
+
+
+        <table class="table table-bordered">
+            <tbody>
+            <tr>
+                <td width="15%">Name of the Module</td>
+                <td width="20%">
+                    <label class="data-bind" id="moduleName">RBI Bond</label>
+                </td>
+                <td width="20%">Drop Down Selected</td>
+                <td width="40%">
+                    <label class="data-bind" id="dropDownSelected">{{ vm.dropDownType ? vm.dropDownType.fieldName : 'No selection' }}</label>
+
+
+                </td>
+            </tr>
+
+            </tbody>
+        </table>
+        <table class="table table-bordered">
+            <thead>
+            <tr>
+                <th>Existing Record</th>
+                <th>Newly Added Record</th>
+                <th>Deleted Record</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>
+                    <div class="list">
+                        <div ng-repeat="x in vm.modifiedList">{{x.rejectionReason}}</div>
+                    </div>
+                </td>
+                <td>
+                    <div class="list">
+                        <div ng-repeat="x in vm.AddedList">{{x.rejectionReason}}</div>
+                    </div>
+                </td>
+                <td>
+                    <div class="list">
+                        <div ng-repeat="x in vm.deleteddList">{{x.rejectionReason}}</div>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <table class="table table-bordered table-striped list old-new-value-table">
+            <tbody width="100%">
+            <tr>
+                <th width="50%">Rejection Remarks</th>
+                <td width="50%">{{vm.rejectionRemarks}}</td>
+            </tr>
+
+
+            </tbody>
+        </table>
+
+        <div class="audit-details">
+            <div class="row">
+                <div class="col-md-3">
+                    <span> <b> Created By </b> : {{vm.audit.createdBy}} </span>
+                </div>
+                <div class="col-md-3">
+                    <span> <b> Last Modified By </b> : {{(vm.audit.modifiedBy) ? (vm.audit.modifiedBy) : ('None')}}</span>
+                </div>
+                <div class="col-md-3">
+                    <span> <b> Last Verified By </b> : {{(vm.audit.verifiedBy) ? (vm.audit.verifiedBy) : ('None')}}</span>
+                </div>
+                <div class="col-md-3">
+                    <span> <b> Verify Status </b> : {{vm.audit.verifiedStatus  | getLabelFromValuesArray : vm.commonYesNoMetaData}}</span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3">
+                    <span> <b> Created On </b> : {{ vm.audit.createdDate | date : 'dd-MM-yyyy'}}</span>
+                </div>
+                <div class="col-md-3">
+                    <span> <b> Last Modified On</b> : {{ (vm.audit.modifiedDate) ? (vm.audit.modifiedDate | date : 'dd-MM-yyyy') : ('None')}}</span>
+                </div>
+                <div class="col-md-3">
+                    <span> <b> Last Verified On </b> : {{(vm.audit.verifiedDate) ? (vm.audit.verifiedDate | date : 'dd-MM-yyyy') : ('None')}}</span>
+                </div>
+                <div class="col-md-3">
+                </div>
+            </div>
+        </div>
+
+        <div class="text-center form_submit">
+            <button type="button" class="btn btn-cancel" id="cancelButton"
+                    onclick="window.location.href= '#!/rejection_reason_master/action/inquiry';">Cancel
+            </button>
+        </div>
+        <div class="text-center">
+            <notice-message-directive></notice-message-directive>
+        </div>
+    </form>
+</div>
+
+
+
+

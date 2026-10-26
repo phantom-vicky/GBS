@@ -1,0 +1,105 @@
+<div class="loader-new" ng-if="vm.loader"></div>
+<div class="container" ng-if="vm.detailsList">
+    <div class="text-right form_submit">
+
+<!--        <button type="submit" class="btn btn-default"-->
+<!--                id="printButton" ng-click="vm.printpage();">Print</button>-->
+        <button type="submit" class="btn btn-default"
+                onclick="window.location.href ='#!';" id="homeButton">Home</button>
+
+        <button type="submit" id="backButton" class="btn btn-cancel"
+                onclick="window.location.href='#!/Net_Banking_Transaction_for_all_holders_report_pdf/action/inquiry';">Back</button>
+    </div>
+    <div  class="container from_wrapper new_form_wrapper" id="section-to-print">
+        <div class="col-sm-12">
+                     <h4 class="form_heading">Net Banking Transaction for all holders - Report (PDF) </h4>
+            <sol-header></sol-header>
+<!--            <table class="table report-title-table">-->
+<!--                <tr>-->
+<!--                    <td>-->
+<!--                        <h5 class="modal-title">Bank Name :{{vm.bankName}}</h5>-->
+<!--                    </td>-->
+<!--                </tr>-->
+<!--                <tr>-->
+<!--                    <td>-->
+<!--                        <h5 class="modal-title">Branch Name : {{vm.loginSolDesc}}</h5>-->
+<!--                    </td>-->
+<!--                </tr>-->
+<!--                <tr>-->
+<!--                    <td>-->
+<!--                        <h5 class="modal-title">Branch Id : {{vm.loginSolId}}</h5>-->
+<!--                    </td>-->
+<!--                </tr>-->
+
+<!--            </table>-->
+
+
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="table-responsive">
+
+
+                        <table class="table table-bordered table-striped list table-textWrap datatable" id="dataTable"
+                               ui-jq="dataTable">
+                            <thead>
+
+
+                            <tr class="thalign">
+                                <th>S.NO</th>
+                                <th>PAN No</th>
+                                <th>Holder Name</th>
+                                <th>BLA Number</th>
+                                <th>Mode of<br> Holding</th>
+                                <th>No of Joint<br>Holders</th>
+                                <th>Subscription Id</th>
+                                <th>Subscription Amount</th>
+                                <th>DOWNLOAD</th>
+
+<!--                                <th><button ng-click="vm.downloadAllPdfFiles();" style="background-color: blue; color: white; border: none; padding: 8px 16px; border-radius: 4px;">-->
+<!--                                    DownloadAll-->
+<!--                                </button></th>-->
+                            </tr>
+
+                            </thead>
+
+                            <tbody>
+                            <tr ng-repeat="x in vm.detailsList">
+                                <td>{{vm.itemsPerPage *(vm.currentPage-1)+$index+1}}</td>
+                                <td>{{x.pan}}</td>
+                                <td>{{x.holderName}}</td>
+                                <td>{{}}</td>
+                                <td ng-if="x.modeOfHolding == 'MH001'">SINGLE</td>
+                                <td ng-if="x.modeOfHolding == 'MH002'">JOINT - JOINTLY</td>
+                                <td ng-if="x.modeOfHolding == 'MH003'">JOINT - ANYONE OR SURVIVOR</td>
+                                <td ng-if="x.modeOfHolding == 'MH004'">HUF</td>
+                                <td ng-if="x.modeOfHolding == 'MH005'">LEGAL GUARDIAN</td>
+                                <td>{{x.noOfJointHolders}}</td>
+                                <td>{{}}</td>
+                                <td>{{vm.indianFormat(x.subscriptionAmount)}}</td>
+                              <td><button ng-click="vm.downloadPdfFile(x.subscriptionId,x.bla);" style="background-color: green; color: white; border: none; padding: 8px 16px; border-radius: 4px;">
+                                  Download
+                              </button></td>
+                            </tr>
+                            </tbody>
+
+                        </table>
+
+
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container" ng-if="vm.noDataFound">
+    <div class="list_wrapper no_records_message">
+        <h4 class="form_heading">Daily Remittance to Link Cell</h4>
+        No records found to display.
+        <center>
+            <button type="button" class="btn btn-default"
+                    onclick="window.location.href='#!/rbiBond_daily_remit_lc/inquiry';">Back</button>
+        </center>
+    </div>
+</div>

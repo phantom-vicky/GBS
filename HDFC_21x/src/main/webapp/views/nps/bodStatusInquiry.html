@@ -1,0 +1,122 @@
+<div class="container from_wrapper">
+	<left-menu-directive></left-menu-directive>
+	<h4 class="form_heading">
+		NPS BOD Status Inquiry
+		</h4>
+		<notice-message-directive ></notice-message-directive>
+		<form name="bodStatusInquiryForm" role="form" ng-submit="submitForm(bodStatusInquiryForm.$valid)" novalidate>
+		<div class="form-group">
+			<div class="col-sm-1"></div>
+		  	<label for="solId" class ="control-label col-sm-2">Sol ID</label>				  
+			<div class="col-sm-2 inner-addon right-addon"> 					  
+			  <input type="text" class="form-control" id="solId" name="solId" ng-model="bodStatusInquiry.solId" >
+			</div>
+			<div class="col-sm-2 torch-top">
+			 <i class="glyphicon glyphicon-search cp" data-bs-toggle="modal" data-target="#solIDModal" ng-click="getSolID()"></i>
+			  <i class="glyphicon glyphicon-remove clear cp" ng-click="clearTextBox('solId');"></i>
+			  <i>{{solDescription}}</i>
+			</div>
+			
+
+			
+			<div class="col-sm-1"></div>
+			<label for="max_age" class ="control-label col-sm-1">Status</label>
+			<div class="col-sm-2">
+				<select class="form-control" id="statusCode" name="statusCode" ng-model="bodStatusInquiry.statusCode">
+					<option  ng-selected= "{{item.statusCode == bodStatusInquiry.statusCode}}" ng-repeat="item in statusList" value="{{item.statusCode}}">{{item.statusName}}</option>
+				</select>
+				<div class="col-sm-2"></div>
+			</div>	
+		</div>
+		<div class="form-group required">
+			<div class="col-sm-1"></div>
+			<label for="min_num_contr" class ="control-label col-sm-2">BOD Date</label>
+			<div class="col-sm-2">
+				<input type="text" class="form-control" id="bodDate" name="bodDate" ng-model="bodStatusInquiry.bodDate" required  onkeydown="return false;">
+			</div>      
+			<div class="col-sm-7"></div>
+		</div>	
+		<div class="col-sm-offset-5 col-sm-8 form_submit">
+			<button type="submit" class="btn btn-default" id="submitButton" ng-disabled="bodStatusInquiryForm.$invalid">Submit</button>
+			<button type="submit" class="btn btn-cancel" id="cancelButton" ng-click="moveTo()">Cancel</button>
+		</div>
+	</form>
+</div>
+
+
+  <!-- Modal SOL ID-->
+	<div class="modal" id="solIDModal" role="dialog">
+	  <div class="modal-dialog">
+	    <!-- Modal content-->
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <button type="button" class="close" data-bs-dismiss="modal">&times;</button>
+	        <h4 class="modal-title">Help Index</h4>
+	      </div>
+	      <div class="modal-body">
+	        <div class="list_wrapper" ng-if="list.length>0">
+		        <div class="col-sm-8 form_submit">				    
+					  <div class="form-group">
+					    <div class="input-group">
+					      <div class="input-group-addon"><i class="glyphicon glyphicon-search"></i></div>
+					      <input type="text" class="form-control" ng-model="searchSolId" placeholder="Search">
+					    </div>
+					  </div>
+				</div>
+				<div class="col-sm-4 form_submit"></div>
+				<div class="row">
+					<div class="col-sm-12">
+						<table class="table table-bordered list scroll">
+						    <thead>
+						      <tr>
+						        <th>Sol ID.</th>
+						        <th>Description</th>
+						      </tr>
+						    </thead>
+						    <tbody>
+						      <tr class="cp" ng-repeat="x in list | filter:searchSolId" ng-click="setSolID(x);">
+						        <td>{{x.solId}}</td>
+						        <td>{{x.solDescription}}</td>
+						      </tr>
+						    </tbody>
+						 </table>
+					</div>
+				</div>
+			</div>
+			<div class="list_wrapper" ng-if="list.length==0">No records found to display.</div>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+	<!-- Modal SOL ID - End -->
+	
+	
+	<!-- list result -->
+	<div class="loader" style="display: none;"></div>
+	<div class="container list_wrapper" ng-if="bodStatusInquiryList.length>0">
+		<table class="table table-bordered table-striped list">
+		    <thead>
+		      <tr>
+		      	<th>Sl. No.</th>
+		      	<th>Sol ID</th>
+		      	<th>Sol Description</th>
+		      	<th>BOD Date</th>
+		      	<th>Scheme Name</th>
+		      	<th>BOD Status</th>
+		      </tr>
+		    </thead>
+		    <tbody>
+		      <tr ng-repeat="x in bodStatusInquiryList">
+		        <td>{{$index + 1}}</td>
+		        <td>{{x.solId}}</td>
+		        <td>{{x.solDescription}}</td>
+		        <td>{{x.bodDate | date : "dd/MM/y"}}</td>
+		        <td>{{x.schemeName}}</td>
+		        <td>{{x.statusName}}</td>
+		      </tr>
+		    </tbody>
+	 	</table>
+	</div>
+	<div class="list_wrapper no_records_message" ng-if="bodStatusInquiryList.length==0">No records found to display.</div>
+	<!-- list result - End -->
+	

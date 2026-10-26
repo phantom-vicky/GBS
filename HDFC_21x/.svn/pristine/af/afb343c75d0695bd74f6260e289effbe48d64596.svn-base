@@ -1,0 +1,290 @@
+<left-menu-directive></left-menu-directive>
+<div class="loader-new" ng-show="loader"></div>
+<div class="container from_wrapper" ng-if="displayForm == true">
+	
+	<h4 class="form_heading  feature-heading">Branches Of the Bank - {{action}}</h4>
+	<div  ng-if="action == 'modify' || action == 'add'">
+		<notice-message-directive ></notice-message-directive>
+	</div>
+	<form name="branchesOfTheBankForm" role="form" ng-submit="submitForm(branchesOfTheBankForm.$valid)" novalidate>
+		<div class="row">
+		    <div class="form-group" ng-class="requiredClass">
+			  	<label for="solId" class ="control-label col-sm-3">SOL ID</label>
+				<div class="col-sm-2 inner-addon right-addon">
+					<input type="text" class="form-control" id="solId" name="solId" ng-model="branchesOfTheBank.solId" maxlength="32"  ng-if="action == 'add'" required>
+					<input type="text" class="form-control" id="solId" name="solId" ng-model="branchesOfTheBank.solId" maxlength="32"  ng-if="action == 'modify'" readonly>
+					<label ng-if="action == 'delete' || action == 'verify' || action == 'inquiry'">: {{branchesOfTheBank.solId}}</label>
+				</div>
+				<div class="col-sm-2"></div>
+				 <label for="solDesc" class ="control-label col-sm-3">Branch Name Description</label>
+				<div class="col-sm-2">
+					<input type="text" class="form-control" id="solDesc" name="solDesc" ng-model="branchesOfTheBank.solDesc" maxlength="132" ng-if="action == 'modify' || action == 'add'" required>
+					<label ng-if="action == 'delete' || action == 'verify' || action == 'inquiry'">: {{branchesOfTheBank.solDesc}}</label>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+		<div class="form-group" ng-class="requiredClass">
+		  	<label for="bankCode" class ="control-label col-sm-3">Bank Code</label>
+			<div class="col-sm-2">
+			  <input type="text" class="form-control" id="bankCode" name="bankCode" ng-model="branchesOfTheBank.bankCode" maxlength="6" ng-if="action == 'modify' || action == 'add'" required>
+			  <label ng-if="action == 'delete' || action == 'verify' || action == 'inquiry'">: {{branchesOfTheBank.bankCode}}</label>
+				<!-- <option  ng-selected= "{{item.tranTypeKey == branchesOfTheBank.bankCode}}" ng-repeat="item in tranTypeList" value="{{item.tranTypeKey}}">{{item.tranTypeName}}</option> -->
+			</div>
+			<div class="col-sm-2"></div>
+			<label for="branchCode" class ="control-label col-sm-3">Branch Code</label>
+			<div class="col-sm-2">
+			  <input type="text" class="form-control" id="branchCode" name="branchCode" ng-model="branchesOfTheBank.branchCode" maxlength="6" ng-if="action == 'modify' || action == 'add'" required>
+			  <label ng-if="action == 'delete' || action == 'verify' || action == 'inquiry'">: {{branchesOfTheBank.branchCode}}</label>
+			</div>
+		</div>
+		</div>
+		<div class="row">
+		<div class="form-group" ng-class="requiredClass">
+		  	<label for="micrCertreCode" class ="control-label col-sm-3">MICR Center Code</label>
+			<div class="col-sm-2">
+			  <input type="text" class="form-control" id="micrCertreCode" name="micrCertreCode" ng-model="branchesOfTheBank.micrCertreCode" maxlength="3" ng-if="action == 'modify' || action == 'add'" required>
+			  <label ng-if="action == 'delete' || action == 'verify' || action == 'inquiry'">: {{branchesOfTheBank.micrCertreCode}}</label>
+			</div>
+			<div class="col-sm-2"></div>
+			 <label for="micrBankCode" class ="control-label col-sm-3">MICR Bank Code</label>
+			<div class="col-sm-2">
+			  <input type="text" class="form-control" id="micrBankCode" name="micrBankCode" ng-model="branchesOfTheBank.micrBankCode" maxlength="3" ng-if="action == 'modify' || action == 'add'" required>
+			  <label ng-if="action == 'delete' || action == 'verify' || action == 'inquiry'">: {{branchesOfTheBank.micrBankCode}}</label>
+			 <!--  <div ng-show="branchesOfTheBankForm.amountMin.$error.number" class="help-block alert alert-danger">Amount Range: Min should be in numbers</div> -->
+			</div>
+		</div>	
+		</div>
+		<div class="row">
+	<div class="form-group" ng-class="requiredClass">
+		  	<label for="micrBranchCode" class ="control-label col-sm-3">MICR Branch Code</label>
+			<div class="col-sm-2">
+			  <input type="text" class="form-control" id="micrBranchCode" name="micrBranchCode" ng-model="branchesOfTheBank.micrBranchCode" maxlength="3" ng-if="action == 'modify' || action == 'add'"  required>
+			  <label ng-if="action == 'delete' || action == 'verify' || action == 'inquiry'">: {{branchesOfTheBank.micrBranchCode}}</label>
+			  <!-- <div ng-show="branchesOfTheBankForm.amountMax.$error.number" class="help-block alert alert-danger">Amount Range: Max should be in numbers</div> -->
+			</div>
+			<div class="col-sm-2"></div>
+			<label for="addr1" class ="control-label col-sm-3">Address1</label>
+			<div class="col-sm-2">
+			  <input type="text" class="form-control" id="addr1" name="addr1" ng-model="branchesOfTheBank.addr1" maxlength="45" ng-if="action == 'modify' || action == 'add'" required>
+			  <label ng-if="action == 'delete' || action == 'verify' || action == 'inquiry'">: {{branchesOfTheBank.addr1}}</label>
+			  <!-- <div ng-show="branchesOfTheBankForm.tranIdFrom.$error.number" class="help-block alert alert-danger">Tran Id From should be in numbers</div> -->
+			</div>
+		</div>	
+		</div>
+		<div class="row">
+		<div class="form-group" ng-class="requiredClass">
+		  	<label for="addr2" class ="control-label col-sm-3">Address2</label>
+			<div class="col-sm-2">
+			  <input type="text" class="form-control" id="addr2" name="addr2" ng-model="branchesOfTheBank.addr2" maxlength="45" ng-if="action == 'modify' || action == 'add'" required>
+			  <label ng-if="action == 'delete' || action == 'verify' || action == 'inquiry'">: {{branchesOfTheBank.addr2}}</label>
+			  <!-- <div ng-show="branchesOfTheBankForm.tranIdTo.$error.number" class="help-block alert alert-danger">Tran Id To should be in numbers</div> -->
+			</div>
+			<div class="col-sm-2"></div>
+			<label for="cityCode" class ="control-label col-sm-3">City Code</label>
+			<div class="col-sm-2">
+			  <input type="text" class="form-control" id="cityCode" name="cityCode" ng-model="branchesOfTheBank.cityCode" maxlength="5" ng-if="action == 'modify' || action == 'add'" required>
+			  <label ng-if="action == 'delete' || action == 'verify' || action == 'inquiry'">: {{branchesOfTheBank.cityCode}}</label>
+			</div>
+		</div>	
+		</div>
+		<div class="row">
+		<div class="form-group" ng-class="requiredClass">
+		  		<label for="stateCode" class ="control-label col-sm-3">State Code</label>
+			<div class="col-sm-2">
+			  <input type="text" class="form-control" name="stateCode" id="stateCode" ng-model="branchesOfTheBank.stateCode" maxlength="5" ng-if="action == 'modify' || action == 'add'" required>
+			  <label ng-if="action == 'delete' || action == 'verify' || action == 'inquiry'">: {{branchesOfTheBank.stateCode}}</label>
+				<!-- <option  ng-selected= "{{item.tranStatusKey == branchesOfTheBank.tranStatus}}" ng-repeat="item in tranStatusList" value="{{item.tranStatusKey}}">{{item.tranStatusName}}</option> -->
+			</div>
+			<div class="col-sm-2"></div>
+			 <label for="pinCode" class ="control-label col-sm-3">Pin Code</label>
+			<div class="col-sm-2">
+			  <input type="text" class="form-control" id="pinCode" name="pinCode" ng-model="branchesOfTheBank.pinCode" maxlength="10" ng-if="action == 'modify' || action == 'add'" allow-only-numbers required>
+			  <label ng-if="action == 'delete' || action == 'verify' || action == 'inquiry'">: {{branchesOfTheBank.pinCode}}</label>
+			</div>
+		</div>	
+		</div>
+		<div class="row">
+		<div class="form-group" ng-class="requiredClass">
+		  	<label for="panGirNumber" class ="control-label col-sm-3">PAN No</label>
+			<div class="col-sm-2">
+			  <input type="text" class="form-control" id="panGirNumber" name="panGirNumber" ng-model="branchesOfTheBank.panGirNumber" maxlength="10" ng-if="action == 'modify' || action == 'add'" required>
+			  <label ng-if="action == 'delete' || action == 'verify' || action == 'inquiry'">: {{branchesOfTheBank.panGirNumber}}</label>
+			</div>
+			<div class="col-sm-2"></div>
+			<label for="taxDednDetails" class ="control-label col-sm-3">TAN No</label>
+			<div class="col-sm-2">
+			  <input type="text" class="form-control" id="taxDednDetails" name="taxDednDetails" ng-model="branchesOfTheBank.taxDednDetails" maxlength="10" ng-if="action == 'modify' || action == 'add'" required>
+			  <label ng-if="action == 'delete' || action == 'verify' || action == 'inquiry'">: {{branchesOfTheBank.taxDednDetails}}</label>
+			  <!-- <div ng-show="branchesOfTheBankForm.amountMin.$error.number" class="help-block alert alert-danger">Amount Range: Min should be in numbers</div> -->
+			</div>
+		</div>	
+		</div>
+		<div class="row">
+		<div class="form-group" ng-class="requiredClass">
+		  	<label for="tdsCircleName" class ="control-label col-sm-3">TDS Circle Name</label>
+			<div class="col-sm-2">
+			  <input type="text" class="form-control" id="tdsCircleName" name="tdsCircleName" ng-model="branchesOfTheBank.tdsCircleName" maxlength="50" ng-if="action == 'modify' || action == 'add'" required>
+			  <label ng-if="action == 'delete' || action == 'verify' || action == 'inquiry'">: {{branchesOfTheBank.tdsCircleName}}</label>
+			 <!--  <div ng-show="branchesOfTheBankForm.amountMax.$error.number" class="help-block alert alert-danger">Amount Range: Max should be in numbers</div> -->
+			</div>
+			<div class="col-sm-2"></div>
+			<label for="divisionName" class ="control-label col-sm-3">Division Name</label>
+			<div class="col-sm-2">
+			  <input type="text" class="form-control" id="divisionName" name="divisionName" ng-model="branchesOfTheBank.divisionName" maxlength="50" ng-if="action == 'modify' || action == 'add'" required>
+			  <label ng-if="action == 'delete' || action == 'verify' || action == 'inquiry'">: {{branchesOfTheBank.divisionName}}</label>
+			<!--   <div ng-show="branchesOfTheBankForm.tranIdTo.$error.number" class="help-block alert alert-danger">Tran Id To should be in numbers</div> -->
+			</div>
+		</div>	
+		</div>
+		<div class="row">
+		<div class="form-group" ng-class="requiredClass">
+		<label for="circlOfficeName" class ="control-label col-sm-3">Circle Office Name</label>
+			<div class="col-sm-2">
+			  <input type="text" class="form-control" id="circlOfficeName" name="circlOfficeName" ng-model="branchesOfTheBank.circlOfficeName" maxlength="50" ng-if="action == 'modify' || action == 'add'" required>
+			  <label ng-if="action == 'delete' || action == 'verify' || action == 'inquiry'">: {{branchesOfTheBank.circlOfficeName}}</label>
+			<!--   <div ng-show="branchesOfTheBankForm.tranIdTo.$error.number" class="help-block alert alert-danger">Tran Id To should be in numbers</div> -->
+			</div>
+			<div class="col-sm-2"></div>
+			 <label for="uniformBrCode" class ="control-label col-sm-3">Uniform Branch Code</label>
+			<div class="col-sm-2">
+			  <input type="text" class="form-control" id="uniformBrCode" name="uniformBrCode" ng-model="branchesOfTheBank.uniformBrCode" maxlength="15" ng-if="action == 'modify' || action == 'add'" allow-only-numbers required>
+			  <label ng-if="action == 'delete' || action == 'verify' || action == 'inquiry'">: {{branchesOfTheBank.uniformBrCode}}</label>
+			</div>
+			
+		</div>	
+		</div>
+		<div class="row">
+		<div class="form-group ">
+		  	<label for="status" class ="control-label col-sm-3">Bank Status</label>
+			<div class="col-sm-2">
+			   	<select class="form-control" name="status" id="status" ng-model="branchesOfTheBank.branchStatus" required string-to-number ng-if="action == 'modify' || action == 'add'">
+					<option ng-repeat="(value, item) in statusList" ng-value="{{value}}">{{item}}</option>
+				</select>
+				<label ng-if="action == 'delete' || action == 'verify' || action == 'inquiry'">: {{branchesOfTheBank.branchStatusDescription}}</label>
+			</div>
+			<div class="col-sm-2"></div>
+			 <label for="additionalText1" class ="control-label col-sm-3">Additional Text1</label>
+			<div class="col-sm-2">
+			  <input type="text" class="form-control" id="additionalText1" name="additionalText1" ng-model="branchesOfTheBank.additionalText1" maxlength="40" ng-if="action == 'modify' || action == 'add'">
+			  <label ng-if="action == 'delete' || action == 'verify' || action == 'inquiry'">: {{branchesOfTheBank.additionalText1}}</label>
+			</div>
+		</div>	
+		</div>
+		<div class="row">
+		<div class="form-group ">
+		  	<label for="additionalText2" class ="control-label col-sm-3">Additional Text2</label>
+			<div class="col-sm-2">
+			  <input type="text" class="form-control" id="additionalText2" name="additionalText2" ng-model="branchesOfTheBank.additionalText2" maxlength="40" ng-if="action == 'modify' || action == 'add'">
+			  <label ng-if="action == 'delete' || action == 'verify' || action == 'inquiry'">: {{branchesOfTheBank.additionalText2}}</label>
+			  <!-- <div ng-show="branchesOfTheBankForm.tranIdTo.$error.number" class="help-block alert alert-danger">Tran Id To should be in numbers</div> -->
+			</div>
+			<div class="col-sm-2"></div>
+			 <label for="additionalText3" class ="control-label col-sm-3">Additional Text3</label>
+			<div class="col-sm-2">
+			  <input type="text" class="form-control" id="additionalText3" name="additionalText3" ng-model="branchesOfTheBank.additionalText3" maxlength="40" ng-if="action == 'modify' || action == 'add'">
+			  <label ng-if="action == 'delete' || action == 'verify' || action == 'inquiry'">: {{branchesOfTheBank.additionalText3}}</label>
+			</div>
+		</div>	
+		</div>
+	 	<div class="col-sm-offset-5 col-sm-8 form_submit">
+	 			<button type="submit" class="btn btn-default" id="submitButton" ng-disabled="branchesOfTheBankForm.$invalid" ng-if="action == 'add'">Submit</button>
+				 <button type="submit" class="btn btn-default" id="submitButton" ng-disabled="branchesOfTheBankForm.$invalid" ng-if="action == 'modify'">Update</button>
+				 <button type="button" class="btn btn-default" id="submitButton" ng-click="verify(branchesOfTheBank.solId)" ng-disabled="branchesOfTheBankForm.$invalid" ng-if="action == 'verify'">Verify</button>
+				 <button type="button" class="btn btn-default" id="submitButton" ng-click="delete(branchesOfTheBank.solId)" ng-disabled="branchesOfTheBankForm.$invalid" ng-if="action == 'delete'">Delete</button>
+				 <button type="button" class="btn btn-default" id="submitButton" ng-click="inquiry(branchesOfTheBank.solId)" ng-disabled="branchesOfTheBankForm.$invalid" ng-if="action == 'inquiry'">Back</button>
+		 	 	<button type="button" class="btn btn-cancel" id="cancelButton" ng-click="cancelOperation(action)" >Cancel</button>
+	   </div>
+	</form>
+	
+</div>
+
+
+	
+	<!-- list result -->
+	<div class="container list_wrapper  table-responsive" ng-if="baseRecordList.length > 0">
+	<h4 class="feature-heading">Branches Of the Bank - {{action}}</h4>
+	<div class="col-sm-3">
+			<div class="form-group">
+				<label>
+				Show
+					<select class="form-control record-filter" ng-model="itemsPerPage" id="itemsPerPage" name="itemsPerPage"  ng-change="setItemsPerPage(itemsPerPage)" >
+						<option value='5'>5</option>
+						<option value='10'>10</option>
+						<option value='25'>25</option>
+						<option value='50'>50</option>
+					</select>
+				records per page
+				</label>
+			</div>
+		</div>
+		<div class="col-sm-3 pull-right">				    
+			  <div class="form-group">
+			       <div class="input-group">
+					      <div class="input-group-addon"><i class="glyphicon glyphicon-search"></i></div>
+					      <input type="text" class="form-control" ng-model="searchKeyword" ng-change="searchInquiryFn(searchKeyword)" placeholder="Search">
+					    </div>
+			  </div>
+		</div>
+		<div ng-if="totalItems > 0">
+	<table class="table table-bordered table-striped list">
+			<thead>
+				<tr>
+					<th>Sol Id</th>
+				<!-- 	<th>Branch Name Description</th> -->
+					<th>Bank Code</th>
+					<th>Branch Code</th><!-- 
+					<th>MICR center code</th>
+					<th>MICR Bank code</th>
+					<th>MICRF Branch Code</th>
+					<th>Address1</th>
+					<th>Address2</th> -->
+					<th>City Code</th>
+					<th>State Code</th>
+					<th>Pin Code</th>
+					<th>PAN No</th>
+					<th>TAN No</th>
+					<th>Branch Status</th>
+					<!-- <th>TDS Circle Name</th>
+					<th>Division Name</th>
+					<th>Circle Office Name</th>
+					<th>Uniform Branch code</th>
+					<th>Additional Text1</th>
+					<th>Additional Text2</th>
+					<th>Additional Text3</th> -->
+					<th style="width: 100px;">Status</th>
+					<th>Created Date</th>
+					<th ng-if="action" class="capitalize">{{action}}</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="item in recordsList.slice(((currentPage-1)*itemsPerPage), ((currentPage)*itemsPerPage)) ">
+					<td>{{item.solId}}</td>
+					<td>{{item.bankCode}}</td>
+					<td>{{item.branchCode}}</td>
+					<td>{{item.cityCode}}</td>
+					<td>{{item.stateCode}}</td>
+					<td>{{item.pinCode}}</td>
+					<td>{{item.panGirNumber}}</td>
+					<td>{{item.taxDednDetails}}</td>
+					<td>{{item.branchStatusDescription}}</td>
+					<td ng-if="item.verifiedFlag == true">Verified</td>
+					<td ng-if="item.verifiedFlag == false">Unverified</td>
+					<td>{{item.createdDate}}</td>
+					<td ng-if="action=='modify'"><i class="glyphicon glyphicon-edit cp" ng-click="modifyForm(item.id)"></i></td>
+					<td ng-if="action=='verify'"><i class="glyphicon glyphicon-ok cp" ng-click="verifyForm(item.id)"></i></td>
+					<td ng-if="action=='delete'"><i class="glyphicon glyphicon-remove cp" ng-click="deleteForm(item.id)"></i></td>
+					<td ng-if="action=='inquiry'"><i class="glyphicon glyphicon-search cp" ng-click="inquiryForm(item.id)"></i></td>
+				</tr>
+			</tbody>
+		</table>
+		<ul uib-pagination total-items="totalItems" ng-model="currentPage" max-size="maxSize" class="pagination-sm" boundary-links="true" force-ellipses="true"  items-per-page="itemsPerPage"></ul>
+</div>
+		<div class="list_wrapper no_records_message padding-top-50" ng-if="totalItems <= 0">No records matched with<i>"{{searchKeyword}}"</i>.</div>
+		
+</div>
+
+<div class="container list_wrapper" ng-if="baseRecordList.length <= 0 && loader == false && displayForm == false">
+	<h4 class="feature-heading">Branches Of the Bank - {{action}}</h4>
+	<div class="no_records_message">No records found to display.</div>
+</div>

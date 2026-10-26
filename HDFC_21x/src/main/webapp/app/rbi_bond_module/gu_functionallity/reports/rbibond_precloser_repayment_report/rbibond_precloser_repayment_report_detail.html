@@ -1,0 +1,202 @@
+<div class="loader-new" data-ng-if="vm.loader"></div>
+<div class="container" data-ng-if="vm.model.length>0">
+  <div class="container from_wrapper new_form_wrapper">
+    <div class="text-right form_submit">
+      <button type="submit" class="btn btn-default" onclick="window.location.href ='#!/rbibond_gu_functionality';" id="homeButton">Home</button>
+      <button type="button" id="cancel_Button" class="btn btn-cancel" onclick="window.location.href= '#!/rbibond_precloser_repayment_report/action/inquiry';">Back</button>
+    </div>
+
+    <h4 class="form_heading">Bond pre-closure Repayment Report</h4>
+    <sol-header></sol-header>
+
+    <div>
+      <table class="table table-bordered" aria-label="BPRR">
+        <tr>
+          <th scope="col">Date</th>
+          <td>{{vm.solDate | date: 'dd/MM/yyyy'}}</td>
+            <th scope="col">Total Count</th>
+            <td>{{vm.total}}</td>
+        </tr>
+        <tr>
+          <th scope="col"> Name of the Bond Scheme</th>
+          <td>{{vm.schemeName}}</td>
+        </tr>
+
+        <tr>
+          <th scope="col">From Date</th>
+          <td>{{vm.fromDate | date: 'dd/MM/yyyy'}}</td>
+        </tr>
+        <tr>
+          <th scope="col">To Date</th>
+          <td>{{vm.toDate | date: 'dd/MM/yyyy'}}</td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="row">
+      <div class="col-sm-12">
+          <div class="row" style="display: flex; align-items: center; justify-content: space-between">
+              <div class="col-sm-3" style="flex: 1">
+                  <div class="form-group">
+                      <table style="border-spacing: 2" aria-label="BPRR">
+                          <tr>
+                              <th scope="col"></th>
+                          </tr>
+                          <tr>
+                              <td>Show&nbsp;</td>
+                              <td>
+                                  <select class="form-control pageDropDown" id="pageSize" name="pageSize"
+                                          ng-model="vm.pageSize" ng-init="vm.pageSize='5'"
+                                          ng-change="vm.pageNo='1'; vm.getPreClosureRepayment();"
+                                          ng-disabled="vm.noDataFoundInSearch">
+                                      <option value="5">5 per page</option>
+                                      <option value="10">10 per page</option>
+                                      <option value="20">20 per page</option>
+                                      <option value="50">50 per page</option>
+                                  </select>
+                              </td>
+                          </tr>
+                      </table>
+                  </div>
+              </div>
+
+              <div class="col-sm-6" style="display: flex; align-items: center; justify-content: flex-end">
+                  <div class="form-group" style="margin-right: 15px">
+                      <div class="input-group">
+                          <input type="text" id="search" class="form-control" data-ng-model="vm.searchValue" placeholder="Search" />
+                          <div class="input-group-addon">
+                              <span class="glyphicon glyphicon-search" data-ng-click="vm.pageNo = 1; vm.getPreClosureRepayment()"></span>
+                          </div>
+                          <div class="input-group-addon">
+                              <span class="glyphicon glyphicon-remove clear cp" data-ng-click="vm.searchValue=''; vm.pageNo = 1; vm.getPreClosureRepayment(); "></span>
+                          </div>
+                      </div>
+                  </div>
+                  <div class="form-group">
+                      <select class="form-control" id="export" name="export"
+                              data-ng-model="vm.downloadType" data-ng-init="vm.downloadType=''"
+                              data-ng-disabled="vm.noDataFoundInSearch"
+                              data-ng-change="vm.downloadReport()">
+                          <option value="">EXPORT</option>
+                          <option value="excel">EXCEL</option>
+                      </select>
+                  </div>
+              </div>
+          </div>
+        <div class="table-responsive">
+          <table class="table table-bordered table-striped list nowrap table-textWrap" aria-label="BPRR">
+            <thead data-ng-if="!vm.noDataFoundInSearch">
+              <tr class="thalign">
+                <th scope="col">S.No</th>
+                <th scope="col">PAN No</th>
+                  <th scope="col">Scheme Name</th>
+                <th scope="col">Bond Ledger Account Number</th>
+                <th scope="col">Holder Name</th>
+                <th scope="col">Subscription ID</th>
+                <th scope="col">Subscription Date</th>
+                <th scope="col">Subscription Amount</th>
+                <th scope="col">Due date of Repayment</th>
+                <th scope="col">Date of Pre-Closed Repayment</th>
+                <th scope="col">Gross Amount</th>
+                <th scope="col">TDS Amount</th>
+                  <th scope="col">TDS Percentage</th>
+                <th scope="col">Amount of Repayment</th>
+                <th scope="col">Credited to Bank Account No</th>
+
+                  <th scope="col">Maker Id</th>
+                  <th scope="col">Maker Date</th>
+                  <th scope="col">Checker Id</th>
+                  <th scope="col">Checker Date</th>
+                  <th scope="col">CAS Date</th>
+                  <th scope="col"> Old Bond Subscription Id</th>
+                  <th scope="col">Old Bla No</th>
+                  <th scope="col">Investment Holding Year</th>
+
+
+
+
+              </tr>
+            </thead>
+            <tbody data-ng-if="!vm.noDataFoundInSearch" >
+              <tr dir-paginate="x in vm.filteredRecords | itemsPerPage: itemsPerPage" pagination-id="trailRunRep">
+                  <td>{{ ($index + 1) + ((vm.pageNo - 1) * vm.pageSize) }}</td>
+                <td style="text-align:center">{{x.panNo}}</td>
+                  <td style="text-align:center">{{x.schemeName}}</td>
+                <td style="text-align:center">{{x.blaNo}}</td>
+                <td style="text-align:center">{{x.holderName}}</td>
+                <td style="text-align:center">{{x.subscriptionId}}</td>
+                <td style="text-align:center">{{x.subscriptionDate}}</td>
+                <td style="text-align:center">{{vm.indianNumberFormat(x.subscriptionAmt)}}</td>
+                <td style="text-align:center">{{x.dueDateRepay}}</td>
+                <td style="text-align:center">{{x.datePreclosRepay}}</td>
+                <td style="text-align:center">{{vm.roundGrossAmount(x.grossAmt) }}</td>
+                  <td style="text-align:center">{{vm.indianNumberFormat(x.tdsAmt)}}</td>
+                <td style="text-align:center">  {{vm.formatPercentage(x.tdsPercentage)}}</td>
+                <td style="text-align:center">{{vm.roundGrossAmount(x.repayAmt)}}</td>
+                <td style="text-align:center">{{x.creditAccNo}}</td>
+
+                  <td style="text-align:center">{{x.makerId}}</td>
+                  <td style="text-align:center">{{x.makerDate}}</td>
+                  <td style="text-align:center">{{x.checkerId}}</td>
+                  <td style="text-align:center">{{x.checkerDate}}</td>
+                  <td style="text-align:center">{{x.casDate}}</td>
+                  <td style="text-align:center">{{x.oldBondSubscriptionId}}</td>
+                  <td style="text-align:center">{{x.oldBlaNo}}</td>
+                  <td style="text-align:center">{{x.investmentHoldingYear}}</td>
+
+
+
+              </tr>
+              <tr>
+                  <th scope="col" colspan="6"></th>
+                  <th scope="col" class="text-center">Total</th>
+                  <th scope="col" class="text-center">{{vm.indianNumberFormat(vm.totalSubscriptionAmt)}}</th>
+                  <th scope="col"></th>
+                  <th scope="col"></th>
+                  <th scope="col" class="text-center">{{vm.roundGrossAmount(vm.totalGrossAmt)}}</th>
+                  <th scope="col"></th>
+                  <th scope="col"></th>
+                  <th scope="col" class="text-center">{{vm.roundGrossAmount(vm.totalRepayAmt)}}</th>
+                  <th scope="col"></th>
+              </tr>
+            </tbody>
+              <tbody data-ng-if="vm.noDataFoundInSearch" >
+              <tr >
+                  <td colspan="14" style="text-align:center">No Records Found</td>
+              </tr>
+              </tbody>
+          </table>
+        </div>
+        <br>
+        <div class="text-center form_submit">
+                        <span ng-show="vm.showPrevious">
+                        <button type="submit" class="btn btn-default" ng-click="vm.goPreviousPage()">Prev
+                        </button>
+                        </span>
+
+          <span>
+                          <button type="submit" class="btn btn-default" ng-disabled="true" ng-init="vm.pageNo=1" ng-model="vm.pageNo" ng-click="vm.paymentStatus();">{{vm.pageNo}} of {{vm.maxPages}}
+                          </button>
+                        </span>
+
+          <span ng-show="vm.showNext">
+                        <button type="submit" class="btn btn-default" ng-click="vm.goNextPage();" >Next
+                        </button>
+                        </span>
+        </div>
+
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container" data-ng-if="vm.noDataFound">
+  <div class="list_wrapper no_records_message">
+    <h4 class="form_heading">Bond pre-closure Repayment report</h4>
+    No records found to display.
+      <div style="text-align: center">
+      <button type="button" class="btn btn-default" onclick="window.location.href= '#!/rbibond_precloser_repayment_report/action/inquiry';">Back</button>
+    </div>
+  </div>
+</div>

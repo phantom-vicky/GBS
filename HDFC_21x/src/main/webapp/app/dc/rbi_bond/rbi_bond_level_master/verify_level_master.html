@@ -1,0 +1,208 @@
+<div class="loader-new" ng-if="vm.loader"></div>
+<dc-left-menu></dc-left-menu>
+<div class="container from_wrapper new_form_wrapper">
+
+    <h4 class="form_heading">{{vm.screenModule}} Level Master - Verify/Reject</h4>
+    <sol-header></sol-header>
+    <form name="levelMasterForm" role="form">
+        <div class="col-sm-6 col-sm-offset-3">
+
+
+<!--            <div class="row" ng-if="vm.screenModule=='RBI Bond'">-->
+<!--                <div class="form-group required">-->
+<!--                    <div class="col-sm-6">-->
+<!--                        <label for="moduleName" class="control-label">Module Name</label>-->
+<!--                    </div>-->
+<!--                    <div class="col-sm-4">-->
+<!--                        <label>{{vm.screenModule}}</label>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+            <div class="row" ng-if="vm.screenModule=='RBI Bond'">
+                <div class="form-group required">
+                    <div class="col-sm-6">
+                        <label class="control-label">Module Name</label>
+                    </div>
+                    <div class="col-sm-4">
+                        <span ng-if="!vm.readable">RBI Bond</span>
+                        <select ng-if="vm.readable" class="form-control" id="moduleName" name="moduleName"
+                                ng-model="vm.moduleId"
+                                ng-change="vm.getUnVerifyRecords();" required>
+                            <option value="">Select</option>
+                            <option value="007">RBI Bond</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+
+
+
+            <div class="row " ng-if=" vm.heirarchyLevel.length>0">
+                <div class="table-responsive map-div">
+                    <table class="table table-bordered table-stripped">
+                        <thead>
+                        <th>Level Code</th>
+                        <th>Level Name</th>
+                        <th>Parent Level Name</th>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="item in vm.heirarchyLevel">
+                            <td>
+                                <label class="control-label" ng-bind="item.levelId"></label>
+                            </td>
+                            <td>
+                                <label class="control-label" ng-bind="item.levelName"></label>
+                            </td>
+                            <td>
+                                <label class="control-label" ng-bind="(item.parentLevelName)?(item.parentLevelName):'NONE'"></label>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+<!--            <div class="row" ng-if=" vm.heirarchyLevel.length==0">-->
+<!--                <div class="text-center map-div">-->
+<!--                    No records found to display for this module id.-->
+<!--                </div>-->
+<!--            </div>-->
+        </div>
+        <div class="col-sm-9 col-sm-offset-3 audit-details" ng-if=" vm.heirarchyLevel.length>0">
+            <div class="row">
+                <div class="col-md-3">
+                    <span> <b> Created By </b> : {{vm.levelMasterDetails.createdBy}} </span>
+                </div>
+                <div class="col-md-3">
+                    <span> <b> Last Verified By </b> : {{(vm.levelMasterDetails.verifiedBy) ? (vm.levelMasterDetails.verifiedBy) : ('None')}}</span>
+                </div>
+                <div class="col-md-3">
+                    <span> <b> Verify Status </b> : {{vm.levelMasterDetails.verifiedStatus  | getLabelFromValuesArray : vm.commonYesNoMetaData}}</span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3">
+                    <span> <b> Created On </b> : {{ vm.levelMasterDetails.createdDate | date : 'dd/MM/yyyy'}}</span>
+                </div>
+                <div class="col-md-3">
+                    <span> <b> Last Verified On </b> : {{(vm.levelMasterDetails.verifiedDate) ? (vm.levelMasterDetails.verifiedDate | date : 'dd/MM/yyyy') : ('None')}}</span>
+                </div>
+                <div class="col-md-3">
+                </div>
+            </div>
+        </div>
+
+
+        <div class="col-sm-12 text-center form_submit">
+            <button type="submit" class="btn btn-default" id="submitButton" ng-click="vm.verifySubmit();"
+                    ng-disabled="levelMasterForm.$invalid" ng-if="!vm.readable">Verify</button>
+            <button type="button" class="btn btn-default" id="rejectButton"
+                    ng-click="vm.rejectReason();" ng-disabled="levelMasterForm.$invalid" ng-if="!vm.readable">Reject</button>
+            <button type="button" class="btn btn-cancel" id="cancelButton"
+                    onclick="window.location.href= '#!/rbi_bond_level_master/action/inquiry';">Cancel</button>
+
+        </div>
+        <div class="col-sm-12 text-center">
+            <notice-message-directive></notice-message-directive>
+        </div>
+
+    </form>
+</div>
+
+<!--Scheme Name-->
+<div class="modal" id="schemeNameSearcherPopUp" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-bs-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Branch Id</h4>
+            </div>
+            <div class="modal-body">
+                <div class="loader_popup"></div>
+                <div class="list_wrapper" ng-if="vm.schemeNameList.length>0">
+                    <div class="col-sm-8 form_submit">
+                        <div class="form-group">
+                            <div class="input-group">
+                                <div class="input-group-addon">
+                                    <i class="glyphicon glyphicon-search"></i>
+                                </div>
+                                <input type="text" class="form-control" ng-model="vm.searchschemeName" ng-init="vm.searchschemeName = ''"
+                                       placeholder="Search">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4 form_submit"></div>
+                    <div class="row">
+
+                        <div class="col-sm-12">
+                            <table class="table table-bordered list scroll">
+                                <thead ng-init="reverseOrder = false; sortedColumn = 'schemeName'">
+                                <tr>
+                                    <th class="modal-title title-case" ng-click="(sortedColumn == 'schemeName')?(reverseOrder=(!reverseOrder)): (reverseOrder = false);sortedColumn = 'schemeName';" ng-class="(sortedColumn == 'schemeName')?((reverseOrder)?('arrow-down') : ('arrow-up') ) : ('')">Branch Id</th>
+                                    <th class="modal-title title-case" ng-click="(sortedColumn == 'schemeStatus')?(reverseOrder=(!reverseOrder)): (reverseOrder = false);sortedColumn = 'schemeStatus';" ng-class="(sortedColumn == 'schemeStatus')?((reverseOrder)?('arrow-down') : ('arrow-up') ) : ('')">Branch Name</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr class="cp"
+                                    ng-repeat="x in vm.schemeNameList | filter:vm.searchschemeName | orderBy:sortedColumn:reverseOrder"
+                                    ng-click="vm.searchschemeName=x.schemeName;vm.branchName = x.schemeStatus"  data-bs-dismiss="modal">
+                                    <td>{{x.schemeName}}</td>
+                                    <td>{{x.schemeStatus}}</td>
+                                </tr>
+                                <!--                                <tr class="cp" ng-repeat="x in vm.branchIdList" ng-click="vm.searchBranchId = x.branchId;vm.branchName = x.branchName;vm.crn.no=x.crn.no;" data-bs-dismiss="modal">-->
+                                <!--                                    <td>{{x.branchId}}</td>-->
+                                <!--                                    <td>{{x.branchName}}</td>-->
+                                <!--                                </tr>-->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="list_wrapper" ng-if="vm.schemeNameList.length==0">No records found to display.</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal" id="permissionMappingDelete" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-bs-dismiss="modal">&times;</button>
+                <h4 class="modal-title"> REJECTION REMARKS</h4>
+            </div>
+            <div class="modal-body">
+                <div class="loader_popup"></div>
+                <div class="list_wrapper" >
+                    <form name="permissionDelete" role="form">
+
+                        <div class="row">
+                            <div class="form-group">
+                                <div class="col-sm-2"></div>
+                                <label class="control-label col-sm-3">Remarks</label>
+                                <div class="col-sm-5">
+                                    <!--
+                                                                        <textarea class="form-control"   ng-keypress="vm.validateInput($event,'remarks')" id="remarks" name="remarks" ng-model="vm.remarks" maxlength="80" required></textarea>
+                                    -->
+                                    <select class="form-control list_wrapper" id="remarks[$index]" name="remarks[$index]"
+                                            ng-model="vm.remarks" ng-init="vm.getRemarksList();"   required>
+                                        <option value="">Select</option>
+                                        <option ng-repeat="item in vm.remarksList"
+                                                name="{{item.subCode + parentIndex}}" id="{{item.subCode + parentIndex}}" value="{{item.subCodeDescription}}">{{item.subCodeDescription}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-offset-5 col-sm-8 form_submit">
+                            <button type="button" class="btn btn-default" data-bs-dismiss="modal" ng-disabled="permissionDelete.$invalid" ng-click="vm.deleteSubmit()" >Submit</button>
+                            <button type="button" class="btn btn-cancel" data-bs-dismiss="modal">Cancel</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

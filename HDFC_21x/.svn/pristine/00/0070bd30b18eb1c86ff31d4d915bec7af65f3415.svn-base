@@ -1,0 +1,3 @@
+<div class="notice-message text-danger">
+	<p>(<span>*</span>) - indicates mandatory fields. Submit/Update button will be enabled, once all the mandatory fields are filled.</p>
+</div>

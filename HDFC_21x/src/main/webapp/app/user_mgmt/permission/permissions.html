@@ -1,0 +1,55 @@
+<user-left-menu></user-left-menu>
+<!-- list result -->
+<div class="loader-new" ng-if="vm.loader"></div>
+<div class="container list_wrapper" ng-if="vm.permissions.length > 0">
+    <h4 class="form_heading  feature-heading">Permissions - {{vm.action}} </h4>
+
+   <div class="col-sm-3">
+            <div class="form-group">
+                <label>
+                Show
+                    <select class="form-control record-filter" ng-model="vm.itemsPerPage" >
+                        <option value='5'>5</option>
+                        <option value='10'>10</option>
+                        <option value='25'>25</option>
+                        <option value='50'>50</option>
+                    </select>
+                records per page
+                </label>
+            </div>
+        </div>
+        <div class="col-sm-3 pull-right">                   
+              <div class="form-group">
+                <div class="input-group">
+                          <div class="input-group-addon"><i class="glyphicon glyphicon-search"></i></div>
+                          <input type="text" class="form-control" ng-model="search"  laceholder="Search">
+                        </div>
+              </div>
+        </div>
+
+    <table class="table table-bordered table-striped list">
+        <thead>
+            <tr>
+                <th>Permission Name</th>
+                <th>Description</th>
+                <th ng-if="vm.action != 'inquiry'">Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr dir-paginate="permission in vm.permissions|filter:search|itemsPerPage:vm.itemsPerPage">
+                <td>{{permission.displayName}}</td>
+                <td>{{permission.description}}</td>
+                 <td ng-if="vm.action == 'modify'">
+                    <i class="glyphicon glyphicon-edit" style="cursor:pointer;" ui-sref="permission.modify({id: permission.id})"></i>
+                </td>  
+
+                  <td ng-if="vm.action == 'delete'">
+                    <i class="glyphicon glyphicon-remove" style="cursor:pointer;" ng-click="vm.showDeleteConfirmation(permission.id)"></i>
+                </td>       
+            </tr>
+        </tbody>
+    </table>
+        <dir-pagination-controls direction-links="true" boundary-links="true">
+    </dir-pagination-controls>
+</div>
+<div class="list_wrapper no_records_message" ng-if="vm.permissions.length==0">No records found to display.</div>

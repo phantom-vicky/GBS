@@ -1,0 +1,178 @@
+<div class="loader-new" data-ng-if="vm.loader"></div>
+<div class="container from_wrapper new_form_wrapper">
+  <h4 class="form_heading">Nominee Continuation Report</h4>
+  <form name="nominee_continuation_report" role="form">
+    <sol-header></sol-header>
+    <!--Name of the Module-->
+    <div class="row">
+      <div class="form-group">
+        <div class="col-sm-3"></div>
+        <div class="col-sm-3">
+          <label class="control-label">Name of the Module</label>
+        </div>
+        <div class="col-sm-2">
+          <label><strong>RBI Bond</strong></label>
+        </div>
+      </div>
+    </div>
+    <!--Name of the Bond Scheme-->
+    <div class="row">
+      <div class="form-group required">
+        <div class="col-sm-3"></div>
+        <div class="col-sm-3">
+          <label for="schemeCode" class="control-label">Name of the Bond Scheme</label>
+        </div>
+        <div class="col-sm-2">
+          <input type="text" class="form-control" id="schemeCode" data-ng-model="vm.schemeName" readonly required/>
+        </div>
+        <div class="col-sm-2" style="display: flex; align-items: center; height: 34px; gap: 5px; padding-left: 0">
+          <span class="glyphicon glyphicon-search cp" data-bs-toggle="schemeName" id="treasurySearch" data-ng-click="vm.getModuleName();"> </span>
+          <span class="glyphicon glyphicon-remove clear cp" data-ng-click="vm.schemeName ='';vm.fromDate='';vm.toDate='';"> </span>
+        </div>
+      </div>
+    </div>
+    <!--From Date-->
+    <div class="row">
+      <div class="form-group required">
+        <div class="col-sm-3"></div>
+        <div class="col-sm-3">
+          <label for="effFromDate1" class="control-label"> From Date</label>
+        </div>
+        <div class="col-sm-2 inner-addon right-addon">
+          <p class="input-group">
+            <input
+              type="text"
+              class="form-control"
+              id="effFromDate1"
+              name="effFromDate"
+              data-ng-model="vm.fromDate"
+              data-uib-datepicker-popup="dd/MM/yyyy"
+              data-ng-init="vm.fromDate=''; vm.fromDateVal();"
+              data-datepicker-options="vm.fromDateOptions"
+              data-is-open="vm.effFromDatePicker.opened"
+              data-ng-change="vm.toDateVal(vm.fromDate); vm.toDate=''"
+              data-close-text="Close"
+              ng-blur="vm.textableDatePicker('effFromDate1',vm.fromDate)"
+              ng-keyup="vm.autoslashing('effFromDate1')" chars="numbers-slash"
+              required
+            />
+            <span class="input-group-btn" data-ng-if="vm.schemeCode">
+              <button type="button" class="btn btn-secondary" data-ng-click="vm.effFromDatePicker.opened = true" id="effFromDateSearcher1">
+                <span class="glyphicon glyphicon-calendar"></span>
+              </button>
+            </span>
+          </p>
+        </div>
+      </div>
+    </div>
+    <!--To Date-->
+    <div class="row">
+      <div class="form-group required">
+        <div class="col-sm-3"></div>
+        <div class="col-sm-3">
+          <label for="effToDate" class="control-label">To Date</label>
+        </div>
+        <div class="col-sm-2 inner-addon right-addon">
+          <p class="input-group">
+            <input
+              type="text"
+              class="form-control"
+              id="effToDate"
+              name="effToDate"
+              data-ng-model="vm.toDate"
+              data-ng-init="vm.toDate=''"
+              data-uib-datepicker-popup="dd/MM/yyyy"
+              data-datepicker-options="vm.toDateOptions"
+              data-is-open="vm.effToDatePicker.opened"
+              data-close-text="Close"
+              maxlength="10"
+              required
+              ng-blur="vm.textableDatePicker('effToDate',vm.toDate)"
+              ng-keyup="vm.autoslashing('effToDate')" chars="numbers-slash"
+            />
+            <span class="input-group-btn" data-ng-if="vm.fromDate">
+              <button type="button" class="btn btn-secondary" data-ng-click="vm.effToDatePicker.opened = true" id="effToDateSearcher">
+                <span class="glyphicon glyphicon-calendar"></span>
+              </button>
+            </span>
+          </p>
+        </div>
+      </div>
+    </div>
+    <!--Submit and Cancel Button-->
+    <div class="row">
+      <div class="text-center form_submit">
+        <button
+          type="submit"
+          class="btn btn-default"
+          id="submitButton"
+          data-ui-sref="nominee_continuation_report.inquiry_details({obj:{
+                                schemeName  : vm.schemeName,
+                                schemeCode  : vm.schemeCode,
+								fromDate    : vm.fromDate,
+								toDate      : vm.toDate,
+								}})"
+          data-ng-disabled="nominee_continuation_report.$invalid"
+        >
+          Submit
+        </button>
+
+        <button type="button" class="btn btn-cancel" id="cancel" onclick="window.location.href= '#!/rbibond_gu_functionality'">Cancel</button>
+      </div>
+      <div class="text-center">
+        <notice-message-directive></notice-message-directive>
+      </div>
+    </div>
+  </form>
+</div>
+
+<!--Scheme Modal-->
+<div class="modal" id="schemeModel" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-bs-dismiss="modal" data-ng-click="vm.searchSolId=''">&times;</button>
+        <h4 class="modal-title">Name of the Bond Scheme</h4>
+      </div>
+      <div class="modal-body">
+        <div class="loader_popup"></div>
+        <div class="list_wrapper" data-ng-if="vm.schemeList.length>0">
+          <div class="col-sm-8 form_submit">
+            <div class="form-group">
+              <div class="input-group">
+                <div class="input-group-addon">
+                  <span class="glyphicon glyphicon-search"></span>
+                </div>
+                <input type="text" class="form-control" data-ng-model="vm.searchSolId" data-ng-Byinit="vm.searchSolId = ''" placeholder="Search" oninput="this.value = this.value.replace(/^\s+/, '').replace(/\s{2,}/g, ' ')" />
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-4 form_submit"></div>
+          <div class="row">
+            <div class="col-sm-12">
+              <table class="table table-bordered list scroll sort" aria-label="">
+                <thead data-ng-init="reverseOrder=true;sortedColumn = 'blaAccNo';">
+                  <tr>
+                    <th data-ng-click="(sortedColumn == 'schemeName')?(reverseOrder=(!reverseOrder)): (reverseOrder = false);sortedColumn = 'schemeName';" data-ng-class="(sortedColumn == 'schemeName')?((reverseOrder)?('arrow-down') : ('arrow-up') ) : ('')" scope="col">
+                      Name of the Bond Scheme
+                    </th>
+                    <th data-ng-click="(sortedColumn == 'schemeStatus')?(reverseOrder=(!reverseOrder)): (reverseOrder = false);sortedColumn = 'schemeStatus';" data-ng-class="(sortedColumn == 'schemeStatus')?((reverseOrder)?('arrow-down') : ('arrow-up') ) : ('')" scope="col">
+                      Scheme Status
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr class="cp" data-ng-repeat="x in vm.schemeList | filter:vm.searchSolId | orderBy:sortedColumn:reverseOrder" data-ng-click="vm.schemeName = x.schemeName;vm.schemeCode = x.schemeCode;vm.schemeStatus = x.schemeStatus;" data-bs-dismiss="modal">
+                    <td>{{x.schemeName}}</td>
+                    <td>{{x.schemeStatus}}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+        <div class="list_wrapper" data-ng-if="vm.schemeList.length==0">No records found to display.</div>
+      </div>
+    </div>
+  </div>
+</div>

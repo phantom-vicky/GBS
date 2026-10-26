@@ -1,0 +1,166 @@
+<div class="loader-new" ng-if="vm.loader" xmlns="http://www.w3.org/1999/html"></div>
+<div class="container from_wrapper new_form_wrapper">
+	<cbs-left-menu></cbs-left-menu>
+	<h4 class="form_heading  feature-heading">Maintenance of Calendar
+		Entries - Add</h4>
+	<form name="maintenanceOfCalendarEntriesForm" role="form">
+		<div class="col-sm-6 col-sm-offset-3">
+			<div class="row">
+				<div class="form-group required">
+					<div class="col-sm-6">
+						<label for="calendarType" class ="control-label">Type</label>
+					</div>
+					<div class="col-sm-4">
+						<label class="form-control" id="cal" ng-if="vm.cbsMaintenanceOfCalendarEntries.monthYear">{{vm.cbsMaintenanceOfCalendarEntries.calendarType}}</label>
+						<select class="form-control" id="calendarType" ng-if="!vm.cbsMaintenanceOfCalendarEntries.monthYear" name="calendarType"
+								ng-model="vm.cbsMaintenanceOfCalendarEntries.calendarType"
+								required>
+							<option
+									ng-selected="{{maintenanceOfCalendarEntries.calendarType == ''}}"
+									value="">Select</option>
+							<option
+									ng-selected="{{maintenanceOfCalendarEntries.calendarType== 'Branch'}}"
+									value="Branch">Branch</option>
+							<option
+									ng-selected="{{maintenanceOfCalendarEntries.calendarType == 'DC'}}"
+									value="DC">DC</option>
+						</select>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="form-group required">
+					<div class="col-sm-6">
+						<label for="calendarCode" class ="control-label">Branch Code or Data Center Code</label>
+					</div>
+					<div class="col-sm-4">
+						<input type="text" class="form-control" id="calendarCode"
+							   name="calendarCode" chars="alpha-numeric" ng-readonly="vm.cbsMaintenanceOfCalendarEntries.monthYear"
+							   ng-model="vm.cbsMaintenanceOfCalendarEntries.calendarCode"
+							   maxlength="12" required oninput="this.value = this.value.replace(/\s+/g, '')">
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="form-group">
+					<div class="col-sm-6 required">
+						<label for="monthYear" class="control-label">Month & Year</label>
+					</div>
+					<div class="col-sm-6">
+						<div class="row">
+							<div class="col-sm-4" ng-if="vm.cbsMaintenanceOfCalendarEntries.monthYear"> 	<label class="form-control" id="month" >{{vm.cbsMaintenanceOfCalendarEntries.month}}</label></div>
+							<div class="col-sm-4" ng-if="vm.cbsMaintenanceOfCalendarEntries.monthYear"> 	<label class="form-control" id="yearl" >{{vm.cbsMaintenanceOfCalendarEntries.year}}</label></div>
+							<div class="col-sm-6" ng-if="!vm.cbsMaintenanceOfCalendarEntries.monthYear">
+								<select name="month" class="form-control"
+										ng-model="vm.cbsMaintenanceOfCalendarEntries.month" required>
+                                    <option value="">Select</option>
+                                    <option value="Jan">Jan</option>
+                                    <option value="Feb">Feb</option>
+                                    <option value="Mar">Mar</option>
+                                    <option value="Apr">Apr</option>
+                                    <option value="May">May</option>
+                                    <option value="June">June</option>
+                                    <option value="July">July</option>
+                                    <option value="Aug">Aug</option>
+                                    <option value="Sep">Sep</option>
+                                    <option value="Oct">Oct</option>
+                                    <option value="Nov">Nov</option>
+                                    <option value="Dec">Dec</option>
+								</select>
+							</div>
+							<div class="col-sm-6" ng-if="!vm.cbsMaintenanceOfCalendarEntries.monthYear">
+
+								<select class="form-control" id="year" name="year"
+										ng-model="vm.cbsMaintenanceOfCalendarEntries.year"
+										ng-init="vm.getYears(); vm.cbsMaintenanceOfCalendarEntries.year = ''"
+										required>
+									<option
+											ng-selected="{{vm.maintenanceOfCalendarEntries.year == ''}}"
+											value="">Year</option>
+									<option
+											ng-selected="{{x == vm.maintenanceOfCalendarEntries.year}}"
+											ng-repeat="year in vm.years">{{year}}</option>
+								</select>
+
+							</div>
+							</div>
+						<input type="hidden" class="form-control" id="monthYear"
+							   name="monthYear"
+							   ng-model="vm.cbsMaintenanceOfCalendarEntries.monthYear"
+							   minlength="6"
+							   ng-value="vm.cbsMaintenanceOfCalendarEntries.month + vm.cbsMaintenanceOfCalendarEntries.year"
+							   maxlength="6"
+							   ng-change="alert(vm.cbsMaintenanceOfCalendarEntries.monthYear)"
+							   chars="only-numbers" >
+					</div>
+				</div>
+			</div>
+			<div class="row"  id="first_div">
+				<div class="text-center form_submit" >
+					<button type="submit" class="btn btn-default" id="firstSubmitButton"
+							ng-click="vm.add();"
+							ng-disabled="maintenanceOfCalendarEntriesForm.$invalid"
+					>Submit</button>
+					<button type="button" class="btn btn-cancel" id="firstCancelButton"
+							ng-click="vm.cbsMaintenanceOfCalendarEntries.year=vm.cbsMaintenanceOfCalendarEntries.month=vm.cbsMaintenanceOfCalendarEntries.calendarCode=vm.cbsMaintenanceOfCalendarEntries.calendarType=vm.cbsMaintenanceOfCalendarEntries.monthYear=vm.model='';vm.cbsMaintenanceOfCalendarEntries.dayOrder=[];vm.cbsMaintenanceOfCalendarEntries.option=[];vm.Selectclear('add');">Cancel</button>
+				</div>
+			</div>
+		</div>
+	</form>
+		<div class="row">
+            <form name="maintenanceOfCalendarEntriesFormDetails" role="form">
+            <div class="col-md-12" ng-if="vm.scrollMonth&&vm.scrollYear">
+                    <table class="table table-bordered" style="width : 100% !important; max-width : initial ! important">
+                        <thead>
+                        <tr class="thalign">
+                            <th colspan="4" class="text-center">Holiday Calender</th>
+                        </tr>
+                        <tr class="thalign">
+                            <th width="25px">Date (DD/MM/YYYY)</th>
+                            <th width="25px">Weekday Name</th>
+                            <th width="25px">Holiday (Yes/No)</th>
+                            <th width="25px">Remarks</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="item in vm.dataList">
+                            <td class="text-center">{{item.scrollDate | date:'dd/MM/yyyy'}}</td>
+                            <td class="text-center">{{item.scrollDay}}</td>
+                            <td>
+                                <select class="form-control"  name="holiday" ng-model="item.holiday" ng-init="item.cashRemittance" ng-change="vm.clearRemarks({{$index}},item.holiday);"
+                                        required >
+                                    <option value="">Select</option>
+                                    <option value="Y">Yes</option>
+                                    <option value="N">No</option>
+                                </select>
+                            </td>
+                            <td ng-if="item.holiday=='Y'"><input type="text" class="form-control" id="remarks" chars="alpha-numeric" name="remarks{{$index}}" ng-init=""
+                                                                 ng-model="item.remarks" required leading-space>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+				<div class="row" id="second_div">
+					<div class="col-sm-offset-5 col-sm-8 form_submit">
+						<button type="submit" class="btn btn-default" id="submitButton"
+                                ng-disabled="maintenanceOfCalendarEntriesFormDetails.$invalid"
+                                ng-click="vm.addSubmit();"
+						>Submit</button>
+						<button type="button" class="btn btn-cancel" id="cancelButton"
+								onclick="window.location.href= '#!/cbs_maintenance_of_calendar_entries/action/inquiry';">Cancel</button>
+					</div>
+				</div>
+			</div>
+           </form> </div>
+		<div class="row">
+			<div class="col-sm-12">
+			<div class="notice-message text-danger" style="text-align: left;">
+				<b>Note :</b>
+				<ul>
+					<li>Y – Holiday.</li>
+					<li>(*) - indicates mandatory fields. Submit/Update button will be enabled, once all the mandatory fields are filled.</li>
+				</ul>
+			</div>
+			</div>
+		</div>
+</div>

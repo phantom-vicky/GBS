@@ -1,0 +1,124 @@
+<div class="container from_wrapper">
+<left-menu-directive></left-menu-directive>	
+	<h4 class="form_heading">Lite - Scheme Parameter - Inquiry</h3>
+	
+
+	<div class="loader"></div>
+	<table class="table table-bordered table-striped list" ng-if="!verifyStatus">
+	    <thead>
+	      <tr>
+	        <th>Particular</th>
+	        <th>Value</th>
+	       
+	       
+	      </tr>
+	    </thead>
+	    <tbody>
+	      <tr >
+	        <td>Minimum Age Limit</td>
+	        <td>{{liteSchemeParameter.minAgeLimit}}</td>
+	       
+	      </tr>
+	       <tr >
+	        <td>Maximum Age Limit</td>
+	        <td>{{liteSchemeParameter.maxAgeLimit}}</td>
+	        
+	      </tr>
+	       <tr >
+	        <td>Minimum Number of Contribution in a Year</td>
+	        <td>{{liteSchemeParameter.MinNoOfContributionYr}}</td>
+	     
+	      </tr>
+	       <tr >
+	        <td>Minimum Initial Contribution Amount for Tier I Rs</td>
+	        <td>{{liteSchemeParameter.minAmtPerInitContT1}}</td>
+	     
+	      </tr>
+	       <tr >
+	        <td>Minimum Contribution Amount for Tier I Rs.</td>
+	        <td>{{liteSchemeParameter.minAmtPerContT1}}</td>
+	      
+	      </tr>
+	     
+	       <tr >
+	        <td>Minimum Tier I Contribution per Year in Rs</td>
+	        <td>{{liteSchemeParameter.minContributionPerYr}}</td>
+	       
+	      </tr>
+	       <tr >
+	        <td>Maximum Number of Nominations</td>
+	        <td>{{liteSchemeParameter.maxNoOfNomination}}</td>
+	        
+	      </tr>
+	       
+	    </tbody>
+	 </table>
+	 <table ng-if="verifyStatus" class="table table-bordered table-striped list">
+	    <thead>
+	      <tr>
+	        <th>Particular</th>
+	        <th>New Value</th>
+	       <th>Old Value</th>
+	       
+	      </tr>
+	    </thead>
+	    <tbody>
+	      <tr >
+	        <td>Minimum Age Limit</td>
+	        <td>{{liteSchemeParameter.minAgeLimit}}</td>
+	        <td>{{liteSchemeParameter.oldMinAge}}</td>
+	      </tr>
+	       <tr >
+	        <td>Maximum Age Limit</td>
+	        <td>{{liteSchemeParameter.maxAgeLimit}}</td>
+	        <td>{{liteSchemeParameter.oldMaxAge}}</td>
+	        
+	      </tr>
+	       <tr >
+	        <td>Minimum Number of Contribution in a Year</td>
+	        <td>{{liteSchemeParameter.MinNoOfContributionYr}}</td>
+	         <td>{{liteSchemeParameter.oldMinNoOfContributionYr}}</td>
+	     
+	      </tr>
+	       <tr >
+	        <td>Minimum Initial Contribution Amount for Tier I Rs</td>
+	        <td>{{liteSchemeParameter.minAmtPerInitContT1}}</td>
+	         <td>{{liteSchemeParameter.oldminAmtPerInitContT1}}</td>
+	     
+	      </tr>
+	       <tr >
+	        <td>Minimum Contribution Amount for Tier I Rs.</td>
+	        <td>{{liteSchemeParameter.minAmtPerContT1}}</td>
+	        <td>{{liteSchemeParameter.oldminAmtPerContT1}}</td>
+	      
+	      </tr>
+	     
+	       <tr >
+	        <td>Minimum Tier I Contribution per Year in Rs</td>
+	        <td>{{liteSchemeParameter.minContributionPerYr}}</td>
+	        <td>{{liteSchemeParameter.oldminContributionPerYr}}</td>
+	       
+	      </tr>
+	       <tr >
+	        <td>Maximum Number of Nominations</td>
+	        <td>{{liteSchemeParameter.maxNoOfNomination}}</td>
+	        <td>{{liteSchemeParameter.oldmaxNoOfNomination}}</td>
+	        
+	      </tr>
+	       
+	    </tbody>
+	 </table>
+	 <div class="row" >
+			<div class="col-sm-7"></div>
+				<label  ng-if="verify1" for ="verifyStatus" class="control-label col-sm-5"><b>Verify Status : Y</b></label>
+				<label  ng-if="!verify1" for ="verifyStatus" class="control-label col-sm-5"><b>Verify Status : N</b></label>
+			</div>
+	 
+	 
+		<div class="row">
+				<div class="col-sm-offset-5 col-sm-8 form_submit">
+					<button type="button" id="cancelButton" class="btn btn-cancel" ng-click="moveTo()">Cancel</button>
+				</div>
+		</div>
+
+  </div>

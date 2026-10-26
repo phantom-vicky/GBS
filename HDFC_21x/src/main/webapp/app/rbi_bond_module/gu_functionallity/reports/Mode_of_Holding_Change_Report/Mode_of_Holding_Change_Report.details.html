@@ -1,0 +1,159 @@
+<div class="loader-new" data-ng-if="vm.loader"></div>
+<div class="container" data-ng-if="vm.result.length >0">
+    <div class="container from_wrapper new_form_wrapper">
+        <div class="text-right form_submit">
+            <button type="submit" class="btn btn-default" onclick="window.location.href ='#!/'" id="homeButton">Home
+            </button>
+            <button type="button" id="cancel_Button" class="btn btn-cancel"
+                    onclick="window.location.href= '#!/Mode_Of_Holding_Change_Report/action/inquiry';">Back
+            </button>
+        </div>
+        <h4 class="form_heading">Mode of Holding Change - Report</h4>
+        <sol-header></sol-header>
+
+        <table style="width:100%" class="table table-bordered" aria-label="Report on Transaction Details for Bond">
+            <tr>
+                <th scope="col">Name of the Bond Scheme</th>
+                <td>{{vm.schemeName}}</td>
+                <th scope="col" style="width: 20%">Total Count</th>
+                <td style="width: 20%">{{vm.total}}</td>
+            </tr>
+            <tr>
+                <th scope="col">From Date</th>
+                <td>{{vm.fromDate | date: 'dd/MM/yyyy'}}</td>
+                <th scope="col">To Date</th>
+                <td>{{vm.toDate | date: 'dd/MM/yyyy'}}</td>
+            </tr>
+        </table>
+
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="row" style="display: flex; align-items: center; justify-content: space-between">
+                    <div class="col-sm-3" style="flex: 1">
+                        <div class="form-group">
+                            <table style="border-spacing: 2" aria-label="Mode of Holding Change Report">
+                                <tr>
+                                    <th scope="col"></th>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-3"  style="display: flex; align-items: center; justify-content: flex-end;">
+                            <div class="form-group" style="margin-right: 15px;">
+                                <div class="input-group">
+                                    <input type="text" class="form-control searchButton"
+                                           ng-model="vm.searchValue" ng-init="vm.searchValue = ''"
+                                           placeholder="Search">
+                                    <div class="input-group-addon">
+                                        <i class="glyphicon glyphicon-search" ng-click="vm.pageNo='1'; vm.getDetails()"></i>
+                                        <i class="glyphicon glyphicon-remove clear cp" ng-click="vm.searchValue = ''; vm.pageNo='1'; vm.getDetails()"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-2">
+                            <select class="form-control pageDropDown" id="pageSize" name="pageSize"
+                                    ng-model="vm.pageSize" ng-init="vm.pageSize='10'" ng-change="vm.getDetails(); vm.pageNo='1';" ng-disabled="vm.noDataFoundInSearch">
+                                <option value="10" >10 per page</option>
+                                <option value="20">20 per page</option>
+                                <option value="50">50 per page</option>
+                            </select>
+                        </div>
+
+                        <div class=" form-group col-lg-3" ng-disabled="vm.noDataFoundInSearch"
+                        >
+                            <select class="form-control"
+                                    id="downloadOptions"
+                                    name="export"
+                                    ng-disabled="vm.noDataFoundInSearch"
+                                    ng-model="vm.downloadType"
+                                    ng-init="vm.downloadType=''"
+                                    ng-change="vm.getDownload()">
+                                <option value="">EXPORT</option>
+                                <option value="excel">EXCEL</option>
+<!--                                <option value="csv">CSV</option>-->
+                                <!--                                <option value="pdf">PDF</option>-->
+                            </select>
+                        </div>
+
+                        <!--                    Pagination End-->
+                    </div>
+                </div>
+                <div class="table-responsive">
+                    <table class="table table-bordered table-striped list table-textWrap"
+                           aria-label="Report on Transaction Details for Bond">
+                        <thead data-ng-if="!vm.noDataFoundInSearch">
+                        <tr class="thalign">
+                            <th scope="col">S. No.</th>
+                            <th scope="col">Holder Name</th>
+                            <th scope="col">PAN No</th>
+                            <th scope="col">Mode of Holding</th>
+                            <th scope="col">From BLA Account Number</th>
+                            <th scope="col">Active Subscription Id</th>
+                            <th scope="col">Active Subscription Count</th>
+                            <th scope="col">To BLA Account Number</th>
+                            <th scope="col">Date of Holding Change</th>
+                            <th scope="col">Remarks</th>
+                        </tr>
+                        </thead>
+                        <tbody data-ng-if="!vm.noDataFoundInSearch">
+                        <!--                        <tr data-ng-repeat="x in vm.filteredRecords.slice((vm.currentPage-1)*vm.pageSize, vm.currentPage*vm.pageSize)">-->
+                        <tr dir-paginate="x in vm.filteredRecords | itemsPerPage: itemsPerPage"
+                            pagination-id="trailRunRep">
+                            <td>{{ (vm.currentPage - 1) * vm.pageSize + $index + 1 }}</td>
+                            <td>{{x.holderName}}</td>
+                            <td>{{x.panNo}}</td>
+                            <td>{{x.modeOfHolding}}</td>
+                            <td>{{x.fromBlaAccountNumber }}</td>
+                            <td>{{x.activeSubscriptionId}}</td>
+                            <td>{{x.activeSubscriptionCount}}</td>
+                            <td>{{x.toBlaAccountNumber}}</td>
+                            <td>{{x.dateOfHoldingChange}}</td>
+                            <td>{{x.remarks}}</td>
+
+                        </tr>
+                        </tbody>
+                        <tbody data-ng-if="vm.noDataFoundInSearch">
+                        <tr>
+                            <td>No Records Found</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <br/>
+                <div class="row">
+                    <div class="text-center form_submit">
+                        <span ng-show="vm.showPrevious">
+                        <button type="submit" class="btn btn-default" ng-click="vm.goPreviousPage()">Prev
+                        </button>
+                        </span>
+
+                        <span>
+                          <button type="submit" class="btn btn-default" ng-disabled="true" ng-init="vm.pageNo=1" ng-model="vm.pageNo" ng-click="vm.paymentStatus();">{{vm.pageNo}} of {{vm.maxPages}}
+                          </button>
+                        </span>
+
+                        <span ng-show="vm.showNext">
+                            <button type="submit" class="btn btn-default" ng-click="vm.goNextPage();" >Next
+                            </button>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container" data-ng-if="vm.noDataFound">
+    <div class="list_wrapper no_records_message">
+        <h4 class="form_heading">Mode of Holding Change - Report</h4>
+        No records found to display.
+        <div style="text-align: center">
+            <button type="button" class="btn btn-default"
+                    onclick="window.location.href= '#!/Mode_Of_Holding_Change_Report/action/inquiry';">Back
+            </button>
+        </div>
+    </div>
+</div>

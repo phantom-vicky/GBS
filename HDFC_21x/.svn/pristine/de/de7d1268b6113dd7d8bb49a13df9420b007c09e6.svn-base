@@ -1,0 +1,173 @@
+<div class="loader-new" ng-if="vm.loader"></div>
+<cbs-left-menu></cbs-left-menu>
+<div class="container from_wrapper new_form_wrapper">
+
+    <h4 class="form_heading">Branches of Other Bank - Modify</h4>
+    <sol-header></sol-header>
+    <form name="branchesOfOtherbank" role="form">
+        <div class="col-sm-6 col-sm-offset-3">
+
+            <div class="row">
+                <div class="form-group required">
+                    <div class="col-sm-6">
+                        <label for="bankCode" class="control-label">Bank Code</label>
+                    </div>
+                    <div class="col-sm-4">
+                        <input type="text" class="form-control" id="bankCode"
+                               ng-model="vm.bankCode"  readonly required>
+                    </div>
+                    <div class="col-sm-2">
+                        <i class="glyphicon glyphicon-search cp" data-bs-toggle="modal"
+                           id="bankCodeSearch"
+                           ng-click="vm.modifyTorch();vm.searchSolId='';"></i> <i
+                            class="glyphicon glyphicon-remove clear cp"
+                            ng-click="vm.bankCode ='';vm.branchCode='';"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group required">
+                    <div class="col-sm-6">
+                        <label for="bankIfscCode" class="control-label">IFSC Code</label>
+                    </div>
+                    <div class="col-sm-4">
+                        <input type="text" class="form-control" id="bankIfscCode"
+                               ng-model="vm.bankIfscCode"  readonly required>
+                    </div>
+                    <div class="col-sm-2">
+                        <i class="glyphicon glyphicon-search cp" data-bs-toggle="modal"
+                           id="branchCodeSearch"
+                           ng-click="vm.modifyTorch();vm.searchSolId='';"></i> <i
+                            class="glyphicon glyphicon-remove clear cp"
+                            ng-click="vm.branchCode='';"></i>
+                    </div>
+                </div>
+            </div>
+
+            <div class="text-center form_submit">
+                <button type="submit" class="btn btn-default" id="submitButton"
+                        ui-sref="cbs_branches_of_other_bank.modify_form({obj:{
+								bankCode: vm.bankCode,
+								branchCode: vm.branchCode,
+								bankIfscCode: vm.bankIfscCode,
+								result:vm.result,
+								}})"
+                        ng-disabled="branchesOfOtherbank.$invalid">Submit</button>
+                <button type="button" class="btn btn-cancel" id="cancelButton"
+                        onclick="window.location.href = '#!/cbs_master_updation'">Cancel</button>
+            </div>
+            <div class="text-center">
+                <notice-message-directive></notice-message-directive>
+            </div>
+        </div>
+    </form>
+</div>
+
+
+<!-- Bank Code Details Start-->
+<div class="modal" id="bankCodeModel" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-bs-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Bank Code</h4>
+            </div>
+            <div class="modal-body">
+                <div class="loader_popup"></div>
+                <div class="list_wrapper" ng-if="vm.modifyLists.length>0">
+                    <div class="col-sm-8 form_submit">
+                        <div class="form-group">
+                            <div class="input-group">
+                                <div class="input-group-addon">
+                                    <i class="glyphicon glyphicon-search"></i>
+                                </div>
+                                <input type="text" class="form-control"
+                                       ng-model="vm.searchSolId" ng-init="vm.searchSolId = ''"
+                                       placeholder="Search">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4 form_submit"></div>
+                    <div class="row">
+
+                        <div class="col-sm-12">
+                            <table class="table table-bordered list scroll sort">
+                                <thead ng-init="reverseOrder=false;sortedColumn = 'bankCode'">
+                                <tr>
+                                    <th width="27%" ng-click="(sortedColumn == 'bankCode')?(reverseOrder=(!reverseOrder)): (reverseOrder = false);sortedColumn = 'bankCode';" ng-class="(sortedColumn == 'bankCode')?((reverseOrder)?('arrow-down') : ('arrow-up') ) : ('')">Bank Code</th>
+                                    <th width="27%" ng-click="(sortedColumn == 'bankName')?(reverseOrder=(!reverseOrder)): (reverseOrder = false);sortedColumn = 'bankName';" ng-class="(sortedColumn == 'bankName')?((reverseOrder)?('arrow-down') : ('arrow-up') ) : ('')">Bank Name</th>
+                                </thead>
+                                <tbody>
+                                <tr class="cp"
+                                    ng-repeat="x in vm.modifyLists | filter:vm.searchSolId | orderBy:sortedColumn:reverseOrder"
+                                    ng-click="vm.bankCode= x.bankCode;vm.bankName=x.bankName" data-bs-dismiss="modal">
+                                    <td width="27%">{{x.bankCode}}</td>
+                                    <td width="27%">{{x.bankName}}</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="list_wrapper" ng-if="vm.modifyLists.length==0">No records found to display.</div>
+            </div>
+
+        </div>
+    </div>
+</div>
+<!-- Bank Code Details End-->
+
+<!-- Branch Code Start-->
+<div class="modal" id="bankBranchModel" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-bs-dismiss="modal">&times;</button>
+                <h4 class="modal-title">IFSC Code</h4>
+            </div>
+            <div class="modal-body">
+                <div class="loader_popup"></div>
+                <div class="list_wrapper" ng-if="vm.modifyLists.length>0">
+                    <div class="col-sm-8 form_submit">
+                        <div class="form-group">
+                            <div class="input-group">
+                                <div class="input-group-addon">
+                                    <i class="glyphicon glyphicon-search"></i>
+                                </div>
+                                <input type="text" class="form-control"
+                                       ng-model="vm.searchSolId" ng-init="vm.searchSolId = ''"
+                                       placeholder="Search">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4 form_submit"></div>
+                    <div class="row">
+
+                        <div class="col-sm-12">
+                            <table class="table table-bordered list scroll sort">
+                                <thead ng-init="reverseOrder=false;sortedColumn = 'bankCode'">
+                                <tr>
+<!--                                    <th width="27%" ng-click="(sortedColumn == 'branchCode')?(reverseOrder=(!reverseOrder)): (reverseOrder = false);sortedColumn = 'branchCode';" ng-class="(sortedColumn == 'branchCode')?((reverseOrder)?('arrow-down') : ('arrow-up') ) : ('')">Branch Code</th>-->
+                                    <th width="27%" ng-click="(sortedColumn == 'bankIfscCode')?(reverseOrder=(!reverseOrder)): (reverseOrder = false);sortedColumn = 'bankIfscCode';" ng-class="(sortedColumn == 'bankIfscCode')?((reverseOrder)?('arrow-down') : ('arrow-up') ) : ('')">IFSC Code</th>
+                                </thead>
+                                <tbody>
+                                <tr class="cp"
+                                    ng-repeat="x in vm.modifyLists | filter:vm.searchSolId | orderBy:sortedColumn:reverseOrder"
+                                    ng-click="vm.branchCode= x.branchCode;vm.bankIfscCode=x.bankIfscCode;" data-bs-dismiss="modal">
+<!--                                    <td width="27%">{{x.branchCode}}</td>-->
+                                    <td width="27%">{{x.bankIfscCode}}</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="list_wrapper" ng-if="vm.modifyLists.length==0">No records found to display.</div>
+            </div>
+
+        </div>
+    </div>
+</div>
+<!-- Branch Details End-->

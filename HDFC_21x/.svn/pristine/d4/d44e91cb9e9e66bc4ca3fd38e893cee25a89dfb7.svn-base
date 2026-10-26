@@ -1,0 +1,213 @@
+<div class="loader-new" ng-if="vm.loader"></div>
+<cbs-left-menu></cbs-left-menu>
+<div class="container from_wrapper new_form_wrapper">
+	<h4 class="form_heading  feature-heading">Branches of Other Bank - Add</h4>
+
+	<form name="branchesOfOtherBankForm" role="form">
+		<div class="row">
+			<div class="form-group">
+				<div class="col-sm-3">
+					<label for="branchCode" class="control-label">Branch Code</label>
+				</div>
+				<div class="col-sm-2">
+					<input type="text" class="form-control" id="branchCode"
+						chars="alpha-numeric" name="branchCode"
+						ng-model="vm.cbsBranchesOfOtherBank.C001" maxlength="6"
+						>
+				</div>
+				<div class="col-sm-2"></div>
+				<div class="col-sm-3 required">
+					<label for="bankCode" class="control-label">Bank Code</label>
+				</div>
+				<div class="col-sm-2">
+					<input type="text" class="form-control" id="bankCode"
+						chars="alpha-numeric" name="bankCode"
+						ng-model="vm.cbsBranchesOfOtherBank.C002" maxlength="5"
+						required>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="form-group ">
+				<div class="col-sm-3">
+					<label for="micrCentreCode" class="control-label">MICR
+						Center Code</label>
+				</div>
+				<div class="col-sm-2">
+					<input type="text" class="form-control" id="micrCentreCode"
+						name="micrCentreCode" chars="alpha-numeric"
+						ng-model="vm.cbsBranchesOfOtherBank.C003" maxlength="3">
+				</div>
+				<div class="col-sm-2"></div>
+				<div class="col-sm-3">
+					<label for="micrBankCode" class="control-label">MICR Bank
+						Code</label>
+				</div>
+				<div class="col-sm-2">
+					<input type="text" class="form-control" id="micrBankCode"
+						name="micrBankCode" chars="alpha-numeric"
+						ng-model="vm.cbsBranchesOfOtherBank.C004" maxlength="3">
+				</div>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="form-group ">
+				<div class="col-sm-3">
+					<label for="micrBranchCode" class="control-label">MICR
+						Branch Code</label>
+				</div>
+				<div class="col-sm-2">
+					<input type="text" class="form-control" id="micrBranchCode"
+						name="micrBranchCode" chars="alpha-numeric"
+						ng-model="vm.cbsBranchesOfOtherBank.C005" maxlength="3">
+				</div>
+				<div class="col-sm-2"></div>
+				<div class="col-sm-3">
+					<label for="branchName" class="control-label">Branch Name</label>
+				</div>
+				<div class="col-sm-2">
+					<input type="text" class="form-control" id="branchName"
+						chars="alpha-numeric" name="branchName"
+						ng-model="vm.cbsBranchesOfOtherBank.C006" maxlength="20">
+				</div>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="form-group">
+				<div class="col-sm-3">
+					<label for="branchAddr1" class="control-label">Branch
+						Address1</label>
+				</div>
+				<div class="col-sm-2">
+					<input type="text" class="form-control" id="branchAddr1"
+						name="branchAddr1"
+						ng-model="vm.cbsBranchesOfOtherBank.C007" maxlength="45" oninput="this.value = this.value.replace(/[^a-zA-Z0-9 ,.\-\/]/g, '').replace(/^\s+/, '').replace(/\s{2,}/g, ' ')">
+				</div>
+				<div class="col-sm-2"></div>
+				<div class="col-sm-3">
+					<label for="branchAddr2" class="control-label">Branch
+						Address2</label>
+				</div>
+				<div class="col-sm-2">
+					<input type="text" class="form-control" id="branchAddr2"
+						name="branchAddr2"
+						ng-model="vm.cbsBranchesOfOtherBank.C008" maxlength="45" oninput="this.value = this.value.replace(/[^a-zA-Z0-9 ,.\-\/]/g, '').replace(/^\s+/, '').replace(/\s{2,}/g, ' ')">
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="form-group ">
+				<div class="col-sm-3">
+					<label for="branchAddr3" class="control-label">Branch
+						Address3</label>
+				</div>
+				<div class="col-sm-2">
+					<input type="text" class="form-control" id="branchAddr3"
+						name="branchAddr3" oninput="this.value = this.value.replace(/[^a-zA-Z0-9 ,.\-\/]/g, '').replace(/^\s+/, '').replace(/\s{2,}/g, ' ')"
+						ng-model="vm.cbsBranchesOfOtherBank.C009" maxlength="45">
+				</div>
+				<div class="col-sm-2"></div>
+				<div class="col-sm-3">
+					<label for="branchCityCode" class="control-label">Branch
+						City Name</label>
+				</div>
+				<div class="col-sm-2">
+					<input type="text" class="form-control" id="branchCityCode"
+						name="branchCityCode" chars="alpha-numeric"
+						ng-model="vm.cbsBranchesOfOtherBank.C010" maxlength="30" oninput="this.value = this.value.replace(/^\s+/g, '')">
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="form-group ">
+				<div class="col-sm-3">
+					<label for="branchStateCode" class="control-label">Branch
+						State Name</label>
+				</div>
+				<div class="col-sm-2">
+					<input type="text" class="form-control" id="branchStateCode"
+						name="branchStateCode" chars="alpha-numeric"
+						ng-model="vm.cbsBranchesOfOtherBank.C011" maxlength="30" oninput="this.value = this.value.replace(/^\s+/g, '')">
+				</div>
+				<div class="col-sm-2"></div>
+				<div class="col-sm-3">
+					<label for="branchPinCode" class="control-label">Branch Pin Code</label>
+				</div>
+				<div class="col-sm-2">
+					<input type="text" class="form-control" id="branchPinCode"
+						name="branchPinCode"
+						ng-model="vm.cbsBranchesOfOtherBank.C012"  minlength="6" maxlength="6"
+						chars="only-numbers">
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="form-group">
+				<div class="col-sm-3">
+					<label for="additionalText1" class="control-label">Additional
+						Text1</label>
+				</div>
+				<div class="col-sm-2">
+					<input type="text" class="form-control" name="additionalText1"
+						id="additionalText1" chars="alpha-numeric"
+						ng-model="vm.cbsBranchesOfOtherBank.C013"
+						maxlength="40">
+				</div>
+				<div class="col-sm-2"></div>
+				<div class="col-sm-3">
+					<label for="additionalText2" class="control-label">Additional
+						Text2</label>
+				</div>
+				<div class="col-sm-2">
+					<input type="text" class="form-control" name="additionalText2"
+						id="additionalText2" chars="alpha-numeric"
+						ng-model="vm.cbsBranchesOfOtherBank.C014"
+						maxlength="40">
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="form-group">
+				<div class="col-sm-3">
+					<label for="additionalText3" class="control-label">Additional
+						Text3</label>
+				</div>
+				<div class="col-sm-2">
+					<input type="text" class="form-control" name="additionalText3"
+						id="additionalText3" chars="alpha-numeric"
+						ng-model="vm.cbsBranchesOfOtherBank.C015"
+						maxlength="40">
+				</div>
+
+
+				<div class="col-sm-2"></div>
+				<div class="col-sm-3 required">
+					<label for="ifscCode" class="control-label">IFSC Code</label>
+				</div>
+				<div class="col-sm-2">
+					<input type="text" class="form-control" name="ifscCode"
+						   id="ifscCode" chars="alpha-numeric"
+						   ng-model="vm.cbsBranchesOfOtherBank.C017"
+						   maxlength="11"
+						   ng-pattern="'^[a-zA-Z]{4}[0-9]{1}[a-zA-Z0-9]{6}$'"
+						   required>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-sm-offset-5 col-sm-8 form_submit">
+
+				<button type="submit" class="btn btn-default" id="submitButton"
+					ng-disabled="branchesOfOtherBankForm.$invalid" ng-click="vm.add();">Submit</button>
+				<button type="button" class="btn btn-cancel" id="cancelButton"
+					ng-click="vm.showCancelConfirmation('cbs_branches_of_other_bank.inquiry');">Cancel</button>
+			</div>
+		</div>
+		<div class="text-center">
+			<notice-message-directive></notice-message-directive>
+		</div>
+	</form>
+</div>
+

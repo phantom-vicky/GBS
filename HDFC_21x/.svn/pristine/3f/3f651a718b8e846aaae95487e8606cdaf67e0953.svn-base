@@ -1,0 +1,325 @@
+
+#UAT ENVIRONEMNT SETTING#
+
+app.message= This is the property file for the ${spring.application.name} specific to DEV Environment
+spring.jpa.show_sql=true
+
+profile.type=UAT
+rateLimitEnabled=true
+rateLimit.timeWindow=PT1M
+rateLimit.maxRequestsPerWindow=2000
+spring.main.allow-circular-references=true
+
+
+spring.datasource.url=jdbc:oracle:thin:@10.229.215.150:1651:RRBUATDB
+spring.datasource.username=RRBUSER
+spring.datasource.password=hdfcbank123$
+
+pii.fields=password,pan,panNo,panNumber,pan_No3,panNum,pan_No2,pan_No1,nomineePANNo,nomineePanNumber,guardianPanNo
+
+bod.eod.fin.upd.flag = Y
+
+# Spring Boot limits
+spring.servlet.multipart.max-file-size=10MB
+spring.servlet.multipart.max-request-size=10MB
+
+# Tomcat upload limits (approx 10MB)
+server.tomcat.max-http-post-size=10485760
+server.tomcat.max-swallow-size=-1
+spring.jpa.hibernate.ddl-auto=none
+spring.jpa.hibernate.dialect=org.hibernate.dialect.Oracle10gDialect
+spring.jpa.database-platform=org.hibernate.dialect.Oracle10gDialect
+spring.datasource.driver-class-name=oracle.jdbc.driver.OracleDriver
+shiro.userNativeSessionManager = true
+
+ldap.enable.flg=N
+spring.datasource.hikari.maximum-pool-size=50
+spring.datasource.hikari.validationTimeout=300000
+spring.datasource.hikari.max-wait=50
+spring.datasource.hikari.max-active=50
+spring.datasource.hikari.max-idle=50
+spring.datasource.hikari.min-idle=5
+spring.datasource.hikari.max-lifetime=1800000
+spring.datasource.hikari.auto-commit =true
+spring.datasource.test-while-idle=true
+spring.datasource.validation-query=SELECT 1
+spring.datasource.connection-test-query=SELECT 1
+logging.level.com.zaxxer.hikari.HikariConfig=DEBUG
+logging.level.com.zaxxer.hikari=TRACE
+#spring.datasource.default-auto-commit=true
+
+
+
+#Identify Key For Database Connection Pool Size
+app.database-pool-size-key=ENC(Vxq+YlgUnHreSZMg2gbhGABv/Ib0Hcflt3i4fhFZ9rsj6wwIWGTfKAqJvnjoWQheRL7vo3/pGQ8=)
+
+
+gbm.dirpath.file.ppf.passbook = D:\\passbook
+
+shiro.sessionManager.sessionIdUrlRewritingEnabled = false
+
+server.port=9998
+shiro.web.enabled=true
+
+
+
+StubProcess=Yes
+isMock = N
+sqlPath = D:/CodeBase/GBS_ULTRA_APPLICATION/src/main/resources/sample.sql
+
+
+#gbm.dirpath.file.facta.directory = ENC(vQZYPgdNtJ6xsQ8W9IYzvZWXXiksb6MjO36l4Cf7M2BPU43haue3Yg==)
+gbm.dirpath.file.facta.directory = /home/ultrapen/src/APY/facta/
+gbm.dirpath.file.scf.dob.change.second.level.directory = ENC(kYdClaW+1ImYRp+B7RhdrSIyZFMy27zLl+1WPaDbSVy9FQzT1X7w+w==)
+
+
+
+server.contextPath=ENC(YjSvqkqG2HigWiYAvhz9rN3HYwDT4UBH)
+#gbm.dirpath.scannedImaged = D://pg//PPF//ScannedImage
+
+gbmultra.checksum.key=ENC(dBH/YCbdRMrOj+XidCMm0zLSkk4Ed243eq/osK+Dl/g=)
+
+gbm.dirpath.rbi.root = ENC(Oeuo3QOD721hSA965sLsEWGzbk8YL2vMkL8v2WNSDf9zbix9fsjeJyCQ+BZfXTr+NlFuiB1rirg3gUtjTkG5pg==)
+gbm.dirpath.luggage-file.gstin = ENC(jHoO/RllZbXvGFsARdJ0jFVH4vBmL27LFj74a6uC75rpSgjn6yfj/APwJOfg44/dY8dBrb5CPrBBudyeV5erc0xqiK+LZutx)
+
+#gbm.dirpath.cpao.pdf = D:\\Project\\Pension\\eppo\\Testing\\Civil\\Pdf
+#gbm.dirpath.cpao.in = D:\\Project\\Pension\\eppo\\Testing\\Civil\\Upload
+
+gbm.dirpath.cpao.in = /ultratest/src/GBMULTRA_UPDATED/files/Eppo/Dirs/Civil/Upload
+
+gbm.dirpath.cpao.pdf = ENC(yxqQZeXbv/+j+HX7xbHPpvgT23BJPKGCV5PwVhl97F5YpNGYuGdkDiaRzEiMryvZYZqpP+JNS2dWWaedCYz/hUBkSpVNyBXy)
+gbm.dirpath.defence.pdf = ENC(N4fzmPNTNUzEYsNQdIWEVdwkJsY8IBze6wIHKygH49rBuOp14QC81FbmQBNq5Fm6+TKqiAYmzuiVAC6gzk4hYue/ozwoA+5D)
+gbm.dirpath.railway.pdf = ENC(YDJc3Wi06D9bbVtXbiI4EQUnnNI6n3j8MlvzfFu2rrKdOPxwww9ATm0TA9JJOp+kXcTh5y6QehAzTNsuFRBJxZl01UdfuZLw)
+
+gbm.dirpath.scannedImaged = ENC(zLfLjSzprJTnGtb9ToemisPcIu7lslWne5ltZ1m86JyrxRdv2o6u+DoL6p71DTIyRuapsEAl4ATXY+LIYYlasA==)
+#gbm.dirpath.printPdf = /ultratest/src/GBMULTRA_UPDATED/files/Eppo/Dirs/Civil/Upload
+gbm.dirpath.printPdf=D:
+gbm.dirpath.stateTax.rbi.root = ENC(DSO9TAaeJHgxqmqIcEn0bfOKLhRc0/AgLIIZdN8uo5aMV8+oHjUnnEPsUZZPabTYkQtPo4A2w6Hac9BL7Ip17Q==)
+
+
+gbm.dirpath.luggage-file.tin = ENC(sGv7qWe1xTt6g7l1qjWA72j7P9um65b9wzn09L2e2grai+Mz8oBBSHTgM2Er56YsuYwuTnHktTRl4z5ocBe52ACyjXLJsr6R)
+gbm.dirpath.luggage-file.pfms = ENC(wHYjyYCPe6lBoW9lGUGq7NzrOJZ/n50QI3LYsHXgt3pssMWd39Z+uyRQdMrURQ3UtMG0+//jsmdUst2fh8rk2FphOshenHhb)
+gbm.dirpath.luggage-file.cbdt = ENC(omYWYV/Ve+jrq/+Ce6i1gz3hsI9LMrkHf7g0K8OGzKJmmFud61SYnRgFWVefRmKROXN7byce3IBiQU1QjnSiFbmOiyH7rVEx)
+
+gbm.ultra.aes.key = u/Gu5posvwDsXUnV5Zaq4g==
+gbm.ultra.aes.iv = 5D9r9ZVzEYYgha93/aUK2w==
+
+
+
+
+
+
+
+
+
+#Luggage Files and RBI File Transfer SFTP
+gbm.dirpath.gst.rbi.root = /sftp/GST/files/ERGST/
+gbm.dirpath.gst.gbm.root =/sftp/GST/files/ERGST/
+
+
+
+sftp.client.protocol=sftp
+sftp.client.host=dpcftpuat.hdfcbank.com
+sftp.client.port=22
+sftp.client.username=GovernmentSchemePortal
+sftp.client.password=Bank@789
+private.key.path.hdfc=/gsp_pv/files/keys/GSPDPC
+sftp.client.sessionStrictHostKeyChecking=no
+sftp.client.sessionConnectTimeout=600000
+sftp.client.channelConnectedTimeout=600000
+sftp.source.path=D:/logs/IN
+
+file.maxSize=1MB
+
+#CSV File Download SFTP DPCSFTP Location
+Sftp.IN.path=/NETBANKING/IN
+Sftp.ACK.path=/NETBANKING/IN/ACK
+Sftp.NCK.path=/NETBANKING/IN/NCK
+Sftp.DONE.path=/NETBANKING/IN/DN
+#Application Server Path
+sftp.destination.path.csv=/gsp_pv/files/NETBANKING/IN
+Sftp.IN.path3=/gsp_pv/files/NETBANKING/IN
+Sftp.ACK.path3=/gsp_pv/files/NETBANKING/IN/ACK
+Sftp.NCK.path3=/gsp_pv/files/NETBANKING/IN/NCK
+Sftp.DONE.path3=/gsp_pv/files/NETBANKING/IN/DONE
+#TXT File Download SFTP DPCSFTP Location
+Sftp.IN.path1=/CASHIN/IN
+Sftp.ACK.path1=/CASHIN/IN/ACK
+Sftp.NCK.path1=/CASHIN/IN/NCK
+Sftp.DONE.path1=/CASHIN/IN/DN
+#Application Server Path
+sftp.destination.path.txt=/gsp_pv/files/CASHIN/IN
+Sftp.IN.path2=/gsp_pv/files/CASHIN/IN
+Sftp.ACK.path2=/gsp_pv/files/CASHIN/IN/ACK
+Sftp.NCK.path2=/gsp_pv/files/CASHIN/IN/NCK
+Sftp.DONE.path2=/gsp_pv/files/CASHIN/IN/DONE
+gbm.cbdt.tin.connection.url = http://localhost:8080/GBMTINService/Services/CBDT/TIN
+smtp.host.ip=
+smtp.host.port=
+gbs.scheduler.fixedDelay.download=120000
+gbs.scheduler.fixedDelay.process=300000
+
+#pan-validate service configuration:
+pan_val_service_url=https://osbsesoauat.hdfcbank.com:5142/PAN_Verification/v1/PS_PANVerification_V1
+pan_nsdl_user_name=V0024301
+pan_val_consumer_name=GSP
+pan_val_cost_no= 089
+pan_val_filler=GSP
+#Account-Validation Configuration
+external.service.accountValidation.url=https://hbentbpuatap.hdfcbankuat.com:9444/com.ofss.fc.cz.hdfc.obp.webservice/FetchCustomerAccountAmlFatcaDetailsRestWrapper/v2/fetchCustomerAccountAmlFatcaDetails
+#FTS API service configuration:
+transaction.branch=089999
+fts.channel=GBS
+fts_service_url=https://hbentbpuatap.hdfcbankuat.com:9444/com.ofss.fc.cz.hdfc.obp.ftscontainer.webservice/FTSCustomerInstructionImageDetailsService/doFTSCustomerInstructionImageDetailsService
+external.api.url.fts.ack=http://10.54.4.75:8787/mock-service/fetch/ack
+# External API URL for downloading files
+external.hcp.api.url=https://kycimgpoc.hcpuat.hcpuat.hdfcbankuat.com/rest/
+
+# Authorization key for the external API
+external.hcp.api.auth=HCP QUZVQVRSRUFE:b80853f8c22a464dc7436bd45a4ff0dd
+
+# Host for the external API
+external.hcp.api.host=kycimgpoc.hcpuat.hcpuat.hdfcbankuat.com
+
+#SSL Enable:true/false
+ssl.hcp.config=false
+
+pan.validation.stub=NO
+spring.datasource.maximum-pool-size=50
+
+sftp.base.directory.reports=/Reports/iSAC_Report
+sftp.scheduled.job.cron.report=59 59 23 * * *
+
+scheduled.job.cron.hcp.directory.cleaner=0 0 */2 * * *
+
+
+gbm.bankName = INSPIRISY BANK LTD
+#download path location
+file.download.directory.hcp=/gsp_pv/hcp_files
+
+#Active Directory Configuration
+#ldap.url=ldaps://localhost:10636
+ldap.url=LDAP://10.240.20.127:389
+ldap.ssl.url=LDAPS://KMB-GOR-DC14.kbank.kotakgroup.com:636
+ldap.userDnTemplate=cn={0}
+ldap.security.authenticationType=simple
+ldap.trustStore= /usr/lib/jvm/java-1.8.0-openjdk-1.8.0.322.b06-1.el7_9.x86_64/jre/lib/security/cacerts
+ldap.trustStorePassword=changeit
+ldap.securityProtocol=ssl
+ldap.ssl.enable=YES
+
+
+shiro.autheciation.realm.type=DB
+#shiro.autheciation.realm.type=AD
+
+
+
+management.endpoints.web.exposure.include=*
+
+ldap.domain.name=kbank.kotakgroup.com
+
+
+eod.start.time=10
+eod.end.time=12
+
+tin.getcrn=iec-uat/uat/bankapi/v0.1/CRN?
+tin.otcack=iec-uat/uat/bankapi/v0.1/OTCACK
+tin.remittance=iec-uat/uat/bankapi/v0.1/REMITTANCE
+tin.bounce=iec-uat/uat/bankapi/v0.1/CHKBOUNCE
+tin.signlugg=iec-uat/uat/bankapi/v0.1/SIGNLUGG
+tin.dblverf=iec-uat/uat/bankapi/v0.1/DBLVERF
+
+pfms.remitance=BANKAPI/V1/OTCRemittance
+pfms.Onlineremitance=BANKAPI/V1/OnlineRemittance
+pfms.dmssrg=BANKAPI/V1/DMSSRG
+pfms.saveBankScrollDetails=BANKAPI/V1/SaveBankScrollDetails
+pfms.GetScrollReconciliationResults=BANKAPI/V1/GetScrollReconciliationResults?
+pfms.ScrollErrorDetails=BANKAPI/V1/ScrollErrorDetails
+pfms.SIGNSCROLL=BANKAPI/V2/SIGNSCROLL
+pfms.getCinDetails=Bankapi/v1/MissingCinDetails?
+gst.url = bankapi/v0.2/payment
+
+2fa.authencation=NO
+
+2fa.authencation.url=http://localhost:9191/cbs/integration/auth?Reason=
+
+#2fa.authencation.url= https://bnet.uat.kotak.int/2factor/Login.aspx?Reason=
+
+cbs.clientId=AXIS
+cbs.clientSecret=AXIS123
+
+#new--
+# Please note that below path locations need to be created in UAT for proceeding Testing in UAT
+# SFTP Folder Location where Payment Files need to be placed
+bond.payments.file.sftp.path=/ACH/IN/
+# Process Response File Post that move to Done Path in SFTP Folder
+bond.payments.file.sftp.response.file.done.path=/ACH/DONE/
+bond.payments.file.sftp.response.file.nck.path=/ACH/NCK/
+# Payment File Pick up Location in SFTP
+sftp.payment.file.location.ext=/ACH/OUT/
+# Our App Folder location where the payment File need to be downloaded
+sftp.payment.file.location.app=/gsp_pv/files/ACH/IN/
+# Our App Folder location where the payment File Processed Successfully then we can move to done location
+sftp.payment.file.location.done=/gsp_pv/files/ACH/DONE/
+
+
+# SFTP Folder Path for Bond Sub Acc Closure Before Maturity Screen in Payment File
+#SFTP IN Folder where Payment File need to be placed
+sftp.payment.file.bond.sub-acc.closure.before-maturity.in.path=/BEFORE_MATURITY/IN/
+#SFTP OUT Folder where Sub Acc Closure Before Maturity Payment File need to be picked
+sftp.payment.bond.sub-acc.closure.before-maturity.out.path=/BEFORE_MATURITY/OUT/
+#SFTP OUT Folder where Sub Acc Closure Before Maturity Payment File need to be dropped in case of wrong format
+sftp.payment.file.bond.sub-acc.closure.before-maturity.nck.path=/BEFORE_MATURITY/NCK/
+#SFTP OUT Folder where Sub Acc Closure Before Maturity Payment File need to be dropped in case of Success Processing and Valid File
+sftp.payment.file.bond.sub-acc.closure.before-maturity.done.path=/BEFORE_MATURITY/DONE/
+
+#Our GBS App Server Folder Location for Sub Acc Closure Before Maturity where we are processing the File.
+app.bond.sub-acc.closure.before-maturity.payment.file.location.app.in.folder=/gsp_pv/files/BEFORE_MATURITY/IN/
+app.bond.sub-acc.closure.before-maturity.payment.file.location.app.done.folder=/gsp_pv/files/BEFORE_MATURITY/DONE/
+
+# SFTP Folder Path for Bond Sub Acc Closure On Maturity Screen in Payment File
+#SFTP IN Folder where Payment File need to be placed
+sftp.payment.file.bond.sub-acc.closure.on-maturity.in.path=/ON_MATURITY/IN/
+#SFTP OUT Folder where Sub Acc Closure Before Maturity Payment File need to be picked
+sftp.payment.bond.sub-acc.closure.on-maturity.out.path=/ON_MATURITY/OUT/
+#SFTP OUT Folder where Sub Acc Closure on Maturity Payment File need to be dropped in case of wrong format
+sftp.payment.file.bond.sub-acc.closure.on-maturity.nck.path=/ON_MATURITY/NCK/
+#SFTP OUT Folder where Sub Acc Closure on Maturity Payment File need to be dropped in case of Success Processing and Valid File
+sftp.payment.file.bond.sub-acc.closure.on-maturity.done.path=/ON_MATURITY/DONE/
+
+#Our GBS App Server Folder Location for Sub Acc Closure ON Maturity where we are processing the File.
+app.bond.sub-acc.closure.on-maturity.payment.file.location.app.in.folder=/gsp_pv/files/ON_MATURITY/IN/
+app.bond.sub-acc.closure.on-maturity.payment.file.location.app.done.folder=/gsp_pv/files/ON_MATURITY/DONE/
+
+#--new end
+
+#eod push api
+eodPushApi = http://localhost:9998/Test/eodPushApiStub
+eodPullApi = http://localhost:9998/Test/eodPushApiStub
+
+pfms.version = 1.8
+
+db.connection.retry=3
+db.connection.delaytime=1000
+
+#icegate double verification
+client_ID_Api=5565DF02-7F54-4809-B9F4-5B5996DAA07A
+grant_Type=urn:ietf:params:oauth:grant-type:jwt-bearer
+assertion_value=eyJhbGciOiJSUzI1NiJ9.eyJpc3MiOiAiNjVjMmY1NTItODc4OS00MWYyLTllMmYtMjcwZDBhNTdmMWZlIiwgImF1ZCI6ICJodHRwOi8vYXBpc2VydmVyL2FwaS9vYXV0aC90b2tlbiIsICJleHAiOiAiNTI5Mjg1NTkyNCIsICJpYXQiOiAiMTY5Mjg1NTkyNCJ9.GBuKf9a6VzTnzQOrtjS2jPQoorYxXJC7SY9MXuhkEWqLCaEq7jCGsQbSQU5EAkiBcWJaKXzFLdFBviOlNBkYeH70GYGBl0eww4XuzS1T2TpM4OkaCuDQpOZ7yZwpgVvbaNxtkydvoPa8xRAnYXfwKQeCF8dpMF_b9vdunM72bNFICI-F3zv3OOCVvrfHF4Seva59keo9UZPL62K1oEPbLLs2XRS1LFw3G84vTT6gf0rrU8M4k6ajLxzGs2BmeyLt2HTpwGID5adpXeUrobT462A1Irr_aGPyPrdX-kToF0cbWxOikUHBxppEt82N-Wf0PKsZzR25LRlo4zy5NIv7kg
+account.validations.service.url=3
+#Validation Regex
+Validator.SafeString=^[.\\p{Alnum}\\p{Space}[\\p{Punct}&&[^<>]]\\p{P}\\p{Sc}\\p{IsLatin}[\u0600-\u06FF]]{0,2147483647}$
+filedirectory=D:\\App
+#icegate 14 and 15
+client_ID=65c2f552-8789-41f2-9e2f-270d0a57f1fe
+icegate_username=INDUSIND
+icegate_password=4Mmn@!EMupr65hrq
+grant_Type_1415=password
+service_Url_token=https://apiwso2uat.icegate.gov.in/token
+icegate_authorization=czgyX2VZa1VCR0YzMmtRT1dBZ0huMk42SzRnYTpVR0FSb3ZTS3JfRVc4ZEI1YTl6aG1RUVFxYWdh
+ICEGATE_14API_URL=https://apiwso2uat.icegate.gov.in/bankpayment/v1.0/igepay14
+service_Url_EOD_status=https://apiwso2uat.icegate.gov.in/bankpayment/v1.0/igepay15
+
+# HikariCP settings
+spring.datasource.hikari.connection-timeout=60000
+spring.datasource.hikari.idle-timeout=600000

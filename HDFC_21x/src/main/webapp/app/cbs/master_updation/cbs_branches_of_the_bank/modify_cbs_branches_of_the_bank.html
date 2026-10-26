@@ -1,0 +1,192 @@
+<div class="loader-new" ng-if="vm.loader"></div>
+<div class="container from_wrapper">
+    <cbs-left-menu></cbs-left-menu>
+
+    <h4 class="form_heading feature-heading">Branches Of the Bank - Modify</h4>
+    <notice-message-directive></notice-message-directive>
+    <form name="branchesOfTheBankForm" role="form" ng-submit="submitForm(branchesOfTheBankForm.$valid)" novalidate>
+        <div class="row">
+            <div class="form-group" ng-class="requiredClass">
+                <label for="solId" class="control-label col-sm-3">SOL ID</label>
+                <div class="col-sm-2 inner-addon right-addon">
+                    <input type="text" class="form-control" id="solId" name="solId" ng-model="vm.cbsBranchesOfTheBank.solId" maxlength="32" ng-if="action == 'modify'" readonly/>
+                </div>
+                <div class="col-sm-2"></div>
+                <label for="solDesc" class="control-label col-sm-3">Branch Name Description</label>
+                <div class="col-sm-2">
+                    <input type="text" class="form-control" id="solDesc" name="solDesc" ng-model="vm.cbsBranchesOfTheBank.solDesc" maxlength="132" ng-if="action == 'modify' || action == 'add'" required/>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group" ng-class="requiredClass">
+                <label for="bankCode" class="control-label col-sm-3">Bank Code</label>
+                <div class="col-sm-2">
+                    <input type="text" class="form-control" id="bankCode" name="bankCode" ng-model="vm.cbsBranchesOfTheBank.bankCode" maxlength="6" ng-if="action == 'modify' || action == 'add'" required/>
+                    <!-- <option  ng-selected= "{{item.tranTypeKey == branchesOfTheBank.bankCode}}" ng-repeat="item in tranTypeList" value="{{item.tranTypeKey}}">{{item.tranTypeName}}</option> -->
+                </div>
+                <div class="col-sm-2"></div>
+                <label for="branchCode" class="control-label col-sm-3">Branch Code</label>
+                <div class="col-sm-2">
+                    <input type="text" class="form-control" id="branchCode" name="branchCode" ng-model="vm.cbsBranchesOfTheBank.branchCode" maxlength="6" ng-if="action == 'modify' || action == 'add'" required/>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group" ng-class="requiredClass">
+                <label for="micrCertreCode" class="control-label col-sm-3">MICR Center Code</label>
+                <div class="col-sm-2">
+                    <input type="text" class="form-control" id="micrCertreCode" name="micrCertreCode" ng-model="vm.cbsBranchesOfTheBank.micrCertreCode" maxlength="3" ng-if="action == 'modify' || action == 'add'" required/>
+                </div>
+                <div class="col-sm-2"></div>
+                <label for="micrBankCode" class="control-label col-sm-3">MICR Bank Code</label>
+                <div class="col-sm-2">
+                    <input type="text" class="form-control" id="micrBankCode" name="micrBankCode" ng-model="vm.cbsBranchesOfTheBank.micrBankCode" maxlength="3" ng-if="action == 'modify' || action == 'add'" required/>
+                    <!--  <div ng-show="branchesOfTheBankForm.amountMin.$error.number" class="help-block alert alert-danger">Amount Range: Min should be in numbers</div> -->
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group" ng-class="requiredClass">
+                <label for="micrBranchCode" class="control-label col-sm-3">MICR Branch Code</label>
+                <div class="col-sm-2">
+                    <input type="text" class="form-control" id="micrBranchCode" name="micrBranchCode" ng-model="vm.cbsBranchesOfTheBank.micrBranchCode" maxlength="3" ng-if="action == 'modify' || action == 'add'" required/>
+                    <!-- <div ng-show="branchesOfTheBankForm.amountMax.$error.number" class="help-block alert alert-danger">Amount Range: Max should be in numbers</div> -->
+                </div>
+                <div class="col-sm-2"></div>
+                <label for="addr1" class="control-label col-sm-3">Address1</label>
+                <div class="col-sm-2">
+                    <input type="text" class="form-control" id="addr1" name="addr1" ng-model="vm.cbsBranchesOfTheBank.addr1" maxlength="45" ng-if="action == 'modify' || action == 'add'" required/>
+                    <!-- <div ng-show="branchesOfTheBankForm.tranIdFrom.$error.number" class="help-block alert alert-danger">Tran Id From should be in numbers</div> -->
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group" ng-class="requiredClass">
+                <label for="addr2" class="control-label col-sm-3">Address2</label>
+                <div class="col-sm-2">
+                    <input type="text" class="form-control" id="addr2" name="addr2" ng-model="vm.cbsBranchesOfTheBank.addr2" maxlength="45" ng-if="action == 'modify' || action == 'add'" required/>
+                    <!-- <div ng-show="branchesOfTheBankForm.tranIdTo.$error.number" class="help-block alert alert-danger">Tran Id To should be in numbers</div> -->
+                </div>
+                <div class="col-sm-2"></div>
+                <!--        <label for="cityCode" class="control-label col-sm-3">City Code</label>-->
+                <!--        <div class="col-sm-2">-->
+                <!--          <input type="text" class="form-control" id="cityCode" name="cityCode" ng-model="vm.cbsBranchesOfTheBank.cityCode" maxlength="5" ng-if="action == 'modify' || action == 'add'" required />-->
+                <!--        </div>-->
+
+                <div class="col-sm-3">
+                    <label for="cityCode" class="control-label">City Name</label>
+                </div>
+                <div class="col-sm-2">
+                    <input type="text" class="form-control" id="cityCode" chars="alpha-numeric" name="cityCode" ng-model="vm.cbsBranchesOfTheBank.cityCode" maxlength="20" ng-if="action == 'modify' || action == 'add'" leading-space/>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group" ng-class="requiredClass">
+                <!--        <label for="stateCode" class="control-label col-sm-3">State Code</label>-->
+                <!--        <div class="col-sm-2">-->
+                <!--          <input type="text" class="form-control" name="stateCode" id="stateCode" ng-model="vm.cbsBranchesOfTheBank.stateCode" maxlength="5" ng-if="action == 'modify' || action == 'add'" required />-->
+                <!--          &lt;!&ndash; <option  ng-selected= "{{item.tranStatusKey == branchesOfTheBank.tranStatus}}" ng-repeat="item in tranStatusList" value="{{item.tranStatusKey}}">{{item.tranStatusName}}</option> &ndash;&gt;-->
+                <!--        </div>-->
+
+                <div class="col-sm-3">
+                    <label for="state" class="control-label">State Name</label>
+                </div>
+                <!--				<div class="col-sm-2">-->
+                <!--					<input type="text" class="form-control" name="stateCode"-->
+                <!--						   chars="only-numbers" id="stateCode"-->
+                <!--						   ng-model="vm.cbsBranchesOfTheBank.stateCode" maxlength="3"-->
+                <!--						   leading-space>-->
+
+                <div class="col-sm-2">
+                    <select class="form-control" id="state" name="state" ng-model="vm.cbsBranchesOfTheBank.stateCode" ng-init="vm.getState()" ng-if="action == 'modify' || action == 'add'" required>
+                        <option value="" hidden="true">Select State</option>
+                        <option ng-repeat="item in vm.stateList" value="{{item.subCode}}">{{item.subCodeDescription}}</option>
+                    </select>
+                </div>
+                <div class="col-sm-2"></div>
+                <label for="pinCode" class="control-label col-sm-3">Pin Code</label>
+                <div class="col-sm-2">
+                    <input type="text" class="form-control" id="pinCode" name="pinCode" ng-model="vm.cbsBranchesOfTheBank.pinCode" maxlength="10" ng-if="action == 'modify' || action == 'add'" allow-only-numbers required/>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group" ng-class="requiredClass">
+                <label for="panGirNumber" class="control-label col-sm-3">PAN No</label>
+                <div class="col-sm-2">
+                    <input type="text" class="form-control" id="panGirNumber" name="panGirNumber" ng-model="vm.cbsBranchesOfTheBank.panGirNumber" maxlength="10" ng-if="action == 'modify' || action == 'add'" required/>
+                </div>
+                <div class="col-sm-2"></div>
+                <label for="taxDednDetails" class="control-label col-sm-3">TAN No</label>
+                <div class="col-sm-2">
+                    <input type="text" class="form-control" id="taxDednDetails" name="taxDednDetails" ng-model="vm.cbsBranchesOfTheBank.taxDednDetails" maxlength="10" ng-if="action == 'modify' || action == 'add'" required/>
+                    <!-- <div ng-show="branchesOfTheBankForm.amountMin.$error.number" class="help-block alert alert-danger">Amount Range: Min should be in numbers</div> -->
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group" ng-class="requiredClass">
+                <label for="tdsCircleName" class="control-label col-sm-3">TDS Circle Name</label>
+                <div class="col-sm-2">
+                    <input type="text" class="form-control" id="tdsCircleName" name="tdsCircleName" ng-model="vm.cbsBranchesOfTheBank.tdsCircleName" maxlength="50" ng-if="action == 'modify' || action == 'add'" required/>
+                    <!--  <div ng-show="branchesOfTheBankForm.amountMax.$error.number" class="help-block alert alert-danger">Amount Range: Max should be in numbers</div> -->
+                </div>
+                <div class="col-sm-2"></div>
+                <label for="divisionName" class="control-label col-sm-3">Division Name</label>
+                <div class="col-sm-2">
+                    <input type="text" class="form-control" id="divisionName" name="divisionName" ng-model="vm.cbsBranchesOfTheBank.divisionName" maxlength="50" ng-if="action == 'modify' || action == 'add'" required/>
+                    <!--   <div ng-show="branchesOfTheBankForm.tranIdTo.$error.number" class="help-block alert alert-danger">Tran Id To should be in numbers</div> -->
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group" ng-class="requiredClass">
+                <label for="circlOfficeName" class="control-label col-sm-3">Circle Office Name</label>
+                <div class="col-sm-2">
+                    <input type="text" class="form-control" id="circlOfficeName" name="circlOfficeName" ng-model="vm.cbsBranchesOfTheBank.circlOfficeName" maxlength="50" ng-if="action == 'modify' || action == 'add'" required/>
+                    <!--   <div ng-show="branchesOfTheBankForm.tranIdTo.$error.number" class="help-block alert alert-danger">Tran Id To should be in numbers</div> -->
+                </div>
+                <div class="col-sm-2"></div>
+                <label for="uniformBrCode" class="control-label col-sm-3">Uniform Branch Code</label>
+                <div class="col-sm-2">
+                    <input type="text" class="form-control" id="uniformBrCode" name="uniformBrCode" ng-model="vm.cbsBranchesOfTheBank.uniformBrCode" maxlength="15" ng-if="action == 'modify' || action == 'add'" allow-only-numbers required/>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group">
+                <label for="status" class="control-label col-sm-3">Bank Status</label>
+                <div class="col-sm-2">
+                    <select class="form-control" name="status" id="status" ng-model="vm.cbsBranchesOfTheBank.branchStatus" required string-to-number ng-if="action == 'modify' || action == 'add'">
+                        <option ng-repeat="(value, item) in statusList" ng-value="{{value}}">{{item}}</option>
+                    </select>
+                </div>
+                <div class="col-sm-2"></div>
+                <label for="additionalText1" class="control-label col-sm-3">Additional Text1</label>
+                <div class="col-sm-2">
+                    <input type="text" class="form-control" id="additionalText1" name="additionalText1" ng-model="vm.cbsBranchesOfTheBank.additionalText1" maxlength="40" ng-if="action == 'modify' || action == 'add'"/>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group">
+                <label for="additionalText2" class="control-label col-sm-3">Additional Text2</label>
+                <div class="col-sm-2">
+                    <input type="text" class="form-control" id="additionalText2" name="additionalText2" ng-model="vm.cbsBranchesOfTheBank.additionalText2" maxlength="40" ng-if="action == 'modify' || action == 'add'"/>
+                    <!-- <div ng-show="branchesOfTheBankForm.tranIdTo.$error.number" class="help-block alert alert-danger">Tran Id To should be in numbers</div> -->
+                </div>
+                <div class="col-sm-2"></div>
+                <label for="additionalText3" class="control-label col-sm-3">Additional Text3</label>
+                <div class="col-sm-2">
+                    <input type="text" class="form-control" id="additionalText3" name="additionalText3" ng-model="vm.cbsBranchesOfTheBank.additionalText3" maxlength="40" ng-if="action == 'modify' || action == 'add'"/>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-offset-5 col-sm-8 form_submit">
+            <button type="submit" class="btn btn-default" id="submitButton" ng-disabled="branchesOfTheBankForm.$invalid">Update</button>
+            <button type="button" class="btn btn-cancel" id="cancelButton" ng-click="cancelOperation(action)">Cancel</button>
+        </div>
+    </form>
+</div>

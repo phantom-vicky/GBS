@@ -1,0 +1,167 @@
+<div class="loader-new" ng-if="vm.loader"></div>
+<div class="container from_wrapper new_form_wrapper" ng-if="vm.systemParameters">
+	<dc-left-menu></dc-left-menu>
+	<h4 class="form_heading">System Parameter - Modify</h4>
+		<form name="systemParameterForm" role="form">
+			<div ng-if="!vm.newValueDispay">
+				<div class="row" ng-init="vm.getCommonList();">
+					<div class="form-group required">
+						<div class="col-sm-2"></div>
+						<div class="col-sm-5">
+							<label for="" class="control-label">Module Name</label>
+						</div>
+						<div class="col-sm-3">
+							<select class="form-control" ng-change="vm.getModuleName()"  id="commonModule" name= "commonModule" ng-model="vm.systemParameterCommon">
+								<option	value="" required>
+									Select
+								</option><option
+									ng-repeat="item in vm.commonList"
+										value="{{item.parameterValues}}"
+										required>
+									{{item.parameterValDesc}}
+								</option>
+							</select>
+						</div>
+					</div>
+				</div>
+				<div class="row" ng-repeat="systemParameter in vm.systemParameters">
+					<div class="form-group required">
+						<div class="col-sm-2"></div>
+						<div class="col-sm-5">
+							<label for="" class="control-label" ng-if="systemParameter.dto.parameterId !='SCH_CODE' ">{{systemParameter.dto.parameterDesc}}</label>
+						</div>
+						<div class="col-sm-3">
+							<select class="form-control" ng-if="systemParameter.dto.parameterType == 'N' && systemParameter.dto.parameterId !='SCH_CODE'" id="{{systemParameter.dto.parameterId}}" name= "{{systemParameter.dto.parameterId}}" ng-model="vm.systemParameterScope[systemParameter.dto.parameterId]">
+								<option  
+									ng-selected= "{{item.parameterValues == systemParameter.dto.parameterValue}}" 
+									ng-repeat="item in vm.systemParametersDetails" 
+									ng-if="item.parameterId == systemParameter.dto.parameterId"
+									value="{{item.parameterValues}}"
+									required>
+									{{item.parameterValDesc}}
+								</option>
+							</select>
+							<input type="text" ng-if="systemParameter.dto.parameterType == 'Y' && systemParameter.dto.parameterId=='BNK_NAME'" class="form-control"  id="{{systemParameter.dto.parameterId}}"  name= "{{systemParameter.dto.parameterId}}" ng-model="vm.systemParameterScope[systemParameter.dto.parameterId]" required maxlength='25'>
+							<input type="text" ng-if="systemParameter.dto.parameterType == 'Y' && systemParameter.dto.parameterId=='BNK_CODE'" class="form-control"  id="{{systemParameter.dto.parameterId}}"  name= "{{systemParameter.dto.parameterId}}" ng-model="vm.systemParameterScope[systemParameter.dto.parameterId]"  required  string-to-number chars="only-numbers" onkeypress="return isNumber(event)" maxlength='3'>
+							<input type="text" ng-if="systemParameter.dto.parameterType == 'Y' && systemParameter.dto.parameterId=='DEF_PEN'" class="form-control"  id="{{systemParameter.dto.parameterId}}"  name= "{{systemParameter.dto.parameterId}}" ng-model="vm.systemParameterScope[systemParameter.dto.parameterId]"  required  string-to-number chars="only-numbers" onkeypress="return isNumber(event)" maxlength='4'>
+							<input type="text" ng-if="systemParameter.dto.parameterType == 'Y' && systemParameter.dto.parameterId=='REC_PAY'" class="form-control"  id="{{systemParameter.dto.parameterId}}"  name= "{{systemParameter.dto.parameterId}}" ng-model="vm.systemParameterScope[systemParameter.dto.parameterId]"  required  string-to-number chars="only-numbers" onkeypress="return isNumber(event)" maxlength='5'>
+							<input type="text" ng-if="systemParameter.dto.parameterType == 'Y' && systemParameter.dto.parameterId=='NPS_HIGHVL'" class="form-control"  id="{{systemParameter.dto.parameterId}}"  name= "{{systemParameter.dto.parameterId}}" ng-model="vm.systemParameterScope[systemParameter.dto.parameterId]"  required  string-to-number chars="only-numbers" onkeypress="return isNumber(event)" maxlength='5'>
+							<input type="text" ng-if="systemParameter.dto.parameterType == 'Y' && systemParameter.dto.parameterId=='VER_CLASS'" class="form-control"  id="{{systemParameter.dto.parameterId}}"  name= "{{systemParameter.dto.parameterId}}" ng-model="vm.systemParameterScope[systemParameter.dto.parameterId]"  required  string-to-number chars="only-numbers" onkeypress="return isNumber(event)" maxlength='3'>
+							<input type="text" ng-if="systemParameter.dto.parameterType == 'Y' && systemParameter.dto.parameterId=='DC_ID'" class="form-control"  id="{{systemParameter.dto.parameterId}}"  name= "{{systemParameter.dto.parameterId}}" ng-model="vm.systemParameterScope[systemParameter.dto.parameterId]" required maxlength='25'>
+							<input type="text" ng-if="systemParameter.dto.parameterType == 'Y' && systemParameter.dto.parameterId=='CUTOFFTIME'" class="form-control"  id="{{systemParameter.dto.parameterId}}"  name= "{{systemParameter.dto.parameterId}}" ng-model="vm.systemParameterScope[systemParameter.dto.parameterId]" required maxlength='25'>
+							<input type="text" ng-if="systemParameter.dto.parameterType == 'Y' && systemParameter.dto.parameterId=='NPS_SI_BAT'" class="form-control"  id="{{systemParameter.dto.parameterId}}"  name= "{{systemParameter.dto.parameterId}}" ng-model="vm.systemParameterScope[systemParameter.dto.parameterId]"  required  string-to-number chars="only-numbers" onkeypress="return isNumber(event)" maxlength='5'>
+							<input type="text" ng-if="systemParameter.dto.parameterType == 'Y' && systemParameter.dto.parameterId=='INS_VALPER'" class="form-control"  id="{{systemParameter.dto.parameterId}}"  name= "{{systemParameter.dto.parameterId}}" ng-model="vm.systemParameterScope[systemParameter.dto.parameterId]"  required  string-to-number chars="only-numbers" onkeypress="return isNumber(event)" maxlength='2' ng-blur="vm.valid(vm.systemParameterScope[systemParameter.dto.parameterId])">
+							<span class="alert-danger" ng-if="vm.errorMsgTotalAmount && systemParameter.dto.parameterId=='INS_VALPER'" ng-bind="vm.errorMsgTotalAmount"></span>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div ng-if="vm.newValueDispay">
+				<div class="row" ng-init="vm.getCommonList();">
+					<div class="form-group required">
+						<div class="col-sm-6">
+							<label for="" class="control-label">Module Name</label>
+						</div>
+						<div class="col-sm-3">
+							<select class="form-control" ng-change="vm.getModuleName()"  id="commonModule" name= "commonModule" ng-model="vm.systemParameterCommon">
+								<option	value="" required>
+									Select
+								</option><option
+									ng-repeat="item in vm.commonList"
+									value="{{item.parameterValues}}"
+									required>
+								{{item.parameterValDesc}}
+							</option>
+							</select>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-sm-6">
+					</div>
+					<div class="col-sm-3">
+						New Value
+					</div>
+					<div class="col-sm-3">
+						Old Value
+					</div>
+				</div>
+				<div class="row" ng-repeat="systemParameter in vm.systemParameters">
+					<div class="form-group required">
+						<div class="col-sm-6">
+							<label for="" class="control-label" ng-if="systemParameter.dto.parameterId !='SCH_CODE'">{{systemParameter.dto.parameterDesc}}</label>
+						</div>
+						<div class="col-sm-3">
+							<select class="form-control" ng-if="systemParameter.dto.parameterType == 'N' && systemParameter.dto.parameterId !='SCH_CODE'" id="{{systemParameter.dto.parameterId}}" name= "{{systemParameter.dto.parameterId}}" ng-model="vm.systemParameterNewScope[systemParameter.dto.parameterId]">
+								<option
+									ng-selected= "{{item.parameterValues == vm.systemParameterNewScope[systemParameter.dto.parameterId]}}"
+									ng-repeat="item in vm.systemParametersDetails"
+									ng-if="item.parameterId == systemParameter.dto.parameterId "
+									value="{{item.parameterValues}}"
+									required>
+									{{item.parameterValDesc}}
+								</option>
+							</select>
+							<input type="text" ng-if="systemParameter.dto.parameterType == 'Y' && systemParameter.dto.parameterId=='BNK_NAME'" class="form-control"  id="{{systemParameter.dto.parameterId}}"  name= "{{systemParameter.dto.parameterId}}" ng-model="vm.systemParameterScope[systemParameter.dto.parameterId]" required maxlength='25'>
+							<input type="text" ng-if="systemParameter.dto.parameterType == 'Y' && systemParameter.dto.parameterId=='BNK_CODE'" class="form-control"  id="{{systemParameter.dto.parameterId}}"  name= "{{systemParameter.dto.parameterId}}" ng-model="vm.systemParameterNewScope[systemParameter.dto.parameterId]"  required  string-to-number chars="only-numbers" onkeypress="return isNumber(event)" maxlength='3'>
+							<input type="text" ng-if="systemParameter.dto.parameterType == 'Y' && systemParameter.dto.parameterId=='DEF_PEN'" class="form-control"  id="{{systemParameter.dto.parameterId}}"  name= "{{systemParameter.dto.parameterId}}" ng-model="vm.systemParameterNewScope[systemParameter.dto.parameterId]"  required  string-to-number chars="only-numbers" onkeypress="return isNumber(event)" maxlength='4'>
+							<input type="text" ng-if="systemParameter.dto.parameterType == 'Y' && systemParameter.dto.parameterId=='REC_PAY'" class="form-control"  id="{{systemParameter.dto.parameterId}}"  name= "{{systemParameter.dto.parameterId}}" ng-model="vm.systemParameterNewScope[systemParameter.dto.parameterId]"  required  string-to-number chars="only-numbers" onkeypress="return isNumber(event)" maxlength='5'>
+							<input type="text" ng-if="systemParameter.dto.parameterType == 'Y' && systemParameter.dto.parameterId=='NPS_HIGHVL'" class="form-control"  id="{{systemParameter.dto.parameterId}}"  name= "{{systemParameter.dto.parameterId}}" ng-model="vm.systemParameterNewScope[systemParameter.dto.parameterId]"  required  string-to-number chars="only-numbers" onkeypress="return isNumber(event)" maxlength='5'>
+							<input type="text" ng-if="systemParameter.dto.parameterType == 'Y' && systemParameter.dto.parameterId=='VER_CLASS'" class="form-control"  id="{{systemParameter.dto.parameterId}}"  name= "{{systemParameter.dto.parameterId}}" ng-model="vm.systemParameterNewScope[systemParameter.dto.parameterId]"  required  string-to-number chars="only-numbers" onkeypress="return isNumber(event)" maxlength='3'>
+							<input type="text" ng-if="systemParameter.dto.parameterType == 'Y' && systemParameter.dto.parameterId=='DC_ID'" class="form-control"  id="{{systemParameter.dto.parameterId}}"  name= "{{systemParameter.dto.parameterId}}" ng-model="vm.systemParameterScope[systemParameter.dto.parameterId]" required maxlength='25' >
+							<input type="text" ng-if="systemParameter.dto.parameterType == 'Y' && systemParameter.dto.parameterId=='CUTOFFTIME'" class="form-control"  id="{{systemParameter.dto.parameterId}}"  name= "{{systemParameter.dto.parameterId}}" ng-model="vm.systemParameterScope[systemParameter.dto.parameterId]" required maxlength='25'>
+							<input type="text" ng-if="systemParameter.dto.parameterType == 'Y' && systemParameter.dto.parameterId=='NPS_SI_BAT'" class="form-control"  id="{{systemParameter.dto.parameterId}}"  name= "{{systemParameter.dto.parameterId}}" ng-model="vm.systemParameterNewScope[systemParameter.dto.parameterId]"  required  string-to-number chars="only-numbers" onkeypress="return isNumber(event)" maxlength='5'>
+							<input type="text" ng-if="systemParameter.dto.parameterType == 'Y' && systemParameter.dto.parameterId=='INS_VALPER'" class="form-control"  id="{{systemParameter.dto.parameterId}}"  name= "{{systemParameter.dto.parameterId}}" ng-model="vm.systemParameterScope[systemParameter.dto.parameterId]"  required  string-to-number chars="only-numbers" onkeypress="return isNumber(event)" maxlength='2'>
+						</div>
+						<div class="col-sm-3">
+							<select class="form-control" ng-if="systemParameter.dto.parameterType == 'N' && systemParameter.dto.parameterId !='SCH_CODE'" id="{{systemParameter.dto.parameterId}}"
+								name= "{{systemParameter.dto.parameterId}}" ng-model="vm.systemParameterScope[systemParameter.dto.parameterId]" disabled>
+								<option  
+									ng-selected= "{{item.parameterValues == systemParameter.dto.parameterValue}}" 
+									ng-repeat="item in vm.systemParametersDetails" 
+									ng-if="item.parameterId == systemParameter.dto.parameterId " 
+									value="{{item.parameterValues}}">
+									{{item.parameterValDesc}}
+								</option>
+							</select>
+							<input type="text" ng-if="systemParameter.dto.parameterType == 'Y' && systemParameter.dto.parameterId=='BNK_NAME'" class="form-control"  id="{{systemParameter.dto.parameterId}}"  name= "{{systemParameter.dto.parameterId}}" ng-model="vm.systemParameterScope[systemParameter.dto.parameterId]" maxlength='25'  disabled readonly>
+							<input type="text" ng-if="systemParameter.dto.parameterType == 'Y' && systemParameter.dto.parameterId=='BNK_CODE'" class="form-control"  id="{{systemParameter.dto.parameterId}}"  name= "{{systemParameter.dto.parameterId}}" ng-model="vm.systemParameterScope[systemParameter.dto.parameterId]" string-to-number chars="only-numbers" onkeypress="return isNumber(event)" maxlength='3' disabled readonly>
+							<input type="text" ng-if="systemParameter.dto.parameterType == 'Y' && systemParameter.dto.parameterId=='DEF_PEN'" class="form-control"  id="{{systemParameter.dto.parameterId}}"  name= "{{systemParameter.dto.parameterId}}" ng-model="vm.systemParameterScope[systemParameter.dto.parameterId]" string-to-number chars="only-numbers" onkeypress="return isNumber(event)" maxlength='4' disabled readonly>
+							<input type="text" ng-if="systemParameter.dto.parameterType == 'Y' && systemParameter.dto.parameterId=='REC_PAY'" class="form-control"  id="{{systemParameter.dto.parameterId}}"  name= "{{systemParameter.dto.parameterId}}" ng-model="vm.systemParameterScope[systemParameter.dto.parameterId]" string-to-number chars="only-numbers" onkeypress="return isNumber(event)" maxlength='5' disabled readonly>
+							<input type="text" ng-if="systemParameter.dto.parameterType == 'Y' && systemParameter.dto.parameterId=='NPS_HIGHVL'" class="form-control"  id="{{systemParameter.dto.parameterId}}"  name= "{{systemParameter.dto.parameterId}}" ng-model="vm.systemParameterScope[systemParameter.dto.parameterId]" string-to-number chars="only-numbers" onkeypress="return isNumber(event)" maxlength='5' disabled readonly>
+							<input type="text" ng-if="systemParameter.dto.parameterType == 'Y' && systemParameter.dto.parameterId=='VER_CLASS'" class="form-control"  id="{{systemParameter.dto.parameterId}}"  name= "{{systemParameter.dto.parameterId}}" ng-model="vm.systemParameterScope[systemParameter.dto.parameterId]" string-to-number chars="only-numbers" onkeypress="return isNumber(event)" maxlength='3' disabled readonly>
+							<input type="text" ng-if="systemParameter.dto.parameterType == 'Y' && systemParameter.dto.parameterId=='DC_ID'" class="form-control"  id="{{systemParameter.dto.parameterId}}"  name= "{{systemParameter.dto.parameterId}}" ng-model="vm.systemParameterScope[systemParameter.dto.parameterId]" required maxlength='25' disabled readonly>
+							<input type="text" ng-if="systemParameter.dto.parameterType == 'Y' && systemParameter.dto.parameterId=='CUTOFFTIME'" class="form-control"  id="{{systemParameter.dto.parameterId}}"  name= "{{systemParameter.dto.parameterId}}" ng-model="vm.systemParameterScope[systemParameter.dto.parameterId]" required maxlength='25' disabled readonly>
+							<input type="text" ng-if="systemParameter.dto.parameterType == 'Y' && systemParameter.dto.parameterId=='NPS_SI_BAT'" class="form-control"  id="{{systemParameter.dto.parameterId}}"  name= "{{systemParameter.dto.parameterId}}" ng-model="vm.systemParameterScope[systemParameter.dto.parameterId]" string-to-number chars="only-numbers" onkeypress="return isNumber(event)" maxlength='5' disabled readonly>
+							<input type="text" ng-if="systemParameter.dto.parameterType == 'Y' && systemParameter.dto.parameterId=='INS_VALPER'" class="form-control"  id="{{systemParameter.dto.parameterId}}"  name= "{{systemParameter.dto.parameterId}}" ng-model="vm.systemParameterScope[systemParameter.dto.parameterId]"  string-to-number chars="only-numbers" onkeypress="return isNumber(event)" maxlength='2' disabled readonly>
+						</div>
+					</div>
+				</div>
+			</div>
+			
+			<div class="row" >
+				<div class="col-sm-7"></div>
+				<label  ng-if="vm.newValueDispay == false" class="control-label col-sm-5"><b>Verify Status : Y</b></label>
+				<label  ng-if="vm.newValueDispay == true" class="control-label col-sm-5"><b>Verify Status : N</b></label>
+			</div>
+				
+			<div class="text-center form_submit">
+				 <button type="submit" class="btn btn-default" id="submitButton" ng-disabled="systemParameterForm.$invalid"
+				 ng-click="vm.updateSysetmParameter();">Update</button>
+				 <button type="button" class="btn btn-cancel" id="cancelButton"
+						 ng-click ="vm.showCancelConfirmation('system_parameter.list');"
+						 onclick="window.location.href = '#!/system_parameter/action/inquiry'">Cancel</button>
+
+
+			</div>
+			
+			<div class="text-center">
+				<notice-message-directive></notice-message-directive>
+			</div>
+		</form>
+
+</div>
+<!-- /.container-fluid -->	
+				
+				 

@@ -1,0 +1,110 @@
+<div class="loader-new" ng-if="vm.loader"></div>
+<dc-left-menu></dc-left-menu>
+<div class="container from_wrapper new_form_wrapper">
+    <h4 class="form_heading">Bond Cumulative To Non-Cumulative Change - Add</h4>
+    <sol-header></sol-header>
+
+    <form name="vm.bondNominationsForm" role="form">
+        <table class="table table-bordered">
+            <tbody>
+            <tr>
+                <td width="25%">Name of the Bond Scheme</td>
+                <td width="25%">
+                    <label class="data-bind" id="bondScheme">{{vm.subDetail.schemeName}}</label>
+                </td>
+                <td width="25%">Bond BLA Number</td>
+                <td width="25%">
+                    <label class="data-bind" id="blaNo">{{vm.subDetail.blaNo}}</label>
+                </td>
+            </tr>
+            <tr>
+                <td width="25%">Bond Subscription Id</td>
+                <td width="25%">
+                    <label class="data-bind" id="subscriptionId">{{vm.subDetail.subscriptionId}}</label>
+                </td>
+                <td width="25%">Subscription Amount</td>
+                <td width="25%">
+                    <label class="data-bind" id="subscriptionAmount">{{vm.subDetail.subscriptionAmount}}</label>
+                </td>
+            </tr>
+            <tr>
+                <td width="25%" class="form-group required">
+                    <label class="control-label">Bond Type</label>
+                </td>
+                <td width="25%">
+                    <select class="form-control" id="bondType" ng-init="vm.subDetail.bondType = 'NC'"
+                            name="bondType" ng-model="vm.subDetail.bondType"
+                            required>
+                        <option value="" hidden="true">Select</option>
+                        <option value="NC">Non-Cumulative</option>
+                    </select>
+                </td>
+                <td width="25%">Account Open Date (dd/mm/yyyy)</td>
+                <td width="25%">
+                    <label class="data-bind" id="accountOpenDate">{{vm.subDetail.accountOpenDate}}</label>
+                </td>
+            </tr>
+            <tr>
+                <td width="25%">Value Date (dd/mm/yyyy)</td>
+                <td width="25%" >
+                    <label class="data-bind" id="valueDate">{{vm.subDetail.valueDate}}</label>
+                </td>
+                <td width="25%">Period of Deposit (months)</td>
+                <td width="25%">
+                    <label class="data-bind" id="periodOfDeposit">{{vm.subDetail.periodOfDeposit}}</label>
+                </td>
+            </tr>
+            <tr>
+                <td width="25%">Maturity Date (dd/mm/yyyy)</td>
+                <td width="25%">
+                    <label class="data-bind" id="maturityDate">{{vm.subDetail.maturityDate}}</label>
+                </td>
+                <td width="25%">Rate of Interest (%)</td>
+                <td width="25%">
+                    <label class="data-bind" id="rateOfInterest">{{vm.subDetail.rateOfInterest}}</label>
+
+                </td>
+            </tr>
+            <tr>
+                <td width="25%">Maturity Amount</td>
+                <td width="25%" >
+                    <label class="data-bind" id="maturityAmt">{{vm.subDetail.maturityAmt}}</label>
+                </td>
+                <td width="25%">Principle Amount</td>
+                <td width="25%">
+                    <label class="data-bind" id="principleAmount">{{vm.subDetail.principleAmount}}</label>
+                </td>
+            </tr>
+            <tr>
+                <td width="25%">Interest Amount</td>
+                <td width="25%" >
+                    <label class="data-bind" id="interestAmount">{{vm.subDetail.interestAmount}}</label>
+                </td>
+                <td width="25%"></td>
+                <td width="25%">
+                </td>
+            </tr>
+            </tbody>
+        </table>
+
+
+        </table>
+
+        <div class="text-center form_submit">
+            <button type="submit" class="btn btn-default" id="submitButton"
+                    ng-disabled="vm.bondNominationsForm.$invalid || vm.debitBankAccountNoErrMsg || vm.bondNominationsForm.$pristine"
+                    ng-click="vm.addcustomerMaster()">Add</button>
+            <button type="button" class="btn btn-cancel" id="cancelButton"
+                    onclick="window.location.href= '#!/cum_to_non_cum_change_of_bond_type/action/inquiry';">Cancel
+            </button>
+        </div>
+        <div class="text-center">
+            <notice-message-directive></notice-message-directive>
+
+        </div>
+    </form>
+</div>
+
+
+
+

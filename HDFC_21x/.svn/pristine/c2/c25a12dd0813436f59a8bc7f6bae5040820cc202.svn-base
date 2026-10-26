@@ -1,0 +1,160 @@
+<div class="loader-new" ng-if="vm.loader"></div>
+<div class="container" >
+    <div class="text-right form_submit">
+        <button type="submit" class="btn btn-default"
+                onclick="window.location.href ='#!/rbibond_gu_functionality';" id="homeButton">Home</button>
+        <button type="submit" id="backButton" class="btn btn-cancel"
+               ui-sref="bond_interest_payment_mis_report_sol_wise.inquiry">Back</button>
+    </div>
+    <div  class="container from_wrapper new_form_wrapper" id="tab">
+        <div class="col-sm-12">
+            <h4 class="form_heading">BOND INTEREST PAYMENT MIS REPORT - SOL WISE</h4>
+            <table class="table report-title-table">
+                <tr>
+                    <td>
+                        <h5 class="modal-title">Bank Name</h5>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <h5 class="modal-title">Branch Name : {{vm.loginSolDesc}}</h5>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <h5 class="modal-title">Branch Id : {{vm.loginSolId}}</h5>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <h5 class="modal-title">{{vm.schemeName}}</h5>
+                    </td>
+                </tr>
+            </table>
+
+            <div class="row">
+                <div class="col-sm-12">
+                    <div>
+                        <table>
+                            <tr>
+                                <td>
+                                    <select class="form-control pageDropDown" id="pageSize" name="pageSize"
+                                            ng-model="vm.pageSize" ng-init="vm.pageSize='5'" ng-change=" vm.pageNo='1'; vm.getBondInterestPayMisReportValues();">
+                                        <option value="5" >5 per page</option>
+                                        <option value="10">10 per page</option>
+                                        <option value="50">50 per page</option>
+
+                                    </select>
+                                </td>
+                                <td>
+                                    <select class="form-control" id="export" name="export"
+                                            ng-model="vm.downloadType"  ng-change="vm.getBondInterestPayMisReportValues()">
+                                        <option value="">EXPORT</option>
+                                        <option value="excel">EXCEL</option>
+                                        <option value="pdf">PDF</option>
+
+                                    </select>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="input-group">
+                        <input type="text" class="form-control searchButton"
+                               ng-model="vm.searchValue" ng-init="vm.searchValue = ''"
+                               placeholder="Search">
+                        <div class="input-group-addon">
+                            <i class="glyphicon glyphicon-search" ng-click="vm.getBondInterestPayMisReportValues()"></i>
+                        </div>
+
+                    </div>
+                    <br>
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-striped list table-textWrap"
+
+                        >
+                            <thead style="font-weight: bold">
+                            <tr class="thalign">
+
+                                <td>S.No</td>
+
+                                <td align="center" ng-click="vm.sorting('BRANCH_ID')">Branch Id
+                                    <span class="glyphicon sort-icon" ng-show="vm.sortKey=='BRANCH_ID'" ng-class="{'glyphicon-chevron-up':vm.sortReverse,'glyphicon-chevron-down':!vm.sortReverse}"></span>
+                                </td>
+
+
+                                <td align="center" ng-click="vm.sorting('GROSS_INTEREST_AMOUNT')">Gross Interest Amount <br>Rs.
+                                    <span class="glyphicon sort-icon" ng-show="vm.sortKey=='GROSS_INTEREST_AMOUNT'" ng-class="{'glyphicon-chevron-up':vm.sortReverse,'glyphicon-chevron-down':!vm.sortReverse}"></span>
+                                </td>
+
+                                <td align="center" ng-click="vm.sorting('TDS_AMOUNT')">TDS Amount <br>Rs.
+                                    <span class="glyphicon sort-icon" ng-show="vm.sortKey=='TDS_AMOUNT'" ng-class="{'glyphicon-chevron-up':vm.sortReverse,'glyphicon-chevron-down':!vm.sortReverse}"></span>
+                                </td>
+
+                                <td align="center" ng-click="vm.sorting('NET_INTEREST_AMOUNT')">Net Interest Amount <br>Rs.
+                                    <span class="glyphicon sort-icon" ng-show="vm.sortKey=='NET_INTEREST_AMOUNT'" ng-class="{'glyphicon-chevron-up':vm.sortReverse,'glyphicon-chevron-down':!vm.sortReverse}"></span>
+                                </td>
+
+
+
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr ng-repeat="x in vm.dataList" ng-if="vm.dataList.length>0">
+                                <td>{{x.sNo}}</td>
+                                <td width="25%" align="center">{{x.branchId}}</td>
+                                <td width="25%" align="right">{{x.grossIntAmt}}</td>
+                                <td width="25%" align="right">{{x.tdsAmt}}</td>
+                                <td width="25%" align="right">{{x.netIntAmt}}</td>
+
+                            </tr>
+                            </tbody>
+                            <tfoot>
+                            <tr>
+                                <th class="text-right" colspan="2">Total</th>
+                                <th class="text-right">{{vm.totGrossIntAmt}}</th>
+                                <th class="text-right">{{vm.totTdsAmt}}</th>
+                                <th class="text-right">{{vm.totNetIntAmt}}</th>
+                            </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                </div>
+
+                <br>
+                <div class="text-center form_submit">
+                        <span ng-show="vm.showPrevious">
+                        <button type="submit" class="btn btn-default" ng-click="vm.goPreviousPage()">Prev
+                        </button>
+                        </span>
+
+                    <span>
+                          <button type="submit" class="btn btn-default" ng-disabled="true" ng-init="vm.pageNo=1" ng-model="vm.pageNo" ng-click="vm.getTrialRunEligibleAccountsDetails();">{{vm.pageNo}} of {{vm.maxPages}}
+                          </button>
+                        </span>
+
+                    <span ng-show="vm.showNext">
+                        <button type="submit" class="btn btn-default" ng-click="vm.goNextPage();" >Next
+                        </button>
+                        </span>
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+    </div>
+</div>
+<div class="container" ng-if="vm.trialRunDetailsList.length == 0 || vm.noDataFound">
+    <div class="list_wrapper no_records_message">
+        <h4 class="form_heading">Bond Interest Trial Run – Eligible Accounts Report</h4>
+        No records found to display.
+        <center>
+            <button type="button" class="btn btn-default"
+                    ng-click="vm.goPreviousState();">Back</button>
+        </center>
+    </div>
+</div>

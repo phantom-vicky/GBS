@@ -1,0 +1,35 @@
+
+
+<div class="modal" id="viewModal" role="dialog">
+    <div class="modal-dialog modal-dialog-medium">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-bs-dismiss="modal">&times;</button>
+                <h4 class="modal-title">{{fileName}}</h4>
+            </div>
+            <div class="modal-body">
+                <div class="loader_popup"></div>
+                <div class="list_wrapper">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="col-sm-12">
+                                <div class="pull-left">
+                                    <button type="button" class="btn btn-default" id="download" ng-click="downloadPdfFile()">Download</button>
+                                </div>
+                                <div class="pull-right">
+                                    <span>Page: <span id="page_num"></span> / <span id="page_count"></span></span>
+                                    <button type="button" class="btn btn-cancel" id="prev">Previous</button>
+                                    <button type="button" class="btn btn-cancel"  id="next">Next</button>
+                                </div>
+                            </div>
+                            <div class="col-sm-12">
+                                <canvas id="the-canvas"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

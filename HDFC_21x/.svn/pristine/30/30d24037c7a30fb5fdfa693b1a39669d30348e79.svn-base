@@ -1,0 +1,202 @@
+<div class="loader"></div>
+<div class="container from_wrapper">
+	<left-menu-directive></left-menu-directive>
+	<h4 class="form_heading">Lite - Scheme Parameter - Modify</h4>
+	
+	<form name="liteSchemeParameterForm" role="form" ng-submit="submitLiteSchemeParameterForm(liteSchemeParameterForm.$valid)" novalidate>
+	   <div class="row">
+				<h5 class="col-sm-12 tc">
+					<b>Scheme Type - New Pension Scheme</b>
+				</h5>
+			</div>
+		<h4 class="form_heading">Common</h4>
+		<notice-message-directive ></notice-message-directive>
+		<div ng-if="!verifyStatus">
+		<div class="row">
+			<div class="form-group required">
+				<div class="col-sm-2"></div>
+				<label for="minAgeLimit" class ="control-label col-sm-5">Minimum Age Limit</label>
+				
+				<div class="col-sm-3">
+				  <input type="text" class="form-control" id="minAgeLimit" name="minAgeLimit" ng-model="liteSchemeParameter.minAgeLimit" required  string-to-integer allow-only-numbers maxlength='3'> 
+				</div>
+			</div> 
+		</div> 
+		<div class="row">
+			<div class="form-group required">
+				<div class="col-sm-2"></div>
+				<label for="maxAgeLimit" class ="control-label col-sm-5">Maximum Age Limit</label>
+				<div class="col-sm-3">
+				  <input type="text"  class="form-control" id="maxAgeLimit" name="maxAgeLimit" ng-model="liteSchemeParameter.maxAgeLimit" required  required min="{{minAgeLimit}}" ng-change="maxValidate()" string-to-integer allow-only-numbers maxlength='3'>
+				</div>
+				
+			</div>
+		</div>
+		<div class="row">
+			<div class="form-group required">
+				<div class="col-sm-2"></div>
+				<label for="MinNoOfContributionYr" class ="control-label col-sm-5">Minimum Number of Contribution in a Year</label>
+				<div class="col-sm-3">
+				  <input type="text" class="form-control" id="MinNoOfContributionYr" name="MinNoOfContributionYr" ng-model="liteSchemeParameter.MinNoOfContributionYr" required   string-to-number allow-only-numbers maxlength='3'> 
+				 
+				</div>
+				
+			</div>
+		</div>
+			<div class="row">
+				<div class="form-group required">
+					<div class="col-sm-2"></div>
+					<label for="minAmtPerInitContT1" class="control-label col-sm-5">Minimum Initial Contribution Amount for Tier I Rs.</label>
+					<div class="col-sm-3">
+						<input type="text" class="form-control" id="minAmtPerInitContT1" name="minAmtPerInitContT1" ng-model="liteSchemeParameter.minAmtPerInitContT1"  required string-to-number allow-only-numbers maxlength='20'>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="form-group required">
+					<div class="col-sm-2"></div>
+					<label for="minAmtPerContT1" class="control-label col-sm-5">Minimum Contribution Amount for Tier I Rs.</label>
+					<div class="col-sm-3">
+						<input type="text" class="form-control" id="minAmtPerContT1" name="minAmtPerContT1" name="minAmtPerContT1" ng-model="liteSchemeParameter.minAmtPerContT1" required string-to-number allow-only-numbers maxlength='20'>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="form-group required">
+					<div class="col-sm-2"></div>
+					<label for="minContributionPerYr" class="control-label col-sm-5">Minimum Tier I Contribution per Year in Rs.</label>
+					<div class="col-sm-3">
+						<input type="text" class="form-control" id="minContributionPerYr" name="minContributionPerYr" ng-model="liteSchemeParameter.minContributionPerYr" required string-to-number allow-only-numbers maxlength='20'>
+					</div>
+				</div>
+			</div>
+			
+			<div class="row">
+				<div class="form-group required">
+					<div class="col-sm-2"></div>
+					<label for="maxNoOfNomination" class="control-label col-sm-5">Maximum Number of Nominations</label>
+					<div class="col-sm-3">
+						<input type="text" class="form-control" id="maxNoOfNomination" name="maxNoOfNomination" ng-model="liteSchemeParameter.maxNoOfNomination" required string-to-number allow-only-numbers maxlength='1'>
+					</div>
+				</div>
+			</div>
+			
+			</div>
+			<div ng-if="verifyStatus">
+		<div class="row" >
+			<div class="form-group">
+			<div class="col-sm-7"></div>
+				<div class="col-sm-4">
+				 <label for="oldValue" class ="control-label col-sm-5"><b>New Value</b></label> 
+				 <div class="col-sm-2"></div>
+				 <label for="newValue" class ="control-label col-sm-5"><b>Old Value</b></label> 
+				</div>
+			</div> 
+		</div> 
+		<div class="row">
+			<div class="form-group required">
+				<div class="col-sm-2"></div>
+				<label for="minAgeLimit" class ="control-label col-sm-5">Minimum Age Limit</label>
+				
+				<div class="col-sm-2">
+				  <input type="text" class="form-control" id="minAgeLimit" name="minAgeLimit" ng-model="liteSchemeParameter.minAgeLimit" required  string-to-integer allow-only-numbers maxlength='3'> 
+				</div>
+				<div class="col-sm-2">
+				  <input type="text" class="form-control" id="minAgeLimit" name="minAgeLimit" ng-model="liteSchemeParameter.oldMinAge" required  string-to-integer allow-only-numbers maxlength='3' readonly> 
+				</div>
+			</div> 
+		</div> 
+		<div class="row">
+			<div class="form-group required">
+				<div class="col-sm-2"></div>
+				<label for="maxAgeLimit" class ="control-label col-sm-5">Maximum Age Limit</label>
+				<div class="col-sm-2">
+				  <input type="text"  class="form-control" id="maxAgeLimit" name="maxAgeLimit" ng-model="liteSchemeParameter.maxAgeLimit" required  required min="{{minAgeLimit}}" ng-change="maxValidate()" string-to-integer allow-only-numbers maxlength='3'>
+				   
+				</div>
+				<div class="col-sm-2">
+				  <input type="text"  class="form-control" id="maxAgeLimit" name="maxAgeLimit" ng-model="liteSchemeParameter.oldMaxAge"  string-to-integer allow-only-numbers maxlength='3' readonly>
+				   
+				</div>
+				
+			</div>
+		</div>
+		<div class="row">
+			<div class="form-group required">
+				<div class="col-sm-2"></div>
+				<label for="MinNoOfContributionYr" class ="control-label col-sm-5">Minimum Number of Contribution in a Year</label>
+				<div class="col-sm-2">
+				  <input type="text" class="form-control" id="MinNoOfContributionYr" name="MinNoOfContributionYr" ng-model="liteSchemeParameter.MinNoOfContributionYr" required   string-to-number allow-only-numbers maxlength='3'> 
+				  
+				</div>
+				<div class="col-sm-2">
+				  <input type="text" class="form-control" id="MinNoOfContributionYr" name="MinNoOfContributionYr" ng-model="liteSchemeParameter.oldMinNoOfContributionYr" readonly> 
+				  
+				</div>
+			</div>
+		</div>
+			<div class="row">
+				<div class="form-group required">
+					<div class="col-sm-2"></div>
+					<label for="minAmtPerInitContT1" class="control-label col-sm-5">Minimum Initial Contribution Amount for Tier I Rs.</label>
+					<div class="col-sm-2">
+						<input type="text" class="form-control" id="minAmtPerInitContT1" name="minAmtPerInitContT1" ng-model="liteSchemeParameter.minAmtPerInitContT1"  required string-to-number allow-only-numbers maxlength='20'>
+					</div>
+					<div class="col-sm-2">
+						<input type="text" class="form-control" id="minAmtPerInitContT1" name="minAmtPerInitContT1" ng-model="liteSchemeParameter.oldminAmtPerInitContT1"  readonly>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="form-group required">
+					<div class="col-sm-2"></div>
+					<label for="minAmtPerContT1" class="control-label col-sm-5">Minimum Contribution Amount for Tier I Rs.</label>
+					<div class="col-sm-2">
+						<input type="text" class="form-control" id="minAmtPerContT1" name="minAmtPerContT1" name="minAmtPerContT1" ng-model="liteSchemeParameter.minAmtPerContT1" required string-to-number allow-only-numbers maxlength='20'>
+					</div>
+					<div class="col-sm-2">
+						<input type="text" class="form-control" id="minAmtPerContT1" name="minAmtPerContT1" name="minAmtPerContT1" ng-model="liteSchemeParameter.oldminAmtPerContT1" readonly>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="form-group required">
+					<div class="col-sm-2"></div>
+					<label for="minContributionPerYr" class="control-label col-sm-5">Minimum Tier I Contribution per Year in Rs.</label>
+					<div class="col-sm-2">
+						<input type="text" class="form-control" id="minContributionPerYr" name="minContributionPerYr" ng-model="liteSchemeParameter.minContributionPerYr" required string-to-number allow-only-numbers maxlength='20'>
+					</div>
+					<div class="col-sm-2">
+						<input type="text" class="form-control" id="minContributionPerYr" name="minContributionPerYr" ng-model="liteSchemeParameter.oldminContributionPerYr" readonly>
+					</div>
+				</div>
+			</div>
+			
+			<div class="row">
+				<div class="form-group required">
+					<div class="col-sm-2"></div>
+					<label for="maxNoOfNomination" class="control-label col-sm-5">Maximum Number of Nominations</label>
+					<div class="col-sm-2">
+						<input type="text" class="form-control" id="maxNoOfNomination" name="maxNoOfNomination" ng-model="liteSchemeParameter.maxNoOfNomination" required string-to-number allow-only-numbers maxlength='1'>
+					</div>
+					<div class="col-sm-2">
+						<input type="text" class="form-control" id="maxNoOfNomination" name="maxNoOfNomination" ng-model="liteSchemeParameter.oldmaxNoOfNomination" readonly>
+					</div>
+				</div>
+			</div>
+	 
+			</div>
+			<div class="row" >
+			<div class="col-sm-7"></div>
+				<label  ng-if="verify1" for ="verifyStatus" class="control-label col-sm-5"><b>Verify Status : Y</b></label>
+				<label  ng-if="!verify1" for ="verifyStatus" class="control-label col-sm-5"><b>Verify Status : N</b></label>
+			</div>
+		<div class="row">
+			<div class="col-sm-offset-5 col-sm-8 form_submit">
+				<button type="submit" class="btn btn-default" id="submitButton" ng-disabled="liteSchemeParameterForm.$invalid || showMaxError || parse()">Update</button>
+				<button type="button" class="btn btn-cancel" id="cancelButton" ng-click="moveTo()">Cancel</button>
+			</div>
+		</div>
+	</form>
+</div>
+<!-- /.container-fluid -->

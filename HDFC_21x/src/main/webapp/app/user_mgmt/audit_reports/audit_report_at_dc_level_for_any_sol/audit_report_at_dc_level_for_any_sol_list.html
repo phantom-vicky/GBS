@@ -1,0 +1,156 @@
+ <div class="loader-new" ng-if="vm.loader"></div>
+ <div class="container" ng-if="vm.auditReportList.length>0">
+	 <div class="text-right form_submit">
+		 <!-- <button type="submit" class="btn btn-default"
+             onclick="window.location.href ='#!/dc';" id="homeButton">Home</button>
+         <button type="submit" class="btn btn-default"
+             ng-disabled="auditReportAtDcLevelForAnySolForm.$invalid"
+             id="printButton" ng-click="vm.printpage();">Print</button> -->
+		 <button type="button" id="cancelButton" class="btn btn-cancel"
+				 ng-click="vm.goPreviousState();">Back</button>
+	 </div>
+
+	 <div class="container from_wrapper new_form_wrapper">
+		 <h4 class="form_heading">{{vm.reportName}}</h4>
+
+
+			 <table class="table report-title-table">
+				 <thead>
+				 <tr>
+					 <td id="operation">
+
+						 <h5 class="modal-title" align="center">Date From
+							 {{vm.fromDate | date : 'dd/MM/yyyy'}} To {{vm.toDate
+							 | date : 'dd/MM/yyyy'}}</h5>
+					 </td>
+				 </tr>
+				 </thead>
+			 </table>
+			 <table  width="100%" class="table table-bordered">
+				 <tr height="40" width="100%" >
+					 <td align="left" width="15%"><b>Module Id</b></td>
+					 <td align="left" width="35%">{{vm.moduleId}}</td>
+					 <td align="left" width="15%"><b>Table Name</b></td>
+					 <td align="left" width="35%">{{(vm.tableShortName) ? (vm.tableShortName) : ('ALL TABLES')}}</td>
+				 </tr>
+				 <tr height="40">
+					 <td align="left" width="15%"><b>Link Name</b></td>
+					 <td align="left" width="35%">{{(vm.linkName) ? (vm.linkName) : ('ALL LINKS')}}</td>
+					 <td align="left" width="15%"><b>Branch</b></td>
+					 <td align="left" width="35%">{{(vm.branch) ? (vm.branch) : ('ALL BRANCHES')}}</td>
+				 </tr>
+				 <tr height="40" ng-if="vm.moduleId == 'PENSION'">
+					 <td align="left" width="50%"><b>Treasury Code</b></td>
+					 <td align="left" width="50%">{{(vm.treasuryCode) '-' vm.treasuryName}}</td>
+				 </tr>
+				 <tr height="40" ng-if="vm.moduleId == 'ST'">
+					 <td align="left" width="50%"><b>State Tax Code</b></td>
+					 <td align="left" width="50%">{{(vm.stateCode) '-' vm.stateName}}</td>
+				 </tr>
+				 <tr height="40">
+					 <td align="left" width="15%"><b>Operation</b></td>
+					 <td align="left" width="35%">{{vm.operation}}</td>
+					 <td align="left" width="15%"><b>Record Status</b></td>
+					 <td align="left" width="35%" ng-if="vm.includeVerifiedRecords == 'V' && vm.operation == 'DELETE' ">AUTHORIZED</td>
+					 <td align="left" width="35%" ng-if="vm.includeVerifiedRecords == 'V' && vm.operation != 'DELETE' ">VERIFIED</td>
+					 <td align="left" width="35%" ng-if="vm.includeVerifiedRecords == 'U'">UN-VERIFIED</td>
+					 <td align="left" width="35%" ng-if="vm.includeVerifiedRecords == 'B'">VERIFIED AND UN-VERIFIED</td>
+				 </tr>
+			 </table>
+
+		<div class="row">
+			 <div class="col-sm-12">
+
+		 	<div class="table-responsive">
+
+			 <table class="table table-bordered table-striped list table-textWrap datatable" id="dataTable"
+							ui-jq="dataTable" ui-options="vm.dataTableOption">
+				 <thead>
+				 <tr class="thalign">
+					 <th rowspan="2">Module Id</th>
+					 <th rowspan="2">Link Name</th>
+					 <th rowspan="2">Audit Ref Num</th>
+					 <th rowspan="2">Table Name</th>
+					 <th rowspan="2">Key Value</th>
+					 <th colspan="3" ng-hide="vm.operation == 'ADD'" class="text-center">Modified Fields Data</th>
+					 <th rowspan="2">Remarks</th>
+					 <th rowspan="2">Created By</th>
+					 <th rowspan="2" >Created On</th>
+					 <th rowspan="2">Modified By</th>
+					 <th rowspan="2">Modified On</th>
+					 <th rowspan="2" >Authorized By</th>
+					 <th rowspan="2" >Authorized On</th>
+					 <th rowspan="2">Deleted By</th>
+					 <th rowspan="2">Deleted On</th>
+					 <th rowspan="2">Entity Id</th>
+					 <th rowspan="2">Entity Account No</th>
+				 </tr>
+				 <tr ng-hide="vm.operation == 'ADD'">
+					 <th>Column Name</th>
+					 <th>Old value</th>
+					 <th>New Value</th>
+				 </tr>
+				 </thead>
+				 <tbody>
+					 <tr ng-repeat-start="x in vm.auditReportList">
+						 <td>{{x.moduleId}}</td>
+						 <td>{{x.linkName}}</td>
+						 <td>{{x.auditRefNum}}</td>
+						 <td align="left">{{x.tableName}}</td>
+						 <td align="left">{{x.keyVal}}</td>
+						 <td ng-hide="vm.operation == 'ADD'"align="left">{{x.modifiedValuesDTOList[0].colName}}</td>
+						 <td ng-hide="vm.operation == 'ADD'" align="left">{{x.modifiedValuesDTOList[0].oldValue}}</td>
+						 <td ng-hide="vm.operation == 'ADD'"align="left">{{x.modifiedValuesDTOList[0].newValue}}</td>
+						 <td align="left">{{x.remarks}}</td>
+						 <td align="left">{{x.createdBy}}</td>
+						 <td align="center">{{x.createdDate}}</td>
+						 <td align="left">{{x.modifiedBy}}</td>
+						 <td align="center">{{x.modifiedDate}}</td>
+						 <td align="left">{{x.authorisedBy}}</td>
+						 <td align="center">{{x.authorisedDate}}</td>
+						 <td align="left">{{x.deletedBy}}</td>
+						 <td align="center">{{x.deletedDate}}</td>
+						 <td align="left">{{x.entityId}}</td>
+						 <td align="left">{{x.entityAccNo}}</td>
+					 </tr>
+                     <tr ng-hide="vm.operation == 'ADD'" ng-repeat-end ng-repeat="item in x.modifiedValuesDTOList | limitTo : x.modifiedValuesDTOList.length : 1">
+						 <td class="noTdBorder"></td>
+						 <td class="noTdBorder"></td>
+						 <td class="noTdBorder"></td>
+						 <td class="noTdBorder"></td>
+						 <td class="noTdBorder"></td>
+						 <td align="left">{{item.colName}}</td>
+						 <td align="left">{{item.oldValue}}</td>
+						 <td align="left">{{item.newValue}}</td>
+						 <td class="noTdBorder"></td>
+						 <td class="noTdBorder"></td>
+						 <td class="noTdBorder"></td>
+						 <td class="noTdBorder"></td>
+						 <td class="noTdBorder"></td>
+						 <td class="noTdBorder"></td>
+						 <td class="noTdBorder"></td>
+						 <td class="noTdBorder"></td>
+						 <td class="noTdBorder"></td>
+						 <td class="noTdBorder"></td>
+						 <td class="noTdBorder"></td>
+					 </tr>
+				 </tbody>
+			 </table>
+			</div>
+			 </div>
+		</div>
+	 </div>
+ </div>
+
+
+
+ <div class="container" ng-if="vm.NoDataFound">
+	 <div class="list_wrapper no_records_message">
+		 <h4 class="form_heading">{{vm.reportName}}</h4>
+		 No records found to display.
+		 <center>
+			 <button type="button" class="btn btn-default"
+					 ng-click="vm.goPreviousState();">Back</button>
+		 </center>
+	 </div>
+ </div>

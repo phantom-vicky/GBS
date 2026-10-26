@@ -1,0 +1,87 @@
+<user-left-menu></user-left-menu>
+<!-- list result -->
+<div class="loader-new" ng-if="vm.loader"></div>
+ <div class="container list_wrapper" ng-if="vm.users.length > 0">
+    <h4 class="form_heading  feature-heading">Users - {{vm.action}} </h4>
+   
+    <div class="col-sm-3">
+        <div class="form-group">
+            <label>
+                Show
+                <select class="form-control record-filter" ng-model="vm.itemsPerPage">
+                    <option value='5'>5</option>
+                    <option value='10'>10</option>
+                    <option value='25'>25</option>
+                    <option value='50'>50</option>
+                </select>
+                records per page
+            </label>
+        </div>
+    </div>
+    <div class="col-sm-3 pull-right">
+        <div class="form-group">
+            <div class="input-group">
+                <div class="input-group-addon"><i class="glyphicon glyphicon-search"></i></div>
+                <input type="text" class="form-control" ng-model="search" laceholder="Search">
+            </div>
+        </div>
+    </div>
+    <table class="table table-bordered table-striped list">
+        <thead>
+            <tr>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Username</th>
+                <th>Application Name</th>
+                <th>Sol ID</th>
+                <th>Employee Code</th>
+                <th>Status</th>
+                <th ng-if="vm.action != 'modify'">Action</th>
+                <th ng-if="vm.action == 'modify'">Modify</th>
+<!--                <th ng-if="vm.action == 'modify'">Enable</th>-->
+            </tr>
+        </thead>
+        <tbody>
+            <tr dir-paginate="user in vm.users|filter:search|itemsPerPage:vm.itemsPerPage">
+                <td>{{user.firstName}}</td>
+                <td>{{user.lastName}}</td>
+                <td>{{user.username}}</td>
+                <td>{{user.applicationName}}</td>
+                <td>{{user.solId}}</td> 
+                <td>{{user.employeeCode}}</td>
+                <td>{{user.userStatus}}</td>
+                <td  ng-if="vm.action != 'modify'">
+                      <i class="glyphicon glyphicon-eye-open" style="cursor:pointer;" ui-sref="user.list_details({action: vm.action, id: user.id})" title="View User"></i>
+                </td>
+
+             <!--   <td ng-if="vm.action == 'modify'">
+                    <i class="glyphicons-regular glyphicons-user-structure" style="cursor:pointer;" ui-sref="user.roles({id: user.id})" title="Manage Roles"></i>
+                </td>-->
+                <td ng-if="vm.action == 'modify'">
+                    <i class="glyphicon glyphicon-edit" style="cursor:pointer;" ui-sref="user.modify_edit({id: user.id})" title="User Details Modify"></i>
+                </td>
+               <!-- <td ng-if="vm.action == 'modify'">
+                    <i  ng-if="user.status == 'DISABLED' " class="glyphicon glyphicon-ok cp"
+                        ng-click="vm.activeStatusChange(user.id);"></i>
+                </td>-->
+
+                <!--<td ng-if="vm.action == 'delete'">
+                    <i class="glyphicon glyphicon-remove" style="cursor:pointer;" ng-click="vm.showDeleteConfirmation(user.id)" title="Delete User"></i>
+                </td>
+                <td ng-if="vm.action == 'verify'">
+                    <i class="glyphicon glyphicon-ok" style="cursor:pointer;" ng-click="vm.showVerifyConfirmation(user.id)" title="Verify User"></i>
+                </td>
+                <td ng-if="vm.action == 'disable'">
+                    <button class="glyphicon glyphicon-exclamation-sign icon-button"  data-bs-toggle="modal" data-target="#disableUserModal" ng-click="vm.disabledTill = null; vm.selectedUser = user.id" ng-disabled="user.status == 'DISABLED' || user.status == 'EXPIRED'" title="Disable User"></button>
+       &lt;!&ndash;              <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-target="#disableUserModal" ng-click="vm.disabledTill = null; vm.selectedUser = user.id" ng-disabled="user.status == 'DISABLED' || user.status == 'EXPIRED'">Disable</button> &ndash;&gt;
+                </td>-->
+            </tr>
+        </tbody>
+    </table>
+    <dir-pagination-controls direction-links="true" boundary-links="true">
+    </dir-pagination-controls>
+</div>
+<div class="list_wrapper no_records_message" ng-if="vm.users.length<=0">No records found to display.</div>
+<!-- list result - End -->
+</div>
+</div>

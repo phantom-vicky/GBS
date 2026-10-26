@@ -1,0 +1,7 @@
+<div class="alert">
+    <h4 class="alert-heading">Sorry, you have been Logged Out</h4>
+    <hr>
+    <p>This program was idle for far too long.
+        So we apologize for logging you out,
+        but we had no option.</p>
+</div>

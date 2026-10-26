@@ -1,0 +1,316 @@
+<div class="loader-new" ng-if="vm.loader"></div>
+<dc-left-menu></dc-left-menu>
+<div class="container from_wrapper new_form_wrapper">
+
+    <h4 class="form_heading">Age-Based Lock-in Period Details for Premature Encashment - Verify/Reject</h4>
+    <sol-header></sol-header>
+    <form name="cbdtSchemeParameterCreationForm" role="form">
+
+        <form name="ageBasedParameterCreationForm" role="form">
+
+            <div class="row">
+                <div class="form-group">
+                    <div class="col-sm-6">
+                        <label class="control-label">Name of the Module : <b>RBI Bond</b></label>
+                    </div>
+                    <div class="col-sm-2">
+                    </div>
+                    <div class="col-sm-4 text-right">
+                        <label class="control-label"><b>Version :&nbsp;&nbsp;<span ng-bind="vm.versionNo"></span></b></label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="form-group">
+                    <div class="col-sm-6">
+                        <label class="control-label">Name of the Bond Scheme : <b>{{vm.subCodeDescription}}</b></label>
+                    </div>
+                    <div class="col-sm-2">
+                    </div>
+                    <div class="col-sm-4 text-right">
+<!--                        <label class="control-label"><b>Effective From Date :&nbsp;&nbsp;<span ng-bind="vm.effFromDate"></span></b></label>-->
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-12 margin-btm">
+                <div class="row">
+
+                    <table class="table table-bordered table-striped list old-new-value-table">
+                        <thead>
+                        <tr>
+                            <th>Particular</th>
+                            <th>{{(vm.verificationDetails == 'M')?('Old Value'): ('Value')}}</th>
+                            <th ng-if="vm.verificationDetails == 'M'">New Value</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+
+
+                        <tr>
+                            <td>Effective From Date (DD/MM/YYYY)</td>
+                            <td class="old-value">{{(vm.ageBasedParameter[0] && vm.ageBasedParameter[0].C007)?
+                                (vm.ageBasedParameter[0].C003.oldValue | date : 'dd/MM/yyyy') : ('')}}
+                            </td>
+                            <td ng-if="vm.verificationDetails == 'M'" class="new-value text-danger">{{(vm.ageBasedParameter &&
+                                vm.ageBasedParameter[0].C003)? (vm.ageBasedParameter[0].C003.newValue | date : 'dd/MM/yyyy') : ('')}}
+                            </td>
+                        </tr>
+
+
+                        </tbody>
+                    </table>
+
+                    <table class="table table-bordered table-striped list old-new-value-table">
+
+
+
+                        <tbody>
+
+                        <tr>
+<!--                            <th>Particulars</th>-->
+                            <th colspan="2">Subscriber’s Age Bracket From </th>
+                            <th colspan="2">Subscriber’s Age Bracket To</th>
+                            <th colspan="2">Lock-in Period (Years)</th>
+                        </tr>
+                        <tr>
+<!--                            <th></th>-->
+                            <th colspan="2" ng-if="vm.verificationDetails == 'I'" >{{(vm.verificationDetails == 'M')?('New Value'): ('Value')}}</th>
+
+                            <th ng-if="vm.verificationDetails == 'M'">Old Value</th>
+
+                            <th  ng-if="vm.verificationDetails == 'M'" >{{(vm.verificationDetails == 'M')?('New Value'): ('Value')}}</th>
+
+                            <th colspan="2" ng-if="vm.verificationDetails == 'I'" >{{(vm.verificationDetails == 'M')?('New Value'): ('Value')}}</th>
+
+                            <th ng-if="vm.verificationDetails == 'M'">Old Value</th>
+
+                            <th  ng-if="vm.verificationDetails == 'M'" >{{(vm.verificationDetails == 'M')?('New Value'): ('Value')}}</th>
+
+                            <th colspan="2" ng-if="vm.verificationDetails == 'I'" >{{(vm.verificationDetails == 'M')?('New Value'): ('Value')}}</th>
+
+                            <th ng-if="vm.verificationDetails == 'M'">Old Value</th>
+
+                            <th  ng-if="vm.verificationDetails == 'M'" >{{(vm.verificationDetails == 'M')?('New Value'): ('Value')}}</th>
+                        </tr>
+                        <tr  ng-repeat="x in vm.ageBasedParameter">
+<!--                            <td  class="old-value"  ng-if="vm.verificationDetails == 'M' && x.C008.newValue == 'N'">{{x.C005.oldValue}}</td>-->
+<!--                            <td  class="old-value text-danger"  ng-if="vm.verificationDetails == 'M' && x.C008.newValue == 'Y'">{{x.C005.oldValue}}</td>-->
+<!--                            <td colspan="2" class="old-value"  ng-if="vm.verificationDetails == 'I' && x.C008.newValue == 'N'">{{x.C005.oldValue}}</td>-->
+<!--                            <td colspan="2" class="old-value text-danger"  ng-if="vm.verificationDetails == 'I' && x.C008.newValue == 'Y'">{{x.C005.oldValue}}</td>-->
+<!--                            <td class="new-value text-danger" ng-if="vm.verificationDetails == 'M' ">{{x.C005.oldValue == x.C005.newValue ? '-' : x.C005.newValue ? x.C005.newValue : '-'}}</td>-->
+
+<!--                            <td  class="old-value"  ng-if="vm.verificationDetails == 'M' && x.C008.newValue == 'N'">{{x.C006.oldValue}}</td>-->
+<!--                            <td  class="old-value text-danger"  ng-if="vm.verificationDetails == 'M' && x.C008.newValue == 'Y'">{{x.C006.oldValue}}</td>-->
+<!--                            <td colspan="2" class="old-value"  ng-if="vm.verificationDetails == 'I' && x.C008.newValue == 'N'">{{x.C006.oldValue}}</td>-->
+<!--                            <td colspan="2" class="old-value text-danger"  ng-if="vm.verificationDetails == 'I' && x.C008.newValue == 'Y'">{{x.C006.oldValue}}</td>-->
+<!--                            <td class="new-value text-danger" ng-if="vm.verificationDetails == 'M'">{{x.C006.oldValue == x.C006.newValue ? '-' : x.C006.newValue ? x.C006.newValue : '-'}}</td>-->
+
+<!--                            <td  class="old-value"  ng-if="vm.verificationDetails == 'M' && x.C008.newValue == 'N'">{{x.C007.oldValue}}</td>-->
+<!--                            <td  class="old-value text-danger"  ng-if="vm.verificationDetails == 'M' && x.C008.newValue == 'Y'">{{x.C007.oldValue}}</td>-->
+<!--                            <td colspan="2" class="old-value"  ng-if="vm.verificationDetails == 'I'  && x.C008.newValue == 'N'">{{x.C007.oldValue}}</td>-->
+<!--                            <td colspan="2" class="old-value text-danger"  ng-if="vm.verificationDetails == 'I' && x.C008.newValue == 'Y'">{{x.C007.oldValue}}</td>-->
+<!--                            <td class="new-value text-danger" ng-if="vm.verificationDetails == 'M'">{{x.C007.oldValue == x.C007.newValue ? '-' : x.C007.newValue ? x.C007.newValue : '-'}}</td>-->
+
+                            <td  class="old-value"  ng-if="vm.verificationDetails == 'M'">{{x.C005.oldValue}}</td>
+                            <td colspan="2" class="old-value"  ng-if="vm.verificationDetails == 'I'">{{x.C005.oldValue}}</td>
+                            <td class="new-value" ng-if="vm.verificationDetails == 'M'"
+                                ng-class="{ 'text-danger': x.C008.newValue == 'Y', 'text-bold': x.C008.newValue == 'Y' }">
+                                <span ng-if="x.C008.newValue == 'Y'">---</span>
+                                <span ng-if="x.C008.newValue != 'Y'">{{x.C005.oldValue == x.C005.newValue ? '-' : x.C005.newValue ? x.C005.newValue : '-'}}</span>
+                            </td>
+
+                            <td  class="old-value"  ng-if="vm.verificationDetails == 'M'">{{x.C006.oldValue}}</td>
+                            <td colspan="2" class="old-value"  ng-if="vm.verificationDetails == 'I'">{{x.C006.oldValue}}</td>
+                            <td class="new-value" ng-if="vm.verificationDetails == 'M'"
+                                ng-class="{ 'text-danger': x.C008.newValue == 'Y', 'text-bold': x.C008.newValue == 'Y' }">
+                                <span ng-if="x.C008.newValue == 'Y'">---</span>
+                                <span ng-if="x.C008.newValue != 'Y'">{{x.C006.oldValue == x.C006.newValue ? '-' : x.C006.newValue ? x.C006.newValue : '-'}}</span>
+                            </td>
+
+                            <td  class="old-value"  ng-if="vm.verificationDetails == 'M'">{{x.C007.oldValue}}</td>
+                            <td colspan="2" class="old-value"  ng-if="vm.verificationDetails == 'I'">{{x.C007.oldValue}}</td>
+                            <td class="new-value" ng-if="vm.verificationDetails == 'M'"
+                                ng-class="{ 'text-danger': x.C008.newValue == 'Y', 'text-bold': x.C008.newValue == 'Y' }">
+                                <span ng-if="x.C008.newValue == 'Y'">---</span>
+                                <span ng-if="x.C008.newValue != 'Y'">{{ x.C007.oldValue == x.C007.newValue ? '-' : x.C007.newValue ? x.C007.newValue : '-' }}</span>
+                            </td>
+<!--                            <td></td>-->
+<!--                            <td colspan="2" class="old-value" >{{x.C005.oldValue}}</td>-->
+<!--                            <td class="new-value" ng-if="vm.verificationDetails == 'M'">{{x.C005.newValue}}</td>-->
+<!--                            <td  colspan="2" class="old-value" >{{x.C006.oldValue}}</td>-->
+<!--                            <td class="new-value" ng-if="vm.verificationDetails == 'M'">{{x.C006.newValue}}</td>-->
+<!--                            <td  colspan="2" class="old-value" >{{x.C007.oldValue}}</td>-->
+<!--                            <td class="new-value" ng-if="vm.verificationDetails == 'M'">{{x.C007.newValue}}</td>-->
+
+<!--                            <td></td>-->
+<!--                            <td  class="old-value"  ng-if="vm.verificationDetails == 'M'">{{x.C005.oldValue}}</td>-->
+<!--                            <td colspan="2" class="old-value"  ng-if="vm.verificationDetails == 'I'">{{x.C005.oldValue}}</td>-->
+<!--                            <td class="new-value text-danger" ng-if="vm.verificationDetails == 'M'">{{x.C005.newValue == x.C005.oldValue ? '-' : x.C005.newValue}}</td>-->
+
+<!--                            <td  class="old-value"  ng-if="vm.verificationDetails == 'M'">{{x.C006.oldValue}}</td>-->
+<!--                            <td colspan="2" class="old-value"  ng-if="vm.verificationDetails == 'I'">{{x.C006.oldValue}}</td>-->
+<!--                            <td class="new-value text-danger" ng-if="vm.verificationDetails == 'M'">{{x.C006.newValue == x.C006.oldValue ? '-' : x.C006.newValue}}</td>-->
+
+<!--                            <td  class="old-value"  ng-if="vm.verificationDetails == 'M'">{{x.C007.oldValue}}</td>-->
+<!--                            <td colspan="2" class="old-value"  ng-if="vm.verificationDetails == 'I'">{{x.C007.oldValue}}</td>-->
+<!--                            <td class="new-value text-danger" ng-if="vm.verificationDetails == 'M'">{{x.C007.newValue == x.C007.oldValue ? '-' : x.C007.newValue}}</td>-->
+                        </tr>
+
+                        </tbody>
+                    </table>
+
+                    <table class="table table-bordered table-striped list old-new-value-table">
+                        <tbody width="100%">
+                        <tr>
+                            <th width="50%">Rejection Remarks</th>
+                            <td width="50%">{{vm.rejectionRemarks}}</td>
+                        </tr>
+
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+
+        </form>
+        <div class="audit-details">
+            <div class="row">
+                <div class="col-md-3">
+                    <span> <b> Created By </b> : {{vm.auditInfo.createdBy}} </span>
+                </div>
+                <div class="col-md-3">
+                    <span> <b> Last Modified By </b> : {{(vm.auditInfo.lastModifiedBy) ? (vm.auditInfo.lastModifiedBy) : ('None')}}</span>
+                </div>
+                <div class="col-md-3">
+                    <span> <b> Last Verified By </b> : {{(vm.auditInfo.lastVerifiedBy) ? (vm.auditInfo.lastVerifiedBy) : ('None')}}</span>
+                </div>
+                <div class="col-md-3">
+                    <span> <b> Verify Status </b> : {{vm.auditInfo.verifiedStatus  | getLabelFromValuesArray : vm.commonYesNoMetaData}}</span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3">
+                    <span> <b> Created On </b> : {{ vm.auditInfo.createdDate | date : 'dd/MM/yyyy'}}</span>
+                </div>
+                <div class="col-md-3">
+                    <span> <b> Last Modified On</b> : {{ (vm.auditInfo.lastModifiedDate) ? (vm.auditInfo.lastModifiedDate | date : 'dd/MM/yyyy') : ('None')}}</span>
+                </div>
+                <div class="col-md-3">
+                    <span> <b> Last Verified On </b> : {{(vm.auditInfo.lastVerifiedDate) ? (vm.auditInfo.lastVerifiedDate | date : 'dd/MM/yyyy') : ('None')}}</span>
+                </div>
+                <div class="col-md-3">
+                </div>
+            </div>
+        </div>
+
+        <div class="text-center form_submit">
+            <button type="submit" class="btn btn-default" id="submitButton" ng-click="vm.verifyAgeBasedCreation();"
+                    ng-disabled="cbdtSchemeParameterCreationForm.$invalid">Verify
+            </button>
+            <button type="submit" class="btn btn-default" id="submitButton" ng-click="vm.rejectReason();"
+                    ng-disabled="cbdtSchemeParameterCreationForm.$invalid">Reject
+            </button>
+            <button type="button" class="btn btn-cancel" id="cancelButton"
+                    onclick="window.location.href= '#!/rbibond_age_based/action/verify';">Cancel
+            </button>
+        </div>
+
+        <div class="text-center">
+            <notice-message-directive></notice-message-directive>
+        </div>
+    </form>
+</div>
+
+
+<!--<div class="modal" id="permissionMappingDelete" role="dialog">-->
+<!--    <div class="modal-dialog">-->
+<!--        &lt;!&ndash; Modal content&ndash;&gt;-->
+<!--        <div class="modal-content">-->
+<!--            <div class="modal-header">-->
+<!--                <button type="button" class="close" data-bs-dismiss="modal">&times;</button>-->
+<!--                <h4 class="modal-title"> REJECTION REMARKS</h4>-->
+<!--            </div>-->
+<!--            <div class="modal-body">-->
+<!--                <div class="loader_popup"></div>-->
+<!--                <div class="list_wrapper" >-->
+<!--                    <form name="permissionDelete" role="form">-->
+
+<!--                        <div class="row">-->
+<!--                            <div class="form-group">-->
+<!--                                <div class="col-sm-2"></div>-->
+<!--                                <label for="remarks" class="control-label col-sm-3">Remarks</label>-->
+<!--                                <div class="col-sm-5">-->
+<!--                                    <textarea class="form-control"   ng-keypress="vm.validateInput($event,'remarks')" id="remarks" name="remarks" ng-model="vm.remarks" maxlength="80" required></textarea>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </div>-->
+
+<!--                        <div class="col-sm-offset-5 col-sm-8 form_submit">-->
+<!--                            <button type="button" class="btn btn-default" data-bs-dismiss="modal" ng-disabled="permissionDelete.$invalid" ng-click="vm.deleteAgeBasedCreation()" >Submit</button>-->
+<!--                            <button type="button" class="btn btn-cancel" data-bs-dismiss="modal">Cancel</button>-->
+<!--                        </div>-->
+<!--                    </form>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+
+<!--    </div>-->
+<!--</div>-->
+
+<div class="modal" id="permissionMappingDelete" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-bs-dismiss="modal">&times;</button>
+                <h4 class="modal-title">REJECTION REMARKS</h4>
+            </div>
+            <div class="modal-body">
+                <div class="loader_popup"></div>
+                <div class="list_wrapper">
+                    <form name="permissionDelete" role="form">
+                        <div class="row">
+                            <div class="form-group">
+                                <div class="col-sm-2"></div>
+                                <label class="control-label col-sm-3">Remarks</label>
+                                <div class="col-sm-5">
+                                    <!--
+                                                                                          <textarea class="form-control"   ng-keypress="vm.validateInput($event,'remarks')" id="remarks" name="remarks" ng-model="vm.remarks" maxlength="80" required></textarea>
+                                                      -->
+                                    <select
+                                            class="form-control list_wrapper"
+                                            id="remarks[$index]"
+                                            name="remarks[$index]"
+                                            ng-model="vm.remarks"
+                                            ng-init="vm.getRemarksList();"
+                                            required
+                                    >
+                                        <option value="">Select</option>
+                                        <option
+                                                ng-repeat="item in vm.remarksList"
+                                                name="{{item.subCode + parentIndex}}"
+                                                id="{{item.subCode + parentIndex}}"
+                                                value="{{item.subCodeDescription}}"
+                                        >
+                                            {{item.subCodeDescription}}
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-offset-5 col-sm-8 form_submit">
+                            <button type="button" class="btn btn-default" data-bs-dismiss="modal" ng-disabled="permissionDelete.$invalid" ng-click="vm.deleteAgeBasedCreation()">
+                                Submit
+                            </button>
+                            <button type="button" class="btn btn-cancel" data-bs-dismiss="modal">Cancel</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

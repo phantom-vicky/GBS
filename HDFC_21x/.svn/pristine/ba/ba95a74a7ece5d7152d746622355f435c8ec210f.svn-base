@@ -1,0 +1,54 @@
+<div class="loader-new" ng-if="vm.loader"></div>
+<dc-left-menu></dc-left-menu>
+<div class="container from_wrapper new_form_wrapper">
+
+    <h4 class="form_heading">Synchronization for CBS Partially Verified Transactions</h4>
+    <sol-header></sol-header>
+    <form name="gbmTransactionSyncForm" role="form">
+        <div class="col-sm-6 col-sm-offset-3">
+
+            <div class="row">
+                <div class="form-group required">
+                    <div class="col-sm-6">
+                        <label for="tranDate" class="control-label">Transaction Date</label>
+                    </div>
+                    <div class="col-sm-4">
+                        <p class="input-group">
+                            <input type="text" class="form-control" id="tranDate"
+                                   name="tranDate" ng-model="vm.tranDate"
+                                   uib-datepicker-popup="dd/MM/yyyy" ng-init="vm.getSolDate();"
+                                   datepicker-options="vm.dateOptions"
+                                   is-open="vm.tranDatePicker.opened" close-text="Close"
+                                   maxlength="10" readonly required>
+                            <span class="input-group-btn">
+                            <button type="button" class="btn btn-secondary"
+                                    ng-click="vm.tranDatePicker.opened = true"
+                                    id="tranDateSearcher">
+                                <i class="glyphicon glyphicon-calendar"></i>
+                            </button>
+                        </span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+
+
+            <div class="text-center form_submit">
+                <button type="submit" class="btn btn-default" id="submitButton"
+                        ng-click="vm.goNextState({
+                            tranDate: vm.tranDate
+						})"
+                        ng-disabled="gbmTransactionSyncForm.$invalid">Submit</button>
+                <button type="button" class="btn btn-cancel" id="cancelButton"
+                        ng-click="vm.cancel();">Cancel</button>
+            </div>
+            <div class="text-center">
+                <notice-message-directive></notice-message-directive>
+            </div>
+        </div>
+    </form>
+</div>
+
+
+

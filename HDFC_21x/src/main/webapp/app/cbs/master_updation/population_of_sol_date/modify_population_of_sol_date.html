@@ -1,0 +1,92 @@
+<div class="loader-new" ng-if="vm.loader"></div>
+<cbs-left-menu></cbs-left-menu>
+<div class="container from_wrapper new_form_wrapper">
+	<h4 class="form_heading  feature-heading">Population of SOL Date -
+		Modify</h4>
+	<form name="cbsPopulationOfSolDateForm" role="form">
+		<div class="row">
+			<div class="form-group">
+				<div class="col-sm-3"></div>
+				<div class="col-sm-3  required">
+					<label for="cbsDate" class="control-label"> Date From CBS </label>
+				</div>
+				<div class="col-sm-3">
+					<p class="input-group">
+						<input type="text" class="form-control" id="solDate1"
+							name="solDate1" ng-model="vm.cbsPopulationOfSolDate.solDate1"
+							required readonly
+							ng-init="vm.cbsPopulationOfSolDate.solDate1 = ''; vm.solDatepicker.opened = false"
+							uib-datepicker-popup="dd/MM/yyyy"
+							is-open="vm.solDatepicker.opened" close-text="Close"
+							datepicker-options="vm.dateOptions"> <span
+							class="input-group-btn" id="solDateIcon">
+							<button type="button" class="btn btn-secondary"
+								id="solDateIconPicker" ng-click="vm.solDatepicker.opened = true">
+								<i class="glyphicon glyphicon-calendar"></i>
+							</button>
+						</span>
+					</p>
+				</div>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="form-group required">
+				<div class="col-sm-3"></div>
+				<div class="col-sm-3">
+					<label for="addlText1" class="control-label">Additional
+						Text1</label>
+				</div>
+				<div class="col-sm-3">
+					<input type="text" class="form-control" name="addlText1"
+						id="addlText1" ng-model="vm.cbsPopulationOfSolDate.addlText1"
+						maxlength="40" chars="alpha-numeric" required>
+
+
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="form-group required">
+				<div class="col-sm-3"></div>
+				<div class="col-sm-3">
+					<label for="addlText2" class="control-label">Additional
+						Text2</label>
+				</div>
+				<div class="col-sm-3">
+					<input type="text" class="form-control" name="addlText2"
+						id="addlText2" ng-model="vm.cbsPopulationOfSolDate.addlText2"
+						maxlength="40" chars="alpha-numeric" required>
+
+
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="form-group required">
+				<div class="col-sm-3"></div>
+				<div class="col-sm-3">
+					<label for="addlText3" class="control-label">Additional
+						Text3</label>
+				</div>
+				<div class="col-sm-3">
+					<input type="text" class="form-control" name="addlText3"
+						id="addlText3" ng-model="vm.cbsPopulationOfSolDate.addlText3"
+						maxlength="40" chars="alpha-numeric" required>
+
+				</div>
+			</div>
+		</div>
+
+
+		<div class="col-sm-offset-5 col-sm-8 form_submit">
+			<button type="submit" class="btn btn-default" id="submitButton"
+				ng-disabled="cbsPopulationOfSolDateForm.$invalid"
+				ng-click="vm.modify()">Update</button>
+			<button type="submit" class="btn btn-cancel" id="cancelButton"
+				ng-click="vm.showCancelConfirmation('population_of_sol_date.list');">Cancel</button>
+		</div>
+	</form>
+</div>
+
+

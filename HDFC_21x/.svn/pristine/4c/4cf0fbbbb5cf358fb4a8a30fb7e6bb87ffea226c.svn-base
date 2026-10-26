@@ -1,0 +1,146 @@
+<div class="loader-new" ng-if="vm.loader"></div>
+<div class="container" ng-if="vm.showDetails">
+    <div class="text-right form_submit">
+        <button type="submit" class="btn btn-default"
+                onclick="window.location.href ='#!';" id="homeButton">Home</button>
+        <button type="submit" id="backButton" class="btn btn-cancel"
+                onclick="window.location.href='#!/redemption_text_file_reporting_rbi/action/inquiry';">Back</button>
+    </div>
+    <div class="container from_wrapper new_form_wrapper" id="section-to-print">
+        <div class="col-sm-12">
+            <h4 class="form_heading">Redemption Daily Scroll</h4>
+            <sol-header></sol-header>
+
+            <!-- Name of the Module -->
+            <div class="row">
+                <div class="form-group">
+                    <div class="col-sm-3"></div>
+                    <div class="col-sm-3">
+                        <label class="control-label">Name of the Module</label>
+                    </div>
+                    <div class="col-sm-3">
+                        <input type="text" class="form-control" ng-model="vm.moduleName" readonly/>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Name of the Bond Scheme -->
+            <div class="row">
+                <div class="form-group">
+                    <div class="col-sm-3"></div>
+                    <div class="col-sm-3">
+                        <label class="control-label">Name of the Bond Scheme</label>
+                    </div>
+                    <div class="col-sm-3">
+                        <input type="text" class="form-control" ng-model="vm.schemeName" readonly/>
+                    </div>
+                </div>
+            </div>
+
+            <hr style="margin: 30px 0;"/>
+
+            <!-- Download Buttons Section -->
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-striped list">
+                            <thead>
+                                <tr class="thalign">
+                                    <th style="width: 10%;">S.NO</th>
+                                    <th style="width: 60%;">File Name</th>
+                                    <th style="width: 30%;">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- Redemption Scroll 274.txt -->
+                                <tr>
+                                    <td>1</td>
+                                    <td>Redemption Scroll 274.txt</td>
+                                    <td class="text-center">
+                                        <button ng-click="vm.downloadRedemptionScroll274();" 
+                                                style="background-color: green; color: white; border: none; padding: 8px 16px; border-radius: 4px;">
+                                            Download
+                                        </button>
+                                    </td>
+                                </tr>
+                                <!-- Redemption Interest Scroll 276.txt -->
+                                <tr>
+                                    <td>2</td>
+                                    <td>Redemption Interest Scroll 276.txt</td>
+                                    <td class="text-center">
+                                        <button ng-click="vm.downloadRedemptionInterestScroll276();" 
+                                                style="background-color: green; color: white; border: none; padding: 8px 16px; border-radius: 4px;">
+                                            Download
+                                        </button>
+                                    </td>
+                                </tr>
+                                <!-- Redemption Covering Letter -->
+                                <tr>
+                                    <td>3</td>
+                                    <td>Redemption Covering Letter.doc</td>
+                                    <td class="text-center">
+                                        <button ng-click="vm.downloadRedemptionCoveringLetter();" 
+                                                style="background-color: blue; color: white; border: none; padding: 8px 16px; border-radius: 4px;">
+                                            Download
+                                        </button>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>4</td>
+                                    <td>Prematurity Redemption Scroll 275.txt</td>
+                                    <td class="text-center">
+                                        <button ng-click="vm.downloadPrematurityRedemptionScroll275();"
+                                                style="background-color: green; color: white; border: none; padding: 8px 16px; border-radius: 4px;">
+                                            Download
+                                        </button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>5</td>
+                                    <td> Prematurity Redemption Interest Scroll 277.txt</td>
+                                    <td class="text-center">
+                                        <button ng-click="vm.downloadPrematurityRedemptionInterestScroll277();"
+                                                style="background-color: green; color: white; border: none; padding: 8px 16px; border-radius: 4px;">
+                                            Download
+                                        </button>
+                                    </td>
+                                </tr>
+                                <!-- Redemption Covering Letter -->
+                                <tr>
+                                    <td>6</td>
+                                    <td>Prematurity Redemption Covering Letter.doc</td>
+                                    <td class="text-center">
+                                        <button ng-click="vm.downloadPrematurityRedemptionLetter();"
+                                                style="background-color: blue; color: white; border: none; padding: 8px 16px; border-radius: 4px;">
+                                            Download
+                                        </button>
+                                    </td>
+                                </tr>
+
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="text-center form_submit">
+                <button type="button" class="btn btn-cancel"
+                onclick="window.location.href='#!/redemption_text_file_reporting_rbi/action/inquiry';">Cancel</button>
+</div>
+
+        </div>
+    </div>
+</div>
+
+<div class="container" ng-if="vm.noDataFound">
+    <div class="list_wrapper no_records_message">
+        <h4 class="form_heading">Redemption Daily Scroll</h4>
+        No records found to display.
+        <center>
+            <button type="button" class="btn btn-cancel"
+                    onclick="window.location.href='#!/redemption_text_file_reporting_rbi/action/inquiry';">Back</button>
+        </center>
+    </div>
+</div>
+

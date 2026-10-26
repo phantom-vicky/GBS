@@ -1,0 +1,480 @@
+<left-menu-directive></left-menu-directive>
+<div class="container from_wrapper" ng-if="displayForm == true">	
+			<h4 class="form_heading feature-heading">New Pension Hierarchy - {{action}}</h4>
+			<form name="hierarchyMaintenanceForm" role="form" ng-submit="submitForm(hierarchyMaintenanceForm.$valid)" novalidate>
+			 <div class="row">
+				  <h5 class ="col-sm-12 tc"><b>Scheme Type - New Pension Scheme</b></h5>
+				</div>
+				<h4 class="form_heading">Bank Details</h3>
+				<notice-message-directive ></notice-message-directive>
+				<div class="row">
+					<div class="form-group required" ng-if="action=='add' || displayField == true">
+						<div class="col-sm-3"></div>
+					  	<label for="solId" class ="control-label col-sm-3">Sol ID</label>				  
+						<div class="col-sm-3 inner-addon right-addon"> 					  
+						  <input type="text" class="form-control" id="solId" name="solId" ng-model="hierarchyMaintenance.solId" ng required>
+						</div>
+						<div class="col-sm-3 torch-top">
+						 <i class="glyphicon glyphicon-search cp" data-bs-toggle="modal" data-target="#solIDModal" ng-click="getSolID(hierarchyMaintenance.solId)"></i>
+						  <i class="glyphicon glyphicon-remove clear cp" ng-click="clearTextBox('solId');clearSolDescription()"></i>
+						  <i>{{solDescription}}</i>
+						</div>
+					</div> 
+				</div>
+				<div class="row" ng-if="action=='modify' || action=='add' || action=='delete' || action=='inquiry' || action=='verify'" >
+					<div class="form-group required">
+						<div class="col-sm-3"></div>
+					  	<label for="level" class ="control-label col-sm-3">Level</label>
+					  	 <div class="col-sm-3">				  
+							<select class="form-control"   name="level" id="level" ng-model="hierarchyMaintenance.levelCode" ng required>
+							 <option value="">Select</option>
+								<option  ng-selected= "{{item.levelCode == hierarchyMaintenance.levelCode}}" ng-repeat="item in levelList" value="{{item.levelCode}}">{{item.levelName}}</option>
+						 	 </select>
+						  </div>
+					</div> 
+				</div>
+				<div class="row">
+					<div class="form-group required" ng-if="action=='add' || displayField == true">
+						<div class="col-sm-3"></div>
+					  	 <label for="registrationNumber" class ="control-label col-sm-3">Registration Number</label>
+						<div class="col-sm-3">
+						  <input type="text" class="form-control" id="registrationNumber" name="registrationNumber" ng-model="hierarchyMaintenance.registrationNumber" maxlength="7" required  string-to-number allow-only-numbers>
+											  
+						</div>
+					</div> 
+				</div>
+				 <div id="sub_registr1" ng-if="hierarchyMaintenance.levelCode == '0009'">
+				 	<div class="row">
+						<div class="form-group required" ng-if="action=='add' || displayField == true">
+						<div class="col-sm-3"></div>
+							<label for="craFcRegistrationNumber" class ="control-label col-sm-3">CRA-FC Registration Number</label>
+							<div class="col-sm-3">
+							  <input type="text" class="form-control" id="craFcRegistrationNumber" required ng-model="hierarchyMaintenance.craFcRegistrationNumber" maxlength="5" string-to-number allow-only-numbers>
+							   <div ng-show="hierarchyMaintenanceForm.craFcRegistrationNumber.$invalid && !hierarchyMaintenanceForm.craFcRegistrationNumber.$pristine" class="help-block alert alert-danger"> CRA-FC Registration Number should be in number and not exceed 5 </div>
+					   		</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="form-group required" ng-if="action=='add' || displayField == true">
+						<div class="col-sm-3"></div>
+							<label for="registrationAccountNumber" class ="control-label col-sm-3">Registration A/C</label>
+							<div class="col-sm-3">
+							  <input type="number" class="form-control" id="registrationAccountNumber" ng-model="hierarchyMaintenance.registrationAccountNumber" required string-to-number allow-only-numbers ng-disabled="hierarchyMaintenance.solId == ''" >
+							</div>
+							<div class="col-sm-3 torch-top" ng-if="hierarchyMaintenance.solId != ''">
+								<i class="glyphicon glyphicon-search cp"  ng-click="getSchemeTypeList('registrationAccountNumber')"></i>
+							  	<i class="glyphicon glyphicon-remove clear cp" ng-click="clearTextBox('registrationAccountNumber')"></i>
+							</div>
+							
+						</div>
+					</div>
+					<div class="row">
+						<div class="form-group required" ng-if="action=='add' || displayField == true">
+						<div class="col-sm-3"></div>
+							<label for="contributionAccountNumber" class ="control-label col-sm-3">Contribution A/C</label>
+							<div class="col-sm-3">
+							  <input type="number" class="form-control" required  id="contributionAccountNumber" ng-model="hierarchyMaintenance.contributionAccountNumber" string-to-number allow-only-numbers ng-disabled="hierarchyMaintenance.solId == ''">
+							</div>
+							<div class="col-sm-3 torch-top" ng-if="hierarchyMaintenance.solId != ''">
+								<i class="glyphicon glyphicon-search cp" data-bs-toggle="modal" data-target="#regModal" ng-click="getSchemeTypeList('contributionAccountNumber')"></i>
+							    <i class="glyphicon glyphicon-remove clear cp" ng-click="clearTextBox('contributionAccountNumber')"></i>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="form-group required" ng-if="action=='add' || displayField == true">
+						<div class="col-sm-3"></div>
+								<label for="commissionAccountNumber" class ="control-label col-sm-3">Commission A/C</label>
+							<div class="col-sm-3">
+							  <input type="number" class="form-control" id="commissionAccountNumber" required  ng-model="hierarchyMaintenance.commissionAccountNumber" string-to-number allow-only-numbers ng-disabled="hierarchyMaintenance.solId == ''">
+							</div>
+							<div class="col-sm-3 torch-top" ng-if="hierarchyMaintenance.solId != ''">
+								<i class="glyphicon glyphicon-search cp" data-bs-toggle="modal" data-target="#regModal" ng-click="getSchemeTypeList('commissionAccountNumber')"></i>
+							  	<i class="glyphicon glyphicon-remove clear cp" ng-click="clearTextBox('commissionAccountNumber')"></i>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="form-group required" ng-if="action=='add' || displayField == true">
+						<div class="col-sm-3"></div>
+							<label for="serviceAccountNumber" class ="control-label col-sm-3">Service Tax A/C</label>
+							<div class="col-sm-3">
+							  <input type="number" class="form-control" id="serviceTaxAccountNumber" ng-model="hierarchyMaintenance.serviceAccountNumber" required  string-to-number allow-only-numbers ng-disabled="hierarchyMaintenance.solId == ''">
+							</div>
+							<div class="col-sm-3 torch-top" ng-if="hierarchyMaintenance.solId != ''">
+								<i class="glyphicon glyphicon-search cp" data-bs-toggle="modal" data-target="#regModal" ng-click="getSchemeTypeList('serviceAccountNumber')"></i>
+							    <i class="glyphicon glyphicon-remove clear cp" ng-click="clearTextBox('serviceAccountNumber')"></i>
+							</div>
+						</div>
+					</div>
+				 
+				 </div>
+				 <div class="col-sm-offset-5 col-sm-8 form_submit">
+				 <button type="submit" class="btn btn-default" id="submitButton" ng-disabled="hierarchyMaintenanceForm.$invalid" ng-if="action=='add'">Submit</button>
+				 	<span ng-if="displayField == false">
+				 		<button type="submit" class="btn btn-default" id="submitButton" ng-click="inquiry(hierarchyMaintenance.levelCode)" ng-if="action=='delete' || action=='inquiry'||action=='modify'||action=='verify'" ng-disabled="hierarchyMaintenanceForm.$invalid">Submit</button>
+				 	</span>
+				 	<span ng-if="displayField == true">
+				  		<button type="submit" class="btn btn-default" id="submitButton" ng-click="modify(hierarchyMaintenance.levelCode)" ng-if="action == 'modify'" ng-disabled="hierarchyMaintenanceForm.$invalid">Update</button>
+				  	</span>
+				  <button type="submit" class="btn btn-cancel" onclick="cancelFn()">Cancel</button>
+			   </div>
+		</form>
+</div>
+  <!-- Modal SOL ID-->
+	<div class="modal" id="solIDModal" role="dialog">
+	  <div class="modal-dialog">
+	    <!-- Modal content-->
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <button type="button" class="close" data-bs-dismiss="modal">&times;</button>
+	        <h4 class="modal-title">Help Index</h4>
+	      </div>
+	      <div class="modal-body">
+	      	<div class="loader"></div>
+	        <div class="list_wrapper" ng-if="list.length>0">
+		        <div class="col-sm-8 form_submit">				    
+					  <div class="form-group">
+					    <div class="input-group">
+					      <div class="input-group-addon"><i class="glyphicon glyphicon-search"></i></div>
+					      <input type="text" class="form-control" ng-model="searchSolId" placeholder="Search">
+					    </div>
+					  </div>
+				</div>
+				<div class="col-sm-4 form_submit"></div>
+				<div class="row">
+					<div class="col-sm-12">
+						<table class="table table-bordered table-striped list scroll">
+						    <thead>
+						      <tr>
+						        <th>Sol ID.</th>
+						        <th>Description</th>
+						      </tr>
+						    </thead>
+						    <tbody>
+						      <tr class="cp" ng-repeat="x in list | filter:searchSolId" ng-click="setSolID(x);">
+						        <td>{{x.solId}}</td>
+						        <td>{{x.solDescription}}</td>
+						      </tr>
+						    </tbody>
+					 	</table>
+					</div>
+				</div>
+			</div>
+			<!-- <div class="list_wrapper" ng-if="list.length==0">No records found to display.</div> -->
+	      </div>
+	    </div>
+	  </div>
+	</div>
+	
+	
+	<!-- Registration No modal-->
+	<div class="modal" id="#regModal">
+	  <div class="modal-dialog">
+	    <!-- Modal content-->
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <button type="button" class="close" data-bs-dismiss="modal">&times;</button>
+	        <h4 class="modal-title">Account Search</h4>
+	      </div>
+	      <div class="modal-body">	      
+	        <div class="list_wrapper">
+		        <div class="form-group">
+		          <div class="col-sm-1"></div>
+				  <label for="registrationNumber" class ="control-label col-sm-4">Account Number</label>
+					<div class="col-sm-6">
+					  <input type="text" class="form-control" id="forAccountId" name="forAccountId" ng-model="regNoForAccountId">
+					</div>
+					<div class="col-sm-1"></div>
+				</div>
+				<div class="form-group">
+		          <div class="col-sm-1"></div>
+				  <label for="registrationNumber" class ="control-label col-sm-4">Account Short Name</label>
+					<div class="col-sm-3">
+					  <select class="form-control" id="accShortNameType" ng-model="accShortNameType" ng-options="value for value in accShortNameList">
+							<option value="" selected="selected">Select</option>
+			            </select>	
+					</div>
+					<div class="col-sm-3">
+					  <input type="text" class="form-control" id="accShortName" name="accShortName" ng-model="accShortName">
+					</div>
+					<div class="col-sm-1"></div>
+				</div>
+				<div class="form-group">
+				  <div class="col-sm-1"></div>
+				  <label for="registrationNumber" class ="control-label col-sm-4">Scheme Type</label>
+					<div class="col-sm-6">
+						<select class="form-control" id="schemeType" ng-model="regNoSchemeType" ng-options="value for value in schemeType">
+							<option value="" selected="selected">Select</option>
+			            </select>					
+		            </div>
+		            <div class="col-sm-1"></div>
+				</div>
+				<div class="form-group">
+				    <div class="col-sm-1"></div>
+				  	<label for="solId" class ="control-label col-sm-4">Scheme Code</label>				  
+					<div class="col-sm-3 inner-addon right-addon"> 					  
+					  <input type="text" class="form-control" id="schemeCode" name="schemeCode" ng-model="regNoSchemeCode">
+					</div>
+					<div class="col-sm-3 torch-top">
+					 <i class="glyphicon glyphicon-search cp" data-bs-toggle="modal" data-target="#regNoSchemeCodeModal" ng-click="getSchemeCode(regNoSchemeType,regNoSchemeCode)"></i>
+					  <i class="glyphicon glyphicon-remove clear cp" ng-click="clearTextRegNoSchemeCode('regNoSchemeCode')"></i>
+					</div>
+					<div class="col-sm-1"></div>
+				</div> 
+				<div class="form-group">
+				  <div class="col-sm-1"></div>
+				  <label for="registrationNumber" class ="control-label col-sm-4">GL Sub Head </label>
+					<div class="col-sm-3 inner-addon right-addon"> 					  
+					  <input type="text" class="form-control" id="regNoGlSubHeadCode" name="regNoGlSubHeadCode" ng-model="regNoGlSubHeadCode">
+					</div>
+					<div class="col-sm-3 torch-top">
+					 <i class="glyphicon glyphicon-search cp" data-bs-toggle="modal" data-target="#regNoGlSubHeadCodeModal" ng-click="getGlSubHeadCode(hierarchyMaintenance.solId,regNoSchemeCode,regNoGlSubHeadCode)"></i>
+					  <i class="glyphicon glyphicon-remove clear cp" ng-click="clearTextRegNoGlSubHeadCode('regNoGlSubHeadCode')"></i>
+					</div>
+					<div class="col-sm-1"></div>
+				</div>
+				<div class="form-group">
+				  <div class="col-sm-1"></div>
+				  <label for="registrationNumber" class ="control-label col-sm-4">A/c Ownership </label>
+					<div class="col-sm-6">
+						<select class="form-control" id="accountOwnership" ng-model="regNoAccountOwnershipe" ng-options="value for value in accountOwnershipList">
+							<option value="" selected="selected">Select</option>
+			            </select>
+			         </div>
+			         <div class="col-sm-1"></div>
+				</div>
+				<div class="col-sm-offset-4 col-sm-8 form_submit">
+				 <button type="button" class="btn btn-default" data-bs-toggle="modal" data-target="#accountSearchModal" id="submitButton" ng-click="accountSearch(hierarchyMaintenance.solId)">Search</button>
+				 <button type="submit" class="btn btn-cancel" id="CancelButton" onclick="cancelFn()">Cancel</button>
+			   </div>
+			</div>
+	      </div>
+
+	    </div>
+	  </div>
+	</div>
+<!-- Scheme Code -->	
+	<div class="modal" id="regNoSchemeCodeModal" role="dialog">
+	  <div class="modal-dialog">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <button type="button" class="close" data-bs-dismiss="modal">&times;</button>
+	        <h4 class="modal-title">Scheme Code</h4>
+	      </div>
+	      <div class="modal-body">
+	      <div class="loader"></div>
+	        <div class="list_wrapper" ng-if="schemeCodeList.length>0">
+		        <div class="col-sm-8 form_submit">				    
+					  <div class="form-group">
+					    <div class="input-group">
+					      <div class="input-group-addon"><i class="glyphicon glyphicon-search"></i></div>
+					      <input type="text" class="form-control" ng-model="searchSchemeCode" placeholder="Search">
+					    </div>
+					  </div>
+				</div>
+				<div class="col-sm-4 form_submit"></div>
+				<div class="row">
+					<div class="col-sm-12">
+						<table class="table table-bordered table-striped list scroll">
+							<thead>
+						      <tr>
+						        <th>Scheme Code</th>
+						      </tr>
+						    </thead>
+						    <tbody>
+						      <tr class="cp" ng-repeat="x in schemeCodeList | filter:searchSchemeCode" ng-click="setSchemeCode(x);">
+						        <td>{{x}}</td>
+						      </tr>
+						    </tbody>
+						 </table>
+						</div>
+					</div>
+			</div>
+			<div class="list_wrapper" ng-if="schemeCodeList.length==0">No records found to display.</div>
+	      </div>
+	    </div>
+	  </div>
+	</div>	
+	
+	
+<!--  GL Sub Head-->
+	<div class="modal" id="regNoGlSubHeadCodeModal" role="dialog">
+
+	  <div class="modal-dialog">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <button type="button" class="close" data-bs-dismiss="modal">&times;</button>
+	        <h4 class="modal-title">GL Sub Head</h4>
+	      </div>
+	      <div class="modal-body">
+	      <div class="loader"></div>
+	        <div class="list_wrapper" ng-if="glSubHeadCodeList.length>0">
+		        <div class="col-sm-8 form_submit">				    
+				  <div class="form-group">
+				    <div class="input-group">
+				      <div class="input-group-addon"><i class="glyphicon glyphicon-search"></i></div>
+				      <input type="text" class="form-control" ng-model="searchGlSubHeadCode" placeholder="Search">
+				    </div>
+				  </div>
+				</div>
+				<div class="col-sm-4 form_submit"></div>
+				<div class="row">
+					<div class="col-sm-12">
+						<table class="table table-bordered table-striped list scroll">
+							<tr>
+						        <th>GL Sub Head</th>
+						      </tr>
+						    <tbody>
+						      <tr class="cp" ng-repeat="x in glSubHeadCodeList | filter:searchGlSubHeadCode" ng-click="setGlSubHeadCode(x);">
+						        <td>{{x}}</td>
+						      </tr>
+						    </tbody>
+						 </table>
+						</div>
+				</div>
+			</div>
+			<div class="list_wrapper" ng-if="glSubHeadCodeList.length==0">No records found to display.</div>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+
+<!--Get Account List  -->
+
+	<div class="modal" id="accountSearchModal" role="dialog">
+	  <div class="modal-dialog">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <button type="button" class="close" data-bs-dismiss="modal">&times;</button>
+	        <h4 class="modal-title">Account List</h4>
+	      </div>
+	      <div class="modal-body">
+	        <div class="loader"></div>
+	        <div class="list_wrapper" ng-if="accList.length>0">
+		        <div class="col-sm-8 form_submit">				    
+				  <div class="form-group">
+				    <div class="input-group">
+				      <div class="input-group-addon"><i class="glyphicon glyphicon-search"></i></div>
+				      <input type="text" class="form-control" ng-model="searchAccountNo" placeholder="Search">
+				    </div>
+				  </div>
+				</div>
+				<div class="col-sm-4 form_submit"></div>
+				<div class="row">
+					<div class="col-sm-12">
+					 <table class="table table-bordered table-striped list scroll">
+					    <thead>
+					      <tr>
+					        <th>Acc Number</th>
+					        <th>Name</th>
+					        <th>Acc Ownership</th>
+					        <th>Available Balance</th>
+					      </tr>
+					    </thead>
+					    <tbody>
+					      <tr class="cp" ng-repeat="x in accList | filter:searchAccountNo" ng-click="setRegAcc(x);">
+					        <td>{{x.forAccountId}}</td>
+					        <td>{{x.accountName}}</td>
+					        <td>{{x.accountOwnership}}</td>
+					        <td>{{x.availableBalance}}</td>
+					      </tr>
+					    </tbody>
+					 </table>
+					</div>
+				</div>
+					 
+			</div>
+			<div class="list_wrapper" ng-if="accList.length==0">
+				No records found to display.
+			</div>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+	
+	
+	<div class="container list_wrapper" ng-if="inquiryList.length > 0 && showLevelCode=='0008'">
+	 <div class="col-sm-4 form_submit">				    
+					  <div class="form-group">
+					    <div class="input-group">
+					      <div class="input-group-addon"><i class="glyphicon glyphicon-search"></i></div>
+					      <input type="text" class="form-control" ng-model="searchSolId" placeholder="Search">
+					    </div>
+					  </div>
+				</div>
+	
+		<table class="table table-bordered table-striped list">
+			<thead>
+				  <tr>
+	        <th>Sl. No.</th>
+	        <th>Sol ID</th>
+	        <!-- <th>Sol Description</th> -->
+	        <th>Registration Number</th>
+	        <th ng-if="action=='modify' || action=='delete' || action=='verify'" class="capitalize">{{action}}</th>
+	        <th ng-if="!action">View</th>
+	      </tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="x in inquiryList | filter:searchSolId">
+					    <td>{{$index + 1}}</td>
+				        <td>{{x.solId}}</td>
+				        <!-- <td>{{x.solDescription}}</td> -->
+				        <td>{{x.registrationNumber}}</td>
+				        <td ng-if="action=='modify'"><i class="glyphicon glyphicon-edit cp" ng-click="modifyForm(x.id)"></i></td>
+				        <td ng-if="action=='delete'"><i class="glyphicon glyphicon-remove cp" ng-click="delete(x.id,x.levelCode,x.solId)"></i></td>
+				        <td ng-if="action=='verify'"><i class="glyphicon glyphicon-ok cp" ng-click="verify(x.id,x.levelCode,x.solId)"></i></td>
+				</tr>
+			</tbody>
+		</table>
+		  
+	</div>
+	
+	<div class="container list_wrapper" ng-if="inquiryList.length > 0 && showLevelCode=='0009'">
+	
+	 <div class="col-sm-4 form_submit">				    
+					  <div class="form-group">
+					    <div class="input-group">
+					      <div class="input-group-addon"><i class="glyphicon glyphicon-search"></i></div>
+					      <input type="text" class="form-control" ng-model="searchSolId" placeholder="Search">
+					    </div>
+					  </div>
+				</div>
+	
+		<table class="table table-bordered table-striped list">
+			<thead>
+				  <tr>
+	        <th>Sl. No.</th>
+	        <th>Sol ID</th>
+	        <!-- <th>Sol Description</th> -->
+	        <th>Registration Number</th>
+	     	 <th>CRA-FC Registration Number</th>	        
+	        <th >Registration A/C</th>
+	        <th >Contribution A/C</th>
+	        <th>Commission A/C</th>
+	        <th>Service Tax A/C</th> 
+	        <th ng-if="action=='modify' || action=='delete' || action=='verify'" class="capitalize">{{action}}</th>
+	        <th ng-if="!action">View</th>
+	      </tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="x in inquiryList | filter:searchSolId">
+					    <td>{{$index + 1}}</td>
+				        <td>{{x.solId}}</td>
+				        <!-- <td>{{x.solDescription}}</td> -->
+				        <td>{{x.registrationNumber}}</td>
+				     <td>{{x.craFcRegistrationNumber}}</td>
+				        <td>{{x.registrationAccountNumber}}</td>
+				        <td>{{x.contributionAccountNumber}}</td>
+				        <td>{{x.commissionAccountNumber}}</td>
+				        <td>{{x.serviceAccountNumber}}</td>
+				        <td ng-if="action=='modify'"><i class="glyphicon glyphicon-edit cp" ng-click="modifyForm(x.id)"></i></td>
+				        <td ng-if="action=='delete'"><i class="glyphicon glyphicon-remove cp" ng-click="delete(x.id,x.levelCode,x.solId)"></i></td>
+				        <td ng-if="action=='verify'"><i class="glyphicon glyphicon-ok cp" ng-click="verify(x.id,x.levelCode,x.solId)"></i></td>
+				        
+				
+				</tr>
+			</tbody>
+		</table>
+		  
+	</div>

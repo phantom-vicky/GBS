@@ -1,0 +1,202 @@
+<div class="loader-new" ng-if="vm.loader"></div>
+<div class="container" >
+<!--    ng-if="vm.auditReportList.length>0"-->
+    <div class="text-right form_submit">
+
+        <button type="submit" class="btn btn-default" onclick="window.location.href ='#!/dc';" id="homeButton">Home</button>
+
+        <button type="submit" id="backButton" class="btn btn-cancel" onclick="window.location.href= '#!/User_Activity_Report/action/inquiry';">Back</button>
+
+    </div>
+
+    <div class="container from_wrapper new_form_wrapper">
+        <h4 class="form_heading">User Activity Report</h4>
+        <div class="row">
+            <sol-header></sol-header>
+        </div>
+        <h4 align="center"> <b>  from Date:<{{vm.fromDate | date: 'dd/MM/yyyy'}}> to Date:<{{vm.toDate | date: 'dd/MM/yyyy'}}></b> </h4>
+        <h4 align="center"> <b>  User Name:<{{vm.userId}}> </b> </h4>
+        <div class="row">
+            <div class="col-sm-12">
+                <div>
+                    <table>
+                        <tr>
+                            <td>
+                                <select class="form-control pageDropDown" id="pageSize" name="pageSize"
+                                        ng-model="vm.pageSize" ng-init="vm.pageSize='5'" ng-change=" vm.pageNo='1'; vm.getblaStatusReport();">
+                                    <option value="5" >5 per page</option>
+                                    <option value="10">10 per page</option>
+                                    <option value="50">50 per page</option>
+
+                                </select>
+                            </td>
+                            <td>
+                                <select class="form-control" id="export" name="export"
+                                        ng-model="vm.downloadType" ng-init="vm.downloadType=''" ng-change="vm.getTrialRunEligibleAccountsFile()">
+                                    <option value="">EXPORT</option>
+                                    <option value="excel">EXCEL</option>
+                                    <option value="pdf">PDF</option>
+
+                                </select>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="input-group">
+                    <input type="text" class="form-control searchButton"
+                           ng-model="vm.searchValue" ng-init="vm.searchValue = ''"
+                           placeholder="Search">
+                    <div class="input-group-addon">
+                        <i class="glyphicon glyphicon-search" ng-click="vm.getblaStatusReport()"></i>
+                    </div>
+
+                </div>
+
+                <div class="table-responsive">
+                    <table class="table table-bordered table-striped list table-textWrap">
+                        <thead style="font-weight: bold">
+                        <tr class="thalign">
+
+                            <td>S.No</td>
+
+                            <td ng-click="sort('T2.module_name')">Module Id
+                                <span class="glyphicon sort-icon" ng-show="sortKey=='T2.module_name'" ng-class="{'glyphicon-chevron-up':sortReverse,'glyphicon-chevron-down':!sortReverse}"></span>
+                            </td>
+
+
+                            <td ng-click="sort('t1.link_name_description')">Link Name
+                                <span class="glyphicon sort-icon" ng-show="sortKey=='T2.BONDLEDGERACCOUNTNUMBER'" ng-class="{'glyphicon-chevron-up':sortReverse,'glyphicon-chevron-down':!sortReverse}"></span>
+                            </td>
+
+                            <td ng-click="sort('T2.audit_id')">Audit Ref Num
+                                <span class="glyphicon sort-icon" ng-show="sortKey=='T2.audit_id'" ng-class="{'glyphicon-chevron-up':sortReverse,'glyphicon-chevron-down':!sortReverse}"></span>
+                            </td>
+
+                            <td ng-click="sort('col_name')">Modified Fields Data
+                                <span class="glyphicon sort-icon" ng-show="sortKey=='T2.PANNO'" ng-class="{'glyphicon-chevron-up':sortReverse,'glyphicon-chevron-down':!sortReverse}"></span>
+                            </td>
+
+                            <td ng-click="sort('T3.BONDSUBSCRIPTIONID')">Subscription ID
+                                <span class="glyphicon sort-icon" ng-show="sortKey=='T3.BONDSUBSCRIPTIONID'" ng-class="{'glyphicon-chevron-up':sortReverse,'glyphicon-chevron-down':!sortReverse}"></span>
+                            </td>
+
+                            <td ng-click="sort('T1.SUBSCRIPTIONAMOUNT')">Subscription Amount Rs.
+                                <span class="glyphicon sort-icon" ng-show="sortKey=='T1.SUBSCRIPTIONAMOUNT'" ng-class="{'glyphicon-chevron-up':sortReverse,'glyphicon-chevron-down':!sortReverse}"></span>
+                            </td>
+
+                            <td ng-click="sort('T2.remarks')">Remarks
+                                <span class="glyphicon sort-icon" ng-show="sortKey=='T2.remarks'" ng-class="{'glyphicon-chevron-up':sortReverse,'glyphicon-chevron-down':!sortReverse}"></span>
+                            </td>
+
+                            <td ng-click="sort('T2.enterer_id')">Created By
+                                <span class="glyphicon sort-icon" ng-show="sortKey=='T2.enterer_id'" ng-class="{'glyphicon-chevron-up':sortReverse,'glyphicon-chevron-down':!sortReverse}"></span>
+                            </td>
+
+                            <td ng-click="sort('T2.enterer_date')">Created On
+                                <span class="glyphicon sort-icon" ng-show="sortKey=='T2.enterer_date'" ng-class="{'glyphicon-chevron-up':sortReverse,'glyphicon-chevron-down':!sortReverse}"></span>
+                            </td>
+
+                            <td ng-click="sort('T2.last_modified_by')">Modified By
+                                <span class="glyphicon sort-icon" ng-show="sortKey=='T2.last_modified_by'" ng-class="{'glyphicon-chevron-up':sortReverse,'glyphicon-chevron-down':!sortReverse}"></span>
+                            </td>
+                            <td ng-click="sort('T2.last_modified_date')">Modified On
+                                <span class="glyphicon sort-icon" ng-show="sortKey=='T2.last_modified_date'" ng-class="{'glyphicon-chevron-up':sortReverse,'glyphicon-chevron-down':!sortReverse}"></span>
+                            </td>
+                            <td ng-click="sort('T1.NETINTERESTAMOUNT')">Authorized By
+                                <span class="glyphicon sort-icon" ng-show="sortKey=='t2.modeOfInterestPayment'" ng-class="{'glyphicon-chevron-up':sortReverse,'glyphicon-chevron-down':!sortReverse}"></span>
+                            </td>
+                            <td ng-click="sort('T1.NETINTERESTAMOUNT')">Authorized On
+                                <span class="glyphicon sort-icon" ng-show="sortKey=='t2.modeOfInterestPayment'" ng-class="{'glyphicon-chevron-up':sortReverse,'glyphicon-chevron-down':!sortReverse}"></span>
+                            </td>
+                            <td ng-click="sort('T2.reverted_by')">Deleted By
+                                <span class="glyphicon sort-icon" ng-show="sortKey=='T2.operation_mode'" ng-class="{'glyphicon-chevron-up':sortReverse,'glyphicon-chevron-down':!sortReverse}"></span>
+                            </td>
+                            <td ng-click="sort('T2.deleted_date')">Deleted On
+                                <span class="glyphicon sort-icon" ng-show="sortKey=='t2.modeOfInterestPayment'" ng-class="{'glyphicon-chevron-up':sortReverse,'glyphicon-chevron-down':!sortReverse}"></span>
+                            </td>
+                            <td ng-click="sort('T1.NETINTERESTAMOUNT')">Module Account Number
+                                <span class="glyphicon sort-icon" ng-show="sortKey=='t2.modeOfInterestPayment'" ng-class="{'glyphicon-chevron-up':sortReverse,'glyphicon-chevron-down':!sortReverse}"></span>
+                            </td>
+                            <td ng-click="sort('T2.ref_col_val')">Name of the Treasury
+                                <span class="glyphicon sort-icon" ng-show="sortKey=='t2.modeOfInterestPayment'" ng-class="{'glyphicon-chevron-up':sortReverse,'glyphicon-chevron-down':!sortReverse}"></span>
+                            </td>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr dir-paginate="x in vm.tdsDeductionCbList | itemsPerPage: itemsPerPage" pagination-id="trailRunRep">
+                            <td>{{$index+1}}</td>
+                            <td align="left">{{x.module_id}}</td>
+                            <td align="left">{{x.link_name}}</td>
+                            <td align="left">{{x.audit_ref_num}}</td>
+                            <td align="left">{{x.col_name}}</td>
+                            <td align="right">{{x.OLD_VAL }}</td>
+                            <td align="left">{{x.NEW_VAL}}</td>
+                            <td align="right">{{x.remarks}}</td>
+                            <td align="center">{{x.created_by | date : 'dd/MM/yyyy'}}</td>
+                            <td align="right">{{x.created_on}}</td>
+                            <td align="right">{{x.modified_by}}</td>
+                            <td align="right">{{x.modified_on }}</td>
+                            <td align="right">{{x.authorized_by }}</td>
+                            <td align="right">{{x.authorized_on }}</td>
+                            <td align="right">{{x.deleted_by }}</td>
+                            <td align="right">{{x.deleted_on }}</td>
+                            <td align="right">{{x.entity_account_no }}
+
+
+
+                        </tr>
+                        </tbody>
+                        <tfoot>
+                        <tr>
+                            <th class="text-right" colspan="8">Total</th>
+                            <th class="text-right">{{vm.totalInterestRupees}}</th>
+                            <th class="text-right">{{vm.totalTdsAmount}}</th>
+                            <th class="text-right">{{vm.totalNetInterestAmount}}</th>
+                        </tr>
+                        </tfoot>
+                    </table>
+                </div>
+                <div>
+                </div>
+            </div>
+
+            <br>
+            <div class="text-center form_submit">
+                        <span ng-show="vm.showPrevious">
+                        <button type="submit" class="btn btn-default" ng-click="vm.goPreviousPage()">Prev
+                        </button>
+                        </span>
+
+                <span>
+                          <button type="submit" class="btn btn-default" ng-disabled="true" ng-init="vm.pageNo=1" ng-model="vm.pageNo" ng-click="vm.getTdsDeductionDetail();">{{vm.pageNo}} of {{vm.maxPages}}
+                          </button>
+                        </span>
+
+                <span ng-show="vm.showNext">
+                        <button type="submit" class="btn btn-default" ng-click="vm.goNextPage();" >Next
+                        </button>
+                        </span>
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+</div>
+</div>
+<div class="container" ng-if="vm.NoDataFound">
+    <div class="list_wrapper no_records_message">
+        <h4 class="form_heading">{{vm.reportName}}</h4>
+        No records found to display.
+        <center>
+            <button type="button" class="btn btn-default"
+                    onclick="window.location.href= '#!/User_Activity_Report/action/inquiry';" >Back</button>
+        </center>
+    </div>
+</div>
+
+
+
+

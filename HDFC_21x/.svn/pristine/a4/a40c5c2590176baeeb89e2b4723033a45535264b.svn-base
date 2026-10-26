@@ -1,0 +1,161 @@
+<div class="container from_wrapper">
+	<left-menu-directive></left-menu-directive>
+	<h4 class="form_heading">EOD Status Inquiry</h3>
+	<form name="eodStatusInquiryForm" role="form" ng-submit="submitForm(eodStatusInquiryForm.$valid)" novalidate>
+	    <div class="form-group required">
+		  <label for="solId" class ="control-label col-sm-2">Sol ID</label>
+			<div class="col-sm-3 inner-addon "> 					  
+			  <input type="text" class="form-control" id="solId" name="solId" value="01220/BANDRA KURLA COMPLEX" required>
+			 
+			</div>
+			<div class="col-sm-2"></div>
+		  	<label for="status" class ="control-label col-sm-2">Status</label>
+			<div class="col-sm-3">
+			  <select class="form-control" id="status" name="status" ng-model="eodStatusInquiry.status">
+					<option  ng-selected= "{{item.status == eodStatusInquiry.status}}" ng-repeat="item in statusList" value="{{item.status}}">{{item.statusName}}</option>
+				</select>
+			<p ng-show="eodStatusInquiryForm.status.$invalid && !eodStatusInquiryForm.status.$pristine" class="help-block alert alert-danger">Maximum age is 60</p>
+			</div>
+		</div>
+		<div class="form-group required">
+		  <label for="fromDate" class ="control-label col-sm-2">EOD From Date</label>
+			<div class="col-sm-3">
+			  <input type="text" class="form-control" id="fromDate" name="fromDate" ng-model="eodStatusInquiry.fromDate" required>
+			</div>
+			<div class="col-sm-2"></div>
+		  	<label for="toDate" class ="control-label col-sm-2">EOD To Date</label>
+			<div class="col-sm-3">
+			  <input type="text" class="form-control" id="toDate" name="toDate" ng-model="eodStatusInquiry.toDate" required>
+			</div>
+		</div>	
+	 <div class="col-sm-offset-5 col-sm-8 form_submit">
+		 <button type="submit" class="btn btn-default" ng-disabled="eodStatusInquiryForm.$invalid">Submit</button>
+		 <button type="submit" class="btn btn-cancel">Cancel</button>
+	   </div>
+	</form>
+</div>
+	
+	<!-- <div class="container from_wrapper">
+	   <div class="row">
+		 <div class="col-sm-12">
+		    <table class="table table-bordered list">
+		 	<thead>
+			   <tr> <h4 class="modal-title" align="center">EOD Status Inquiry</h4></tr>
+			   <tr>
+				  <div class="col-sm-4"></div>
+		  	        <label for="page" class ="control-label col-sm-3" align="center"><h5>Total Available Pages 1-1 GoTo Page</h5></label>
+				  <div class="col-sm-1">
+			        <input type="text" class="form-control" id="page" name="page" ng-model="eodStatusInquiry.page" required>
+			        <p ng-show="eodStatusInquiryForm.page.$invalid && !eodStatusInquiryForm.page.$pristine" class="help-block alert alert-danger">Minimum Number 5</p>
+			     </div>
+		          <button type="submit" class="btn btn-cancel">Go</button> </h5>
+		      </tr>
+		      <tr>
+		       <td> </td>
+		       <td> </td>
+		       <td> 1 </td>
+		       <td> </td>
+		       <td> </td>
+		       <td> </td>
+	         </tr>
+				<tr>
+				 <th>Srl No</th>
+				 <th>SOL ID/Description</th>
+				 <th>Level Desc</th>
+				 <th>EOD Date</th>
+				 <th>Scheme Name</th>
+			     <th>EOD Status</th>
+				</tr>
+				<tr>
+				 <td>1</td>
+				 <td>01220-BANDRA KURLA COMPLEX</td>
+				 <td>POP SP</td>
+				 <td>02/09/2009</td>
+			 	<td>New Pension Scheme </td>
+				<td>Completed</td>
+			</tr>
+		</thead>
+		
+		</table>
+		</div>
+		</div>
+		<div class="col-sm-offset-5 col-sm-8 form_submit">
+		<button type="submit" class="btn btn-cancel">Back</button>
+</div> -->
+
+<!-- Modal SOL ID-->
+	<div class="modal" id="solIDModal" role="dialog">
+	  <div class="modal-dialog">
+	    <!-- Modal content-->
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <button type="button" class="close" data-bs-dismiss="modal">&times;</button>
+	        <h4 class="modal-title">Help Index</h4>
+	      </div>
+	      <div class="modal-body">
+	        <div class="list_wrapper" ng-if="list.length>0">
+		        <div class="col-sm-8 form_submit">				    
+					  <div class="form-group">
+					    <div class="input-group">
+					      <div class="input-group-addon"><i class="glyphicon glyphicon-search"></i></div>
+					      <input type="text" class="form-control" ng-model="searchSolId" placeholder="Search">
+					    </div>
+					  </div>
+				</div>
+				<div class="col-sm-4 form_submit"></div>
+				<div class="row">
+					<div class="col-sm-12">
+						<table class="table table-bordered list scroll">
+						    <thead>
+						      <tr>
+						        <th>Sol ID.</th>
+						        <th>Description</th>
+						      </tr>
+						    </thead>
+						    <tbody>
+						      <tr class="cp" ng-repeat="x in list | filter:searchSolId" ng-click="setSolID(x);">
+						        <td>{{x.solId}}</td>
+						        <td>{{x.solDescription}}</td>
+						      </tr>
+						    </tbody>
+						 </table>
+					</div>
+				</div>
+			</div>
+			<div class="list_wrapper" ng-if="list.length==0">No records found to display.</div>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+	<!-- Modal SOL ID - End -->
+	
+	
+	<!-- list result -->
+	<div class="loader" style="display: none;"></div>
+	<div class="container list_wrapper" ng-if="bodStatusInquiryList.length>0">
+		<table class="table table-bordered table-striped list">
+		    <thead>
+		      <tr>
+		      	<th>Sl. No.</th>
+		      	<th>Sol ID</th>
+		      	<th>Sol Description</th>
+		      	<th>BOD Date</th>
+		      	<th>Scheme Name</th>
+		      	<th>BOD Status</th>
+		      </tr>
+		    </thead>
+		    <tbody>
+		      <tr ng-repeat="x in bodStatusInquiryList">
+		        <td>{{$index + 1}}</td>
+		        <td>{{x.solId}}</td>
+		        <td>{{x.solDescription}}</td>
+		        <td>{{x.bodDate | date : "dd/MM/y"}}</td>
+		        <td>{{x.schemeName}}</td>
+		        <td>{{x.statusName}}</td>
+		      </tr>
+		    </tbody>
+	 	</table>
+	</div>
+	<div class="list_wrapper no_records_message" ng-if="bodStatusInquiryList.length==0">No records found to display.</div>
+	<!-- list result - End -->
+	

@@ -1,0 +1,258 @@
+<!--Input Screen-->
+
+<div class="container from_wrapper new_form_wrapper">
+    <div class="loader-new" ng-if="vm.loader"></div>
+
+    <h4 class="form_heading">Report on Un-verified Records</h4>
+    <div class="row">
+        <sol-header></sol-header>
+    </div>
+
+    <form name="unverified_records_for_rbi_bond_lc" role="form">
+        <div class="row">
+
+            <div class="row">
+                <div class="form-group">
+                    <div class="col-sm-3"></div>
+                    <div class="col-sm-3">
+                        <label class="control-label">Name of the Module</label>
+                    </div>
+                    <div class="col-sm-5">
+                        <label><b>RBI Bond</b></label>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6 col-sm-offset-3">
+
+
+                <div class="row" ng-init="vm.getModuleName();">
+                    <div class="form-group required">
+                        <div class="col-sm-6">
+                            <label for="bondScheme" class="control-label">Name of the Bond Scheme</label>
+                        </div>
+                        <div class="col-sm-4">
+                            <select class="form-control" id="bondScheme" name="bondScheme"
+                                    ng-model="vm.schemeName" required>
+                                <option value="">Select</option>
+                                <option ng-repeat="item in vm.schemeList" value="{{item.subCodeDescription}}" ng-bind="item.subCodeDescription"></option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="row">
+                    <div class="form-group">
+                        <div class="col-sm-6">
+                            <label for="branchId" class="control-label"> Branch Id</label>
+                        </div>
+                        <div class="col-sm-4 ">
+                            <input type="text" class="form-control" id="branchId"
+                                   name="branchId"  ng-model="vm.branchId"
+                                   chars="alpha-numeric" maxlength=="10" readonly>
+                        </div>
+                        <div class="col-sm-2">
+                            <div>
+                                <i class="glyphicon glyphicon-search cp" data-bs-toggle="modal"
+                                   id="branchIdSearcher"
+                                   ng-click="vm.reportDetails('branchId');vm.searchSolId=''"></i>
+                                <i class="glyphicon glyphicon-remove clear cp" ng-click=" vm.branchId='';vm.branchDescription='';"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group">
+                        <div class="col-sm-6">
+                            <label for="branchId" class="control-label">Branch Name</label>
+                        </div>
+                        <div class="col-sm-4">
+                            <input type="text" class="form-control" id="branchDesc"
+                                   ng-model="vm.branchDescription" readonly>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="form-group required">
+                        <div class="col-sm-6">
+                            <label for="systemDate" class="control-label"> System Date</label>
+                        </div>
+                        <div class="col-sm-4">
+                            <input type="text" class="form-control" id="systemDate"
+                                   name="systemDate"  ng-model="vm.currentDate"
+                                   chars="alpha-numeric" maxlength=="10" readonly >
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row" ng-if="vm.branchId">
+                    <div class="col-sm-6">
+                        <label for="createdModifiedBy" class="control-label"> Created/Modified by User ID</label>
+                    </div>
+                    <div class="col-sm-4 ">
+                        <input type="text" class="form-control" id="createdModifiedBy"
+                               name="createdModifiedBy"  ng-model="vm.createdModifiedBy"
+                               chars="alpha-numeric" maxlength=="20" readonly>
+                    </div>
+                    <div class="col-sm-2">
+                        <div>
+                            <i class="glyphicon glyphicon-search cp" data-bs-toggle="modal"
+                               id="createdModifiedBySearcher"
+                               ng-click="vm.reportDetails('createdModifiedBy');vm.searchSolId=''"></i>
+                            <i class="glyphicon glyphicon-remove clear cp"
+                               ng-click=" vm.branchId='';vm.branchDescription='';vm.createdModifiedBy='';"></i>
+                        </div>
+                    </div>
+                </div>
+                <!--Submit and Cancel Button-->
+                <div class="text-center form_submit">
+                    <!--                    <button type="submit" class="btn btn-default"-->
+                    <!--                            ui-sref="unverified_records_for_rbi_bond.inquiry_details({obj:{-->
+                    <!--                                schemeName:vm.schemeName,-->
+                    <!--								branchId: vm.branchId,-->
+                    <!--								branchDescription: vm.branchDescription,-->
+                    <!--								currentDate: vm.currentDate,-->
+                    <!--								createdModifiedBy:vm.createdModifiedBy-->
+                    <!--								}})"-->
+                    <!--                            ng-disabled="reportOnUnVerifiedRecordsDcForm.$invalid">Submit</button>-->
+                    <!--                    <button type="button" id="cancelButton" class="btn btn-cancel"-->
+                    <!--                            onclick="window.location.href ='#!/dc_scss_menu';" id="cancelButton">Cancel</button>-->
+                    <!--                </div>-->
+
+
+                    <div class="text-center form_submit">
+                        <button type="submit" class="btn btn-default" id="submitButton"
+                                ui-sref="unverified_records_for_rbi_bond_lc.inquiry_detail({obj:{
+								schemeName: vm.schemeName,
+								branchId: vm.branchId,
+								branchDescription: vm.branchDescription,
+								currentDate:vm.currentDate,
+								createdBy: vm.createdBy
+								}})"
+                                ng-disabled="unverified_records_for_rbi_bond_lc.$invalid">Submit</button>
+                        <button type="button" class="btn btn-cancel" id="cancelButton"
+                                onclick="window.location.href= '#!/rbibond_gu_functionality';">Cancel</button>
+                    </div>
+
+                    <!--Notice Message-->
+                    <div class="text-center">
+                        <notice-message-directive></notice-message-directive>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+<!-- Branch Id Details -->
+<div class="modal" id="branchIdModel" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-bs-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Branch Id</h4>
+            </div>
+            <div class="modal-body">
+                <div class="loader_popup"></div>
+                <div class="list_wrapper" ng-if="vm.branchIdList.length>0">
+                    <div class="col-sm-8 form_submit">
+                        <div class="form-group">
+                            <div class="input-group">
+                                <div class="input-group-addon">
+                                    <i class="glyphicon glyphicon-search"></i>
+                                </div>
+                                <input type="text" class="form-control"
+                                       ng-model="vm.searchSolId" ng-init="vm.searchSolId = ''"
+                                       placeholder="Search">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4 form_submit"></div>
+                    <div class="row">
+
+                        <div class="col-sm-12">
+                            <table class="table table-bordered list scroll">
+                                <thead ng-init="reverseOrder = false; sortedColumn = 'treasuryCode'">
+                                <tr>
+                                    <th class="modal-title title-case" ng-click="(sortedColumn == 'branchId')?(reverseOrder=(!reverseOrder)): (reverseOrder = false);sortedColumn = 'branchId';" ng-class="(sortedColumn == 'branchId')?((reverseOrder)?('arrow-down') : ('arrow-up') ) : ('')">Branch Id</th>
+                                    <th class="modal-title title-case" ng-click="(sortedColumn == 'branchDescription')?(reverseOrder=(!reverseOrder)): (reverseOrder = false);sortedColumn = 'branchDescription';" ng-class="(sortedColumn == 'branchDescription')?((reverseOrder)?('arrow-down') : ('arrow-up') ) : ('')">Branch Name</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr class="cp"
+                                    ng-repeat="x in vm.branchIdList | filter:vm.searchSolId | orderBy:sortedColumn:reverseOrder"
+                                    ng-click="vm.branchId = x.branchId; vm.branchDescription = x.branchDescription ; vm.branch = x.branchId+'-'+x.branchDescription;vm.changeBranchForAdd();" data-bs-dismiss="modal">
+                                    <td>{{x.branchId}}</td>
+                                    <td>{{x.branchDescription}}</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="list_wrapper" ng-if="vm.branchIdList.length==0">No records found to display.</div>
+            </div>
+
+        </div>
+    </div>
+</div>
+<!-- Branch Id  Details - End -->
+
+<!-- Created Modified Details -->
+<div class="modal" id="createdModifiedByModel" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-bs-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Created/Modified by User ID</h4>
+            </div>
+            <div class="modal-body">
+                <div class="loader_popup"></div>
+                <div class="list_wrapper" ng-if="vm.createdModifiedByList.length>0">
+                    <div class="col-sm-8 form_submit">
+                        <div class="form-group">
+                            <div class="input-group">
+                                <div class="input-group-addon">
+                                    <i class="glyphicon glyphicon-search"></i>
+                                </div>
+                                <input type="text" class="form-control"
+                                       ng-model="vm.searchSolId" ng-init="vm.searchSolId = ''"
+                                       placeholder="Search">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4 form_submit"></div>
+                    <div class="row">
+
+                        <div class="col-sm-12">
+                            <table class="table table-bordered list scroll">
+                                <thead ng-init="reverseOrder = false; sortedColumn = 'createdBy'">
+                                <tr>
+                                    <th class="modal-title title-case" ng-click="(sortedColumn == 'createdBy')?(reverseOrder=(!reverseOrder)): (reverseOrder = false);sortedColumn = 'createdBy';" ng-class="(sortedColumn == 'createdBy')?((reverseOrder)?('arrow-down') : ('arrow-up') ) : ('')">Created By</th>
+                                    <th class="modal-title title-case" ng-click="(sortedColumn == 'modifiedBy')?(reverseOrder=(!reverseOrder)): (reverseOrder = false);sortedColumn = 'modifiedBy';" ng-class="(sortedColumn == 'modifiedBy')?((reverseOrder)?('arrow-down') : ('arrow-up') ) : ('')">Modified By</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr class="cp"
+                                    ng-repeat="x in vm.createdModifiedByList | filter:vm.searchSolId | orderBy:sortedColumn:reverseOrder"
+                                    ng-click="vm.createdBy = x.createdBy; vm.modifiedBy = x.modifiedBy; vm.createdModifiedBy = x.createdModifiedBy;" data-bs-dismiss="modal">
+                                    <td>{{x.createdBy}}</td>
+                                    <td>{{x.modifiedBy}}</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="list_wrapper" ng-if="vm.createdModifiedByList.length==0">No records found to display.</div>
+            </div>
+
+        </div>
+    </div>
+</div>
+<!-- Created Modified Details - End -->
+

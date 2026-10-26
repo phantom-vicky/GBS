@@ -1,0 +1,95 @@
+<div class="container from_wrapper">
+	<left-menu-directive></left-menu-directive>
+	<h4 class="form_heading">
+		Locked Records
+		</h4>
+		<form name="lockedRecordForm" role="form"
+			ng-submit="submitForm(lockedRecordForm.$valid)" novalidate>
+			<div class="form-group required">
+				<label for="sol_ld" class="control-label col-sm-2">Sol ID :</label>
+				<div class="col-sm-2 ">
+					<input type="text" class="form-control" id="sol_ld" name="sol_ld" value="01220">
+					
+				</div>
+				<div class="col-sm-2"></div>
+				<label for="sol_des" class="control-label col-sm-2">Sol Description :</label>
+				<div class="col-sm-3 ">
+					<input type="text" class="form-control" id="sol_des" name="sol_des" value="BANDRA KURLA COMPLEX" required> 
+					
+				</div>
+			</div>
+			
+			<div class="form-group required">
+				<label for="new_sol_id" class="control-label col-sm-2">Enter Sol ID :</label>
+				<div class="col-sm-2 ">
+					<input type="text" class="form-control" id="new_sol_id" name="new_sol_id" ng-model="lockedRecord.new_sol_id" required>
+					</div>
+						<div class="col-sm-2 torch-top">
+						<i class="glyphicon glyphicon-search cp" ng-click="getSchemeTypeList('registrationAccountNumber')"></i>
+					</div>
+				
+				
+				<label for="trans_id" class="control-label col-sm-2">GBM-Trans-Id :</label>
+				<div class="col-sm-3 ">
+					<input type="text" class="form-control" id="trans_id" name="trans_id" ng-model="lockedRecord.trans_id" required> 
+					<div
+						ng-show="lockedRecordForm.trans_id.$invalid && !lockedRecordForm.trans_id.$pristine"
+						class="help-block alert alert-danger">Please enter GBM Trans Id</div>
+				</div>
+			</div>
+			
+			<div class="col-sm-offset-5 col-sm-8 form_submit">
+				<button type="submit" class="btn btn-default"
+					ng-disabled="lockedRecordForm.$invalid">Submit</button>
+				<button type="submit" class="btn btn-cancel">Cancel</button>
+			</div>
+		</form>
+</div>
+
+
+<div class="container from_wrapper">
+<h4 class="form_heading">GBM Message</h4>
+   <div class="row">
+	 <div class="col-sm-3"></div>
+		 <div class="col-sm-7">
+		   <table class="table table-bordered list">
+		   <thead>
+		 	<tr>
+		 	 <th>Warning</th>
+			</tr>
+			<tr>
+		 	<td>Locked Record Available. Select submit to update the transaction </td>
+		</tr>
+		</thead>
+		</table>		</div>
+		</div>
+		<div class="col-sm-offset-5 col-sm-8 form_submit">
+		<button type="submit" class="btn btn-cancel">Submit</button>
+		 <button type="submit" class="btn btn-cancel">Back</button>
+	   </div>
+</div>	
+
+<div class="container from_wrapper">
+	<h4 class="form_heading">NPS Message</h4>
+	   <div class="row">
+	 <div class="col-sm-3"></div>
+		 <div class="col-sm-7">
+		   <table class="table table-bordered list">
+		   <thead>
+		 	<tr>
+		 	 <th>Message Code</th>
+			 <th>Message Description</th>		
+			</tr>
+			<tr>
+			<td>M6001055</td>
+			<td>Locked Record Successfully Updated</td>
+		</tr>
+		</thead>
+		</table>		</div>
+		</div>
+		<div class="col-sm-offset-5 col-sm-8 form_submit">
+		
+		 <button type="submit" class="btn btn-cancel">Back</button>
+	   </div>
+</div>	
+		

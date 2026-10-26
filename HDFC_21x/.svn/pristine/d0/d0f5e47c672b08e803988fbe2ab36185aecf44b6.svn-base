@@ -1,0 +1,751 @@
+<div class="loader-new" ng-if="vm.loader"></div>
+<dc-left-menu></dc-left-menu>
+<div class="container from_wrapper new_form_wrapper">
+
+    <h4 class="form_heading">Bond Nominee Continuation – Inquiry</h4>
+    <sol-header></sol-header>
+
+
+
+    <ul class="nav nav-tabs" ng-init="vm.tabReferenceInquiry='nomineeForm0'">
+        <li ng-repeat="nominee in vm.nominationDetails1 track by $index"
+            ng-class="{ 'active': vm.tabReferenceInquiry == ('nomineeForm' + $index) }"   ng-click="vm.tabReferenceInquiry = 'nomineeForm' + $index; vm.jj('nomineeForm' + $index)"
+        >
+            <a  id="nomineeTab{{$index}}">
+                Nominee – ADD
+            </a>
+        </li>
+    </ul>
+
+
+    <div class="tab-content">
+        <div   ng-repeat="nominee in vm.nominationDetails1 track by $index" ng-show="vm.tabReferenceInquiry == 'nomineeForm{{$index}}'" class="tab-pane fade in active" id="nomineeForm{{$index}}">
+            <div class="tab-body">
+                <uib-accordion close-others="oneAtATime">
+                    <form name="vm.customerMasterForm{{$index}}" role="form" >
+
+                        <div uib-accordion-group id="general-details"
+                             class="panel-default panel panel-open"
+                             heading="Bond Ledger Account Maintenance - Add" is-open="true">
+
+
+                            <table class="table table-bordered">
+                                <tbody>
+                                <tr>
+
+                                    <td width="20%" class="form-group">
+                                        <label class="control-label">Main Holder Name
+                                        </label>
+                                    </td>
+                                    <td width="30%">
+
+                                        {{vm.bondHolderName}}  </td>
+
+                                    <td width="30%" class="form-group">
+                                        <label class="control-label">Main Holder PAN Number</label>
+                                    </td>
+                                    <td width="20%">
+
+                                        <label class="data-bind">{{vm.panNum}}</label>
+
+                                    </td>
+
+                                </tr>
+                                <tr>
+
+                                    <td width="20%" class="form-group">
+
+                                        <label class="control-label">Main Holder BLA No
+                                        </label>
+                                    </td>
+                                    <td width="30%">
+
+                                        {{vm.blaNo}}   </td>
+                                    <td width="30%" class="form-group">
+                                        <label class="control-label">Main Holder Subscription Id</label>
+                                    </td>
+                                    <td width="25%">
+
+                                        <label class="data-bind">{{vm.boSubsId}}</label>
+
+                                    </td>
+
+
+                                </tr>
+
+
+                                </tbody>
+                            </table>
+
+                        </div>
+
+                        <div uib-accordion-group id="general-details"
+                             class="panel-default panel panel-open" ng-repeat="item in vm.getBlaDetail track by $index"
+                             heading="BOND HOLDER {{$index + 1}} Details" is-open="vm.personalDetailsOpen">
+                            <ng-form name="vm.treasuryDetailsForm" ng-init="vm.getDetails">
+                                <table class="table table-bordered table-striped list old-new-value-table">
+                                    <thead>
+                                    <tr>
+                                        <th width="50%">Particular</th>
+                                        <th> Value</th>
+
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+
+
+                                    <tr>
+                                        <td width="25%"><label>Nominee {{$index+1}} First name</label></td>
+                                        <td width="25%"><label>{{vm.getBlaDetail[$index].holderFirstName}}</label>
+                                        </td>
+
+                                    </tr>
+                                    <tr>
+                                        <td  width="25%">Nominee {{$index+1}} Middle Name</td>
+                                        <td width="25%"><label>{{vm.getBlaDetail[$index].holderMiddleName}}</label>
+                                    </tr>
+                                    <tr>
+                                        <td width="25%">Nominee {{$index+1}} Last name</td>
+                                        <td width="25%"><label>{{vm.getBlaDetail[$index].holderLastName}}</label>
+
+                                    </tr>
+                                    <tr>
+                                        <td width="25%">Holder Type</td>
+                                        <td width="25%"><label>{{vm.getBlaDetail[$index].bondHolderType | getLabelFromValuesArray : vm.convertLabelValue(vm.holderTypeList)}}</label>
+
+                                    </tr>
+                                    <tr>
+                                        <td  width="25%">Father Name/Spouse Name</td>
+                                        <td width="25%"><label>{{vm.getBlaDetail[$index].fatherName}}</label>
+                                    </tr>
+
+                                    <tr>
+                                        <td width="25%">Mother's Maiden Name</td>
+                                        <td width="25%"><label>{{vm.getBlaDetail[$index].motherName}}</label>
+                                    </tr>
+                                    <tr>
+                                        <td>Gender</td>
+                                        <td width="25%"><label>{{vm.getBlaDetail[$index].gender | getLabelFromValuesArray : vm.genderListMetaData}}</label>
+
+                                    </tr>
+
+                                    <tr>
+                                        <td>Is Minor (Y/N)?</td>
+                                        <td width="25%"><label>{{vm.getBlaDetail[$index].isMinor  | getLabelFromValuesArray : vm.commonYesNoMetaData}}</label>
+
+                                    </tr>
+                                    <tr>
+                                        <td>Bond Holder Date of Birth (dd/MM/yyyy)</td>
+                                        <td width="25%"><label>{{vm.getBlaDetail[$index].bondHolderDob | date : 'dd/MM/yyyy' : ('None')}}</label>
+
+                                    </tr>
+
+                                    <tr>
+                                        <td>Details of Birth certificate submitted as per norms</td>
+                                        <td width="25%"><label>{{vm.getBlaDetail[$index].dateOfBirthOfMinor}}</label>
+
+                                    </tr>
+                                    <tr>
+                                        <td>Communication Address 1</td>
+                                        <td width="25%"><label>{{vm.getBlaDetail[$index].bondHldAddOne}}</label>
+
+                                    </tr>
+                                    <tr>
+                                        <td>Address 2</td>
+                                        <td width="25%"><label>{{vm.getBlaDetail[$index].bondHldAddTwo}}</label>
+
+                                    </tr>
+                                    <tr>
+                                        <td>Address 3</td>
+                                        <td width="25%"><label>{{vm.getBlaDetail[$index].bondHldAddThree}}</label>
+
+                                    </tr>
+                                    <tr>
+                                        <td>City</td>
+                                        <td width="25%"><label>{{vm.getBlaDetail[$index].bondHldCity}}</label>
+
+                                    </tr>
+                                    <tr>
+                                        <td>State</td>
+                                        <td width="25%">
+                                            <label>{{vm.getBlaDetail[$index].bondHldState  | getLabelFromValuesArray : vm.stateMetaData}}</label>
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td>Pin Code</td>
+                                        <td width="25%">
+                                            <label>{{vm.getBlaDetail[$index].bondHldPinCode}}</label>
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td>Phone Number</td>
+                                        <td width="25%">
+                                            <label>{{vm.getBlaDetail[$index].bondHolderPhoneNumber}}</label>
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td>Mobile Number</td>
+                                        <td width="25%">
+                                            <label>{{vm.getBlaDetail[$index].bondHldMobNum}}</label>
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td>Email ID</td>
+                                        <td width="25%">
+                                            <label>{{vm.getBlaDetail[$index].bondHldEmail}}</label>
+                                        </td>
+                                    </tr>
+
+
+
+                                    </tbody>
+
+
+                                </table>
+
+
+
+
+                                <table class="table table-bordered table-striped list old-new-value-table" ng-if="vm.getBlaDetail[$index].isMinor == 'Y'">
+                                    <thead>
+                                    <tr>
+                                        <th width="50%">Particular</th>
+                                        <th> Value</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <h4 class="form_heading" ng-if="vm.getBlaDetail[$index].isMinor == 'Y'">GUARDIAN DETAILS</h4>
+                                    <div>
+
+                                        <tr>
+                                            <td>Guardian ID</td>
+                                            <td width="25%">
+                                                <label>{{vm.getBlaGuardDetail[$index].guardianId}}</label>
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+                                            <td>Guardian First Name</td>
+                                            <td width="25%">
+                                                <label>{{vm.getBlaGuardDetail[$index].guardFName}}</label>
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+                                            <td>Guardian Middle Name</td>
+                                            <td width="25%">
+                                                <label>{{vm.getBlaGuardDetail[$index].guardMName}}</label>
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+                                            <td>Guardian Last Name</td>
+                                            <td width="25%">
+                                                <label>{{vm.getBlaGuardDetail[$index].guardLName}}</label>
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+                                            <td>Relation with Minor</td>
+                                            <td width="25%">
+                                                <label>{{vm.getBlaGuardDetail[$index].relationWithMinor | getLabelFromValuesArray: vm.convertLabelValue(vm.guardianDetailsListMetaData)}}</label>
+                                            </td>
+                                        </tr>
+
+
+
+                                        <tr>
+                                            <td>Communication Address</td>
+                                            <td width="25%">
+                                                <label>{{vm.getBlaGuardDetail[$index].guardianCommunicationAddress}}</label>
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+                                            <td>Mobile No.</td>
+                                            <td width="25%">
+                                                <label>{{vm.getBlaGuardDetail[$index].guardMobileNo}}</label>
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+                                            <td>Email ID</td>
+                                            <td width="25%">
+                                                <label>{{vm.getBlaGuardDetail[$index].guardEmailId}}</label>
+                                            </td>
+                                        </tr>
+
+
+
+                                    </div>
+                                    </tbody>
+                                </table>
+
+                                <table class="table table-bordered table-striped list old-new-value-table">
+                                    <thead>
+                                    <tr>
+                                        <th width="50%">Particular</th>
+                                        <th>Value</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tbody>
+                                    <h4 class="form_heading">OTHERS DETAILS</h4>
+                                    <div>
+
+                                        <!--                                    <tr>-->
+                                        <!--                                        <td>Whether the customer belongs to HDFC?</td>-->
+                                        <!--                                        <td class="old-value">{{(vm.getDetails.masterDetailsValueModel[$index] && vm.getDetails.masterDetailsValueModel[$index].C029)?-->
+                                        <!--                                            (vm.getDetails.masterDetailsValueModel[$index].C029.oldValue | getLabelFromValuesArray : vm.convertLabelValue(vm.formList)) : ('')}}-->
+                                        <!--                                        </td>-->
+                                        <!--                                        <td class="new-value" ng-if="vm.getDetails.previousOperationType == 'M'">{{vm.getDetails.masterDetailsValueModel[$index] &&-->
+                                        <!--                                            vm.getDetails.masterDetailsValueModel[$index].C029? (vm.getDetails.masterDetailsValueModel[$index].C029.newValue | getLabelFromValuesArray : vm.convertLabelValue(vm.formList)) : ('')}}-->
+                                        <!--                                        </td>-->
+                                        <!--                                    </tr>-->
+                                        <tr>
+                                            <td>Whether the customer belongs to HDFC?</td>
+                                            <td>{{ vm.getBlaDetail[$index].whetherCustomerBelongHdf | getLabelFromValuesArray : vm.supportingDocumentsMetaData }}</td>
+                                        </tr>
+
+                                        <tr ng-if="vm.getBlaDetail[$index].whetherCustomerBelongHdf == 'Y'">
+                                            <td>Operative Account Number</td>
+                                            <td>{{ vm.getBlaDetail[$index].operativeAccountNumber }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Mode of Interest Payment/Principal Repayment</td>
+                                            <td>{{ vm.getBlaDetail[$index].modeOfInterestPayment | getLabelFromValuesArray : vm.convertLabelValue(vm.modeOfInterestPaymentList) }}</td>
+                                        </tr>
+
+                                        <tr ng-if="vm.getBlaDetail[$index].modeOfInterestPayment == 'MP001' || vm.getBlaDetail[$index].modeOfInterestPayment == 'MP004'">
+                                            <td>Operative Account Number</td>
+                                            <td>{{ vm.getBlaDetail[$index].operativeAccNo }}</td>
+                                        </tr>
+
+                                        <tr ng-if="vm.getBlaDetail[$index].modeOfInterestPayment == 'MP001'">
+                                            <td>Account Type Code</td>
+                                            <td>{{ vm.getBlaDetail[$index].accountType  | getLabelFromValuesArray : vm.convertLabelValue(vm.accountTypeList) }}</td>
+                                        </tr>
+
+                                        <tr ng-if="vm.getBlaDetail[$index].modeOfInterestPayment == 'MP002'">
+                                            <td>DD/PO Account Number</td>
+                                            <td>{{ vm.getBlaDetail[$index].operativeAccNo }}</td>
+                                        </tr>
+
+                                        <tr ng-if="vm.getBlaDetail[$index].modeOfInterestPayment == 'MP003' || vm.getBlaDetail[$index].modeOfInterestPayment == 'MP004'">
+                                            <td>Bank Name</td>
+                                            <td>{{ vm.getBlaDetail[$index].bankCode }}</td>
+                                        </tr>
+
+                                        <tr ng-if="vm.getBlaDetail[$index].modeOfInterestPayment == 'MP003' || vm.getBlaDetail[$index].modeOfInterestPayment == 'MP004'">
+                                            <td>Branch Code</td>
+                                            <td>{{ vm.getBlaDetail[$index].branchCode }}</td>
+                                        </tr>
+
+                                        <tr ng-if="vm.getBlaDetail[$index].modeOfInterestPayment == 'MP003'">
+                                            <td>IFSC Code of the Credit Bank</td>
+                                            <td>{{ vm.getBlaDetail[$index].ifscCode }}</td>
+                                        </tr>
+
+                                        <tr ng-if="vm.getBlaDetail[$index].modeOfInterestPayment == 'MP003'">
+                                            <td>Name of the Payee</td>
+                                            <td>{{ vm.getBlaDetail[$index].nameOfThePayee }}</td>
+                                        </tr>
+
+                                        <tr ng-if="vm.getBlaDetail[$index].modeOfInterestPayment == 'MP003'">
+                                            <td>Credit Account Number</td>
+                                            <td>{{ vm.getBlaDetail[$index].operativeAccNo }}</td>
+                                        </tr>
+
+                                        <tr>
+                                            <td>IFSC Code</td>
+                                            <td>{{ vm.getBlaDetail[$index].ifscCode }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>MICR Code</td>
+                                            <td class="old-value">
+                                                {{vm.getBlaDetail[$index].micrCode}}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>PAN No</td>
+                                            <td>{{ vm.getBlaDetail[$index].panNum }}</td>
+                                        </tr>
+
+
+                                    </div>
+                                    </tbody>
+                                </table>
+
+                                <table class="table table-bordered table-striped list old-new-value-table">
+                                    <thead>
+                                    <tr>
+                                        <th width="50%">Particular</th>
+                                       <th>Value</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <h4 class="form_heading">WITNESS DETAILS</h4>
+                                    <div>
+                                        <tr>
+                                            <td>Witness Name 1</td>
+                                            <td>{{ vm.getBlaDetail[$index].witnessNameOne }}</td>
+                                        </tr>
+
+                                        <tr>
+                                            <td>Address</td>
+                                            <td>{{ vm.getBlaDetail[$index].witnessAddressOne }}</td>
+                                        </tr>
+
+                                        <tr>
+                                            <td>Witness Name 2</td>
+                                            <td>{{ vm.getBlaDetail[$index].witnessNameTwo }}</td>
+                                        </tr>
+
+                                        <tr>
+                                            <td>Address</td>
+                                            <td>{{ vm.getBlaDetail[$index].witnessAddressTwo }}</td>
+                                        </tr>
+                                    </div>
+                                    </tbody>
+                                </table>
+
+                                <table class="table table-bordered table-striped list old-new-value-table">
+                                    <thead>
+                                    <tr>
+                                        <th width="50%">Particular</th>
+                                        <th>Value</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <h4 class="form_heading">SUPPORTING DOCUMENTS</h4>
+                                    <div>
+                                        <tr>
+                                            <td>Birth Certificate</td>
+                                            <td>{{ vm.getBlaDetail[$index].birthCertificate | getLabelFromValuesArray : vm.supportingDocumentsMetaData }}</td>
+                                        </tr>
+
+                                        <tr>
+                                            <td>Passport</td>
+                                            <td>{{ vm.getBlaDetail[$index].passport | getLabelFromValuesArray : vm.supportingDocumentsMetaData }}</td>
+                                        </tr>
+
+                                        <tr>
+                                            <td>Senior Citizen Card</td>
+                                            <td>{{ vm.getBlaDetail[$index].seniorCitizenCard | getLabelFromValuesArray : vm.supportingDocumentsMetaData }}</td>
+                                        </tr>
+
+                                        <tr>
+                                            <td>Voter ID Card</td>
+                                            <td>{{ vm.getBlaDetail[$index].voterIdCard | getLabelFromValuesArray : vm.supportingDocumentsMetaData }}</td>
+                                        </tr>
+
+                                        <tr>
+                                            <td>PAN Card</td>
+                                            <td>{{ vm.getBlaDetail[$index].panCard | getLabelFromValuesArray : vm.supportingDocumentsMetaData }}</td>
+                                        </tr>
+
+                                        <tr>
+                                            <td>Driving Licence</td>
+                                            <td>{{ vm.getBlaDetail[$index].drivingLicence | getLabelFromValuesArray : vm.supportingDocumentsMetaData }}</td>
+                                        </tr>
+
+                                        <tr>
+                                            <td>Ration Card</td>
+                                            <td>{{ vm.getBlaDetail[$index].rationCard | getLabelFromValuesArray : vm.supportingDocumentsMetaData }}</td>
+                                        </tr>
+
+                                        <tr>
+                                            <td>Others</td>
+                                            <td>{{ vm.getBlaDetail[$index].others | getLabelFromValuesArray : vm.supportingDocumentsMetaData }}</td>
+                                        </tr>
+
+                                        <tr>
+                                            <td>Detail for Others</td>
+                                            <td>{{ vm.getBlaDetail[$index].othersDetail | getLabelFromValuesArray : vm.supportingDocumentsMetaData }}</td>
+                                        </tr>
+
+                                        <tr>
+                                            <td>Remarks</td>
+                                            <td>{{ vm.getBlaDetail[$index].remarks }}</td>
+                                        </tr>
+
+                                    </div>
+                                    </tbody>
+                                </table>
+                            </ng-form>
+                        </div>
+
+
+
+
+
+
+
+
+
+
+
+                        <div uib-accordion-group id="bond-subscription-details"
+                             class="panel-default panel panel-open"
+                             heading="BOND SUBSCRIPTION {{$index + 1}} Details" is-open="vm.personalDetailsOpen">
+
+
+                            <!-- <div uib-accordion-group id="sapensioner-details" class="panel panel-default"
+                                  heading="BOND SUBSCRIPTION  DETAILS">-->
+
+
+                            <ng-form name="vm.bondSubscriptionDetails" ng-init="vm.getSubscriptionDetail[$index]">
+
+                                <table class="table table-bordered table-striped list old-new-value-table">
+                                    <thead>
+                                    <tr>
+                                        <th width="50%">Particular</th>
+                                        <th>Value</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+
+                                    <tr>
+                                        <td>Subscription Amount</td>
+                                        <td>{{vm.indianNumberFormat(vm.getSubscriptionDetail[$index].subscriptionAmount)}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Segment</td>
+                                        <td>{{vm.getSubscriptionDetail[$index].segment | getLabelFromValuesArray : vm.convertLabelValue(vm.segmentList)}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Amount in Words</td>
+                                        <td>{{vm.getSubscriptionDetail[$index].wordsInRupees}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Bond Type</td>
+                                        <td>{{vm.getSubscriptionDetail[$index].bondType | getLabelFromValuesArray : vm.bondTypeMetaData}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Account Open Date (dd/MM/yyyy)</td>
+                                        <td>{{vm.getSubscriptionDetail[$index].accountOpenDate | date : 'dd/MM/yyyy' : ('None')}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Value Date (dd/MM/yyyy)</td>
+                                        <td>{{vm.getSubscriptionDetail[$index].valueDate | date : 'dd/MM/yyyy' : ('None')}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Period Of Deposit (months)</td>
+                                        <td>{{vm.getSubscriptionDetail[$index].periodOfDeposit}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Maturity Date (dd/MM/yyyy)</td>
+                                        <td>{{vm.getSubscriptionDetail[$index].maturityDate | date : 'dd/MM/yyyy' : ('None')}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Rate of Interest (%)</td>
+                                        <td>{{vm.getSubscriptionDetail[$index].rateOfInterest}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Branch Code - WBO</td>
+                                        <td>{{vm.getSubscriptionDetail[$index].wboBranchCode}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Branch Name - WBO</td>
+                                        <td>{{vm.getSubscriptionDetail[$index].wboBranchName}}</td>
+                                    </tr>
+
+                                    <!--<tr>
+                                        <td>Do you want to add a Nominee?</td>
+                                        <td>{{vm.getSubscriptionDetail[$index].isNominee | getLabelFromValuesArray : vm.supportingDocumentsMetaData}}</td>
+                                    </tr>-->
+
+                                    </tbody>
+                                </table>
+                            </ng-form>
+                        </div>
+
+
+
+
+                    <!--    <div
+                                uib-accordion-group
+                                id="bond-nominee-details-{{$index}}"
+                                class="panel"
+                                heading="NOMINEE DETAILS"
+                                is-open="nominee.isOpen"
+                                ng-if="vm.getSubscriptionDetail[$index].isNominee == 'Y'"
+                                ng-class="(vm.customerMasterForm.$invalid) ? 'panel-danger' : 'panel-success'">
+                            <ng-form name="vm.customerPersonalDetails">
+
+                                <table ng-repeat="item in vm.getNomineeDetail[$index]" id="nominee{{$index}}" class="table table-bordered table-striped list">
+                                    <thead>
+                                    <tr>
+                                        <th width="50%">Particular - Nominee {{$index+1}}</th>
+                                        <th>Value</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr>
+                                        <td>Nominee First Name</td>
+                                        <td>{{item.nomineeFName}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Nominee Middle Name</td>
+                                        <td>{{item.nomineeMName}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Nominee Last Name</td>
+                                        <td>{{item.nomineeLName}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Address1</td>
+                                        <td>{{item.addr1}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Address2</td>
+                                        <td>{{item.addr2}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>City</td>
+                                        <td>{{item.city}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>State</td>
+                                        <td>{{item.state | getLabelFromValuesArray : vm.stateMetaData}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Pin Code</td>
+                                        <td>{{item.pinCode}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Phone No</td>
+                                        <td>{{item.phoneNum}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Share Percentage</td>
+                                        <td>{{item.sharePercentage}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Is Nominee a Minor</td>
+                                        <td>{{item.isNomineeMinor | getLabelFromValuesArray : vm.commonYesNoMetaData}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Relation with Holder</td>
+                                        <td>{{item.relationWithHolder | getLabelFromValuesArray : vm.guardianDetailsListMetaData}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Date of Birth Of Minor</td>
+                                        <td>{{item.minorDob | date : 'dd-MMM-yyyy'}}</td>
+                                    </tr>
+
+                                    &lt;!&ndash; Guardian Details (Only if Nominee is a Minor) &ndash;&gt;
+                                    <tr ng-if="item.isNomineeMinor == 'Y'">
+                                        <th>Particular - Guardian Details (Mandatory if Nominee is a Minor)</th>
+                                        <th>Value</th>
+                                    </tr>
+                                    <tr ng-if="item.isNomineeMinor == 'Y'">
+                                        <td>Guardian Address1</td>
+                                        <td>{{item.guardAddress1}}</td>
+                                    </tr>
+                                    <tr ng-if="item.isNomineeMinor == 'Y'">
+                                        <td>Guardian Address2</td>
+                                        <td>{{item.guardAddress2}}</td>
+                                    </tr>
+                                    <tr ng-if="item.isNomineeMinor == 'Y'">
+                                        <td>Guardian City</td>
+                                        <td>{{item.guardCity}}</td>
+                                    </tr>
+                                    <tr ng-if="item.isNomineeMinor == 'Y'">
+                                        <td>Guardian State</td>
+                                        <td>{{item.guardState | getLabelFromValuesArray : vm.stateMetaData}}</td>
+                                    </tr>
+                                    <tr ng-if="item.isNomineeMinor == 'Y'">
+                                        <td>Guardian PIN Code</td>
+                                        <td>{{item.guardPinCode}}</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+
+                                <table class="table table-bordered table-striped list old-new-value-table">
+                                    <tbody width="100%">
+                                    <tr>
+                                        <th width="50%">Total (%)</th>
+                                        <td width="50%">100</td>
+                                    </tr>
+
+
+                                    </tbody>
+                                </table>
+                            </ng-form>
+                        </div>-->
+
+                        <div class="text-center form_submit" ng-disabled="index == nominee.length()">
+
+
+                            <!-- <button type="button" class="btn btn-default"
+                                    id="prevButton"
+                                    ng-click="vm.tabReferenceInquiry = 'nomineeForm' + ($index - 1)"
+                                    ng-hide="$index === 0">
+                                Previous
+                            </button>
+                            <button type="button" class="btn btn-default" id="nextButton"
+                                    ng-click="vm.tabReferenceInquiry = 'nomineeForm' + ($index + 1)"
+
+
+                                    ng-hide="$index === (vm.nominationDetails1.length - 1)">
+                                Next
+                            </button> -->
+
+<!--                            <button type="button" class="btn btn-default"-->
+<!--                                    id="submitButton"-->
+<!--                                    ng-click="vm.addcustomerMaster();"  ng-disabled="vm.isAnyFormInvalid()"-->
+
+<!--                                    ng-hide="$index !== (vm.nominationDetails1.length - 1)">-->
+<!--                                Submit-->
+<!--                            </button>-->
+
+
+
+
+                            <button type="button" class="btn btn-cancel" id="cancelButton"
+                                    onclick="window.location.href= '#!/rbi_bond_nominee_continuation/action/inquiry'">Cancel</button>
+                        </div>
+
+
+                    </form>
+                </uib-accordion>
+
+
+
+
+
+
+
+
+            <div class="audit-details">
+                <div class="row">
+                    <div class="col-md-3">
+                        <span> <b> Created By </b> : {{vm.auditDetails.createdBy}} </span>
+                    </div>
+                    <div class="col-md-3">
+                        <span> <b>Verified By </b> : {{(vm.auditDetails.verifiedBy) ? (vm.auditDetails.verifiedBy) : ('None')}}</span>
+                    </div>
+                    <div class="col-md-3">
+                        <span> <b> Verify Status </b> : {{vm.auditDetails.verifiedStatus  | getLabelFromValuesArray : vm.commonYesNoMetaData}}</span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <span> <b> Created On </b> : {{ vm.auditDetails.createdDate | date : 'dd/MM/yyyy' : ('None')}}</span>
+                    </div>
+                    <div class="col-md-3">
+                        <span> <b> Verified On </b> : {{(vm.auditDetails.verifiedDate) ? (vm.auditDetails.verifiedDate | date : 'dd/MM/yyyy') : ('None')}}</span>
+                    </div>
+                    <div class="col-md-3">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>

@@ -1,0 +1,24 @@
+<div class="container-fluid">
+
+	<!-- Page Heading -->
+
+	<!-- /.row -->
+
+<div class="test">
+	<p>Last Login : {{globals.currentUser.lastLoginTime | date : "dd/MM/yyyy hh:mm:ss a"}}</p>
+</div>
+
+	<div ng-if="globals.currentUser.warDeploymentFlag == 'Y'">
+		<marquee>
+			<h4 style="color : #003087! important"><b>Latest war deployed on {{globals.currentUser.warDeploymentDate | date : "dd/MM/yyyy hh:mm:ss a"}}! Please clear the browser cache and re-login the application. Please Ignore the message If cache has been already cleared.</b></h4>
+		</marquee>
+	</div>
+
+	<div class="row" style="min-height:400px;">
+		<h1 class="welcome">Welcome to Ultra GBS!!</h1>
+
+	</div>
+	<!-- /.row -->
+
+</div>
+<!-- /.container-fluid -->

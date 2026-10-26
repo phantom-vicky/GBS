@@ -1,0 +1,213 @@
+<user-left-menu></user-left-menu>
+<div class="loader-new" ng-if="vm.loader"></div>
+<div class="container from_wrapper">
+    <h4 class="form_heading  feature-heading">USER CREATION/ ROLE MAPPING - INQUIRY</h4>
+    <ng-form name="userInquiryFrom" role="form">
+        <table class="table table-bordered table-striped list old-new-value-table">
+            <thead>
+            <tr>
+                <th>Particular</th>
+                <th>{{(vm.users.previousOperationType == 'M')?('Old Value'): ('Value')}}</th>
+                <th ng-if="vm.users.previousOperationType == 'M'">New Value</th>
+            </tr>
+            </thead>
+            <tbody>
+
+            <tr>
+                <td>User Id/Login Id</td>
+                <td class="old-value">
+                    {{(vm.users && vm.users.oldValue.username)? (vm.users.oldValue.username) : ('')}}
+                </td>
+                <td class="new-value" ng-if="vm.users.previousOperationType == 'M'" ng-style="(vm.users.oldValue.username != vm.users.newValue.username && vm.users.newValue && vm.users.newValue.username) ? {'color': 'red'} : {}">
+                    {{(vm.users.oldValue.username != vm.users.newValue.username && vm.users.newValue && vm.users.newValue.username) ? (vm.users.newValue.username) : ('-') }}
+                </td>
+            </tr>
+
+            <tr>
+                <td>Employee Code</td>
+                <td class="old-value">
+                    {{(vm.users && vm.users.oldValue.employeeCode)? (vm.users.oldValue.employeeCode) : ('')}}
+                </td>
+                <td class="new-value" ng-if="vm.users.previousOperationType == 'M'" ng-style="(vm.users.oldValue.employeeCode != vm.users.newValue.employeeCode && vm.users.newValue && vm.users.newValue.employeeCode) ? {'color': 'red'} : {}">
+                    {{(vm.users.oldValue.employeeCode != vm.users.newValue.employeeCode && vm.users.newValue && vm.users.newValue.employeeCode) ? (vm.users.newValue.employeeCode) : ('-') }}
+                </td>
+            </tr>
+
+            <tr>
+                <td>Employee Name</td>
+                <td class="old-value">
+                    {{(vm.users && vm.users.oldValue.employeeName)? (vm.users.oldValue.employeeName) : ('')}}
+                </td>
+                <td class="new-value" ng-if="vm.users.previousOperationType == 'M'" ng-style="(vm.users.oldValue.employeeName != vm.users.newValue.employeeName && vm.users.newValue && vm.users.newValue.employeeName) ? {'color': 'red'} : {}">
+                    {{(vm.users.oldValue.employeeName != vm.users.newValue.employeeName && vm.users.newValue && vm.users.newValue.employeeName) ? (vm.users.newValue.employeeName) : ('-') }}
+                </td>
+            </tr>
+
+            <tr>
+                <td>Branch Code</td>
+                <td class="old-value">
+                    {{(vm.users && vm.users.oldValue.branchCode)? (vm.users.oldValue.branchCode) : ('')}}
+                </td>
+                <td class="new-value" ng-if="vm.users.previousOperationType == 'M'" ng-style="(vm.users.oldValue.branchCode != vm.users.newValue.branchCode && vm.users.newValue && vm.users.newValue.branchCode) ? {'color': 'red'} : {}">
+                    {{(vm.users.oldValue.branchCode != vm.users.newValue.branchCode && vm.users.newValue && vm.users.newValue.branchCode) ? (vm.users.newValue.branchCode) : ('-') }}
+                </td>
+            </tr>
+
+            <tr>
+                <td>Branch Name</td>
+                <td class="old-value">
+                    {{(vm.users && vm.users.oldValue.branchName)? (vm.users.oldValue.branchName) : ('')}}
+                </td>
+                <td class="new-value" ng-if="vm.users.previousOperationType == 'M'"  ng-style="(vm.users.oldValue.branchName != vm.users.newValue.branchName && vm.users.newValue && vm.users.newValue.branchName) ? {'color': 'red'} : {}">
+                    {{(vm.users.oldValue.branchName != vm.users.newValue.branchName && vm.users.newValue && vm.users.newValue.branchName) ? (vm.users.newValue.branchName) : ('-') }}
+                </td>
+            </tr>
+
+            <tr>
+                <td>Department Code</td>
+                <td class="old-value">
+                    {{(vm.users && vm.users.oldValue.departmentCode)? (vm.users.oldValue.departmentCode) : ('')}}
+                </td>
+                <td class="new-value" ng-if="vm.users.previousOperationType == 'M'" ng-style="(vm.users.oldValue.departmentCode != vm.users.newValue.departmentCode && vm.users.newValue && vm.users.newValue.departmentCode) ? {'color': 'red'} : {}">
+                    {{(vm.users.oldValue.departmentCode != vm.users.newValue.departmentCode && vm.users.newValue && vm.users.newValue.departmentCode) ? (vm.users.newValue.departmentCode) : ('-') }}
+                </td>
+            </tr>
+
+
+            <tr>
+                <td>Department Name</td>
+                <td class="old-value">
+                    {{(vm.users && vm.users.oldValue.departmentName)? (vm.users.oldValue.departmentName) : ('')}}
+                </td>
+                <td class="new-value" ng-if="vm.users.previousOperationType == 'M'" ng-style="(vm.users.oldValue.departmentName != vm.users.newValue.departmentName && vm.users.newValue && vm.users.newValue.departmentName) ? {'color': 'red'} : {}">
+                    {{(vm.users.oldValue.departmentName != vm.users.newValue.departmentName && vm.users.newValue && vm.users.newValue.departmentName) ? (vm.users.newValue.departmentName) : ('-') }}
+                </td>
+            </tr>
+
+
+            <tr>
+                <td>Email</td>
+                <td class="old-value">
+                    {{(vm.users && vm.users.oldValue.email)? (vm.users.oldValue.email) : ('')}}
+                </td>
+                <td class="new-value" ng-if="vm.users.previousOperationType == 'M'" ng-style="(vm.users.oldValue.email != vm.users.newValue.email && vm.users.newValue && vm.users.newValue.email) ? {'color': 'red'} : {}">
+                    {{(vm.users.oldValue.email != vm.users.newValue.email && vm.users.newValue && vm.users.newValue.email) ? (vm.users.newValue.email) : ('-') }}
+                </td>
+            </tr>
+
+            <tr>
+                <td>Mobile No</td>
+                <td class="old-value">
+                    {{(vm.users && vm.users.oldValue.mobileNo)? (vm.users.oldValue.mobileNo) : ('')}}
+                </td>
+                <td class="new-value" ng-if="vm.users.previousOperationType == 'M'" ng-style="(vm.users.oldValue.mobileNo != vm.users.newValue.mobileNo && vm.users.newValue && vm.users.newValue.mobileNo) ? {'color': 'red'} : {}">
+                    {{(vm.users.oldValue.mobileNo != vm.users.newValue.mobileNo && vm.users.newValue && vm.users.newValue.mobileNo) ? (vm.users.newValue.mobileNo) : ('-') }}
+                </td>
+            </tr>
+
+            <tr>
+                <td>Address</td>
+                <td class="old-value">
+                    {{(vm.users && vm.users.oldValue.address)? (vm.users.oldValue.address) : ('')}}
+                </td>
+                <td class="new-value" ng-if="vm.users.previousOperationType == 'M'" ng-style="(vm.users.oldValue.address != vm.users.newValue.address && vm.users.newValue && vm.users.newValue.address) ? {'color': 'red'} : {}">
+                    {{(vm.users.oldValue.address != vm.users.newValue.address && vm.users.newValue && vm.users.newValue.address) ? (vm.users.newValue.address) : ('-') }}
+                </td>
+            </tr>
+
+            <tr>
+                <td>Supervisor Code</td>
+                <td class="old-value">
+                    {{(vm.users && vm.users.oldValue.supervisorCode)? (vm.users.oldValue.supervisorCode) : ('')}}
+                </td>
+                <td class="new-value" ng-if="vm.users.previousOperationType == 'M'" ng-style="(vm.users.oldValue.supervisorCode != vm.users.newValue.supervisorCode && vm.users.newValue && vm.users.newValue.supervisorCode) ? {'color': 'red'} : {}">
+                    {{(vm.users.oldValue.supervisorCode != vm.users.newValue.supervisorCode && vm.users.newValue && vm.users.newValue.supervisorCode) ? (vm.users.newValue.supervisorCode) : ('-') }}
+                </td>
+            </tr>
+
+            <tr>
+                <td>Status</td>
+                <td class="old-value">
+<!--                    {{(vm.users && (vm.users.userStatus == 'I01' || vm.users.userStatus == 'InActive'))-->
+<!--                    ? 'INACTIVE (Pending for Authorization)'-->
+<!--                    : (vm.users.userStatus | getLabelFromValuesArray : vm.userStatusMetaDataForEnable)}}-->
+
+                    {{ (vm.users && vm.users.oldValue.userStatus &&
+                    (vm.users.oldValue.userStatus.toUpperCase() === 'I01' || vm.users.oldValue.userStatus.toUpperCase() === 'INACTIVE'))
+                    ? 'INACTIVE (Pending for Authorization)'
+                    : (vm.users && vm.users.oldValue.userStatus
+                    ? (vm.users.oldValue.userStatus | getLabelFromValuesArray: vm.userStatusMetaDataForEnable)
+                    : '') }}
+
+                </td>
+                <td class="new-value" ng-if="vm.users.previousOperationType == 'M'" ng-style="(vm.users.oldValue.userStatus != vm.users.newValue.userStatus && vm.users.newValue && vm.users.newValue.userStatus) ? {'color': 'red'} : {}">
+                    {{ (vm.users.oldValue.userStatus != vm.users.newValue.userStatus && vm.users.newValue && vm.users.newValue.userStatus === 'I01')? 'INACTIVE (Pending for Authorization)'
+                    : ((vm.users.oldValue.userStatus != vm.users.newValue.userStatus && vm.users.newValue.userStatus) ? (vm.users.newValue.userStatus | getLabelFromValuesArray : vm.userStatusMetaData2) + ' (Pending for Authorization)' : ('-')) }}
+                </td>
+            </tr>
+
+
+
+            <tr>
+                <td>Rejection Remarks</td>
+                <td class="old-value">
+                    {{(vm.users && vm.users.oldValue.remarks)? (vm.users.oldValue.remarks) : ('')}}
+                </td>
+                <td class="new-value" ng-if="vm.users.previousOperationType == 'M'" ng-style="(vm.users.oldValue.remarks != vm.users.newValue.remarks && vm.users.newValue && vm.users.newValue.remarks) ? {'color': 'red'} : {}">
+                    {{(vm.users.oldValue.remarks != vm.users.newValue.remarks && vm.users.newValue && vm.users.newValue.remarks) ? (vm.users.newValue.remarks) : ('-') }}
+                </td>
+            </tr>
+
+            <tr>
+                <td>Role Name</td>
+                <td class="old-value">
+                    {{(vm.users && vm.users.oldValue.roleName)? (vm.users.oldValue.roleName) : ('')}}
+                </td>
+                <td class="new-value" ng-if="vm.users.previousOperationType == 'M'" ng-style="(vm.users.oldValue.roleName != vm.users.newValue.roleName && vm.users.newValue && vm.users.newValue.roleName) ? {'color': 'red'} : {}">
+                    {{(vm.users.oldValue.roleName != vm.users.newValue.roleName && vm.users.newValue && vm.users.newValue.roleName) ? (vm.users.newValue.roleName) : ('-') }}
+                </td>
+            </tr>
+
+            </tbody>
+        </table>
+    </ng-form>
+
+
+    <div class="audit-details">
+        <div class="row">
+            <div class="col-md-3">
+                <span> <b> Created By </b> : {{vm.users.createdBy}} </span>
+            </div>
+            <div class="col-md-3">
+                <span> <b> Last Modified By </b> : {{(vm.users.modifiedBy) ? (vm.users.modifiedBy) : ('None')}}</span>
+            </div>
+            <div class="col-md-3">
+                <span> <b> Last Verified By </b> : {{(vm.users.verifiedBy) ? (vm.users.verifiedBy) : ('None')}}</span>
+            </div>
+            <div class="col-md-3">
+                <span> <b> Verify Status </b> : {{vm.users.verifiedStatus  | getLabelFromValuesArray : vm.commonYesNoMetaData}}</span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3">
+                <span> <b> Created On </b> : {{ vm.users.createdDate}}</span>
+            </div>
+            <div class="col-md-3">
+                <span> <b> Last Modified On</b> : {{ (vm.users.modifiedDate) ? (vm.users.modifiedDate) : ('None')}}</span>
+            </div>
+            <div class="col-md-3">
+                <span> <b> Last Verified On </b> : {{(vm.users.verifiedDate) ? (vm.users.verifiedDate) : ('None')}}</span>
+            </div>
+            <div class="col-md-3">
+            </div>
+        </div>
+    </div>
+
+
+
+    <div class="text-center form_submit">
+        <button type="button" id="cancelButton" class="btn btn-cancel"
+                onclick="window.location.href ='#!/usrCrtRleMpm/action/inquiry';">Cancel</button>
+    </div>
+
+</div>

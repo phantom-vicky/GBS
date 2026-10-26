@@ -1,0 +1,187 @@
+<div class="loader-new" data-ng-if="vm.loader"></div>
+<div class="container" data-ng-if="vm.result.length>0">
+  <div class="container from_wrapper new_form_wrapper">
+    <div class="text-right form_submit">
+      <button type="submit" class="btn btn-default" onclick="window.location.href ='#!/'" id="homeButton">Home</button>
+      <button type="button" id="cancel_Button" class="btn btn-cancel" onclick="window.location.href= '#!/rbiBond_bond_interest_not_credited_report/action/inquiry';">Back</button>
+    </div>
+    <h4 class="form_heading">Bond Interest not Credited Report</h4>
+    <sol-header></sol-header>
+
+    <table style="width: 100%" class="table table-bordered" aria-label="Interest not Credited">
+      <tr>
+        <th scope="col">Name of the Bond Scheme</th>
+        <td>{{vm.schemeName}}</td>
+        <th scope="col">Total Count</th>
+        <td>{{vm.total}}</td>
+      </tr>
+      <tr data-ng-if="vm.interestPaymentFor">
+        <th scope="col">Interest Payment For</th>
+        <td>{{vm.interestPaymentFor}}</td>
+      </tr>
+      <tr data-ng-if="vm.holderName">
+        <th scope="col">Name</th>
+        <td>{{vm.holderName}}</td>
+      </tr>
+      <tr data-ng-if="vm.panNumber">
+        <th scope="col">PAN No</th>
+        <td>{{vm.panNumber}}</td>
+      </tr>
+
+      <tr data-ng-if="vm.blaNumber">
+        <th scope="col">BLA No</th>
+        <td>{{vm.blaNumber}}</td>
+      </tr>
+      <tr data-ng-if="vm.financialYear">
+        <th scope="col">Financial Year</th>
+        <td>{{vm.financialYear}}</td>
+      </tr>
+    </table>
+
+    <div class="row">
+      <div class="col-sm-12">
+        <div class="row" style="display: flex; align-items: center; justify-content: space-between">
+          <div class="col-sm-3" style="flex: 1">
+            <div class="form-group">
+              <table style="border-spacing: 2" aria-label="BPRR">
+                <tr>
+                  <th scope="col"></th>
+                </tr>
+                <tr>
+                  <td>Show&nbsp;</td>
+                  <td>
+                    <select class="form-control pageDropDown" id="pageSize"
+                            name="pageSize" data-ng-model="vm.pageSize"
+                            data-ng-init="vm.pageSize='5'" data-ng-change="vm.pageNo='1'; vm.getBondInterestNotCreditedDetails();"
+                            ng-disabled="vm.noDataFoundInSearch">
+                      <option value="5">5 per page</option>
+                      <option value="10">10 per page</option>
+                      <option value="20">20 per page</option>
+                      <option value="50">50 per page</option>
+                    </select>
+                  </td>
+                </tr>
+              </table>
+            </div>
+          </div>
+
+          <div class="col-sm-6" style="display: flex; align-items: center; justify-content: flex-end">
+            <div class="form-group" style="margin-right: 15px">
+              <div class="input-group">
+                <input type="text" id="search" class="form-control" data-ng-model="vm.searchValue" placeholder="Search" />
+                <div class="input-group-addon">
+                  <span class="glyphicon glyphicon-search" data-ng-click="vm.pageNo = 1; vm.getBondInterestNotCreditedDetails()"></span>
+                </div>
+                <div class="input-group-addon">
+                  <span class="glyphicon glyphicon-remove clear cp" data-ng-click="vm.searchValue='';vm.pageNo = 1; vm.getBondInterestNotCreditedDetails(); "></span>
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <select
+                      class="form-control"
+                      id="export"
+                      name="export"
+                      data-ng-model="vm.downloadType"
+                      data-ng-init="vm.downloadType=''"
+                      data-ng-change="vm.downloadReport()"
+                      data-ng-disabled="vm.noDataFoundInSearch"
+              >
+                <option value="">EXPORT</option>
+                <option value="excel">EXCEL</option>
+                <option value="csv">CSV</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div class="table-responsive">
+          <table class="table table-bordered table-striped list table-textWrap" aria-label="Interest not Credited">
+            <thead data-ng-if="!vm.noDataFoundInSearch">
+              <tr class="thalign">
+                <th scope="col">S. No.</th>
+                <th scope="col">PAN No.</th>
+                <th scope="col">BOND Ledger Account Number</th>
+                <th scope="col">Customer Name</th>
+                <th scope="col">BOND Subscription ID</th>
+                <th scope="col">Subscription Date</th>
+                <th scope="col">Subscription Amount</th>
+                <th scope="col">Interest From Period</th>
+                <th scope="col">Interest To Period</th>
+                <th scope="col">Interest Payment Mode</th>
+                <th scope="col">Credit Account Number</th>
+                <th scope="col">Type of Certificate</th>
+                <th scope="col">Tax ExemptionLimit</th>
+                <th scope="col">Low Tax Percentage</th>
+                <th scope="col">PAN Status</th>
+                <th scope="col">Total Interest Rs</th>
+                <th scope="col">TDS Amount Rs</th>
+                <th scope="col">Net Interest Amount Rs</th>
+                <th scope="col">Reason</th>
+              </tr>
+            </thead>
+            <tbody data-ng-if="!vm.noDataFoundInSearch">
+              <tr dir-paginate="x in vm.filteredRecords | itemsPerPage: itemsPerPage" pagination-id="trailRunRep">
+                <td>{{ ($index + 1) + ((vm.pageNo - 1) * vm.pageSize) }}</td>
+                <td>{{x.panNumber}}</td>
+                <td>{{x.blaNumber}}</td>
+                <td>{{x.holderName}}</td>
+                <td>{{x.subscriptionID}}</td>
+                <td>{{x.subscriptionDate}}</td>
+                <td>{{vm.indianNumberFormat(x.subscriptionAmount)}}</td>
+                <td>{{x.interestFromPeriod}}</td>
+                <td>{{x.interestToPeriod}}</td>
+                <td>{{x.modeOfPaymentDescription}}</td>
+                <td>{{x.creditAccountNumber}}</td>
+                <td>{{x.typeOfCertificate}}</td>
+                <td>{{x.taxExemptionLimit}}</td>
+                <td>{{x.lowTaxPercentage}}</td>
+                <td>{{x.panStatus}}</td>
+                <td>{{vm.indianNumberFormat(x.totalInterest)}}</td>
+                <td>{{vm.indianNumberFormat(x.tdsAmount)}}</td>
+                <td>{{vm.indianNumberFormat(x.netInterestAmount)}}</td>
+                <td>{{x.reason}}</td>
+              </tr>
+              <tr>
+                <td colspan="14"></td>
+                <td><strong>Total</strong></td>
+                <td style="text-align: right">{{vm.indianNumberFormat(vm.totalInterest)}}</td>
+                <td style="text-align: right">{{vm.indianNumberFormat(vm.totalTdsAmount)}}</td>
+                <td style="text-align: right">{{vm.indianNumberFormat(vm.totalNetInterestAmount)}}</td>
+                <td></td>
+              </tr>
+            </tbody>
+            <tbody data-ng-if="vm.noDataFoundInSearch">
+              <tr>
+                <td>No Records Found</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <br />
+        <div class="text-center form_submit">
+          <span data-ng-show="vm.showPrevious">
+            <button type="submit" class="btn btn-default" data-ng-click="vm.goPreviousPage()">Prev</button>
+          </span>
+
+          <span>
+            <button type="submit" class="btn btn-default" data-ng-disabled="true" data-ng-init="vm.pageNo=1" data-ng-model="vm.pageNo" data-ng-click="vm.paymentStatus();">{{vm.pageNo}} of {{vm.maxPages}}</button>
+          </span>
+
+          <span data-ng-show="vm.showNext">
+            <button type="submit" class="btn btn-default" data-ng-click="vm.goNextPage();">Next</button>
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container" data-ng-if="vm.noDataFound">
+  <div class="list_wrapper no_records_message">
+    <h4 class="form_heading">Bond Interest not Credited Report</h4>
+    No records found to display.
+    <div style="text-align: center">
+      <button type="button" class="btn btn-default" onclick="window.location.href= '#!/rbiBond_bond_interest_not_credited_report/action/inquiry';">Back</button>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,94 @@
+<!-- Output Screen-->
+<div class="loader-new" ng-if="vm.loader"></div>
+
+<div class="container" ng-if="vm.StatementBondChargesServicingDetails">
+
+    <div class="text-right form_submit">
+        <button type="submit" class="btn btn-default"
+                onclick="window.location.href ='#!/rbibond_gu_functionality';" id="homeButton">Home</button>
+
+        <button type="button" id="cancel_Button" class="btn btn-cancel"
+                onclick="window.location.href= '#!/Statement_of_Charges_for_Servicing_Bond_Ledger_Account/action/inquiry';">Back</button>
+    </div>
+
+    <div class="container from_wrapper new_form_wrapper">
+        <div class="row">
+            <td>
+                <p align="right"><strong><b>Appendix IX</b></strong></p>
+            </td>
+            <td>
+                <p align="right"><strong><b>Para 15</b></strong></p>
+            </td>
+            <td>
+                <p align="right"><strong><b>Date: {{vm.currentDate | date: 'dd/MM/yyyy'}}</b></strong></p>
+            </td>
+            <sol-header></sol-header>
+            <h4 class="form_heading">Annexure IX - Statement of Charges for Servicing Bond Ledger Account
+            For the period from <{{vm.fromdate | date: 'dd/MM/yyyy'}}> <{{vm.todate | date: 'dd/MM/yyyy'}}>
+            </h4>
+            <h4 class="text-center">{{vm.schemeName}}</h4>
+        </div>
+        <tr>
+            <td>Receiving Office:</td>
+        </tr><br>
+        <tr>
+            <td>Bill for the Year - July to June:<{{vm.fromdate | date: 'dd/MM/yyyy'}}> <{{vm.todate | date: 'dd/MM/yyyy'}}></td>
+        </tr><br><br>
+        <tr>
+            <td>Consolidated claim for Service Charges for the branches/Receiving Offices – to be compiled by
+                the Controlling Office.
+            </td>
+        </tr><br><br><br>
+
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="table-responsive">
+                    <table class="table table-bordered table-striped list nowrap table-textWrap datatable"
+                           ui-jq="dataTable" ui-options="vm.dataTableOption">
+                        <thead>
+                        <tr class="thalign">
+                            <td rowspan="2">S.No</td>
+                            <td rowspan="2">Branch / Office</td>
+                            <td  class="text-center" colspan="2">Amount of Service Charge</td>
+                        </tr>
+
+                        <tr>
+                            <td>New BLA(in Rs)</td>
+                            <td>Existing BLA (in Rs</td>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr  ng-repeat="x in vm.StatementBondChargesServicingDetails" >
+                            <td>{{vm.itemsPerPage *(vm.currentPage-1)+$index+1}}</td>
+                            <td>{{x.branch}}</td>
+<!--                            <td></td>-->
+                            <td>{{x.newblaamt}}</td>
+                            <td>{{x.existingblaamt}}</td>
+                        </tr>
+                        </tbody>
+                        <tfoot>
+                        <tr>
+                            <th class="text-center" colspan="2"><b>Total claim</b></th>
+                            <th >{{vm.totalServicedetails1}}</th>
+                            <th >{{vm.total2Servicedetails2}}</th>
+                        </tr>
+                        </tfoot>
+
+                    </table>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container" ng-if="vm.noDataFound">
+    <div class="list_wrapper no_records_message">
+        <h4 class="form_heading">Annexure IX - Statement of Charges for Servicing Bond Ledger Account</h4>
+        No records found to display.
+        <center>
+            <button type="button" class="btn btn-default"
+                    onclick="window.location.href= '#!/Statement_of_Charges_for_Servicing_Bond_Ledger_Account/action/inquiry';" >Back</button>
+        </center>
+    </div>
+</div>

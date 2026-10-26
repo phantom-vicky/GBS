@@ -1,0 +1,83 @@
+<div class="container from_wrapper new_form_wrapper">
+    <div class="loader-new" ng-if="vm.loader"></div>
+
+    <h4 class="form_heading">Daily Remittance to Link Cell</h4>
+    <div class="row">
+        <sol-header></sol-header>
+    </div>
+    <form name="daily_remittance_lc" role="form">
+        <div class="row">
+            <div class="col-sm-6 col-sm-offset-3">
+
+                <div class="row">
+                    <div class="form-group">
+                        <div class="col-sm-3"></div>
+                        <div class="col-sm-3">
+                            <label class="control-label">Name of the Module</label>
+                        </div>
+                        <div class="col-sm-5">
+                            <label><b>RBI Bond</b></label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row" ng-init="vm.getModuleName();">
+                    <div class="form-group required">
+                        <div class="col-sm-2"></div>
+                        <div class="col-sm-3">
+                            <label for="schemeCode" class="control-label">Name of the Bond Scheme</label>
+                        </div>
+                        <div class="col-sm-5">
+                            <select class="form-control" id="schemeCode" name="schemCode"
+                                    ng-model="vm.schemeCode" required>
+                                <option value="">Select</option>
+                                <option ng-repeat="item in vm.schemeList" value="{{item.subCode}}" ng-bind="vm.schemeName=item.subCodeDescription"></option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="form-group required">
+                        <div class="col-sm-2"></div>
+                        <div class="col-sm-3">
+                            <label  class="control-label">Date</label>
+                        </div>
+                        <div class="col-sm-5">
+                            <p class="input-group">
+                                <input type="text" class="form-control" id="wdate"
+                                       name="date" ng-model="vm.date"
+                                       uib-datepicker-popup="dd/MM/yyyy" ng-init="vm.date='';vm.dateValidation();"
+                                       datepicker-options="vm.dateOptions" ng-change="vm.dateValidation();"
+                                       is-open="vm.effFromDatePicker.opened" close-text="Close"
+                                       maxlength="10"
+                                       ng-blur="vm.textableDatePicker('wdate',vm.date)"
+                                       ng-keyup="vm.autoslashing('wdate')" chars="numbers-slash"
+                                       required>
+                                <span class="input-group-btn">
+                            <button type="button" class="btn btn-secondary"
+                                    ng-click="vm.effFromDatePicker.opened = true"
+                                    id="effFromDateSearcher">
+                                <i class="glyphicon glyphicon-calendar"></i>
+                            </button>
+                        </span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="text-center form_submit">
+                        <button type="submit" class="btn btn-default" id="submitButton" ng-disabled="daily_remittance_lc.$invalid"
+                                ui-sref="rbiBond_daily_remit_lc.inquiry_detail({obj:{
+								schemeCode : vm.schemeCode,
+								schemeName : vm.schemeName,
+								date:vm.date
+                                }})">Submit
+                        </button>
+                        <button type="button" class="btn btn-cancel" id="cancel" onclick="window.location.href= '#!/rbibond_gu_functionality';">Cancel</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

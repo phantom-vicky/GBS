@@ -1,0 +1,210 @@
+<div class="container from_wrapper">
+	<left-menu-directive></left-menu-directive>
+	<h4 class="form_heading">Lite Service Request Master - <span ng-if="action == 'inquiry'">Inquiry</span><span ng-if="action == null">Modify</span></h4>
+	<notice-message-directive ></notice-message-directive>
+	<form name="liteServiceRequestMasterForm" role="form" ng-submit="submitForm(liteServiceRequestMasterForm.$valid)" novalidate>
+				<div class="form-group required">
+				<div class="col-sm-3"></div>
+				  <label for="name" class ="control-label col-sm-4">Aggregator ID</label>
+			       <div class="col-sm-2 ">
+				      <input type="text" class="form-control" ng-model="liteServiceRequestMaster.aggregatorId" id="aggregatorId" name="aggregatorId" required>
+				   </div>
+				    <div class="col-sm-3 torch-top">
+				      <i class="glyphicon glyphicon-search cp" data-bs-toggle="modal" data-target="#aggregatorModal" ng-click="getAggregator()"></i>
+				      <i class="glyphicon glyphicon-remove clear cp" ng-click="clearAggregator()"></i>
+				      <i id="aggregatorName">{{liteServiceRequestMaster.aggregatorName}}</i>
+			       </div>
+		        </div>
+		        
+				 <div class="form-group required">
+				 <div class="col-sm-3"></div>
+				   <label for="name" class ="control-label col-sm-4">Service Request</label>
+			       <div class="col-sm-2 ">
+				      <input type="text" class="form-control" ng-model="liteServiceRequestMaster.serviceCode" id="serviceCode" name="serviceCode" required ng-disabled="liteServiceRequestMaster.aggregatorId == ''" >
+				   </div>
+				    <div class="col-sm-3 torch-top" ng-if="liteServiceRequestMaster.aggregatorId != ''">
+				      <i class="glyphicon glyphicon-search cp" data-bs-toggle="modal" data-target="#serviceRequestModal" ng-click="getServiceRequest()"></i>
+				      <i class="glyphicon glyphicon-remove clear cp" ng-click="clearServiceRequest()"></i>
+				      <i id="serviceCodeDesc">{{liteServiceRequestMaster.serviceCodeDesc}}</i>
+			       </div>
+		        </div>
+				<div class="form-group required">
+					<div class="col-sm-3"></div>
+				  	<label for="tierType" class ="control-label col-sm-4">Tier Type</label>
+					<div class="col-sm-2">
+			      		<select class="form-control" name="tierType" ng-model="liteServiceRequestMaster.tierType" ng-dropdown required id="tierType" ng-disabled="liteServiceRequestMaster.aggregatorId == '' || liteServiceRequestMaster.serviceCode == ''" ng-change="getEditServiceRequestMaster()">
+			      			<option ng-option ng-selected="selected"  value="">Select</option>
+			      		    <option ng-option id="tier1" ng-selected="{{liteServiceRequestMaster.tierType == 'Tier I'}}" value="Tier I">Tier I</option>
+			      		    <option ng-option id="tier2" ng-selected="{{liteServiceRequestMaster.tierType == 'Tier II'}}" value="Tier II">Tier II</option>
+			      		</select>
+					</div>
+				</div>
+				<div id="sub_registr" ng-if="liteServiceRequestMaster.tierType == 'Tier I'">
+					 <div class="col-sm-3"></div>
+					 <div class="form-group required">
+						  <label for="from_date" class ="control-label col-sm-4">Effective From Date</label>
+							<div class="col-sm-2">
+				 				 <input type="text" class="form-control" id="effectiveFromDate" name="effectiveFromDate" ng-model="liteServiceRequestMaster.effectiveFromDate" required ng-if="action == null">
+				 				 <label ng-if="action == 'inquiry'">{{liteServiceRequestMaster.effectiveFromDate | date: 'dd/MM/y'}}</label>
+							</div>
+					</div>	
+					<div class="form-group required">
+						<div class="col-sm-3"></div>
+	  					<label for="to_date" class ="control-label col-sm-4">Effective To Date</label>
+					    <div class="col-sm-2">
+					    	<input type="text" class="form-control" id="effectiveToDate" name="effectiveToDate" ng-model="liteServiceRequestMaster.effectiveToDate" required ng-if="action == null">
+					    	<label ng-if="action == 'inquiry'">{{liteServiceRequestMaster.effectiveToDate | date: 'dd/MM/y'}}</label>
+						</div>
+					</div>
+					<div class="form-group required" ng-if="liteServiceRequestMaster.serviceCode == '12'">
+						<div class="col-sm-3"></div>
+					  	<label for="isFlatRate" class ="control-label col-sm-4">Is Flat Rate for Commission?</label>
+						<div class="col-sm-2">
+				      		<select 
+				      			class="form-control" id="isFlatRate" 
+				      			name="isFlatRate" 
+				      			ng-model="liteServiceRequestMaster.isFlatRate" ng-dropdown required ng-if="action == null">
+				      			<option ng-option ng-selected="selected"  value="">Select</option>
+				      		    <option ng-option ng-selected="{{liteServiceRequestMaster.isFlatRate == 'Y'}}" value="Y">Yes</option>
+				      		    <option ng-option ng-selected="{{liteServiceRequestMaster.isFlatRate == 'N'}}" value="N">No</option>
+				      		</select>
+				      	<label ng-if="action == 'inquiry'">{{liteServiceRequestMaster.isFlatRate}}</label>
+						</div>
+					</div>
+					<div class="form-group required">
+						<div class="col-sm-3"></div>
+						<label for="min_num_contr" class ="control-label col-sm-4">Commission (amount) </label>
+						<div class="col-sm-2">
+						   <input type="text" id="commission" name="commission" class="form-control" ng-model="liteServiceRequestMaster.commission" required string-to-number allow-only-numbers maxlength='20' ng-if="action == null">
+						    <p ng-show="liteServiceRequestMasterForm.commission.$invalid && !liteServiceRequestMasterForm.commission.$pristine" class="help-block alert alert-danger">commision_errormsg</p>
+						    <label ng-if="action == 'inquiry'">{{liteServiceRequestMaster.commission}}</label>
+						</div>
+					</div>	 
+					<div class="form-group required" ng-if="liteServiceRequestMaster.isFlatRate == 'N'">
+						<div class="col-sm-3"></div>
+						<label for="minimumCommissionAmount" class ="control-label col-sm-4">Minimum Commission Amount </label>
+						<div class="col-sm-2">
+						   <input type="text" id="minimumCommissionAmount" name="minimumCommissionAmount" class="form-control" ng-model="liteServiceRequestMaster.minimunAmount" required maxlength='20' string-to-number allow-only-numbers ng-if="action == null">
+						    <p ng-show="liteServiceRequestMasterForm.maximumAmount.$invalid && !liteServiceRequestMasterForm.maximumAmount.$pristine" class="help-block alert alert-danger">minimunAmount</p>
+						    <label ng-if="action == 'inquiry'">{{liteServiceRequestMaster.minimunAmount}}</label>
+						</div>
+					</div>	 
+					<div class="form-group required" ng-if="liteServiceRequestMaster.isFlatRate == 'N'">
+						<div class="col-sm-3"></div>
+						<label for="maximumCommissionAmount" class ="control-label col-sm-4">Maximum Commission Amount </label>
+						<div class="col-sm-2">
+						   <input type="text" id="maximumCommissionAmount" name="maximumCommissionAmount" class="form-control" ng-model="liteServiceRequestMaster.maximumAmount" required maxlength='20' string-to-number allow-only-numbers ng-if="action == null">
+						    <p ng-show="liteServiceRequestMasterForm.minimunAmount.$invalid && !liteServiceRequestMasterForm.minimunAmount.$pristine" class="help-block alert alert-danger"> maximumAmount</p>
+						    <label ng-if="action == 'inquiry'">{{liteServiceRequestMaster.maximumAmount}}</label>
+						</div>
+					</div>	 
+					<div class="form-group required">
+						<div class="col-sm-3"></div>
+						<label for="min_num_contr" class ="control-label col-sm-4">Service Tax (%) </label>
+						<div class="col-sm-2">
+							  <input type="text" id="serviceTax" name="serviceTax" class="form-control" ng-model="liteServiceRequestMaster.serviceTax" ng-change="validate()"  required string-to-number allow-only-numbers maxlength='5' ng-if="action == null">
+							    <p ng-show="liteServiceRequestMasterForm.serviceTax.$invalid && !liteServiceRequestMasterForm.serviceTax.$pristine" class="help-block alert alert-danger">service_tax_errormsg</p>
+							    <div ng-show="showStError" class="help-block alert alert-danger">Service tax should be below 100</div>
+							    <label ng-if="action == 'inquiry'">{{liteServiceRequestMaster.serviceTax}}</label>
+						</div>
+				    	<div class="col-sm-2"></div>
+					 </div>	  
+					<div class="form-group required">
+						<div class="col-sm-3"></div>
+					  	<label for="isDisplay" class ="control-label col-sm-4">To be displayed in service request</label>
+						<div class="col-sm-2">
+				      		<select 
+				      			class="form-control" id="isDisplay"
+				      			name="isDisplay" 
+				      			ng-model="liteServiceRequestMaster.isDisplay" ng-dropdown required ng-if="action == null">
+				      			<option ng-option ng-selected="selected"  value="">Select</option>
+				      		    <option ng-option ng-selected="{{liteServiceRequestMaster.isDisplay == 'Y'}}" value="Y">Yes</option>
+				      		    <option ng-option ng-selected="{{liteServiceRequestMaster.isDisplay == 'N'}}" value="N">No</option>
+				      		</select>
+				      	<label ng-if="action == 'inquiry'">{{liteServiceRequestMaster.isDisplay}}</label>
+						</div>
+					</div>
+			</div>	 
+				
+	        <div class="col-sm-offset-5 col-sm-8 form_submit">
+		       <button type="submit" class="btn btn-default" id="submitButton" ng-if="action != 'inquiry'" ng-disabled="liteServiceRequestMasterForm.$invalid || showStError ">Update</button>
+		       <button type="button" class="btn btn-default" id="submitButton" ng-if="action == 'inquiry'" ng-click="move()" >Back</button>
+		       <button type="button" class="btn btn-cancel" id="cancelButton" ng-click="moveTo()">Cancel</button>
+	       </div>
+	   </form>
+  </div>
+  
+  <!-- Modal SOL ID-->
+	<div class="modal" id="aggregatorModal" role="dialog">
+	  <div class="modal-dialog">
+	    <!-- Modal content-->
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <button type="button" class="close" data-bs-dismiss="modal">&times;</button>
+	        <h4 class="modal-title">Aggregator List</h4>
+	      </div>
+	      <div class="modal-body">
+	        <div class="list_wrapper" ng-if="aggregatorList.length>0">
+		        <div class="row">
+					<div class="col-sm-12">
+						<table class="table table-bordered list scroll">
+						    <thead>
+						      <tr>
+						        <th>Aggregator ID</th>
+						        <th>Aggregator Name</th>
+						      </tr>
+						    </thead>
+						    <tbody>
+						      <tr class="cp" ng-repeat="x in aggregatorList" ng-click="setAggregator(x);">
+						        <td>{{x.aggregatorId}}</td>
+						        <td>{{x.aggregatorName}}</td>
+						      </tr>
+						    </tbody>
+						 </table>
+					</div>
+				</div>
+			</div>
+			<div class="list_wrapper" ng-if="aggregatorList.length==0">No records found to display.</div>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+	<!-- Modal SOL ID - End -->
+	
+	 <!-- Modal SOL ID-->
+	<div class="modal" id="serviceRequestModal" role="dialog">
+	  <div class="modal-dialog">
+	    <!-- Modal content-->
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <button type="button" class="close" data-bs-dismiss="modal">&times;</button>
+	        <h4 class="modal-title">Service Request List</h4>
+	      </div>
+	      <div class="modal-body">
+	        <div class="list_wrapper" ng-if="serviceRequestList.length>0">
+		        <div class="row">
+					<div class="col-sm-12">
+						<table class="table table-bordered list scroll">
+						    <thead>
+						      <tr>
+						        <th>Service Code</th>
+						        <th>Service Code Description</th>
+						      </tr>
+						    </thead>
+						    <tbody>
+						      <tr class="cp" ng-repeat="x in serviceRequestList" ng-click="setServiceRequest(x);">
+						        <td>{{x.serviceCode}}</td>
+						        <td>{{x.serviceCodeDesc}}</td>
+						      </tr>
+						    </tbody>
+						 </table>
+					</div>
+				</div>
+			</div>
+			<div class="list_wrapper" ng-if="serviceRequestList.length==0">No records found to display.</div>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+	<!-- Modal SOL ID - End -->
+	

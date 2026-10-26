@@ -1,0 +1,455 @@
+<div class="loader-new" data-ng-if="vm.loader"></div>
+<div class="container from_wrapper new_form_wrapper">
+    <h4 class="form_heading">Bond Inquiry - Subscription Amount Details/ BLA Account Number Details / Matured Account Details/ Account
+        Closed Details</h4>
+    <sol-header></sol-header>
+    <form name="SubsAmtBLAMaturedAccClosedForm" role="form">
+        <div class="row">
+            <div class="form-group required">
+                <div class="col-sm-3"></div>
+                <div class="col-sm-3"><label for="moduleName" class="control-label">Name of the Bond Scheme</label>
+                </div>
+                <div class="col-sm-2">
+                    <input type="text" class="form-control" id="moduleName" data-ng-model="vm.schemeName" readonly required/>
+                </div>
+                <div class="col-sm-2" style="display: flex; align-items: center; height: 34px; gap: 5px; padding-left:0;">
+                    <span class="glyphicon glyphicon-search cp" data-bs-toggle="schemeName" id="treasurySearch" data-ng-click="vm.getSchemeDetails();"></span>
+                    <span class="glyphicon glyphicon-remove clear cp" data-ng-click="vm.schemeCode ='';vm.schemeName=''; vm.type=''; vm.fromDate=''; vm.toDate=''; vm.blaNumberFrom=''; vm.blaNumberTo=''; vm.fromAmount=''; vm.toAmount='';"></span>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="form-group required">
+                <div class="col-sm-3"></div>
+                <div class="col-sm-3">
+                    <label class="control-label">Type</label>
+                </div>
+                <div class="col-sm-2">
+                    <select class="form-control" id="status" name="status" data-ng-model="vm.type" data-ng-init="vm.type=''" data-ng-change="vm.typeDescription = vm.getType(vm.type)" required>
+                        <option value="">Select</option>
+                        <option value="B">BLA No</option>
+                        <option value="S">Subscription Amount</option>
+                        <option value="M">Maturity Date</option>
+                        <option value="A">Account Closed</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <div class="row" data-ng-if="vm.type == 'B' ">
+            <div class="form-group required">
+                <div class="col-sm-3"></div>
+                <div class="col-sm-3"><label class="control-label">BLA No. From</label></div>
+                <div class="col-sm-2">
+                    <p class="input-group">
+                        <input type="text" class="form-control" id="BLA No" data-ng-model="vm.blaNumberFrom" maxlength="14" oninput="this.value = this.value.replace(/[^a-zA-Z0-9]/g, '')" required/>
+                    </p>
+                </div>
+                <div class="col-sm-2" style="display: flex; align-items: center; height: 34px; gap: 5px; padding-left:0;" data-ng-if="vm.schemeName">
+                    <span class="glyphicon glyphicon-search cp" data-bs-toggle="modal" id="BLATreasurySearch" data-ng-click="vm.getBLANumberFrom(vm.type);"></span>
+                    <span class="glyphicon glyphicon-remove clear cp" data-ng-click="vm.blaNumberFrom ='';"></span>
+                </div>
+            </div>
+        </div>
+
+        <div class="row" data-ng-if="vm.type == 'B' ">
+            <div class="form-group required">
+                <div class="col-sm-3"></div>
+                <div class="col-sm-3"><label class="control-label">BLA No. To</label></div>
+                <div class="col-sm-2">
+                    <p class="input-group">
+                        <input type="text" class="form-control" id="BLA-No-To" data-ng-model="vm.blaNumberTo" maxlength="14" oninput="this.value = this.value.replace(/[^a-zA-Z0-9]/g, '')" required/>
+                    </p>
+                </div>
+                <div class="col-sm-2" style="display: flex; align-items: center; height: 34px; gap: 5px; padding-left:0;" data-ng-if="vm.schemeName">
+                    <span class="glyphicon glyphicon-search cp" data-bs-toggle="modal" id="BLAToTreasurySearch" data-ng-click="vm.getBLANumberTo(vm.type);"></span>
+                    <span class="glyphicon glyphicon-remove clear cp" data-ng-click="vm.blaNumberTo ='';"></span>
+                </div>
+            </div>
+        </div>
+
+        <div class="row" data-ng-if="vm.type == 'S' ">
+            <div class="form-group required">
+                <div class="col-sm-3"></div>
+                <div class="col-sm-3"><label class="control-label">Bond Subscription Amount From</label></div>
+                <div class="col-sm-2">
+                    <p class="input-group">
+                        <input
+                                type="text"
+                                class="form-control"
+                                id="effSubsFromDate"
+                                name="effFromDate"
+                                data-ng-model="vm.fromAmount"
+                                data-ng-change="vm.validateAmount(vm.fromAmount, 'fromAmount')"
+                                oninput="this.value = this.value.replace(/[^0-9]/g, '')"
+                                required
+                        />
+                    </p>
+                    <p style="color: red;" data-ng-if="vm.isInvalidFromAmount">
+                        The minimum amount should be 1000 and round number.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="row" data-ng-if="vm.type == 'S' ">
+            <div class="form-group required">
+                <div class="col-sm-3"></div>
+                <div class="col-sm-3"><label class="control-label">Bond Subscription Amount To</label></div>
+                <div class="col-sm-2">
+                    <p class="input-group">
+                        <input
+                                type="text"
+                                class="form-control"
+                                id="effSubsToDate"
+                                name="effToDate"
+                                maxlength="13"
+                                oninput="this.value = this.value.replace(/[^0-9]/g, '')"
+                                data-ng-model="vm.toAmount"
+                                data-ng-change="vm.validateAmount(vm.toAmount, 'toAmount')"
+                                required
+                        />
+                    </p>
+                    <p style="color: red;" data-ng-if="vm.isInvalidToAmount">
+                        The minimum amount should be 1000; maximum should be 10 billion and round number.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="row" data-ng-if="vm.type == 'M' ">
+            <div class="form-group required">
+                <div class="col-sm-3"></div>
+                <div class="col-sm-3"><label class="control-label">Maturity Date From</label></div>
+                <div class="col-sm-2">
+                    <p class="input-group">
+                        <input
+                                type="text"
+                                class="form-control"
+                                id="effMatureFromDate"
+                                name="effFromDate"
+                                data-ng-model="vm.fromDate"
+                                data-uib-datepicker-popup="dd/MM/yyyy"
+                                data-ng-init="vm.fromDate=''; vm.fromDateVal()"
+                                data-ng-change="vm.toDateVal(vm.fromDate); vm.toDate=''"
+                                data-datepicker-options="vm.fromDateOptions"
+                                data-is-open="vm.effFromDatePicker.opened"
+                                data-close-text="Close"
+                                maxlength="10"
+                                ng-blur="vm.textableDatePicker('effMatureFromDate',vm.fromDate)"
+                                ng-keyup="vm.autoslashing('effMatureFromDate')" chars="numbers-slash"
+                                required
+                        />
+                        <span class="input-group-btn">
+              <button type="button" class="btn btn-secondary" data-ng-click="vm.effFromDatePicker.opened = true" id="effMatureFromDateSearcher">
+                <span class="glyphicon glyphicon-calendar"></span>
+              </button>
+            </span>
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="row" data-ng-if="vm.type == 'M' ">
+            <div class="form-group required">
+                <div class="col-sm-3"></div>
+                <div class="col-sm-3"><label class="control-label">Maturity Date To</label></div>
+                <div class="col-sm-2">
+                    <p class="input-group">
+                        <input
+                                type="text"
+                                class="form-control"
+                                id="effMatureToDate"
+                                name="effToDate"
+                                data-ng-model="vm.toDate"
+                                data-uib-datepicker-popup="dd/MM/yyyy"
+                                data-ng-init="vm.toDate=''"
+                                data-datepicker-options="vm.toDateOptions"
+                                data-is-open="vm.effToDatePicker.opened"
+                                data-close-text="Close"
+                                maxlength="10"
+                                ng-blur="vm.textableDatePicker('effMatureToDate',vm.toDate)"
+                                ng-keyup="vm.autoslashing('effMatureToDate')" chars="numbers-slash"
+                                required
+                        />
+                        <span class="input-group-btn" data-ng-if="vm.fromDate">
+              <button type="button" class="btn btn-secondary" data-ng-click="vm.effToDatePicker.opened = true" id="effMatureToDateSearcher">
+                <span class="glyphicon glyphicon-calendar"></span>
+              </button>
+            </span>
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="row" data-ng-if="vm.type == 'A' ">
+            <div class="form-group required">
+                <div class="col-sm-3"></div>
+                <div class="col-sm-3"><label class="control-label">Account Closed Date From (DD/MM/YYYY)</label></div>
+                <div class="col-sm-2">
+                    <p class="input-group">
+                        <input
+                                type="text"
+                                class="form-control"
+                                id="effAccountFromDate"
+                                name="effFromDate"
+                                data-ng-model="vm.fromDate"
+                                data-uib-datepicker-popup="dd/MM/yyyy"
+                                data-ng-init="vm.fromDate=''; vm.fromDateVal()"
+                                data-ng-change="vm.toDateVal(vm.fromDate); vm.toDate=''"
+                                data-datepicker-options="vm.fromDateOptions"
+                                data-is-open="vm.effFromDatePicker.opened"
+                                data-close-text="Close"
+                                maxlength="10"
+                                ng-blur="vm.textableDatePicker('effAccountFromDate',vm.fromDate)"
+                                ng-keyup="vm.autoslashing('effAccountFromDate')" chars="numbers-slash"
+                                required
+                        />
+                        <span class="input-group-btn">
+              <button type="button" class="btn btn-secondary" data-ng-click="vm.effFromDatePicker.opened = true" id="effAccountFromDateSearcher">
+                <span class="glyphicon glyphicon-calendar"></span>
+              </button>
+            </span>
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="row" data-ng-if="vm.type == 'A' ">
+            <div class="form-group required">
+                <div class="col-sm-3"></div>
+                <div class="col-sm-3"><label class="control-label">Account Closed Date To (DD/MM/YYYY)</label></div>
+                <div class="col-sm-2">
+                    <p class="input-group">
+                        <input
+                                type="text"
+                                class="form-control"
+                                id="effAccountToDate"
+                                name="effToDate"
+                                data-ng-model="vm.toDate"
+                                data-uib-datepicker-popup="dd/MM/yyyy"
+                                data-ng-init="vm.toDate=''"
+                                data-datepicker-options="vm.toDateOptions"
+                                data-is-open="vm.effToDatePicker.opened"
+                                data-close-text="Close"
+                                maxlength="10"
+                                ng-blur="vm.textableDatePicker('effAccountToDate',vm.toDate)"
+                                ng-keyup="vm.autoslashing('effAccountToDate')" chars="numbers-slash"
+                                required
+                        />
+                        <span class="input-group-btn" data-ng-if="vm.fromDate">
+              <button type="button" class="btn btn-secondary" data-ng-click="vm.effToDatePicker.opened = true" id="effAccountToDateSearcher">
+                <span class="glyphicon glyphicon-calendar"></span>
+              </button>
+            </span>
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="text-center form_submit">
+            <button type="submit" id="submitButton" class="btn btn-default" data-ng-disabled="SubsAmtBLAMaturedAccClosedForm.$invalid" data-ng-click="vm.submitReport(vm.type, vm.typeDescription)">
+                Submit
+            </button>
+            <button type="button" class="btn btn-cancel" id="cancelButton" onclick="window.location.href= '#!/rbibond_gu_functionality';">
+                Cancel
+            </button>
+        </div>
+
+        <div class="text-center">
+            <notice-message-directive></notice-message-directive>
+        </div>
+    </form>
+</div>
+
+<div class="modal" id="schemeModel" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-bs-dismiss="modal" data-ng-click="vm.modalSearch = ''">&times;
+                </button>
+                <h4 class="modal-title">Scheme Code</h4>
+            </div>
+            <div class="modal-body">
+                <div class="loader_popup"></div>
+                <div class="list_wrapper" data-ng-if="vm.schemeList.length>0">
+                    <div class="col-sm-8 form_submit">
+                        <div class="form-group">
+                            <div class="input-group">
+                                <div class="input-group-addon">
+                                    <span class="glyphicon glyphicon-search"></span>
+                                </div>
+                                <input type="text" class="form-control" data-ng-model="vm.modalSearch" data-ng-init="vm.modalSearch = ''" placeholder="Search" oninput="this.value = this.value.replace(/^\s+/, '').replace(/\s{2,}/g, ' ')"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4 form_submit"></div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <table class="table table-bordered list scroll sort" aria-label="Subscription Account Opened Details">
+                                <thead data-ng-init="reverseOrder=true;sortedColumn = 'schemeName'">
+                                <tr>
+                                    <th scope="col"
+                                            data-ng-click="(sortedColumn == 'schemeName')?(reverseOrder=(!reverseOrder)): (reverseOrder = false);sortedColumn = 'schemeName';"
+                                            data-ng-class="(sortedColumn == 'schemeName')?((reverseOrder)?('arrow-down') : ('arrow-up') ) : ('')">
+                                        SCHEME NAME
+                                    </th>
+                                    <th
+                                            scope="col"
+                                            data-ng-click="(sortedColumn == 'schemeStatus')?(reverseOrder=(!reverseOrder)): (reverseOrder = false);sortedColumn = 'schemeStatus';"
+                                            data-ng-class="(sortedColumn == 'schemeStatus')?((reverseOrder)?('arrow-down') : ('arrow-up') ) : ('')">
+                                        STATUS
+                                    </th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr
+                                        class="cp"
+                                        data-ng-repeat="x in vm.schemeList | filter:vm.modalSearch | orderBy:sortedColumn:reverseOrder"
+                                        data-ng-click="vm.schemeCode = x.schemeCode; vm.schemeName = x.schemeName; vm.schemeStatus = x.schemeStatus"
+                                        data-bs-dismiss="modal">
+                                    <td>{{x.schemeName}}</td>
+                                    <td>{{x.schemeStatus}}</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="list_wrapper" data-ng-if="vm.schemeList.length==0">No records found to display.</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal" id="blaFromModel" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-bs-dismiss="modal" data-ng-click="vm.BLASearch=''">&times;
+                </button>
+                <h4 class="modal-title">BLA List</h4>
+            </div>
+            <div class="modal-body">
+                <div class="loader_popup"></div>
+                <div class="list_wrapper" data-ng-if="vm.blaFromList.length>0">
+                    <div class="col-sm-8 form_submit">
+                        <div class="form-group">
+                            <div class="input-group">
+                                <div class="input-group-addon">
+                                    <span class="glyphicon glyphicon-search"></span>
+                                </div>
+                                <input type="text" class="form-control" data-ng-model="vm.BLASearch" data-ng-init="vm.BLASearch = ''" placeholder="Search" data-chars="alpha-numeric" oninput="this.value = this.value.replace(/^\s+/, '').replace(/\s{2,}/g, ' ')"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4 form_submit"></div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <table class="table table-bordered list scroll sort" aria-label="BLA">
+                                <thead data-ng-init="reverseOrder=false;sortedColumn = 'blaNumber'">
+                                <tr>
+                                    <th scope="col"
+                                            data-ng-click="(sortedColumn == 'blaNumber')?(reverseOrder=(!reverseOrder)): (reverseOrder = false);sortedColumn = 'blaNumber';"
+                                            data-ng-class="(sortedColumn == 'blaNumber')?((reverseOrder)?('arrow-down') : ('arrow-up') ) : ('')">
+                                        BLA No
+                                    </th>
+                                    <th scope="col"
+                                            data-ng-click="(sortedColumn == 'bondHolderName')?(reverseOrder=(!reverseOrder)): (reverseOrder = false);sortedColumn = 'bondHolderName';"
+                                            data-ng-class="(sortedColumn == 'bondHolderName')?((reverseOrder)?('arrow-down') : ('arrow-up') ) : ('')">
+                                        Holder Name
+                                    </th>
+                                    <th scope="col"
+                                            data-ng-click="(sortedColumn == 'modeOfHolding')?(reverseOrder=(!reverseOrder)): (reverseOrder = false);sortedColumn = 'modeOfHolding';"
+                                            data-ng-class="(sortedColumn == 'modeOfHolding')?((reverseOrder)?('arrow-down') : ('arrow-up') ) : ('')">
+                                        Mode of Holding
+                                    </th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr class="cp"
+                                        data-ng-repeat="x in vm.blaFromList | filter:vm.BLASearch | orderBy:sortedColumn:reverseOrder"
+                                        data-ng-click="vm.blaNumberFrom = x.blaNumber"
+                                        data-bs-dismiss="modal">
+                                    <td>{{x.blaNumber}}</td>
+                                    <td>{{x.holderName}}</td>
+                                    <td>{{x.modeOfHolding}}</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="list_wrapper" data-ng-if="vm.blaFromList.length==0">No records found to display.</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal" id="blaToModel" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-bs-dismiss="modal" data-ng-click="vm.BLASearchTo=''">&times;
+                </button>
+                <h4 class="modal-title">BLA List</h4>
+            </div>
+            <div class="modal-body">
+                <div class="loader_popup"></div>
+                <div class="list_wrapper" data-ng-if="vm.blaToList.length>0">
+                    <div class="col-sm-8 form_submit">
+                        <div class="form-group">
+                            <div class="input-group">
+                                <div class="input-group-addon">
+                                    <span class="glyphicon glyphicon-search"></span>
+                                </div>
+                                <input type="text" class="form-control" data-ng-model="vm.BLASearchTo" data-ng-init="vm.BLASearchTo = ''" placeholder="Search" data-chars="alpha-numeric" oninput="this.value = this.value.replace(/^\s+/, '').replace(/\s{2,}/g, ' ')"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4 form_submit"></div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <table class="table table-bordered list scroll sort" aria-label="">
+                                <thead data-ng-init="reverseOrder=false;sortedColumn = 'blaNumber'">
+                                <tr>
+                                    <th
+                                            scope="col"
+                                            data-ng-click="(sortedColumn == 'blaNumber')?(reverseOrder=(!reverseOrder)): (reverseOrder = false);sortedColumn = 'blaNumber';"
+                                            data-ng-class="(sortedColumn == 'blaNumber')?((reverseOrder)?('arrow-down') : ('arrow-up') ) : ('')">
+                                        BLA No
+                                    </th>
+                                    <th
+                                            scope="col"
+                                            data-ng-click="(sortedColumn == 'bondHolderName')?(reverseOrder=(!reverseOrder)): (reverseOrder = false);sortedColumn = 'bondHolderName';"
+                                            data-ng-class="(sortedColumn == 'bondHolderName')?((reverseOrder)?('arrow-down') : ('arrow-up') ) : ('')">
+                                        Holder Name
+                                    </th>
+                                    <th
+                                            scope="col"
+                                            data-ng-click="(sortedColumn == 'modeOfHolding')?(reverseOrder=(!reverseOrder)): (reverseOrder = false);sortedColumn = 'modeOfHolding';"
+                                            data-ng-class="(sortedColumn == 'modeOfHolding')?((reverseOrder)?('arrow-down') : ('arrow-up') ) : ('')">
+                                        Mode of Holding
+                                    </th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr class="cp"
+                                        data-ng-repeat="x in vm.blaToList | filter:vm.BLASearchTo | orderBy:sortedColumn:reverseOrder"
+                                        data-ng-click="vm.blaNumberTo = x.blaNumber"
+                                        data-bs-dismiss="modal">
+                                    <td>{{x.blaNumber}}</td>
+                                    <td>{{x.holderName}}</td>
+                                    <td>{{x.modeOfHolding}}</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="list_wrapper" data-ng-if="vm.blaToList.length==0">No records found to display.</div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,327 @@
+<user-left-menu></user-left-menu>
+<div class="loader-new" ng-show="loader"></div>
+<div class="container from_wrapper">
+
+
+    <h4 class="form_heading  feature-heading">USER CREATION/ ROLE MAPPING - MODIFY</h4>
+    <form name="userModificationForm" role="form" ng-submit="vm.modifyUserConfirmation(userModificationForm.$valid)" novalidate>
+
+
+        <div class="row">
+            <div class="form-group">
+                <label class="control-label col-sm-3">User Id/Login Id</label>
+                <div class="col-sm-2">
+                    <label class="control-label">{{vm.userDetails.username}}</label>
+                </div>
+                <div class="col-sm-2"></div>
+                <label  class="control-label col-sm-3">Employee Code</label>
+                <div class="col-sm-2">
+                    <label class="control-label">{{vm.userDetails.employeeCode}}</label>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="form-group required">
+                <label for="empName" class="control-label col-sm-3">Employee Name</label>
+                <div class="col-sm-2">
+                        <input  type="text"  class="form-control" id="empName" name="empName"   ng-pattern="/[a-zA-Z]/" ng-keypress="vm.validateInput($event,'empName')" ng-model="vm.userDetails.employeeName" maxlength="100" tabindex="1"  ng-disabled="vm.userStatus === 'T01' || vm.userStatus === 'D01'" required leading-space>
+                </div>
+                <div class="col-sm-2"></div>
+
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="form-group required">
+
+                <div class="col-sm-3">
+                    <label for="branchCode" class="control-label">Branch Code</label>
+                </div>
+                <div class="col-sm-2">
+                    <input type="text" class="form-control" id="branchCode"
+                           ng-model="vm.userDetails.branchCode"  tabindex="2" ng-disabled="vm.userStatus === 'T01' || vm.userStatus === 'D01'" readonly required>
+                </div>
+                <div class="col-sm-1">
+                    <i class="glyphicon glyphicon-search cp" data-bs-toggle="modal"
+                       id="branchCodeSearch"
+                       ng-click="vm.userStatus !== 'T01' && vm.userStatus !== 'D01' && vm.getBranchDetails();"></i> <i
+                        class="glyphicon glyphicon-remove clear cp"
+                        ng-click="vm.userStatus !== 'T01' && vm.userStatus !== 'D01' && vm.clearFields1();"></i>
+                </div>
+
+                <div class="col-sm-1"></div>
+
+                <label for="branchName" class="control-label col-sm-3">Branch Name</label>
+                <div class="col-sm-2">
+                    <input type="text" class="form-control" id="branchName" name="branchCode" ng-model="vm.userDetails.branchName" tabindex="3" ng-disabled="vm.userStatus === 'T01' || vm.userStatus === 'D01'" readonly required leading-space>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="form-group required">
+                <label for="departmentCode" class="control-label col-sm-3">Department Code</label>
+                <div class="col-sm-2">
+                    <input type="text" class="form-control" id="departmentCode" name="departmentCode" ng-model="vm.userDetails.departmentCode" ng-disabled="vm.userStatus === 'T01' || vm.userStatus === 'D01'" chars="only-numbers" maxlength="5" tabindex="4" required  ng-disabled="vm.userStatus === 'T01' || vm.userStatus === 'D01'|| vm.userStatus === 'D01'" leading-space>
+                </div>
+                <div class="col-sm-2"></div>
+                <label for="departmentName" class="control-label col-sm-3">Department Name</label>
+                <div class="col-sm-2">
+                    <input type="text" class="form-control" id="departmentName" name="departmentName" chars="letters" ng-model="vm.userDetails.departmentName" ng-disabled="vm.userStatus === 'T01' || vm.userStatus === 'D01'" maxlength="50" chars="alpha-numeric" tabindex="5" required leading-space>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="form-group ">
+
+                <label for="email" class="control-label col-sm-3">Email</label>
+                <div class="col-sm-2">
+                    <input type="email" class="form-control"
+                           id="email" name="email" maxlength="50" oninput="this.value = this.value.replace(/\s+/g, '')"
+                           ng-model="vm.userDetails.email" ng-pattern="vm.emailPattern"   tabindex="6" oninput="this.value = this.value.replace(/\s+/g, '')" ng-disabled="vm.userStatus === 'T01' || vm.userStatus === 'D01'">
+                </div>
+                <div class="col-sm-2"></div>
+                <label for="mobileNumber" class="control-label col-sm-3">Mobile No</label>
+                <div class="col-sm-2">
+                    <input type="text" class="form-control" minlength="10" maxlength="10"
+                           id="mobileNumber" ng-model="vm.userDetails.mobileNo"
+                           chars="only-numbers" onkeypress="return isNumber(event)" tabindex="7"  ng-disabled="vm.userStatus === 'T01' || vm.userStatus === 'D01'" leading-space>
+                </div>
+
+
+
+
+            </div>
+
+        </div>
+        <div class="row">
+            <div class="form-group">
+                <label for="address" class="control-label col-sm-3">Address</label>
+                <div class="col-sm-2">
+                    <textarea type="text" class="form-control" id="address" name="address" ng-model="vm.userDetails.address" maxlength="100" tabindex="8" ng-disabled="vm.userStatus === 'T01' || vm.userStatus === 'D01'" ng-keypress="vm.validateInputAddress($event,'address')" >
+                    </textarea>
+                </div>
+                <div class="col-sm-2"></div>
+                <label for="supervisorCode" class="control-label col-sm-3">Supervisor Code</label>
+                <div class="col-sm-2">
+                    <input type="text" class="form-control" id="supervisorCode" name="supervisorCode" ng-model="vm.userDetails.supervisorCode" maxlength="20" chars="alpha-numeric" tabindex="9" ng-disabled="vm.userStatus === 'T01' || vm.userStatus === 'D01'" leading-space>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="row">
+            <div class="form-group required">
+                <label class="control-label col-sm-3">Status</label>
+                <div class="col-sm-2">
+                    <select class="form-control" id="moduleName" name="moduleName"
+                            ng-model="vm.userDetails.userStatus"
+                            ng-init="vm.getModuleName();" ng-change="" required tabindex="10">
+
+
+                        <option ng-if="vm.userStatus === 'A01' || vm.userStatus === 'D01'" ng-repeat="item in vm.userStatusMetaDataForEnable"
+                                value="{{item.value}}">{{item.label}}</option>
+
+                        <option ng-if="vm.userStatus === 'T01'" ng-repeat="item in vm.userStatusMetaDataForTerminate"
+                                value="{{item.value}}">{{item.label}}</option>
+
+                        <option ng-if="vm.userStatus === 'R01'" ng-repeat="item in vm.userStatusMetaDataForRevoke"
+                                value="{{item.value}}">{{item.label}}</option>
+
+                        <option ng-if="vm.userStatus === 'D02'" ng-repeat="item in vm.userStatusMetaDataForDormant"
+                                value="{{item.value}}">{{item.label}}</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="row">
+            <div class="form-group required">
+                <div class="col-sm-3">
+                    <label for="branchCode" class="control-label">Role</label>
+                </div>
+                <div class="col-sm-2">
+                    <input type="text" class="form-control" id="role"
+                           ng-model="vm.userDetails.roleName" tabindex="11" readonly
+                           ng-disabled="vm.userStatus === 'T01' || vm.userStatus === 'D01'" required>
+                </div>
+                <div class="col-sm-1">
+                    <i class="glyphicon glyphicon-search cp" data-bs-toggle="modal"
+                       id="roleSearch"
+                       ng-click="vm.userStatus !== 'T01' && vm.userStatus !== 'D01' && vm.getAllRoles();"></i>
+                    <i class="glyphicon glyphicon-remove clear cp"
+                       ng-click="vm.userStatus !== 'T01' && vm.userStatus !== 'D01' && vm.clearFields();"
+                 ></i>
+                </div>
+            </div>
+        </div>
+
+
+
+
+
+        <div class="row">
+            <div class="form-group">
+                <label class="control-label col-sm-3">Rejection Remarks</label>
+                <div class="col-sm-2">
+                    <label class="control-label">{{vm.userDetails.remarks}}</label>
+                </div>
+            </div>
+
+        </div>
+        <div class="audit-details">
+            <div class="row">
+                <div class="col-md-3">
+                    <span> <b> Created By </b> : {{vm.userDetails.createdBy}} </span>
+                </div>
+                <div class="col-md-3">
+                    <span> <b> Last Modified By </b> : {{(vm.userDetails.modifiedBy) ? (vm.userDetails.modifiedBy) : ('None')}}</span>
+                </div>
+                <div class="col-md-3">
+                    <span> <b> Last Verified By </b> : {{(vm.userDetails.verifiedBy) ? (vm.userDetails.verifiedBy) : ('None')}}</span>
+                </div>
+                <div class="col-md-3">
+                    <span> <b> Verify Status </b> : {{vm.userDetails.verifiedStatus  | getLabelFromValuesArray : vm.commonYesNoMetaData}}</span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3">
+                    <span> <b> Created On </b> : {{ vm.userDetails.createdDate}}</span>
+                </div>
+                <div class="col-md-3">
+                    <span> <b> Last Modified On</b> : {{ (vm.userDetails.modifiedDate) ? (vm.userDetails.modifiedDate) : ('None')}}</span>
+                </div>
+                <div class="col-md-3">
+                    <span> <b> Last Verified On </b> : {{(vm.userDetails.verifiedDate) ? (vm.userDetails.verifiedDate) : ('None')}}</span>
+                </div>
+                <div class="col-md-3">
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-offset-5 col-sm-8 form_submit">
+            <button type="submit" class="btn btn-default" id="submitButton" ng-disabled="userModificationForm.$invalid">Submit</button>
+            <button type="button" class="btn btn-cancel" id="cancelButton"   onclick="window.location.href= '#!/usrCrtRleMpm/action/modify';">Cancel</button>
+        </div>
+        <div class="text-center">
+            <notice-message-directive></notice-message-directive>
+        </div>
+    </form>
+</div>
+
+
+
+
+
+
+
+
+
+
+<div class="modal" id="branchCodeModal" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-bs-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Branch Codes</h4>
+            </div>
+            <div class="modal-body">
+                <div class="loader_popup"></div>
+                <div class="list_wrapper" ng-if="vm.branchCodeList.length>0">
+                    <div class="col-sm-8 form_submit">
+                        <div class="form-group">
+                            <div class="input-group">
+                                <div class="input-group-addon">
+                                    <i class="glyphicon glyphicon-search"></i>
+                                </div>
+                                <input type="text" class="form-control" chars="alpha-numeric"
+                                       ng-model="vm.searchCustomerId" ng-init="vm.searchCustomerId = ''"
+                                       placeholder="Search">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4 form_submit"></div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <table class="table table-bordered list scroll">
+                                <thead ng-init="reverseOrder = false; sortedColumn = 'scssCustomerId'">
+                                <tr>
+                                    <th class="modal-title title-case" ng-click="(sortedColumn == 'branchCode')?(reverseOrder=(!reverseOrder)): (reverseOrder = false);sortedColumn = 'branchCode';" ng-class="(sortedColumn == 'branchCode')?((reverseOrder)?('arrow-down') : ('arrow-up') ) : ('')">Branch Code</th>
+                                    <th class="modal-title title-case" ng-click="(sortedColumn == 'branchName')?(reverseOrder=(!reverseOrder)): (reverseOrder = false);sortedColumn = 'branchName';" ng-class="(sortedColumn == 'branchName')?((reverseOrder)?('arrow-down') : ('arrow-up') ) : ('')">Branch name</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr class="cp"
+                                    ng-repeat="x in vm.branchCodeList | filter:vm.searchCustomerId | orderBy:sortedColumn:reverseOrder"
+                                    ng-click="vm.userDetails.branchCode = x.branchCode; vm.userDetails.branchName = x.branchName;" data-bs-dismiss="modal">
+                                    <td>{{x.branchCode}}</td>
+                                    <td>{{x.branchName}}</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="list_wrapper" ng-if="vm.branchCodeList.length==0">No records found to display.</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal" id="roleModal" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-bs-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Roles</h4>
+            </div>
+            <div class="modal-body">
+                <div class="loader_popup"></div>
+                <div class="list_wrapper" ng-if="vm.rolesResultSet.length>0">
+                    <div class="col-sm-8 form_submit">
+                        <div class="form-group">
+                            <div class="input-group">
+                                <div class="input-group-addon">
+                                    <i class="glyphicon glyphicon-search"></i>
+                                </div>
+                                <input type="text" class="form-control" chars="alpha-numeric"
+                                       ng-model="vm.searchCustomerId" ng-init="vm.searchCustomerId = ''"
+                                       placeholder="Search">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4 form_submit"></div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <table class="table table-bordered list scroll">
+                                <thead ng-init="reverseOrder = false; sortedColumn = 'scssCustomerId'">
+                                <tr>
+<!--                                    <th class="modal-title title-case" ng-click="(sortedColumn == 'roleId')?(reverseOrder=(!reverseOrder)): (reverseOrder = false);sortedColumn = 'roleId';" ng-class="(sortedColumn == 'roleId')?((reverseOrder)?('arrow-down') : ('arrow-up') ) : ('')">Id</th>-->
+                                    <th class="modal-title title-case" ng-click="(sortedColumn == 'roleName')?(reverseOrder=(!reverseOrder)): (reverseOrder = false);sortedColumn = 'roleName';" ng-class="(sortedColumn == 'roleName')?((reverseOrder)?('arrow-down') : ('arrow-up') ) : ('')">Name</th>
+                                    <th class="modal-title title-case" ng-click="(sortedColumn == 'roleDescription')?(reverseOrder=(!reverseOrder)): (reverseOrder = false);sortedColumn = 'roleDescription';" ng-class="(sortedColumn == 'roleDescription')?((reverseOrder)?('arrow-down') : ('arrow-up') ) : ('')">Description</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr class="cp"
+                                    ng-repeat="x in vm.rolesResultSet | filter:vm.searchCustomerId | orderBy:sortedColumn:reverseOrder"
+                                    ng-click="vm.userDetails.roleName = x.roleName; vm.userDetails.roleId = x.roleId; vm.userDetails.roleDescription = x.roleDescription;" data-bs-dismiss="modal">
+<!--                                    <td>{{x.roleId}}</td>-->
+                                    <td>{{x.roleName}}</td>
+                                    <td>{{x.roleDescription}}</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="list_wrapper" ng-if="vm.rolesResultSet.length==0">No records found to display.</div>
+            </div>
+        </div>
+    </div>
+</div>

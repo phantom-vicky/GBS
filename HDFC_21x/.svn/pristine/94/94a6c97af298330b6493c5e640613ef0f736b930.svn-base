@@ -1,0 +1,273 @@
+<div class="loader-new" ng-if="vm.loader"></div>
+<dc-left-menu></dc-left-menu>
+<div class="container from_wrapper new_form_wrapper">
+    <h4 class="form_heading">RBI Bond TOC Slab Master Maintenance - Inquiry</h4>
+    <sol-header></sol-header>
+    <form name="tocSlabMaintenanceForm" role="form">
+        <table class="table table-bordered">
+            <tbody>
+            <tr ng-init="vm.getModuleName();">
+                <td width="25%" class="form-group"> <label  class="control-label">Name of the Module</label></td>
+                <td width="25%"><label class="text-initial"><label><b>RBI Bond</b></label></label></td>
+                <td width="25%" class="form-group"><label class="control-label">Version No</label></td>
+                <td width="25%" ng-if="!vm.verionNoDetails.C002.newValue"><label>{{vm.verionNoDetails.C002.oldValue}}</label></td>
+                <td width="25%" ng-if="vm.verionNoDetails.C002.newValue"><label>{{vm.verionNoDetails.C002.newValue}}</label></td>
+            </tr>
+            <tr>
+                <td width="25%" class="form-group"><label class="control-label">Name of the Bond Scheme</label></td>
+                <td width="40%"><label  class="text-initial">{{vm.schemeName | getLabelFromValuesArray : vm.moduleNameDetailsLabelValue}}</label></td>
+            </tr>
+            <tr>
+                <td width="25%" class="form-group"><label class="control-label">Effective From Date</label></td>
+                <td width="25%" ng-if="!vm.verionNoDetails.C003.newValue"><label>{{vm.verionNoDetails.C003.oldValue}}</label></td>
+                <td width="25%" ng-if="vm.verionNoDetails.C003.newValue"><label>{{vm.verionNoDetails.C003.newValue}}</label></td>
+            </tr>
+            </tbody></table>
+        <table class="table table-bordered table-striped list old-new-value-table">
+            <thead>
+            <tr>
+                <th>Particular</th>
+                <th>{{(vm.auditInfo.previousOperationType == 'M')?('Old Value'): ('Value')}}</th>
+                <th ng-if="vm.auditInfo.previousOperationType == 'M'">New Value</th>
+            </tr>
+            </thead>
+            <tbody>
+
+
+            <tr>
+                <td>CGST%</td>
+                <td class="old-value">{{(vm.verionNoDetails && vm.verionNoDetails.C015)?
+                    (vm.verionNoDetails.C015.oldValue) : ('-')}}
+                </td>
+                <td ng-if="vm.auditInfo.previousOperationType == 'M'" class="new-value">
+                    {{(vm.verionNoDetails && vm.verionNoDetails.C015)?
+                    (vm.verionNoDetails.C015.newValue) : ('-')}}
+                </td>
+            </tr>
+            <tr>
+                <td>SGST%</td>
+                <td class="old-value">{{(vm.verionNoDetails && vm.verionNoDetails.C016)?
+                    (vm.verionNoDetails.C016.oldValue) : ('-')}}
+                </td>
+                <td ng-if="vm.auditInfo.previousOperationType == 'M'" class="new-value">
+                    {{(vm.verionNoDetails && vm.verionNoDetails.C016)?
+                    (vm.verionNoDetails.C016.newValue) : ('-')}}
+                </td>
+            </tr>
+            </tbody>
+        </table>
+
+
+
+
+        <table class="table table-bordered table-striped list old-new-value-table matrix-table">
+            <thead>
+            <tr>
+                <th ng-if="vm.auditInfo.previousOperationType == 'M'" width="4%"></th>
+
+                <th width="7%">Flat Rate</th>
+                <th width="17%">Nature of TOC</th>
+                <th width="17%">Challan Types</th>
+                <th width="10%">Minimum No of Challans / Amount</th>
+                <th width="10%">Maximum No of Challans / Amount</th>
+                <th width="10%">TOC Per Amount Rs.</th>
+                <th width="10%">TOC in (Rs) per Challan / <br>TOC in (paise) Per Amount</th>
+                <th width="10%">Rounding Factor</th>
+<!--                <th width="10%">Effective From Date</th>-->
+<!--                <th width="8%">Effective To Date</th>-->
+            </tr>
+            </thead>
+            <tbody class="oldNewTableBody" ng-repeat = "item in vm.tocSlabList">
+            <tr>
+                <td class="newValue" align="right" ng-if="vm.auditInfo.previousOperationType == 'M'">
+                    <span>New</span>
+                </td>
+
+<!--                <td style="width: 200px;"> &lt;!&ndash; Set a fixed width for the td &ndash;&gt;-->
+<!--                    <span class="old-value" style="min-width: 100px; display: inline-block;">-->
+<!--        {{(item && item.C007) ? (item.C007.oldValue | getLabelFromValuesArray : vm.challanTypeMetaData) : ('')}}-->
+<!--    </span>-->
+<!--                    <span class="new-value" ng-if="vm.auditInfo.previousOperationType == 'M'" style="min-width: 100px; display: inline-block;">-->
+<!--        <span ng-if="item.C008.newValue == 'Y'" ng-class="{ 'text-danger': item.C008.newValue == 'Y', 'text-bold': item.C008.newValue == 'Y'}" style="min-width: 100px; display: inline-block;">-&#45;&#45;</span>-->
+<!--        <span ng-if="item.C008.newValue != 'Y'" style="min-width: 100px; display: inline-block;">{{item && item.C007.newValue ? (item.C007.newValue | getLabelFromValuesArray : vm.challanTypeMetaData) : ('-')}}</span>-->
+<!--    </span>-->
+<!--                </td>-->
+                <td>
+                    <span class="old-value">
+                        {{(item && item.C005)?(item.C005.oldValue | getLabelFromValuesArray : vm.commonYesNoMetaData) : ('')}}
+                    </span>
+                    <span class="new-value" ng-if="vm.auditInfo.previousOperationType == 'M'">
+                    <span ng-if="item.C008.newValue == 'Y'" ng-class="{ 'text-danger': item.C008.newValue == 'Y', 'text-bold': item.C008.newValue == 'Y'" >---</span>
+                    <span ng-if="item.C008.newValue != 'Y'">{{item && item.C005.newValue? (item.C005.newValue | getLabelFromValuesArray : vm.commonYesNoMetaData) : ('-')}}
+                    </span>
+                    </span>
+                </td>
+
+                <td>
+                    <span class="old-value">
+                        {{(item && item.C007)?(item.C007.oldValue | getLabelFromValuesArray : vm.challanTypeMetaData) : ('')}}
+                    </span>
+                    <!--                    <span class="new-value" ng-if="vm.auditInfo.previousOperationType == 'M'">-->
+                    <!--                        {{item && item.C007.newValue? (item.C007.newValue | getLabelFromValuesArray : vm.challanTypeMetaData) : ('-')}}-->
+                    <!--                    </span>-->
+                    <span class="new-value" ng-if="vm.auditInfo.previousOperationType == 'M'">
+                    <span ng-if="item.C008.newValue == 'Y'" ng-class="{ 'text-danger': item.C008.newValue == 'Y', 'text-bold': item.C008.newValue == 'Y'" >---</span>
+                    <span ng-if="item.C008.newValue != 'Y'">{{item && item.C007.newValue? (item.C007.newValue | getLabelFromValuesArray : vm.challanTypeMetaData) : ('-')}}</span>
+                     </span>
+                </td>
+                <td>
+                    <span class="old-value">
+                        {{(item && item.C014)?(item.C014.oldValue | getLabelFromValuesArray : vm.ChallanTypes ) : ('')}}
+                    </span>
+                    <!--                    <span class="new-value" ng-if="vm.auditInfo.previousOperationType == 'M'">-->
+                    <!--                        {{item && item.C014.newValue? (item.C014.newValue | getLabelFromValuesArray : vm.ChallanTypes ) : ('-')}}-->
+                    <!--                    </span>-->
+                    <span class="new-value" ng-if="vm.auditInfo.previousOperationType == 'M'">
+                    <span ng-if="item.C008.newValue == 'Y'" ng-class="{ 'text-danger': item.C008.newValue == 'Y', 'text-bold': item.C008.newValue == 'Y'" >---</span>
+                    <span ng-if="item.C008.newValue != 'Y'">{{item && item.C014.newValue? (item.C014.newValue | getLabelFromValuesArray : vm.ChallanTypes ) : ('-')}}</span>
+                     </span>
+                </td>
+
+                <td>
+                    <span class="old-value">
+                        {{(item && item.C009)?(item.C009.oldValue) : ('')}}
+                    </span>
+                    <!--                    <span class="new-value" ng-if="vm.auditInfo.previousOperationType == 'M'">-->
+                    <!--                        {{item && item.C009.newValue? (item.C009.newValue) : ('-')}}-->
+                    <!--                    </span>-->
+                    <span class="new-value" ng-if="vm.auditInfo.previousOperationType == 'M'" >
+                    <span ng-if="item.C008.newValue == 'Y'" ng-class="{ 'text-danger': item.C008.newValue == 'Y', 'text-bold': item.C008.newValue == 'Y'" >---</span>
+                    <span ng-if="item.C008.newValue != 'Y'">{{item && item.C009.newValue? (vm.indianNumberFormat(item.C009.newValue)) : ('-')}}</span>
+                     </span>
+                </td>
+
+                <td>
+                    <span class="old-value">
+                        {{(item && item.C010)?(vm.indianNumberFormat(item.C010.oldValue)) : ('')}}
+                    </span>
+                    <!--                    <span class="new-value" ng-if="vm.auditInfo.previousOperationType == 'M'">-->
+                    <!--                        {{item && item.C010.newValue? (item.C010.newValue) : ('-')}}-->
+                    <!--                    </span>-->
+                    <span class="new-value" ng-if="vm.auditInfo.previousOperationType == 'M'">
+                    <span ng-if="item.C008.newValue == 'Y'" ng-class="{ 'text-danger': item.C008.newValue == 'Y', 'text-bold': item.C008.newValue == 'Y'" >---</span>
+                    <span ng-if="item.C008.newValue != 'Y'">{{item && item.C010.newValue? (vm.indianNumberFormat(item.C010.newValue)) : ('-')}}</span>
+                     </span>
+                </td>
+
+                <td>
+                    <span class="old-value">
+                        {{(item && item.C011)?(vm.indianNumberFormat(item.C011.oldValue)) : ('')}}
+                    </span>
+                    <!--                    <span class="new-value" ng-if="vm.auditInfo.previousOperationType == 'M'">-->
+                    <!--                        {{item && item.C011.newValue? (item.C011.newValue) : ('-')}}-->
+                    <!--                    </span>-->
+                    <span class="new-value" ng-if="vm.auditInfo.previousOperationType == 'M'" >
+                    <span ng-if="item.C008.newValue == 'Y'" ng-class="{ 'text-danger': item.C008.newValue == 'Y', 'text-bold': item.C008.newValue == 'Y'" >---</span>
+                    <span ng-if="item.C008.newValue != 'Y'">{{item && item.C011.newValue? (vm.indianNumberFormat(item.C011.newValue)) : ('-')}}</span>
+                     </span>
+                </td>
+
+                <td>
+                    <span class="old-value">
+                        {{(item && item.C012)?(vm.indianNumberFormat(item.C012.oldValue)) : ('')}}
+                    </span>
+                    <!--                    <span class="new-value" ng-if="vm.auditInfo.previousOperationType == 'M'">-->
+                    <!--                        {{item && item.C012.newValue? (item.C012.newValue) : ('-')}}-->
+                    <!--                    </span>-->
+                    <span class="new-value" ng-if="vm.auditInfo.previousOperationType == 'M'">
+                    <span ng-if="item.C008.newValue == 'Y'" ng-class="{ 'text-danger': item.C008.newValue == 'Y', 'text-bold': item.C008.newValue == 'Y'" >---</span>
+                    <span ng-if="item.C008.newValue != 'Y'">{{item && item.C012.newValue? (vm.indianNumberFormat(item.C012.newValue)) : ('-')}}</span>
+                     </span>
+                </td>
+
+                <td>
+                    <span class="old-value" class="text-uppercase">
+                        {{(item && item.C013)?(item.C013.oldValue | getLabelFromValuesArray : vm.roundingFactorMetaData) : ('')}}
+                    </span>
+<!--                                        <span class="new-value" ng-if="vm.auditInfo.previousOperationType == 'M'" style="text-transform: uppercase;">-->
+<!--                                            {{item && item.C013.newValue? (item.C013.newValue | getLabelFromValuesArray : vm.roundingFactorMetaData) : ('-')}}-->
+<!--                                        </span>-->
+                    <span class="new-value" ng-if="vm.auditInfo.previousOperationType == 'M'">
+                    <span ng-if="item.C008.newValue == 'Y'" ng-class="{ 'text-danger': item.C008.newValue == 'Y', 'text-bold': item.C008.newValue == 'Y'" >---</span>
+                    <span ng-if="item.C008.newValue != 'Y'">{{item && item.C013.newValue? (item.C013.newValue | getLabelFromValuesArray : vm.roundingFactorMetaData) : ('-')}}</span>
+                </span>
+                </td>
+
+
+<!--                <td>-->
+<!--                    <span class="old-value">-->
+<!--                        {{(item && item.C003)?(item.C003.oldValue) : ('')}}-->
+<!--                    </span>-->
+<!--                    &lt;!&ndash;                    <span class="new-value" ng-if="vm.auditInfo.previousOperationType == 'M'">&ndash;&gt;-->
+<!--                    &lt;!&ndash;                        {{item && item.C003.newValue? (item.C003.newValue) : ('-')}}&ndash;&gt;-->
+<!--                    &lt;!&ndash;                    </span>&ndash;&gt;-->
+<!--                    <span class="new-value" ng-if="vm.auditInfo.previousOperationType == 'M'" >-->
+<!--                    <span ng-if="item.C008.newValue == 'Y'" ng-class="{ 'text-danger': item.C008.newValue == 'Y', 'text-bold': item.C008.newValue == 'Y'" >-&#45;&#45;</span>-->
+<!--                    <span ng-if="item.C008.newValue != 'Y'">{{item && item.C003.newValue? (item.C003.newValue) : ('-')}}</span>-->
+<!--                     </span>-->
+<!--                </td>-->
+
+<!--                <td>-->
+<!--                    <span class="old-value">-->
+<!--                        {{(item && item.C004)?(item.C004.oldValue) : ('')}}-->
+<!--                    </span>-->
+<!--                    &lt;!&ndash;                    <span class="new-value" ng-if="vm.auditInfo.previousOperationType == 'M'">&ndash;&gt;-->
+<!--                    &lt;!&ndash;                        {{item && item.C004.newValue? (item.C004.newValue) : ('-')}}&ndash;&gt;-->
+<!--                    &lt;!&ndash;                    </span>&ndash;&gt;-->
+<!--                    <span class="new-value" ng-if="vm.auditInfo.previousOperationType == 'M'">-->
+<!--                    <span ng-if="item.C008.newValue == 'Y'" ng-class="{ 'text-danger': item.C008.newValue == 'Y', 'text-bold': item.C008.newValue == 'Y'" >-&#45;&#45;</span>-->
+<!--                    <span ng-if="item.C008.newValue != 'Y'">{{item && item.C004.newValue? (item.C004.newValue) : ('-')}}</span>-->
+<!--                     </span>-->
+<!--                </td>-->
+
+            </tr>
+            </tbody>
+        </table>
+        <table class="table table-bordered table-striped list old-new-value-table">
+            <tbody width="100%">
+            <tr>
+                <th width="50%">Rejection Remarks</th>
+                <td width="50%">{{vm.rejectionRemarks}}</td>
+            </tr>
+
+
+            </tbody>
+        </table>
+
+        <div class="audit-details">
+            <div class="row">
+                <div class="col-md-3">
+                    <span> <b class="margin-right-1px"> Created By </b> : {{vm.auditInfo.createdBy}} </span>
+                </div>
+                <div class="col-md-3">
+                    <span> <b class="margin-right-1px"> Last Modified By </b> : {{(vm.auditInfo.modifiedBy) ? (vm.auditInfo.modifiedBy) : ('None')}}</span>
+                </div>
+                <div class="col-md-3">
+                    <span> <b class="margin-right-1px"> Last Verified By </b> : {{(vm.auditInfo.verifiedBy) ? (vm.auditInfo.verifiedBy) : ('None')}}</span>
+                </div>
+                <div class="col-md-3">
+                    <span> <b> Verify Status </b> : <span class="text-initial">{{vm.auditInfo.verifiedStatus  | getLabelFromValuesArray : vm.commonYesNoMetaData}}</span></span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3">
+                    <span> <b> Created On </b> : {{ vm.auditInfo.createdDate | date : 'dd/MM/yyyy'}}</span>
+                </div>
+                <div class="col-md-3">
+                    <span> <b> Last Modified On</b> : {{ (vm.auditInfo.modifiedDate) ? (vm.auditInfo.modifiedDate | date : 'dd/MM/yyyy') : ('None')}}</span>
+                </div>
+                <div class="col-md-3">
+                    <span> <b> Last Verified On </b> : {{(vm.auditInfo.verifiedDate) ? (vm.auditInfo.verifiedDate | date : 'dd/MM/yyyy') : ('None')}}</span>
+                </div>
+                <div class="col-md-3">
+                </div>
+            </div>
+        </div>
+
+        <div class="text-center form_submit">
+            <button type="button" id="subButton" class="btn btn-cancel"
+                    onclick="window.location.href= '#!/rbi_bond_toc_slab_maintenance/action/inquiry';">Cancel</button>
+        </div>
+
+    </form>
+</div>

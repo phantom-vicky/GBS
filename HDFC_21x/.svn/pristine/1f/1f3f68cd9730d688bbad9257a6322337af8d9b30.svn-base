@@ -1,0 +1,69 @@
+<div class="loader-new" ng-if="vm.loader"></div>
+<dc-left-menu></dc-left-menu>
+<div class="container from_wrapper new_form_wrapper">
+
+    <h4 class="form_heading">Scheme Master - Add</h4>
+    <sol-header></sol-header>
+    <form name="schemeMaster" role="form">
+
+        <div class="row">
+            <div class="form-group">
+                <div class="col-sm-3"></div>
+                <div class="col-sm-3">
+                    <label class="control-label">Name of the Module</label>
+                </div>
+                <div class="col-sm-2">
+                    <label><b>RBI Bond</b></label>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group required">
+                <div class="col-sm-3"></div>
+                <div class="col-sm-3">
+                    <label for="solId" class="control-label">Branch Id</label>
+                </div>
+                <div class="col-sm-2">
+                    <input type="text" class="form-control" id="solId"
+                           ng-model="vm.solId" required readonly>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group required">
+                <div class="col-sm-3"></div>
+                <div class="col-sm-3">
+                    <label class="control-label">Branch Name</label>
+                </div>
+                <div class="col-sm-2">
+                    <input type="text" class="form-control" id="username"
+                           name="username" ng-model="vm.username" required readonly>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="form-group required">
+                <div class="col-sm-3"></div>
+                <div class="col-sm-3">
+                    <label class="control-label">Scheme Name</label>
+                </div>
+                <div class="col-sm-2">
+                    <textarea type="text" class="form-control" id="schemeName" maxlength="100"
+                           ng-change="vm.specialNotAllowed(vm.schemeName);"
+                              name="schemeName" ng-model="vm.schemeName" required></textarea>
+                </div>
+            </div>
+        </div>
+        <div class="text-center form_submit">
+            <button type="submit" class="btn btn-default" id="submitButton"
+                    ng-disabled="schemeMaster.$invalid" ng-click="vm.submitAddForm()">Submit</button>
+            <button type="button" class="btn btn-cancel" id="cancelButton"
+                    onclick="window.location.href= '#!/scheme_master_rbi_bond/action/inquiry';">Cancel
+            </button>
+        </div>
+        <div class="text-center">
+            <notice-message-directive></notice-message-directive>
+        </div>
+    </form>
+</div>

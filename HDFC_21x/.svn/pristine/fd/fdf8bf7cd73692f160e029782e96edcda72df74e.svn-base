@@ -1,0 +1,25 @@
+<configuration scan="false">
+    <appender name="stdout" class="ch.qos.logback.core.ConsoleAppender">
+        <target>System.out</target>
+        <encoder>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss} %c{1} %M %L [%p] %m%n</pattern>
+        </encoder>
+    </appender>
+    <!--  Default logging level  -->
+    <root level="INFO">
+        <!-- <root level="ERROR"> -->
+        <appender-ref ref="stdout"/>
+    </root>
+    <!--  Default middleware logging level prod -->
+    <!-- <logger name="com.abipb" level="ERROR"/> -->
+    <logger name="com.abipb" level="ERROR"/>
+    <logger name="org.hibernate" level="ERROR"/>
+    <logger name="org.springframework.security" level="ERROR"/>
+    <logger name="org.springframework.boot" level="ERROR"/>
+    <!-- <logger name="org.glassfish.jersey" level="DEBUG" /> -->
+    <!--  Logging levels for non-middleware components  -->
+    <!-- <logger name="org.apache.http.impl.client.DefaultHttpClient" level="ERROR"/> -->
+    <!-- <logger name="org" level="ERROR"/> -->
+    <!--  performance logging - level INFO. Comment out the following line to align it with the root logger or set to ERROR to turn it off -->
+    <!-- <logger name="org.perf4j.TimingLogger" level="ERROR"/> -->
+</configuration>

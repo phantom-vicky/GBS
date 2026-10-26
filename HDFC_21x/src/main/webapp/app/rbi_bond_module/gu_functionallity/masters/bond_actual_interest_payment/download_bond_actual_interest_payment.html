@@ -1,0 +1,227 @@
+<div class="loader-new" ng-if="vm.loader"></div>
+<dc-left-menu></dc-left-menu>
+<div class="container from_wrapper new_form_wrapper">
+
+    <h4 class="form_heading">Bond Actual Interest Payment – Download</h4>
+    <sol-header></sol-header>
+
+    <form name="accountOpeningForm" role="form">
+
+        <div class="row">
+            <div class="form-group required">
+                <div class="col-sm-3"></div>
+                <div class="col-sm-3">
+                    <label for="bodDate" class="control-label">BOD Date</label>
+                </div>
+                <div class="col-sm-2">
+                    <input type="text" class="form-control" id="bodDate"
+                           name="dropDownFieldName"
+                           ng-model="vm.solDate" readonly required>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="form-group required">
+                <div class="col-sm-3"></div>
+                <div class="col-sm-3">
+                    <label for="moduleName" class="control-label" required>Name of the Module</label>
+                </div>
+                <div class="col-sm-2">
+                    <input type="text" class="form-control" id="moduleName"
+                           name="moduleName"
+                           ng-model="vm.moduleName" readonly required>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="form-group required">
+                <div class="col-sm-3"></div>
+                <div class="col-sm-3">
+                    <label for="schemeCode" class="control-label">Name of the Bond Scheme</label>
+                </div>
+                <div class="col-sm-2">
+                    <input type="text" class="form-control" id="moduleName" ng-model="vm.schemeName" required readonly>
+                </div>
+                <div class="col-sm-2">
+                    <i class="glyphicon glyphicon-search cp" data-bs-toggle="schemeName"
+                       id="treasurySearcher"
+                       ng-click="vm.verifySelect('S');"></i> <i
+                        class="glyphicon glyphicon-remove clear cp"
+                        ng-click="vm.schemeCode ='';vm.schemeName =''; vm.schemeStatus='';"></i>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="form-group required">
+                <div class="col-sm-3"></div>
+                <div class="col-sm-3">
+                    <label for="halfYear" class="control-label">Interest for the Half Year</label>
+                </div>
+                <div class="col-sm-2">
+                    <input type="text" class="form-control" id="halfYear" ng-model="vm.halfYear" required readonly>
+                </div>
+                <div class="col-sm-2">
+                    <i class="glyphicon glyphicon-search cp" data-bs-toggle="schemeName"
+                       id="halfYearSearcher"
+                       ng-click="vm.verifySelect('I');"></i>
+                    <i class="glyphicon glyphicon-remove clear cp"
+                       ng-click="vm.halfYear ='';vm.year ='';"></i>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="form-group required">
+                <div class="col-sm-3"></div>
+                <div class="col-sm-3">
+                    <label for="year" class="control-label">Year</label>
+                </div>
+                <div class="col-sm-2">
+                    <input type="text" class="form-control" id="year" name="year"
+                           ng-model="vm.year" required readonly/>
+                </div>
+            </div>
+        </div>
+
+        <div class="text-center form_submit">
+            <button type="submit" class="btn btn-default" id="submitButton"
+                    ng-click="vm.downloadFile();"
+                    ng-disabled="accountOpeningForm.$invalid">Submit
+            </button>
+            <button type="button" class="btn btn-cancel" id="cancelButton"
+                    onclick="window.location.href= '#!/bond_actual_interest_payment/action/inquiry';">Cancel
+            </button>
+        </div>
+        <div class="text-center">
+            <notice-message-directive></notice-message-directive>
+        </div>
+    </form>
+</div>
+
+<!--Scheme Name  and Status Model-->
+<div class="modal" id="schemeModel" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-bs-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Scheme Code</h4>
+            </div>
+            <div class="modal-body">
+                <div class="loader_popup"></div>
+                <div class="list_wrapper" ng-if="vm.schemeList.length>0">
+                    <div class="col-sm-8 form_submit">
+                        <div class="form-group">
+                            <div class="input-group">
+                                <div class="input-group-addon">
+                                    <i class="glyphicon glyphicon-search"></i>
+                                </div>
+                                <input type="text" class="form-control"
+                                       ng-model="vm.modalSearch" ng-init="vm.modalSearch = ''"
+                                       placeholder="Search">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4 form_submit"></div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <table class="table table-bordered list scroll sort">
+                                <thead ng-init="reverseOrder=true;sortedColumn = 'schemeName'">
+                                <tr>
+                                    <!--                                    <th class="modal-title title-case" ng-show="false">Scheme Code</th>-->
+                                    <th class="modal-title title-case"
+                                        ng-click="(sortedColumn == 'schemeName')?(reverseOrder=(!reverseOrder)): (reverseOrder = false);sortedColumn = 'schemeName';"
+                                        ng-class="(sortedColumn == 'schemeName')?((reverseOrder)?('arrow-down') : ('arrow-up') ) : ('')">
+                                        Scheme Name
+                                    </th>
+                                    <th class="modal-title title-case"
+                                        ng-click="(sortedColumn == 'schemeStatus')?(reverseOrder=(!reverseOrder)): (reverseOrder = false);sortedColumn = 'schemeStatus';"
+                                        ng-class="(sortedColumn == 'schemeStatus')?((reverseOrder)?('arrow-down') : ('arrow-up') ) : ('')">
+                                        Status
+                                    </th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr class="cp"
+                                    ng-repeat="x in vm.schemeList | filter:vm.modalSearch | orderBy:sortedColumn:reverseOrder"
+                                    ng-click="vm.schemeCode = x.schemeCode; vm.schemeName = x.schemeName; vm.schemeStatus = x.schemeStatus"
+                                    data-bs-dismiss="modal">
+                                    <td style="display: none;">{{x.schemeCode}}</td>
+                                    <td>{{x.schemeName}}</td>
+                                    <td>{{x.schemeStatus}}</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="list_wrapper" ng-if="vm.schemeList.length==0">No records found to display.</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal" id="halfYearModel" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-bs-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Interest for the Half Year</h4>
+            </div>
+            <div class="modal-body">
+                <div class="loader_popup"></div>
+                <div class="list_wrapper" ng-if="vm.schemeList.length>0">
+                    <div class="col-sm-8 form_submit">
+                        <div class="form-group">
+                            <div class="input-group">
+                                <div class="input-group-addon">
+                                    <i class="glyphicon glyphicon-search"></i>
+                                </div>
+                                <input type="text" class="form-control"
+                                       ng-model="vm.modalSearch" ng-init="vm.modalSearch = ''"
+                                       placeholder="Search">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4 form_submit"></div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <table class="table table-bordered list scroll sort">
+                                <thead ng-init="reverseOrder=true;sortedColumn = 'halfYear'">
+                                <tr>
+                                    <!--                                    <th class="modal-title title-case" ng-show="false">Scheme Code</th>-->
+                                    <th class="modal-title title-case"
+                                        ng-click="(sortedColumn == 'halfYear')?(reverseOrder=(!reverseOrder)): (reverseOrder = false);sortedColumn = 'halfYear';"
+                                        ng-class="(sortedColumn == 'halfYear')?((reverseOrder)?('arrow-down') : ('arrow-up') ) : ('')">
+                                        Month
+                                    </th>
+                                    <th class="modal-title title-case"
+                                        ng-click="(sortedColumn == 'year')?(reverseOrder=(!reverseOrder)): (reverseOrder = false);sortedColumn = 'year';"
+                                        ng-class="(sortedColumn == 'year')?((reverseOrder)?('arrow-down') : ('arrow-up') ) : ('')">
+                                        Year
+                                    </th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr class="cp"
+                                    ng-repeat="x in vm.schemeList | filter:vm.modalSearch | orderBy:sortedColumn:reverseOrder"
+                                    ng-click="vm.halfYear = x.halfYear; vm.year = x.year;"
+                                    data-bs-dismiss="modal">
+                                    <td>{{x.halfYear}}</td>
+                                    <td>{{x.year}}</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="list_wrapper" ng-if="vm.schemeList.length==0">No records found to display.</div>
+            </div>
+        </div>
+    </div>
+</div>

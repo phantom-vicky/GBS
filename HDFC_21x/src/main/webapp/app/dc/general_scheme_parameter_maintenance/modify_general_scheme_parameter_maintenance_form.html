@@ -1,0 +1,2824 @@
+<div class="loader-new" ng-if="vm.loader"></div>
+<dc-left-menu></dc-left-menu>
+<div class="container from_wrapper new_form_wrapper">
+
+<!-- common -->
+
+			<form name="generalSchemeParameterMaintenanceForm" role="form">
+
+				<div id="schemeType" ng-if="vm.schemeTypeInput == '0000'">
+					<h4 class="form_heading">General Scheme Parameter Maintenance(Common) - Modify</h4>
+					
+					<div ng-if="vm.newValueDispay">
+				<div class="row">
+					<div class="col-sm-7">
+					</div>
+					<div class="col-sm-3">
+						New Value
+					</div>
+					<div class="col-sm-2">
+						Old Value
+					</div>
+				</div></div>
+					<div class="row">
+						<div class="form-group">
+							<div class="col-sm-2"></div>
+							<div class="col-sm-5">
+								<label for="finyrstdate" class="control-label">
+								Financial Year Start Period(DD/MM)</label>
+							</div>
+							<div class="col-sm-2 flexinline">
+								<input type="number" class="form-control"
+									id="financialYearStartDdate" chars="only-numbers" onkeypress="return isNumber(event)"
+									ng-model="vm.financialYearStartDate"
+									ng-change="vm.validateFinancialYear('financialYearStartDdate')"
+									min="1" max="31"
+									limit-to="2" required>
+									<span class="pull-left gspm-slash">/</span>
+									<input type="number" class="form-control"
+									id="financialYearStartMonth" chars="only-numbers" onkeypress="return isNumber(event)"
+									ng-model="vm.financialYearStartMonth"
+									ng-change="vm.validateFinancialYear('financialYearStartDdate')"
+									min="1" max="12" 
+									limit-to="2" required>
+							</div>
+							<div class="col-sm-1"></div>
+							<div class="col-sm-2" ng-if="vm.newValueDispay">
+							<input type="text" class="form-control" id="financialYearStartMonth"
+									name="financialYearStartMonth" ng-model="vm.schemeTypeNew.finyrstdate" 
+									chars="alpha-numeric"
+									readonly >
+							</div>
+							
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="form-group">
+							<div class="col-sm-2"></div>
+							<div class="col-sm-5">
+								<label for="finyrenddate" class="control-label">
+								Financial Year End Period(DD/MM)</label>
+							</div>
+							<div class="col-sm-2 flexinline">
+								<input type="number" class="form-control"
+									id="financialYearEndDate" ng-model="vm.financialYearEndDate" chars="only-numbers" onkeypress="return isNumber(event)"
+									min="1" max="31"
+									ng-change="vm.validateFinancialYear('financialYearEndDate')"
+									limit-to="2" required>
+									<span class="pull-left gspm-slash">/</span>
+									<input type="number" class="form-control"
+									id="financialYearEndMonth" ng-model="vm.financialYearEndMonth" chars="only-numbers" onkeypress="return isNumber(event)"
+									min="1" max="12" 
+									ng-change="vm.validateFinancialYear('financialYearEndDate')" 
+									limit-to="2" required>
+							</div>
+							<div class="col-sm-1"></div>
+							<div class="col-sm-2" ng-if="vm.newValueDispay">
+							<input type="text" class="form-control" id="financialYearEndDate"
+									name="financialYearEndDate" ng-model="vm.schemeTypeNew.finyrenddate" 
+									chars="alpha-numeric"
+									readonly >
+							</div>
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="form-group">
+							<div class="col-sm-2"></div>
+							<div class="col-sm-5">
+								<label for="budyrstdate" class="control-label">
+								Budget Year Start Period(DD/MM)</label>
+							</div>
+							<div class="col-sm-2 flexinline">
+								<input type="number" class="form-control" id="budgetStartDate"
+									ng-model="vm.budgetStartDate" chars="only-numbers" onkeypress="return isNumber(event)"
+									min="1" max="31" 
+									ng-change="vm.validateBudgetYear('budgetStartDate')"
+									limit-to="2" required>
+									<span class="pull-left gspm-slash">/</span>
+									<input type="number" class="form-control" id="budgetStartMonth"
+									ng-model="vm.budgetStartMonth" chars="only-numbers" onkeypress="return isNumber(event)"
+									min="1" max="12" 
+									ng-change="vm.validateBudgetYear('budgetStartDate')"
+									limit-to="2" required>
+							</div>							
+							<div class="col-sm-1"></div>
+							<div class="col-sm-2" ng-if="vm.newValueDispay">
+							<input type="text" class="form-control" id="budgetStartMonth"
+									name="budgetStartMonth" ng-model="vm.schemeTypeNew.budyrstdate" 
+									chars="alpha-numeric"
+									readonly >
+							</div>
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="form-group">
+							<div class="col-sm-2"></div>
+							<div class="col-sm-5">
+								<label for="budyrenddate" class="control-label">
+								Budget Year End Period(DD/MM)</label>
+							</div>
+							<div class="col-sm-2 flexinline">
+								<input type="number" class="form-control" id="budgetEndDate"
+									ng-model="vm.budgetEndDate" chars="only-numbers" onkeypress="return isNumber(event)"
+									min="1" max="31" 
+									ng-change="vm.validateBudgetYear('budgetEndDate')"
+									limit-to="2" required>
+									<span class="pull-left gspm-slash">/</span>
+									<input type="number" class="form-control" id="budgetEndMonth"
+									ng-model="vm.budgetEndMonth" chars="only-numbers" onkeypress="return isNumber(event)"
+									min="1" max="12" 
+									ng-change="vm.validateBudgetYear('budgetEndDate')"
+									limit-to="2" required>
+							</div>
+							<div class="col-sm-1"></div>
+							<div class="col-sm-2" ng-if="vm.newValueDispay">
+							<input type="text" class="form-control" id="budgetEndMonth"
+									name="budgetEndMonth" ng-model="vm.schemeTypeNew.budyrenddate" 
+									chars="alpha-numeric"
+									readonly >
+							</div>
+						</div>
+					</div>
+					
+					<div class="row">
+						<div class="form-group">
+							<div class="col-sm-2"></div>
+							<div class="col-sm-5">
+								<label for="minorage" class="control-label">Minor Age</label>
+							</div>
+							<div class="col-sm-2">
+								<input type="number" class="form-control" id="minorage"
+									ng-model="vm.schemeType.minorage" chars="only-numbers" onkeypress="return isNumber(event)"
+									min="1" max="99"  string-to-number
+									limit-to="2" required>
+							</div>
+							
+							<div class="col-sm-1"></div>
+							<div class="col-sm-2" ng-if="vm.newValueDispay">
+							<input type="text" class="form-control" id="minorage"
+									name="minorage" ng-model="vm.schemeTypeNew.minorage" 
+									chars="alpha-numeric"
+									readonly >
+							</div>
+
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="form-group">
+							<div class="col-sm-2"></div>
+							<div class="col-sm-5">
+								<label for="inst_type_validator" class="control-label">
+								Instrument Type for Instrument Validation</label>
+							</div>
+							<div class="col-sm-2">
+								<input type="text" class="form-control"
+									id="inst_type_validator" ng-model="vm.schemeType.inst_type_validator" chars="alpha-numeric"
+									maxlength="5" required>
+							</div>
+							
+							<div class="col-sm-1"></div>
+							<div class="col-sm-2" ng-if="vm.newValueDispay">
+							<input type="text" class="form-control" id="inst_type_validator"
+									name="inst_type_validator" ng-model="vm.schemeTypeNew.inst_type_validator" 
+									chars="alpha-numeric"
+									readonly >
+							</div>
+						</div>
+					</div>
+					
+					<div class="row">
+						<div class="form-group">
+							<div class="col-sm-2"></div>
+							<div class="col-sm-5">
+								<label for="eodcontinue" class="control-label">
+								Can EOD Continue If NFT Verification Is Pending</label>
+							</div>
+							<div class="col-sm-2"> 
+								<select class="form-control" id="eodcontinue" name="eodcontinue"
+									ng-model="vm.schemeType.eodcontinue" required>
+									<option value="Y" ng-selected="vm.schemeType.eodpending == 'Y'">YES</option>
+									<option value="N" ng-selected="vm.schemeType.eodpending == 'N'">NO</option>
+								</select>
+							</div>
+							
+							<div class="col-sm-1"></div>
+							<div class="col-sm-2" ng-if="vm.newValueDispay">
+							<input type="text" class="form-control" id="eodcontinue"
+									name="eodcontinue" ng-model="vm.schemeTypeNew.eodpending" 
+									chars="alpha-numeric"
+									readonly >
+							</div>
+						</div>
+					</div>
+					
+					<div class="row">
+						<div class="form-group">
+							<div class="col-sm-2"></div>
+							<div class="col-sm-5">
+								<label for="minimaltoamt" class="control-label">Minimum TOC Amount</label>
+							</div>
+							<div class="col-sm-2">
+								<input type="number" class="form-control" id="minimaltoamt"
+									name="minimaltoamt" string-to-number
+									ng-model="vm.schemeType.minimaltoamt" chars="only-numbers"
+									min="1" 
+									limit-to="14"
+									onkeypress="return isNumber(event)" required>
+							</div>
+								<div class="col-sm-1"></div>
+							<div class="col-sm-2" ng-if="vm.newValueDispay">
+							<input type="text" class="form-control" id="minimaltoamt"
+									name="minimaltoamt" ng-model="vm.schemeTypeNew.minimaltoamt" 
+									chars="alpha-numeric"
+									readonly >
+							</div>
+
+						</div>
+					</div>
+										
+					<div class="row">
+						<div class="form-group">
+							<div class="col-sm-2"></div>
+							<div class="col-sm-5">
+								<label for="tocmode" class="control-label"> Turn
+								Over Commission Mode</label>
+							</div>
+							<div class="col-sm-2">
+								<select class="form-control" id="tocmode" name="tocmode"
+									ng-model="vm.schemeType.tocmode" required>
+									<option value="A">Annual</option>
+									<option value="H">Half-Yearly</option>
+									<option value="Q">Quarterly</option>
+								</select>
+							</div>
+							
+						<div class="col-sm-1"></div>
+							<div class="col-sm-2" ng-if="vm.newValueDispay">
+
+							<select class="form-control" id="tocmode" name="tocmode"
+									ng-model="vm.schemeTypeNew.tocmode" readonly>
+									<option value="A">Annual</option>
+									<option value="H">Half-Yearly</option>
+									<option value="Q">Quarterly</option>
+								</select>
+							</div>
+						</div>
+					</div>
+					
+					<div class="row">
+						<div class="form-group">
+							<div class="col-sm-2"></div>
+							<div class="col-sm-5">
+								<label for="ph_cashac" class="control-label">Cash
+								Account Place Holder</label>
+							</div>
+							<div class="col-sm-2">
+								<input type="text" class="form-control" id="ph_cashac"
+									name="ph_cashac" ng-model="vm.schemeType.ph_cashac" 
+									chars="alpha-numeric"
+									readonly required>
+							</div>
+							<div class="col-sm-1">
+								<i class="glyphicon glyphicon-search cp" data-bs-toggle="modal"
+									data-target="#accountSearchModal" id="ph_cashac_AccountSearcher"
+									ng-click="vm.getAccountDetails('ph_cashac'); vm.modalTitle = 'Cash Account Place Holder'; vm.searchAccount = '';"></i>
+								<i class="glyphicon glyphicon-remove clear cp"
+									ng-click="vm.schemeType.ph_cashac = vm.schemeDescription.ph_cashac = ''; "></i>
+							</div>
+							<div class="col-sm-2" ng-if="vm.newValueDispay">
+								<input type="text" class="form-control" id="ph_cashac"
+									name="ph_cashac" ng-model="vm.schemeTypeNew.ph_cashac" 
+									chars="alpha-numeric"
+									readonly >
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="form-group">
+							<div class="col-sm-2"></div>
+							<div class="col-sm-5">
+								<label for="ph_clearingac" class="control-label">Clearing Sundry Account Place Holder</label>
+							</div>
+							<div class="col-sm-2">
+								<input type="text" class="form-control" id="ph_clearingac"
+									name="ph_clearingac" ng-model="vm.schemeType.ph_clearingac" 
+									chars="alpha-numeric" 
+									readonly required>
+							</div>
+							<div class="col-sm-1">
+								<i class="glyphicon glyphicon-search cp" data-bs-toggle="modal"
+									data-target="#accountSearchModal" id="ph_clearingac_AccountSearcher"
+									ng-click="vm.getAccountDetails('ph_clearingac'); vm.modalTitle = 'Clearing Sundry Account Place Holder'; vm.searchAccount = '';"></i>
+								<i class="glyphicon glyphicon-remove clear cp"
+									ng-click="vm.schemeType.ph_clearingac = vm.schemeDescription.ph_clearingac = ''; "></i>
+							</div>
+							<div class="col-sm-2" ng-if="vm.newValueDispay">
+								
+								<input type="text" class="form-control" id="ph_clearingac"
+									name="ph_clearingac" ng-model="vm.schemeTypeNew.ph_clearingac" 
+									chars="alpha-numeric" 
+									readonly >
+							</div>
+						</div>
+					</div>
+					
+					<div class="row">
+						<div class="form-group">
+							<div class="col-sm-2"></div>
+							<div class="col-sm-5">
+								<label for="ph_hoac" class="control-label">RBI Relief Bond LC Consolidation Place Holder <span ng-if="vm.bIsValid">(UP Country)</span></label>
+							</div>
+							<div class="col-sm-2">
+								<input type="text" class="form-control" id="ph_hoac"
+									name="ph_hoac" ng-model="vm.schemeType.ph_hoac" 
+									chars="alpha-numeric" 
+									readonly required>
+							</div>
+							<div class="col-sm-1">
+								<i class="glyphicon glyphicon-search cp" data-bs-toggle="modal"
+									data-target="#accountSearchModal" id="ph_hoac_AccountSearcher"
+									ng-click="vm.getAccountDetails('ph_hoac'); vm.modalTitle = 'RBI Relief Bond LC Consolidation Place Holder'; vm.searchAccount = '';"></i>
+								<i class="glyphicon glyphicon-remove clear cp"
+									ng-click="vm.schemeType.ph_hoac = vm.schemeDescription.ph_hoac = ''; "></i>
+							</div>
+							<div class="col-sm-2" ng-if="vm.newValueDispay">
+								<input type="text" class="form-control" id="ph_hoac"
+									name="ph_hoac" ng-model="vm.schemeTypeNew.ph_hoac" 
+									chars="alpha-numeric" 
+									readonly >
+							</div>
+						</div>
+					</div>
+					<!--  needs to be discussed -->
+					<div class="row" ng-if="vm.bIsValid">
+						<div class="form-group">
+							<div class="col-sm-2"></div>
+							<div class="col-sm-5">
+								<label for="ph_hoaclocal" class="control-label">Head Office Account Place Holder (LOCAL Country)</label>
+							</div>
+							<div class="col-sm-2">
+								<input type="text" class="form-control" id="ph_hoaclocal"
+									name="ph_hoaclocal" ng-model="vm.schemeType.ph_hoaclocal" 
+									chars="alpha-numeric" required>
+							</div>
+							<div class="col-sm-1">
+								<i class="glyphicon glyphicon-search cp" data-bs-toggle="modal"
+									data-target="#accountSearchModal" id="ph_hoaclocal_AccountSearcher"
+									ng-click="vm.getAccountDetails('ph_hoaclocal'); vm.modalTitle = 'Head Office Account Place Holder (LOCAL Country)'; vm.searchAccount = '';"></i>
+								<i class="glyphicon glyphicon-remove clear cp"
+									ng-click="vm.schemeType.ph_hoaclocal = vm.schemeDescription.ph_hoaclocal = ''; "></i>
+							</div>
+							<div class="col-sm-2" ng-if="vm.newValueDispay">
+								<input type="text" class="form-control" id="ph_hoaclocal"
+									name="ph_hoaclocal" ng-model="vm.schemeTypeNew.ph_hoaclocal" 
+									chars="alpha-numeric" required>
+							</div>
+						</div>
+					</div>
+					
+					<div class="row">
+						<div class="form-group">
+							<div class="col-sm-2"></div>
+							<div class="col-sm-5">
+								<label for="ph_ddac" class="control-label">DD A/C Place Holder</label>
+							</div>
+							<div class="col-sm-2">
+								<input type="text" class="form-control" id="ph_ddac"
+									name="ph_ddac" ng-model="vm.schemeType.ph_ddac" chars="alpha-numeric" 
+									readonly required>
+							</div>
+							<div class="col-sm-1">
+								<i class="glyphicon glyphicon-search cp" data-bs-toggle="modal"
+									data-target="#accountSearchModal" id="ph_ddac_AccountSearcher"
+									ng-click="vm.getAccountDetails('ph_ddac'); vm.modalTitle = 'DD A/C Place Holder'; vm.searchAccount = '';"></i>
+								<i class="glyphicon glyphicon-remove clear cp"
+									ng-click="vm.schemeType.ph_ddac = vm.schemeDescription.ph_ddac = ''; "></i>
+							</div>
+							<div class="col-sm-2" ng-if="vm.newValueDispay">
+								<input type="text" class="form-control" id="ph_ddac"
+									name="ph_ddac" ng-model="vm.schemeTypeNew.ph_ddac" chars="alpha-numeric" 
+									readonly>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="form-group">
+							<div class="col-sm-2"></div>
+							<div class="col-sm-5">
+								<label for="ph_poac" class="control-label">Pay Order A/C Place Holder</label>
+							</div>
+							<div class="col-sm-2">
+								<input type="text" class="form-control" id="ph_poac"
+									name="ph_poac" ng-model="vm.schemeType.ph_poac" chars="alpha-numeric" 
+									readonly required>
+							</div>
+							<div class="col-sm-1">
+								<i class="glyphicon glyphicon-search cp" data-bs-toggle="modal"
+									data-target="#accountSearchModal" id="ph_poac_AccountSearcher"
+									ng-click="vm.getAccountDetails('ph_poac'); vm.modalTitle = 'Pay Order A/C Place Holder'; vm.searchAccount = '';"></i>
+								<i class="glyphicon glyphicon-remove clear cp"
+									ng-click="vm.schemeType.ph_poac = vm.schemeDescription.ph_poac = ''; "></i>
+							</div>
+							<div class="col-sm-2" ng-if="vm.newValueDispay">
+								<input type="text" class="form-control" id="ph_poac"
+									name="ph_poac" ng-model="vm.schemeTypeNew.ph_poac" chars="alpha-numeric" 
+									readonly>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="form-group">
+							<div class="col-sm-2"></div>
+							<div class="col-sm-5">
+								<label for="ph_ecsac" class="control-label">ECS A/C Place Holder</label>
+							</div>
+							<div class="col-sm-2">
+								<input type="text" class="form-control" id="ph_ecsac"
+									name="ph_ecsac" ng-model="vm.schemeType.ph_ecsac" chars="alpha-numeric" 
+									readonly required>
+							</div>
+							<div class="col-sm-1">
+								<i class="glyphicon glyphicon-search cp" data-bs-toggle="modal"
+									data-target="#accountSearchModal" id="ph_ecsac_AccountSearcher"
+									ng-click="vm.getAccountDetails('ph_ecsac'); vm.modalTitle = 'ECS A/C Place Holder'; vm.searchAccount = '';"></i>
+								<i class="glyphicon glyphicon-remove clear cp"
+									ng-click="vm.schemeType.ph_ecsac = vm.schemeDescription.ph_ecsac = ''; "></i>
+							</div>
+							<div class="col-sm-2" ng-if="vm.newValueDispay">
+								<input type="text" class="form-control" id="ph_ecsac"
+									name="ph_ecsac" ng-model="vm.schemeTypeNew.ph_ecsac" chars="alpha-numeric" 
+									readonly>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="form-group">
+							<div class="col-sm-2"></div>
+							<div class="col-sm-5">
+								<label for="ph_tds" class="control-label">TDS A/C Place Holder</label>
+							</div>
+							<div class="col-sm-2">
+								<input type="text" class="form-control" id="ph_tds"
+									name="ph_tds" ng-model="vm.schemeType.ph_tds" chars="alpha-numeric" 
+									readonly required>
+							</div>
+							<div class="col-sm-1">
+								<i class="glyphicon glyphicon-search cp" data-bs-toggle="modal"
+									data-target="#accountSearchModal" id="ph_tds_AccountSearcher"
+									ng-click="vm.getAccountDetails('ph_tds'); vm.modalTitle = 'TDS A/C Place Holder'; vm.searchAccount = '';"></i>
+								<i class="glyphicon glyphicon-remove clear cp"
+									ng-click="vm.schemeType.ph_tds = vm.schemeDescription.ph_tds = ''; "></i>
+							</div>
+							<div class="col-sm-2" ng-if="vm.newValueDispay">
+								<input type="text" class="form-control" id="ph_tds"
+									name="ph_tds" ng-model="vm.schemeTypeNew.ph_tds" chars="alpha-numeric" 
+									readonly>
+								
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- common -->
+
+				<!-- CBDT -->
+
+
+				<div id="schemeType" ng-if="vm.schemeTypeInput == '0004'">
+					<h4 class="form_heading">Place Holders Definition for CBDT - Modification</h4>
+
+					<div class="row">
+						<div class="form-group">
+							<div class="col-sm-2"></div>
+							<div class="col-sm-5">
+								<label for="resyrstdate" class="control-label">
+								Residual Year Start Period(DD/MM)</label>
+							</div>
+							<div class="col-sm-1">
+								<input type="text" class="form-control"
+									id="residualYearStartDate" ng-model="vm.residualYearStartDate" chars="only-numbers" onkeypress="return isNumber(event)">
+							</div>
+
+							<div class="col-sm-1">
+								<input type="text" class="form-control"
+									id="residualYearStartMonth"
+									ng-model="vm.residualYearStartMonth" chars="only-numbers" onkeypress="return isNumber(event)">
+							</div>
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="form-group">
+							<div class="col-sm-2"></div>
+							<div class="col-sm-5">
+								<label for="resyrenddate" class="control-label">
+								Residual Year End Period(DD/MM)</label>
+							</div>
+							<div class="col-sm-1">
+								<input type="text" class="form-control" id="residualYearEndDate"
+									ng-model="vm.residualYearEndDate" chars="only-numbers" onkeypress="return isNumber(event)">
+							</div>
+
+							<div class="col-sm-1">
+								<input type="text" class="form-control"
+									id="residualYearEndMonth" ng-model="vm.residualYearEndMonth" chars="only-numbers" onkeypress="return isNumber(event)">
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="form-group">
+							<div class="col-sm-2"></div>
+							<div class="col-sm-5">
+								<label for="ph_cbdt" class="control-label">CBDT Collection A/C Place Holder</label>
+							</div>
+							<div class="col-sm-2">
+								<input type="text" class="form-control"
+									id="ph_cbdt" name="ph_cbdt"
+									ng-model="vm.schemeType.ph_cbdt" chars="alpha-numeric" readonly>
+							</div>
+							<div class="col-sm-1">
+								<i class="glyphicon glyphicon-search cp" data-bs-toggle="modal"
+									data-target="#accountSearchModal" id="ph_cbdt_AccountSearcher"
+									ng-click="vm.getAccountDetails('ph_cbdt'); vm.modalTitle = 'CBDT Collection A/C Place Holde'; vm.searchAccount = '';"></i>
+								<i class="glyphicon glyphicon-remove clear cp"
+									ng-click="vm.schemeType.ph_cbdt = vm.schemeDescription.ph_cbdt = ''; "></i>
+							</div>
+							<div class="col-sm-2">
+								<label class="data-bind" id="ph_cbdt_Description">{{vm.schemeDescription.ph_cbdt}}</label>
+							</div>
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="form-group">
+							<div class="col-sm-2"></div>
+							<div class="col-sm-5">
+								<label for="ph_cbdtfpconsol" class="control-label">CBDT Focal Point Consolidation A/C Place Holder</label>
+							</div>
+							<div class="col-sm-2">
+								<input type="text" class="form-control" id="ph_cbdtfpconsol"
+									name="ph_cbdtfpconsol" ng-model="vm.schemeType.ph_cbdtfpconsol" 
+									chars="alpha-numeric" readonly>
+							</div>
+							<div class="col-sm-1">
+								<i class="glyphicon glyphicon-search cp" data-bs-toggle="modal"
+									data-target="#accountSearchModal" id="ph_cbdtfpconsol_AccountSearcher"
+									ng-click="vm.getAccountDetails('ph_cbdtfpconsol'); vm.modalTitle = 'CBDT Focal Point Consolidation A/C Place Holder'; vm.searchAccount = '';"></i>
+								<i class="glyphicon glyphicon-remove clear cp"
+									ng-click="vm.schemeType.ph_cbdtfpconsol = vm.schemeDescription.ph_cbdtfpconsol = ''; "></i>
+							</div>
+							<div class="col-sm-2">
+								<label class="data-bind" id="ph_cbdtfpconsol_Description">{{vm.schemeDescription.ph_cbdtfpconsol}}</label>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="form-group">
+							<div class="col-sm-2"></div>
+							<div class="col-sm-5">
+								<label for="ph_cbdtlcconsol" class="control-label">CBDT Link Cell Consolidation A/C Place Holder</label>
+							</div>
+							<div class="col-sm-2">
+								<input type="text" class="form-control" id="ph_cbdtlcconsol"
+									name="ph_cbdtlcconsol" ng-model="vm.schemeType.ph_cbdtlcconsol" 
+									chars="alpha-numeric" readonly>
+							</div>
+							<div class="col-sm-1">
+								<i class="glyphicon glyphicon-search cp" data-bs-toggle="modal"
+									data-target="#accountSearchModal" id="ph_cbdtlcconsol_AccountSearcher"
+									ng-click="vm.getAccountDetails('ph_cbdtlcconsol'); vm.modalTitle = 'CBDT Link Cell Consolidation A/C Place Holder'; vm.searchAccount = '';"></i>
+								<i class="glyphicon glyphicon-remove clear cp"
+									ng-click="vm.schemeType.ph_cbdtlcconsol = vm.schemeDescription.ph_cbdtlcconsol = ''; "></i>
+							</div>
+							<div class="col-sm-2">
+								<label class="data-bind" id="ph_cbdtlcconsol_Description">{{vm.schemeDescription.ph_cbdtlcconsol}}</label>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="form-group">
+							<div class="col-sm-2"></div>
+							<div class="col-sm-5">
+								<label for="ph_cbdtincome" class="control-label">CBDT Income A/C Place Holder</label>
+							</div>
+							<div class="col-sm-2">
+								<input type="text" class="form-control" id="ph_cbdtincome"
+									name="ph_cbdtincome" ng-model="vm.schemeType.ph_cbdtincome" 
+									chars="alpha-numeric" readonly>
+							</div>
+							<div class="col-sm-1">
+								<i class="glyphicon glyphicon-search cp" data-bs-toggle="modal"
+									data-target="#accountSearchModal" id="ph_cbdtincome_AccountSearcher"
+									ng-click="vm.getAccountDetails('ph_cbdtincome'); vm.modalTitle = 'CBDT Income A/C Place Holder'; vm.searchAccount = '';"></i>
+								<i class="glyphicon glyphicon-remove clear cp"
+									ng-click="vm.schemeType.ph_cbdtincome = vm.schemeDescription.ph_cbdtincome = ''; "></i>
+							</div>
+							<div class="col-sm-2">
+								<label class="data-bind" id="ph_cbdtincome_Description">{{vm.schemeDescription.ph_cbdtincome}}</label>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="form-group">
+							<div class="col-sm-2"></div>
+							<div class="col-sm-5">
+								<label for="ph_cbdtinet" class="control-label">CBDT Internet Parking A/C Place Holder</label>
+							</div>
+							<div class="col-sm-2">
+								<input type="text" class="form-control" id="ph_cbdtinet"
+									name="ph_cbdtinet" ng-model="vm.schemeType.ph_cbdtinet" 
+									chars="alpha-numeric" readonly>
+							</div>
+							<div class="col-sm-1">
+								<i class="glyphicon glyphicon-search cp" data-bs-toggle="modal"
+									data-target="#accountSearchModal" id="ph_cbdtinet_AccountSearcher"
+									ng-click="vm.getAccountDetails('ph_cbdtinet'); vm.modalTitle = 'CBDT Internet Parking A/C Place Holder'; vm.searchAccount = '';"></i>
+								<i class="glyphicon glyphicon-remove clear cp"
+									ng-click="vm.schemeType.ph_cbdtinet = vm.schemeDescription.ph_cbdtinet = ''; "></i>
+							</div>
+							<div class="col-sm-2">
+								<label class="data-bind" id="ph_cbdtinet_Description">{{vm.schemeDescription.ph_cbdtinet}}</label>
+							</div>
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="form-group">
+							<div class="col-sm-2"></div>
+							<div class="col-sm-5">
+								<label for="ismcpallowed" class="control-label">
+								Can MCP be allowed, even If Consolidation is pending for Braches?</label>
+							</div>
+							<div class="col-sm-2">
+								<select class="form-control" id="ismcpallowed"
+									name="ismcpallowed" ng-model="vm.schemeType.ismcpallowed">
+									<option value="">Select</option>
+									<option value="Y">Yes</option>
+									<option value="N">No</option>
+								</select>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="form-group">
+							<div class="col-sm-2"></div>
+							<div class="col-sm-5">
+								<label for="isintersolmcp" class="control-label">
+								Is funds transfer to LC instead of FP permitted during MCP</label>
+							</div>
+							<div class="col-sm-2">
+								<select class="form-control" id="isintersolmcp"
+									name="isintersolmcp" ng-model="vm.schemeType.isintersolmcp">
+									<option value="">Select</option>
+									<option value="Y">Yes</option>
+									<option value="N">No</option>
+
+								</select>
+							</div>
+						</div>
+					</div>
+					<div class="row" ng-if="vm.schemeType.isintersolmcp == 'N'">
+						<div class="form-group">
+							<div class="col-sm-2"></div>
+							<div class="col-sm-5">
+								<label for="ph_intersolac" class="control-label">Inter-Sol Accounting PlaceHolder</label>
+							</div>
+							<div class="col-sm-2">
+								<input type="text" class="form-control" id="ph_intersolac"
+									name="ph_intersolac" ng-model="vm.schemeType.ph_intersolac" 
+									chars="alpha-numeric" readonly>
+							</div>
+							<div class="col-sm-1">
+								<i class="glyphicon glyphicon-search cp" data-bs-toggle="modal"
+									data-target="#accountSearchModal" id="ph_intersolac_AccountSearcher"
+									ng-click="vm.getAccountDetails('ph_intersolac'); vm.modalTitle = 'Inter-Sol Accounting PlaceHolder'; vm.searchAccount = '';"></i>
+								<i class="glyphicon glyphicon-remove clear cp"
+									ng-click="vm.schemeType.ph_intersolac = vm.schemeDescription.ph_intersolac = ''; "></i>
+							</div>
+							<div class="col-sm-2">
+								<label class="data-bind" id="ph_intersolac_Description">{{vm.schemeDescription.ph_intersolac}}</label>
+							</div>
+						</div>
+					</div>
+					
+					
+					<div class="row">
+						<div class="form-group">
+							<div class="col-sm-2"></div>
+							<div class="col-sm-5">
+								<label for="isretention" class="control-label">Is
+								Retention allowed</label>
+							</div>
+							<div class="col-sm-2">
+								<select class="form-control" id="isretention"
+									name="isretention" ng-model="vm.schemeType.isretention">
+									<option value="">Select</option>
+									<option value="Y">Yes</option>
+									<option value="N">No</option>
+
+								</select>
+							</div>
+						</div>
+					</div>
+					<div class="row" ng-if="vm.schemeType.isretention == 'Y'">
+						<div class="form-group">
+							<div class="col-sm-2"></div>
+							<div class="col-sm-5">
+								<label for="isrethol" class="control-label">Is Retention inclusive of holidays</label>
+							</div>
+							<div class="col-sm-2">
+								<select class="form-control" id="isrethol"
+									name="isrethol" ng-model="vm.schemeType.isrethol">
+									<option value="">Select</option>
+									<option value="Y">Yes</option>
+									<option value="N">No</option>
+
+								</select>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="form-group">
+							<div class="col-sm-2"></div>
+							<div class="col-sm-5">
+								<label for="isnbcrown" class="control-label">
+								Is CROWN Data file Received - Nodal Branch</label>
+							</div>
+							<div class="col-sm-2">
+								<select class="form-control" id="isnbcrown"
+									name="isnbcrown" ng-model="vm.schemeType.isnbcrown">
+									<option value="">Select</option>
+									<option value="Y">Yes</option>
+									<option value="N">No</option>
+
+								</select>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="form-group">
+							<div class="col-sm-2"></div>
+							<div class="col-sm-5">
+								<label for="islccrown" class="control-label">
+								Is CROWN Data file Received - Link Cell</label>
+							</div>
+							<div class="col-sm-2">
+								<select class="form-control" id="islccrown"
+									name="islccrown" ng-model="vm.schemeType.islccrown">
+									<option value="">Select</option>
+									<option value="Y">Yes</option>
+									<option value="N">No</option>
+
+								</select>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="form-group">
+							<div class="col-sm-2"></div>
+							<div class="col-sm-5">
+								<label for="ph_errorac" class="control-label">Error Challan Transaction Place Holder</label>
+							</div>
+							<div class="col-sm-2">
+								<input type="text" class="form-control" id="ph_errorac"
+									name="ph_errorac" ng-model="vm.schemeType.ph_errorac" 
+									chars="alpha-numeric" readonly>
+							</div>
+							<div class="col-sm-1">
+								<i class="glyphicon glyphicon-search cp" data-bs-toggle="modal"
+									data-target="#accountSearchModal" id="ph_errorac_AccountSearcher"
+									ng-click="vm.getAccountDetails('ph_errorac'); vm.modalTitle = 'Error Challan Transaction Place Holder'; vm.searchAccount = '';"></i>
+								<i class="glyphicon glyphicon-remove clear cp"
+									ng-click="vm.schemeType.ph_errorac = vm.schemeDescription.ph_errorac = ''; "></i>
+							</div>
+							<div class="col-sm-2">
+								<label class="data-bind" id="ph_errorac_Description">{{vm.schemeDescription.ph_errorac}}</label>
+							</div>
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="form-group">
+							<div class="col-sm-2"></div>
+							<div class="col-sm-5">
+								<label for="ph_errorcollac" class="control-label">Error Challan Collection Place Holder</label>
+							</div>
+							<div class="col-sm-2">
+								<input type="text" class="form-control" id="ph_errorcollac"
+									name="ph_errorcollac" ng-model="vm.schemeType.ph_errorcollac" 
+									chars="alpha-numeric" readonly>
+							</div>
+							<div class="col-sm-1">
+								<i class="glyphicon glyphicon-search cp" data-bs-toggle="modal"
+									data-target="#accountSearchModal" id="ph_errorcollac_AccountSearcher"
+									ng-click="vm.getAccountDetails('ph_errorcollac'); vm.modalTitle = 'Error Challan Collection Place Holder'; vm.searchAccount = '';"></i>
+								<i class="glyphicon glyphicon-remove clear cp"
+									ng-click="vm.schemeType.ph_errorcollac = vm.schemeDescription.ph_errorcollac = ''; "></i>
+							</div>
+							<div class="col-sm-2">
+								<label class="data-bind" id="ph_errorcollac_Description">{{vm.schemeDescription.ph_errorcollac}}</label>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="form-group">
+							<div class="col-sm-2"></div>
+							<div class="col-sm-5">
+								<label for="ph_errnbc" class="control-label">Error Challan Nodal Branch Collection Place Holder</label>
+							</div>
+							<div class="col-sm-2">
+								<input type="text" class="form-control" id="ph_errnbc"
+									name="ph_errnbc" ng-model="vm.schemeType.ph_errnbc" 
+									chars="alpha-numeric" readonly>
+							</div>
+							<div class="col-sm-1">
+								<i class="glyphicon glyphicon-search cp" data-bs-toggle="modal"
+									data-target="#accountSearchModal" id="ph_errnbc_AccountSearcher"
+									ng-click="vm.getAccountDetails('ph_errnbc'); vm.modalTitle = 'Error Challan Nodal Branch Collection Place Holder'; vm.searchAccount = '';"></i>
+								<i class="glyphicon glyphicon-remove clear cp"
+									ng-click="vm.schemeType.ph_errnbc = vm.schemeDescription.ph_errnbc = ''; "></i>
+							</div>
+							<div class="col-sm-2">
+								<label class="data-bind" id="ph_errnbc_Description">{{vm.schemeDescription.ph_errnbc}}</label>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="form-group">
+							<div class="col-sm-2"></div>
+							<div class="col-sm-5">
+								<label for="errorLinkCell" class="control-label">Error Challan Link Cell Collection Place Holder</label>
+							</div>
+							<div class="col-sm-2">
+								<input type="text" class="form-control" id="ph_errlcc"
+									name="ph_errlcc" ng-model="vm.schemeType.ph_errlcc" 
+									chars="alpha-numeric" readonly>
+							</div>
+							<div class="col-sm-1">
+								<i class="glyphicon glyphicon-search cp" data-bs-toggle="modal"
+									data-target="#accountSearchModal" id="ph_errlcc_AccountSearcher"
+									ng-click="vm.getAccountDetails('ph_errlcc'); vm.modalTitle = 'Error Challan Link Cell Collection Place Holder'; vm.searchAccount = '';"></i>
+								<i class="glyphicon glyphicon-remove clear cp"
+									ng-click="vm.schemeType.ph_errlcc = vm.schemeDescription.ph_errlcc = ''; "></i>
+							</div>
+							<div class="col-sm-2">
+								<label class="data-bind" id="ph_errlcc_Description">{{vm.schemeDescription.ph_errlcc}}</label>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="form-group">
+							<div class="col-sm-2"></div>
+							<div class="col-sm-5">
+								<label for="ph_errsun" class="control-label">Error Challan Place Holder for Drop Challan</label>
+							</div>
+							<div class="col-sm-2">
+								<input type="text" class="form-control" id="ph_errsun"
+									name="ph_errsun" ng-model="vm.schemeType.ph_errsun" 
+									chars="alpha-numeric" readonly>
+							</div>
+							<div class="col-sm-1">
+								<i class="glyphicon glyphicon-search cp" data-bs-toggle="modal"
+									data-target="#accountSearchModal" id="ph_errsun_AccountSearcher"
+									ng-click="vm.getAccountDetails('ph_errsun'); vm.modalTitle = 'Error Challan Place Holder for Drop Challan'; vm.searchAccount = '';"></i>
+								<i class="glyphicon glyphicon-remove clear cp"
+									ng-click="vm.schemeType.ph_errsun = vm.schemeDescription.ph_errsun = ''; "></i>
+							</div>
+							<div class="col-sm-2">
+								<label class="data-bind" id="ph_errsun_Description">{{vm.schemeDescription.ph_errsun}}</label>
+							</div>
+						</div>
+					</div>
+
+				</div>
+				<!-- CBDT -->
+
+				<!-- CBEC -->
+
+				<div id="schemeType" ng-if="vm.schemeTypeInput == '0005'">
+					<h4 class="form_heading">Place Holders Definition for CBEC - Modification</h4>
+
+
+					<div class="row">
+						<div class="form-group">
+							<div class="col-sm-2"></div>
+							<div class="col-sm-5">
+								<label for="ph_cbec" class="control-label">CBEC Collection A/C Place Holder</label>
+							</div>
+							<div class="col-sm-2">
+								<input type="text" class="form-control"
+									id="ph_cbec" name="ph_cbec"
+									ng-model="vm.schemeType.ph_cbec" 
+									chars="alpha-numeric" readonly>
+							</div>
+							<div class="col-sm-1">
+								<i class="glyphicon glyphicon-search cp" data-bs-toggle="modal"
+									data-target="#accountSearchModal" id="ph_cbec_AccountSearcher"
+									ng-click="vm.getAccountDetails('ph_cbec'); vm.modalTitle = 'CBEC Collection A/C Place Holder'; vm.searchAccount = '';"></i>
+								<i class="glyphicon glyphicon-remove clear cp"
+									ng-click="vm.schemeType.ph_cbec = vm.schemeDescription.ph_cbec = ''; "></i>
+							</div>
+							<div class="col-sm-2">
+								<label class="data-bind" id="ph_cbec_Description">{{vm.schemeDescription.ph_cbec}}</label>
+							</div>
+						</div>
+					</div>
+
+
+					<div class="row">
+						<div class="form-group">
+							<div class="col-sm-2"></div>
+							<div class="col-sm-5">
+								<label for="resyrstdate" class="control-label">
+								Residual Year Start Period(DD/MM)</label>
+							</div>
+							<div class="col-sm-1">
+								<input type="text" class="form-control"
+									id="residualYearStartDate" ng-model="vm.schemeType.residualYearStartDate" chars="only-numbers" onkeypress="return isNumber(event)">
+							</div>
+
+							<div class="col-sm-1">
+								<input type="text" class="form-control"
+									id="residualYearStartMonth"
+									ng-model="vm.residualYearStartMonth" chars="only-numbers" onkeypress="return isNumber(event)">
+							</div>
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="form-group">
+							<div class="col-sm-2"></div>
+							<div class="col-sm-5">
+								<label for="resyrenddate" class="control-label">
+								Residual Year End Period(DD/MM)</label>
+							</div>
+							<div class="col-sm-1">
+								<input type="text" class="form-control" id="residualYearEndDate"
+									ng-model="vm.schemeType.residualYearEndDate" chars="only-numbers" onkeypress="return isNumber(event)">
+							</div>
+
+							<div class="col-sm-1">
+								<input type="text" class="form-control"
+									id="residualYearEndMonth" ng-model="vm.residualYearEndMonth" chars="only-numbers" onkeypress="return isNumber(event)">
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="form-group">
+							<div class="col-sm-2"></div>
+							<div class="col-sm-5">
+								<label for="ph_cbecfpconsol" class="control-label">CBEC Focal Point Consolidation A/C Place Holder for CENTRAL EXCISE TAX</label>
+							</div>
+							<div class="col-sm-2">
+								<input type="text" class="form-control" id="ph_cbecfpconsol"
+									name="ph_cbecfpconsol" ng-model="vm.schemeType.ph_cbecfpconsol" 
+									chars="alpha-numeric" readonly>
+							</div>
+							<div class="col-sm-1">
+								<i class="glyphicon glyphicon-search cp" data-bs-toggle="modal"
+									data-target="#accountSearchModal" id="ph_cbecfpconsol_AccountSearcher"
+									ng-click="vm.getAccountDetails('ph_cbecfpconsol'); vm.modalTitle = 'CBEC Focal Point Consolidation A/C Place Holder for CENTRAL EXCISE TAX'; vm.searchAccount = '';"></i>
+								<i class="glyphicon glyphicon-remove clear cp"
+									ng-click="vm.schemeType.ph_cbecfpconsol = vm.schemeDescription.ph_cbecfpconsol = ''; "></i>
+							</div>
+							<div class="col-sm-2">
+								<label class="data-bind" id="ph_cbecfpconsol_Description">{{vm.schemeDescription.ph_cbecfpconsol}}</label>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="form-group">
+							<div class="col-sm-2"></div>
+							<div class="col-sm-5">
+								<label for="ph_cbeclcconsol" class="control-label">CBEC	Link Cell Consolidation A/C Place Holder</label>
+							</div>
+							<div class="col-sm-2">
+								<input type="text" class="form-control" id="ph_cbeclcconsol"
+									name="ph_cbeclcconsol" ng-model="vm.schemeType.ph_cbeclcconsol" 
+									chars="alpha-numeric" readonly>
+							</div>
+							<div class="col-sm-1">
+								<i class="glyphicon glyphicon-search cp" data-bs-toggle="modal"
+									data-target="#accountSearchModal" id="ph_cbeclcconsol_AccountSearcher"
+									ng-click="vm.getAccountDetails('ph_cbeclcconsol'); vm.modalTitle = 'CBEC Link Cell Consolidation A/C Place Holder'; vm.searchAccount = '';"></i>
+								<i class="glyphicon glyphicon-remove clear cp"
+									ng-click="vm.schemeType.ph_cbeclcconsol = vm.schemeDescription.ph_cbeclcconsol = ''; "></i>
+							</div>
+							<div class="col-sm-2">
+								<label class="data-bind" id="ph_cbeclcconsol_Description">{{vm.schemeDescription.ph_cbeclcconsol}}</label>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="form-group">
+							<div class="col-sm-2"></div>
+							<div class="col-sm-5">
+								<label for="ph_cbecincome" class="control-label">CBEC Income A/C Place Holder</label>
+							</div>
+							<div class="col-sm-2">
+								<input type="text" class="form-control" id="ph_cbecincome"
+									name="ph_cbecincome" ng-model="vm.schemeType.ph_cbecincome" 
+									chars="alpha-numeric" readonly>
+							</div>
+							<div class="col-sm-1">
+								<i class="glyphicon glyphicon-search cp" data-bs-toggle="modal"
+									data-target="#accountSearchModal" id="ph_cbecincome_AccountSearcher"
+									ng-click="vm.getAccountDetails('ph_cbecincome'); vm.modalTitle = 'CBEC Income A/C Place Holder'; vm.searchAccount = '';"></i>
+								<i class="glyphicon glyphicon-remove clear cp"
+									ng-click="vm.schemeType.ph_cbecincome = vm.schemeDescription.ph_cbecincome = ''; "></i>
+							</div>
+							<div class="col-sm-2">
+								<label class="data-bind" id="ph_cbecincome_Description">{{vm.schemeDescription.ph_cbecincome}}</label>
+							</div>
+						</div>
+					</div>
+					<div class="row" ng-if="vm.inetforCBEC">
+						<div class="form-group">
+							<div class="col-sm-2"></div>
+							<div class="col-sm-5">
+								<label for="ph_cbecinetce" class="control-label">CBEC Internet Parking A/C Place Holder for CENTRAL EXCISE TAX</label>
+							</div>
+							<div class="col-sm-2">
+								<input type="text" class="form-control" id="ph_cbecinetce"
+									name="ph_cbecinetce" ng-model="vm.schemeType.ph_cbecinetce" 
+									chars="alpha-numeric" readonly>
+							</div>
+							<div class="col-sm-1">
+								<i class="glyphicon glyphicon-search cp" data-bs-toggle="modal"
+									data-target="#accountSearchModal" id="ph_cbecinetce_AccountSearcher"
+									ng-click="vm.getAccountDetails('ph_cbecinetce'); vm.modalTitle = 'CBEC Internet Parking A/C Place Holder for CENTRAL EXCISE TAX'; vm.searchAccount = '';"></i>
+								<i class="glyphicon glyphicon-remove clear cp"
+									ng-click="vm.schemeType.ph_cbecinetce = vm.schemeDescription.ph_cbecinetce = ''; "></i>
+							</div>
+							<div class="col-sm-2">
+								<label class="data-bind" id="ph_cbecinetce_Description">{{vm.schemeDescription.ph_cbecinetce}}</label>
+							</div>
+						</div>
+					</div>
+					<div class="row" ng-if="vm.inetforCBEC">
+						<div class="form-group">
+							<div class="col-sm-2"></div>
+							<div class="col-sm-5">
+								<label for="ph_cbecinetst" class="control-label">CBEC Internet Parking A/C Place Holder for Service TAX</label>
+							</div>
+							<div class="col-sm-2">
+								<input type="text" class="form-control"
+									id="ph_cbecinetst"
+									name="ph_cbecinetst"
+									ng-model="vm.schemeType.ph_cbecinetst" chars="alpha-numeric"
+									readonly>
+							</div>
+							<div class="col-sm-1">
+								<i class="glyphicon glyphicon-search cp" data-bs-toggle="modal"
+									data-target="#accountSearchModal" id="ph_cbecinetst_AccountSearcher"
+									ng-click="vm.getAccountDetails('ph_cbecinetst'); vm.modalTitle = 'CBEC Internet Parking A/C Place Holder for Service TAX'; vm.searchAccount = '';"></i>
+								<i class="glyphicon glyphicon-remove clear cp"
+									ng-click="vm.schemeType.ph_cbecinetst = vm.schemeDescription.ph_cbecinetst = ''; "></i>
+							</div>
+							<div class="col-sm-2">
+								<label class="data-bind" id="ph_cbecinetst_Description">{{vm.schemeDescription.ph_cbecinetst}}</label>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="form-group">
+							<div class="col-sm-2"></div>
+							<div class="col-sm-5">
+								<label for="isnoncbsconsol" class="control-label">
+								Can Focal Point & Linkcell Consolidation be allowed for Non CBS Branches ?</label>
+							</div>
+							<div class="col-sm-2">
+								<select class="form-control" id="isnoncbsconsol"
+									name="isnoncbsconsol" ng-model="vm.schemeType.isnoncbsconsol">
+									<option value="">Select</option>
+									<option value="Y">Yes</option>
+									<option value="N">No</option>
+
+								</select>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="form-group">
+							<div class="col-sm-2"></div>
+							<div class="col-sm-5">
+								<label for="isscrolgapsallowed" class="control-label">
+								Can Gaps In Scroll No be allowed, during consolidation, for CBS
+								Branches ?</label>
+							</div>
+							<div class="col-sm-2">
+								<select class="form-control" id="isscrolgapsallowed"
+									name="isscrolgapsallowed" ng-model="vm.schemeType.isscrolgapsallowed">
+									<option value="">Select</option>
+									<option value="Y">Yes</option>
+									<option value="N">No</option>
+
+								</select>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="form-group">
+							<div class="col-sm-2"></div>
+							<div class="col-sm-5">
+								<label for="ismcpallowed" class="control-label">Can
+								MCP be allowed, even If Consolidation is pending for Branches ?</label>
+							</div>
+							<div class="col-sm-2">
+								<select class="form-control" id="ismcpallowed" name="ismcpallowed"
+									ng-model="vm.schemeType.ismcpallowed">
+									<option value="">Select</option>
+									<option value="Y">Yes</option>
+									<option value="N">No</option>
+
+								</select>
+							</div>
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="form-group">
+							<div class="col-sm-2"></div>
+							<div class="col-sm-5">
+								<label for="isintersolmcp" class="control-label">
+								Is funds transfer to LC instead of FP permitted during MCP</label>
+							</div>
+							<div class="col-sm-2">
+								<select class="form-control" id="isintersolmcp"
+									name="isintersolmcp" ng-model="vm.schemeType.isintersolmcp">
+									<option value="">Select</option>
+									<option value="Y">Yes</option>
+									<option value="N">No</option>
+
+								</select>
+							</div>
+						</div>
+					</div>
+					
+					<div class="row" ng-if="vm.schemeType.isintersolmcp == 'N'">
+						<div class="form-group">
+							<div class="col-sm-2"></div>
+							<div class="col-sm-5">
+								<label for="ph_hoac" class="control-label">Head Office Account Place Holder (UP Country)</label>
+							</div>
+							<div class="col-sm-2">
+								<input type="text" class="form-control"
+									id="ph_hoac"
+									name="ph_hoac"
+									ng-model="vm.schemeType.ph_hoac" 
+									chars="alpha-numeric"
+									readonly>
+							</div>
+							<div class="col-sm-1">
+								<i class="glyphicon glyphicon-search cp" data-bs-toggle="modal"
+									data-target="#accountSearchModal" id="ph_hoac_AccountSearcher"
+									ng-click="vm.getAccountDetails('ph_hoac'); vm.modalTitle = 'Head Office Account Place Holder (UP Country)'; vm.searchAccount = '';"></i>
+								<i class="glyphicon glyphicon-remove clear cp"
+									ng-click="vm.schemeType.ph_hoac = vm.schemeDescription.ph_hoac = ''; "></i>
+							</div>
+							<div class="col-sm-2">
+								<label class="data-bind" id="ph_hoac_Description">{{vm.schemeDescription.ph_hoac}}</label>
+							</div>
+						</div>
+					</div>
+					
+					<div class="row" ng-if="vm.schemeType.isintersolmcp == 'N'">
+						<div class="form-group">
+							<div class="col-sm-2"></div>
+							<div class="col-sm-5">
+								<label for="ph_hoaclocal" class="control-label">Head Office Account Place Holder (LOCAL Country)</label>
+							</div>
+							<div class="col-sm-2">
+								<input type="text" class="form-control"
+									id="ph_hoaclocal"
+									name="ph_hoaclocal"
+									ng-model="vm.schemeType.ph_hoaclocal" 
+									chars="alpha-numeric"
+									readonly>
+							</div>
+							<div class="col-sm-1">
+								<i class="glyphicon glyphicon-search cp" data-bs-toggle="modal"
+									data-target="#accountSearchModal" id="ph_hoaclocal_AccountSearcher"
+									ng-click="vm.getAccountDetails('ph_hoaclocal'); vm.modalTitle = 'Head Office Account Place Holder (LOCAL Country)'; vm.searchAccount = '';"></i>
+								<i class="glyphicon glyphicon-remove clear cp"
+									ng-click="vm.schemeType.ph_hoaclocal = vm.schemeDescription.ph_hoaclocal = ''; "></i>
+							</div>
+							<div class="col-sm-2">
+								<label class="data-bind" id="ph_hoaclocal_Description">{{vm.schemeDescription.ph_hoaclocal}}</label>
+							</div>
+						</div>
+					</div>
+					
+					<div class="row" ng-if="vm.schemeType.isintersolmcp == 'Y'">
+						<div class="form-group">
+							<div class="col-sm-2"></div>
+							<div class="col-sm-5">
+								<label for="ph_intersolac" class="control-label">Inter-Sol Accounting Place Holder</label>
+							</div>
+							<div class="col-sm-2">
+								<input type="text" class="form-control"
+									id="ph_intersolac"
+									name="ph_intersolac"
+									ng-model="vm.schemeType.ph_intersolac" 
+									chars="alpha-numeric"
+									readonly>
+							</div>
+							<div class="col-sm-1">
+								<i class="glyphicon glyphicon-search cp" data-bs-toggle="modal"
+									data-target="#accountSearchModal" id="ph_clearingac_AccountSearcher"
+									ng-click="vm.getAccountDetails('ph_clearingac'); vm.modalTitle = 'Clearing Sundry Account Place Holder'; vm.searchAccount = '';"></i>
+								<i class="glyphicon glyphicon-remove clear cp"
+									ng-click="vm.schemeType.ph_clearingac = vm.schemeDescription.ph_clearingac = ''; "></i>
+							</div>
+							<div class="col-sm-2">
+								<label class="data-bind" id="ph_clearingac_Description">{{vm.schemeDescription.ph_clearingac}}</label>
+							</div>
+						</div>
+					</div>
+					
+					<div class="row">
+						<div class="form-group">
+							<div class="col-sm-2"></div>
+							<div class="col-sm-5">
+								<label for="isretention" class="control-label">Is Retention allowed</label>
+							</div>
+							<div class="col-sm-2">
+								<select class="form-control" id="isretention"
+									name="isretention" ng-model="vm.schemeType.isretention">
+									<option value="">Select</option>
+									<option value="Y">Yes</option>
+									<option value="N">No</option>
+
+								</select>
+							</div>
+						</div>
+					</div>
+					
+					<div class="row" ng-if="vm.schemeType.isretention == 'Y'">
+						<div class="form-group">
+							<div class="col-sm-2"></div>
+							<div class="col-sm-5">
+								<label for="isrethol" class="control-label">Is Retention inclusive of holidays</label>
+							</div>
+							<div class="col-sm-2">
+								<select class="form-control" id="isrethol"
+									name="isrethol" ng-model="vm.schemeType.isrethol">
+									<option value="">Select</option>
+									<option value="Y">Yes</option>
+									<option value="N">No</option>
+
+								</select>
+							</div>
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="form-group">
+							<div class="col-sm-2"></div>
+							<div class="col-sm-5">
+								<label for="isnbcrown" class="control-label">
+								Is CROWN Data file Received - Nodal Branch</label>
+							</div>
+							<div class="col-sm-2">
+								<select class="form-control" id="isnbcrown"
+									name="isnbcrown" ng-model="vm.schemeType.isnbcrown">
+									<option value="">Select</option>
+									<option value="Y">Yes</option>
+									<option value="N">No</option>
+
+								</select>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="form-group">
+							<div class="col-sm-2"></div>
+							<div class="col-sm-5">
+								<label for="islccrown" class="control-label">
+								Is CROWN Data file Received - Link Cell</label>
+							</div>
+							<div class="col-sm-2">
+								<select class="form-control" id="islccrown"
+									name="islccrown" ng-model="vm.schemeType.islccrown">
+									<option value="">Select</option>
+									<option value="Y">Yes</option>
+									<option value="N">No</option>
+
+								</select>
+							</div>
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="form-group">
+							<div class="col-sm-2"></div>
+							<div class="col-sm-5">
+								<label for="ph_suspenseac"
+								class="control-label">CBEC Focal Point Consolidation A/C Place Holder for Service TAX</label>
+							</div>
+							<div class="col-sm-2">
+								<input type="text" class="form-control"
+									id="ph_suspenseac" name="ph_suspenseac"
+									ng-model="vm.schemeType.ph_suspenseac" 
+									chars="alpha-numeric" readonly>
+							</div>
+							<div class="col-sm-1">
+								<i class="glyphicon glyphicon-search cp" data-bs-toggle="modal"
+									data-target="#accountSearchModal" id="ph_suspenseac_AccountSearcher"
+									ng-click="vm.getAccountDetails('ph_suspenseac'); vm.modalTitle = 'CBEC Focal Point Consolidation A/C Place Holder for Service TAX'; vm.searchAccount = '';"></i>
+								<i class="glyphicon glyphicon-remove clear cp"
+									ng-click="vm.schemeType.ph_suspenseac = vm.schemeDescription.ph_suspenseac = ''; "></i>
+							</div>
+							<div class="col-sm-2">
+								<label class="data-bind" id="ph_suspenseac_Description">{{vm.schemeDescription.ph_suspenseac}}</label>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="form-group">
+							<div class="col-sm-2"></div>
+							<div class="col-sm-5">
+								<label for="ph_cbecerrorac" class="control-label">Error Challan Transaction Place Holder</label>
+							</div>
+							<div class="col-sm-2">
+								<input type="text" class="form-control" id="ph_cbecerrorac"
+									name="ph_cbecerrorac" ng-model="vm.schemeType.ph_cbecerrorac" 
+									chars="alpha-numeric" readonly>
+							</div>
+							<div class="col-sm-1">
+								<i class="glyphicon glyphicon-search cp" data-bs-toggle="modal"
+									data-target="#accountSearchModal" id="ph_cbecerrorac_AccountSearcher"
+									ng-click="vm.getAccountDetails('ph_cbecerrorac'); vm.modalTitle = 'Error Challan Transaction Place Holder'; vm.searchAccount = '';"></i>
+								<i class="glyphicon glyphicon-remove clear cp"
+									ng-click="vm.schemeType.ph_cbecerrorac = vm.schemeDescription.ph_cbecerrorac = ''; "></i>
+							</div>
+							<div class="col-sm-2">
+								<label class="data-bind" id="ph_cbecerrorac_Description">{{vm.schemeDescription.ph_cbecerrorac}}</label>
+							</div>
+						</div>
+					</div>
+
+
+					<div class="row">
+						<div class="form-group">
+							<div class="col-sm-2"></div>
+							<div class="col-sm-5">
+								<label for="ph_cbecerrorcollac" class="control-label">Error Challan Collection Place Holder</label>
+							</div>
+							<div class="col-sm-2">
+								<input type="text" class="form-control" id="ph_cbecerrorcollac"
+									name="ph_cbecerrorcollac" ng-model="vm.schemeType.ph_cbecerrorcollac" 
+									chars="alpha-numeric" readonly>
+							</div>
+							<div class="col-sm-1">
+								<i class="glyphicon glyphicon-search cp" data-bs-toggle="modal"
+									data-target="#accountSearchModal" id="ph_cbecerrorcollac_AccountSearcher"
+									ng-click="vm.getAccountDetails('ph_cbecerrorcollac'); vm.modalTitle = 'Error Challan Collection Place Holder'; vm.searchAccount = '';"></i>
+								<i class="glyphicon glyphicon-remove clear cp"
+									ng-click="vm.schemeType.ph_cbecerrorcollac = vm.schemeDescription.ph_cbecerrorcollac = ''; "></i>
+							</div>
+							<div class="col-sm-2">
+								<label class="data-bind" id="ph_cbecerrorcollac_Description">{{vm.schemeDescription.ph_cbecerrorcollac}}</label>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="form-group">
+							<div class="col-sm-2"></div>
+							<div class="col-sm-5">
+								<label for="ph_cbecerrnbc" class="control-label">Error Challan Nodal Branch Collection Place Holder</label>
+							</div>
+							<div class="col-sm-2">
+								<input type="text" class="form-control" id="ph_cbecerrnbc"
+									name="ph_cbecerrnbc" ng-model="vm.schemeType.ph_cbecerrnbc"
+									chars="alpha-numeric" readonly>
+							</div>
+							<div class="col-sm-1">
+								<i class="glyphicon glyphicon-search cp" data-bs-toggle="modal"
+									data-target="#accountSearchModal" id="ph_cbecerrnbc_AccountSearcher"
+									ng-click="vm.getAccountDetails('ph_cbecerrnbc'); vm.modalTitle = 'Error Challan Nodal Branch Collection Place Holder'; vm.searchAccount = '';"></i>
+								<i class="glyphicon glyphicon-remove clear cp"
+									ng-click="vm.schemeType.ph_cbecerrnbc = vm.schemeDescription.ph_cbecerrnbc = ''; "></i>
+							</div>
+							<div class="col-sm-2">
+								<label class="data-bind" id="ph_cbecerrnbc_Description">{{vm.schemeDescription.ph_cbecerrnbc}}</label>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="form-group">
+							<div class="col-sm-2"></div>
+							<div class="col-sm-5">
+								<label for="ph_cbecerrlcc" class="control-label">Error Challan Link Cell Collection Place Holder</label>
+							</div>
+							<div class="col-sm-2">
+								<input type="text" class="form-control" id="ph_cbecerrlcc"
+									name="ph_cbecerrlcc" ng-model="vm.schemeType.ph_cbecerrlcc" 
+									chars="alpha-numeric" readonly>
+							</div>
+							<div class="col-sm-1">
+								<i class="glyphicon glyphicon-search cp" data-bs-toggle="modal"
+									data-target="#accountSearchModal" id="ph_cbecerrlcc_AccountSearcher"
+									ng-click="vm.getAccountDetails('ph_cbecerrlcc'); vm.modalTitle = 'Error Challan Link Cell Collection Place Holder'; vm.searchAccount = '';"></i>
+								<i class="glyphicon glyphicon-remove clear cp"
+									ng-click="vm.schemeType.ph_cbecerrlcc = vm.schemeDescription.ph_cbecerrlcc = ''; "></i>
+							</div>
+							<div class="col-sm-2">
+								<label class="data-bind" id="ph_cbecerrlcc_Description">{{vm.schemeDescription.ph_cbecerrlcc}}</label>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="form-group">
+							<div class="col-sm-2"></div>
+							<div class="col-sm-5">
+								<label for="ph_cbecerrsun" class="control-label">Error Challan Place Holder for Drop Challan</label>
+							</div>
+							<div class="col-sm-2">
+								<input type="text" class="form-control" id="ph_cbecerrsun"
+									name="ph_cbecerrsun" ng-model="vm.schemeType.ph_cbecerrsun" 
+									chars="alpha-numeric" readonly>
+							</div>
+							<div class="col-sm-1">
+								<i class="glyphicon glyphicon-search cp" data-bs-toggle="modal"
+									data-target="#accountSearchModal" id="ph_cbecerrsun_AccountSearcher"
+									ng-click="vm.getAccountDetails('ph_cbecerrsun'); vm.modalTitle = 'Error Challan Place Holder for Drop Challan'; vm.searchAccount = '';"></i>
+								<i class="glyphicon glyphicon-remove clear cp"
+									ng-click="vm.schemeType.ph_cbecerrsun = vm.schemeDescription.ph_cbecerrsun = ''; "></i>
+							</div>
+							<div class="col-sm-2">
+								<label class="data-bind" id="ph_cbecerrsun_Description">{{vm.schemeDescription.ph_cbecerrsun}}</label>
+							</div>
+						</div>
+					</div>
+
+				</div>
+
+				<!-- CBEC -->
+				
+				<div class="row" >
+				<div class="col-sm-7"></div>
+				<label  ng-if="vm.newValueDispay == false" class="control-label col-sm-5"><b>Verify Status : Y</b></label>
+				<label  ng-if="vm.newValueDispay == true" class="control-label col-sm-5"><b>Verify Status : N</b></label>
+			</div>
+
+				<div class="text-center form_submit">
+				<button type="submit" class="btn btn-default" id="submitButton"
+					ng-click="vm.modify();"
+					ng-disabled="generalSchemeParameterMaintenanceForm.$invalid || !vm.validFinancialYear || !vm.validBudgetYear">Submit</button>
+				<button type="button" class="btn btn-cancel" id="cancelButton"
+					ng-click="vm.showCancelConfirmation('general_scheme_parameter_maintenance.modify');">Cancel</button>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+
+
+<div class="modal" id="accountSearchModal" role="dialog">
+	<div class="modal-dialog">
+		<!-- Modal content-->
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-bs-dismiss="modal">&times;</button>
+				<h4 class="modal-title">{{vm.modalTitle}}</h4>
+			</div>
+			<div class="modal-body">
+				<div class="loader_popup"></div>
+				<div class="list_wrapper"
+					ng-if="vm.accountList.length>0">
+					<div class="col-sm-8 form_submit">
+						<div class="form-group">
+							<div class="input-group">
+								<div class="input-group-addon">
+									<i class="glyphicon glyphicon-search"></i>
+								</div>
+								<input type="text" class="form-control"
+									ng-model="vm.searchAccount" placeholder="Search">
+							</div>
+						</div>
+					</div>
+					<div class="col-sm-4 form_submit"></div>
+					<div class="row">
+
+						<div class="col-sm-12">
+							<table class="table table-bordered list scroll">
+								<thead>
+									<tr>
+										<th>Place Holder Name</th>
+										<th>Place Holder Description</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr class="cp"
+										ng-repeat="x in vm.accountList | filter: vm.searchAccount"
+										ng-click="vm.setAccountDetails(x);"
+										data-bs-dismiss="modal">
+										<td>{{x.bankAccountId}}</td>
+										<td>{{x.bankAccountIdDescription}}</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+				<div class="list_wrapper"
+					ng-if="vm.accountList.length==0">No records
+					found to display.</div>
+			</div>
+
+		</div>
+	</div>
+</div>
+
+
+
+<!-- CBEC -->
+<div class="modal" id="cbecCollectionAccountModal" role="dialog">
+	<div class="modal-dialog">
+		<!-- Modal content-->
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-bs-dismiss="modal">&times;</button>
+				<h4 class="modal-title">CBEC Collection A/C Place Holder</h4>
+			</div>
+			<div class="modal-body">
+				<div class="loader_popup"></div>
+				<div class="list_wrapper"
+					ng-if="vm.cbecCollectionAccountDetails .length>0">
+					<div class="row">
+
+						<div class="col-sm-12">
+							<table class="table table-bordered list">
+								<thead>
+									<tr>
+										<th>CBEC Collection A/C Place Holder</th>
+
+									</tr>
+								</thead>
+								<tbody>
+									<tr class="cp"
+										ng-repeat="x in vm.cbecCollectionAccountDetails | filter:searchcbecCollectionAccount"
+										ng-click="vm.cbecCollectionAccount = x.cbecCollectionAccount"
+										data-bs-dismiss="modal">
+										<td>{{x.cbecCollectionAccount}}</td>
+
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+				<div class="list_wrapper"
+					ng-if="vm.cbecCollectionAccountDetails .length==0">No records
+					found to display.</div>
+			</div>
+
+		</div>
+	</div>
+</div>
+
+<div class="modal" id="FocalPointModal" role="dialog">
+	<div class="modal-dialog">
+		<!-- Modal content-->
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-bs-dismiss="modal">&times;</button>
+				<h4 class="modal-title">CBEC Focal Point Consolidation A/C
+					Place Holder for CENTRAL EXCISE TAX</h4>
+			</div>
+			<div class="modal-body">
+				<div class="loader_popup"></div>
+				<div class="list_wrapper" ng-if="vm.cbecFocalPointDetails .length>0">
+					<div class="row">
+
+						<div class="col-sm-12">
+							<table class="table table-bordered list">
+								<thead>
+									<tr>
+										<th>CBEC Focal Point Consolidation A/C Place Holder for
+											CENTRAL EXCISE TAX</th>
+
+									</tr>
+								</thead>
+								<tbody>
+									<tr class="cp"
+										ng-repeat="x in vm.cbecFocalPointDetails | filter:searchcbecFocalPoint"
+										ng-click="vm.cbecFocalPoint = x.cbecFocalPoint"
+										data-bs-dismiss="modal">
+										<td>{{x.cbecFocalPoint}}</td>
+
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+				<div class="list_wrapper"
+					ng-if="vm.cbecFocalPointDetails .length==0">No records found
+					to display.</div>
+			</div>
+
+		</div>
+	</div>
+</div>
+
+
+<div class="modal" id="cbecFocalPointServiceTaxModal" role="dialog">
+	<div class="modal-dialog">
+		<!-- Modal content-->
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-bs-dismiss="modal">&times;</button>
+				<h4 class="modal-title">CBEC Focal Point Consolidation A/C
+					Place Holder for Service TAX</h4>
+			</div>
+			<div class="modal-body">
+				<div class="loader_popup"></div>
+				<div class="list_wrapper"
+					ng-if="vm.cbecFocalPointServiceTaxDetails .length>0">
+					<div class="row">
+
+						<div class="col-sm-12">
+							<table class="table table-bordered list">
+								<thead>
+									<tr>
+										<th>CBEC Focal Point Consolidation A/C Place Holder for
+											Service TAX</th>
+
+									</tr>
+								</thead>
+								<tbody>
+									<tr class="cp"
+										ng-repeat="x in vm.cbecFocalPointServiceTaxDetails | filter:searchcbecFocalPointServiceTax"
+										ng-click="vm.cbecFocalPointServiceTax = x.cbecFocalPointServiceTax"
+										data-bs-dismiss="modal">
+										<td>{{x.cbecFocalPointServiceTax}}</td>
+
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+				<div class="list_wrapper"
+					ng-if="vm.cbecFocalPointServiceTaxDetails .length==0">No
+					records found to display.</div>
+			</div>
+
+		</div>
+	</div>
+</div>
+<div class="modal" id="cbecLinkCellModal" role="dialog">
+	<div class="modal-dialog">
+		<!-- Modal content-->
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-bs-dismiss="modal">&times;</button>
+				<h4 class="modal-title">CBEC Link Cell Consolidation A/C Place
+					Holder</h4>
+			</div>
+			<div class="modal-body">
+				<div class="loader_popup"></div>
+				<div class="list_wrapper" ng-if="vm.cbecLinkCellDetails .length>0">
+					<div class="row">
+
+						<div class="col-sm-12">
+							<table class="table table-bordered list">
+								<thead>
+									<tr>
+										<th>CBEC Link Cell Consolidation A/C Place Holder</th>
+
+									</tr>
+								</thead>
+								<tbody>
+									<tr class="cp"
+										ng-repeat="x in vm.cbecLinkCellDetails | filter:searchcbecLinkCell"
+										ng-click="vm.cbecLinkCell = x.cbecLinkCell"
+										data-bs-dismiss="modal">
+										<td>{{x.cbecLinkCell}}</td>
+
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+				<div class="list_wrapper" ng-if="vm.cbecLinkCellDetails .length==0">No
+					records found to display.</div>
+			</div>
+
+		</div>
+	</div>
+</div>
+<div class="modal" id="cbecIncomeModal" role="dialog">
+	<div class="modal-dialog">
+		<!-- Modal content-->
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-bs-dismiss="modal">&times;</button>
+				<h4 class="modal-title">CBEC Income A/C Place Holder</h4>
+			</div>
+			<div class="modal-body">
+				<div class="loader_popup"></div>
+				<div class="list_wrapper" ng-if="vm.cbecIncomeDetails .length>0">
+					<div class="row">
+
+						<div class="col-sm-12">
+							<table class="table table-bordered list">
+								<thead>
+									<tr>
+										<th>CBEC Income A/C Place Holder</th>
+
+									</tr>
+								</thead>
+								<tbody>
+									<tr class="cp"
+										ng-repeat="x in vm.cbecIncomeDetails | filter:searchcbecIncome"
+										ng-click="vm.cbecIncome = x.cbecIncome" data-bs-dismiss="modal">
+										<td>{{x.cbecIncome}}</td>
+
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+				<div class="list_wrapper" ng-if="vm.cbecIncomeDetails .length==0">No
+					records found to display.</div>
+			</div>
+
+		</div>
+	</div>
+</div>
+
+<div class="modal" id="cbecInternetParkingModal" role="dialog">
+	<div class="modal-dialog">
+		<!-- Modal content-->
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-bs-dismiss="modal">&times;</button>
+				<h4 class="modal-title">CBEC Internet Parking A/C Place Holder
+					for CENTRAL EXCISE TAX</h4>
+			</div>
+			<div class="modal-body">
+				<div class="loader_popup"></div>
+				<div class="list_wrapper"
+					ng-if="vm.cbecInternetParkingDetails .length>0">
+					<div class="row">
+
+						<div class="col-sm-12">
+							<table class="table table-bordered list">
+								<thead>
+									<tr>
+										<th>CBEC Internet Parking A/C Place Holder for CENTRAL
+											EXCISE TAX</th>
+
+									</tr>
+								</thead>
+								<tbody>
+									<tr class="cp"
+										ng-repeat="x in vm.cbecInternetParkingDetails | filter:searchcbecInternetParking"
+										ng-click="vm.cbecInternetParking = x.cbecInternetParking"
+										data-bs-dismiss="modal">
+										<td>{{x.cbecInternetParking}}</td>
+
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+				<div class="list_wrapper"
+					ng-if="vm.cbecInternetParkingDetails .length==0">No records
+					found to display.</div>
+			</div>
+
+		</div>
+	</div>
+</div>
+
+
+<div class="modal" id="cbecInternetParkingServicetaxModal"
+	role="dialog">
+	<div class="modal-dialog">
+		<!-- Modal content-->
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-bs-dismiss="modal">&times;</button>
+				<h4 class="modal-title">CBEC Internet Parking A/C Place Holder
+					for Service TAX</h4>
+			</div>
+			<div class="modal-body">
+				<div class="loader_popup"></div>
+				<div class="list_wrapper"
+					ng-if="vm.cbecInternetParkingServicetaxDetails .length>0">
+					<div class="row">
+
+						<div class="col-sm-12">
+							<table class="table table-bordered list">
+								<thead>
+									<tr>
+										<th>CBEC Internet Parking A/C Place Holder for Service
+											TAX</th>
+
+									</tr>
+								</thead>
+								<tbody>
+									<tr class="cp"
+										ng-repeat="x in vm.cbecInternetParkingServicetaxDetails | filter:searchcbecInternetParkingServicetax"
+										ng-click="vm.cbecInternetParkingServicetax = x.cbecInternetParkingServicetax"
+										data-bs-dismiss="modal">
+										<td>{{x.cbecInternetParkingServicetax}}</td>
+
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+				<div class="list_wrapper"
+					ng-if="vm.cbecInternetParkingServicetaxDetails .length==0">No
+					records found to display.</div>
+			</div>
+
+		</div>
+	</div>
+</div>
+
+<div class="modal" id="errorTransactionModal" role="dialog">
+	<div class="modal-dialog">
+		<!-- Modal content-->
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-bs-dismiss="modal">&times;</button>
+				<h4 class="modal-title">Error Challan Transaction Place Holder</h4>
+			</div>
+			<div class="modal-body">
+				<div class="loader_popup"></div>
+				<div class="list_wrapper"
+					ng-if="vm.errorTransactionDetails .length>0">
+					<div class="row">
+
+						<div class="col-sm-12">
+							<table class="table table-bordered list">
+								<thead>
+									<tr>
+										<th>Error Challan Transaction Place Holder</th>
+
+									</tr>
+								</thead>
+								<tbody>
+									<tr class="cp"
+										ng-repeat="x in vm.errorTransactionDetails | filter:searcherrorTransaction"
+										ng-click="vm.errorTransaction = x.errorTransaction"
+										data-bs-dismiss="modal">
+										<td>{{x.errorTransaction}}</td>
+
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+				<div class="list_wrapper"
+					ng-if="vm.errorTransactionDetails .length==0">No records
+					found to display.</div>
+			</div>
+
+		</div>
+	</div>
+</div>
+<div class="modal" id="errorCollectionModal" role="dialog">
+	<div class="modal-dialog">
+		<!-- Modal content-->
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-bs-dismiss="modal">&times;</button>
+				<h4 class="modal-title">Error Challan Collection Place Holder</h4>
+			</div>
+			<div class="modal-body">
+				<div class="loader_popup"></div>
+				<div class="list_wrapper"
+					ng-if="vm.errorCollectionDetails .length>0">
+					<div class="row">
+
+						<div class="col-sm-12">
+							<table class="table table-bordered list">
+								<thead>
+									<tr>
+										<th>Error Challan Collection Place Holder</th>
+
+									</tr>
+								</thead>
+								<tbody>
+									<tr class="cp"
+										ng-repeat="x in vm.errorCollectionDetails | filter:searcherrorCollection"
+										ng-click="vm.errorCollection = x.errorCollection"
+										data-bs-dismiss="modal">
+										<td>{{x.errorCollection}}</td>
+
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+				<div class="list_wrapper"
+					ng-if="vm.errorCollectionDetails .length==0">No records found
+					to display.</div>
+			</div>
+
+		</div>
+	</div>
+</div>
+
+<div class="modal" id="errorNodalBranchModal" role="dialog">
+	<div class="modal-dialog">
+		<!-- Modal content-->
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-bs-dismiss="modal">&times;</button>
+				<h4 class="modal-title">Error Challan Nodal Branch Collection
+					Place Holder</h4>
+			</div>
+			<div class="modal-body">
+				<div class="loader_popup"></div>
+				<div class="list_wrapper"
+					ng-if="vm.errorNodalBranchDetails .length>0">
+					<div class="row">
+
+						<div class="col-sm-12">
+							<table class="table table-bordered list">
+								<thead>
+									<tr>
+										<th>Error Challan Nodal Branch Collection Place Holder</th>
+
+									</tr>
+								</thead>
+								<tbody>
+									<tr class="cp"
+										ng-repeat="x in vm.errorNodalBranchDetails | filter:searcherrorNodalBranch"
+										ng-click="vm.errorNodalBranch = x.errorNodalBranch"
+										data-bs-dismiss="modal">
+										<td>{{x.errorNodalBranch}}</td>
+
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+				<div class="list_wrapper"
+					ng-if="vm.errorNodalBranchDetails .length==0">No records
+					found to display.</div>
+			</div>
+
+		</div>
+	</div>
+</div>
+
+<div class="modal" id="errorLinkCellModal" role="dialog">
+	<div class="modal-dialog">
+		<!-- Modal content-->
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-bs-dismiss="modal">&times;</button>
+				<h4 class="modal-title">Error Challan Link Cell Collection
+					Place Holder</h4>
+			</div>
+			<div class="modal-body">
+				<div class="loader_popup"></div>
+				<div class="list_wrapper"
+					ng-if="vm.clearingAccountDetails .length>0">
+					<div class="row">
+
+						<div class="col-sm-12">
+							<table class="table table-bordered list">
+								<thead>
+									<tr>
+										<th>Error Challan Link Cell Collection Place Holder</th>
+
+									</tr>
+								</thead>
+								<tbody>
+									<tr class="cp"
+										ng-repeat="x in vm.errorLinkCellDetails | filter:searcherrorLinkCell"
+										ng-click="vm.errorLinkCell = x.errorLinkCell"
+										data-bs-dismiss="modal">
+										<td>{{x.errorLinkCell}}</td>
+
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+				<div class="list_wrapper" ng-if="vm.errorLinkCellDetails .length==0">No
+					records found to display.</div>
+			</div>
+
+		</div>
+	</div>
+</div>
+<div class="modal" id="errorDropChallanModal" role="dialog">
+	<div class="modal-dialog">
+		<!-- Modal content-->
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-bs-dismiss="modal">&times;</button>
+				<h4 class="modal-title">Error Challan Place Holder for Drop
+					Challan</h4>
+			</div>
+			<div class="modal-body">
+				<div class="loader_popup"></div>
+				<div class="list_wrapper"
+					ng-if="vm.errorDropChallanDetails .length>0">
+					<div class="row">
+
+						<div class="col-sm-12">
+							<table class="table table-bordered list">
+								<thead>
+									<tr>
+										<th>Error Challan Place Holder for Drop Challan</th>
+
+									</tr>
+								</thead>
+								<tbody>
+									<tr class="cp"
+										ng-repeat="x in vm.errorDropChallanDetails | filter:searcherrorDropChallan"
+										ng-click="vm.errorDropChallan = x.errorDropChallan"
+										data-bs-dismiss="modal">
+										<td>{{x.errorDropChallan}}</td>
+
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+				<div class="list_wrapper"
+					ng-if="vm.errorDropChallanDetails .length==0">No records
+					found to display.</div>
+			</div>
+
+		</div>
+	</div>
+</div>
+
+
+
+
+
+
+<!-- CBEC -->
+
+
+
+
+<!-- CBDT -->
+<div class="modal" id="cbdtCollectionAccountModal" role="dialog">
+	<div class="modal-dialog">
+		<!-- Modal content-->
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-bs-dismiss="modal">&times;</button>
+				<h4 class="modal-title">CBDT Collection A/C Place Holder</h4>
+			</div>
+			<div class="modal-body">
+				<div class="loader_popup"></div>
+				<div class="list_wrapper"
+					ng-if="vm.cbdtCollectionAccountDetails .length>0">
+					<div class="row">
+
+						<div class="col-sm-12">
+							<table class="table table-bordered list">
+								<thead>
+									<tr>
+										<th>CBDT Collection A/C Place Holder</th>
+
+									</tr>
+								</thead>
+								<tbody>
+									<tr class="cp"
+										ng-repeat="x in vm.cbdtCollectionAccountDetails | filter:searchcbdtCollectionAccount"
+										ng-click="vm.cbdtCollectionAccount = x.cbdtCollectionAccount"
+										data-bs-dismiss="modal">
+										<td>{{x.cbdtCollectionAccount}}</td>
+
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+				<div class="list_wrapper"
+					ng-if="vm.cbdtCollectionAccountDetails .length==0">No records
+					found to display.</div>
+			</div>
+
+		</div>
+	</div>
+</div>
+
+<div class="modal" id="cbdtFocalPointModal" role="dialog">
+	<div class="modal-dialog">
+		<!-- Modal content-->
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-bs-dismiss="modal">&times;</button>
+				<h4 class="modal-title">CBDT Focal Point Consolidation A/C
+					Place Holder</h4>
+			</div>
+			<div class="modal-body">
+				<div class="loader_popup"></div>
+				<div class="list_wrapper" ng-if="vm.cbdtFocalPointDetails .length>0">
+					<div class="row">
+
+						<div class="col-sm-12">
+							<table class="table table-bordered list">
+								<thead>
+									<tr>
+										<th>CBDT Focal Point Consolidation A/C Place Holder</th>
+
+									</tr>
+								</thead>
+								<tbody>
+									<tr class="cp"
+										ng-repeat="x in vm.cbdtFocalPointDetails | filter:searchcbdtFocalPoint"
+										ng-click="vm.cbdtFocalPoint = x.cbdtFocalPoint"
+										data-bs-dismiss="modal">
+										<td>{{x.cbdtFocalPoint}}</td>
+
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+				<div class="list_wrapper"
+					ng-if="vm.cbdtFocalPointDetails .length==0">No records found
+					to display.</div>
+			</div>
+
+		</div>
+	</div>
+</div>
+<div class="modal" id="cbdtLinkCellModal" role="dialog">
+	<div class="modal-dialog">
+		<!-- Modal content-->
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-bs-dismiss="modal">&times;</button>
+				<h4 class="modal-title">CBDT Link Cell Consolidation A/C Place
+					Holder</h4>
+			</div>
+			<div class="modal-body">
+				<div class="loader_popup"></div>
+				<div class="list_wrapper" ng-if="vm.cbdtLinkCellDetails .length>0">
+					<div class="row">
+
+						<div class="col-sm-12">
+							<table class="table table-bordered list">
+								<thead>
+									<tr>
+										<th>CBDT Link Cell Consolidation A/C Place Holder</th>
+
+									</tr>
+								</thead>
+								<tbody>
+									<tr class="cp"
+										ng-repeat="x in vm.cbdtLinkCellDetails | filter:searchcbdtLinkCell"
+										ng-click="vm.cbdtLinkCell = x.cbdtLinkCell"
+										data-bs-dismiss="modal">
+										<td>{{x.cbdtLinkCell}}</td>
+
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+				<div class="list_wrapper" ng-if="vm.cbdtLinkCellDetails .length==0">No
+					records found to display.</div>
+			</div>
+
+		</div>
+	</div>
+</div>
+<div class="modal" id="cbdtIncomeModal" role="dialog">
+	<div class="modal-dialog">
+		<!-- Modal content-->
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-bs-dismiss="modal">&times;</button>
+				<h4 class="modal-title">CBDT Income A/C Place Holder</h4>
+			</div>
+			<div class="modal-body">
+				<div class="loader_popup"></div>
+				<div class="list_wrapper" ng-if="vm.cbdtIncomeDetails .length>0">
+					<div class="row">
+
+						<div class="col-sm-12">
+							<table class="table table-bordered list">
+								<thead>
+									<tr>
+										<th>CBDT Income A/C Place Holder</th>
+
+									</tr>
+								</thead>
+								<tbody>
+									<tr class="cp"
+										ng-repeat="x in vm.cbdtIncomeDetails | filter:searchcbdtIncome"
+										ng-click="vm.cbdtIncome = x.cbdtIncome" data-bs-dismiss="modal">
+										<td>{{x.cbdtIncome}}</td>
+
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+				<div class="list_wrapper" ng-if="vm.cbdtIncomeDetails .length==0">No
+					records found to display.</div>
+			</div>
+
+		</div>
+	</div>
+</div>
+
+<div class="modal" id="cbdtInternetParkingModal" role="dialog">
+	<div class="modal-dialog">
+		<!-- Modal content-->
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-bs-dismiss="modal">&times;</button>
+				<h4 class="modal-title">CBDT Internet Parking A/C Place Holder</h4>
+			</div>
+			<div class="modal-body">
+				<div class="loader_popup"></div>
+				<div class="list_wrapper"
+					ng-if="vm.cbdtInternetParkingDetails .length>0">
+					<div class="row">
+
+						<div class="col-sm-12">
+							<table class="table table-bordered list">
+								<thead>
+									<tr>
+										<th>CBDT Internet Parking A/C Place Holder</th>
+
+									</tr>
+								</thead>
+								<tbody>
+									<tr class="cp"
+										ng-repeat="x in vm.cbdtInternetParkingDetails | filter:searchcbdtInternetParking"
+										ng-click="vm.cbdtInternetParking = x.cbdtInternetParking"
+										data-bs-dismiss="modal">
+										<td>{{x.cbdtInternetParking}}</td>
+
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+				<div class="list_wrapper"
+					ng-if="vm.cbdtInternetParkingDetails .length==0">No records
+					found to display.</div>
+			</div>
+
+		</div>
+	</div>
+</div>
+<div class="modal" id="errorTransactionModal" role="dialog">
+	<div class="modal-dialog">
+		<!-- Modal content-->
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-bs-dismiss="modal">&times;</button>
+				<h4 class="modal-title">Error Challan Transaction Place Holder</h4>
+			</div>
+			<div class="modal-body">
+				<div class="loader_popup"></div>
+				<div class="list_wrapper"
+					ng-if="vm.errorTransactionDetails .length>0">
+					<div class="row">
+
+						<div class="col-sm-12">
+							<table class="table table-bordered list">
+								<thead>
+									<tr>
+										<th>Error Challan Transaction Place Holder</th>
+
+									</tr>
+								</thead>
+								<tbody>
+									<tr class="cp"
+										ng-repeat="x in vm.errorTransactionDetails | filter:searcherrorTransaction"
+										ng-click="vm.errorTransaction = x.errorTransaction"
+										data-bs-dismiss="modal">
+										<td>{{x.errorTransaction}}</td>
+
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+				<div class="list_wrapper"
+					ng-if="vm.errorTransactionDetails .length==0">No records
+					found to display.</div>
+			</div>
+
+		</div>
+	</div>
+</div>
+<div class="modal" id="errorCollectionModal" role="dialog">
+	<div class="modal-dialog">
+		<!-- Modal content-->
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-bs-dismiss="modal">&times;</button>
+				<h4 class="modal-title">Error Challan Collection Place Holder</h4>
+			</div>
+			<div class="modal-body">
+				<div class="loader_popup"></div>
+				<div class="list_wrapper"
+					ng-if="vm.errorCollectionDetails .length>0">
+					<div class="row">
+
+						<div class="col-sm-12">
+							<table class="table table-bordered list">
+								<thead>
+									<tr>
+										<th>Error Challan Collection Place Holder</th>
+
+									</tr>
+								</thead>
+								<tbody>
+									<tr class="cp"
+										ng-repeat="x in vm.errorCollectionDetails | filter:searcherrorCollection"
+										ng-click="vm.errorCollection = x.errorCollection"
+										data-bs-dismiss="modal">
+										<td>{{x.errorCollection}}</td>
+
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+				<div class="list_wrapper"
+					ng-if="vm.errorCollectionDetails .length==0">No records found
+					to display.</div>
+			</div>
+
+		</div>
+	</div>
+</div>
+
+<div class="modal" id="errorNodalBranchModal" role="dialog">
+	<div class="modal-dialog">
+		<!-- Modal content-->
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-bs-dismiss="modal">&times;</button>
+				<h4 class="modal-title">Error Challan Nodal Branch Collection
+					Place Holder</h4>
+			</div>
+			<div class="modal-body">
+				<div class="loader_popup"></div>
+				<div class="list_wrapper"
+					ng-if="vm.errorNodalBranchDetails .length>0">
+					<div class="row">
+
+						<div class="col-sm-12">
+							<table class="table table-bordered list">
+								<thead>
+									<tr>
+										<th>Error Challan Nodal Branch Collection Place Holder</th>
+
+									</tr>
+								</thead>
+								<tbody>
+									<tr class="cp"
+										ng-repeat="x in vm.errorNodalBranchDetails | filter:searcherrorNodalBranch"
+										ng-click="vm.errorNodalBranch = x.errorNodalBranch"
+										data-bs-dismiss="modal">
+										<td>{{x.errorNodalBranch}}</td>
+
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+				<div class="list_wrapper"
+					ng-if="vm.errorNodalBranchDetails .length==0">No records
+					found to display.</div>
+			</div>
+
+		</div>
+	</div>
+</div>
+
+<div class="modal" id="errorLinkCellModal" role="dialog">
+	<div class="modal-dialog">
+		<!-- Modal content-->
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-bs-dismiss="modal">&times;</button>
+				<h4 class="modal-title">Error Challan Link Cell Collection
+					Place Holder</h4>
+			</div>
+			<div class="modal-body">
+				<div class="loader_popup"></div>
+				<div class="list_wrapper"
+					ng-if="vm.clearingAccountDetails .length>0">
+					<div class="row">
+
+						<div class="col-sm-12">
+							<table class="table table-bordered list">
+								<thead>
+									<tr>
+										<th>Error Challan Link Cell Collection Place Holder</th>
+
+									</tr>
+								</thead>
+								<tbody>
+									<tr class="cp"
+										ng-repeat="x in vm.errorLinkCellDetails | filter:searcherrorLinkCell"
+										ng-click="vm.errorLinkCell = x.errorLinkCell"
+										data-bs-dismiss="modal">
+										<td>{{x.errorLinkCell}}</td>
+
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+				<div class="list_wrapper" ng-if="vm.errorLinkCellDetails .length==0">No
+					records found to display.</div>
+			</div>
+
+		</div>
+	</div>
+</div>
+<div class="modal" id="errorDropChallanModal" role="dialog">
+	<div class="modal-dialog">
+		<!-- Modal content-->
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-bs-dismiss="modal">&times;</button>
+				<h4 class="modal-title">Error Challan Place Holder for Drop
+					Challan</h4>
+			</div>
+			<div class="modal-body">
+				<div class="loader_popup"></div>
+				<div class="list_wrapper"
+					ng-if="vm.errorDropChallanDetails .length>0">
+					<div class="row">
+
+						<div class="col-sm-12">
+							<table class="table table-bordered list">
+								<thead>
+									<tr>
+										<th>Error Challan Place Holder for Drop Challan</th>
+
+									</tr>
+								</thead>
+								<tbody>
+									<tr class="cp"
+										ng-repeat="x in vm.errorDropChallanDetails | filter:searcherrorDropChallan"
+										ng-click="vm.errorDropChallan = x.errorDropChallan"
+										data-bs-dismiss="modal">
+										<td>{{x.errorDropChallan}}</td>
+
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+				<div class="list_wrapper"
+					ng-if="vm.errorDropChallanDetails .length==0">No records
+					found to display.</div>
+			</div>
+
+		</div>
+	</div>
+</div>
+
+
+
+
+
+
+<!-- CBDT	  -->
+
+
+
+
+
+
+
+
+
+
+
+<!-- Common	  -->
+
+<div class="modal" id="cashAccountModal" role="dialog">
+	<div class="modal-dialog">
+		<!-- Modal content-->
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-bs-dismiss="modal">&times;</button>
+				<h4 class="modal-title">Cash Account Place Holder</h4>
+			</div>
+			<div class="modal-body">
+				<div class="loader_popup"></div>
+				<div class="list_wrapper" ng-if="vm.cashAccountDetails .length>0">
+					<div class="row">
+
+						<div class="col-sm-12">
+							<table class="table table-bordered list">
+								<thead>
+									<tr>
+										<th>Cash Account Place Holder</th>
+
+									</tr>
+								</thead>
+								<tbody>
+									<tr class="cp"
+										ng-repeat="x in vm.cashAccountDetails | filter:searchcashAccount"
+										ng-click="vm.cashAccount = x.cashAccount" data-bs-dismiss="modal">
+										<td>{{x.cashAccount}}</td>
+
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+				<div class="list_wrapper" ng-if="vm.cashAccountDetails .length==0">No
+					records found to display.</div>
+			</div>
+
+		</div>
+	</div>
+</div>
+
+<div class="modal" id="clearingAccountModal" role="dialog">
+	<div class="modal-dialog">
+		<!-- Modal content-->
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-bs-dismiss="modal">&times;</button>
+				<h4 class="modal-title">Clearing Sundry Account Place Holder</h4>
+			</div>
+			<div class="modal-body">
+				<div class="loader_popup"></div>
+				<div class="list_wrapper"
+					ng-if="vm.clearingAccountDetails .length>0">
+					<div class="row">
+
+						<div class="col-sm-12">
+							<table class="table table-bordered list">
+								<thead>
+									<tr>
+										<th>Clearing Sundry Account Place Holder</th>
+
+									</tr>
+								</thead>
+								<tbody>
+									<tr class="cp"
+										ng-repeat="x in vm.clearingAccountDetails | filter:searchclearingAccount"
+										ng-click="vm.clearingAccount = x.clearingAccount"
+										data-bs-dismiss="modal">
+										<td>{{x.clearingAccount}}</td>
+
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+				<div class="list_wrapper"
+					ng-if="vm.clearingAccountDetails .length==0">No records found
+					to display.</div>
+			</div>
+
+		</div>
+	</div>
+</div>
+<div class="modal" id="rbiBondModal" role="dialog">
+	<div class="modal-dialog">
+		<!-- Modal content-->
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-bs-dismiss="modal">&times;</button>
+				<h4 class="modal-title">RBI Relief Bond LC Consolidation Place
+					Holder</h4>
+			</div>
+			<div class="modal-body">
+				<div class="loader_popup"></div>
+				<div class="list_wrapper" ng-if="vm.rbiBondDetails .length>0">
+					<div class="row">
+
+						<div class="col-sm-12">
+							<table class="table table-bordered list">
+								<thead>
+									<tr>
+										<th>RBI Relief Bond LC Consolidation Place Holder</th>
+
+									</tr>
+								</thead>
+								<tbody>
+									<tr class="cp"
+										ng-repeat="x in vm.rbiBondDetails | filter:searchrbiBond"
+										ng-click="vm.rbiBond = x.rbiBond" data-bs-dismiss="modal">
+										<td>{{x.rbiBond}}</td>
+
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+				<div class="list_wrapper" ng-if="vm.rbiBondDetails .length==0">No
+					records found to display.</div>
+			</div>
+
+		</div>
+	</div>
+</div>
+<div class="modal" id="ddAccountModal" role="dialog">
+	<div class="modal-dialog">
+		<!-- Modal content-->
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-bs-dismiss="modal">&times;</button>
+				<h4 class="modal-title">DD A/C Place Holder</h4>
+			</div>
+			<div class="modal-body">
+				<div class="loader_popup"></div>
+				<div class="list_wrapper" ng-if="vm.ddAccountDetails .length>0">
+					<div class="row">
+
+						<div class="col-sm-12">
+							<table class="table table-bordered list">
+								<thead>
+									<tr>
+										<th>DD A/C Place Holder</th>
+
+									</tr>
+								</thead>
+								<tbody>
+									<tr class="cp"
+										ng-repeat="x in vm.ddAccountDetails | filter:searchddAccount"
+										ng-click="vm.ddAccount = x.ddAccount" data-bs-dismiss="modal">
+										<td>{{x.ddAccount}}</td>
+
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+				<div class="list_wrapper" ng-if="vm.ddAccountDetails .length==0">No
+					records found to display.</div>
+			</div>
+
+		</div>
+	</div>
+</div>
+<div class="modal" id="payOrderAccountModal" role="dialog">
+	<div class="modal-dialog">
+		<!-- Modal content-->
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-bs-dismiss="modal">&times;</button>
+				<h4 class="modal-title">Pay Order A/C Place Holder</h4>
+			</div>
+			<div class="modal-body">
+				<div class="loader_popup"></div>
+				<div class="list_wrapper"
+					ng-if="vm.payOrderAccountDetails .length>0">
+					<div class="row">
+
+						<div class="col-sm-12">
+							<table class="table table-bordered list">
+								<thead>
+									<tr>
+										<th>Pay Order A/C Place Holder</th>
+
+									</tr>
+								</thead>
+								<tbody>
+									<tr class="cp"
+										ng-repeat="x in vm.payOrderAccountDetails | filter:searchpayOrderAccount"
+										ng-click="vm.payOrderAccount = x.payOrderAccount"
+										data-bs-dismiss="modal">
+										<td>{{x.payOrderAccount}}</td>
+
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+				<div class="list_wrapper"
+					ng-if="vm.payOrderAccountDetails .length==0">No records found
+					to display.</div>
+			</div>
+
+		</div>
+	</div>
+</div>
+<div class="modal" id="ecsAccountModal" role="dialog">
+	<div class="modal-dialog">
+		<!-- Modal content-->
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-bs-dismiss="modal">&times;</button>
+				<h4 class="modal-title">ECS A/C Place Holder</h4>
+			</div>
+			<div class="modal-body">
+				<div class="loader_popup"></div>
+				<div class="list_wrapper" ng-if="vm.ecsAccountDetails .length>0">
+					<div class="row">
+
+						<div class="col-sm-12">
+							<table class="table table-bordered list">
+								<thead>
+									<tr>
+										<th>ECS A/C Place Holder</th>
+
+									</tr>
+								</thead>
+								<tbody>
+									<tr class="cp"
+										ng-repeat="x in vm.ecsAccountDetails | filter:searchecsAccount"
+										ng-click="vm.ecsAccount = x.ecsAccount" data-bs-dismiss="modal">
+										<td>{{x.ecsAccount}}</td>
+
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+				<div class="list_wrapper" ng-if="vm.ecsAccountDetails .length==0">No
+					records found to display.</div>
+			</div>
+
+		</div>
+	</div>
+</div>
+<div class="modal" id="tdsAccountModal" role="dialog">
+	<div class="modal-dialog">
+		<!-- Modal content-->
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-bs-dismiss="modal">&times;</button>
+				<h4 class="modal-title">TDS A/C Place Holder</h4>
+			</div>
+			<div class="modal-body">
+				<div class="loader_popup"></div>
+				<div class="list_wrapper" ng-if="vm.tdsAccountDetails .length>0">
+					<div class="row">
+
+						<div class="col-sm-12">
+							<table class="table table-bordered list">
+								<thead>
+									<tr>
+										<th>TDS A/C Place Holder</th>
+
+									</tr>
+								</thead>
+								<tbody>
+									<tr class="cp"
+										ng-repeat="x in vm.tdsAccountDetails | filter:searchtdsAccount"
+										ng-click="vm.tdsAccount = x.tdsAccount" data-bs-dismiss="modal">
+										<td>{{x.tdsAccount}}</td>
+
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+				<div class="list_wrapper" ng-if="vm.tdsAccountDetails .length==0">No
+					records found to display.</div>
+			</div>
+
+		</div>
+	</div>
+</div>
+
+<!-- Common	  -->

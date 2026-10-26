@@ -1,0 +1,45 @@
+<div class="container from_wrapper">
+	<left-menu-directive></left-menu-directive>
+	
+	<form name="hierarchyBulkUploadForm" id="hierarchyBulkUploadForm" role="form" ng-submit="submitForm(hierarchyBulkUploadForm.$valid)" enctype="multipart/form-data" novalidate>
+		<h4 class="form_heading">Hierarchy Bulk Upload</h4>
+		<notice-message-directive ></notice-message-directive>
+		<div class="form-group required"> 
+        	<div class="col-sm-3"></div>
+	      	<label for="hierarchyFile" class ="control-label col-sm-4">Upload File Name</label>
+	        <div class="col-sm-3">
+	        	<input id="hierarchyFile" name="hierarchyFile" type="file" ng-model="hierarchyBulkUpload.hierarchyFile" file-model="hierarchyFile" accept="application/vnd.ms-excel" runat="server" required valid-file>
+	          <!-- <input type="file" class="form-control" id="file" name="file" ng-model="hierarchyBulkUpload.file"  required>
+	          <button type="submit" class="btn btn-default">Browse</button>   -->
+	        </div>
+        </div>
+        <div class="col-sm-offset-5 col-sm-8 form_submit">
+			 <button type="submit" class="btn btn-default" id="submitButton" ng-disabled="hierarchyBulkUploadForm.$invalid">Upload</button>
+			 <button type="button" class="btn btn-cancel" id="cancelButton" ng-click="moveTo()">Cancel</button>
+		</div>
+	</form>
+</div>
+<!-- /.container-fluid -->
+	        
+	        
+	        
+	        
+	        
+	        
+	        
+	        
+	        
+	        
+	        
+	        
+	        
+	        
+	        
+	        
+	        
+	        
+	        
+	        
+	        
+	        
+	        

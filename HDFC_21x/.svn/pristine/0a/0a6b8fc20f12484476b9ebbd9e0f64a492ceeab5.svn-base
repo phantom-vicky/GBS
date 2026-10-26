@@ -1,0 +1,395 @@
+<div class="loader-new" ng-if="vm.loader"></div>
+<dc-left-menu></dc-left-menu>
+<div class="container from_wrapper new_form_wrapper">
+    <h4 class="form_heading">TDS Exemption Master - Inquiry</h4>
+    <sol-header></sol-header>
+
+    <form name="taxExcemptionForm" role="form">
+        <table class="table table-bordered">
+            <tbody>
+            <tr>
+
+                <h4 class="form_heading">Customer Details</h4>
+            <tr>
+                <td width="25%">1.Customer Name</td>
+                <td width="25%" style="word-break: break-word;">
+                    <label class="data-bind" id="custName" >{{vm.inqSchemeDetails[0].bondHolderName}}</label>
+                </td>
+                <td width="25%">2.Address</td>
+                <td width="25%" style="word-break: break-word;">
+                    <label class="data-bind" id="address" >{{vm.inqSchemeDetails[0].communicationAddress}}</label>
+                </td>
+
+            </tr>
+                <tr><td width="25%">3.PAN Number</td>
+                <td width="25%">
+                <label class="data-bind" id="panNumber" >{{vm.inqSchemeDetails[0].panNo}}</label>
+                </td>
+                <td width="25%">4.Applicant Status</td>
+                <td width="25%">
+                <label class="data-bind" id="applicationStatus" >{{vm.inqSchemeDetails[0].applicationStatus}}</label>
+                </td>
+                </tr>
+            <tr>
+                <td width="25%">5.Residential status</td>
+                <td width="25%">
+                    <label class="data-bind" id="residentialStatus">{{vm.getInqFieldValue('C027', 'RES')}}</label>
+                </td>
+                <td width="25%" style="word-break: break-word;">5(a). If resident individual, whether age is 60 years or more at any time during the tax year (YES/NO)</td>
+                <td width="25%">
+                    <label class="data-bind" id="residentIndividual">{{vm.getInqResidentIndividualLabel()}}</label>
+                </td>
+            </tr>
+            <tr>
+                <td width="25%">6.Email Id</td>
+                <td width="25%">
+                    <label class="data-bind" id="emailId" >{{vm.inqSchemeDetails[0].emailId}}</label>
+                </td>
+                <td width="25%">7.Phone Number</td>
+                <td width="25%">
+                    <label class="data-bind" id="phoneNo">{{vm.inqSchemeDetails[0].phoneNo}}</label>
+                </td>
+            </tr>
+            <tr>
+                <td width="25%">8. DOB</td>
+                <td width="25%">
+                    <label class="data-bind" id="dob">{{vm.inqSchemeDetails[0].dob}}</label>
+                </td>
+                <td width="25%">9. Mobile Number</td>
+                <td width="25%">
+                    <label class="data-bind" id="mobileNo">{{vm.inqSchemeDetails[0].mobileNo}}</label>
+                </td>
+<!--                <td width="25%">Effective From Date</td>-->
+<!--                <td width="25%">-->
+<!--                    <label class="data-bind" id="effectiveDate" >{{(vm.inqDetails.C002.newValue)? (vm.inqDetails.C002.newValue) : (vm.inqDetails.C002.oldValue)}}</label>-->
+<!--                </td>-->
+            </tr>
+
+<!--            <tr>-->
+<!--                <td width="25%">BLA Id</td>-->
+<!--                <td width="25%">-->
+<!--&lt;!&ndash;                    <label class="data-bind" id="blaCount" ng-model="vm.inqSchemeDetails[0].blaCount">{{vm.blaCountSum}}</label>&ndash;&gt;-->
+<!--                    <label class="data-bind" id="blaCount">{{vm.inqSchemeDetails[0].blaNo}}</label>-->
+<!--                </td>-->
+<!--                &lt;!&ndash;</tr>-->
+<!--                <tr>&ndash;&gt;-->
+<!--                <td width="25%">Subscription Id</td>-->
+<!--                <td width="25%">-->
+<!--&lt;!&ndash;                    <label class="data-bind" id="subscriptionCnt" ng-model="vm.inqSchemeDetails[0].SubscriptionCoun">{{vm.subScriptionCountSum}}</label>&ndash;&gt;-->
+<!--                    <label class="data-bind" id="subscriptionCnt">{{vm.inqSchemeDetails[0].subscriptionId}}</label>-->
+<!--                </td>-->
+<!--            </tr>-->
+<!--            <tr>-->
+<!--                <td width="25%">Scheme Name</td>-->
+<!--                <td colspan="3" width="25%">-->
+<!--&lt;!&ndash;                    <label class="data-bind" id="schemeName" ng-model="vm.inqSchemeDetails[0].schemeName">{{vm.distinctSchemeNames}}</label>&ndash;&gt;-->
+<!--                    <label class="data-bind" id="schemeName">{{vm.inqSchemeDetails[0].schemeName}}</label>-->
+<!--                </td>-->
+<!--            </tr>-->
+
+<!--            <tr>-->
+
+<!--                &lt;!&ndash;</tr>-->
+
+
+<!--                <tr>&ndash;&gt;-->
+<!--                <td width="25%">Mode Of Holding</td>-->
+<!--                <td colspan="3" width="25%">-->
+<!--&lt;!&ndash;                    <label class="data-bind" id="holdingMode" ng-model="vm.inqSchemeDetails[0].modeOfHolding">{{vm.distinctModeOfHoldings}}</label>&ndash;&gt;-->
+<!--                    <label class="data-bind" id="holdingMode" >{{vm.inqSchemeDetails[0].modeOfHolding}}</label>-->
+<!--                </td>-->
+<!--            </tr>-->
+
+
+            </tbody>
+        </table>
+
+
+<!--        <div class="col-sm-3">-->
+<!--            <div class="form-group">-->
+<!--                <label>-->
+<!--                    Show-->
+<!--                    <select class="form-control record-filter" ng-model="vm.itemsPerPage">-->
+<!--                        <option value='5'>5</option>-->
+<!--                        <option value='10'>10</option>-->
+<!--                        <option value='25'>25</option>-->
+<!--                        <option value='50'>50</option>-->
+<!--                    </select>-->
+<!--                    records per page-->
+<!--                </label>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--        <div class="col-sm-3 pull-right-search">-->
+<!--            <div class="form-group">-->
+<!--                <div class="input-group">-->
+<!--                    <div class="input-group-addon"><i class="glyphicon glyphicon-search"></i></div>-->
+<!--                    <input type="text" class="form-control" ng-model="search" placeholder="Search"  chars="alpha-numeric"chars="alpha-numeric">-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+        <table class="table table-bordered table-striped list">
+            <thead>
+            <tr>
+
+                <th>BLA Id</th>
+                <th>Subscription Id</th>
+                <th>Scheme Name</th>
+                <th>Mode Of Holding</th>
+<!--                <th>Maker Id/Checker ID</th>-->
+            </tr>
+            </thead>
+            <tbody>
+<!--            <tr dir-paginate="user in vm.users|filter:search|itemsPerPage:vm.itemsPerPage">-->
+            <tr class="cp"
+                ng-repeat="x in vm.inqSchemeDetails">
+                <td>{{x.blaNo}}</td>
+                <td>{{x.subscriptionId}}</td>
+                <td>{{x.schemeName}}</td>
+                <td>{{x.modeOfHolding}}</td>
+
+
+
+
+            </tr>
+            </tbody>
+        </table>
+
+
+
+        <table class="table table-bordered table-striped list old-new-value-table">
+
+            <thead>
+            </thead>
+            <tbody>
+            <tr>
+                <th colspan="3"  style="text-align: center;">Tax Exemption Master Details</th>
+            </tr>
+            <tr>
+                <th>Particular</th>
+                <th>{{(vm.preOprType == 'M')?('Old Value'): ('Value')}}</th>
+                <th ng-if="vm.preOprType == 'M'">New Value</th>
+            </tr>
+
+            <tr>
+                <td>Financial Year</td>
+                <td class="old-value">{{(vm.inqDetails.C011.oldValue)?
+                    (vm.inqDetails.C011.oldValue) : ('-')}}
+                </td>
+                <td ng-if="vm.preOprType == 'M'" class="new-value text-danger">{{(vm.inqDetails.C011.oldValue != vm.inqDetails.C011.newValue) ? (vm.inqDetails.C011.newValue) : ('-')}}
+                </td>
+            </tr>
+<!--            <tr>-->
+<!--                <td>Whether Form 15G/15H/Tax Exemption Certificate Submitted?</td>-->
+<!--                <td class="old-value">{{(vm.inqDetails.C003.oldValue)?-->
+<!--                    (vm.inqDetails.C003.oldValue) : ('-')}}-->
+<!--                </td>-->
+<!--                <td ng-if="vm.preOprType == 'M'" class="new-value text-danger">{{(vm.inqDetails.C003.newValue)? (vm.inqDetails.C003.newValue) : ('-')}}-->
+<!--                </td>-->
+<!--            </tr>-->
+            <tr>
+                <td>Whether Form 121/Tax Exemption Certificate Submitted?</td>
+                <td class="old-value">{{(vm.inqDetails.C003.oldValue)?
+                    (vm.inqDetails.C003.oldValue | getLabelFromValuesArray : vm.taxType) : ('-')}}
+                </td>
+                <td ng-if="vm.preOprType == 'M'" class="new-value text-danger">{{(vm.inqDetails.C003.oldValue != vm.inqDetails.C003.newValue) ? (vm.inqDetails.C003.newValue | getLabelFromValuesArray : vm.taxType) : ('-')}}
+                </td>
+            </tr>
+            <tr>
+                <td>Tds Exemption Certificate No</td>
+                <td class="old-value">{{(vm.inqDetails.C004.oldValue)?
+                    (vm.inqDetails.C004.oldValue) : ('-')}}
+                </td>
+                <td ng-if="vm.preOprType == 'M'" class="new-value text-danger">{{(vm.inqDetails.C004.oldValue != vm.inqDetails.C004.newValue) ? (vm.inqDetails.C004.newValue) : ('-')}}
+                </td>
+            </tr>
+
+            <tr ng-if="vm.inqDetails && vm.inqDetails.C003 &&
+            ((vm.inqDetails.C003.oldValue && vm.inqDetails.C003.oldValue.toUpperCase() === 'TF003') ||
+            (vm.inqDetails.C003.newValue && vm.inqDetails.C003.newValue.toUpperCase() === 'TF003'))">
+                <td>No Tax/Low Tax</td>
+                <td class="old-value">{{(vm.inqDetails.C005 && vm.inqDetails.C005.oldValue == 'Y') ? 'NO TAX' : ((vm.inqDetails.C006 && vm.inqDetails.C006.oldValue == 'Y') ? 'LOW TAX' : '-')}}</td>
+                <td ng-if="vm.preOprType == 'M'" class="new-value text-danger">{{(((vm.inqDetails.C005 && vm.inqDetails.C005.oldValue == 'Y') ? 'NO TAX' : ((vm.inqDetails.C006 && vm.inqDetails.C006.oldValue == 'Y') ? 'LOW TAX' : '-')) != ((vm.inqDetails.C005 && vm.inqDetails.C005.newValue == 'Y') ? 'NO TAX' : ((vm.inqDetails.C006 && vm.inqDetails.C006.newValue == 'Y') ? 'LOW TAX' : '-'))) ? ((vm.inqDetails.C005 && vm.inqDetails.C005.newValue == 'Y') ? 'NO TAX' : ((vm.inqDetails.C006 && vm.inqDetails.C006.newValue == 'Y') ? 'LOW TAX' : '-')) : '-'}}</td>
+            </tr>
+
+            <tr ng-if="vm.inqDetails && vm.inqDetails.C003 &&
+            ((vm.inqDetails.C003.oldValue && vm.inqDetails.C003.oldValue.toUpperCase() === 'TF003') ||
+            (vm.inqDetails.C003.newValue && vm.inqDetails.C003.newValue.toUpperCase() === 'TF003'))">
+                <td>No/Low Tax amount Limit for Tax Exemption Certificate</td>
+                <td class="old-value">{{(vm.inqDetails.C007.oldValue)?
+                    (vm.inqDetails.C007.oldValue | indianAmount) : ('-')}}
+                </td>
+                <td ng-if="vm.preOprType == 'M'" class="new-value text-danger">{{(vm.inqDetails.C007.oldValue != vm.inqDetails.C007.newValue) ? (vm.inqDetails.C007.newValue | indianAmount) : ('-')}}
+                </td>
+            </tr>
+
+            <tr ng-if="vm.inqDetails && vm.inqDetails.C003 &&
+            ((vm.inqDetails.C003.oldValue && vm.inqDetails.C003.oldValue.toUpperCase() === 'TF003') ||
+            (vm.inqDetails.C003.newValue && vm.inqDetails.C003.newValue.toUpperCase() === 'TF003'))">
+                <td>Low Tax Percentage for Tax Exemption Certificate</td>
+                <td class="old-value">{{(vm.inqDetails.C008.oldValue)?
+                    (vm.inqDetails.C008.oldValue) : ('-')}}
+                </td>
+                <td ng-if="vm.preOprType == 'M'" class="new-value text-danger">{{(vm.inqDetails.C008.oldValue != vm.inqDetails.C008.newValue) ? (vm.inqDetails.C008.newValue) : ('-')}}
+                </td>
+            </tr>
+            <tr>
+                <td>Date of Submission of Form 121/Tax Exemption Certificate From Date</td>
+                <td class="old-value">{{(vm.inqDetails.C009.oldValue)?
+                    (vm.inqDetails.C009.oldValue) : ('-')}}
+                </td>
+                <td ng-if="vm.preOprType == 'M'" class="new-value text-danger">{{(vm.inqDetails.C009.oldValue != vm.inqDetails.C009.newValue) ? (vm.inqDetails.C009.newValue) : ('-')}}
+                </td>
+            </tr>
+            <tr>
+                <td>Date of Submission of Form 121/Tax Exemption Certificate To Date</td>
+                <td class="old-value">{{(vm.inqDetails.C010.oldValue)?
+                    (vm.inqDetails.C010.oldValue) : ('-')}}
+                </td>
+                <td ng-if="vm.preOprType == 'M'" class="new-value text-danger">{{(vm.inqDetails.C010.oldValue != vm.inqDetails.C010.newValue) ? (vm.inqDetails.C010.newValue) : ('-')}}
+                </td>
+            </tr>
+
+
+
+
+            <tr>
+                <td>Whether assessed to tax under the Income-Tax Act 1961</td>
+                <td class="old-value">{{ (vm.inqDetails.C012.oldValue == 'Y') ? 'Yes' :
+                    (vm.inqDetails.C012.oldValue == 'N') ? 'No' : '-' }}
+                </td>
+                <td ng-if="vm.preOprType == 'M'" class="new-value text-danger">{{ (vm.inqDetails.C012.oldValue != vm.inqDetails.C012.newValue) ? ((vm.inqDetails.C012.newValue == 'Y') ? 'Yes' : (vm.inqDetails.C012.newValue == 'N') ? 'No' : '-') : ('-') }}
+                </td>
+            </tr>
+            </tbody></table>
+
+
+            <table class="table table-bordered table-striped list old-new-value-table">
+            <tbody>
+               <tr>
+            <th colspan="3"  style="text-align: center;">Details of income</th>
+               </tr>
+               <tr>
+            <th>Particular</th>
+            <th>{{(vm.preOprType == 'M')?('Old Value'): ('Value')}}</th>
+            <th ng-if="vm.preOprType == 'M'">New Value</th>
+            </tr>
+            <tr>
+                <td>9. Nature of income </td>
+                <td class="old-value">{{(vm.inqDetails.C026.oldValue) ? (vm.inqDetails.C026.oldValue) : ('-')}}</td>
+                <td ng-if="vm.preOprType == 'M'" class="new-value text-danger">{{(vm.inqDetails.C026.oldValue != vm.inqDetails.C026.newValue) ? (vm.inqDetails.C026.newValue) : ('-')}}</td>
+            </tr>
+            <tr>
+                <td>10.Estimated Income For Which Declaration Is Made</td>
+                <td class="old-value">{{(vm.inqDetails.C013.oldValue) ? (vm.inqDetails.C013.oldValue | indianAmount) : ('-')}}</td>
+                <td ng-if="vm.preOprType == 'M'" class="new-value text-danger">{{(vm.inqDetails.C013.oldValue != vm.inqDetails.C013.newValue) ? (vm.inqDetails.C013.newValue | indianAmount) : ('-')}}</td>
+            </tr>
+            <tr>
+                <td>11. Details of Form 121/TAX exemption certificate other than this form filed during the tax year, if any</td>
+                <td class="old-value">{{(vm.inqDetails.C029.oldValue) ? (vm.inqDetails.C029.oldValue | getLabelFromValuesArray : vm.commonYesNoMetaData) : ('-')}}</td>
+                <td ng-if="vm.preOprType == 'M'" class="new-value text-danger">{{(vm.inqDetails.C029.oldValue != vm.inqDetails.C029.newValue) ? (vm.inqDetails.C029.newValue | getLabelFromValuesArray : vm.commonYesNoMetaData) : ('-')}}</td>
+            </tr>
+            <tr>
+                <td>11(a).Total No. of Form 121/TAX exemption certificate filed</td>
+                <td class="old-value">{{(vm.inqDetails.C015.oldValue) ? (vm.inqDetails.C015.oldValue) : ('-')}}</td>
+                <td ng-if="vm.preOprType == 'M'" class="new-value text-danger">{{(vm.inqDetails.C015.oldValue != vm.inqDetails.C015.newValue) ? (vm.inqDetails.C015.newValue) : ('-')}}</td>
+            </tr>
+            <tr>
+                <td>11(b).Aggregate amount of income for which Form 121/TAX exemption certificate were filed</td>
+                <td class="old-value">{{(vm.inqDetails.C016.oldValue) ? (vm.inqDetails.C016.oldValue | indianAmount) : ('-')}}</td>
+                <td ng-if="vm.preOprType == 'M'" class="new-value text-danger">{{(vm.inqDetails.C016.oldValue != vm.inqDetails.C016.newValue) ? (vm.inqDetails.C016.newValue | indianAmount) : ('-')}}</td>
+            </tr>
+            <tr>
+                <td>12. Aggregate amount of income for which declaration is made during the tax year [sum of column 10 and 11(b)]
+                </td>
+                <td class="old-value">{{(vm.inqDetails.C014.oldValue) ? (vm.inqDetails.C014.oldValue | indianAmount) : ('-')}}</td>
+                <td ng-if="vm.preOprType == 'M'" class="new-value text-danger">{{(vm.inqDetails.C014.oldValue != vm.inqDetails.C014.newValue) ? (vm.inqDetails.C014.newValue | indianAmount) : ('-')}}</td>
+            </tr>
+            <tr>
+                <td>13. Estimated total income of the tax
+                    year including the income
+                    mentioned in column 12
+                </td>
+                <td class="old-value">{{(vm.inqDetails.C025.oldValue) ? (vm.inqDetails.C025.oldValue | indianAmount) : ('-')}}</td>
+                <td ng-if="vm.preOprType == 'M'" class="new-value text-danger">{{(vm.inqDetails.C025.oldValue != vm.inqDetails.C025.newValue) ? (vm.inqDetails.C025.newValue | indianAmount) : ('-')}}</td>
+            </tr>
+            <tr>
+                <td>14.Declaration Received Date</td>
+                <td class="old-value">{{(vm.inqDetails.C017.oldValue) ? (vm.inqDetails.C017.oldValue) : ('-')}}</td>
+                <td ng-if="vm.preOprType == 'M'" class="new-value text-danger">{{(vm.inqDetails.C017.oldValue != vm.inqDetails.C017.newValue) ? (vm.inqDetails.C017.newValue) : ('-')}}</td>
+            </tr>
+
+            </tbody>
+
+        </table>
+        <table class="table table-bordered table-striped list" ng-if="vm.isInqTf006Certificate()">
+            <thead>
+            <h4 class="form_heading" ng-if="vm.isInqTf006Certificate()">15.Details of the ITR filed for previous two tax years</h4>
+            <tr>
+                <th>S.No</th>
+                <th>Tax Year</th>
+                <th>Acknowledgement Number</th>
+                <th>Return Income</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>1</td>
+                <td>{{vm.getInqFieldValue('C020')}}</td>
+                <td>{{vm.getInqFieldValue('C019')}}</td>
+                <td>{{vm.getInqFieldValue('C021') ? (vm.getInqFieldValue('C021') | indianAmount) : '-'}}</td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>{{vm.getInqFieldValue('C023')}}</td>
+                <td>{{vm.getInqFieldValue('C022')}}</td>
+                <td>{{vm.getInqFieldValue('C024') ? (vm.getInqFieldValue('C024') | indianAmount) : '-'}}</td>
+            </tr>
+            </tbody>
+        </table>
+        <table class="table table-bordered table-striped list old-new-value-table">
+            <tbody width="100%">
+            <tr>
+                <th width="50%">Rejection Remarks</th>
+                <td width="50%">{{vm.rejectionRemarks}}</td>
+            </tr>
+            </tbody>
+        </table>
+        <div class="audit-details">
+            <div class="row">
+                <div class="col-md-3">
+                    <span> <b> Created By </b> : {{vm.auditDetails.createdBy}} </span>
+                </div>
+                <div class="col-md-3">
+                    <span> <b> Last Modified By </b> : {{(vm.auditDetails.modifiedBy) ? (vm.auditDetails.modifiedBy) : ('None')}}</span>
+                </div>
+                <div class="col-md-3">
+                    <span> <b> Last Verified By </b> : {{(vm.auditDetails.verifiedBy) ? (vm.auditDetails.verifiedBy) : ('None')}}</span>
+                </div>
+                <div class="col-md-3">
+                    <span> <b> Verify Status </b> : {{vm.auditDetails.verifyStatus}}</span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3">
+                    <span> <b> Created On </b> : {{ vm.auditDetails.createdDate | date : 'dd-MM-yyyy'}}</span>
+                </div>
+                <div class="col-md-3">
+                    <span> <b> Last Modified On</b> : {{ (vm.auditDetails.modifiedDate) ? (vm.auditDetails.modifiedDate | date : 'dd-MM-yyyy') : ('None')}}</span>
+                </div>
+                <div class="col-md-3">
+                    <span> <b> Last Verified On </b> : {{(vm.auditDetails.verifiedDate) ? (vm.auditDetails.verifiedDate | date : 'dd-MM-yyyy') : ('None')}}</span>
+                </div>
+                <div class="col-md-3">
+                </div>
+            </div>
+        </div>
+        <div class="text-center form_submit">
+            <button type="button" class="btn btn-cancel" id="cancelButton"
+                    onclick="window.location.href= '#!/tds_exemption_master/action/inquiry';">Close
+            </button>
+        </div>
+        <div class="text-center">
+            <notice-message-directive></notice-message-directive>
+        </div>
+    </form>
+</div>

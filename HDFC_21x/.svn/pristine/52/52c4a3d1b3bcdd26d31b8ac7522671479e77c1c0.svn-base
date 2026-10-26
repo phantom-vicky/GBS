@@ -1,0 +1,189 @@
+<div class="loader-new" ng-if="vm.loader"></div>
+<cbs-left-menu></cbs-left-menu>
+<div class="container from_wrapper new_form_wrapper">
+
+	<h4 class="form_heading  feature-heading">Branches of Other Bank - Delete</h4>
+
+	<table class="table table-bordered table-striped list">
+		<thead>
+	    	<tr>
+	        	<th width="25%">Particular</th>
+	        	<th width="25%" ng-if="!vm.newValueDispay">Value</th>
+	        	<th width="12.5%" ng-if="vm.newValueDispay">New Value</th>
+	        	<th width="12.5%" ng-if="vm.newValueDispay">Old Value</th>
+	        	<th width="25%">Particular</th>
+	        	<th width="25%" ng-if="!vm.newValueDispay">Value</th>
+	        	<th width="12.5%" ng-if="vm.newValueDispay">New Value</th>
+	        	<th width="12.5%" ng-if="vm.newValueDispay">Old Value</th>  
+	    	</tr>
+	    </thead>
+		<tbody>
+			<tr>
+				<td>
+					<label for="branchCode" class="control-label">Branch Code</label>
+				</td>
+				<td ng-if="vm.newValueDispay">
+					<label class="data-bind" id="branchCode_New">{{vm.cbsBranchesOfOtherBankNewScope.branchCode}}</label>
+				</td>
+				<td>
+					<label class="data-bind" id="branchCode">{{vm.cbsBranchesOfOtherBank.branchCode}}</label>
+				</td>
+				<td>
+					<label for="bankCode" class="control-label">Bank Cod</label>
+				</td>
+				<td ng-if="vm.newValueDispay">
+					<label class="data-bind" id="bankCode_New">{{vm.cbsBranchesOfOtherBankNewScope.bankCode}}</label>
+				</td>
+				<td>
+					<label class="data-bind" id="bankCode">{{vm.cbsBranchesOfOtherBank.branchCode}}</label>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<label for="micrCentreCode" class="control-label">MICR 	Center Code</label>
+				</td>
+				<td ng-if="vm.newValueDispay">
+					<label class="data-bind" id="micrCentreCode_New">{{vm.cbsBranchesOfOtherBankNewScope.micrCentreCode}}</label>
+				</td>
+				<td>
+					<label class="data-bind" id="micrCentreCode">{{vm.cbsBranchesOfOtherBank.micrCentreCode}}</label>
+				</td>
+				<td>
+					<label for="micrBankCode" class="control-label">MICR Bank  Code</label>
+				</td>
+				<td ng-if="vm.newValueDispay">
+					<label class="data-bind" id="micrBankCode_New">{{vm.cbsBranchesOfOtherBankNewScope.micrBankCode}}</label>
+				</td>
+				<td>
+					<label class="data-bind" id="micrBankCode">{{vm.cbsBranchesOfOtherBank.micrBankCode}}</label>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<label for="micrBranchCode" class="control-label">MICR Branch Code</label>
+				</td>
+				<td ng-if="vm.newValueDispay">
+					<label class="data-bind" id="micrBranchCode_New">{{vm.cbsBranchesOfOtherBankNewScope.micrBranchCode}}</label>
+				</td>
+				<td>
+					<label class="data-bind" id="micrBranchCode">{{vm.cbsBranchesOfOtherBank.micrBranchCode}}</label>
+				</td>
+				<td>
+					<label for="branchName" class="control-label">Branch Name</label>
+				</td>
+				<td ng-if="vm.newValueDispay">
+					<label class="data-bind" id="branchName_New">{{vm.cbsBranchesOfOtherBankNewScope.branchName}}</label>
+				</td>
+				<td>
+					<label class="data-bind" id="branchName">{{vm.cbsBranchesOfOtherBank.branchName}}</label>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<label for="branchAddr1" class="control-label">Branch Address1</label>
+				</td>
+				<td ng-if="vm.newValueDispay">
+					<label class="data-bind" id="branchAddr1_New">{{vm.cbsBranchesOfOtherBankNewScope.branchAddr1}}</label>
+				</td>
+				<td>
+					<label class="data-bind" id="branchAddr1">{{vm.cbsBranchesOfOtherBank.branchAddr1}}</label>
+				</td>
+				<td>
+					<label for="branchAddr2" class="control-label">Branch Address2</label>
+				</td>
+				<td ng-if="vm.newValueDispay">
+					<label class="data-bind" id="branchAddr2_New">{{vm.cbsBranchesOfOtherBankNewScope.branchAddr2}}</label>
+				</td>
+				<td>
+					<label class="data-bind" id="branchAddr2">{{vm.cbsBranchesOfOtherBank.branchAddr2}}</label>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<label for="branchAddr3" class="control-label">Branch  Address3</label>
+				</td>
+				<td ng-if="vm.newValueDispay">
+					<label class="data-bind" id="branchAddr3_New">{{vm.cbsBranchesOfOtherBankNewScope.branchAddr3}}</label>
+				</td>
+				<td>
+					<label class="data-bind" id="branchAddr3">{{vm.cbsBranchesOfOtherBank.branchAddr3}}</label>
+				</td>
+				<td>
+					<label for="branchCityCode" class="control-label">Branch City Code</label>
+				</td>
+				<td ng-if="vm.newValueDispay">
+					<label class="data-bind" id="branchCityCode_New">{{vm.cbsBranchesOfOtherBankNewScope.branchCityCode}}</label>
+				</td>
+				<td>
+					<label class="data-bind" id="branchCityCode">{{vm.cbsBranchesOfOtherBank.branchCityCode}}</label>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<label for="branchStateCode" class="control-label">Branch State Code</label>
+				</td>
+				<td ng-if="vm.newValueDispay">
+					<label class="data-bind" id="branchStateCode_New">{{vm.cbsBranchesOfOtherBankNewScope.branchStateCode}}</label>
+				</td>
+				<td>
+					<label class="data-bind" id="branchStateCode">{{vm.cbsBranchesOfOtherBank.branchStateCode}}</label>
+				</td>
+				<td>
+					<label for="branchPinCode" class="control-label">Branch Pin Code</label>
+				</td>
+				<td ng-if="vm.newValueDispay">
+					<label class="data-bind" id="branchPinCode_New">{{vm.cbsBranchesOfOtherBankNewScope.branchPinCode}}</label>
+				</td>
+				<td>
+					<label class="data-bind" id="branchPinCode">{{vm.cbsBranchesOfOtherBank.branchPinCode}}</label>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<label for="additionalText1" class="control-label">Additional Text1</label>
+				</td>
+				<td ng-if="vm.newValueDispay">
+					<label class="data-bind" id="additionalText1_new">{{vm.cbsBranchesOfOtherBankNewScope.additionalText1}}</label>
+				</td>
+				<td>
+					<label class="data-bind" id="additionalText1">{{vm.cbsBranchesOfOtherBank.additionalText1}}</label>
+				</td>
+				<td>
+					<label for="additionalText2" class="control-label" id="additionalText2">Additional Text2</label>
+				</td>
+				<td ng-if="vm.newValueDispay">
+					<label class="data-bind" id="additionalText2_new">{{vm.cbsBranchesOfOtherBankNewScope.additionalText2}}</label>
+				</td>
+				<td>
+					<label class="data-bind" id="additionalText2">{{vm.cbsBranchesOfOtherBank.additionalText2}}</label>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<label for="additionalText3" class="control-label"  id="additionalText3">Additional Text3</label>
+				</td>
+				<td ng-if="vm.newValueDispay">
+					<label class="data-bind" id="additionalText3_new">{{vm.cbsBranchesOfOtherBankNewScope.additionalText3}}</label>
+				</td>
+				<td>
+					<label class="data-bind" id="additionalText3">{{vm.cbsBranchesOfOtherBank.additionalText3}}</label>
+				</td>
+				
+			</tr>
+		</tbody>
+	</table>
+	<div class="row" ng-if="vm.cbsBranchesOfOtherBank">
+		<div class="col-sm-7"></div>
+		<label class="control-label col-sm-5"><b>Verify Status : N</b></label>
+	</div>
+		<div class="row">
+			<div class="col-sm-offset-5 col-sm-8 form_submit">
+
+				<button type="button" class="btn btn-default" id="submitButton"
+					ng-click="vm.deleteBranch()"
+					ng-disabled="cbsBranchesOfOtherBankForm.$invalid">Delete</button>
+				<button type="button" class="btn btn-cancel" id="cancelButton"
+					onclick="window.location.href = '#!/cbs_branches_of_other_bank/action/delete'">Cancel</button>
+			</div>
+		</div>
+</div>

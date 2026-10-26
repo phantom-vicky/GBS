@@ -1,0 +1,625 @@
+<div class="container from_wrapper new_form_wrapper">
+	<div class="loader-new" ng-if="vm.loader"></div>
+	<h4 class="form_heading">{{vm.reportName}}</h4>
+
+	<form name="auditReportAtDcLevelForAnySolForm" role="form">
+		<div class="row">
+			<sol-header></sol-header>
+		</div>
+		<div class="row">
+			<div class="form-group ">
+				<div class="col-sm-1"></div>
+				<div class="col-sm-2 required">
+					<label for="moduleId" class="control-label">Module Id</label>
+				</div>
+
+				<div class="col-sm-2">
+					<select class="form-control" id="moduleId" name="moduleId"
+							ng-model="vm.auditReportAtDcLevelForAnySol.moduleId"
+							ng-init="vm.getModuleName();" ng-change="vm.getOperation();vm.moduleChange();" required tabindex="1">
+						<option value="" hidden="true">Select</option>
+						<option ng-repeat="item in vm.moduleNameList" value="{{item.moduleId}}">{{item.moduleId}}</option>
+					</select>
+				</div>
+
+				<div class="col-sm-1"></div>
+				<div class="col-sm-2">
+					<label for="tableShortName" class="control-label">Table Name</label>
+				</div>
+
+				<div class="col-sm-2">
+					<input type="text" class="form-control" id="tableShortName"
+						   name="tableShortName" ng-model="vm.tableShortName" maxlength=""
+						   chars="only-letters" placeholder="Enter Table Short Name" tabindex="2">
+				</div>
+			</div>
+		</div>
+
+		<div  class="row">
+			<div class="form-group">
+				<div class="col-sm-1"></div>
+				<div class="col-sm-2">
+					<label for="linkName" class="control-label">Link Name</label>
+				</div>
+				<div class="col-sm-2">
+					<input type="text" class="form-control" id="linkName"
+						   ng-model="vm.linkName" chars="only-numbers" maxlength="100" readonly tabindex="3">
+				</div>
+				<div class="col-sm-1">
+					<div ng-if="vm.auditReportAtDcLevelForAnySol.moduleId && vm.auditReportAtDcLevelForAnySol.moduleId != 'ALL'">
+					<i class="glyphicon glyphicon-search cp" data-bs-toggle="modal"
+					   id="linkNameSearch"
+					   ng-click="vm.getLinkName(); vm.searchLinkName = '' "></i>
+					<i class="glyphicon glyphicon-remove clear cp"
+					   ng-click="vm.linkName='';vm.levelCode='';"></i>
+					</div>
+				</div>
+
+			<div class="col-sm-2 required" ng-if="vm.inputState != 'DC_PAR' && vm.showBranchRow">
+				<label for="branch" class="control-label">Branch Id</label>
+			</div>
+			<div class="col-sm-2 " ng-if="vm.inputState != 'DC_PAR' && vm.showBranchRow">
+				<input type="text" class="form-control" id="branch"
+					   name="branch"  ng-model="vm.branch"
+					   chars="only-numbers" maxlength="30" readonly required>
+			</div>
+			<div class="col-sm-1" ng-if="vm.inputState != 'DC_PAR' && vm.showBranchRow">
+				<div ng-if="vm.auditReportAtDcLevelForAnySol.moduleId && (vm.inputState == 'DC' || vm.inputState == 'CPPC')">
+					<i class="glyphicon glyphicon-search cp" data-bs-toggle="modal"
+					   id="branchIdSearcher"
+					   ng-click="vm.getSolDetails(); vm.searchSolId = ''"></i>
+					<i class="glyphicon glyphicon-remove clear cp"
+					   ng-click="vm.branch= vm.branchId = '';vm.branchName ='';" id="branchIdClear"></i>
+				</div>
+			</div>
+
+				<div class="col-sm-2 required" ng-if=" (vm.inputState == 'DC' || vm.inputState == 'CPPC') && vm.inputState != 'DC_PAR' && (vm.auditReportAtDcLevelForAnySol.moduleId == 'ST' || vm.auditReportAtDcLevelForAnySol.moduleId == 'PENSION')">
+					<label for="treasuryCode" class="control-label" ng-if="vm.auditReportAtDcLevelForAnySol.moduleId == 'PENSION'">Treasury Code</label>
+					<label for="stateCode" class="control-label" ng-if="vm.auditReportAtDcLevelForAnySol.moduleId == 'ST'">State Tax Code</label>
+				</div>
+				<div class="col-sm-2 " ng-if=" (vm.inputState == 'DC' || vm.inputState == 'CPPC') && vm.inputState != 'DC_PAR' && vm.auditReportAtDcLevelForAnySol.moduleId == 'PENSION'">
+					<input type="text" class="form-control" id="treasuryCode"
+						   name="treasuryCode"  ng-model="vm.treasuryCode"
+						   chars="alpha-numeric" maxlength="30" readonly required>
+				</div>
+				<div class="col-sm-2 " ng-if=" (vm.inputState == 'DC' || vm.inputState == 'CPPC') && vm.inputState != 'DC_PAR' && (vm.auditReportAtDcLevelForAnySol.moduleId == 'ST')">
+					<input type="text" class="form-control" id="stateCode"
+						   name="stateCode"  ng-model="vm.stateCode"
+						   chars="alpha-numeric" maxlength="30" readonly required>
+				</div>
+				<div class="col-sm-1" ng-if=" (vm.inputState == 'DC' || vm.inputState == 'CPPC') && vm.inputState != 'DC_PAR' && vm.auditReportAtDcLevelForAnySol.moduleId == 'PENSION'">
+					<div ng-if="vm.auditReportAtDcLevelForAnySol.moduleId && (vm.inputState == 'DC' || vm.inputState == 'CPPC')">
+						<i class="glyphicon glyphicon-search cp" data-bs-toggle="modal"
+						   id="treasuryCodeSearcher"
+						   ng-click="vm.getTreasuryCode(); vm.searchTreasuryCode = ''"></i>
+						<i class="glyphicon glyphicon-remove clear cp"
+						   ng-click="vm.treasuryCode = '';vm.treasuryName ='';vm.branch = vm.branchId = vm.branchName = '';" id="treasuryCodeClear"></i>
+					</div>
+				</div>
+				<div class="col-sm-1" ng-if=" (vm.inputState == 'DC' || vm.inputState == 'CPPC') && vm.inputState != 'DC_PAR' && vm.auditReportAtDcLevelForAnySol.moduleId == 'ST'">
+					<div ng-if="vm.auditReportAtDcLevelForAnySol.moduleId && (vm.inputState == 'DC' || vm.inputState == 'CPPC')">
+						<i class="glyphicon glyphicon-search cp" data-bs-toggle="modal"
+						   id="stateCodeSearcher"
+						   ng-click="vm.getStateCode(); vm.searchTreasuryCode = ''"></i>
+						<i class="glyphicon glyphicon-remove clear cp"
+						   ng-click="vm.stateCode = '';vm.stateName ='';vm.branch = vm.branchId = vm.branchName = '';" id="stateCodeClear"></i>
+					</div>
+				</div>
+		</div>
+		</div>
+
+		<div class="row" ng-if="vm.showBranchRow1">
+			<div class="form-group required">
+				<div class="col-sm-1"></div>
+				<div class="col-sm-2 required">
+					<label for="branchId" class="control-label">Branch Id</label>
+				</div>
+				<div class="col-sm-2 ">
+					<input type="text" class="form-control" id="branchId"
+						   name="branch"  ng-model="vm.branch"
+						   chars="alpha-numeric" maxlength="30" readonly required>
+				</div>
+				<div class="col-sm-1">
+					<div ng-if="vm.auditReportAtDcLevelForAnySol.moduleId && (vm.treasuryCode || vm.stateCode)">
+						<i class="glyphicon glyphicon-search cp" data-bs-toggle="modal"
+						   id="branchIdpsSearcher"
+						   ng-click="vm.getSolDetails(); vm.searchSolId = ''"></i>
+						<i class="glyphicon glyphicon-remove clear cp"
+						   ng-click="vm.branch= vm.branchId = '';vm.branchName ='';" id="branchIdpsClear"></i>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="form-group required">
+				<div class="col-sm-1"></div>
+				<div class="col-sm-2 required">
+					<label for="operation" class="control-label">Operation</label>
+				</div>
+				<div class="col-sm-2">
+					<select class="form-control" id="operation" name="operation"
+							ng-model="vm.auditReportAtDcLevelForAnySol.operation"
+							ng-change="vm.operationValues();vm.operationVal();"required ng-disabled="!vm.auditReportAtDcLevelForAnySol.moduleId" tabindex="4">
+						<option value="" >Select</option>
+						<option ng-repeat="item in vm.operationList" value="{{item.operation}}">{{item.operation}}</option>
+					</select>
+				</div>
+				<div class="col-sm-1"></div>
+				<div id="operation1" ng-if="vm.auditReportAtDcLevelForAnySol.operation == 'ADD'">
+
+					<div class="col-sm-2">
+						<label for="createdBy" class="control-label">Created By</label>
+					</div>
+
+					<div class="col-sm-2">
+						<input type="text" class="form-control" id="createdBy"
+							   name="createdBy" ng-model="vm.createdBy" required>
+
+					</div>
+				</div>
+
+				<div id="operation2" ng-if="vm.auditReportAtDcLevelForAnySol.operation== 'MODIFY'">
+					<div class="col-sm-2">
+						<label for="modifiedBy" class="control-label">Modified By</label>
+					</div>
+					<div class="col-sm-2">
+						<input type="text" class="form-control" id="modifiedBy"
+							   name="modifiedBy" ng-model="vm.modifiedBy"  required>
+
+					</div>
+				</div>
+				<div id="operation3" ng-if="vm.auditReportAtDcLevelForAnySol.operation == 'VERIFY'">
+					<div class="col-sm-2">
+						<label for="verifiedBy" class="control-label">Verified By</label>
+					</div>
+					<div class="col-sm-2">
+						<input type="text" class="form-control" id="verifiedBy"
+							   name="verifiedBy" ng-model="vm.verifiedBy" required>
+
+					</div>
+				</div>
+				<div id="operation4" ng-if="vm.auditReportAtDcLevelForAnySol.operation == 'DELETE'">
+					<div class="col-sm-2">
+						<label for="deletedBy" class="control-label">Deleted By</label>
+					</div>
+					<div class="col-sm-2">
+						<input type="text" class="form-control" id="deletedBy"
+							   name="deletedBy" ng-model="vm.deletedBy" required>
+
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="form-group required">
+				<div class="col-sm-1"></div>
+				<div class="col-sm-2 ">
+					<label for="includeVerifiedRecords" class="control-label">Record Status</label>
+				</div>
+				<div class="col-sm-2" ng-if="vm.auditReportAtDcLevelForAnySol.operation != 'DELETE'">
+					<select class="form-control" id="includeVerifiedRecords"
+							name="includeVerifiedRecords"
+							ng-model="vm.auditReportAtDcLevelForAnySol.includeVerifiedRecords"  ng-disabled="!vm.auditReportAtDcLevelForAnySol.operation"
+							ng-init="vm.getRecordTypes()" required tabindex="5">
+						<option value="">Select</option>
+						<option ng-repeat="item in vm.includeVerifiedRecordsList"
+								ng-hide="vm.auditReportAtDcLevelForAnySol.operation=='MODIFY' && item.recordCode =='D' || vm.auditReportAtDcLevelForAnySol.operation=='ADD' && item.recordCode =='D' || vm.auditReportAtDcLevelForAnySol.operation=='VERIFY' && item.recordCode =='D' || vm.auditReportAtDcLevelForAnySol.operation=='VERIFY' && item.recordCode =='B'"
+								value="{{item.recordCode}}">{{item.recordStatus}}</option>
+					</select>
+				</div>
+				<div class="col-sm-2" ng-if="vm.auditReportAtDcLevelForAnySol.operation == 'DELETE'">
+					<select class="form-control" id="includeVerifiedRecords1"
+							name="includeVerifiedRecords"
+							ng-model="vm.auditReportAtDcLevelForAnySol.includeVerifiedRecords"  ng-disabled="!vm.auditReportAtDcLevelForAnySol.operation"
+							ng-init="vm.getRecordTypes()" required tabindex="5">
+						<option value="">Select</option>
+						<option  ng-hide="vm.auditReportAtDcLevelForAnySol.operation=='DELETE' && item.recordCode =='D' || vm.auditReportAtDcLevelForAnySol.operation=='VERIFY' && item.recordCode =='B'" value="V" class="ng-binding ng-scope">AUTHORIZED</option>
+					</select>
+				</div>
+				<div class="col-sm-2"></div>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="form-group required">
+				<div class="col-sm-1"></div>
+				<div class="col-sm-2">
+					<label for="fromDate" class="control-label"> From
+						Date<br>(DD/MM/YYYY)</label>
+				</div>
+				<div class="col-sm-2 inner-addon right-addon">
+					<p class="input-group">
+						<input type="text" class="form-control" id="fromDate"
+							   name="fromDate" ng-model="vm.fromDate"
+							   uib-datepicker-popup="dd/MM/yyyy" ng-init="vm.fromDate=''; vm.fromToDateValidation();"
+							   datepicker-options="vm.dateOptions"
+							   is-open="vm.fromDatePicker.opened"
+							   ng-change="vm.fromToDateValidation();" close-text="Close"
+							   readonly required tabindex="6">
+						<span class="input-group-btn"  ng-if="vm.auditReportAtDcLevelForAnySol.includeVerifiedRecords">
+                        <button type="button" class="btn btn-secondary"
+								ng-click="vm.fromDatePicker.opened = true"
+								id="fromDateSearcher">
+                        <i class="glyphicon glyphicon-calendar"></i>
+                        </button>
+                        </span>
+					</p>
+				</div>
+
+				<div class="col-sm-1"></div>
+				<div class="col-sm-2">
+					<label for="toDate" class="control-label"> To
+						Date<br>(DD/MM/YYYY)</label>
+				</div>
+				<div class="col-sm-2 inner-addon right-addon">
+					<p class="input-group">
+						<input type="text" class="form-control" id="toDate"
+							   name="toDate" ng-model="vm.toDate" ng-init="vm.toDate=''"
+							   uib-datepicker-popup="dd/MM/yyyy"
+							   datepicker-options="vm.dateToOptions"
+							   is-open="vm.toDatePicker.opened" close-text="Close"
+							   maxlength="10" required readonly tabindex="7">
+						<span class="input-group-btn" ng-if="vm.fromDate">
+                        <button type="button" class="btn btn-secondary"
+								id="toDateSearcher" ng-click="vm.toDatePicker.opened = true">
+                        <i class="glyphicon glyphicon-calendar"></i>
+                        </button>
+                        </span>
+					</p>
+				</div>
+			</div>
+		</div>
+
+		<div class="text-center form_submit">
+			<button type="submit" class="btn btn-default"
+					ng-disabled="auditReportAtDcLevelForAnySolForm.$invalid"
+					ng-click="vm.goNextState({
+								moduleId: vm.auditReportAtDcLevelForAnySol.moduleId,
+								tableShortName: vm.tableShortName,
+								linkName: vm.linkName,
+								linkCode:vm.linkCode,
+								branch: vm.branch,
+								branchId: vm.branchId,
+								branchName: vm.branchName,
+								operation:vm.auditReportAtDcLevelForAnySol.operation,
+								createdBy: vm.createdBy,
+								modifiedBy: vm.modifiedBy,
+								verifiedBy : vm.verifiedBy,
+								fromDate : vm.fromDate,
+								toDate : vm.toDate,
+								recordStatus : vm.status,
+								deletedBy : vm.deletedBy,
+								stateCode : vm.stateCode,
+								treasuryCode : vm.treasuryCode,
+								stateName : vm.stateName,
+								treasuryName : vm.treasuryName,
+
+								includeVerifiedRecords: vm.auditReportAtDcLevelForAnySol.includeVerifiedRecords})">Submit</button>
+			<button type="button" id="cancelButton" class="btn btn-cancel"
+					ng-click="vm.cancel();">Cancel</button>
+		</div>
+
+		<div class="text-center">
+			<notice-message-directive></notice-message-directive>
+		</div>
+	</form>
+</div>
+
+<!-- Branch Id Details -->
+<div class="modal" id="ppoBranchModal" role="dialog">
+	<div class="modal-dialog">
+		<!-- Modal content-->
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-bs-dismiss="modal">&times;</button>
+				<h4 class="modal-title">Branch Id</h4>
+			</div>
+			<div class="modal-body">
+				<div class="loader_popup"></div>
+				<div class="list_wrapper" ng-if="vm.getBranchIdList.length>0">
+					<div class="col-sm-8 form_submit">
+						<div class="form-group">
+							<div class="input-group">
+								<div class="input-group-addon">
+									<i class="glyphicon glyphicon-search"></i>
+								</div>
+								<input type="text" class="form-control"
+									   ng-model="vm.filterVal" ng-init="vm.filterVal = ''"
+									   placeholder="Search">
+							</div>
+						</div>
+					</div>
+					<div class="col-sm-4 form_submit"></div>
+					<div class="row">
+
+						<div class="col-sm-12">
+
+							<table class="table table-bordered list scroll sort">
+								<thead ng-init="reverseOrder=false;sortedColumn = 'solId'">
+								<tr>
+									<th ng-click="(sortedColumn == 'solId')?(reverseOrder=(!reverseOrder)): (reverseOrder = false);sortedColumn = 'solId';" ng-class="(sortedColumn == 'solId')?((reverseOrder)?('arrow-down') : ('arrow-up') ) : ('')">Branch Id</th>
+									<th ng-click="(sortedColumn == 'solDesc')?(reverseOrder=(!reverseOrder)): (reverseOrder = false);sortedColumn = 'solDesc';" ng-class="(sortedColumn == 'solDesc')?((reverseOrder)?('arrow-down') : ('arrow-up') ) : ('')">Branch Description</th>
+								</tr>
+								</thead>
+								<tbody>
+								<tr class="cp"
+									ng-repeat="x in vm.getBranchIdList | filter:vm.filterVal | orderBy:sortedColumn:reverseOrder"
+									ng-click="vm.branch = x.solId+'-'+x.solDesc ; vm.branchId=x.solId;"  data-bs-dismiss="modal">
+									<td>{{x.solId}}</td>
+									<td>{{x.solDesc}}</td>
+								</tr>
+								</tbody>
+							</table>
+						</div>
+
+					</div>
+				</div>
+				<div class="list_wrapper" ng-if="vm.getBranchIdList.length==0">No records found to display.</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!--Treasury Modal-->
+<div class="modal" id="treasurySearcher" role="dialog">
+	<div class="modal-dialog">
+		<!-- Modal content-->
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-bs-dismiss="modal">&times;</button>
+				<h4 class="modal-title">Treasury Codes</h4>
+			</div>
+			<div class="modal-body">
+				<div class="loader_popup"></div>
+				<div class="list_wrapper" ng-if="vm.treasuryCodesList.length>0">
+					<div class="col-sm-8 form_submit">
+						<div class="form-group">
+							<div class="input-group">
+								<div class="input-group-addon">
+									<i class="glyphicon glyphicon-search"></i>
+								</div>
+								<input type="text" class="form-control"
+									   ng-model="vm.searchtreasuryId" ng-init="vm.searchtreasuryId = ''"
+									   placeholder="Search">
+							</div>
+						</div>
+					</div>
+					<div class="col-sm-4 form_submit"></div>
+					<div class="row">
+						<div class="col-sm-12">
+							<table class="table table-bordered list scroll sort">
+								<thead ng-init="reverseOrder = false; sortedColumn = 'treasuryCode'">
+								<tr>
+									<th class="modal-title title-case" ng-click="(sortedColumn == 'treasuryCode')?(reverseOrder=(!reverseOrder)): (reverseOrder = false);sortedColumn = 'treasuryCode';" ng-class="(sortedColumn == 'treasuryCode')?((reverseOrder)?('arrow-down') : ('arrow-up') ) : ('')">Treasury Code</th>
+									<th class="modal-title title-case" ng-click="(sortedColumn == 'treasuryDescription')?(reverseOrder=(!reverseOrder)): (reverseOrder = false);sortedColumn = 'treasuryDescription';" ng-class="(sortedColumn == 'treasuryDescription')?((reverseOrder)?('arrow-down') : ('arrow-up') ) : ('')">Treasury Description</th>
+								</tr>
+								</thead>
+								<tbody>
+								<tr class="cp"
+									ng-repeat="x in vm.treasuryCodesList | filter:vm.searchtreasuryId | orderBy:sortedColumn:reverseOrder"
+									ng-click="vm.treasuryCode = x.treasuryCode; vm.treasury = x.treasuryCode+ '-' +x.treasuryDescription; vm.treasuryName = x.treasuryDescription; vm.getPensionHierarchyDetail('L','L') " data-bs-dismiss="modal">
+									<td>{{x.treasuryCode}}</td>
+									<td>{{x.treasuryDescription}}</td>
+								</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+				<div class="list_wrapper" ng-if="vm.treasuryCodesList.length==0">No records found to display.</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- Sol Details -->
+<div class="modal" id="branchModal" role="dialog">
+	<div class="modal-dialog">
+		<!-- Modal content-->
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-bs-dismiss="modal">&times;</button>
+				<h4 class="modal-title">Branch Id</h4>
+			</div>
+			<div class="modal-body">
+				<div class="loader_popup"></div>
+				<div class="list_wrapper" ng-if="vm.branchIdList.length>0">
+					<div class="col-sm-8 form_submit">
+						<div class="form-group">
+							<div class="input-group">
+								<div class="input-group-addon">
+									<i class="glyphicon glyphicon-search"></i>
+								</div>
+								<input type="text" class="form-control"
+									   ng-model="vm.searchSolId" ng-init="vm.searchSolId = ''"
+									   placeholder="Search">
+							</div>
+						</div>
+					</div>
+					<div class="col-sm-4 form_submit"></div>
+					<div class="row">
+						<div class="col-sm-12">
+							<table class="table table-bordered list scroll">
+								<thead ng-init="reverseOrder = false; sortedColumn = 'branchId'">
+								<tr>
+									<th class="modal-title title-case" ng-click="(sortedColumn == 'branchId')?(reverseOrder=(!reverseOrder)): (reverseOrder = false);sortedColumn = 'branchId';" ng-class="(sortedColumn == 'branchId')?((reverseOrder)?('arrow-down') : ('arrow-up') ) : ('')">Branch Id</th>
+									<th class="modal-title title-case" ng-click="(sortedColumn == 'branchDescription')?(reverseOrder=(!reverseOrder)): (reverseOrder = false);sortedColumn = 'branchDescription';" ng-class="(sortedColumn == 'branchDescription')?((reverseOrder)?('arrow-down') : ('arrow-up') ) : ('')">Branch Description</th>
+								</tr>
+								</thead>
+								<tbody>
+								<tr class="cp"
+									ng-repeat="x in vm.branchIdList | filter:vm.searchSolId | orderBy:sortedColumn:reverseOrder"
+									ng-click="vm.branch = x.branchId+'-'+x.branchDescription ; vm.branchId=x.branchId; vm.branchName=x.branchDescription"  data-bs-dismiss="modal">
+									<td>{{x.branchId}}</td>
+									<td>{{x.branchDescription}}</td>
+								</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+				<div class="list_wrapper" ng-if="vm.branchIdList.length==0">No records found to display.</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<!-- Link name -->
+<div class="modal" id="linkNameModal" role="dialog">
+	<div class="modal-dialog">
+		<!-- Modal content-->
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-bs-dismiss="modal">&times;</button>
+				<h4 class="modal-title">Link Name</h4>
+			</div>
+			<div class="modal-body">
+				<div class="loader_popup"></div>
+				<div class="list_wrapper" ng-if="vm.linkNameList.length>0">
+					<div class="col-sm-8 form_submit">
+						<div class="form-group">
+							<div class="input-group">
+								<div class="input-group-addon">
+									<i class="glyphicon glyphicon-search"></i>
+								</div>
+								<input type="text" class="form-control"
+									   ng-model="vm.searchLinkName" ng-init="vm.searchLinkName = ''"
+									   placeholder="Search">
+							</div>
+						</div>
+					</div>
+					<div class="col-sm-4 form_submit"></div>
+					<div class="row">
+						<div class="col-sm-12">
+							<table class="table table-bordered list scroll">
+								<thead ng-init="reverseOrder = false; sortedColumn = 'linkCode'">
+								<tr>
+									<th class="modal-title title-case" ng-click="(sortedColumn == 'linkCode')?(reverseOrder=(!reverseOrder)): (reverseOrder = false);sortedColumn = 'linkCode';" ng-class="(sortedColumn == 'linkCode')?((reverseOrder)?('arrow-down') : ('arrow-up') ) : ('')">Link Code</th>
+									<th class="modal-title title-case" ng-click="(sortedColumn == 'linkDescription')?(reverseOrder=(!reverseOrder)): (reverseOrder = false);sortedColumn = 'linkDescription';" ng-class="(sortedColumn == 'linkDescription')?((reverseOrder)?('arrow-down') : ('arrow-up') ) : ('')">Link Description</th>
+								</tr>
+								</thead>
+								<tbody>
+								<tr class="cp"
+									ng-repeat="x in vm.linkNameList | filter:vm.searchLinkName | orderBy:sortedColumn:reverseOrder"
+									ng-click="vm.link = x.linkCode+'-'+x.linkDescription ; vm.linkCode=x.linkCode; vm.linkName=x.linkDescription"  data-bs-dismiss="modal">
+									<td>{{x.linkCode}}</td>
+									<td>{{x.linkDescription}}</td>
+								</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+				<div class="list_wrapper" ng-if="vm.linkNameList.length==0">No records found to display.</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- State Taxcode model-->
+<div class="modal" id="stateTaxCodeModal" role="dialog">
+	<div class="modal-dialog">
+		<!-- Modal content-->
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-bs-dismiss="modal">&times;</button>
+				<h4 class="modal-title">State Tax Code</h4>
+			</div>
+			<div class="modal-body">
+				<div class="loader_popup"></div>
+				<div class="list_wrapper" ng-if="vm.stateCodeList.length>0">
+					<div class="col-sm-8 form_submit">
+						<div class="form-group">
+							<div class="input-group">
+								<div class="input-group-addon">
+									<i class="glyphicon glyphicon-search"></i>
+								</div>
+								<input type="text" class="form-control"
+									   ng-model="vm.searchStateCode" ng-init="vm.searchStateCode = ''"
+									   placeholder="Search">
+							</div>
+						</div>
+					</div>
+					<div class="col-sm-4 form_submit"></div>
+					<div class="row">
+						<div class="col-sm-12">
+							<table class="table table-bordered list scroll">
+								<thead ng-init="reverseOrder = false; sortedColumn = 'stateCode'">
+								<tr>
+									<th class="modal-title title-case" ng-click="(sortedColumn == 'stateCode')?(reverseOrder=(!reverseOrder)): (reverseOrder = false);sortedColumn = 'stateCode';" ng-class="(sortedColumn == 'stateCode')?((reverseOrder)?('arrow-down') : ('arrow-up') ) : ('')">State Tax Code</th>
+									<th class="modal-title title-case" ng-click="(sortedColumn == 'stateDescription')?(reverseOrder=(!reverseOrder)): (reverseOrder = false);sortedColumn = 'stateDescription';" ng-class="(sortedColumn == 'stateDescription')?((reverseOrder)?('arrow-down') : ('arrow-up') ) : ('')">State Tax Description</th>
+								</tr>
+								</thead>
+								<tbody>
+								<tr class="cp"
+									ng-repeat="x in vm.stateCodeList | filter:vm.searchStateCode | orderBy:sortedColumn:reverseOrder"
+									ng-click="vm.stateCode=x.stateCode; vm.stateName = x.stateDescription;vm.stateCodeName = x.stateCode + '-' + x.stateDescription;"  data-bs-dismiss="modal">
+									<td>{{x.stateCode}}</td>
+									<td>{{x.stateDescription}}</td>
+								</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+				<div class="list_wrapper" ng-if="vm.stateCodeList.length==0">No records found to display.</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!--State Tax code model-->
+
+<!-- Treasury code model-->
+<div class="modal" id="treasuryCodeModal" role="dialog">
+	<div class="modal-dialog">
+		<!-- Modal content-->
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-bs-dismiss="modal">&times;</button>
+				<h4 class="modal-title">Treasury Code</h4>
+			</div>
+			<div class="modal-body">
+				<div class="loader_popup"></div>
+				<div class="list_wrapper" ng-if="vm.treasuryCodeList.length>0">
+					<div class="col-sm-8 form_submit">
+						<div class="form-group">
+							<div class="input-group">
+								<div class="input-group-addon">
+									<i class="glyphicon glyphicon-search"></i>
+								</div>
+								<input type="text" class="form-control"
+									   ng-model="vm.searchTreasuryCode" ng-init="vm.searchTreasuryCode = ''"
+									   placeholder="Search">
+							</div>
+						</div>
+					</div>
+					<div class="col-sm-4 form_submit"></div>
+					<div class="row">
+						<div class="col-sm-12">
+							<table class="table table-bordered list scroll">
+								<thead ng-init="reverseOrder = false; sortedColumn = 'treasuryCode'">
+								<tr>
+									<th class="modal-title title-case" ng-click="(sortedColumn == 'treasuryCode')?(reverseOrder=(!reverseOrder)): (reverseOrder = false);sortedColumn = 'treasuryCode';" ng-class="(sortedColumn == 'treasuryCode')?((reverseOrder)?('arrow-down') : ('arrow-up') ) : ('')">Treasury Code</th>
+									<th class="modal-title title-case" ng-click="(sortedColumn == 'treasuryDesc')?(reverseOrder=(!reverseOrder)): (reverseOrder = false);sortedColumn = 'treasuryDesc';" ng-class="(sortedColumn == 'treasuryDesc')?((reverseOrder)?('arrow-down') : ('arrow-up') ) : ('')">Treasury Description</th>
+								</tr>
+								</thead>
+								<tbody>
+								<tr class="cp"
+									ng-repeat="x in vm.treasuryCodeList | filter:vm.searchTreasuryCode | orderBy:sortedColumn:reverseOrder"
+									ng-click="vm.treasuryCode=x.treasuryCode; vm.treasuryDesc = x.treasuryDesc;"  data-bs-dismiss="modal">
+									<td>{{x.treasuryCode}}</td>
+									<td>{{x.treasuryDesc}}</td>
+								</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+				<div class="list_wrapper" ng-if="vm.treasuryCodeList.length==0">No records found to display.</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!--Treasury code model-->

@@ -1,0 +1,60 @@
+<div class="loader-new" ng-if="vm.loader"></div>
+<dc-left-menu></dc-left-menu>
+<div class="container from_wrapper new_form_wrapper" ng-if="vm.responseResultForInquiry.length>0">
+    <div class="row">
+        <h4 class="form_heading">Bond Subscription Account Closure Before Maturity – Inquiry</h4>
+    </div>
+    <sol-header></sol-header>
+    <form name="preMaturityForm" role="form">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="table-responsive">
+                    <table class="table table-bordered table-striped list nowrap table-textWrap datatable"
+                           ui-jq="dataTable" ui-options="vm.dataTableOption">
+                        <thead>
+                        <tr class="thalign">
+                            <th>Sr No</th>
+                            <th>Bla No</th>
+                            <th>Appl Name 1</th>
+                            <th>Appl Name 2</th>
+                            <th>Appl Name 3</th>
+                            <th>Investment Amount</th>
+                            <th>Account No</th>
+                            <th>Pan No</th>
+                            <th>Tds Amount</th>
+                            <th>Payment Date</th>
+                            <th>Total Amount To Be Paid</th>
+                            <th>Tran ID</th>
+                            <th>Payment Status(PAID/Return)</th>
+                            <th>Reject Reason</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr data-ng-repeat="x in vm.responseResultForInquiry">
+                            <td class="text-center">{{vm.itemsPerPage *(vm.currentPage-1)+$index+1}}</td>
+                            <td>{{x.blaNo}}</td>
+                            <td>{{x.appName1}}</td>
+                            <td>{{x.appName2}}</td>
+                            <td>{{x.appName3}}</td>
+                            <td>{{vm.indianNumberFormat(x.investmentAmount)}}</td>
+                            <td>{{x.accountNo}}</td>
+                            <td>{{x.panNoName}}</td>
+                            <td>{{vm.indianNumberFormat(x.tdsAmount)}}</td>
+                            <td>{{x.paymentDate}}</td>
+                            <td>{{vm.indianNumberFormat(x.totalAmtToBePaid)}}</td>
+                            <td>{{x.refNo}}</td>
+                            <td>{{x.paymentStatus}}</td>
+                            <td>{{x.returnReason}}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="text-center">
+            <button type="button" class="btn btn-cancel" id="cancelButton"
+                    onclick="window.location.href= '#!/bond_sub_acc_closure_before_maturity/action/inquiry'">Cancel
+            </button>
+        </div>
+    </form>
+</div>

@@ -1,0 +1,85 @@
+<div class="loader-new" ng-if="vm.loader"></div>
+<div class="container from_wrapper">
+	<cbs-left-menu></cbs-left-menu>
+	<h4 class="form_heading  feature-heading">Population of SOL Date -
+		inquiry</h4>
+
+	<form name="cbsPopulationOfSolDateForm" role="form">
+		<div class="row">
+			<div class="form-group">
+				<div class="col-sm-3"></div>
+				<div class="col-sm-3">
+					<label class="control-label"> Date From CBS </label>
+				</div>
+				<div class="col-sm-3">
+					:<label class="data-bind" id="solDate1">
+						{{vm.cbsPopulationOfSolDate.solDate1| date: 'dd/MM/y'}}</label>
+				</div>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="form-group">
+				<div class="col-sm-3"></div>
+				<div class="col-sm-3">
+					<label for="addlText1" class="control-label">Additional
+						Text1</label>
+				</div>
+				<div class="col-sm-3">
+					:<label class="data-bind" id="addlText1">
+						{{vm.cbsPopulationOfSolDate.addlText1}}</label>
+
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="form-group">
+				<div class="col-sm-3"></div>
+				<div class="col-sm-3">
+					<label for="addlText2" class="control-label">Additional
+						Text2</label>
+				</div>
+				<div class="col-sm-3">
+					:<label class="data-bind" id="addlText2">
+						{{vm.cbsPopulationOfSolDate.addlText2}}</label>
+
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="form-group">
+				<div class="col-sm-3"></div>
+				<div class="col-sm-3">
+					<label for="addlText3" class="control-label">Additional
+						Text3</label>
+				</div>
+				<div class="col-sm-3">
+					:<label class="data-bind" id="addlText3">
+						{{vm.cbsPopulationOfSolDate.addlText3}}</label>
+				</div>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="form-group">
+				<div class="col-sm-3"></div>
+				<div class="col-sm-3">
+					<label for="addlText2" class="control-label">Modified Date</label>
+					</div>
+					<div class="col-sm-3">
+						:<label class="data-bind" id="modifiedDate">
+							{{vm.cbsPopulationOfSolDate.modifiedDate| date: 'dd/MM/y'}}</label>
+
+					</div>
+				</div>
+			</div>
+			<div class="col-sm-offset-5 col-sm-8 form_submit">
+				<button type="button" class="btn btn-cancel" id="cancelButton"
+					onclick="window.location.href = '#!/cbs_master_updation'"
+					ng-disabled="cbsPopulationOfSolDateForm.$invalid">Back</button>
+
+			</div>
+	</form>
+</div>
+
+

@@ -1,0 +1,172 @@
+<div class="loader-new" data-ng-if="vm.loader"></div>
+<div class="container" data-ng-if="vm.model.length>0">
+    <div class="container from_wrapper new_form_wrapper">
+        <div class="text-right form_submit">
+            <button type="submit" class="btn btn-default" onclick="window.location.href ='#!/';" id="homeButton">Home</button>
+            <button type="button" id="cancel_Button" class="btn btn-cancel" onclick="window.location.href= '#!/rbibond_notice_cancel_report/action/inquiry';">Back</button>
+        </div>
+
+        <div style="border: 1px; border-style: solid; border-color: #ddd; padding: 2em; font-family: Times-New-Roman; font-size: 16px; padding-bottom: 10px" class="text-justify" id="section-to-print">
+            <div>
+                <table border="0" style="border-collapse: collapse; width: 100%; text-align: center" aria-label="Certificate of Holding">
+                    <tr>
+                        <th scope="col"></th>
+                    </tr>
+                    <tbody>
+                    <tr>
+                        <td style="text-align: right; width: 100%">
+                            <h4>Annexure 5</h4>
+                        </td>
+                    </tr>
+                    <tr style="width: 100%">
+                        <td style="text-align: right">
+                            <h4>Form – 'D'</h4>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="text-align: center; font-size: 16px; padding-bottom: 10px">
+                            <strong>{{vm.schemeName}}</strong></td>
+                    </tr>
+                    <tr>
+                        <td style="text-align: center; font-size: 16px; padding-bottom: 10px">
+                            <strong>NOTICE OF CANCELLATION OF NOMINATION</strong></td>
+                    </tr>
+                    <tr>
+                        <td style="text-align: center; font-size: 16px">
+                            <p>
+                                Instructions – The Nomination and its Cancellation shall be governed by the provisions of the Government Securities Act 2006(38 of 2006) published in Part III, Section 4 of the Gazette of India dated December 1, 2007.
+                                <br/><br/>
+                            </p>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="row" style="display: flex; align-items: center; justify-content: space-between">
+                            <div class="col-sm-3" style="flex: 1">
+                                <div class="form-group">
+                                    <table style="border-spacing: 2" aria-label="NCR">
+                                        <tr>
+                                            <th scope="col"></th>
+                                        </tr>
+                                        <tr>
+                                            <td>Show&nbsp;</td>
+                                            <td>
+                                                <select class="form-control pageDropDown" id="pageSize" name="pageSize"
+                                                        ng-model="vm.pageSize" ng-init="vm.pageSize='5'"
+                                                        ng-change="vm.pageNo = 1; vm.getDetails();">
+                                                    <option value="5">5 per page</option>
+                                                    <option value="10">10 per page</option>
+                                                    <option value="20">20 per page</option>
+                                                    <option value="50">50 per page</option>
+                                                </select>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-6" style="display: flex; align-items: center; justify-content: flex-end">
+                                <div class="form-group" style="margin-right: 15px">
+                                    <div class="input-group">
+                                        <input type="text" id="search" class="form-control" data-ng-model="vm.searchText" placeholder="Search"/>
+                                        <div class="input-group-addon">
+                                            <span class="glyphicon glyphicon-search" data-ng-click="vm.pageNo = 1; vm.getDetails()"></span>
+                                        </div>
+                                        <div class="input-group-addon">
+                                            <span class="glyphicon glyphicon-remove clear cp" data-ng-click="vm.searchText='';vm.pageNo = 1; vm.getDetails()"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <button type="submit" class="btn btn-default" data-ng-click="vm.getDownload()" data-ng-disabled="vm.noDataFoundInSearch" id="downloadButton">Export as PDF</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="table-responsive">
+                            <table class="table table-bordered table-striped list table-textWrap" aria-label="NC">
+                                <thead data-ng-if="!vm.noDataFoundInSearch">
+                                <tr class="thalign">
+                                    <th scope="col">S.No</th>
+                                    <th scope="col">Name of the Bond Scheme</th>
+                                    <th scope="col">Date of Issue</th>
+                                    <th scope="col">Bond Ledger Account No.</th>
+                                    <th scope="col">Bond Subscription ID</th>
+                                    <th scope="col">Amount Rs.</th>
+                                    <th scope="col">Deleted nominees</th>
+                                </tr>
+                                </thead>
+                                <tbody data-ng-if="!vm.noDataFoundInSearch">
+                                <tr dir-paginate="x in vm.filteredRecords | itemsPerPage: itemsPerPage" pagination-id="trailRunRep">
+                                    <td>{{ ($index + 1) + ((vm.pageNo - 1) * vm.pageSize) }}</td>
+                                    <td>{{x.schemeName}}</td>
+                                    <td>{{x.dateOfIssue}}</td>
+                                    <td>{{x.blaNumber}}</td>
+                                    <td>{{x.subscriptionId}}</td>
+                                    <td>{{vm.indianNumberFormat(x.amount)}}</td>
+                                    <td>{{x.nomineeName}}</td>
+                                </tr>
+                                </tbody>
+                                <tfoot data-ng-if="!vm.noDataFoundInSearch">
+                                <tr>
+                                    <td colspan="4"></td>
+                                    <td><strong>Total</strong></td>
+                                    <td style="text-align: right">{{vm.indianNumberFormat(vm.totalAmount)}}</td>
+                                    <td></td>
+                                </tr>
+                                </tfoot>
+                                <tbody data-ng-if="vm.noDataFoundInSearch">
+                                <tr>
+                                    <td style="text-align:center">No Records Found</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <br/>
+                        <div class="text-center form_submit">
+              <span ng-show="vm.showPrevious">
+                <button type="submit" class="btn btn-default" ng-click="vm.goPreviousPage()">Prev</button>
+              </span>
+
+                            <span>
+                <button type="submit" class="btn btn-default" ng-disabled="true" ng-init="vm.pageNo=1" ng-model="vm.pageNo" ng-click="vm.paymentStatus();">{{vm.pageNo}} of {{vm.maxPages}}</button>
+              </span>
+
+                            <span ng-show="vm.showNext">
+                <button type="submit" class="btn btn-default" ng-click="vm.goNextPage();">Next</button>
+              </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <br/>
+            <br/>
+            <p>
+                Place&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:<br/><br/>
+                Date&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:<br/><br/>
+            </p>
+            <p>
+                (Signature(s)/ Thumb impression of the BLA holder(s)) Signature <br/><br/>
+                with name and address of witnesses:<br/><br/>
+            </p>
+
+            <p>
+                1………………………………………………………………………………………… <br/><br/>
+                2…………………………………………………………………………………………<br/><br/>
+            </p>
+        </div>
+    </div>
+</div>
+
+<div class="container" ng-if="vm.noDataFound">
+    <div class="list_wrapper no_records_message">
+        <h4 class="form_heading">Notice of Cancellation of Nomination</h4>
+        No records found to display.
+        <div style="text-align: center">
+            <button type="button" class="btn btn-default" onclick="window.location.href= '#!/rbibond_notice_cancel_report/action/inquiry';">Back</button>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,93 @@
+<user-left-menu></user-left-menu>
+<div class="loader-new" ng-if="vm.loader"></div>
+<div class="container from_wrapper">
+    <h4 class="form_heading">Role</h4>
+    <form name="managePermissionModifyForm" role="form">
+        <div class="row">
+            <div class="form-group">
+                <label  class="control-label col-sm-2"> Role Name</label>
+                <div class="col-sm-3">
+                    {{vm.roles.roleName}}
+                </div>
+                <div class="col-sm-1"></div>
+
+                <label for="description" class="control-label col-sm-2">Role Description</label>
+                <div class="col-sm-3">
+                <textarea  type="text"  class="form-control" id="description" name="description"
+                           ng-keypress="vm.validateInput($event,'description')" ng-model="vm.roles.roleDescription"
+                           maxlength="100" tabindex="1"  required leading-space></textarea>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group">
+                <label  class="control-label col-sm-2" for="disableRole">Status</label>
+                <!--            <div class="col-sm-1">-->
+                <!--                <input type="radio"    id="isEnable" name="isEnable" ng-change="vm.isEnableDisable()"  ng-model="vm.roles.disableRole"   value="0">-->
+
+                <!--            </div>-->
+
+                <!--            <label for="description" class="control-label col-sm-2">Disable</label>-->
+                <!--            <div class="col-sm-1">-->
+                <!--                <input type="radio"    id="isDisable" name="isDisable" ng-change="vm.isEnableDisable()"  ng-model="vm.roles.disableRole"   value="1">-->
+                <!--            </div>-->
+
+                <div class="col-sm-2">
+                    <select class="form-control" id="disableRole" name="disableRole"
+                            ng-model="vm.roles.disableRole" ng-change="vm.isEnableDisable()">
+                        <option value="" hidden="true">SELECT</option>
+                        <option value="0">Enable</option>
+                        <option value="1">Disable</option>
+                    </select>
+                </div>
+                <div class="col-sm-2"></div>
+
+                <label for="remarks" class="control-label col-sm-2">Remarks</label>
+                <div class="col-sm-3">
+                   <textarea class="form-control" id="remarks" name="remarks" ng-model="vm.roles.remarks" maxlength="80" readonly></textarea>
+
+                </div>
+            </div>
+        </div>
+
+        <h4 class="form_heading">Manage Permissions ({{vm.roles.roleName}})</h4>
+        <duallist template-url="app/user_mgmt/common/duallist-template.html" duallist-option="vm.options" leftscope="vm.permissionsModify" rightscope="vm.rolePermissionsModify" custom-data="vm.arrowEnableDisable"></duallist>
+        <div class="audit-details">
+            <div class="row">
+                <div class="col-md-3">
+                    <span> <b> Created By </b> : {{vm.roles.createdBy}} </span>
+                </div>
+                <div class="col-md-3">
+                    <span> <b> Last Modified By </b> : {{(vm.roles.lastModifiedBy) ? (vm.roles.lastModifiedBy) : ('None')}}</span>
+                </div>
+                <div class="col-md-3">
+                    <span> <b> Last Verified By </b> : {{(vm.roles.verifiedBy) ? (vm.roles.verifiedBy) : ('None')}}</span>
+                </div>
+                <div class="col-md-3">
+                    <span> <b> Verify Status </b> : {{vm.roles.verifyStatus  | getLabelFromValuesArray : vm.commonYesNoMetaData}}</span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3">
+                    <span> <b> Created On </b> : {{ vm.roles.createdDate}}</span>
+                </div>
+                <div class="col-md-3">
+                    <span> <b> Last Modified On</b> : {{ (vm.roles.lastModifiedDate) ? (vm.roles.lastModifiedDate) : ('None')}}</span>
+                </div>
+                <div class="col-md-3">
+                    <span> <b> Last Verified On </b> : {{(vm.roles.verifiedDate) ? (vm.roles.verifiedDate) : ('None')}}</span>
+                </div>
+                <div class="col-md-3">
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-offset-5 col-sm-8 form_submit">
+            <button type="button" class="btn btn-default" ng-disabled="managePermissionModifyForm.$invalid || managePermissionModifyForm.$pristine" ng-click="vm.modifyPermissionSubmit()">Submit</button>
+            <button type="button" class="btn btn-cancel"  onclick="window.location.href= '#!/role_permission_mapping/action/modify';">Cancel</button>
+        </div>
+
+        <div class="isa_error" ng-if="vm.errorMsg" ng-bind="vm.errorMsg" style="text-align: center;">
+            <div>
+    </form>
+</div>

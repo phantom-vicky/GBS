@@ -1,0 +1,100 @@
+<div class="loader-new" ng-if="vm.loader"></div>
+<dc-left-menu></dc-left-menu>
+<div class="container from_wrapper new_form_wrapper">
+
+    <h4 class="form_heading">Bond Ledger Account Maintenance - Add</h4>
+    <sol-header></sol-header>
+    <form name="customerMasterForm" role="form">
+        <div class="col-sm-6 col-sm-offset-3">
+
+            <div class="row" >
+                <div class="form-group">
+                    <div class="col-sm-6">
+                        <label class="control-label">Name of the Module</label>
+                    </div>
+                    <div class="col-sm-4">
+                        <label class="control-label">RBI Bond</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row" ng-init="vm.getModuleNameAdd();">
+                <div class="form-group required">
+                    <div class="col-sm-6">
+                        <label for="nritype" class="control-label">Name of the Bond Scheme</label>
+                    </div>
+                    <div class="col-sm-4">
+                        <select class="form-control" id="schemeCode" name="schemCode"
+                                ng-model="vm.schemeCode" ng-change="vm.alert(vm.schemeCode)" required>
+                            <option value="">Select</option>
+                            <option ng-repeat="item in vm.schemeList" value="{{item.subCode}}" ng-bind="item.subCodeDescription"></option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row" ng-init="vm.getModeofHolding();">
+                <div class="form-group required">
+                    <div class="col-sm-6">
+                        <label for="nritype" class="control-label">Mode of Holding</label>
+                    </div>
+                    <div class="col-sm-4">
+                        <select class="form-control" id="modeOfHolding" name="nritype"
+                                ng-model="vm.customermaster.modeOfHolding"ng-change="vm.noOfJointAcc=''" required>
+                            <option value="">Select</option>
+                            <option ng-repeat="item in vm.modeOfHoldingList" value="{{item.SUBCODE}}" ng-bind="item.DESCRIPTION"></option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="form-group required">
+                    <div class="col-sm-6">
+                        <label for="nritype" class="control-label">Is NRI? Yes/No</label>
+                    </div>
+                    <div class="col-sm-4">
+                        <select class="form-control" id="nritype" name="nritype"
+                                ng-model="vm.isNri" required>
+                            <option value="">Select</option>
+                            <option value="Y">Yes</option>
+                            <option value="N">No</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row" ng-if="vm.customermaster.modeOfHolding == 'MH002' || vm.customermaster.modeOfHolding == 'MH003'">
+                <div class="form-group required">
+                    <div class="col-sm-6">
+                        <label for="noOfJointAcc" class="control-label">No. of Joint Accounts Holders</label>
+                    </div>
+                    <div class="col-sm-4">
+                        <input type="text" class="form-control" minlength="1" maxlength="3"
+                               id="noOfJointAcc" ng-model="vm.noOfJointAcc" ng-change="vm.validateCount(vm.noOfJointAcc);"
+                               chars="only-numbers" onkeypress="return isNumber(event)" required></td>
+                    </div>
+                </div>
+            </div>
+
+            <div class="text-center form_submit">
+                <button type="submit" class="btn btn-default" id="submitButton"
+                        ui-sref="bond_ledger_acc_main.add_detail({obj:{
+								modeOfHolding: vm.customermaster.modeOfHolding,
+								isNri: vm.isNri,
+								schemeCode: vm.schemeCode,
+								schemeName: vm.schemeName,
+								noOfJointAcc: vm.noOfJointAcc
+								}})"
+                        ng-disabled="customerMasterForm.$invalid">Submit</button>
+                <button type="button" class="btn btn-cancel" id="cancelButton"
+                        onclick="window.location.href= '#!/bond_ledger_acc_main/action/inquiry';">Cancel</button>
+            </div>
+            <div class="text-center">
+                <notice-message-directive></notice-message-directive>
+            </div>
+        </div>
+    </form>
+</div>
+
+

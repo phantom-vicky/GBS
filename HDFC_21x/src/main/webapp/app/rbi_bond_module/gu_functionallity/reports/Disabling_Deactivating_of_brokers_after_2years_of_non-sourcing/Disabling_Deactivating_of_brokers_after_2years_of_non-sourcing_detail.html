@@ -1,0 +1,210 @@
+<div class="loader-new" data-ng-if="vm.loader"></div>
+
+<div class="container" data-ng-if="vm.detailsList.length>0 && !vm.noDataFound">
+    <div class="container from_wrapper new_form_wrapper">
+        <div class="text-right form_submit">
+            <button type="submit" class="btn btn-default" onclick="window.location.href ='#!/';" id="homeButton">
+                Home
+            </button>
+
+            <button type="button" id="cancel_Button" class="btn btn-cancel"
+                onclick="window.location.href= '#!/disabling_deactivating_of_brokers/action/inquiry';">
+                Back
+            </button>
+        </div>
+
+        <h4 class="form_heading">
+            Disabling /Deactivating of brokers after 2 years of non-sourcing
+        </h4>
+
+        <sol-header></sol-header>
+
+        <div>
+            <table class="table table-bordered" style="padding: 10px; width: 100%" aria-label="">
+                <tr>
+                    <!--          <th scope="col" data-ng-if="vm.schemeName">-->
+                    <!--            Name of the Bond Scheme-->
+                    <!--          </th>-->
+                    <!--          <td data-ng-if="vm.schemeName">{{vm.schemeName}}</td>-->
+                    <th scope="col" style="width: 20%">Total Count</th>
+                    <td style="width: 20%">{{vm.total}}</td>
+                    <th scope="col" data-ng-if="vm.status">Status</th>
+                    <td data-ng-if="vm.status">{{vm.status}}</td>
+                </tr>
+                <tr>
+                    <th scope="col" data-ng-if="vm.brokerAgencyCode">
+                        Broker Agency Code
+                    </th>
+                    <td data-ng-if="vm.brokerAgencyCode">{{vm.brokerAgencyCode}}</td>
+                </tr>
+                <tr>
+                    <th scope="col">From Date</th>
+                    <td>{{vm.fromDate | date: 'dd/MM/yyyy'}}</td>
+                    <th scope="col">To Date</th>
+                    <td>{{vm.toDate | date: 'dd/MM/yyyy'}}</td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="row" style="display: flex; align-items: center; justify-content: space-between">
+            <!-- Show Dropdown -->
+            <div class="col-sm-3" style="flex: 1">
+                <div class="form-group">
+                    <table style="border-spacing: 2" aria-label="BLA Account Number Details">
+                        <tbody>
+                            <tr>
+                                <th scope="col"></th>
+                            </tr>
+                            <tr>
+                                <td>Show&nbsp;</td>
+                                <td>
+                                    <select class="form-control pageDropDown" id="pageSize" name="pageSize"
+                                        ng-model="vm.pageSize" ng-init="vm.pageSize='5'"
+                                        ng-change="vm.pageNo = 1; vm.getDetailsPage();"
+                                        ng-disabled="vm.noDataFoundInSearch">
+                                        <option value="5">5 per page</option>
+                                        <option value="10">10 per page</option>
+                                        <option value="20">20 per page</option>
+                                        <option value="50">50 per page</option>
+                                    </select>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Search and Export Controls -->
+            <div class="col-sm-6" style="display: flex; align-items: center; justify-content: flex-end">
+                <div class="form-group" style="margin-right: 15px">
+                    <div class="input-group">
+                        <input type="text" id="search" class="form-control" data-ng-model="vm.searchValue"
+                            placeholder="Search" />
+                        <div class="input-group-addon">
+                            <span class="glyphicon glyphicon-search"
+                                data-ng-click="vm.pageNo = 1; vm.getDetailsPage()"></span>
+                        </div>
+                        <div class="input-group-addon">
+                            <span class="glyphicon glyphicon-remove clear cp"
+                                data-ng-click="vm.searchValue='';vm.pageNo = 1; vm.getDetailsPage()"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <select class="form-control" id="export" name="export" data-ng-model="vm.downloadType"
+                        data-ng-disabled="vm.noDataFoundInSearch" data-ng-init="vm.downloadType=''"
+                        data-ng-change="vm.getDownload()">
+                        <option value="">EXPORT</option>
+                        <option value="excel">EXCEL</option>
+                        <!--
+                                    <option value="csv">CSV</option>
+                        -->
+                        <!--            <option value="pdf">PDF</option>-->
+                    </select>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="table-responsive">
+            <table class="table table-bordered table-striped list nowrap table-textWrap datatable" aria-label="">
+                <thead ng-if="!vm.noDataFoundInSearch">
+                    <tr>
+                        <th scope="col">S.No</th>
+                        <th scope="col">HDFC Broker Code</th>
+                        <th scope="col">Broker Sort Code</th>
+                        <th scope="col">Broker Name</th>
+                        <th scope="col">Enable Broker</th>
+                        <th scope="col"> Bank Account</th>
+                        <th scope="col">PAN</th>
+                        <th scope="col">GST Number</th>
+                        <th scope="col">MICR/IFSC Code</th>
+                        <th scope="col">Bank Name</th>
+                        <th scope="col">Status</th>
+                        <th scope="col">No Of Month</th>
+                        <th scope="col">Address 1</th>
+                        <th scope="col">Address 2</th>
+                        <th scope="col">District</th>
+                        <th scope="col">State</th>
+                        <th scope="col">Pin Code</th>
+                        <th scope="col">Phone</th>
+
+                        <th scope="col">Email Id</th>
+                        <th scope="col">Mobile</th>
+
+
+                    </tr>
+                </thead>
+                <tbody ng-if="!vm.noDataFoundInSearch">
+                    <!--                        <tr data-ng-repeat="x in vm.filteredRecords.slice((vm.currentPage-1)*vm.pageSize, vm.currentPage*vm.pageSize)">-->
+                    <tr dir-paginate="x in vm.filteredRecords | itemsPerPage: itemsPerPage" pagination-id="trailRunRep">
+                        <td>{{vm.itemsPerPage *(vm.currentPage-1)+$index+1}}</td>
+                        <td>{{x.hdfcBrokercode}}</td>
+                        <td>{{x.brokerSortCode}}</td>
+                        <td>{{x.brokerName}}</td>
+                        <td>{{x.enableBroker}}</td>
+                        <td>{{x.bankAccount}}</td>
+                        <td>{{x.pAN}}</td>
+                        <td>{{x.gstNo}}</td>
+                        <td>{{x.micrCode || x.ifscCode}}</td>
+                        <td>{{x.bankName}}</td>
+                        <td>{{x.status}}</td>
+                        <td>{{x.noOfMonth}}</td>
+                        <td>{{x.address}}</td>
+                        <td>{{x.address2}}</td>
+                        <td>{{x.district}}</td>
+                        <td>{{x.state}}</td>
+                        <td>{{x.pinCode}}</td>
+                        <td>{{x.phone}}</td>
+                        <td>{{x.emailId}}</td>
+                        <td>{{x.mobileNo}}</td>
+                    </tr>
+                </tbody>
+                <tbody data-ng-if="vm.noDataFoundInSearch">
+                    <tr>
+                        <td>No Records Found</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="row">
+            <div data-ng-if="vm.filteredRecords.length != 0" class="col-md-12 text-right">
+                <div class="pagination-container">
+                    <div class="text-center form_submit">
+                        <span ng-show="vm.showPrevious">
+                            <button type="submit" class="btn btn-default" ng-click="vm.goPreviousPage()">Prev
+                            </button>
+                        </span>
+
+                        <span>
+                            <button type="submit" class="btn btn-default" ng-disabled="true" ng-init="vm.pageNo=1"
+                                ng-model="vm.pageNo" ng-click="vm.paymentStatus();">{{vm.pageNo}} of
+                                {{vm.maxPages}}</button>
+                        </span>
+
+                        <span ng-show="vm.showNext">
+                            <button type="submit" class="btn btn-default" ng-click="vm.goNextPage();">Next
+                            </button>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+
+<div class="container" data-ng-if="vm.noDataFound">
+    <div class="list_wrapper no_records_message">
+        <h4 class="form_heading">
+            Disabling /Deactivating of brokers after 2 years of non-sourcing
+        </h4>
+        No records found to display.
+        <div style="text-align: center">
+            <button type="button" class="btn btn-default"
+                onclick="window.location.href='#!/disabling_deactivating_of_brokers/action/inquiry';">
+                Back
+            </button>
+        </div>
+    </div>
+</div>

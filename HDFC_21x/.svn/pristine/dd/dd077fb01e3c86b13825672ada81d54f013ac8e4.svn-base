@@ -1,0 +1,104 @@
+<div class="loader-new" ng-if="vm.loader"></div>
+<div class="container" ng-if="vm.model">
+    <div class="text-right form_submit" >
+        <button type="submit" class="btn btn-default"
+                onclick="window.location.href ='#!/rbibond_gu_functionality';" id="homeButton">Home</button>
+        <button type="button" id="cancel_Button" class="btn btn-cancel"
+                onclick="window.location.href= '#!/rbibond_appendixVII_brokerage_handling_scroll/action/inquiry';">Back</button>
+    </div>
+    <div class="container from_wrapper new_form_wrapper">
+        <div class="row">
+
+            <sol-header></sol-header>
+
+        </div>
+        <div class="row">
+
+            <div class="col-sm-12">
+                <div class="table-responsive">
+                    <table class="table table-bordered table-striped list nowrap table-textWrap datatable"
+                           ui-jq="dataTable" ui-options="vm.dataTableOption">
+                        <thead>
+                        <tr class="thalign">
+                            <th  colspan="7"><p>Appendix VII - Statement of Charges for Brokerage and Handling Commission</p></th>
+                        </tr>
+                        <tr class="thalign">
+                            <th colspan="7"><p>For the period from {{vm.fromDate | date:"dd/MM/yyyy"}} to {{vm.toDate | date:"dd/MM/yyyy"}}</p></th>
+                        </tr>
+                        <tr class="thalign">
+                            <th  colspan="7"><p>{{vm.schemeName}}</p></th>
+                        </tr>
+                        <tr class="thalign">
+                            <th colspan="7"><p>Receiving Office: {{vm.bankName}}</p></th>
+                        </tr>
+                        <tr class="thalign">
+                            <th  colspan="7"><p>Bill for the Month of:{{vm.fromDate | date:"dd/MM/yyyy"}} to {{vm.toDate | date:"dd/MM/yyyy"}}</p></th>
+                        </tr>
+                        <tr class="thalign">
+                            <th  colspan="7"><p>Brokerage and Handling Commission claim for the branches/Receiving Offices – to be compiled by the Controlling Office</p></th>
+                        </tr>
+
+
+                        <tr class="thalign">
+                            <th>S.No.</th>
+                            <th>Branch / Office</th>
+                            <th>Amount Collected during the month (In Rs.)</th>
+                            <th colspan="2">Brokerage @0.50 paise per Rs.100/- (in Rs.)</th>
+                            <th>Handling Commission @1/16th of one percent of total subscription amount received (in Rs.)</th>
+                            <th>Total Amount (in Rs.)</th>
+
+                        </tr>
+                        <tr class="thalign">
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th colspan="1">90%  of the brokerage amount already paid</th>
+                            <th colspan="1">10% of the brokerage amount claimed</th>
+                            <th></th>
+                            <th></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="x in vm.model">
+                            <td align="center">{{vm.itemsPerPage *(vm.currentPage-1)+$index+1}}</td>
+                            <td align="center">{{x.branchId}}</td>
+                            <td align="right">{{x.brokerageAmt}}</td>
+                            <td align="right">{{x.brokerageAmtAlPaid}}</td>
+                            <td align="right">{{x.brokerageAmtPaid}}</td>
+                            <td align="right">{{x.handlingComm}}</td>
+                            <td align="right">{{x.total}}</td>
+
+                        </tr>
+                        </tbody>
+                        <tfoot>
+                        <tr>
+                            <th></th>
+                            <th></th>
+                            <th class="text-center">Total</th>
+                            <th class="text-right">{{vm.BrokeAmtAlPaidTotal}} </th>
+                            <th class="text-right">{{vm.BrokeAmtPaidTotal}}</th>
+                            <th class="text-right">{{vm.HandlingCommTotal}}</th>
+                            <th class="text-right">{{vm.TotalAmt}}</th>
+
+
+                        </tr>
+                        </tfoot>
+
+                    </table>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+<div class="container" ng-if="vm.noDataFound">
+    <div class="list_wrapper no_records_message">
+        <h4 class="form_heading">Bond Nomination Register</h4>
+        No records found to display.
+        <center>
+            <button type="button" class="btn btn-default"
+                    onclick="window.location.href= '#!/rbibond_register_ledger_acc_scroll.inquiry/action/inquiry';" >Back</button>
+        </center>
+    </div>
+</div>

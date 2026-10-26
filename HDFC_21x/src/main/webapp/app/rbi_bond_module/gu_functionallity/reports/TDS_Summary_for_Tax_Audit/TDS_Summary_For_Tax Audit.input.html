@@ -1,0 +1,73 @@
+<div class="loader-new" ng-if="vm.loader"></div>
+<div class="container from_wrapper new_form_wrapper">
+
+    <h4 class="form_heading">TDS Summary for Tax Audit</h4>
+    <sol-header></sol-header>
+    <form name="tdssummarytaxaudit" role="form">
+
+
+
+        <div class="row">
+            <div class="form-group">
+                <div class="col-sm-3"></div>
+                <div class="col-sm-3">
+                    <label for="moduleName" class="control-label">Name of the Module</label>
+                </div>
+                <div class="col-sm-4">
+                    <label><strong>RBI Bond</strong></label>
+                </div>
+            </div>
+        </div>
+
+        <div class="row" data-ng-init="vm.getFinancialYears()">
+            <div class="form-group required">
+                <div class="col-sm-3"></div>
+                <div class="col-sm-3">
+                    <label class="control-label">Financial Year</label>
+                </div>
+                <div class="col-sm-2">
+                    <select class="form-control" id="financialyear" name="financialYear" ng-model="vm.financialYear" required>
+                        <option value="">Select Year</option>
+                        <option ng-repeat="item in vm.financialYears" value="{{item.financialYear}}" data-ng-bind="item.financialYear"></option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="form-group">
+                <div class="col-sm-3"></div>
+                <div class="col-sm-3">
+                    <label class="control-label">Month</label>
+                </div>
+                <div class="col-sm-2">
+                    <select class="form-control" id="month" name="month" ng-model="vm.month">
+                        <option value="">Select Month</option>
+                        <option value="JAN">January</option>
+                        <option value="FRB">February</option>
+                        <option value="MAR">March</option>
+                        <option value="APR">April</option>
+                        <option value="MAY">May</option>
+                        <option value="JUN">June</option>
+                        <option value="JUL">July</option>
+                        <option value="AUG">August</option>
+                        <option value="SEP">September</option>
+                        <option value="OCT">October</option>
+                        <option value="NOV">November</option>
+                        <option value="DEC">December</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <div class="text-center form_submit">
+            <button type="submit" id="submitbutton" class="btn btn-default" ui-sref="tds_summary_for_tax_audit.inquiry_details({obj:{moduleName:'RBI Bond', month:vm.month, financialYear:vm.financialYear}})" ng-disabled="tdssummarytaxaudit.$invalid">Submit</button>
+            <button type="button" class="btn btn-cancel" id="cancelButton" onclick="window.location.href= '#!/rbibond_gu_functionality';">Cancel</button>
+        </div>
+
+        <div class="text-center">
+            <notice-message-directive></notice-message-directive>
+        </div>
+    </form>
+</div>
+

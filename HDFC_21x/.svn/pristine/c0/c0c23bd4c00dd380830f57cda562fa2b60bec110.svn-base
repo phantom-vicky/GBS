@@ -1,0 +1,156 @@
+<div class="loader-new" ng-if="vm.loader"></div>
+<div class="container from_wrapper new_form_wrapper">
+
+    <h4 class="form_heading">Reconciliation</h4>
+    <sol-header></sol-header>
+
+    <form name="gbmReconciliationForm" role="form" novalidate>
+
+        <table class="table table-bordered">
+            <tbody>
+            <tr>
+                <td width="25%">Transaction Date</td>
+                <td width="25%"><label class="data-bind" ng-bind="vm.tranDate"></label></td>
+                <td width="25%"><span ng-if="vm.reconcileTransaction">GBM Tran Id</span></td>
+                <td width="25%"><span ng-if="vm.reconcileTransaction">{{vm.gbmTranId}}</span></td>
+            </tr>
+            <tr ng-if="vm.reconcileTransaction">
+                <td width="25%"><span>CBS Tran Id</span></td>
+                <td width="25%"><span>{{vm.cbsTranId}}</span></td>
+            </tr>
+            </tbody>
+        </table>
+
+        <div class="table-responsive" ng-hide="vm.showTransactionSync">
+            <h5 class="text-center sub-title">"R" TRANSACTIONS TO BE RECONCILED IN GBM</h5>
+            <table class="table table-bordered">
+                <thead>
+                <tr>
+                    <th></th>
+                    <th>Name of the screen</th>
+                    <th>GBM Tran ID</th>
+                    <th>CBS Tran ID</th>
+                </tr>
+                </thead>
+                <tbody>
+                   <tr ng-repeat="item in vm.transactionSyncList">
+                        <td align="center">
+                            <button type="button" class="btn btn-default" ng-click="vm.getReconciliationDetails(item.gbmTranId, item.cbsTranId)">Details</button>
+                        </td>
+                        <td>{{item.screenName}}</td>
+                        <td class="cp" ng-click="vm.getGbmTranIdModal(item)"><span class="text-link">{{item.gbmTranId}}</span>
+                        <td>{{item.cbsTranId}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+
+        <div class="table-responsive" ng-if="vm.reconcileTransaction">
+            <h5 class="text-center sub-title">TRANSACTIONS TO BE RECONCILE IN GBM</h5>
+            <table class="table table-bordered">
+                <thead>
+                <tr>
+                    <th>CBS Account No</th>
+                    <th>Part Tran No</th>
+                    <th>Transaction Leg</th>
+                    <th>Transaction Amount</th>
+                    <th>CBS Amount</th>
+                    <th>Remarks</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="item in vm.reconcileTransaction">
+                    <td>{{item.acctNum}}</td>
+                    <td>{{item.partTranNo}}</td>
+                    <td><span ng-if="item.tranLeg == 'D'">Debit</span>
+                        <span ng-if="item.tranLeg == 'C'">Credit</span>
+                    </td>
+                    <td>{{item.tranAmt}}</td>
+                    <td>{{item.cbsAmt}}</td>
+                    <td>
+                        <input type="text" class="form-control" id="remarks" ng-if="item.deleteStatus == 'Y' || item.tranAmt != item.cbsAmt"
+                               ng-model="item.remarks" required>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="text-center form_submit">
+            <button type="submit" class="btn btn-default" ng-if="vm.reconcileTransaction" ng-disabled="gbmReconciliationForm.$invalid" ng-click="vm.reconcileWithTransaction()">Submit</button>
+            <button type="button" class="btn btn-cancel" ng-click="vm.goPreviousState();">Cancel</button>
+        </div>
+
+    </form>
+
+</div>
+
+
+<div class="modal" id="gbmTranIdModal" role="dialog" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog modal-dialog-large">
+
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-bs-dismiss="modal">&times;</button>
+                <h4>GBM Transaction Inquiry</h4>
+            </div>
+            <div class="modal-body">
+                <div class="loader_popup"></div>
+                <div class="row padding-left-20 padding-right-20">
+                    <table  class="table table-bordered">
+                        <tr>
+                            <td class="text-bold">GBM Tran ID</td>
+                            <td>{{vm.transactionDetails.gbmTranId}}</td>
+
+                            <td class="text-bold">CBS Tran Id</td>
+                            <td>{{vm.transactionDetails.cbsTranId}}</td>
+
+                            <td class="text-bold">GBM Scheme Code</td>
+                            <td>{{vm.transactionDetails.screenCode}}</td>
+                        </tr>
+                        <tr>
+                            <td class="text-bold">Tran Type</td>
+                            <td>{{vm.transIdList[0].tranType}}</td>
+
+                            <td class="text-bold">Screen Name</td>
+                            <td>{{vm.transactionDetails.screenName}}</td>
+
+                            <td class="text-bold">Mode of transaction</td>
+                            <td>
+                                <span ng-if="vm.transIdList[0].tranMode == 'C'">Cash</span>
+                                <span ng-if="vm.transIdList[0].tranMode == 'T'">Transfer</span>
+                                <span ng-if="vm.transIdList[0].tranMode == 'CL'">Clearing</span>
+                            </td>
+                        </tr>
+                    </table>
+                    <div style="clear:both;"></div>
+                    <h4 class="modal-header">TRANSACTIONS TO BE SYNCHRONIZED IN GBM</h4>
+                    <table class="table table-bordered">
+                        <thead>
+                            <th>Part Tran No</th>
+                            <th>CBS Account Nor</th>
+                            <th>Transaction Leg</th>
+                            <th>Transaction Amount</th>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="x in vm.transIdList">
+                            <td>{{x.partTranNum}}</td>
+                            <td>{{x.forAcid}}</td>
+                            <td>
+                                <span ng-if="x.tranLegType == 'C'">Credit</span>
+                                <span ng-if="x.tranLegType == 'D'">Debit</span>
+                            </td>
+                            <td>{{x.amount}}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="text-center form_submit">
+                    <button type="button" data-bs-dismiss="modal" class="btn btn-default">Close</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

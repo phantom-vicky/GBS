@@ -1,0 +1,142 @@
+<div class="container from_wrapper">
+	<left-menu-directive></left-menu-directive>
+	<h4 class="form_heading">UOS Service Request Master - Inquiry</h3>
+	<form name="uosServiceRequestMasterForm" role="form" ng-submit="submitForm(uosServiceRequestMasterForm.$valid)" novalidate>
+					<notice-message-directive ></notice-message-directive>
+				<div class="row">
+					<div class="form-group required">
+					<div class="col-sm-2"></div>
+						<label for="serviceCode" class ="control-label col-sm-5">Service Request Code/Description</label>
+						    <div class="col-sm-3">
+							  <select class="form-control" name="serviceCode" id="serviceCode" ng-model="uosServiceRequestMaster.serviceCode" ng-change="getNpsServiceRequestMaster()" required>
+							  <option value="">Select Functionality</option>
+								<option  ng-selected= "{{item.serCode == uosServiceRequestMaster.serviceCode}}" ng-repeat="item in serviceCodeList" value="{{item.serCode}}">{{item.serCodeDesc}}</option>
+							  </select>
+							</div>
+					 </div>
+				 </div>
+			
+				 <!-- {{npsServiceRequestMasterList}} -->
+				 <div id="sub_registr" ng-if="uosServiceRequestMaster.serviceCode == '11' ||  uosServiceRequestMaster.serviceCode == '13' || uosServiceRequestMaster.serviceCode == '14' || uosServiceRequestMaster.serviceCode == '15' || uosServiceRequestMaster.serviceCode == '17' || uosServiceRequestMaster.serviceCode == '18' || uosServiceRequestMaster.serviceCode == '19'|| uosServiceRequestMaster.serviceCode == '20' || uosServiceRequestMaster.serviceCode == '21' || uosServiceRequestMaster.serviceCode == '22' || uosServiceRequestMaster.serviceCode == '24' || uosServiceRequestMaster.serviceCode == '80'" >
+					<!-- <div id="sub_registr" ng-if="[11, 14, 15, 17, 18, 19,20,21,22,24,80].indexOf(uosServiceRequestMaster.serviceCode) > -1" > -->
+					<div class="row">
+						<div class="form-group required">
+						<div class="col-sm-2"></div>
+							<label for="effFromDate" class ="control-label col-sm-5">Effective From date</label>
+							<div class="col-sm-3">
+							   <input type="text" class="form-control" id="effFromDate" name="effFromDate" ng-model="uosServiceRequestMaster.effFromDate" readonly>
+							</div>
+						 </div>
+					 </div>
+					 <div class="row">	
+						<div class="form-group required">
+						<div class="col-sm-2"></div>
+							<label for="effToDate" class ="control-label col-sm-5">Effective to date</label>
+							<div class="col-sm-3">
+							  <input type="text" class="form-control" id="effToDate" name="effToDate" ng-model="uosServiceRequestMaster.effToDate" readonly>
+						    </div>	
+						</div>
+					</div>
+					<div class="row">
+						<div class="form-group required">
+						<div class="col-sm-2"></div>
+							<label for="min_num_contr" class ="control-label col-sm-5">Commission (amount) </label>
+							<div class="col-sm-3">
+							   <input type="number" id="commission" class="form-control" ng-model="uosServiceRequestMaster.commission" required ng-min="20" ng-max="25000" string-to-number allow-only-numbers readonly>
+							    <p ng-show="uosServiceRequestMasterForm.commision.$invalid && !uosServiceRequestMasterForm.commission.$pristine" class="help-block alert alert-danger">commision_errormsg</p>
+							</div>
+						</div>	
+					</div>
+					<div class="row"> 
+						<div class="form-group required">
+						<div class="col-sm-2"></div>
+							<label for="serviceTax" class ="control-label col-sm-5">Service Tax (%) </label>
+							<div class="col-sm-3">
+							  <input type="text" id="serviceTax" name="serviceTax" class="form-control" ng-model="uosServiceRequestMaster.serviceTax" required string-to-number allow-only-numbers readonly>
+							<!--  <p ng-show="uosServiceRequestMasterForm.service_tax.$invalid && !uosServiceRequestMasterForm.service_tax.$pristine" class="help-block alert alert-danger">service_tax_equalto_18%</p> -->
+							</div>
+							<div class="col-sm-2"></div>
+							</div>
+						</div>	  
+				</div>	 
+				 <div id="sub_registr1" ng-if="uosServiceRequestMaster.serviceCode == '12'" >
+					
+					<div class="row">
+						<div class="form-group required">
+						<div class="col-sm-2"></div>
+							<label for="effFromDate" class ="control-label col-sm-5">Effective From date</label>
+							<div class="col-sm-3">
+							   <input type="text" class="form-control" id="effFromDate" name="effFromDate" ng-model="uosServiceRequestMaster.effFromDate" readonly>
+							</div>
+						 </div>
+					 </div>
+					 <div class="row">	
+						<div class="form-group required">
+						<div class="col-sm-2"></div>
+							<label for="min_num_contr" class ="control-label col-sm-5">Effective to date</label>
+							<div class="col-sm-3">
+							    <input type="text" class="form-control" id="effToDate" name="effToDate" ng-model="uosServiceRequestMaster.effToDate" readonly>
+						    </div>	
+						</div>
+					</div>
+					<div class="row">
+						<div class="form-group required">
+						<div class="col-sm-2"></div>
+							<label for="min_num_contr" class ="control-label col-sm-5">Is Flat Rate for Commission?   </label>
+							<div class="col-sm-3">
+							      <input type="radio" name="isFlatRate"  id="isFlatRate" value="Y" ng-model="uosServiceRequestMaster.isFlatRate" readonly>Yes
+							      <input type="radio" name="isFlatRate"  id="isFlatRate" value="N" ng-model="uosServiceRequestMaster.isFlatRate" readonly>No
+							</div>
+						</div>	
+					</div>
+					<div class="row">
+						<div class="form-group required">
+						<div class="col-sm-2"></div>
+							<label for="min_num_contr" class ="control-label col-sm-5">Commission (%) </label>
+							<div class="col-sm-3">
+							   <input type="number" id="commission" class="form-control" ng-model="uosServiceRequestMaster.commission" required ng-min="20" ng-max="25000" maxlength="20" string-to-number allow-only-numbers readonly>
+							    <p ng-show="uosServiceRequestMasterForm.commision.$invalid && !uosServiceRequestMasterForm.commission.$pristine" class="help-block alert alert-danger">commision_errormsg</p>
+							</div>
+						</div>	
+					</div>
+						<div class="row"> 
+						<div class="col-sm-2"></div>
+						<div class="form-group required" ng-if="uosServiceRequestMaster.isFlatRate == 'N'">
+							<label for="minAmt" class ="control-label col-sm-5">Minimum Commission Amount  </label>
+							<div class="col-sm-3">
+							  <input type="text" id="minAmt" name="minAmt" class="form-control" ng-model="uosServiceRequestMaster.minAmt" required string-to-number allow-only-numbers readonly>
+							<!--  <p ng-show="uosServiceRequestMasterForm.service_tax.$invalid && !uosServiceRequestMasterForm.service_tax.$pristine" class="help-block alert alert-danger">service_tax_equalto_18%</p> -->
+							</div>
+							<div class="col-sm-2"></div>
+							</div>
+						</div>	  
+						<div class="row"> 
+						<div class="col-sm-2"></div>
+						<div class="form-group required" ng-if="uosServiceRequestMaster.isFlatRate == 'N'">
+							<label for="maxAmt" class ="control-label col-sm-5">Maximum Commission Amount  </label>
+							<div class="col-sm-3">
+							  <input type="text" id="maxAmt" name="maxAmt" class="form-control" ng-model="uosServiceRequestMaster.maxAmt" required string-to-number allow-only-numbers readonly>
+							<!--  <p ng-show="uosServiceRequestMasterForm.service_tax.$invalid && !uosServiceRequestMasterForm.service_tax.$pristine" class="help-block alert alert-danger">service_tax_equalto_18%</p> -->
+							</div>
+							<div class="col-sm-2"></div>
+							</div>
+						</div>	  
+					<div class="row"> 
+						<div class="form-group required">
+						<div class="col-sm-2"></div>
+							<label for="serviceTax" class ="control-label col-sm-5">Service Tax (%) </label>
+							<div class="col-sm-3">
+							  <input type="text" id="serviceTax" name="serviceTax" class="form-control" ng-model="uosServiceRequestMaster.serviceTax" maxlength="5" required string-to-number allow-only-numbers readonly>
+							<!--  <p ng-show="uosServiceRequestMasterForm.service_tax.$invalid && !uosServiceRequestMasterForm.service_tax.$pristine" class="help-block alert alert-danger">service_tax_equalto_18%</p> -->
+							</div>
+							<div class="col-sm-2"></div>
+							</div>
+						</div>	  
+				</div>	 
+				
+	<div class="col-sm-offset-5 col-sm-8 form_submit">
+		
+		 <button type="submit" class="btn btn-cancel" ng-click="moveTo()">Cancel</button>
+	   </div>
+	</form>
+</div>

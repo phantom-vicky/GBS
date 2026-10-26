@@ -1,0 +1,163 @@
+<div class="loader-new" data-ng-if="vm.loader"></div>
+<div class="container" data-ng-if="vm.filteredRecords.length>0">
+    <div class="container from_wrapper new_form_wrapper">
+        <div class="text-right form_submit">
+            <button type="submit" class="btn btn-default" onclick="window.location.href ='#!/rbibond_gu_functionality';" id="homeButton">Home</button>
+            <button type="button" id="cancel_Button" class="btn btn-cancel" onclick="window.location.href= '#!/joint_type_change_three_to_two_report/action/inquiry';">Back</button>
+        </div>
+        <h4 class="form_heading">Joint Type Change Three To Two Report</h4>
+        <sol-header></sol-header>
+
+        <table class="table table-bordered" aria-label="Joint Type Change">
+            <tr>
+                <th scope="col">Name of the Bond Scheme</th>
+                <td>{{vm.schemeName}}</td>
+                <th scope="col" style="width: 20%">Total Count</th>
+                <td style="width: 20%">{{vm.total}}</td>
+            </tr>
+
+            <tr>
+                <th scope="col">From Date</th>
+                <td>{{vm.fromDate | date: 'dd/MM/yyyy'}}</td>
+            </tr>
+
+            <tr>
+                <th scope="col">To Date</th>
+                <td>{{vm.toDate | date: 'dd/MM/yyyy'}}</td>
+            </tr>
+        </table>
+
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="row" style="display: flex; align-items: center; justify-content: space-between">
+                    <div class="col-sm-3" style="flex: 1">
+                        <div class="form-group">
+                            <table style="border-spacing: 2" aria-label="Joint Type Change">
+                                <tr>
+                                    <th scope="col"></th>
+                                </tr>
+                                <tr>
+                                    <td>Show&nbsp;</td>
+                                    <td>
+                                        <select class="form-control pageDropDown" id="pageSize"
+                                                name="pageSize" data-ng-model="vm.pageSize"
+                                                data-ng-init="vm.pageSize='5'"
+                                                data-ng-change="vm.pageNo = 1; vm.getDetails();"
+                                                ng-disabled="vm.noDataFoundInSearch">
+                                            <option value="5">5 per page</option>
+                                            <option value="10">10 per page</option>
+                                            <option value="20">20 per page</option>
+                                            <option value="50">50 per page</option>
+                                        </select>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-6" style="display: flex; align-items: center; justify-content: flex-end">
+                        <div class="form-group" style="margin-right: 15px">
+                            <div class="input-group">
+                                <input type="text" id="search" class="form-control" data-ng-model="vm.searchText" placeholder="Search" />
+                                <div class="input-group-addon">
+                                    <span class="glyphicon glyphicon-search" data-ng-click="vm.pageNo = 1; vm.getDetails()"></span>
+                                </div>
+                                <div class="input-group-addon">
+                                    <span class="glyphicon glyphicon-remove clear cp" data-ng-click="vm.searchText='';vm.pageNo = 1; vm.getDetails()"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <select class="form-control" id="export"
+                                    name="export" data-ng-model="vm.downloadType"
+                                    data-ng-disabled="vm.noDataFoundInSearch"
+                                    data-ng-init="vm.downloadType=''" data-ng-change="vm.downloadReport()">
+                                <option value="">EXPORT</option>
+                                <option value="excel">EXCEL</option>
+<!--                                <option value="csv">CSV</option>-->
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="table-responsive">
+                    <table class="table table-bordered table-striped list table-textWrap datatable" aria-label="BLA">
+                        <thead data-ng-if="!vm.noDataFoundInSearch">
+                        <tr>
+                            <th>S.No</th>
+                            <th>First Holder Name</th>
+                            <th>First Holder PAN No</th>
+                            <th>Second Holder Name</th>
+                            <th>Second Holder PAN No</th>
+                            <th>Third Holder Name</th>
+                            <th>Third Holder PAN No</th>
+                            <th>Mode of Holding</th>
+                            <th>From BLA Account Number</th>
+                            <th>Active Subscription Count</th>
+                            <th>Active Subscription ID</th>
+                            <th>To BLA Account Number</th>
+                            <th>First Holder Name</th>
+                            <th>First Holder PAN No</th>
+                            <th>Second Holder Name</th>
+                            <th>Second Holder PAN No</th>
+                            <th>Date of Change in Joint Type</th>
+                            <th>Remarks</th>
+                        </tr>
+                        </thead>
+
+                        <tbody data-ng-if="!vm.noDataFoundInSearch">
+                        <tr dir-paginate="x in vm.filteredRecords | itemsPerPage: itemsPerPage" pagination-id="trailRunRep">
+                            <td>{{ ($index + 1) + ((vm.pageNo - 1) * vm.pageSize) }}</td>
+                            <td>{{x.firstHolderName}}</td>
+                            <td>{{x.firstHolderPan}}</td>
+                            <td>{{x.secondHolderName}}</td>
+                            <td>{{x.secondHolderPan}}</td>
+                            <td>{{x.thirdHolderName}}</td>
+                            <td>{{x.thirdHolderPan}}</td>
+                            <td>{{x.modeOfHolding}}</td>
+                            <!--<td ng-if="x.modeOfHolding == 'MH002'">JOINT - JOINTLY</td>
+                            <td ng-if="x.modeOfHolding == 'MH003'">JOINT - ANYONE OR SURVIVOR</td>-->
+                            <td>{{x.fromBlaAccountNumber}}</td>
+                            <td>{{x.activeSubscriptionCount}}</td>
+                            <td>{{x.activeSubscriptionId}}</td>
+                            <td>{{x.toBlaAccountNumber}}</td>
+                            <td>{{x.toFirstHolderName}}</td>
+                            <td>{{x.toFirstHolderPan}}</td>
+                            <td>{{x.toSecondHolderName}}</td>
+                            <td>{{x.toSecondHolderPan}}</td>
+                            <td>{{x.dateOfChangeInJointType | date:'dd/MM/yyyy'}}</td>
+                            <td>{{x.remarks}}</td>
+                        </tr>
+                        </tbody>
+                        <tbody data-ng-if="vm.noDataFoundInSearch">
+                        <tr>
+                            <td style="text-align: center">No Records Found</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <br />
+            <div class="text-center form_submit">
+        <span data-ng-show="vm.showPrevious">
+          <button type="submit" class="btn btn-default" data-ng-click="vm.goPreviousPage()">Prev</button>
+        </span>
+                <span>
+          <button type="submit" class="btn btn-default" data-ng-disabled="true" data-ng-init="vm.pageNo=1" data-ng-model="vm.pageNo" data-ng-click="vm.paymentStatus();">{{vm.pageNo}} of {{vm.maxPages}}</button>
+        </span>
+                <span data-ng-show="vm.showNext">
+          <button type="submit" class="btn btn-default" data-ng-click="vm.goNextPage();">Next</button>
+        </span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container" data-ng-if="vm.noDataFound">
+    <div class="list_wrapper no_records_message">
+        <h4 class="form_heading">Joint Type Change Report</h4>
+        No records found to display.
+        <div style="text-align: center">
+            <button type="button" class="btn btn-default" onclick="window.location.href= '#!/joint_type_change_three_to_two_report/action/inquiry';">Back</button>
+        </div>
+    </div>
+</div>

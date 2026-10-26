@@ -1,0 +1,119 @@
+<div class="loader-new" ng-if="vm.loader"></div>
+<dc-left-menu></dc-left-menu>
+<div class="container from_wrapper new_form_wrapper">
+    <h4 class="form_heading">{{vm.screenModule}} Interest Rate Code Maintenance for Investment schemes - Modify</h4>
+    <sol-header></sol-header>
+    <form name="commonInterestCode" role="form" ng-submit="vm.modifySubmit();">
+        <table class="table table-bordered">
+            <tbody>
+            <tr>
+                <td width="25%">Interest Rate Code</td>
+                <td width="25%">
+                    <label class="data-bind">{{vm.interestRateCode}}</label>
+                </td>
+            </tr>
+            <tr>
+                <td width="25%">Interest Rate Code Description</td>
+                <td width="25%">
+                    <label class="data-bind">{{vm.interestRateCodeDesc}}</label>
+                </td>
+            </tr>
+            <tr>
+                <td width="25%">Version</td>
+                <td width="25%">
+                    <label class="data-bind">{{vm.versionNo}}</label>
+                </td>
+            </tr>
+            </tbody>
+            <tbody ng-repeat="item in vm.getModifyDetails" ng-init="vm.getModify[$index]={};">
+            <tr>
+                <td width="25%" class="form-group required">
+                    <label for="effFrom" class="control-label">Effective From Date</label>
+                </td>
+                <td width="25%">
+
+                    <p class="input-group" style="width: 50%;">
+                        <input type="text" class="form-control" id="effFrom"
+                               name="rdDate"
+                               ng-model="item['C007'].oldValue"
+                               ng-init="vm.getModify[$index].C007=item.C007.oldValue; vm.dateValidationForModify(item['C007'].oldValue);"
+                               uib-datepicker-popup="dd/MM/yyyy"
+                               datepicker-options="vm.effFromDateOptions"
+                               is-open="effFromDateOpened" close-text="Close"
+                               maxlength="10" readonly required>
+                        <span class="input-group-btn">
+                                <button type="button" class="btn btn-secondary"
+                                        ng-click="effFromDateOpened = true">
+                                    <i class="glyphicon glyphicon-calendar"></i>
+                                </button>
+                            </span>
+                    </p>
+
+                </td>
+            </tr>
+            <tr>
+                <td width="25%" class="form-group required">
+                    <label class="control-label">Interest Rate (%)</label>
+                </td>
+                <td width="25%">
+                    <input style="width: 42%;" type="text" class="form-control" id="interestRate{{$index}}" chars="float"
+                           ng-model="item['C005'].oldValue" ng-blur="vm.decimalConvertForModify(item['C005'].oldValue, $index, $event)" maxlength="5" required>
+                    <span class="alert-danger" name="errorMsg{{$index}}" ng-show="vm.errorMsg[{{$index}}]">Entered Input should not exceed 100</span>
+                </td>
+            </tr>
+            <tr>
+                <td width="25%" class="form-group">
+                    <label for="remarks" class="control-label">Remarks</label>
+                </td>
+                <td width="25%" ng-if="vm.remarksFlag">
+                    <input style="width: 42%;" type="text" class="form-control" id="remarks"
+                           ng-model="item['C003'].oldValue" maxlength="50">
+                </td>
+                <td width="25%" ng-if="!vm.remarksFlag">
+                    <input style="width: 42%;" type="text" class="form-control" id="remarks"
+                           ng-init="item['C003'].oldValue = '';"
+                           ng-model="item['C003'].oldValue" maxlength="50">
+                </td>
+            </tr>
+            </tbody>
+        </table>
+
+        <div class="audit-details">
+            <div class="row">
+                <div class="col-md-3">
+                    <span> <b> Created By </b> : {{vm.getModifyDetail.createdBy}} </span>
+                </div>
+                <div class="col-md-3">
+                    <span> <b> Last Modified By </b> : {{(vm.getModifyDetail.modifiedBy) ? (vm.getModifyDetail.modifiedBy) : ('None')}}</span>
+                </div>
+                <div class="col-md-3">
+                    <span> <b> Last Verified By </b> : {{(vm.getModifyDetail.verifiedBy) ? (vm.getModifyDetail.verifiedBy) : ('None')}}</span>
+                </div>
+                <div class="col-md-3">
+                    <span> <b> Verify Status </b> : {{vm.getModifyDetail.verifiedStatus  | getLabelFromValuesArray : vm.commonYesNoMetaData}}</span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3">
+                    <span> <b> Created On </b> : {{ vm.getModifyDetail.createdDate | date : 'dd/MM/yyyy'}}</span>
+                </div>
+                <div class="col-md-3">
+                    <span> <b> Last Modified On</b> : {{ (vm.getModifyDetail.modifiedDate) ? (vm.getModifyDetail.modifiedDate | date : 'dd/MM/yyyy') : ('None')}}</span>
+                </div>
+                <div class="col-md-3">
+                    <span> <b> Last Verified On </b> : {{(vm.getModifyDetail.verifiedDate) ? (vm.getModifyDetail.verifiedDate | date : 'dd/MM/yyyy') : ('None')}}</span>
+                </div>
+                <div class="col-md-3">
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-offset-5 col-sm-8 form_submit">
+            <button type="submit" class="btn btn-default" id="submitButton"
+                    ng-disabled="commonInterestCode.$invalid || commonInterestCode.$pristine">Modify</button>
+            <button type="button" id="cancelButton" class="btn btn-cancel"
+                    ng-click="vm.showCancelConfirmation();">Cancel
+            </button>
+        </div>
+    </form>
+</div>

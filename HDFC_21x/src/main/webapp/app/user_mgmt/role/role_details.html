@@ -1,0 +1,89 @@
+<user-left-menu></user-left-menu>
+<div class="loader-new" ng-if="vm.loader"></div>
+<div class="container from_wrapper">
+    <h4 class="form_heading feature-heading">Roles - {{vm.action}}</h4>
+
+    <ng-form name="roleInquiryFrom" role="form">
+        <table class="table table-bordered table-striped list old-new-value-table">
+            <thead>
+                <tr>
+                    <th width="20%">Particular</th>
+                    <th width="40%">{{(vm.roles.preOpr == 'M')?('Old Value'): ('Value')}}</th>
+                    <th width="40%" ng-if="vm.roles.preOpr == 'M'">New Value</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>Role Name</td>
+                    <td class="old-value">
+                        {{(vm.roles && vm.roles.name)? (vm.roles.name) : ('')}}
+                    </td>
+                    <td class="new-value" ng-if="vm.roles.preOpr == 'M'">
+                        {{(vm.roles && vm.roles.nameNew)? (vm.roles.nameNew) : ('')}}
+                    </td>
+                </tr>
+                <tr>
+                    <td>Role Description</td>
+                    <td class="old-value">
+                        {{(vm.roles && vm.roles.description)? (vm.roles.description) : ('')}}
+                    </td>
+                    <td class="new-value" ng-if="vm.roles.preOpr == 'M'">
+                        {{(vm.roles && vm.roles.descriptionNew)? (vm.roles.descriptionNew) : ('')}}
+                    </td>
+                </tr>
+                <tr>
+                    <td>Role Disabled?</td>
+                    <td class="old-value">
+                        {{(vm.roles && vm.roles.disableRole)? (vm.roles.disableRole | getLabelFromValuesArray : vm.commonYesNoMetaData) : ('')}}
+                    </td>
+                    <td class="new-value" ng-if="vm.roles.preOpr == 'M'">
+                        {{(vm.roles && vm.roles.disableRoleNew)? (vm.roles.disableRoleNew | getLabelFromValuesArray : vm.commonYesNoMetaData) : ('')}}
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </ng-form>
+
+
+    <div class="audit-details">
+        <div class="row">
+            <div class="col-md-3">
+                <span> <b> Created By </b> : {{vm.roles.createdByUsername}} </span>
+            </div>
+            <div class="col-md-3">
+                <span> <b> Last Modified By </b> : {{(vm.roles.modifiedByUser) ? (vm.roles.modifiedByUser) : ('None')}}</span>
+            </div>
+            <div class="col-md-3">
+                <span> <b> Last Verified By </b> : {{(vm.roles.verifiedByUser) ? (vm.roles.verifiedByUser) : ('None')}}</span>
+            </div>
+            <div class="col-md-3">
+                <span> <b> Verify Status </b> : {{vm.roles.verifyStatus  | getLabelFromValuesArray : vm.commonYesNoMetaData}}</span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3">
+                <span> <b> Created On </b> : {{ vm.roles.createdDate}}</span>
+            </div>
+            <div class="col-md-3">
+                <span> <b> Last Modified On</b> : {{ (vm.roles.modifiedDate) ? (vm.roles.modifiedDate) : ('None')}}</span>
+            </div>
+            <div class="col-md-3">
+                <span> <b> Last Verified On </b> : {{(vm.roles.verifiedDate) ? (vm.roles.verifiedDate) : ('None')}}</span>
+            </div>
+            <div class="col-md-3">
+            </div>
+        </div>
+    </div>
+
+
+
+    <div class="text-center form_submit">
+        <button ng-if="vm.action == 'verify'" type="button" id="verifySubmitButton" class="btn btn-primary"
+                ng-click="vm.showVerifyConfirmation(vm.roles.id)">Verify</button>
+        <button ng-if="vm.action == 'delete'" type="button" id="DeleteSubmitButton" class="btn btn-primary"
+                ng-click="vm.showDeleteConfirmation(vm.roles.id)">Delete</button>
+        <button type="button" id="cancelButton" class="btn btn-cancel"
+                onclick="window.location.href ='#!/role/action/inquiry';">Cancel</button>
+    </div>
+
+</div>

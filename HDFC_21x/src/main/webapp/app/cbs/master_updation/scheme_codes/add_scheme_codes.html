@@ -1,0 +1,119 @@
+<div class="loader-new" ng-if="vm.loader"></div>
+<cbs-left-menu></cbs-left-menu>
+<div class="container from_wrapper new_form_wrapper">
+	<h4 class="form_heading  feature-heading">Scheme Codes - Add</h4>
+	<form name="schemeCodesForm" role="form">
+		<div class="row">
+			<div class="form-group">
+				<div class="col-sm-3"></div>
+				<div class="col-sm-3 required">
+					<label for="schemeCode" class="control-label">Scheme Code</label>
+				</div>
+				<div class="col-sm-3">
+					<input type="text" class="form-control" id="schemeCode"
+						name="schemeCode" ng-model="vm.schemeCodes.schemeCode"
+						maxlength="5" required chars="alpha-numeric">
+				</div>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="form-group">
+				<div class="col-sm-3"></div>
+				<div class="col-sm-3 required">
+					<label for="description" class="control-label">Scheme
+						Description</label>
+				</div>
+				<div class="col-sm-3">
+					<input type="text" class="form-control" id="description"
+						name="description" ng-model="vm.schemeCodes.description"
+						maxlength="80" required chars="alpha-numeric">
+				</div>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="form-group">
+				<div class="col-sm-3"></div>
+				<div class="col-sm-3  required">
+					<label for="glSubHeadCode" class="control-label">GL Sub
+						Head Code</label>
+				</div>
+				<div class="col-sm-3">
+					<input type="text" class="form-control" id="glSubHeadCode"
+						name="glSubHeadCode" ng-model="vm.schemeCodes.glSubHeadCode"
+						maxlength="5" required chars="alpha-numeric">
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="form-group">
+				<div class="col-sm-3"></div>
+				<div class="col-sm-3 required">
+					<label for="schemeType" class="control-label">Scheme Type</label>
+				</div>
+				<div class="col-sm-3">
+					<input type="text" class="form-control" id="schemeType"
+						name="schemeType" ng-model="vm.schemeCodes.schemeType"
+						maxlength="3" required chars="alpha-numeric">
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="form-group">
+				<div class="col-sm-3"></div>
+				<div class="col-sm-3">
+					<label for="addText1" class="control-label">Additional
+						Text1</label>
+				</div>
+				<div class="col-sm-3">
+					<input type="text" class="form-control" name="addText1"
+						id="addText1" ng-model="vm.schemeCodes.addText1" maxlength="40"
+						chars="alpha-numeric">
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="form-group">
+				<div class="col-sm-3"></div>
+				<div class="col-sm-3">
+					<label for="addText2" class="control-label">Additional
+						Text2</label>
+				</div>
+				<div class="col-sm-3">
+					<input type="text" class="form-control" name="addText2"
+						id="addText2" ng-model="vm.schemeCodes.addText2" maxlength="40"
+						chars="alpha-numeric">
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="form-group">
+				<div class="col-sm-3"></div>
+				<div class="col-sm-3">
+					<label for="addText3" class="control-label">Additional
+						Text3</label>
+				</div>
+				<div class="col-sm-3">
+					<input type="text" class="form-control" name="addText3"
+						id="addText3" ng-model="vm.schemeCodes.addText3" maxlength="40"
+						chars="alpha-numeric">
+				</div>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-sm-offset-5 col-sm-8 form_submit">
+				<button type="submit" class="btn btn-default" id="submitButton"
+					ng-disabled="schemeCodesForm.$invalid" ng-click="vm.add()">Submit</button>
+				<button type="button" class="btn btn-cancel" id="cancelButton"
+					ng-click="vm.showCancelConfirmation('scheme_codes.list');">Cancel</button>
+			</div>
+		</div>
+		<div class="text-center">
+			<notice-message-directive></notice-message-directive>
+		</div>
+	</form>
+</div>
+
+

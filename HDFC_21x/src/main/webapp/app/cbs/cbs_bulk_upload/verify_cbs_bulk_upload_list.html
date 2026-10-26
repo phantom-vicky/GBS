@@ -1,0 +1,482 @@
+<div class="loader-new" ng-if="vm.loader"></div>
+<cbs-left-menu></cbs-left-menu>
+<div class="container list_wrapper" ng-if="vm.items.length>0">
+
+	<h4 class="form_heading">CBS Integration Bulk Upload Verify/Reject - {{vm.functionality}}</h4>
+		<div class="row">
+			<div class="col-sm-3">
+				<div class="form-group">
+					<label>
+						Show
+						<select class="form-control record-filter" ng-model="vm.itemsPerPage" id="itemsPerPage" name="itemsPerPage" >
+							<option ng-selected="{{vm.itemsPerPage == 5}}" value="5">5</option>
+							<option ng-selected="{{vm.itemsPerPage == 10}}" value="10">10</option>
+							<option ng-selected="{{vm.itemsPerPage == 25}}" value="25">25</option>
+							<option ng-selected="{{vm.itemsPerPage == 50}}" value="50">50</option>
+						</select>
+						records per page
+					</label>
+				</div>
+			</div>
+		</div>
+
+		<div class="table-responsive" ng-if="vm.functionality == 'instruments'">
+			<table class="table table-bordered table-striped list">
+				<thead>
+				<tr>
+					<th>Dr Cr Indicator</th>
+					<th>Instrument Type</th>
+					<th>Scheme Code</th>
+					<th>Additional Text1</th>
+					<th>Additional Text2</th>
+					<th>Additional Text3</th>
+					<th>Created Date</th>
+				</tr>
+				</thead>
+				<tbody>
+				<tr ng-repeat="item in vm.items |
+       							offset: vm.currentPage*vm.itemsPerPage |
+        						limitTo: vm.itemsPerPage">
+					<td>{{item.drCrIndicator}}</td>
+					<td>{{item.instrumentType}}</td>
+					<td>{{item.schemeCode}}</td>
+					<td>{{item.additionalText1}}</td>
+					<td>{{item.additionalText2}}</td>
+					<td>{{item.additionalText3}}</td>
+					<td>{{item.createdDate | date: 'dd/MM/yyyy'}}</td>
+				</tr>
+				</tbody>
+			</table>
+		</div>
+
+		<div class="table-responsive" ng-if="vm.functionality == 'officeaccountplaceholder'">
+			<table class="table table-bordered table-striped list">
+				<thead>
+				<tr>
+					<th>BACID</th>
+					<th>BACID Description</th>
+					<th>Scheme Type</th>
+					<th>Additional Text1</th>
+					<th>Additional Text2</th>
+					<th>Additional Text3</th>
+					<th>Created Date</th>
+				</tr>
+				</thead>
+				<tbody>
+				<tr ng-repeat="item in vm.items |
+       							offset: vm.currentPage*vm.itemsPerPage |
+        						limitTo: vm.itemsPerPage">
+					<td>{{item.bacid}}</td>
+					<td>{{item.bacidDesc}}</td>
+					<td>{{item.schmType}}</td>
+					<td>{{item.additionalText1}}</td>
+					<td>{{item.additionalText2}}</td>
+					<td>{{item.additionalText3}}</td>
+					<td>{{item.createdDate | date: 'dd/MM/yyyy'}}</td>
+				</tr>
+				</tbody>
+			</table>
+		</div>
+
+		<div class="table-responsive" ng-if="vm.functionality == 'bankbranch'">
+			<table class="table table-bordered table-striped list">
+				<thead>
+				<tr>
+					<th>SOL_ID</th>
+					<th>SOL_DESC</th>
+					<th>BANK_CODE</th>
+					<th>MICR_CENTRE_CODE</th>
+					<th>MICR_BANK_CODE</th>
+					<th>MICR_BRANCH_CODE</th>
+					<th>ADDR_1</th>
+					<th>ADDR_2</th>
+					<th>CITY_NAME</th>
+					<th>STATE_NAME</th>
+					<th>PIN_CODE</th>
+					<th>PAN_GIR_NO</th>
+					<th>TAX_DEDN_DETAILS</th>
+					<th>TDS_CIRCLE_NAME</th>
+					<th>DIVISION_NAME</th>
+					<th>CIRCLE_OFFICE_NAME</th>
+					<th>UNIFORM_BR_CODE</th>
+					<th>BRANCH_LOCATION</th>
+					<th>ZONE_CODE</th>
+					<th>ZONE_NAME</th>
+					<th>PDO_CODE</th>
+					<th>SHORT_NAME</th>
+					<th>BR_EMAIL_ID</th>
+					<th>Bank_STATUS</th>
+					<th>BRANCH_IFSC_CODE</th>
+					<th>CREATED_DATE</th>
+				</tr>
+				</thead>
+				<tbody>
+				<tr ng-repeat="item in vm.items |
+       							offset: vm.currentPage*vm.itemsPerPage |
+        						limitTo: vm.itemsPerPage">
+					<td>{{item.solId}}</td>
+					<td>{{item.solDesc}}</td>
+					<td>{{item.bankCode}}</td>
+					<td>{{item.micrCertreCode}}</td>
+					<td>{{item.micrBankCode}}</td>
+					<td>{{item.micrBranchCode}}</td>
+					<td>{{item.addr1}}</td>
+					<td>{{item.addr2}}</td>
+					<td>{{item.cityCode}}</td>
+					<td>{{item.stateCode}}</td>
+					<td>{{item.pinCode}}</td>
+					<td>{{item.panGirNumber}}</td>
+					<td>{{item.taxDednDetails}}</td>
+					<td>{{item.tdsCircleName}}</td>
+					<td>{{item.divisionName}}</td>
+					<td>{{item.circlOfficeName}}</td>
+					<td>{{item.uniformBrCode}}</td>
+					<td>{{item.branchLocation}}</td>
+					<td>{{item.zoneCode}}</td>
+					<td>{{item.zoneName}}</td>
+					<td>{{item.pdoCode}}</td>
+					<td>{{item.shortName}}</td>
+					<td>{{item.branchEmailId}}</td>
+					<td>{{item.branchStatus | getLabelFromValuesArray : vm.bankBranchStatusMetaData}}</td>
+					<td>{{item.ifscCode}}</td>
+					<td>{{item.createdDate | date: 'dd/MM/yyyy'}}</td>
+				</tr>
+				</tbody>
+			</table>
+		</div>
+
+		<div class="table-responsive" ng-if="vm.functionality == 'transactioncodes'">
+			<table class="table table-bordered table-striped list">
+				<thead>
+				<tr>
+					<th>CLG Trans Code</th>
+					<th>CLG Trans Code Description</th>
+					<th>Instrument Type</th>
+					<th>Scheme Code</th>
+					<th>Additional Text1</th>
+					<th>Additional Text2</th>
+					<th>Additional Text3</th>
+					<th>Created Date</th>
+				</tr>
+				</thead>
+				<tbody>
+				<tr ng-repeat="item in vm.items |
+       							offset: vm.currentPage*vm.itemsPerPage |
+        						limitTo: vm.itemsPerPage">
+					<td>{{item.clgTranCode}}</td>
+					<td>{{item.clgTranCodeDesc}}</td>
+					<td>{{item.instrumentType}}</td>
+					<td>{{item.schemeCode}}</td>
+					<td>{{item.addText1}}</td>
+					<td>{{item.addText2}}</td>
+					<td>{{item.addText3}}</td>
+					<td>{{item.createdDate | date: 'dd/MM/yyyy'}}</td>
+				</tr>
+				</tbody>
+			</table>
+		</div>
+
+		<div class="table-responsive" ng-if="vm.functionality == 'otherbankdetails'">
+			<table class="table table-bordered table-striped list">
+				<thead>
+				<tr>
+					<th>Bank Code</th>
+					<th>Bank Name</th>
+					<th>Bank Short Name</th>
+					<th>Addr1</th>
+					<th>Addr2</th>
+					<th>City</th>
+					<th>Pin code</th>
+					<th>Created Date</th>
+				</tr>
+				</thead>
+				<tbody>
+				<tr ng-repeat="item in vm.items |
+       							offset: vm.currentPage*vm.itemsPerPage |
+        						limitTo: vm.itemsPerPage">
+					<td>{{item.bankCode}}</td>
+					<td>{{item.bankName}}</td>
+					<td>{{item.bankShortName}}</td>
+					<td>{{item.addOne}}</td>
+					<td>{{item.addTwo}}</td>
+					<td>{{item.city}}</td>
+					<td>{{item.pinCode}}</td>
+					<td>{{item.createdDate | date: 'dd/MM/yyyy'}}</td>
+				</tr>
+				</tbody>
+			</table>
+		</div>
+
+		<div class="table-responsive" ng-if="vm.functionality == 'branchifscdetails'">
+			<table class="table table-bordered table-striped list">
+				<thead>
+				<tr>
+					<th>Bank Code</th>
+					<th>Branch Code</th>
+					<th>Bank Identifier</th>
+					<th>PAYSYS Id</th>
+					<th>Delete Flag</th>
+					<th>Additional Text1</th>
+					<th>Additional Text2</th>
+					<th>Additional Text3</th>
+					<th>Created Date</th>
+				</tr>
+				</thead>
+				<tbody>
+				<tr ng-repeat="item in vm.items |
+       							offset: vm.currentPage*vm.itemsPerPage |
+        						limitTo: vm.itemsPerPage">
+					<td>{{item.bankCode}}</td>
+					<td>{{item.branchCode}}</td>
+					<td>{{item.bankIdentifier}}</td>
+					<td>{{item.paysysId}}</td>
+					<td>{{item.deleted}}</td>
+					<td>{{item.additionalText1}}</td>
+					<td>{{item.additionalText2}}</td>
+					<td>{{item.additionalText3}}</td>
+					<td>{{item.createdDate | date: 'dd/MM/yyyy'}}</td>
+				</tr>
+				</tbody>
+			</table>
+		</div>
+
+		<div class="table-responsive" ng-if="vm.functionality == 'otherbankbranches'">
+			<table class="table table-bordered table-striped list">
+				<thead>
+				<tr>
+					<th>Branch Code</th>
+					<th>Bank Code</th>
+					<th>MICR Centre Code</th>
+					<th>MICR Bank Code</th>
+					<th>MICR Branch Code</th>
+					<th>Address 1</th>
+					<th>Address 2</th>
+					<th>Address 3</th>
+					<th>City Code</th>
+					<th>State Code</th>
+					<th>Pincode</th>
+					<th>Additional Text1</th>
+					<th>Additional Text2</th>
+					<th>Additional Text3</th>
+					<th>Bank Ifsc Code</th>
+					<th>Created Date</th>
+				</tr>
+				</thead>
+				<tbody>
+				<tr ng-repeat="item in vm.items |
+       							offset: vm.currentPage*vm.itemsPerPage |
+        						limitTo: vm.itemsPerPage">
+					<td>{{item.branchCode}}</td>
+					<td>{{item.bankCode}}</td>
+					<td>{{item.micrCentreCode}}</td>
+					<td>{{item.micrBankCode}}</td>
+					<td>{{item.micrBranchCode}}</td>
+					<td>{{item.branchAddr1}}</td>
+					<td>{{item.branchAddr2}}</td>
+					<td>{{item.branchAddr3}}</td>
+					<td>{{item.branchCityCode}}</td>
+					<td>{{item.branchStateCode}}</td>
+					<td>{{item.branchPinCode}}</td>
+					<td>{{item.additionalText1}}</td>
+					<td>{{item.additionalText2}}</td>
+					<td>{{item.additionalText3}}</td>
+					<td>{{item.bankIfscCode}}</td>
+					<td>{{item.createdDate | date: 'dd/MM/yyyy'}}</td>
+				</tr>
+				</tbody>
+			</table>
+		</div>
+
+		<div class="table-responsive" ng-if="vm.functionality == 'schemecodes'">
+			<table class="table table-bordered table-striped list">
+				<thead>
+				<tr>
+					<th>Scheme Code</th>
+					<th>Description</th>
+					<th>GL Sub Head Code</th>
+					<th>Scheme Type</th>
+					<th>Additional Text1</th>
+					<th>Additional Text2</th>
+					<th>Additional Text3</th>
+					<th>Created Date</th>
+				</tr>
+				</thead>
+				<tbody>
+				<tr ng-repeat="item in vm.items |
+       							offset: vm.currentPage*vm.itemsPerPage |
+        						limitTo: vm.itemsPerPage">
+					<td>{{item.schemeCode}}</td>
+					<td>{{item.description}}</td>
+					<td>{{item.glSubHeadCode}}</td>
+					<td>{{item.schemeType}}</td>
+					<td>{{item.addText1}}</td>
+					<td>{{item.addText2}}</td>
+					<td>{{item.addText3}}</td>
+					<td>{{item.createdDate | date: 'dd/MM/yyyy'}}</td>
+				</tr>
+				</tbody>
+			</table>
+		</div>
+
+		<div class="table-responsive" ng-if="vm.functionality == 'calendarentries'">
+			<table class="table table-bordered table-striped list">
+				<thead>
+				<tr>
+					<th>Calendar Type</th>
+					<th>Calendar Code</th>
+					<th>Month/Year</th>
+					<th>Delete Flag</th>
+					<th>Holiday String</th>
+					<th>Status</th>
+					<!--<th>Additional Text1</th>
+					<th>Additional Text2</th>
+					<th>Additional Text3</th>-->
+					<th>Holiday Remarks</th>
+					<th>Created Date</th>
+				</tr>
+				</thead>
+				<tbody>
+				<tr ng-repeat="item in vm.items |
+       							offset: vm.currentPage*vm.itemsPerPage |
+        						limitTo: vm.itemsPerPage">
+					<td>{{item.calendarType}}</td>
+					<td>{{item.calendarCode}}</td>
+					<td>{{item.monthYear}}</td>
+					<td>{{item.deleteFlag}}</td>
+					<td>{{item.holidayString}}</td>
+					<td>{{item.status}}</td>
+					<!--<td>{{item.additionalText1}}</td>
+					<td>{{item.additionalText2}}</td>
+					<td>{{item.additionalText3}}</td>-->
+					<td>{{item.holidayRemarks}}</td>
+					<td>{{item.createdDate | date: 'dd/MM/yyyy'}}</td>
+				</tr>
+				</tbody>
+			</table>
+		</div>
+
+		<div class="table-responsive" ng-if="vm.functionality == 'userdetails'">
+			<table class="table table-bordered table-striped list">
+				<thead>
+				<tr>
+					<th>User Id</th>
+					<th>Deleted</th>
+					<th>User Work Class</th>
+					<th>Sol Id</th>
+					<th>User Sol Tenor</th>
+					<th>User Max Inactive Time</th>
+					<th>User Account Expiry Date</th>
+					<th>User Password Expiry Date</th>
+					<th>User Application Name</th>
+					<th>New User Flag</th>
+					<th>Default Term Id</th>
+					<th>Virtual Flag</th>
+					<th>Text1</th>
+					<th>Text2</th>
+					<th>Text3</th>
+					<th>Created Date</th>
+				</tr>
+				</thead>
+				<tbody>
+				<tr ng-repeat="item in vm.items |
+       							offset: vm.currentPage*vm.itemsPerPage |
+        						limitTo: vm.itemsPerPage">
+					<td>{{item.userId}}</td>
+					<td>{{item.deleted}}</td>
+					<td>{{item.userWorkClass}}</td>
+					<td>{{item.solId}}</td>
+					<td>{{item.userSolTenor}}</td>
+					<td>{{item.userMaxInactiveTime}}</td>
+					<td>{{item.userAccountExpiryDate | date: 'dd/MM/yyyy'}}</td>
+					<td>{{item.userPasswordExpiryDate | date: 'dd/MM/yyyy'}}</td>
+					<td>{{item.userApplicationName}}</td>
+					<td>{{item.newUserFlag}}</td>
+					<td>{{item.defaultTermId}}</td>
+					<td>{{item.virtualFlag}}</td>
+					<td>{{item.additionalText1}}</td>
+					<td>{{item.additionalText2}}</td>
+					<td>{{item.additionalText3}}</td>
+					<td>{{item.createdDate | date: 'dd/MM/yyyy'}}</td>
+				</tr>
+				</tbody>
+			</table>
+		</div>
+
+
+
+		<div class="pagination-custom">
+			<ul>
+				<li ng-class="vm.prevPageDisabled()"><a href ng-click="vm.prevPage()">Prev</a>
+				</li>
+				<li><b>{{vm.currentPage+1}}</b> of {{vm.pageCount()+1}}</li>
+				<li ng-class="vm.nextPageDisabled()"><a href ng-click="vm.nextPage()">Next
+				</a></li>
+			</ul>
+		</div>
+	<div class="text-center form_submit">
+		<button type="button" class="btn btn-default" id="cbsVeridy" ng-click="vm.cbsVerify()">Verify</button>
+		<button type="button" class="btn btn-default" id="cbsReject" ng-click="vm.rejectReason()"  >Reject</button>
+		<button type="button" class="btn btn-cancel" id="cancelButton"
+				onclick="window.location.href= '#!/cbs_bulk_upload/action/inquiry';">Cancel</button>
+
+
+	</div>
+</div>
+
+<div class="list_wrapper no_records_message" ng-if="vm.items.length==0">
+	<h4 class="form_heading">CBS Integration Bulk Upload Verify/Reject - {{vm.functionality}}</h4>
+		No records found to display.
+		<div class="text-center">
+			<button type="button" class="btn btn-default" onclick="window.location.href= '#!/cbs_bulk_upload/action/verify';">Back</button>
+		</div>
+</div>
+
+
+
+
+
+<div class="modal" id="permissionMappingDelete" role="dialog">
+	<div class="modal-dialog">
+		<!-- Modal content-->
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-bs-dismiss="modal">&times;</button>
+				<h4 class="modal-title"> REJECTION REMARKS</h4>
+			</div>
+			<div class="modal-body">
+				<div class="loader_popup"></div>
+				<div class="list_wrapper">
+					<form name="permissionDelete" role="form">
+
+						<div class="row">
+							<div class="form-group">
+								<div class="col-sm-2"></div>
+								<label class="control-label col-sm-3">Remarks</label>
+								<div class="col-sm-5">
+									<select class="form-control list_wrapper" id="remarks[$index]"
+											name="remarks[$index]"
+											ng-model="vm.remarks" ng-init="vm.getRemarksList();" required>
+										<option value="">Select</option>
+										<option ng-repeat="item in vm.remarksList"
+												name="{{item.subCode + parentIndex}}"
+												id="{{item.subCode + parentIndex}}" value="{{item.subCodeDescription}}">
+											{{item.subCodeDescription}}
+										</option>
+									</select>
+								</div>
+							</div>
+						</div>
+						<div class="col-sm-offset-5 col-sm-8 form_submit">
+							<button type="button" class="btn btn-default" data-bs-dismiss="modal"
+									ng-disabled="permissionDelete.$invalid"
+									ng-click="vm.cbsDelete(vm.remarks)">
+								Submit
+							</button>
+							<button type="button" class="btn btn-cancel" data-bs-dismiss="modal">Cancel</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

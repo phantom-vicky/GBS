@@ -1,0 +1,209 @@
+<div class="loader-new" ng-if="vm.loader"></div>
+<dc-left-menu></dc-left-menu>
+<div class="container from_wrapper new_form_wrapper">
+    <h4 class="form_heading">TDS Parameters for RBI Bond - Add</h4>
+    <sol-header></sol-header>
+    <form name="tdsparameter" role="form">
+        <div class="row">
+            <div class="form-group required">
+                <div class="col-sm-3"></div>
+                <div class="col-sm-3">
+                    <label for="solId" class="control-label">Branch Id</label>
+                </div>
+                <div class="col-sm-2">
+                    <input type="text" class="form-control" id="solId" ng-init=""
+                           ng-model="vm.solId" required readonly>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group required">
+                <div class="col-sm-3"></div>
+                <div class="col-sm-3">
+                    <label class="control-label">Branch Name</label>
+                </div>
+                <div class="col-sm-2">
+                    <input type="text" class="form-control" id="solDesc" ng-init=""
+                           name="solDesc" ng-model="vm.solDesc" required readonly>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+                <div class="form-group required">
+                    <div class="col-sm-3"></div>
+                    <div class="col-sm-3">
+                        <label for="moduleName" class="control-label">Name of the Module</label>
+                    </div>
+                    <div class="col-sm-4">
+                        <label><b>RBI Bond</b></label>
+                    </div>
+                </div>
+            </div>
+
+<!--        <div class="row">-->
+<!--            <div class="form-group required">-->
+<!--                <div class="col-sm-3"></div>-->
+<!--                <div class="col-sm-3">-->
+<!--                    <label for="moduleName" class="control-label">Name of the Bond Scheme</label>-->
+<!--                </div>-->
+<!--                <div class="col-sm-2">-->
+<!--                    <select class="form-control" id="moduleName" name="moduleName"-->
+<!--                            ng-model="vm.moduleId" ng-init="vm.addValidation();" ng-change="vm.fetchModuleName(vm.moduleId);" required>-->
+<!--                        <option value="" hidden="true">Select</option>-->
+<!--                        <option ng-repeat="item in vm.moduleNameList" value="{{item.moduleId}}">{{item.moduleName}}</option>-->
+<!--                    </select>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+
+
+        <div class="row">
+            <div class="form-group required">
+                <div class="col-sm-3"></div>
+                <div class="col-sm-3">
+                    <label for="moduleName" class="control-label">Name of the Bond Scheme</label>
+                </div>
+                <div class="col-sm-2">
+                    <input type="text" class="form-control" id="moduleName" ng-model="vm.schemeName" required readonly>
+                </div>
+                <div class="col-sm-2">
+                    <i class="glyphicon glyphicon-search cp" data-bs-toggle="modal" id="schemeNameSearcher" ng-click="vm.addValidation();vm.schemeCode = '';"></i>
+                    <i class="glyphicon glyphicon-remove clear cp" ng-click="vm.schemeName='';"></i>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="form-group required">
+                <div class="col-sm-3"></div>
+                <div class="col-sm-3">
+                    <label for="tdsParamCode" class="control-label">TDS Param Code</label>
+                </div>
+                <div class="col-sm-2">
+                    <input type="text" class="form-control" id="tdsParamCode" name="tdsParamCode"
+                           ng-model="vm.tdsParamCode" chars="alpha-numeric" maxlength="10" oninput="this.value = this.value.replace(/\s/g, '')" required>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="form-group required">
+                <div class="col-sm-3"></div>
+                <div class="col-sm-3">
+                    <label for="tdsParamCodeDesc" class="control-label">TDS Param Code Description</label>
+                </div>
+                <div class="col-sm-2">
+                    <input type="text" class="form-control" id="tdsParamCodeDesc" name="tdsParamCodeDesc"
+                           ng-model="vm.tdsParamCodeDesc" chars="alpha-numeric" maxlength="30" oninput="if (!this.value.trim().startsWith(' ')) { this.value = this.value.replace(/^\s+/, ''); }" required>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="form-group required">
+                <div class="col-sm-3"></div>
+                <div class="col-sm-3">
+                    <label for="effFromDate" class="control-label">TDS Effective from  Date(dd/mm/yyyy)</label>
+                </div>
+                <div class="col-sm-2">
+                    <p class="input-group">
+                        <input type="text" class="form-control" id="effFromDate"
+                               name="effFromDate" ng-model="vm.effFromDate"
+                               uib-datepicker-popup="dd/MM/yyyy" ng-init="vm.effFromDate=''"
+                               datepicker-options="vm.dateOptions"
+                               is-open="vm.effFromDatePicker.opened" close-text="Close"
+                               maxlength="10"
+                               ng-blur="vm.textableDatePicker('effFromDate',vm.effFromDate)"
+                               ng-keyup="vm.autoslashing('effFromDate')" chars="numbers-slash"
+
+                               required>
+                        <span class="input-group-btn">
+                            <button type="button" class="btn btn-secondary"
+                                    ng-click="vm.effFromDatePicker.opened = true"
+                                    id="effFromDateSearcher">
+                                <i class="glyphicon glyphicon-calendar"></i>
+                            </button>
+                        </span>
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="text-center form_submit">
+            <button type="submit" id="submitbutton" class="btn btn-default"
+                    ui-sref="tds_parameter_rbi_bond.add_detail({obj:{
+                                    solId: vm.solId,
+                                    solDesc: vm.solDesc,
+                                    moduleId: vm.schemeCode,
+                                    moduleName : vm.schemeName,
+                                    tdsParamCodeDesc: vm.tdsParamCodeDesc,
+                                    tdsParamCode: vm.tdsParamCode,
+                                    effFromDate: vm.effFromDate
+								}})"
+                    ng-disabled="tdsparameter.$invalid">Submit</button>
+            <button type="button" class="btn btn-cancel" id="cancelButton"
+                    onclick="window.location.href= '#!/tds_parameter_rbi_bond/action/inquiry';">Cancel
+            </button>
+        </div>
+
+        <div class="text-center">
+            <notice-message-directive></notice-message-directive>
+        </div>
+    </form>
+</div>
+
+
+<div class="modal" id="schemeNameSearcherPopUp" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-bs-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Name of the bond scheme</h4>
+            </div>
+            <div class="modal-body">
+                <div class="loader_popup"></div>
+                <div class="list_wrapper" ng-if="vm.schemeNameList.length>0">
+                    <div class="col-sm-8 form_submit">
+                        <div class="form-group">
+                            <div class="input-group">
+                                <div class="input-group-addon">
+                                    <i class="glyphicon glyphicon-search"></i>
+                                </div>
+                                <input type="text" class="form-control" chars="alpha-numeric" ng-model="vm.schemeCode" ng-init="vm.schemeCode = ''" placeholder="Search">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4 form_submit"></div>
+                    <div class="row">
+
+                        <div class="col-sm-12">
+                            <table class="table table-bordered list scroll">
+                                <thead ng-init="reverseOrder = false; sortedColumn = 'schemeName'">
+                                <tr>
+                                    <th class="modal-title title-case" ng-click="(sortedColumn == 'schemeName')?(reverseOrder=(!reverseOrder)): (reverseOrder = false);sortedColumn = 'schemeName';" ng-class="(sortedColumn == 'schemeName')?((reverseOrder)?('arrow-down') : ('arrow-up') ) : ('')">Scheme Name</th>
+                                    <th class="modal-title title-case" ng-click="(sortedColumn == 'schemeStatus')?(reverseOrder=(!reverseOrder)): (reverseOrder = false);sortedColumn = 'schemeStatus';" ng-class="(sortedColumn == 'schemeStatus')?((reverseOrder)?('arrow-down') : ('arrow-up') ) : ('')">Scheme Status</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr class="cp"
+                                    ng-repeat="x in vm.schemeNameList | filter:vm.schemeCode | orderBy:sortedColumn:reverseOrder"
+                                    ng-click="vm.schemeCode=x.schemeCode;vm.schemeName=x.schemeName;vm.schemeStatus=x.schemeStatus;"  data-bs-dismiss="modal">
+                                    <td>{{x.schemeName}}</td>
+                                    <td>{{x.schemeStatus}}</td>
+                                </tr>
+                                <!--                                <tr class="cp" ng-repeat="x in vm.branchIdList" ng-click="vm.searchBranchId = x.branchId;vm.branchName = x.branchName;vm.crn.no=x.crn.no;" data-bs-dismiss="modal">-->
+                                <!--                                    <td>{{x.branchId}}</td>-->
+                                <!--                                    <td>{{x.branchName}}</td>-->
+                                <!--                                </tr>-->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="list_wrapper" ng-if="vm.schemeNameList.length==0">No records found to display.</div>
+            </div>
+        </div>
+    </div>
+</div>
+

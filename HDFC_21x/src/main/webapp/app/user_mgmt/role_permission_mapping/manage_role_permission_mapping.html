@@ -1,0 +1,192 @@
+<user-left-menu></user-left-menu>
+<div class="loader-new" ng-if="vm.loader"></div>
+<div class="container from_wrapper">
+    <h4 class="form_heading feature-heading">Roles</h4>
+    <ng-form name="roleInquiryFrom" role="form">
+        <table class="table table-bordered table-striped list old-new-value-table">
+            <thead>
+            <tr>
+                <th width="20%">Particular</th>
+                <th width="40%">{{(vm.roles.preOpr == 'M')?('Old Value'): ('Value')}}</th>
+                <th width="40%" ng-if="vm.roles.preOpr == 'M'">New Value</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>Role Name</td>
+                <td class="old-value">
+                    {{(vm.roles && vm.roles.roleName)? (vm.roles.roleName) : ('')}}
+                </td>
+                <td class="new-value" ng-if="vm.roles.preOpr == 'M'">
+                    {{(vm.roles && vm.roles.nameNew)? (vm.roles.nameNew) : ('')}}
+                </td>
+            </tr>
+            <tr>
+                <td>Role Description</td>
+                <td class="old-value">
+                    {{(vm.roles && vm.roles.roleDescription)? (vm.roles.roleDescription) : ('')}}
+                </td>
+                <td class="new-value" ng-if="vm.roles.preOpr == 'M'">
+                    {{(vm.roles && vm.roles.roleDescriptionNew)? (vm.roles.roleDescriptionNew) : ('')}}
+                </td>
+            </tr>
+            <tr>
+                <td>Status</td>
+                <td class="old-value">
+                    {{(vm.roles && vm.roles.disableRole)? (vm.roles.disableRole | getLabelFromValuesArray : vm.commonYesNoMetaData) : ('')}}
+                </td>
+                <td class="new-value" ng-if="vm.roles.preOpr == 'M'">
+                    {{(vm.roles && vm.roles.disableRoleNew)? (vm.roles.disableRoleNew | getLabelFromValuesArray : vm.commonYesNoMetaData) : ('')}}
+                </td>
+            </tr>
+
+            <tr>
+                <td>Remarks</td>
+                <td class="old-value">
+                    {{(vm.roles)? (vm.roles.remarks) : ('')}}
+                </td>
+                <!--                <td class="new-value" ng-if="vm.roles.preOpr == 'M'">-->
+                <!--                    {{(vm.roles && vm.roles.remarks)? (vm.roles.remarks ) : ('')}}-->
+                <!--                </td>-->
+            </tr>
+
+            </tbody>
+        </table>
+    </ng-form>
+
+    <h4 class="form_heading">Manage Permissions ({{vm.roleName}})</h4>
+    <div class="col-md-12 margin-btm">
+        <div class="row">
+            <h5 class="text-center sub-title">Selected Permission for this Role</h5>
+            <div class="col-md-12 map-div">
+                <div class="col-md-6">
+                    <div>
+                        <input oninput="this.value = this.value.replace(/\s+/g, '').replace(/[^a-zA-Z_:]/g, '');" type="text" class="form-control" id="unmappedPermSearcher" ng-model="unmappedPermSearcher" placeholder="Search">
+                    </div>
+                    <div class="row" style="height : 25px;"></div>
+                    <h5>Unmapped Permissions</h5>
+                    <ul>
+<!--
+                        <li ng-repeat="item in vm.roles.unmappedPermissionList | filter : unmappedPermSearcher">{{item.permissionName}}</li>
+-->
+
+                        <li ng-repeat="item in vm.roles.unmappedPermissionList | filter : unmappedPermSearcher"
+                            ng-class="{'blur-bg': item.verifiedStatus === 'N'}">
+                            {{item.permissionName}}
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-md-6">
+                    <div>
+                        <input oninput="this.value = this.value.replace(/\s+/g, '').replace(/[^a-zA-Z_:]/g, '');" type="text" class="form-control" id="mappedPermSearcher" ng-model="mappedPermSearcher" placeholder="Search">
+                    </div>
+                    <div class="row" style="height : 25px;"></div>
+                    <h5>Mapped Permissions</h5>
+                    <ul>
+
+
+                        <li ng-repeat="item in vm.roles.mappedPermissionList | filter : mappedPermSearcher"
+                            ng-class="{'blur-bg': item.verifiedStatus === 'N'}">
+                            {{item.permissionName}}
+                        </li>
+                    </ul>
+                </div>
+
+            </div>
+            <div class="col-md-12 map-div text-center" ng-if="vm.roles.mappedPermissionList.length == 0">
+                <h5> No Records Found to Display</h5>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="audit-details">
+        <div class="row">
+            <div class="col-md-3">
+                <span> <b> Created By </b> : {{vm.roles.createdBy}} </span>
+            </div>
+            <div class="col-md-3">
+                <span> <b> Last Modified By </b> : {{(vm.roles.lastModifiedBy) ? (vm.roles.lastModifiedBy) : ('None')}}</span>
+            </div>
+            <div class="col-md-3">
+                <span> <b> Last Verified By </b> : {{(vm.roles.verifiedBy) ? (vm.roles.verifiedBy) : ('None')}}</span>
+            </div>
+            <div class="col-md-3">
+                <span> <b> Verify Status </b> : {{vm.roles.verifyStatus  | getLabelFromValuesArray : vm.commonYesNoMetaData}}</span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3">
+                <span> <b> Created On </b> : {{ vm.roles.createdDate}}</span>
+            </div>
+            <div class="col-md-3">
+                <span> <b> Last Modified On</b> : {{ (vm.roles.lastModifiedDate) ? (vm.roles.lastModifiedDate) : ('None')}}</span>
+            </div>
+            <div class="col-md-3">
+                <span> <b> Last Verified On </b> : {{(vm.roles.verifiedDate) ? (vm.roles.verifiedDate) : ('None')}}</span>
+            </div>
+            <div class="col-md-3">
+            </div>
+        </div>
+    </div>
+
+    <div class="text-center form_submit">
+        <button type="submit" id="verifySubmitBtn" name="verifySubmitBtn" ng-if="vm.action == 'verify'"
+                class="btn btn-default" ng-click="vm.verifySubmit()">Verify</button>
+        <button type="submit" id="deleteSubmitBtn" name="verifySubmitBtn" ng-if="vm.action == 'verify'"
+                class="btn btn-default" ng-click="vm.rejectReason()">Reject</button>
+        <button type="button" class="btn btn-cancel" id="cancelButton"
+                ng-if="vm.action == 'verify'"   onclick="window.location.href= '#!/role_permission_mapping/action/verify';">Cancel</button>
+<button ng-if="vm.action != 'verify'" type="button" class="btn btn-cancel" id="cancelButton1"
+                onclick="window.location.href= '#!/role_permission_mapping/action/inquiry';">Cancel</button>
+    </div>
+</div>
+
+<div class="modal" id="permissionMappingDelete" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-bs-dismiss="modal">&times;</button>
+                <h4 class="modal-title">REJECTION REMARKS</h4>
+            </div>
+            <div class="modal-body">
+                <div class="loader_popup"></div>
+                <div class="list_wrapper" >
+                    <form name="permissionDelete" role="form">
+
+                        <div class="row">
+                            <div class="form-group">
+                                <div class="col-sm-2"></div>
+                                <label class="control-label col-sm-3">Remarks</label>
+                                <div class="col-sm-5">
+                                    <!--
+                                                                        <textarea class="form-control"   ng-keypress="vm.validateInput($event,'remarks')" id="remarks" name="remarks" ng-model="vm.remarks" maxlength="80" required></textarea>
+                                    -->
+                                    <select class="form-control list_wrapper" id="remarks[$index]"
+                                            name="remarks[$index]"
+                                            ng-model="vm.deleteRemark" ng-init="vm.getRemarksList();" required>
+                                        <option value="">Select</option>
+                                        <option ng-repeat="item in vm.remarksList"
+                                                name="{{item.subCode + parentIndex}}"
+                                                id="{{item.subCode + parentIndex}}" value="{{item.subCodeDescription}}">
+                                            {{item.subCodeDescription}}
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-offset-5 col-sm-8 form_submit">
+                            <button type="button" class="btn btn-default" data-bs-dismiss="modal"
+                                    ng-disabled="permissionDelete.$invalid" ng-click="vm.deleteSubmit()">Submit
+                            </button>
+                            <button type="button" class="btn btn-cancel" data-bs-dismiss="modal">Cancel</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+</div>

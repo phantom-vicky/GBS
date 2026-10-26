@@ -1,0 +1,750 @@
+<div class="loader-new" ng-if="vm.loader"></div>
+<dc-left-menu></dc-left-menu>
+<div class="container from_wrapper new_form_wrapper">
+    <form name="blaDodfrm" role="form">
+        <h4 class="form_heading">Accounting Entries - Inquiry</h4>
+        <sol-header></sol-header>
+        <div style="display: flex; justify-content: center;">
+            <div class="row">
+                <div class="col-sm-12" style="padding: 0">
+                    <table class="table table-bordered table-striped list old-new-value-table" aria-label="">
+                        <thead>
+                        <tr>
+                            <td style="width: 50%">Name of the Module</td>
+                            <td style="width: 50%">
+                                <label class="data-bind" id="moduleName"> RBI Bond</label>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="width: 50%">Name of the Bond Scheme</td>
+                            <td style="width: 50%">
+                                <label class="data-bind" id="schemeName">
+                                    {{vm.schemeName}}</label>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="width: 50%">Effective From Date</td>
+                            <td style="width: 50%">
+                                <label class="data-bind" id="panNo">{{ vm.effectiveFromDate | date:'dd-MMM-yyyy'
+                                    }}</label>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <table class="table table-bordered table-striped list old-new-value-table"
+                                   aria-label="">
+                                <thead>
+                                <tr>
+                                    <th style="width: 50%" scope="">Particular</th>
+                                    <th scope="">{{(vm.previousOperationType == 'M')?('Old Value'): ('Value')}}
+                                    </th>
+                                    <th ng-if="vm.previousOperationType == 'M'" scope="">New Value</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <th colspan="3" class="form_heading" scope="">
+                                        Subscription Accounts
+                                    </th>
+                                </tr>
+                                <tr>
+                                    <td>SUSPENSE ACCT – CMS (Debit)</td>
+                                    <td class="old-value">{{(vm.getOldValue('C010'))? (vm.getOldValue('C010')) :
+                                        ('')}}
+                                    </td>
+                                    <td class="new-value" ng-if="vm.previousOperationType == 'M'">
+                                        {{(vm.getNewValue('C010'))? (vm.getNewValue('C010')) : ('')}}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>RRB PAY (Credit)</td>
+                                    <td class="old-value">{{(vm.getOldValue('C012'))? (vm.getOldValue('C012')) :
+                                        ('')}}
+                                    </td>
+                                    <td ng-if="vm.previousOperationType == 'M'" class="new-value">
+                                        {{(vm.getNewValue('C012'))? (vm.getNewValue('C012')) : ('')}}
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <th colspan="3" class="form_heading" scope="">
+                                        RBI Subscription Funds Accounts
+                                    </th>
+                                </tr>
+
+                                <tr>
+                                    <td>RRB PAY (Debit)</td>
+                                    <td class="old-value">{{(vm.getOldValue('C014'))?
+                                        (vm.getOldValue('C014')) : ('')}}
+                                    </td>
+                                    <td ng-if="vm.previousOperationType == 'M'" class="new-value">
+                                        {{(vm.getNewValue('C014'))? (vm.getNewValue('C014')) : ('')}}
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>RESERVE BANK OF INDIA-CLG -Nostro a/c with RBI (Credit)</td>
+                                    <td class="old-value">{{(vm.getOldValue('C082'))?
+                                        (vm.getOldValue('C082')) : ('')}}
+                                    </td>
+                                    <td ng-if="vm.previousOperationType == 'M'" class="new-value">
+                                        {{(vm.getNewValue('C082'))? (vm.getNewValue('C082')) : ('')}}
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <th colspan="3" class="form_heading" scope="">
+                                        Receivable account is debited for brokerage and handling commission
+                                        receivable
+                                        from RBI for the month - during month-end
+                                    </th>
+                                </tr>
+
+                                <tr>
+                                    <td>9% RRB-RBI NAGPUR BROK. RECE.A/C (Debit)</td>
+                                    <td class="old-value">{{(vm.getOldValue('C018'))? (vm.getOldValue('C018')) :
+                                        ('')}}
+                                    </td>
+                                    <td ng-if="vm.previousOperationType == 'M'" class="new-value">
+                                        {{(vm.getNewValue('C018'))? (vm.getNewValue('C018')) : ('')}}
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>Remittance Suspense A/c (Credit)</td>
+                                    <td class="old-value">{{(vm.getOldValue('C020'))? (vm.getOldValue('C020')) :
+                                        ('')}}
+                                    </td>
+                                    <td ng-if="vm.previousOperationType == 'M'" class="new-value">
+                                        {{(vm.getNewValue('C020'))? (vm.getNewValue('C020')) : ('')}}
+                                    </td>
+                                </tr>
+
+
+                                <tr>
+                                    <td>9% RRB-RBI NAGPUR BROK. RECE.A/C (Debit)</td>
+                                    <td class="old-value">{{(vm.getOldValue('C022'))? (vm.getOldValue('C022')) :
+                                        ('')}}
+                                    </td>
+                                    <td ng-if="vm.previousOperationType == 'M'" class="new-value">
+                                        {{(vm.getNewValue('C022'))? (vm.getNewValue('C022')) : ('')}}
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>Remittance Suspense A/c (Credit)</td>
+                                    <td class="old-value">{{(vm.getOldValue('C024'))? (vm.getOldValue('C024')) :
+                                        ('')}}
+                                    </td>
+                                    <td ng-if="vm.preOrpTyp == 'M'" class="new-value">
+                                        {{(vm.getNewValue('C024'))? (vm.getNewValue('C024')) : ('')}}
+                                    </td>
+                                </tr>
+
+
+                                <tr>
+                                    <td>9% RRB-RBI NAGPUR BROK. RECE.A/C (Debit)</td>
+                                    <td class="old-value">{{(vm.getOldValue('C026'))? (vm.getOldValue('C026')) :
+                                        ('')}}
+                                    </td>
+                                    <td ng-if="vm.previousOperationType == 'M'" class="new-value">
+                                        {{(vm.getNewValue('C026'))? (vm.getNewValue('C026')) : ('')}}
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>Remittance Suspense A/c (Credit)</td>
+                                    <td class="old-value">{{(vm.getOldValue('C028'))? (vm.getOldValue('C028')) :
+                                        ('')}}
+                                    </td>
+                                    <td ng-if="vm.previousOperationType == 'M'" class="new-value">
+                                        {{(vm.getNewValue('C028'))? (vm.getNewValue('C028')) : ('')}}
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <th colspan="3" class="form_heading" scope="">
+                                        Brokerage Income accounting
+                                    </th>
+                                </tr>
+
+                                <tr>
+                                    <td>Remittance Suspense A/c (Debit)</td>
+                                    <td class="old-value">{{(vm.getOldValue('C030'))? (vm.getOldValue('C030')) :
+                                        ('')}}
+                                    </td>
+                                    <td ng-if="vm.previousOperationType == 'M'" class="new-value">
+                                        {{(vm.getNewValue('C030'))? (vm.getNewValue('C030')) : ('')}}
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>Brokerage earned- RBI Bonds (Credit)</td>
+                                    <td class="old-value">{{(vm.getOldValue('C032'))? (vm.getOldValue('C032')) :
+                                        ('')}}
+                                    </td>
+                                    <td ng-if="vm.previousOperationType == 'M'" class="new-value">
+                                        {{(vm.getNewValue('C032'))? (vm.getNewValue('C032')) : ('')}}
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>Remittance Suspense A/c (Debit)</td>
+                                    <td class="old-value">{{(vm.getOldValue('C034'))? (vm.getOldValue('C034')) :
+                                        ('')}}
+                                    </td>
+                                    <td ng-if="vm.previousOperationType == 'M'" class="new-value">
+                                        {{(vm.getNewValue('C034'))? (vm.getNewValue('C034')) : ('')}}
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>Brokerage earned- RBI Bonds (Credit)</td>
+                                    <td class="old-value">{{(vm.getOldValue('C036'))? (vm.getOldValue('C036')) :
+                                        ('')}}
+                                    </td>
+                                    <td ng-if="vm.previousOperationType == 'M'" class="new-value">
+                                        {{(vm.getNewValue('C036'))? (vm.getNewValue('C036')) : ('')}}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th colspan="3" class="form_heading" scope="">
+                                        GST liability entry is created
+                                    </th>
+                                </tr>
+                                <tr>
+                                    <td>Remittance Suspense A/c (Debit)</td>
+                                    <td class="old-value">{{(vm.getOldValue('C038'))? (vm.getOldValue('C038')) :
+                                        ('')}}
+                                    </td>
+                                    <td ng-if="vm.previousOperationType == 'M'" class="new-value">
+                                        {{(vm.getNewValue('C038'))? (vm.getNewValue('C038')) : ('')}}
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>Respective GST A/c (Credit)</td>
+                                    <td class="old-value">{{(vm.getOldValue('C040'))? (vm.getOldValue('C040')) :
+                                        ('')}}
+                                    </td>
+                                    <td ng-if="vm.previousOperationType == 'M'" class="new-value">
+                                        {{(vm.getNewValue('C040'))? (vm.getNewValue('C040')) : ('')}}
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>9% RRB-RBI NAGPUR BROK. RECE.A/C (Debit)</td>
+                                    <td class="old-value">{{(vm.getOldValue('C042'))? (vm.getOldValue('C042')) :
+                                        ('')}}
+                                    </td>
+                                    <td ng-if="vm.previousOperationType == 'M'" class="new-value">
+                                        {{(vm.getNewValue('C042'))? (vm.getNewValue('C042')) : ('')}}
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>Remittance Suspense A/c (Credit)</td>
+                                    <td class="old-value">{{(vm.getOldValue('C044'))? (vm.getOldValue('C044')) :
+                                        ('')}}
+                                    </td>
+                                    <td ng-if="vm.previousOperationType == 'M'" class="new-value">
+                                        {{(vm.getNewValue('C044'))? (vm.getNewValue('C044')) : ('')}}
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <th colspan="3" class="form_heading" scope="">
+                                        Handling Commission income accounting
+                                    </th>
+                                </tr>
+
+                                <tr>
+                                    <td>Remittance Suspense A/c (Debit)</td>
+                                    <td class="old-value">{{(vm.getOldValue('C046'))? (vm.getOldValue('C046')) :
+                                        ('')}}
+                                    </td>
+                                    <td ng-if="vm.previousOperationType == 'M'" class="new-value">
+                                        {{(vm.getNewValue('C046'))? (vm.getNewValue('C046')) : ('')}}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Commission earned (Credit)</td>
+                                    <td class="old-value">{{(vm.getOldValue('C048'))? (vm.getOldValue('C048')) :
+                                        ('')}}
+                                    </td>
+                                    <td ng-if="vm.previousOperationType == 'M'" class="new-value">
+                                        {{(vm.getNewValue('C048'))? (vm.getNewValue('C048')) : ('')}}
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <th colspan="3" class="form_heading" scope="">
+                                        GST liability entry is created
+                                    </th>
+                                </tr>
+
+                                <tr>
+                                    <td>Remittance Suspense A/c (Debit)</td>
+                                    <td class="old-value">{{(vm.getOldValue('C050'))? (vm.getOldValue('C050')) :
+                                        ('')}}
+                                    </td>
+                                    <td ng-if="vm.previousOperationType == 'M'" class="new-value">
+                                        {{(vm.getNewValue('C050'))? (vm.getNewValue('C050')) : ('')}}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Respective GST A/c (Credit)</td>
+                                    <td class="old-value">{{(vm.getOldValue('C052'))? (vm.getOldValue('C052')) :
+                                        ('')}}
+                                    </td>
+                                    <td ng-if="vm.previousOperationType == 'M'" class="new-value">
+                                        {{(vm.getNewValue('C052'))? (vm.getNewValue('C052')) : ('')}}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>9% RRB-RBI NAGPUR BROK. RECE.A/C (Debit)</td>
+                                    <td class="old-value">{{(vm.getOldValue('C054'))? (vm.getOldValue('C054')) :
+                                        ('')}}
+                                    </td>
+                                    <td ng-if="vm.previousOperationType == 'M'" class="new-value">
+                                        {{(vm.getNewValue('C054'))? (vm.getNewValue('C054')) : ('')}}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Remittance Suspense A/c (Credit)</td>
+                                    <td class="old-value">{{(vm.getOldValue('C056'))? (vm.getOldValue('C056')) :
+                                        ('')}}
+                                    </td>
+                                    <td ng-if="vm.previousOperationType == 'M'" class="new-value">
+                                        {{(vm.getNewValue('C056'))? (vm.getNewValue('C056')) : ('')}}
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <th colspan="3" class="form_heading" scope="">
+                                        Reversal of brokerage receivable upon receipt of Brokerage from RBI
+                                        during 1st
+                                        week of the month
+                                    </th>
+                                </tr>
+
+                                <tr>
+                                    <td>RESERVE BANK OF INDIA-CLG (Debit)</td>
+                                    <td class="old-value">{{(vm.getOldValue('C058'))? (vm.getOldValue('C058')) :
+                                        ('')}}
+                                    </td>
+                                    <td ng-if="vm.previousOperationType == 'M'" class="new-value">
+                                        {{(vm.getNewValue('C058'))? (vm.getNewValue('C058')) : ('')}}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>9% RRB-RBI NAGPUR BROK. RECE.A/C (Credit)</td>
+                                    <td class="old-value">{{(vm.getOldValue('C060'))? (vm.getOldValue('C060')) :
+                                        ('')}}
+                                    </td>
+                                    <td ng-if="vm.previousOperationType == 'M'" class="new-value">
+                                        {{(vm.getNewValue('C060'))? (vm.getNewValue('C060')) : ('')}}
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <th colspan="3" class="form_heading" scope="">
+                                        ** Therefore Brokerage receivable GL_ 190602656 will have a Dr. balance
+                                        of Rs.
+                                        10 and will be reversed when we receive this fund from RBI in month end
+                                    </th>
+                                </tr>
+
+                                <tr>
+                                    <td>RESERVE BANK OF INDIA-CLG (Debit)</td>
+                                    <td class="old-value">{{(vm.getOldValue('C062'))? (vm.getOldValue('C062')) :
+                                        ('')}}
+                                    </td>
+                                    <td ng-if="vm.previousOperationType == 'M'" class="new-value">
+                                        {{(vm.getNewValue('C062'))? (vm.getNewValue('C062')) : ('')}}
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>9% RRB-RBI NAGPUR BROK. RECE.A/C (Credit)</td>
+                                    <td class="old-value">{{(vm.getOldValue('C064'))? (vm.getOldValue('C064')) :
+                                        ('')}}
+                                    </td>
+                                    <td ng-if="vm.previousOperationType == 'M'" class="new-value">
+                                        {{(vm.getNewValue('C064'))? (vm.getNewValue('C064')) : ('')}}
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <th colspan="3" class="form_heading" scope="">
+                                        HY Int payment-parking of interest payable to respective GL accounts-
+                                        Day 0
+                                    </th>
+                                </tr>
+
+                                <tr>
+                                    <td>Interest receivable Account (Debit)</td>
+                                    <td class="old-value">{{(vm.getOldValue('C066'))? (vm.getOldValue('C066')) :
+                                        ('')}}
+                                    </td>
+                                    <td ng-if="vm.previousOperationType == 'M'" class="new-value">
+                                        {{(vm.getNewValue('C066'))? (vm.getNewValue('C066')) : ('')}}
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>Minor difference rounding off (Debit/Credit)</td>
+                                    <td class="old-value">{{(vm.getOldValue('C068'))? (vm.getOldValue('C068')) :
+                                        ('')}}
+                                    </td>
+                                    <td ng-if="vm.previousOperationType == 'M'" class="new-value">
+                                        {{(vm.getNewValue('C068'))? (vm.getNewValue('C068')) : ('')}}
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>TDS on Interest on Securities (Credit)</td>
+                                    <td class="old-value">{{(vm.getOldValue('C070'))? (vm.getOldValue('C070')) :
+                                        ('')}}
+                                    </td>
+                                    <td ng-if="vm.previousOperationType == 'M'" class="new-value">
+                                        {{(vm.getNewValue('C070'))? (vm.getNewValue('C070')) : ('')}}
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>RBI Bonds Transitory A/c (Credit)</td>
+                                    <td class="old-value">{{(vm.getOldValue('C072'))? (vm.getOldValue('C072')) :
+                                        ('')}}
+                                    </td>
+                                    <td ng-if="vm.previousOperationType == 'M'" class="new-value">
+                                        {{(vm.getNewValue('C072'))? (vm.getNewValue('C072')) : ('')}}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>ECS Settlement Account (Credit)</td>
+                                    <td class="old-value">{{(vm.getOldValue('C074'))? (vm.getOldValue('C074')) :
+                                        ('')}}
+                                    </td>
+                                    <td ng-if="vm.previousOperationType == 'M'" class="new-value">
+                                        {{(vm.getNewValue('C074'))? (vm.getNewValue('C074')) : ('')}}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>RBI Bonds Transitory A/c (Credit)</td>
+                                    <td class="old-value">{{(vm.getOldValue('C076'))? (vm.getOldValue('C076')) :
+                                        ('')}}
+                                    </td>
+                                    <td ng-if="vm.previousOperationType == 'M'" class="new-value">
+                                        {{(vm.getNewValue('C076'))? (vm.getNewValue('C076')) : ('')}}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>CMS-DISB-CENTRAL CLIENT FUNDING (Credit)</td>
+                                    <td class="old-value">{{(vm.getOldValue('C078'))? (vm.getOldValue('C078')) :
+                                        ('')}}
+                                    </td>
+                                    <td ng-if="vm.previousOperationType == 'M'" class="new-value">
+                                        {{(vm.getNewValue('C078'))? (vm.getNewValue('C078')) : ('')}}
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <th colspan="3" class="form_heading" scope="">
+                                        HY Int payment to customers through respective payment modes- Day 0
+                                    </th>
+                                </tr>
+
+                                <tr>
+                                    <td>RBI Bonds Transitory A/c (Debit)</td>
+                                    <td class="old-value">{{(vm.getOldValue('C080'))? (vm.getOldValue('C080')) :
+                                        ('')}}
+                                    </td>
+                                    <td ng-if="vm.previousOperationType == 'M'" class="new-value">
+                                        {{(vm.getNewValue('C080'))? (vm.getNewValue('C080')) : ('')}}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>ECS Settlement Account (Debit)</td>
+                                    <td class="old-value">{{(vm.getOldValue('C082'))? (vm.getOldValue('C082')) :
+                                        ('')}}
+                                    </td>
+                                    <td ng-if="vm.previousOperationType == 'M'" class="new-value">
+                                        {{(vm.getNewValue('C082'))? (vm.getNewValue('C082')) : ('')}}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>RBI Bonds Transitory A/c (Debit)</td>
+                                    <td class="old-value">{{(vm.getOldValue('C084'))? (vm.getOldValue('C084')) :
+                                        ('')}}
+                                    </td>
+                                    <td ng-if="vm.previousOperationType == 'M'" class="new-value">
+                                        {{(vm.getNewValue('C084'))? (vm.getNewValue('C084')) : ('')}}
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>CMS-DISB-CENTRAL CLIENT FUNDING (Debit)</td>
+                                    <td class="old-value">{{(vm.getOldValue('C086'))? (vm.getOldValue('C086')) :
+                                        ('')}}
+                                    </td>
+                                    <td ng-if="vm.previousOperationType == 'M'" class="new-value">
+                                        {{(vm.getNewValue('C086'))? (vm.getNewValue('C086')) : ('')}}
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>Customer's A/c (Credit)</td>
+                                    <td class="old-value">{{(vm.getOldValue('C088'))? (vm.getOldValue('C088')) :
+                                        ('')}}
+                                    </td>
+                                    <td ng-if="vm.previousOperationType == 'M'" class="new-value">
+                                        {{(vm.getNewValue('C088'))? (vm.getNewValue('C088')) : ('')}}
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <th colspan="3" class="form_heading" scope="">
+                                        Upon receipt of funds from RBI- Day 2/ Day 3/ Day 4 as the case may be
+                                    </th>
+                                </tr>
+
+                                <tr>
+                                    <td>RESERVE BANK OF INDIA-CLG (Debit)</td>
+                                    <td class="old-value">{{(vm.getOldValue('C090'))? (vm.getOldValue('C090')) :
+                                        ('')}}
+                                    </td>
+                                    <td ng-if="vm.previousOperationType == 'M'" class="new-value">
+                                        {{(vm.getNewValue('C090'))? (vm.getNewValue('C090')) : ('')}}
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>Interest receivable Account (Credit)</td>
+                                    <td class="old-value">{{(vm.getOldValue('C092'))? (vm.getOldValue('C092')) :
+                                        ('')}}
+                                    </td>
+                                    <td ng-if="vm.previousOperationType == 'M'" class="new-value">
+                                        {{(vm.getNewValue('C092'))? (vm.getNewValue('C092')) : ('')}}
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <th colspan="3" class="form_heading" scope="">
+                                        When making redemption payment to investors Day +0
+                                    </th>
+                                </tr>
+
+                                <tr>
+                                    <td>Principal receivable A/c (Debit)</td>
+                                    <td class="old-value">{{(vm.getOldValue('C094'))? (vm.getOldValue('C094')) :
+                                        ('')}}
+                                    </td>
+                                    <td ng-if="vm.previousOperationType == 'M'" class="new-value">
+                                        {{(vm.getNewValue('C094'))? (vm.getNewValue('C094')) : ('')}}
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>Interest Receivable A/c (Debit)</td>
+                                    <td class="old-value">{{(vm.getOldValue('C096'))? (vm.getOldValue('C096')) :
+                                        ('')}}
+                                    </td>
+                                    <td ng-if="vm.previousOperationType == 'M'" class="new-value">
+                                        {{(vm.getNewValue('C096'))? (vm.getNewValue('C096')) : ('')}}
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>CMS-DISB-CENTRAL CLIENT FUNDING (Credit)</td>
+                                    <td class="old-value">{{(vm.getOldValue('C098'))? (vm.getOldValue('C098')) :
+                                        ('')}}
+                                    </td>
+                                    <td ng-if="vm.previousOperationType == 'M'" class="new-value">
+                                        {{(vm.getNewValue('C098'))? (vm.getNewValue('C098')) : ('')}}
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>RBI Bonds Transitory A/c (Credit)</td>
+                                    <td class="old-value">{{(vm.getOldValue('C0100'))? (vm.getOldValue('C0100'))
+                                        :
+                                        ('')}}
+                                    </td>
+                                    <td ng-if="vm.previousOperationType == 'M'" class="new-value">
+                                        {{(vm.getNewValue('C0100'))? (vm.getNewValue('C0100')) : ('')}}
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>TDS ON SECURITIES U/S 193 (Credit)</td>
+                                    <td class="old-value">{{(vm.getOldValue('C102'))? (vm.getOldValue('C102')) :
+                                        ('')}}
+                                    </td>
+                                    <td ng-if="vm.previousOperationType == 'M'" class="new-value">
+                                        {{(vm.getNewValue('C102'))? (vm.getNewValue('C102')) : ('')}}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Customer CASA A/c (Credit)</td>
+                                    <td class="old-value">{{(vm.getOldValue('C104'))? (vm.getOldValue('C104')) :
+                                        ('')}}
+                                    </td>
+                                    <td ng-if="vm.previousOperationType == 'M'" class="new-value">
+                                        {{(vm.getNewValue('C104'))? (vm.getNewValue('C104')) : ('')}}
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>RBI Bonds Transitory A/c (Debit)</td>
+                                    <td class="old-value">{{(vm.getOldValue('C106'))? (vm.getOldValue('C106')) :
+                                        ('')}}
+                                    </td>
+                                    <td ng-if="vm.previousOperationType == 'M'" class="new-value">
+                                        {{(vm.getNewValue('C106'))? (vm.getNewValue('C106')) : ('')}}
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>CMS-DISB-CENTRAL CLIENT FUNDING (Debit)</td>
+                                    <td class="old-value">{{(vm.getOldValue('C108'))? (vm.getOldValue('C108')) :
+                                        ('')}}
+                                    </td>
+                                    <td ng-if="vm.previousOperationType == 'M'" class="new-value">
+                                        {{(vm.getNewValue('C108'))? (vm.getNewValue('C108')) : ('')}}
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>Customer A/c (Credit)</td>
+                                    <td class="old-value">{{(vm.getOldValue('C110'))? (vm.getOldValue('C110')) :
+                                        ('')}}
+                                    </td>
+                                    <td ng-if="vm.previousOperationType == 'M'" class="new-value">
+                                        {{(vm.getNewValue('C0110'))? (vm.getNewValue('C0110')) : ('')}}
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <th colspan="3" class="form_heading" scope="">
+                                        Post receipt of funds from RBI on Day + 2
+                                    </th>
+                                </tr>
+
+                                <tr>
+                                    <td>RESERVE BANK OF INDIA-CLG (Debit)</td>
+                                    <td class="old-value">{{(vm.getOldValue('C112'))? (vm.getOldValue('C112')) :
+                                        ('')}}
+                                    </td>
+                                    <td ng-if="vm.previousOperationType == 'M'" class="new-value">
+                                        {{(vm.getNewValue('C112'))? (vm.getNewValue('C112')) : ('')}}
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>Principal receivable A/c (Credit)</td>
+                                    <td class="old-value">{{(vm.getOldValue('C114'))? (vm.getOldValue('C114')) :
+                                        ('')}}
+                                    </td>
+                                    <td ng-if="vm.previousOperationType == 'M'" class="new-value">
+                                        {{(vm.getNewValue('C114'))? (vm.getNewValue('C114')) : ('')}}
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>Interest Receivable A/c (Credit)</td>
+                                    <td class="old-value">{{(vm.getOldValue('C116'))? (vm.getOldValue('C082')) :
+                                        ('')}}
+                                    </td>
+                                    <td ng-if="vm.previousOperationType == 'M'" class="new-value">
+                                        {{(vm.getNewValue('C082'))? (vm.getNewValue('C082')) : ('')}}
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <th colspan="3" class="form_heading" scope="">
+                                        The above flow of entries would be the same when booking income for
+                                        Service
+                                        Charges and Turnover Commission
+                                    </th>
+                                </tr>
+
+                                <tr>
+                                    <td>ROKERAGE EXPENSE RBI BONDS - RRB (Debit)</td>
+                                    <td class="old-value">{{(vm.getOldValue('C118'))? (vm.getOldValue('C118')) :
+                                        ('')}}
+                                    </td>
+                                    <td ng-if="vm.previousOperationType == 'M'" class="new-value">
+                                        {{(vm.getNewValue('C118'))? (vm.getNewValue('C118')) : ('')}}
+                                    </td>
+                                </tr>
+
+
+                                <tr>
+                                    <td>BROKERAGE EXPENSE RBI BONDS - RRB under RCM (Credit)</td>
+                                    <td class="old-value">{{(vm.getOldValue('C120'))? (vm.getOldValue('C120')) :
+                                        ('')}}
+                                    </td>
+                                    <td ng-if="vm.previousOperationType == 'M'" class="new-value">
+                                        {{(vm.getNewValue('C120'))? (vm.getNewValue('C120')) : ('')}}
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>Vendor/ Brokers Account (Credit)</td>
+                                    <td class="old-value">{{(vm.getOldValue('C122'))? (vm.getOldValue('C122')) :
+                                        ('')}}
+                                    </td>
+                                    <td ng-if="vm.previousOperationType == 'M'" class="new-value">
+                                        {{(vm.getNewValue('C122'))? (vm.getNewValue('C122')) : ('')}}
+                                    </td>
+                                </tr>
+
+                                </tbody>
+                            </table>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+<!--Audit Details-->
+        <div class="audit-details">
+            <div class="row">
+                <div class="col-md-3">
+                    <span> <strong> Created By </strong> : {{vm.audit.createdBy}} </span>
+                </div>
+                <div class="col-md-3">
+                    <span> <strong> Last Modified By </strong> : {{(vm.audit.modifiedBy) ? (vm.audit.modifiedBy) :
+                        ('None')}}</span>
+                </div>
+                <div class="col-md-3">
+                    <span> <strong> Last Verified By </strong> : {{(vm.audit.verifiedBy) ? (vm.audit.verifiedBy) :
+                        ('None')}}</span>
+                </div>
+                <div class="col-md-3">
+                    <span> <strong> Verify Status </strong> : {{vm.audit.verifiedStatus}}</span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3">
+                    <span> <strong> Created On </strong> : {{ vm.audit.createdDate | date : 'dd-MM-yyyy'}}</span>
+                </div>
+                <div class="col-md-3">
+                    <span> <strong> Last Modified On</strong> : {{ (vm.audit.modifiedDate) ? (vm.audit.modifiedDate |
+                        date : 'dd-MM-yyyy') : ('None')}}</span>
+                </div>
+                <div class="col-md-3">
+                    <span> <strong> Last Verified On </strong> : {{(vm.audit.verifiedDate) ? (vm.audit.verifiedDate |
+                        date : 'dd-MM-yyyy') : ('None')}}</span>
+                </div>
+                <div class="col-md-3">
+                </div>
+            </div>
+        </div>
+        <div class="text-center form_submit">
+            <button type="button" id="cancelButton" class="btn btn-cancel"
+                    onclick="window.location.href= '#!/accounting_entries/action/inquiry';">Cancel
+            </button>
+        </div>
+    </form>
+</div>

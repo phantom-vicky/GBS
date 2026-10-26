@@ -1,0 +1,229 @@
+<div class="loader-new" ng-if="vm.loader"></div>
+
+<div class="container" ng-if="!vm.noDataFound">
+  <div class="container from_wrapper new_form_wrapper">
+    <div class="text-right form_submit">
+      <button
+        type="button"
+        class="btn btn-default"
+        onclick="window.location.href = '#!/dashboard'"
+        id="homeButton"
+      >
+        Home
+      </button>
+
+      <button
+        type="button"
+        id="cancel_Button"
+        class="btn btn-cancel"
+        onclick="
+          window.location.href = '#!/huf_death_marking_report/action/inquiry'
+        "
+      >
+        Back
+      </button>
+    </div>
+
+    <h4 class="form_heading">HUF Death Marking</h4>
+    <sol-header></sol-header>
+
+    <!-- Filter / header display -->
+
+    <table
+      class="table table-bordered"
+      style="width: 100%"
+      aria-label="HUF Death Marking filter summary"
+    >
+      <tr>
+        <th style="width: 25%">From Date</th>
+        <td style="width: 25%">{{vm.fromDate | date:'dd/MM/yyyy'}}</td>
+        <th style="width: 25%">To Date</th>
+        <td style="width: 25%">{{vm.toDate | date:'dd/MM/yyyy'}}</td>
+      </tr>
+      <tr>
+        <th>Branch Id</th>
+        <td>{{vm.branchId}}</td>
+        <th>Branch Name</th>
+        <td>{{vm.branchName}}</td>
+      </tr>
+      <tr ng-if="vm.panNo || vm.blaNo">
+        <th>PAN No</th>
+        <td>{{vm.panNo}}</td>
+        <th>BLA No</th>
+        <td>{{vm.blaNo}}</td>
+      </tr>
+      <tr>
+        <th>Total Count</th>
+        <td colspan="3">
+          {{vm.total || (vm.detailsList && vm.detailsList.length) || 0}}
+        </td>
+      </tr>
+    </table>
+
+    <div
+      class="row"
+      style="
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-top: 15px;
+      "
+    >
+      <div class="col-sm-3" style="flex: 1">
+        <div class="form-group">
+          <table style="border-spacing: 2" aria-label="page size">
+            <tr>
+              <td>Show&nbsp;</td>
+              <td>
+                <select
+                  class="form-control pageDropDown"
+                  id="pageSize"
+                  name="pageSize"
+                  ng-model="vm.pageSize"
+                  ng-init="vm.pageSize = '5'"
+                  ng-change="vm.pageNo = 1; vm.getDetails();"
+                  ng-disabled="vm.noDataFoundInSearch"
+                >
+                  <option value="5">5 per page</option>
+                  <option value="10">10 per page</option>
+                  <option value="20">20 per page</option>
+                  <option value="50">50 per page</option>
+                </select>
+              </td>
+            </tr>
+          </table>
+        </div>
+      </div>
+
+      <!-- Search and Export Controls -->
+
+      <div
+        class="col-sm-6"
+        style="display: flex; align-items: center; justify-content: flex-end"
+      >
+        <div class="form-group" style="margin-right: 15px">
+          <div class="input-group">
+            <input
+              type="text"
+              class="form-control"
+              ng-model="vm.searchValue"
+              ng-init="vm.searchValue = ''"
+              placeholder="Search"
+            />
+            <div class="input-group-addon">
+              <i
+                class="glyphicon glyphicon-search"
+                ng-click="vm.pageNo = 1; vm.getDetails()"
+              ></i>
+            </div>
+            <div class="input-group-addon">
+              <i
+                class="glyphicon glyphicon-remove clear cp"
+                ng-click="vm.searchValue = ''; vm.pageNo = 1; vm.getDetails()"
+              ></i>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <select
+            class="form-control"
+            id="export"
+            name="export"
+            ng-model="vm.downloadType"
+            ng-disabled="!vm.detailsList || vm.detailsList.length == 0"
+            ng-init="vm.downloadType=''"
+            ng-change="vm.getDownload()"
+          >
+            <option value="">EXPORT</option>
+            <option value="excel">EXCEL</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <div class="table-responsive">
+      <table
+        class="table table-bordered table-striped list table-textWrap"
+        aria-label="HUF Death Marking details"
+      >
+        <thead>
+          <tr class="thalign">
+            <th scope="col">S. No.</th>
+            <th scope="col">Date of Death of Karta (dd/mm/yyyy)</th>
+            <th scope="col">Karta Death Marking Date (dd/mm/yyyy)</th>
+            <th scope="col">Karta Death Marking Remarks</th>
+            <th scope="col">Old Karta Name</th>
+            <th scope="col">Next Eligible Co-Parcener Name (New Karta Name)</th>
+            <th scope="col">DOB of New Karta</th>
+            <th scope="col">Relationship with Karta</th>
+            <th scope="col">Karta Change Reference Number (KCRN)</th>
+          </tr>
+        </thead>
+
+        <tbody ng-if="vm.detailsList.length > 0">
+          <tr ng-repeat="x in vm.detailsList">
+            <td>{{(vm.pageNo - 1) * vm.pageSize + $index + 1}}</td>
+            <td>{{x.dateOfDeathOfKarta | date:'dd/MM/yyyy'}}</td>
+            <td>{{(x.kartaDeathMarkingDate || x.kartaDeathMarking) | date:'dd/MM/yyyy'}}</td>
+            <td>{{x.kartaDeathMarkingRemarks}}</td>
+            <td>{{x.oldKartaName}}</td>
+            <td>{{x.nextEligibleCoParcenerName || x.newKartaName}}</td>
+            <td>{{x.dobOfNewKarta | date:'dd/MM/yyyy'}}</td>
+            <td>{{x.relationshipWithKarta}}</td>
+            <td>{{x.kartaChangeReferenceNumber || x.kartaChangeReferenceNo || x.kcrn}}</td>
+          </tr>
+        </tbody>
+
+        <tbody ng-if="!vm.detailsList || vm.detailsList.length == 0">
+          <tr>
+            <td colspan="9" class="text-center">
+              No records found to display.
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="row" ng-if="vm.detailsList.length > 0">
+      <div class="col-md-12 text-right">
+        <div class="pagination-container">
+          <div class="text-center form_submit">
+            <span ng-show="vm.showPrevious">
+              <button type="button" class="btn btn-default" ng-click="vm.goPreviousPage()">
+                Prev
+              </button>
+            </span>
+            <span>
+              <button type="button" class="btn btn-default" ng-disabled="true">
+                {{vm.pageNo}} of {{vm.maxPages}}
+              </button>
+            </span>
+            <span ng-show="vm.showNext">
+              <button type="button" class="btn btn-default" ng-click="vm.goNextPage()">
+                Next
+              </button>
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container" ng-if="vm.noDataFound">
+  <div class="list_wrapper no_records_message">
+    <h4 class="form_heading">HUF Death Marking</h4>
+    No records found to display.
+      <br>
+    <button
+      type="button"
+      class="btn btn-default"
+      onclick="
+        window.location.href = '#!/huf_death_marking_report/action/inquiry'
+      "
+    >
+      Back
+    </button>
+  </div>
+</div>

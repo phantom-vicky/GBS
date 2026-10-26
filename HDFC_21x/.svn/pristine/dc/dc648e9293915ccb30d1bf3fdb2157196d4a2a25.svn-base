@@ -1,0 +1,109 @@
+<div class="loader-new" ng-if="vm.loader"></div>
+<div class="container" ng-if="vm.model">
+    <div class="text-right form_submit" >
+        <button type="submit" class="btn btn-default"
+                onclick="window.location.href ='#!/rbibond_gu_functionality';" id="homeButton">Home</button>
+        <button type="button" id="cancel_Button" class="btn btn-cancel"
+                onclick="window.location.href= '#!/rbibond_register_ledger_acc_linkcell_scroll/action/inquiry';">Back</button>
+    </div>
+    <div class="container from_wrapper new_form_wrapper">
+        <div class="row">
+
+            <sol-header></sol-header>
+
+        </div>
+        <div class="row">
+
+            <div class="col-sm-12">
+                <div class="table-responsive">
+                    <table class="table table-bordered table-striped list nowrap table-textWrap datatable"
+                           ui-jq="dataTable" ui-options="vm.dataTableOption">
+                        <thead>
+                        <tr>
+                            <th style="border: none;text-align: right;" colspan="11"><p>Appendix II</p></th>
+                        </tr>
+                        <tr>
+                            <th style="border: none;border-bottom: 1px solid black;text-align: right;" colspan="11"><p>Para 1.10</p></th>
+                        </tr>
+                        <tr>
+                            <th style="border: none;text-align: center;" colspan="11"><p>{{vm.bankName}}</p></th>
+                        </tr>
+                        <tr>
+                            <th style="border: none;text-align: center;" colspan="11"><p>{{vm.loginSolId}}</p></th>
+                        </tr>
+                        <tr>
+                            <th style="border: none;border-bottom: 1px solid black;text-align: center;" colspan="11"><p>{{vm.loginSolDesc}}</p></th>
+                        </tr>
+                        <tr>
+                            <th style="border: none;border-bottom: 1px solid black;text-align: center;" colspan="11"><p>{{vm.schemeName}}</p></th>
+                        </tr>
+                        <tr >
+                            <th  style="border: none;text-align: center;"  colspan="11" ><p>Register of Bond Ledger Accounts - All holders</p></th>
+                        </tr>
+                        <tr>
+                            <th style="border: none;border-bottom: 1px solid black;text-align: center;" colspan="11"><p>For the period from {{vm.fromDate | date:"dd/MM/yyyy"}} to {{vm.toDate | date:"dd/MM/yyyy"}} </p></th>
+                        </tr>
+                        <tr >
+                            <th  style="border: none;text-align: left;"  colspan="11" ><p>Name of the Receiving Office :  {{vm.bankName}}</p></th>
+                        </tr>
+                        <tr>
+                            <th  style="border: none;text-align: left;"  colspan="11"><p>Name of the Branch:  {{vm.branchName}} </p></th>
+                        </tr>
+                        <tr class="thalign">
+                            <th></th>
+                            <th colspan="2">Investment</th>
+
+                            <th colspan="2">Transferred in From Other Bank/Branch</th>
+                            <th colspan="2">Transferred out to Other Bank/Branch</th>
+                            <th colspan="2">Repayment</th>
+                            <th colspan="2">Progressive Total</th>
+                        </tr>
+
+                        <tr class="thalign">
+                            <th>Date of Transaction</th>
+                            <th>No. of Accounts</th>
+                            <th>Amount</th>
+                            <th>No. of Accounts</th>
+                            <th>Amount</th>
+                            <th>No. of Accounts</th>
+                            <th>Amount</th>
+                            <th>No. of Accounts</th>
+                            <th>Amount</th>
+                            <th>No. of Accounts</th>
+                            <th>Amount</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="x in vm.model">
+                            <td align="center">{{x.dateOfTransaction}}</td>
+                            <td align="center">{{x.noOfInvestmentAcc}}</td>
+                            <td align="right">{{x.totInvestmentAmt}}</td>
+                            <td align="center">{{x.noOfTnsfInAcc}}</td>
+                            <td align="right">{{x.noOfTnsfInAmt}}</td>
+                            <td align="center">{{x.noOfTnsfOutAcc}}</td>
+                            <td align="right">{{x.noOfTnsfOutAmt}}</td>
+                            <td align="center">{{x.noOfRepayAcc}}</td>
+                            <td align="right">{{x.noOfRepayAmt}}</td>
+                            <td align="center">{{x.totAcc}}</td>
+                            <td align="right">{{x.totAmt}}</td>
+                        </tr>
+                        </tbody>
+
+                    </table>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+<div class="container" ng-if="vm.noDataFound">
+    <div class="list_wrapper no_records_message">
+        <h4 class="form_heading">Bond Nomination Register</h4>
+        No records found to display.
+        <center>
+            <button type="button" class="btn btn-default"
+                    onclick="window.location.href= '#!/rbibond_register_ledger_acc_linkcell_scroll.inquiry/action/inquiry';" >Back</button>
+        </center>
+    </div>
+</div>

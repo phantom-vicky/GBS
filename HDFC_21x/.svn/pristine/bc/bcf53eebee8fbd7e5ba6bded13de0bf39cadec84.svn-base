@@ -1,0 +1,165 @@
+<div class="loader-new" ng-if="vm.loader"></div>
+<cbs-left-menu></cbs-left-menu>
+<div class="container from_wrapper new_form_wrapper">
+
+	<h4 class="form_heading  feature-heading">User Work Class
+		Information - Delete</h4>
+	<form name="userDetailsForm" role="form"
+		ng-submit="submitForm(userDetailsForm.$valid)"
+		enctype="multipart/form-data" novalidate>
+		<div class="row">
+			<div class="form-group ">
+				<div class="col-sm-3">
+					<label for="userId" class="control-label">User ID</label>
+				</div>
+				<div class="col-sm-2 inner-addon right-addon">
+					:<label class="data-bind" id="userId">
+						{{vm.cbsUserDetails.userId}}</label>
+				</div>
+				<div class="col-sm-2"></div>
+				<div class="col-sm-3">
+					<label for="userWorkClass" class="control-label">User work
+						class</label>
+				</div>
+				<div class="col-sm-2">
+					:<label class="data-bind" id="userWorkClass">
+						{{vm.cbsUserDetails.userWorkClass}}</label>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="form-group ">
+				<div class="col-sm-3">
+					<label for="solId" class="control-label">Sol ID</label>
+				</div>
+				<div class="col-sm-2">
+					:<label class="data-bind" id="solId">
+						{{vm.cbsUserDetails.solId}}</label>
+				</div>
+				<div class="col-sm-2"></div>
+				<div class="col-sm-3">
+					<label for="userSolTenor" class="control-label">User Sol
+						Tenor</label>
+				</div>
+				<div class="col-sm-2">
+					:<label class="data-bind" id="userSolTenor">
+						{{vm.cbsUserDetails.userSolTenor}}</label>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="form-group ">
+				<div class="col-sm-3">
+					<label for="userMaxInactiveTime" class="control-label">User
+						Max Inactive Time</label>
+				</div>
+				<div class="col-sm-2">
+					:<label class="data-bind" id="userMaxInactiveTime">
+						{{vm.cbsUserDetails.userMaxInactiveTime}}</label>
+				</div>
+				<div class="col-sm-2"></div>
+				<div class="col-sm-3">
+					<label for="userAccountExpiryDate" class="control-label">User
+						Account Expiry Date</label>
+				</div>
+				<div class="col-sm-2">
+					:<label class="data-bind" id="userAccountExpiryDate">
+						{{vm.cbsUserDetails.userAccountExpiryDate| date: 'dd/MM/y'}}</label>
+
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="form-group ">
+				<div class="col-sm-3">
+					<label for="userApplicationName" class="control-label">User
+						Appl Name</label>
+				</div>
+				<div class="col-sm-2">
+					:<label class="data-bind" id="userApplicationName">
+						{{vm.cbsUserDetails.userApplicationName}}</label>
+
+				</div>
+				<div class="col-sm-2"></div>
+				<div class="col-sm-3">
+					<label for="userPasswordExpiryDate" class="control-label">User
+						Password Expiry Date</label>
+				</div>
+				<div class="col-sm-2">
+					:<label class="data-bind" id="userPasswordExpiryDate">
+						{{vm.cbsUserDetails.userPasswordExpiryDate| date: 'dd/MM/y'}}</label>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="form-group ">
+				<div class="col-sm-3">
+					<label for="newUserFlag" class="control-label">New User
+						Flag</label>
+				</div>
+				<div class="col-sm-2">
+					:<label class="data-bind text-uppercase" id="newUserFlag">
+						{{vm.cbsUserDetails.newUserFlag}}</label>
+				</div>
+				<div class="col-sm-2"></div>
+				<div class="col-sm-3">
+					<label for="defaultTermId" class="control-label">Default
+						term ID</label>
+				</div>
+				<div class="col-sm-2">
+					:<label class="data-bind" id="defaultTermId">
+						{{vm.cbsUserDetails.defaultTermId}}</label>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="form-group ">
+				<div class="col-sm-3">
+					<label for="virtualFlag" class="control-label">Virtual Flag</label>
+				</div>
+				<div class="col-sm-2">
+					:<label class="data-bind text-uppercase" id="virtualFlag">
+						{{vm.cbsUserDetails.virtualFlag}}</label>
+				</div>
+				<div class="col-sm-2"></div>
+				<div class="col-sm-3">
+					<label for="additionalText1" class="control-label">Additional
+						Text1</label>
+				</div>
+				<div class="col-sm-2">
+					:<label class="data-bind" id="additionalText1">
+						{{vm.cbsUserDetails.additionalText1}}</label>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="form-group ">
+				<div class="col-sm-3">
+					<label for="additionalText2" class="control-label">Additional
+						Text2</label>
+				</div>
+				<div class="col-sm-2">
+					:<label class="data-bind" id="additionalText2">
+						{{vm.cbsUserDetails.additionalText2}}</label>
+				</div>
+				<div class="col-sm-2"></div>
+				<div class="col-sm-3">
+					<label for="additionalText3" class="control-label">Additional
+						Text3</label>
+				</div>
+				<div class="col-sm-2">
+					:<label class="data-bind" id="additionalText3">
+						{{vm.cbsUserDetails.additionalText3}}</label>
+				</div>
+			</div>
+		</div>
+		<div class="col-sm-offset-5 col-sm-8 form_submit">
+			<button type="button" class="btn btn-default" id="submitButton"
+				ng-click="vm.deleteUser()" ng-disabled="userDetailsForm.$invalid">Delete</button>
+			<button type="button" class="btn btn-cancel" id="cancelButton"
+				ui-sref="cbs_user_work_class_information.delete">Cancel</button>
+		</div>
+	</form>
+
+</div>
+

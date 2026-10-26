@@ -1,0 +1,115 @@
+<div class="loader-new" ng-if="vm.loader"></div>
+<dc-left-menu></dc-left-menu>
+<div class="container from_wrapper new_form_wrapper">
+    <h4 class="form_heading">Common Flag - Modify</h4>
+    <sol-header></sol-header>
+    <form name="commonFlag" role="form" ng-submit="vm.submitModifyForm()" novalidate>
+        <!--Module Name-->
+        <table class="table table-bordered">
+            <tbody>
+
+            <tr>
+
+                <td width="50%" class="form-group">
+                    <label class="control-label">Name Of The Module</label></td>
+                <td width="50%">
+                    <label class="control-label"><b>RBI Bond</b></label>
+                </td>
+
+
+
+
+
+            </tr>
+
+
+            <tr>
+
+
+                <td width="50%" class="form-group">
+                    <label class="control-label">Name of the Bond Scheme</label></td>
+                <td width="50%">
+                    <label class="control-label" >{{vm.schemeName}}</label>
+                </td>
+
+
+
+            </tr>
+
+
+            <tr>
+
+
+                <td width="50%" class="form-group">
+                    <label class="control-label">REJECTION REMARKS</label></td>
+                <td width="50%">
+                    <label class="control-label" >{{vm.remarks}}</label>
+                </td>
+
+
+
+            </tr>
+
+
+            </tbody>
+        </table>
+        <div class="col-md-12 margin-btm">
+            <div class="row">
+                <h5 class="text-center sub-title">Select Mandatory one from the below list</h5>
+                <div class="col-md-12 map-div">
+                    <duallist template-url="app/rbi_bond_module/gu_functionallity/masters/common_flag/common_flag_duallist.html" duallist-option="vm.options" leftscope="vm.unmappedSol" rightscope="vm.mappedSol"></duallist>
+                </div>
+            </div>
+        </div>
+
+        <div class="audit-details" ng-if="vm.levelMaster.C003 == '1' || vm.levelMaster.C006">
+            <div class="row">
+<!--                <div class="col-md-3">-->
+<!--												<span>-->
+<!--													<b> Created By </b> : {{vm.result.createdBy}}-->
+<!--												</span>-->
+<!--                </div>-->
+                <div class="col-md-3">
+												<span>
+													<b> Last Modified By </b> : {{(vm.result.modifiedBy) ? (vm.result.modifiedBy) : ('None')}}
+												</span>
+                </div>
+                <div class="col-md-3">
+												<span>
+													<b> Last Verified By </b> : {{(vm.result.verifiedBy) ? (vm.result.verifiedBy) : ('None')}}
+												</span>
+                </div>
+                <div class="col-md-3">
+												<span>
+													<b> Verify Status </b> : {{vm.result.verifiedStatus  | getLabelFromValuesArray : vm.commonYesNoMetaData}}
+												</span>
+                </div>
+            </div>
+            <div class="row">
+<!--                <div class="col-md-3">-->
+<!--&lt;!&ndash;												<span>&ndash;&gt;-->
+<!--&lt;!&ndash;													<b> Created On </b> : {{ vm.result.createdDate | date : 'dd/MM/yyyy'}}&ndash;&gt;-->
+<!--&lt;!&ndash;												</span>&ndash;&gt;-->
+<!--                </div>-->
+                <div class="col-md-3">
+												<span>
+													<b> Last Modified On</b> : {{ (vm.result.modifiedDate) ? (vm.result.modifiedDate | date : 'dd/MM/yyyy') : ('None')}}
+												</span>
+                </div>
+                <div class="col-md-3">
+												<span>
+													<b> Last Verified On </b> : {{(vm.result.verifiedDate) ? (vm.result.verifiedDate | date : 'dd/MM/yyyy') : ('None')}}
+												</span>
+                </div>
+                <div class="col-md-3"></div>
+            </div>
+        </div>
+        <div class="text-center form_submit">
+            <button type="submit" id="submitbutton" name="submitbutton"
+                    class="btn btn-default"
+                    ng-disabled="commonFlag.$invalid|| commonFlag.$pristine">Modify</button>
+            <button type="button" class="btn btn-cancel" id="cancelButton"
+                    onclick="window.location.href= '#!/common_flag/action/modify';">Cancel</button>
+        </div>
+    </form>
+</div>

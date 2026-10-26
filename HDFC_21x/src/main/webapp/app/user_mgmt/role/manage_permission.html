@@ -1,0 +1,17 @@
+<user-left-menu></user-left-menu>
+<div class="loader">
+</div>
+<div class="container from_wrapper">
+    <h4 class="form_heading">Manage Permissions - {{vm.role.name}}</h4>
+    <form name="managePermissionForm" role="form">
+        <duallist template-url="app/user_mgmt/common/duallist-template.html" duallist-option="vm.options" leftscope="vm.permissions" rightscope="vm.rolePermissions"></duallist>
+
+        <div class="col-sm-offset-5 col-sm-8 form_submit">
+            <button type="button" class="btn btn-default" ng-disabled="managePermissionForm.$invalid" ng-click="vm.saveUserPermissionMappingConfirmation()">Submit</button>
+            <button type="button" class="btn btn-cancel" ng-click="vm.showCancelConfirmation()">Cancel</button>
+        </div>
+  
+        <div class="isa_error" ng-if="vm.errorMsg" ng-bind="vm.errorMsg" style="text-align: center;">
+            <div>
+    </form>
+    </div>

@@ -1,0 +1,10 @@
+<div class="container" ng-if="vm.noDataFound == 'Success' ">
+    <div class="list_wrapper no_records_message">
+        <h4 class="form_heading">CAUF file download</h4>
+                Downloaded Successfully
+        <center>
+            <button type="button" class="btn btn-default"
+                    onclick="window.location.href= '#!/cafu_file_download/action/inquiry';" >Back</button>
+        </center>
+    </div>
+</div>

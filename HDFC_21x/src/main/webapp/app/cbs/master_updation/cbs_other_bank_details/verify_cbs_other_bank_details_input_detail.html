@@ -1,0 +1,206 @@
+<div class="loader-new" ng-if="vm.loader"></div>
+<cbs-left-menu></cbs-left-menu>
+<div class="container from_wrapper new_form_wrapper">
+
+    <h4 class="form_heading">Other Bank Details - Verify/Reject</h4>
+    <sol-header></sol-header>
+    <form name="otherBankDetailsForm" role="form">
+
+        <table class="table table-bordered table-striped list old-new-value-table">
+            <thead>
+            <tr>
+                <th>Particular</th>
+                <th>{{(vm.verifyDeleteLists.previousOperationType == 'M')?('Old Value'): ('Value')}}</th>
+                <th ng-if="vm.verifyDeleteLists.previousOperationType == 'M'">New Value</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>Bank Code</td>
+                <td class="old-value">{{(vm.verifyDeleteLists.cbsOtherBankDetailsOldNewValue && vm.verifyDeleteLists.cbsOtherBankDetailsOldNewValue.C001)?
+                    (vm.verifyDeleteLists.cbsOtherBankDetailsOldNewValue.C001.oldValue) : ('')}}
+                </td>
+                <td ng-if="vm.verifyDeleteLists.previousOperationType == 'M'" class="new-value">{{(vm.verifyDeleteLists.cbsOtherBankDetailsOldNewValue &&
+                    vm.verifyDeleteLists.cbsOtherBankDetailsOldNewValue.C001)? (vm.verifyDeleteLists.cbsOtherBankDetailsOldNewValue.C001.newValue) : ('')}}
+                </td>
+            </tr>
+            <tr>
+                <td>Bank Name</td>
+                <td class="old-value">{{(vm.verifyDeleteLists.cbsOtherBankDetailsOldNewValue && vm.verifyDeleteLists.cbsOtherBankDetailsOldNewValue.C002)?
+                    (vm.verifyDeleteLists.cbsOtherBankDetailsOldNewValue.C002.oldValue) : ('')}}
+                </td>
+                <td ng-if="vm.verifyDeleteLists.previousOperationType == 'M'" class="new-value">
+                    {{(vm.verifyDeleteLists.cbsOtherBankDetailsOldNewValue && vm.verifyDeleteLists.cbsOtherBankDetailsOldNewValue.C002)?
+                    (vm.verifyDeleteLists.cbsOtherBankDetailsOldNewValue.C002.newValue) : ('')}}
+                </td>
+            </tr>
+            <tr>
+                <td>Bank Short Name</td>
+                <td class="old-value">{{(vm.verifyDeleteLists.cbsOtherBankDetailsOldNewValue && vm.verifyDeleteLists.cbsOtherBankDetailsOldNewValue.C003)?
+                    (vm.verifyDeleteLists.cbsOtherBankDetailsOldNewValue.C003.oldValue) : ('')}}
+                </td>
+                <td ng-if="vm.verifyDeleteLists.previousOperationType == 'M'" class="new-value">
+                    {{(vm.verifyDeleteLists.cbsOtherBankDetailsOldNewValue && vm.verifyDeleteLists.cbsOtherBankDetailsOldNewValue.C003)?
+                    (vm.verifyDeleteLists.cbsOtherBankDetailsOldNewValue.C003.newValue) : ('')}}
+                </td>
+            </tr>
+<!--            <tr>-->
+<!--                <td>Additional Text1</td>-->
+<!--                <td class="old-value">{{(vm.verifyDeleteLists.cbsOtherBankDetailsOldNewValue && vm.verifyDeleteLists.cbsOtherBankDetailsOldNewValue.C005)?-->
+<!--                    (vm.verifyDeleteLists.cbsOtherBankDetailsOldNewValue.C005.oldValue) : ('')}}-->
+<!--                </td>-->
+<!--                <td ng-if="vm.verifyDeleteLists.previousOperationType == 'M'" class="new-value">-->
+<!--                    {{(vm.verifyDeleteLists.cbsOtherBankDetailsOldNewValue && vm.verifyDeleteLists.cbsOtherBankDetailsOldNewValue.C005)?-->
+<!--                    (vm.verifyDeleteLists.cbsOtherBankDetailsOldNewValue.C005.newValue) : ('')}}-->
+<!--                </td>-->
+<!--            </tr>-->
+<!--            <tr>-->
+<!--                <td>Additional Text2</td>-->
+<!--                <td class="old-value">{{(vm.verifyDeleteLists.cbsOtherBankDetailsOldNewValue && vm.verifyDeleteLists.cbsOtherBankDetailsOldNewValue.C006)?-->
+<!--                    (vm.verifyDeleteLists.cbsOtherBankDetailsOldNewValue.C006.oldValue) : ('')}}-->
+<!--                </td>-->
+<!--                <td ng-if="vm.verifyDeleteLists.previousOperationType == 'M'" class="new-value">-->
+<!--                    {{(vm.verifyDeleteLists.cbsOtherBankDetailsOldNewValue && vm.verifyDeleteLists.cbsOtherBankDetailsOldNewValue.C006)?-->
+<!--                    (vm.verifyDeleteLists.cbsOtherBankDetailsOldNewValue.C006.newValue) : ('')}}-->
+<!--                </td>-->
+<!--            </tr>-->
+<!--            <tr>-->
+<!--                <td>Additional Text3</td>-->
+<!--                <td class="old-value">{{(vm.verifyDeleteLists.cbsOtherBankDetailsOldNewValue && vm.verifyDeleteLists.cbsOtherBankDetailsOldNewValue.C007)?-->
+<!--                    (vm.verifyDeleteLists.cbsOtherBankDetailsOldNewValue.C007.oldValue) : ('')}}-->
+<!--                </td>-->
+<!--                <td ng-if="vm.verifyDeleteLists.previousOperationType == 'M'" class="new-value">-->
+<!--                    {{(vm.verifyDeleteLists.cbsOtherBankDetailsOldNewValue && vm.verifyDeleteLists.cbsOtherBankDetailsOldNewValue.C007)?-->
+<!--                    (vm.verifyDeleteLists.cbsOtherBankDetailsOldNewValue.C007.newValue) : ('')}}-->
+<!--                </td>-->
+<!--            </tr>-->
+            <tr>
+                <td>Addr1</td>
+                <td class="old-value">{{(vm.verifyDeleteLists.cbsOtherBankDetailsOldNewValue && vm.verifyDeleteLists.cbsOtherBankDetailsOldNewValue.C008)?
+                    (vm.verifyDeleteLists.cbsOtherBankDetailsOldNewValue.C008.oldValue) : ('')}}
+                </td>
+                <td ng-if="vm.verifyDeleteLists.previousOperationType == 'M'" class="new-value">
+                    {{(vm.verifyDeleteLists.cbsOtherBankDetailsOldNewValue && vm.verifyDeleteLists.cbsOtherBankDetailsOldNewValue.C008)?
+                    (vm.verifyDeleteLists.cbsOtherBankDetailsOldNewValue.C008.newValue) : ('')}}
+                </td>
+            </tr>
+            <tr>
+                <td>Addr2</td>
+                <td class="old-value">{{(vm.verifyDeleteLists.cbsOtherBankDetailsOldNewValue && vm.verifyDeleteLists.cbsOtherBankDetailsOldNewValue.C009)?
+                    (vm.verifyDeleteLists.cbsOtherBankDetailsOldNewValue.C009.oldValue) : ('')}}
+                </td>
+                <td ng-if="vm.verifyDeleteLists.previousOperationType == 'M'" class="new-value">
+                    {{(vm.verifyDeleteLists.cbsOtherBankDetailsOldNewValue && vm.verifyDeleteLists.cbsOtherBankDetailsOldNewValue.C009)?
+                    (vm.verifyDeleteLists.cbsOtherBankDetailsOldNewValue.C009.newValue) : ('')}}
+                </td>
+            </tr>
+            <tr>
+                <td>City</td>
+                <td class="old-value">{{(vm.verifyDeleteLists.cbsOtherBankDetailsOldNewValue && vm.verifyDeleteLists.cbsOtherBankDetailsOldNewValue.C010)?
+                    (vm.verifyDeleteLists.cbsOtherBankDetailsOldNewValue.C010.oldValue) : ('')}}
+                </td>
+                <td ng-if="vm.verifyDeleteLists.previousOperationType == 'M'" class="new-value">
+                    {{(vm.verifyDeleteLists.cbsOtherBankDetailsOldNewValue && vm.verifyDeleteLists.cbsOtherBankDetailsOldNewValue.C010)?
+                    (vm.verifyDeleteLists.cbsOtherBankDetailsOldNewValue.C010.newValue) : ('')}}
+                </td>
+            </tr>
+            <tr>
+                <td>PinCode</td>
+                <td class="old-value">{{(vm.verifyDeleteLists.cbsOtherBankDetailsOldNewValue && vm.verifyDeleteLists.cbsOtherBankDetailsOldNewValue.C011)?
+                    (vm.verifyDeleteLists.cbsOtherBankDetailsOldNewValue.C011.oldValue) : ('')}}
+                </td>
+                <td ng-if="vm.verifyDeleteLists.previousOperationType == 'M'" class="new-value">
+                    {{(vm.verifyDeleteLists.cbsOtherBankDetailsOldNewValue && vm.verifyDeleteLists.cbsOtherBankDetailsOldNewValue.C011)?
+                    (vm.verifyDeleteLists.cbsOtherBankDetailsOldNewValue.C011.newValue) : ('')}}
+                </td>
+            </tr>
+            </tbody>
+            </tbody>
+        </table>
+        <div class="audit-details">
+            <div class="row">
+                <div class="col-md-3">
+                    <span> <b> Created By </b> : {{vm.verifyDeleteLists.createdBy}} </span>
+                </div>
+                <div class="col-md-3">
+                    <span> <b> Last Modified By </b> : {{(vm.verifyDeleteLists.lastModifiedBy) ? (vm.verifyDeleteLists.lastModifiedBy) : ('None')}}</span>
+                </div>
+                <div class="col-md-3">
+                    <span> <b> Last Verified By </b> : {{(vm.verifyDeleteLists.verifiedBy) ? (vm.verifyDeleteLists.verifiedBy) : ('None')}}</span>
+                </div>
+                <div class="col-md-3">
+                    <span> <b> Verify Status </b> : {{vm.verifyDeleteLists.verifiedFlag  | getLabelFromValuesArray : vm.commonYesNoMetaData}}</span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3">
+                    <span> <b> Created On </b> : {{ vm.verifyDeleteLists.creatDate | date : 'dd/MM/yyyy'}}</span>
+                </div>
+                <div class="col-md-3">
+                    <span> <b> Last Modified On</b> : {{ (vm.verifyDeleteLists.modDate) ? (vm.verifyDeleteLists.modDate | date : 'dd/MM/yyyy') : ('None')}}</span>
+                </div>
+                <div class="col-md-3">
+                    <span> <b> Last Verified On </b> : {{(vm.verifyDeleteLists.verDate) ? (vm.verifyDeleteLists.verDate | date : 'dd/MM/yyyy') : ('None')}}</span>
+                </div>
+                <div class="col-md-3">
+                </div>
+            </div>
+        </div>
+
+        <div class="text-center form_submit">
+            <button type="submit" class="btn btn-default" id="submitButton"
+                    ng-disabled="vm.otherBankDetailsForm.$invalid" ng-click="vm.verifySubmit()">Submit</button>
+            <button type="button" class="btn btn-default" id="deleteSubmitBtn"  ng-click="vm.rejectReason();">Reject</button>
+
+            <button type="button" class="btn btn-cancel" id="cancelButton"
+                    ng-click="vm.showCancelConfirmation('cbs_other_bank_details.list');">Cancel</button>
+        </div>
+
+        <div class="text-center">
+            <notice-message-directive></notice-message-directive>
+        </div>
+    </form>
+</div>
+
+<div class="modal" id="permissionMappingDelete" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-bs-dismiss="modal">&times;</button>
+                <h4 class="modal-title"> REJECTION REMARKS</h4>
+            </div>
+            <div class="modal-body">
+                <div class="loader_popup"></div>
+                <div class="list_wrapper" >
+                    <form name="permissionDelete" role="form">
+
+                        <div class="row">
+                            <div class="form-group">
+                                <div class="col-sm-2"></div>
+                                <label class="control-label col-sm-3">Remarks</label>
+                                <div class="col-sm-5">
+                                    <!--
+                                                                        <textarea class="form-control"   ng-keypress="vm.validateInput($event,'remarks')" id="remarks" name="remarks" ng-model="vm.remarks" maxlength="80" required></textarea>
+                                    -->
+                                    <select class="form-control list_wrapper" id="remarks[$index]" name="remarks[$index]"
+                                            ng-model="vm.remarks" ng-init="vm.getRemarksList();"   required>
+                                        <option value="">Select</option>
+                                        <option ng-repeat="item in vm.remarksList"
+                                                name="{{item.subCode + parentIndex}}" id="{{item.subCode + parentIndex}}" value="{{item.subCodeDescription}}">{{item.subCodeDescription}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-offset-5 col-sm-8 form_submit">
+                            <button type="button" class="btn btn-default" data-bs-dismiss="modal" ng-disabled="permissionDelete.$invalid" ng-click="vm.rejectDetails()" >Submit</button>
+                            <button type="button" class="btn btn-cancel" data-bs-dismiss="modal">Cancel</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

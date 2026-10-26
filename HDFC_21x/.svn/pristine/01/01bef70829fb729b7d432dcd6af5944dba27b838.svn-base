@@ -1,0 +1,462 @@
+<div class="loader-new" data-ng-if="vm.loader"></div>
+<div class="container from_wrapper new_form_wrapper">
+    <h4 class="form_heading">Bond Nomination Register</h4>
+    <sol-header></sol-header>
+    <form name="bondNominationFrom" role="form">
+
+        <div class="row">
+            <div class="form-group">
+                <div class="col-sm-3"></div>
+                <div class="col-sm-3"><label class="control-label">Name of the Module</label></div>
+                <div class="col-sm-5"><label><b>RBI Bond</b></label></div>
+            </div>
+        </div>
+
+
+<!--        <div class="row">-->
+<!--            <div class="form-group">-->
+<!--                <div class="col-sm-3"></div>-->
+<!--                <div class="col-sm-3">-->
+<!--                    <label class="control-label">Name of the Module</label>-->
+<!--                </div>-->
+<!--                <div class="col-sm-5">-->
+<!--                    <label><b>RBI Bond</b></label>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+
+        <div class="row">
+            <div class="form-group required">
+                <div class="col-sm-3"></div>
+                <div class="col-sm-3"><label for="moduleName" class="control-label">Name of the Bond Scheme</label></div>
+                <div class="col-sm-2"><input type="text" class="form-control" id="moduleName" data-ng-model="vm.schemeName" required readonly/></div>
+                <div class="col-sm-2" style="display: flex; align-items: center; height: 34px; gap: 5px; padding-left:0;">
+                    <span class="glyphicon glyphicon-search cp" data-bs-toggle="schemeName" id="treasurySearch" data-ng-click="vm.getSchemeName();"></span>
+                    <span class="glyphicon glyphicon-remove clear cp" data-ng-click="vm.schemeCode ='';vm.schemeName=''; vm.holderName=''; vm.panNumber='';vm.blaNumber=''; vm.subscriptionID='';"></span>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="form-group">
+                <div class="col-sm-3"></div>
+                <div class="col-sm-3"><label for="holderName" class="control-label">Name</label></div>
+                <div class="col-sm-2">
+                    <input type="text" maxlength="50" class="form-control" id="holderName" name="holderName" data-ng-model="vm.holderName" oninput="this.value = this.value.replace(/^\s+/, '').replace(/[^a-zA-Z\s]/g, '').replace(/\s{2,}/g, ' ')"/>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="form-group">
+                <div class="col-sm-3"></div>
+                <div class="col-sm-3"><label for="panNumber" class="control-label">PAN No</label></div>
+                <div class="col-sm-2"><input type="text" class="form-control" id="panNumber" data-ng-model="vm.panNumber" data-ng-init="vm.panNumber= ''; " data-chars="alpha-numeric" minlength="4" maxlength="10" oninput="this.value = this.value.replace(/\s+/g, '').replace(/[^a-zA-Z0-9]/g, '')"/></div>
+
+                <div class="col-sm-2" style="display: flex; align-items: center; height: 34px; gap: 5px; padding-left:0;" data-ng-if="vm.panNumber || vm.holderName && vm.schemeName">
+                    <span class="glyphicon glyphicon-search cp" data-bs-toggle="modal" id="panTreasurySearch" data-ng-click="vm.getPanNumber();"></span>
+                    <span class="glyphicon glyphicon-remove clear cp" data-ng-click="vm.panNumber =''; vm.holderName='';"></span>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="form-group">
+                <div class="col-sm-3"></div>
+                <div class="col-sm-3"><label for="blaNumber" class="control-label">BLA No</label></div>
+                <div class="col-sm-2">
+                    <p class="input-group">
+                        <input type="text" class="form-control" id="blaNumber" data-ng-model="vm.blaNumber" maxlength="14" oninput="this.value = this.value.replace(/[^a-zA-Z0-9]/g, '')" />
+                    </p>
+                </div>
+                <div class="col-sm-2" style="display: flex; align-items: center; height: 34px; gap: 5px; padding-left:0;" data-ng-if="vm.panNumber || vm.blaNumber && vm.schemeName">
+                    <span class="glyphicon glyphicon-search cp" data-bs-toggle="modal" id="BLATreasurySearch" data-ng-click="vm.getBLANumber();"></span>
+                    <span class="glyphicon glyphicon-remove clear cp" data-ng-click="vm.blaNumber =''; vm.subscriptionID = ''"></span>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="form-group">
+                <div class="col-sm-3"></div>
+                <div class="col-sm-3"><label for="subscriptionID" class="control-label">Subscription Id</label></div>
+                <div class="col-sm-2">
+                    <input type="text" class="form-control" id="subscriptionID" data-ng-init="vm.subscriptionID=''" data-ng-model="vm.subscriptionID" oninput="this.value = this.value.replace(/[^a-zA-Z0-9]/g, '')"/>
+                </div>
+                <div class="col-sm-2" style="display: flex; align-items: center; height: 34px; gap: 5px; padding-left:0;" data-ng-if="vm.panNumber || vm.blaNumber && vm.schemeName">
+                    <span class="glyphicon glyphicon-search cp" data-bs-toggle="modal" id="subscriptionIDSearch" data-ng-click="vm.getSubscriptionID();vm.subscriptionIDSearch='';"></span>
+                    <span class="glyphicon glyphicon-remove clear cp" data-ng-click="vm.subscriptionID = ''"></span>
+                </div>
+            </div>
+        </div>
+
+
+
+
+
+
+
+
+        <div class="row" data-ng-if="!vm.panNumber && !vm.blaNumber && !vm.subscriptionID">
+            <div class="form-group required">
+                <div class="col-sm-3"></div>
+                <div class="col-sm-3"><label class="control-label">From Date</label></div>
+                <div class="col-sm-2">
+                    <p class="input-group">
+                        <input
+                                type="text"
+                                class="form-control"
+                                id="effFromDateR1"
+                                name="effFromDate"
+                                data-ng-model="vm.fromDate"
+                                data-uib-datepicker-popup="dd/MM/yyyy"
+                                data-ng-init="vm.fromDate=''; vm.fromDateVal()"
+                                data-ng-change="vm.toDateVal(vm.fromDate); vm.toDate=''"
+                                data-datepicker-options="vm.fromDateOptions"
+                                data-is-open="vm.fromDatePicker.opened"
+                                data-close-text="Close"
+                                maxlength="10"
+                                required
+                                ng-blur="vm.textableDatePicker('effFromDateR1',vm.fromDate)"
+                                ng-keyup="vm.autoslashing('effFromDateR1')" chars="numbers-slash"
+                        />
+                        <span class="input-group-btn" data-ng-if="vm.schemeName">
+              <button type="button" class="btn btn-secondary" data-ng-click="vm.fromDatePicker.opened = true" id="effFromDateSearcherR1">
+                <span class="glyphicon glyphicon-calendar"></span>
+              </button>
+            </span>
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="row" data-ng-if="!vm.panNumber && !vm.blaNumber && !vm.subscriptionID">
+            <div class="form-group required">
+                <div class="col-sm-3"></div>
+                <div class="col-sm-3"><label class="control-label">To Date</label></div>
+                <div class="col-sm-2">
+                    <p class="input-group">
+                        <input
+                                type="text"
+                                class="form-control"
+                                id="effToDateR"
+                                name="effToDate"
+                                data-ng-model="vm.toDate"
+                                data-uib-datepicker-popup="dd/MM/yyyy"
+                                data-ng-init="vm.toDate=''"
+                                data-datepicker-options="vm.toDateOptions"
+                                data-is-open="vm.effToDatePicker.opened"
+                                data-close-text="Close"
+                                maxlength="10"
+                                ng-blur="vm.textableDatePicker('effToDateR',vm.toDate)"
+                                ng-keyup="vm.autoslashing('effToDateR')" chars="numbers-slash"
+
+                                required
+                        />
+                        <span class="input-group-btn" data-ng-if="vm.fromDate">
+              <button type="button" class="btn btn-secondary" data-ng-click="vm.effToDatePicker.opened = true" id="effToDateSearcherR">
+                <span class="glyphicon glyphicon-calendar"></span>
+              </button>
+            </span>
+                    </p>
+                </div>
+            </div>
+        </div>
+
+
+
+
+
+
+
+
+
+
+
+        <div class="text-center form_submit">
+            <button
+                    type="submit"
+                    id="submitButton"
+                    class="btn btn-default"
+                    data-ui-sref="Bond_Nomination_Register.inquiry_details({obj:{
+                            schemeCode      :   vm.schemeCode,
+                            schemeName      :   vm.schemeName,
+                            holderName      :   vm.holderName,
+                            panNumber       :   vm.panNumber,
+                            blaNumber       :   vm.blaNumber,
+                            subscriptionID  :   vm.subscriptionID,
+                            fromDate       :  vm.fromDate,
+                            toDate  :   vm.toDate
+                        }})"
+                    data-ng-disabled="bondNominationFrom.$invalid">
+                Submit
+            </button>
+            <button type="button" class="btn btn-cancel" id="cancelButton" onclick="window.location.href= '#!/rbibond_gu_functionality';">Cancel</button>
+        </div>
+
+        <div class="text-center">
+            <notice-message-directive></notice-message-directive>
+        </div>
+    </form>
+</div>
+
+
+<div class="modal" id="schemeModel" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-bs-dismiss="modal" data-ng-click="vm.modalSearch=''">&times;</button>
+                <h4 class="modal-title">Name of the Bond Scheme</h4>
+            </div>
+            <div class="modal-body">
+                <div class="loader_popup"></div>
+                <div class="list_wrapper" data-ng-if="vm.schemeList.length>0">
+                    <div class="col-sm-8 form_submit">
+                        <div class="form-group">
+                            <div class="input-group">
+                                <div class="input-group-addon">
+                                    <span class="glyphicon glyphicon-search"></span>
+                                </div>
+                                <input type="text" class="form-control" data-ng-model="vm.modalSearch" data-ng-init="vm.modalSearch = ''" placeholder="Search" oninput="this.value = this.value.replace(/^\s+/, '').replace(/\s{2,}/g, ' ')"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4 form_submit"></div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <table class="table table-bordered list scroll sort" aria-label="Report on Transaction Details for Bond">
+                                <thead data-ng-init="reverseOrder=true;sortedColumn = 'schemeName'">
+                                <tr>
+                                    <th
+                                            scope="col"
+                                            data-ng-click="(sortedColumn == 'schemeName')?(reverseOrder=(!reverseOrder)): (reverseOrder = false);sortedColumn = 'schemeName';"
+                                            data-ng-class="(sortedColumn == 'schemeName')?((reverseOrder)?('arrow-down') : ('arrow-up') ) : ('')">
+                                        SCHEME NAME
+                                    </th>
+                                    <th
+                                            scope="col"
+                                            data-ng-click="(sortedColumn == 'schemeStatus')?(reverseOrder=(!reverseOrder)): (reverseOrder = false);sortedColumn = 'schemeStatus';"
+                                            data-ng-class="(sortedColumn == 'schemeStatus')?((reverseOrder)?('arrow-down') : ('arrow-up') ) : ('')">
+                                        STATUS
+                                    </th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr
+                                        class="cp"
+                                        data-ng-repeat="x in vm.schemeList | filter:vm.modalSearch | orderBy:sortedColumn:reverseOrder"
+                                        data-ng-click="vm.schemeCode = x.schemeCode; vm.schemeName = x.schemeName; vm.schemeStatus = x.schemeStatus"
+                                        data-bs-dismiss="modal">
+                                    <td>{{x.schemeName}}</td>
+                                    <td>{{x.schemeStatus}}</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="list_wrapper" data-ng-if="vm.schemeList.length==0">No records found to display.</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal" id="panModel" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-bs-dismiss="modal" data-ng-click="vm.PANSearch=''">&times;</button>
+                <h4 class="modal-title">PAN No</h4>
+            </div>
+            <div class="modal-body">
+                <div class="loader_popup"></div>
+                <div class="list_wrapper" data-ng-if="vm.panNumberList.length>0">
+                    <div class="col-sm-8 form_submit">
+                        <div class="form-group">
+                            <div class="input-group">
+                                <div class="input-group-addon">
+                                    <span class="glyphicon glyphicon-search"></span>
+                                </div>
+                                <input type="text" class="form-control" data-ng-model="vm.PANSearch" data-ng-init="vm.PANSearch = ''" placeholder="Search" oninput="this.value = this.value.replace(/[^a-zA-Z0-9\s]/g, '').replace(/^\s+/, '').replace(/\s{2,}/g, ' ')"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4 form_submit"></div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <table class="table table-bordered list scroll sort" aria-label="Report on Transaction Details for Bond">
+                                <thead data-ng-init="reverseOrder=false;sortedColumn = 'panNumber'">
+                                <tr>
+                                    <th
+                                            scope="col"
+                                            data-ng-click="(sortedColumn == 'panNumber')?(reverseOrder=(!reverseOrder)): (reverseOrder = false);sortedColumn = 'panNumber';"
+                                            data-ng-class="(sortedColumn == 'panNumber')?((reverseOrder)?('arrow-down') : ('arrow-up') ) : ('')">
+                                        PAN No
+                                    </th>
+                                    <th
+                                            scope="col"
+                                            data-ng-click="(sortedColumn == 'holderName')?(reverseOrder=(!reverseOrder)): (reverseOrder = false);sortedColumn = 'holderName';"
+                                            data-ng-class="(sortedColumn == 'holderName')?((reverseOrder)?('arrow-down') : ('arrow-up') ) : ('')">
+                                        Holder Name
+                                    </th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr class="cp" data-ng-repeat="x in vm.panNumberList | filter:vm.PANSearch | orderBy:sortedColumn:reverseOrder" data-ng-click="vm.panNumber= x.panNumber; vm.holderName= x.holderName;" data-bs-dismiss="modal">
+                                    <td>{{x.panNumber}}</td>
+                                    <td>{{x.holderName}}</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="list_wrapper" data-ng-if="vm.panNumberList.length==0">No records found to display.</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal" id="blaModel" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-bs-dismiss="modal" data-ng-click="vm.BLASearch=''">&times;</button>
+                <h4 class="modal-title">BLA No</h4>
+            </div>
+            <div class="modal-body">
+                <div class="loader_popup"></div>
+                <div class="list_wrapper" data-ng-if="vm.blaNumberList.length>0">
+                    <div class="col-sm-8 form_submit">
+                        <div class="form-group">
+                            <div class="input-group">
+                                <div class="input-group-addon">
+                                    <span class="glyphicon glyphicon-search"></span>
+                                </div>
+                                <input type="text" class="form-control" data-ng-model="vm.BLASearch" data-ng-init="vm.BLASearch = ''" placeholder="Search" data-chars="alpha-numeric" oninput="this.value = this.value.replace(/^\s+/, '').replace(/\s{2,}/g, ' ')"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4 form_submit"></div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <table class="table table-bordered list scroll sort" aria-label="Report on Transaction Details for Bond">
+                                <thead data-ng-init="reverseOrder=false;sortedColumn = 'blaNumber'">
+                                <tr>
+                                    <th
+                                            scope="col"
+                                            data-ng-click="(sortedColumn == 'blaNumber')?(reverseOrder=(!reverseOrder)): (reverseOrder = false);sortedColumn = 'blaNumber';"
+                                            data-ng-class="(sortedColumn == 'blaNumber')?((reverseOrder)?('arrow-down') : ('arrow-up') ) : ('')">
+                                        BLA No
+                                    </th>
+                                    <th
+                                            scope="col"
+                                            data-ng-click="(sortedColumn == 'panNumber')?(reverseOrder=(!reverseOrder)): (reverseOrder = false);sortedColumn = 'panNumber';"
+                                            data-ng-class="(sortedColumn == 'panNumber')?((reverseOrder)?('arrow-down') : ('arrow-up') ) : ('')">
+                                        PAN No
+                                    </th>
+                                    <th
+                                            scope="col"
+                                            data-ng-click="(sortedColumn == 'holderName')?(reverseOrder=(!reverseOrder)): (reverseOrder = false);sortedColumn = 'holderName';"
+                                            data-ng-class="(sortedColumn == 'holderName')?((reverseOrder)?('arrow-down') : ('arrow-up') ) : ('')">
+                                        Holder Name
+                                    </th>
+                                    <th
+                                            scope="col"
+                                            data-ng-click="(sortedColumn == 'modeOfHolding')?(reverseOrder=(!reverseOrder)): (reverseOrder = false);sortedColumn = 'modeOfHolding';"
+                                            data-ng-class="(sortedColumn == 'modeOfHolding')?((reverseOrder)?('arrow-down') : ('arrow-up') ) : ('')">
+                                        Mode of Holding
+                                    </th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr
+                                        class="cp"
+                                        data-ng-repeat="x in vm.blaNumberList | filter:vm.BLASearch | orderBy:sortedColumn:reverseOrder"
+                                        data-ng-click="vm.blaNumber = x.blaNumber; vm.panNumber = x.panNumber; vm.holderName = x.holderName; vm.modeOfHolding = x.modeOfHolding;"
+                                        data-bs-dismiss="modal">
+                                    <td>{{x.blaNumber}}</td>
+                                    <td>{{x.panNumber}}</td>
+                                    <td>{{x.holderName}}</td>
+                                    <td>{{x.modeOfHolding}}</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="list_wrapper" data-ng-if="vm.blaNumberList.length==0">No records found to display.</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal" id="subscriptionIDModal" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-bs-dismiss="modal" data-ng-click="vm.subscriptionIDSearch=''">&times;</button>
+                <h4 class="modal-title">Subscription ID</h4>
+            </div>
+            <div class="modal-body">
+                <div class="loader_popup"></div>
+                <div class="list_wrapper" data-ng-if="vm.subscriptionIDList.length>0">
+                    <div class="col-sm-8 form_submit">
+                        <div class="form-group">
+                            <div class="input-group">
+                                <div class="input-group-addon">
+                                    <span class="glyphicon glyphicon-search"></span>
+                                </div>
+                                <input type="text" class="form-control" data-ng-model="vm.subscriptionIDSearch" data-ng-init="vm.subscriptionIDSearch = ''" placeholder="Search" data-chars="alpha-numeric" oninput="this.value = this.value.replace(/^\s+/, '').replace(/\s{2,}/g, ' ')"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4 form_submit"></div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <table class="table table-bordered list scroll sort" aria-label="Report on Transaction Details for Bond">
+                                <thead data-ng-init="reverseOrder=true;sortedColumn = 'subscriptionID'">
+                                <tr>
+                                    <th
+                                            scope="col"
+                                            data-ng-click="(sortedColumn == 'subscriptionID')?(reverseOrder=(!reverseOrder)): (reverseOrder = false);sortedColumn = 'subscriptionID';"
+                                            data-ng-class="(sortedColumn == 'subscriptionID')?((reverseOrder)?('arrow-down') : ('arrow-up') ) : ('')">
+                                        Subscription ID
+                                    </th>
+                                    <th
+                                            scope="col"
+                                            data-ng-click="(sortedColumn == 'panNumber')?(reverseOrder=(!reverseOrder)): (reverseOrder = false);sortedColumn = 'panNumber';"
+                                            data-ng-class="(sortedColumn == 'panNumber')?((reverseOrder)?('arrow-down') : ('arrow-up') ) : ('')">
+                                        PAN No
+                                    </th>
+                                    <th
+                                            scope="col"
+                                            data-ng-click="(sortedColumn == 'holder_name')?(reverseOrder=(!reverseOrder)): (reverseOrder = false);sortedColumn = 'holder_name';"
+                                            data-ng-class="(sortedColumn == 'holder_name')?((reverseOrder)?('arrow-down') : ('arrow-up') ) : ('')">
+                                        Holder Name
+                                    </th>
+                                    <th
+                                            scope="col"
+                                            data-ng-click="(sortedColumn == 'modeOfHolding')?(reverseOrder=(!reverseOrder)): (reverseOrder = false);sortedColumn = 'modeOfHolding';"
+                                            data-ng-class="(sortedColumn == 'modeOfHolding')?((reverseOrder)?('arrow-down') : ('arrow-up') ) : ('')">
+                                        Mode of Holding
+                                    </th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr class="cp" data-ng-repeat="x in vm.subscriptionIDList | filter:vm.subscriptionIDSearch | orderBy:sortedColumn:reverseOrder" data-ng-click="vm.subscriptionID = x.subscriptionID" data-bs-dismiss="modal">
+                                    <td>{{x.subscriptionID}}</td>
+                                    <td>{{x.panNumber}}</td>
+                                    <td>{{x.holderName}}</td>
+                                    <td>{{x.modeOfHolding}}</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="list_wrapper" data-ng-if="vm.subscriptionIDList.length==0">No records found to display.</div>
+            </div>
+        </div>
+    </div>
+</div>

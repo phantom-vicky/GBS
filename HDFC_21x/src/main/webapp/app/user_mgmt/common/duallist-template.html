@@ -1,0 +1,67 @@
+<div class="row ngduallist">
+    <div class="col-sm-5 left-container">
+        <label>{{duallistOption.leftContainerLabel}}</label>
+        <span class="info-container">
+            <span class="info" ng-if="leftscope.length > 0">Showing all {{leftscope.length}}</span>
+        <span class="info" ng-if="leftscope.length == 0">Empty List</span>
+        </span>
+        <form class="form-inline">
+            <div>
+                <div class="input-group">
+                    <div class="input-group-addon">
+                        <input title="toggle all" class="all pull-right" ng-model="leftSelectAll" ng-change="selectAllLeftContainer()" type="checkbox" ng-disabled="customData"> </div>
+                    <input type="text" class="form-control" id="leftSearch" placeholder="Search" ng-model="leftSearch" oninput="this.value = this.value.replace(/\s+/g, '').replace(/[^a-zA-Z_:]/g, '');" >
+     </div>
+            </div>
+        </form>
+
+        <div class="left-sub-container">
+            <div class="list-group" id="list1">
+                <div ng-class="{active: data.selected}"
+                     ng-repeat="data in leftscope | filter:leftSearch"
+                     class="list-group-item d-flex align-items-center">
+
+                    <input type="checkbox" ng-model="data.selected" ng-disabled="customData" class="me-2">
+                    <span class="permission-text">{{ data.name }}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-2 v-center" >
+        <button type="button" id="moveRightButton" ng-click="moveRight()" title="Send to list 2" class="btn center-block add"  ng-disabled="customData"><i class="glyphicon glyphicon-chevron-right"></i></button>
+        <button type="button" id="moveLeftButton" ng-click="moveLeft()" title="Send to list 1" class="btn center-block remove"  ng-disabled="customData"><i class="glyphicon glyphicon-chevron-left"></i></button>
+    </div>
+    <div class="col-sm-5 right-container">
+        <label>{{duallistOption.rightContainerLabel}}</label>
+        <span class="info-container">
+            <span class="info" ng-if="rightscope.length > 0">Showing all {{rightscope.length}}</span>
+        <span class="info" ng-if="rightscope.length == 0">Empty List</span>
+        </span>
+        <form class="form-inline">
+            <div>
+                <div class="input-group">
+                    <div class="input-group-addon">
+                        <input ng-model="rightSelectAll" ng-change="selectAllRightContainer()" title="toggle all" class="all pull-right" type="checkbox" ng-disabled="customData" > </div>
+                    <input oninput="this.value = this.value.replace(/\s+/g, '').replace(/[^a-zA-Z_:]/g, '');" type="text" class="form-control" id="rightSearch" placeholder="Search" ng-model="rightSearch">
+
+                </div>
+
+            </div>
+        </form>
+
+        <div class="right-sub-container">
+            <div class="list-group" id="list2">
+                <!--<div ng-class="{active:data.selected}" ng-repeat="data in rightscope | filter: rightSearch" class="list-group-item">{{data.name}}
+                    <input ng-model="data.selected" class="pull-right" type="checkbox" ng-disabled="customData">
+                </div>-->
+                <div ng-class="{active: data.selected}"
+                     ng-repeat="data in rightscope | filter:rightSearch"
+                     class="list-group-item d-flex align-items-center">
+                    <input type="checkbox" ng-model="data.selected" ng-disabled="customData" class="me-2">
+                    <span class="permission-text">{{ data.name }}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

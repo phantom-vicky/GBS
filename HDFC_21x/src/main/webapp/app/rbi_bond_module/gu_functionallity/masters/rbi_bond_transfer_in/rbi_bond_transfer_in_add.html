@@ -1,0 +1,461 @@
+<style>
+   .displayN{display:none}
+   .displayB{display:block}
+</style>
+<div class="loader-new" ng-if="vm.loader"></div>
+<dc-left-menu></dc-left-menu>
+<div class=" from_wrapper new_form_wrapper" ng-class="vm.ftsDetailFetch == true ? 'container' : 'container-fluid'">
+    <div class="col-lg-3" ng-class="vm.ftsDetailFetch == true ? 'displayB' : 'displayN'"></div>
+    <div ng-class="vm.ftsDetailFetch == true ? '' : 'col-lg-6'" >
+    <h4 class="form_heading">Bond Transfer in from Other Bank – ADD</h4>
+    <sol-header></sol-header>
+    <form name="customerMasterForm" role="form">
+        <div ng-class="vm.ftsDetailFetch == true ? 'col-sm-6' : 'col-lg-8'" class="col-sm-offset-3">
+            <div class="row" >
+                <div class="form-group">
+                    <div class="col-sm-6">
+                        <label class="control-label">Name of the Module</label>
+                    </div>
+                    <div class="col-sm-4">
+                        <label class="control-label">RBI Bond</label>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="row">
+                <div class="form-group required">
+                    <div class="col-sm-6">
+                        <label for="schemeCode" class="control-label">Name of the Bond Scheme</label>
+                    </div>
+                    <div class="col-sm-4">
+                        <input type="text" class="form-control" id="schemeCode"
+                               ng-model="vm.schemeName"
+                               chars="alpha-numeric" readonly required leading-space>
+                    </div>
+                    <div class="col-sm-2">
+                        <i class="glyphicon glyphicon-search cp" data-bs-toggle="schemeCode"
+                           id="treasurySearch"
+                           ng-click="vm.getTorchDetails('S');"></i> <i
+                            class="glyphicon glyphicon-remove clear cp"
+                            ng-click="vm.schemeCode ='';vm.schemeName =''"></i>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="form-group">
+                    <div class="col-sm-6">
+                        <label for="schemeCode" class="control-label">FTS Application Number</label>
+                    </div>
+                    <div class="col-sm-4">
+                        <input type="text" class="form-control" id="ftsAppNum"
+                               name="ftsAppNum"
+                               ng-model="vm.ftsAppNum"   maxlength="20"
+                               chars="alpha-numeric" oninput="this.value = this.value.toUpperCase()" leading-space>
+                        <span class="alert-danger" ng-if="vm.errmsgSingle && vm.customerMaster.customerMasterDetails">{{vm.errmsgSingle}}</span>
+                    </div>
+                    <button type="button" class="btn btn-default" id="ftsAppNumbtn" ng-click="vm.getFtsDetails()" ng-disabled="!vm.ftsAppNum || vm.ftsAppNum.length < 5">Fetch</button>
+
+                </div>
+            </div>
+            <!--            <div class="row">-->
+            <!--                <div class="form-group required">-->
+            <!--                    <div class="col-sm-6">-->
+            <!--                        <label for="modeOfHolding" class="control-label">Mode of Holding</label>-->
+            <!--                    </div>-->
+            <!--                    <div class="col-sm-4">-->
+
+            <!--                        <select class="form-control" id="modeOfHolding1" name="modeOfHolding"-->
+            <!--                                ng-model="vm.modeOfHolding"  ng-change="vm.onModeOfHoldingChange()" required>-->
+            <!--                            <option value="" hidden="true">Select</option>-->
+            <!--                            <option ng-repeat="item in vm.modeOfHoldingList" value="{{item.SUBCODE}}"  ng-bind="item.DESCRIPTION || vm.moduleCode" ng-click="vm.pan_No1 ='';vm.pan_No2 ='';vm.pan_No3 ='';"></option>-->
+            <!--                        </select>-->
+            <!--                    </div>-->
+            <!--                </div>-->
+            <!--            </div>-->
+            <div class="row">
+                <div class="form-group required">
+                    <div class="col-sm-6">
+                        <label for="modeOfHolding1" class="control-label">Mode of Holding</label>
+                    </div>
+                    <div class="col-sm-4">
+                        <select class="form-control" id="modeOfHolding1" name="modeOfHolding"
+                                ng-model="vm.modeOfHolding" ng-change="vm.onModeOfHoldingChange();vm.noOfJointAcc='';" required>
+                            <option value="" hidden="true">Select</option>
+                            <option ng-repeat="item in vm.modeOfHoldingList" value="{{item.SUBCODE}}"
+                                    ng-bind="item.DESCRIPTION || vm.moduleCode"></option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row" ng-if="vm.modeOfHolding == 'MH002' || vm.modeOfHolding == 'MH003'">
+                <div class="form-group required">
+                    <div class="col-sm-6">
+                        <label for="noOfJointAcc" class="control-label">No. of Joint Accounts Holders</label>
+                    </div>
+                    <div class="col-sm-4">
+                        <input type="text" class="form-control" minlength="1" maxlength="3"
+                               id="noOfJointAcc" ng-model="vm.noOfJointAcc" ng-change="vm.validateCount(vm.noOfJointAcc);"
+                               chars="only-numbers" onkeypress="return isNumber(event)" required leading-space></td>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="row">
+                <div class="form-group required">
+                    <div class="col-sm-6">
+                        <label for="holderName" class="control-label">Name of the Holder / Name of the First Holder</label>
+                    </div>
+                    <div class="col-sm-4">
+                        <input type="text" class="form-control" minlength="1" maxlength="150"
+                               id="holderName" ng-model="vm.bondHolderName" ng-change="vm.splitName(vm.bondHolderName)"
+                               chars="only-letters"  required leading-space></td>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="row">
+                <!--                <div class="form-group required =!(vm.modeOfHolding === 'MH004')">-->
+                <div class="form-group required">
+                    <div class="col-sm-6">
+                        <label class="control-label">D.O.B</label>
+                    </div>
+                    <div class="col-sm-4">
+                        <p class="input-group">
+                            <input type="text" class="form-control" id="fromDate1"
+                                   name="fromDate1" ng-model="vm.fromDate1"
+                                   uib-datepicker-popup="dd/MM/yyyy" ng-init="vm.fromToDateValidation();"
+                                   datepicker-options="vm.futureDateNot"
+                                   ng-change="vm.fromToDateValidation();"
+                                   is-open="vm.effFromDatePicker1.opened" close-text="Close"
+                                   maxlength="10"
+                                   ng-blur="vm.textableDatePickerYear('fromDate1',vm.fromDate1);vm.futureNotAllowed('fromDate1',vm.fromDate1)"
+                                   ng-keyup="vm.autoslashing('fromDate1')" chars="numbers-slash"
+
+                                   required>
+                            <span class="input-group-btn">
+                    <button type="button" class="btn btn-secondary"
+                            ng-click="vm.effFromDatePicker1.opened = true"
+                            id="effFromDateSearcher1">
+                        <i class="glyphicon glyphicon-calendar"></i>
+                    </button>
+                </span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+
+            <!--            <div class="row">-->
+            <!--                <div class="form-group required">-->
+            <!--                    <div class="col-sm-6">-->
+            <!--                        <label for="pan_No1" class="control-label">PAN NO/ First Holder PAN Number</label>-->
+            <!--                    </div>-->
+            <!--                    <div class="col-sm-4">-->
+            <!--                        <input type="text" class="form-control" minlength="10" maxlength="10" ng-change="vm.validatePanLetter(item.SUBCODE);"-->
+            <!--                               id="pan_No1" name="pan_No1" ng-model="vm.panNumber"-->
+            <!--                               ng-pattern="/[A-Z]{5}[0-9]{4}[A-Z]{1}/"-->
+            <!--                               required leading-space-->
+            <!--                               oninput="this.value = this.value.replace(/\s+/g, '')">-->
+            <!--                        <span class="text-danger" ng-show="vm.validationMessages">{{ vm.validationMessages }}</span>-->
+            <!--&lt;!&ndash;                        <span class="text-danger">{{ 'null' }}</span>&ndash;&gt;-->
+            <!--                    </div>-->
+            <!--                </div>-->
+            <!--            </div>-->
+
+            <div class="row">
+                <div class="form-group required">
+                    <div class="col-sm-6">
+                        <label for="pan_No1" class="control-label">PAN NO/ First Holder PAN Number</label>
+                    </div>
+                    <div class="col-sm-4">
+                        <input type="text" class="form-control" minlength="10" maxlength="10"
+                               ng-change="vm.validatePanLetter(vm.pan_No1);"
+                               id="pan_No1" name="pan_No1" ng-model="vm.pan_No1"
+                               ng-pattern="/[A-Z]{5}[0-9]{4}[A-Z]{1}/"
+                               required leading-space
+                               oninput="this.value = this.value.toUpperCase().replace(/\s+/g, '')">
+                        <span class="text-danger" ng-show="vm.validationMessages">{{ vm.validationMessages }}</span>
+                    </div>
+                </div>
+            </div>
+
+
+
+
+
+
+            <div class="row" ng-if="vm.noOfJointAcc >= 2">
+                <div class="form-group required">
+                    <div class="col-sm-6">
+                        <label for="holderName" class="control-label">Second Holder Name</label>
+                    </div>
+                    <div class="col-sm-4">
+                        <input type="text" class="form-control" minlength="1" maxlength="150"
+                               id="appl_Name2" ng-model="vm.secondJointHolderName" ng-change="vm.splitName(vm.secondJointHolderName)"
+                               chars="only-letters"  required leading-space></td>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="row" ng-if="vm.noOfJointAcc >= 2">
+                <div class="form-group required">
+                    <div class="col-sm-6">
+                        <label  class="control-label">D.O.B</label>
+                    </div>
+                    <div class="col-sm-4">
+                        <p class="input-group">
+                            <input type="text" class="form-control" id="fromDate2"
+                                   name="fromDate2" ng-model="vm.fromDate2"
+                                   uib-datepicker-popup="dd/MM/yyyy" ng-init="vm.fromToDateValidation()"
+                                   datepicker-options="vm.futureDateNot"
+                                   ng-change="vm.fromToDateValidation();"
+                                   is-open="vm.effFromDatePicker2.opened" close-text="Close"
+                                   maxlength="10"
+                                   ng-blur="vm.textableDatePickerYear('fromDate2',vm.fromDate2);vm.futureNotAllowed('fromDate2',vm.fromDate2)"
+                                   ng-keyup="vm.autoslashing('fromDate2')" chars="numbers-slash"
+                                   required>
+                            <span class="input-group-btn">
+                  <button type="button" class="btn btn-secondary"
+                          ng-click="vm.effFromDatePicker2.opened = true"
+                          id="effFromDateSearcher2">
+                  <i class="glyphicon glyphicon-calendar"></i>
+                  </button>
+                  </span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+
+
+            <div class="row" ng-if="vm.noOfJointAcc >= 2">
+                <div class="form-group required">
+                    <div class="col-sm-6">
+                        <label for="holderName" class="control-label">Second Holder PAN Number</label>
+                    </div>
+                    <div class="col-sm-4">
+                        <input type="text" class="form-control" minlength="10" maxlength="10"
+                               ng-change="vm.validatePanLetter1(vm.pan_No2, 1)"
+                               id="pan_No2" name="pan_No2" ng-model="vm.pan_No2"
+                               ng-pattern="/[A-Z]{5}[0-9]{4}[A-Z]{1}/"
+                               required leading-space
+                               oninput="this.value = this.value.toUpperCase().replace(/\s+/g, '')">
+                        <span class="text-danger" ng-if="vm.validationMessages1">{{ vm.validationMessages1 }}</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row" ng-if="vm.noOfJointAcc >= 3">
+                <div class="form-group required">
+                    <div class="col-sm-6">
+                        <label for="holderName" class="control-label">Third Holder Name</label>
+                    </div>
+                    <div class="col-sm-4">
+                        <input type="text" class="form-control" minlength="1" maxlength="150"
+                               id="appl_Name3" ng-model="vm.thirdJointHolderName" ng-change="vm.splitName(vm.thirdJointHolderName)"
+                               chars="only-letters"  required leading-space></td>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="row" ng-if="vm.noOfJointAcc >= 3">
+                <div class="form-group required">
+                    <div class="col-sm-6">
+                        <label  class="control-label">D.O.B</label>
+                    </div>
+                    <div class="col-sm-4">
+                        <p class="input-group">
+                            <input type="text" class="form-control" id="fromDate3"
+                                   name="fromDate3" ng-model="vm.fromDate3"
+                                   uib-datepicker-popup="dd/MM/yyyy" ng-init="vm.fromToDateValidation()"
+                                   datepicker-options="vm.futureDateNot"
+                                   ng-change="vm.fromToDateValidation();"
+                                   is-open="vm.effFromDatePicker3.opened" close-text="Close"
+                                   maxlength="10"
+                                   ng-blur="vm.textableDatePickerYear('fromDate3',vm.fromDate3);vm.futureNotAllowed('fromDate3',vm.fromDate3)"
+                                   ng-keyup="vm.autoslashing('fromDate3')" chars="numbers-slash"
+                                   required>
+                            <span class="input-group-btn">
+                  <button type="button" class="btn btn-secondary"
+                          ng-click="vm.effFromDatePicker3.opened = true"
+                          id="effFromDateSearcher3">
+                  <i class="glyphicon glyphicon-calendar"></i>
+                  </button>
+                  </span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+
+            <!--            <div class="row" ng-if="vm.noOfJointAcc >= 3">-->
+            <!--                <div class="form-group required">-->
+            <!--                    <div class="col-sm-6">-->
+            <!--                        <label for="holderName" class="control-label">Third Holder PAN Number</label>-->
+            <!--                    </div>-->
+            <!--                    <div class="col-sm-4">-->
+            <!--                        <input type="text" class="form-control" minlength="10" maxlength="10"-->
+            <!--                               id="pan_No3" name="pan_No3" ng-model="vm.pan_No3"-->
+            <!--                               ng-pattern="vm.panPattern"-->
+            <!--                               required leading-space oninput="this.value = this.value.replace(/\s+/g, '')">-->
+            <!--                        <span class="text-danger" ng-if="customerMasterForm.pan_No3.$error.pattern">-->
+            <!--                PAN format should be: ABCDE1234F-->
+            <!--            </span>-->
+            <!--                        <span class="text-danger" ng-if="vm.validationMessages[2]">{{ vm.validationMessages[2] }}</span>-->
+            <!--                    </div>-->
+            <!--                </div>-->
+            <!--            </div>-->
+
+            <div class="row" ng-if="vm.noOfJointAcc >= 3">
+                <div class="form-group required">
+                    <div class="col-sm-6">
+                        <label for="holderName" class="control-label">Third Holder PAN Number</label>
+                    </div>
+                    <div class="col-sm-4">
+                        <input type="text" class="form-control" minlength="10" maxlength="10"
+                               ng-change="vm.validatePanLetter2(vm.pan_No3, 2);"
+                               id="pan_No3" name="pan_No3" ng-model="vm.pan_No3"
+                               ng-pattern="/[A-Z]{5}[0-9]{4}[A-Z]{1}/"
+                               required leading-space
+                               oninput="this.value = this.value.toUpperCase().replace(/\s+/g, '')">
+                        <span class="text-danger" ng-show="vm.validationMessages2">{{ vm.validationMessages2 }}</span>
+                    </div>
+                </div>
+            </div>
+
+
+
+            <div class="text-center form_submit">
+                <button type="submit" class="btn btn-default"  id="submitButton"
+                        ui-sref="rbi_bond_transfer_in.add_detail({obj:{
+		                        modeOfHolding: vm.modeOfHolding,
+		                        id: vm.id,
+		                        noOfJointAcc: vm.noOfJointAcc,
+		                        schemeCode: vm.schemeCode,
+								schemeName: vm.schemeName,
+								bondHolderName: vm.bondHolderName,
+								fromDate1: vm.fromDate1,
+								pan_No1: vm.pan_No1,
+								secondJointHolderName: vm.secondJointHolderName,
+								fromDate2: vm.fromDate2,
+								pan_No2: vm.pan_No2,
+								thirdJointHolderName: vm.thirdJointHolderName,
+								fromDate3: vm.fromDate3,
+								pan_No3: vm.pan_No3,
+								hdfcOtherBank: vm.hdfcOtherBank,
+								ftsAppNum: vm.ftsAppNum,
+								blaFlag: vm.blaFlag,
+								ftsDetailFetch:vm.ftsDetailFetch
+								}})"
+                        ng-disabled="customerMasterForm.$invalid || !vm.allPANsValid">Next</button>
+                <!--                        ng-disabled="customerMasterForm.$invalid || !vm.validationCompleted ">Next</button>-->
+                <button type="button" class="btn btn-cancel" id="cancelButton"
+                        onclick="window.location.href= '#!/rbi_bond_transfer_in/action/inquiry';">Cancel</button>
+                <button type="button" class="btn btn-default" id="PanValidation" ng-disabled="customerMasterForm.$invalid" ng-click="vm.validatePan();">Validate Pan</button>
+            </div>
+            <div class="text-center">
+                <notice-message-directive></notice-message-directive>
+            </div>
+        </div>
+    </form>
+</div>
+    <div class="col-lg-6"
+         style="overflow-y: scroll; height: 500px; position: relative;"
+         ng-class="vm.ftsDetailFetch == true ? 'displayN' : 'displayB'">
+        <div class="container-fluid text-center" style="position: relative;">
+            <!-- Left Arrow -->
+            <div style="position: absolute; top: 10px; left: 10px; z-index: 10;">
+                <button class="btn btn-primary btn-sm" ng-click="vm.ftsFunction('left')">
+                    <i class="glyphicon glyphicon-chevron-left" style="color:white"></i>
+                </button>
+            </div>
+            <!-- Center Controls -->
+            <div style="position: absolute; left: 50%; transform: translateX(-50%);
+                display: flex; gap: 20px; align-items: center; z-index: 10;
+                 padding: 12px 15px; border-radius: 8px;">
+                <button class="btn btn-primary btn-sm" ng-click="vm.rotateImage(-90)">⟲</button>
+                <button class="btn btn-primary btn-sm" ng-click="vm.zoomImage(1.2)">＋</button>
+                <!-- Title -->
+                <p style="color: #337ab7; font-weight: bold; white-space: nowrap;z-index: 10;">
+                    {{vm.ftsFile[vm.ftsIndex].Indexing_Name}}
+                </p>
+                <button class="btn btn-primary btn-sm" ng-click="vm.zoomImage(0.8)">－</button>
+                <button class="btn btn-primary btn-sm" ng-click="vm.rotateImage(90)">⟳</button>
+            </div>
+            <!-- Right Arrow -->
+            <div style="position: absolute; top: 10px; right: 10px; z-index: 10;">
+                <button class="btn btn-primary btn-sm" ng-click="vm.ftsFunction('right')">
+                    <i class="glyphicon glyphicon-chevron-right" style="color:white"></i>
+                </button>
+            </div>
+            <!-- Image -->
+            <img src="data:image/png;base64,{{vm.ftsFile[vm.ftsIndex].encrypted_value}}"
+                 style="width: 100%; transform: rotate({{vm.imageRotation}}deg) scale({{vm.imageZoom}});
+                    transition: transform 0.2s ease; margin-top: 60px;">
+        </div>
+    </div>
+</div>
+
+
+<div class="modal" id="schemeModel" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-bs-dismiss="modal">&times;</button>
+                <h4 class="modal-title">SCHEME CODE</h4>
+            </div>
+            <div class="modal-body">
+                <div class="loader_popup"></div>
+                <div class="list_wrapper" ng-if="vm.schemeList.length>0">
+                    <div class="col-sm-8 form_submit">
+                        <div class="form-group">
+                            <div class="input-group">
+                                <div class="input-group-addon">
+                                    <i class="glyphicon glyphicon-search"></i>
+                                </div>
+                                <input type="text" class="form-control"
+                                       ng-model="vm.searchSolId" ng-init="vm.searchSolId = ''"
+                                       placeholder="Search">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4 form_submit"></div>
+                    <div class="row">
+
+                        <div class="col-sm-12">
+                            <table class="table table-bordered list scroll sort">
+                                <thead ng-init="reverseOrder=false;sortedColumn = 'subCode'">
+                                <tr>
+                                    <th class="modal-title title-case" ng-show="false">Scheme Code</th>
+                                    <th ng-click="(sortedColumn == 'schemeName')?(reverseOrder=(!reverseOrder)): (reverseOrder = false);sortedColumn = 'schemeName';" ng-class="(sortedColumn == 'schemeName')?((reverseOrder)?('arrow-down') : ('arrow-up') ) : ('')">SCHEME NAME</th>
+                                    <th ng-click="(sortedColumn == 'schemeStatus')?(reverseOrder=(!reverseOrder)): (reverseOrder = false);sortedColumn = 'schemeStatus';" ng-class="(sortedColumn == 'schemeStatus')?((reverseOrder)?('arrow-down') : ('arrow-up') ) : ('')">STATUS</th>
+
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr class="cp"
+                                    ng-repeat="x in vm.schemeList | filter:vm.searchSolId | orderBy:sortedColumn:reverseOrder"
+                                    ng-click="vm.schemeCode= x.schemeCode;vm.schemeName= x.schemeName;" data-bs-dismiss="modal">
+
+                                    <td>{{x.schemeName}}</td>
+                                    <td>{{x.schemeStatus}}</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="list_wrapper" ng-if="vm.schemeList.length==0">No records found to display.</div>
+            </div>
+
+        </div>
+    </div>
+</div>

@@ -1,0 +1,287 @@
+<div class="loader-new" ng-if="vm.loader"></div>
+<dc-left-menu></dc-left-menu>
+<div class="container from_wrapper new_form_wrapper" ng-if="vm.verifyDetailsForPagination.length >0">
+
+    <h4 class="form_heading">Bond Actual Interest Payment – Verify</h4>
+    <sol-header></sol-header>
+
+    <form name="vm.bondNominationsForm" role="form">
+        <h4 class="form_heading">Bond Actual Interest Payment Details for the half year ended {{vm.halfYear}} month and
+            {{vm.year}} year</h4>
+        <h4 align="center">BOD Date:{{vm.bodDate}} </h4>
+
+        <div class="row">
+            <div class="pagination-container">
+                <div class="col-sm-3">
+                    <div class="form-group">
+                        <label>
+                            Show
+                            <select id="pageSize" class="form-control filter-control" ng-model="vm.pageSizeForVer"
+                                    ng-change="vm.updatePageSizeForVer()"
+                                    ng-options="option for option in vm.pageSizeOptions"></select>
+                            records per page
+                        </label>
+                    </div>
+                </div>
+                <div class=" form-group col-lg-3">
+                    <select class="form-control"
+                            id="downloadOptions"
+                            name="export"
+                            ng-model="vm.downloadType"
+                            ng-init="vm.downloadType=''"
+                            ng-change="vm.getMergeUnMergeDownload(vm.schemeCode,vm.halfYear,vm.year,vm.downloadType)">
+                        <option value="">EXPORT</option>
+                        <option value="UNMERGED">UNMERGED</option>
+                        <option value="MERGED">MERGED</option>
+                    </select>
+                </div>
+                <div class="col-sm-3 pull-right">
+                    <div class="form-group">
+                        <div class="input-group">
+                            <div class="input-group-addon"><i class="glyphicon glyphicon-search"></i></div>
+                            <input type="text" id="search" class="form-control"
+                                   ng-change="vm.updateVerifyDetailsForPagination()" ng-model="vm.searchTextForVer"
+                                   Placeholder="Search">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="table-responsive">
+            <table class="table table-bordered table-striped list nowrap table-textWrap datatable">
+                <thead>
+                <tr>
+                    <th colspan="21" class="text-center">Basic Details From BLA cum Subscription</th>
+                    <th colspan="5" class="text-center">OTHER SCHEMES INTEREST RELATED INFO</th>
+                    <th colspan="2" class="text-center">PAN Status</th>
+                    <th colspan="18" class="text-center">TDS EXEMPTION DETAILS</th>
+                    <th colspan="7" class="text-center">FRSB INTEREST PAYOUT DETAILS</th>
+                </tr>
+                <tr>
+                    <th>
+                        <input type="checkbox" ng-model="vm.checkAll" ng-change="vm.toggleAllSelection()"/> Check All
+                    </th>
+                    <th>S.No</th>
+                    <th>Mode of Payment</th>
+                    <th>Branch Ref No</th>
+                    <th>BLA No</th>
+                    <th>Ref No</th>
+                    <th>App Name 1</th>
+                    <th>App Name 2</th>
+                    <th>App Name 3</th>
+                    <th>Address 1</th>
+                    <th>Address 2</th>
+                    <th>Rec Name</th>
+                    <th>Rec Parent Name</th>
+                    <th>PIN Code</th>
+                    <th>Phone No</th>
+                    <th>App Status</th>
+                    <th>Investment Amount</th>
+                    <th>CFD</th>
+                    <th>Maturity Date</th>
+                    <th>Account No</th>
+                    <th>Subscription Count</th>
+                    <th>Bank Sort Code</th>
+                    <th>Bank Name</th>
+                    <th>Pan No Name</th>
+                    <th>8 % Interest Payout</th>
+                    <th>Non Cumulative Int</th>
+                    <th>Cumulative Int</th>
+                    <th>7.75% interest payout</th>
+                    <th>Non Cumulative Int 775</th>
+                    <th>Cumulative Int 775</th>
+                    <th>8.05 % Interest Payout</th>
+                    <th>Non Cumulative Int</th>
+                    <th>Cumulative Int</th>
+                    <th>Total</th>
+                    <th>In-Operative PAN</th>
+                    <th>Non-Filers</th>
+                    <th>Age</th>
+                    <th>Taxable Limit</th>
+                    <th>Waiver Document</th>
+                    <th>Waiver Document Ref No</th>
+                    <th>RRB-TDS rate</th>
+                    <th>Threshold Exceed Amount</th>
+                    <th>Threshold Exceed TDS Amount</th>
+                    <th>Exemption Rate %</th>
+                    <th>Exemption Amount</th>
+                    <th>Exemption TDS Amount</th>
+                    <th>Surcharge %</th>
+                    <th>Edu Cess %</th>
+                    <th>Base Rate Amount</th>
+                    <th>Surcharge Amount</th>
+                    <th>Edu cess Amount</th>
+                    <th>TDS Amount</th>
+                    <th>TDS Recovery Amount</th>
+                    <th>TDS Refund Amount</th>
+                    <th>Int Rate</th>
+                    <th>Last Int Paid</th>
+                    <th>Pending Interest</th>
+                    <th>Current Half Yearly Interest</th>
+                    <th>Future Interest</th>
+                    <th>Gross Interest Amount</th>
+                    <th>Int Paid (Net Interest Amount)</th>
+                    <th>Payment Date</th>
+                    <th>Return reason</th>
+                    <th>Return Amount</th>
+                    <th>ReInitiated Amount</th>
+                    <th>ReInitiated Date</th>
+                    <th>Payment Date</th>
+                    <th>ReInitiate Payment Mode</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="user in vm.verifyDetailsForPagination.slice((vm.currentPageForVer-1)*vm.pageSizeForVer,vm.currentPageForVer*vm.pageSizeForVer)">
+                    <td><input type="checkbox" ng-model="user.selected" ng-change="vm.updateSelection()" checked/></td>
+                    <td>{{$index+1}}</td>
+                    <td>{{user.modeOfPayment}}</td>
+                    <td>{{user.branchRefNo}}</td>
+                    <td>{{user.blaNo}}</td>
+                    <td>{{user.refNo}}</td>
+                    <td>{{user.appName1}}</td>
+                    <td>{{user.appName2}}</td>
+                    <td>{{user.appName3}}</td>
+                    <td>{{user.address1}}</td>
+                    <td>{{user.address2}}</td>
+                    <td>{{user.recName}}</td>
+                    <td>{{user.recParentName}}</td>
+                    <td>{{user.pinCode}}</td>
+                    <td>{{user.phoneNo}}</td>
+                    <td>{{user.appStatus}}</td>
+                    <td>{{user.investmentAmount}}</td>
+                    <td>{{user.cfd}}</td>
+                    <td>{{user.maturityDate}}</td>
+                    <td>{{user.accountNo}}</td>
+                    <td>{{user.subscriptionCount}}</td>
+                    <td>{{user.bankSortCode}}</td>
+                    <td>{{user.bankName}}</td>
+                    <td>{{user.panNoName}}</td>
+                    <td>{{user.interestPayOut8Per}}</td>
+                    <td>{{user.nonCumulativeInt}}</td>
+                    <td>{{user.cumulativeInt}}</td>
+                    <td>{{user.interestPayOut7Per}}</td>
+                    <td>{{user.nonCumulativeIntFor7}}</td>
+                    <td>{{user.cumulativeIntFor7}}</td>
+                    <td>{{user.interestPayOut85Per}}</td>
+                    <td>{{user.nonCumulativeIntFor85}}</td>
+                    <td>{{user.cumulativeIntFor85}}</td>
+                    <td>{{user.total}}</td>
+                    <td>{{user.inOperativePAN}}</td>
+                    <td>{{user.nonFilers}}</td>
+                    <td>{{user.age}}</td>
+                    <td>{{user.taxableLimit}}</td>
+                    <td>{{user.waiverDocument}}</td>
+                    <td>{{user.waiverDocumentRefNo}}</td>
+                    <td>{{user.rrbTDSRate}}</td>
+                    <td>{{user.thresholdExceedAmount}}</td>
+                    <td>{{user.thresholdExceedTDSAmount}}</td>
+                    <td>{{user.exemptionRate}}</td>
+                    <td>{{user.exemptionAmount}}</td>
+                    <td>{{user.exemptionTDSAmount}}</td>
+                    <td>{{user.surcharge}}</td>
+                    <td>{{user.eduCess}}</td>
+                    <td>{{user.baseRateAmount}}</td>
+                    <td>{{user.surchargeAmount}}</td>
+                    <td>{{user.eduCessAmount}}</td>
+                    <td>{{user.tdsAmount}}</td>
+                    <td>{{user.tdsRecoveryAmount}}</td>
+                    <td>{{user.tdsRefundAmount}}</td>
+                    <td>{{user.intRate}}</td>
+                    <td>{{user.lastIntPaid}}</td>
+                    <td>{{user.pendingInterest}}</td>
+                    <td>{{user.currentHalfYearlyInterest}}</td>
+                    <td>{{user.futureInterest}}</td>
+                    <td>{{user.grossInterestAmount}}</td>
+                    <td>{{user.intPaid}}</td>
+                    <td>{{user.paymentDate}}</td>
+                    <td>{{user.returnReason}}</td>
+                    <td>{{user.returnAmt}}</td>
+                    <td>{{user.reInitiatedAmt}}</td>
+                    <td>{{user.reInitiatedDate}}</td>
+                    <td>{{user.paymentDateOfReturn}}</td>
+                    <td>{{user.reInitiatedPaymentMode}}</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="row">
+            <div ng-if="vm.verifyDetailsForPagination.length != 0" class="col-md-12 text-right">
+                <div class="pagination-container">
+                    <ul class="pagination">
+                        <li ng-class="{disabled: vm.currentPageForVer === 1}">
+                            <a href="javascript:void(0)" ng-click="vm.firstPageForVer()">First</a>
+                        </li>
+                        <li ng-class="{disabled: vm.currentPageForVer === 1}">
+                            <a href="javascript:void(0)" ng-click="vm.prevPageForVer()">Prev</a>
+                        </li>
+                        <li ng-repeat="page in vm.pagesForVer" ng-class="{active: vm.page === vm.currentPageForVer}">
+                            <a href="javascript:void(0)" ng-click="vm.setPageForVer(page)">{{page}}</a>
+                        </li>
+                        <li ng-class="{disabled: vm.currentPageForVer === vm.totalPagesForVer}">
+                            <a href="javascript:void(0)" ng-click="vm.nextPageForVer()">Next</a>
+                        </li>
+                        <li ng-class="{disabled: vm.currentPageForVer === vm.totalPagesForVer}">
+                            <a href="javascript:void(0)" ng-click="vm.lastPageForVer()">Last</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            Showing {{(vm.currentPageForVer-1)*vm.pageSizeForVer + 1}} to
+            {{Math.min(vm.currentPageForVer*pageSizeForVer, vm.verifyDetailsForPagination.length)}}
+            of {{vm.verifyDetailsForPagination.length}} records
+        </div>
+
+        <div class="text-center form_submit">
+            <button class="btn btn-default" id="verifySubmitButton"
+                    ng-click="vm.verifySubmit();">Verify
+            </button>
+            <button class="btn btn-default" id="rejectSubmitButton"
+                    ng-click="vm.rejectReason();">Reject
+            </button>
+            <button type="button" class="btn btn-cancel" id="cancelButton"
+                    onclick="window.location.href= '#!/bond_actual_interest_payment/action/verify';">Cancel
+            </button>
+        </div>
+    </form>
+</div>
+
+<!--Delete Get Remarks-->
+<div class="modal" id="permissionMappingDelete" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-bs-dismiss="modal">&times;</button>
+                <h4 class="modal-title"> REJECTION REMARKS</h4>
+            </div>
+            <div class="modal-body">
+                <div class="loader_popup"></div>
+                <div class="list_wrapper">
+                    <form name="permissionDelete" role="form">
+
+                        <div class="row">
+                            <div class="form-group">
+                                <div class="col-sm-2"></div>
+                                <label for="remarks" class="control-label col-sm-3">Remarks</label>
+                                <div class="col-sm-5">
+                                    <textarea class="form-control"
+                                              id="remarks" name="remarks" ng-model="vm.rejectionRemarks" maxlength="80"
+                                              required></textarea>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-offset-5 col-sm-8 form_submit">
+                            <button type="button" class="btn btn-default" data-bs-dismiss="modal"
+                                    ng-disabled="permissionDelete.$invalid" ng-click="vm.rejectDetails()">Submit
+                            </button>
+                            <button type="button" class="btn btn-cancel" data-bs-dismiss="modal">Cancel</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

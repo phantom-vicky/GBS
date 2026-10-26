@@ -1,0 +1,714 @@
+<div class="loader-new" data-ng-if="vm.loader"></div>
+<div class="container" data-ng-if="vm.model.length>0">
+  <div class="container from_wrapper new_form_wrapper" data-ng-init="vm.getState(); vm.getModeOfHolding(); vm.getRelation(); vm.getHolderType(); vm.getModeOfPayment()">
+    <div class="text-right form_submit">
+      <button type="submit" class="btn btn-default" onclick="window.location.href ='#!/'" id="homeButton">Home</button>
+      <button type="button" id="cancel_Button" class="btn btn-cancel" onclick="window.location.href= '#!/BLA_Subscription_Nomination_Detailed_Report/action/inquiry';">Back</button>
+    </div>
+    <h4 class="form_heading">BLA/Subscription/Nomination Detailed Report</h4>
+    <sol-header></sol-header>
+
+    <table style="width: 100%" class="table table-bordered" aria-label="">
+      <tr>
+        <th scope="col">Name of the Bond Scheme</th>
+        <td>{{vm.schemeName}}</td>
+        <th scope="col" style="width: 20%">Total Count</th>
+        <td style="width: 20%">{{vm.total}}</td>
+      </tr>
+
+      <tr data-ng-if="vm.holderName">
+        <th scope="col">Name</th>
+        <td>{{vm.holderName}}</td>
+      </tr>
+
+      <tr data-ng-if="vm.panNumber">
+        <th scope="col">PAN No</th>
+        <td>{{vm.panNumber}}</td>
+      </tr>
+
+      <tr data-ng-if="vm.blaNumber">
+        <th scope="col">BLA No</th>
+        <td>{{vm.blaNumber}}</td>
+      </tr>
+
+      <tr data-ng-if="vm.subscriptionID">
+        <th scope="col">Subscription ID</th>
+        <td>{{vm.subscriptionID}}</td>
+      </tr>
+
+      <tr data-ng-if="vm.fromDate">
+        <th scope="col">From Date</th>
+        <td>{{vm.fromDate | date: 'dd/MM/yyyy'}}</td>
+      </tr>
+
+      <tr data-ng-if="vm.toDate">
+        <th scope="col">To Date</th>
+        <td>{{vm.toDate | date: 'dd/MM/yyyy'}}</td>
+      </tr>
+    </table>
+
+    <div class="row">
+      <div class="col-sm-12">
+        <div class="row" style="display: flex; align-items: center; justify-content: space-between">
+          <div class="col-sm-3" style="flex: 1">
+            <div class="form-group">
+              <table style="border-spacing: 2" aria-label="">
+                <tr>
+                  <th scope="col"></th>
+                </tr>
+                <tr>
+                  <td>Show&nbsp</td>
+                  <td>
+                    <select class="form-control pageDropDown" id="pageSize" name="pageSize" data-ng-model="vm.pageSize" data-ng-init="vm.pageSize='5'" data-ng-change="vm.pageNo = 1; vm.getDetails();"ng-disabled="vm.noDataFoundInSearch"
+                    >
+                      <option value="5">5 per page</option>
+                      <option value="10">10 per page</option>
+                      <option value="20">20 per page</option>
+                      <option value="50">50 per page</option>
+                    </select>
+                  </td>
+                </tr>
+              </table>
+            </div>
+          </div>
+
+          <div class="col-sm-6" style="display: flex; align-items: center; justify-content: flex-end">
+            <div class="form-group" style="margin-right: 15px">
+              <div class="input-group">
+                <input type="text" id="search" class="form-control" data-ng-model="vm.searchText" placeholder="Search" />
+                <div class="input-group-addon">
+                  <span class="glyphicon glyphicon-search" data-ng-click="vm.pageNo = 1; vm.getDetails()"></span>
+                </div>
+                <div class="input-group-addon">
+                  <span class="glyphicon glyphicon-remove clear cp" data-ng-click="vm.searchText='';vm.pageNo = 1; vm.getDetails()"></span>
+                </div>
+              </div>
+            </div>
+            <div class="form-group" ng-disabled="vm.noDataFoundInSearch"
+            >
+              <select class="form-control" id="export" name="export" data-ng-model="vm.downloadType" data-ng-init="vm.downloadType=''"  data-ng-change="vm.downloadReport()" data-ng-disabled="vm.noDataFoundInSearch">
+                <option value="">EXPORT</option>
+                <option value="excel">EXCEL</option>
+                <option value="csv">CSV</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div class="table-responsive">
+          <table class="table table-bordered table-striped list table-textWrap" aria-label="">
+            <thead data-ng-if="!vm.noDataFoundInSearch">
+              <tr>
+                <th scope="col" rowspan="2">S. No.</th>
+                <th scope="col" rowspan="2">Name of the Bond Scheme</th>
+                <th scope="col" rowspan="2">Mode of Holding</th>
+                <th scope="col" colspan="23">FIRST JOINT BOND HOLDER DETAILS</th>
+                <th scope="col" colspan="3">Coparceners Details of Karta</th>
+                <th scope="col" colspan="13">Guardian Details</th>
+                <th scope="col" colspan="15">Other Details</th>
+                <th scope="col" colspan="4">Witness Details</th>
+                <th scope="col" colspan="10">Supporting Documents</th>
+                <th scope="col" colspan="22">SECOND JOINT BOND HOLDER DETAILS</th>
+                <th scope="col" colspan="13">Guardian Details</th>
+                <th scope="col" colspan="5">Other Details</th>
+                <th scope="col" colspan="4">Witness Details</th>
+                <th scope="col" colspan="10">Supporting Documents</th>
+                <th scope="col" colspan="22">THIRD JOINT BOND HOLDER DETAILS</th>
+                <th scope="col" colspan="13">Guardian Details</th>
+                <th scope="col" colspan="5">Other Details</th>
+                <th scope="col" colspan="4">Witness Details</th>
+                <th scope="col" colspan="10">Supporting Documents</th>
+              </tr>
+              <tr class="thalign">
+                <!--First holder details-->
+                <th scope="col">FTS Application Number</th>
+                <th scope="col">Bond Ledger Account Number</th>
+                <th scope="col">Bond Holder First name</th>
+                <th scope="col">Bond Holder Middle Name</th>
+                <th scope="col">Bond Holder Last name</th>
+                <th scope="col">Holder Type</th>
+                <th scope="col">Father Name/Spouse Name</th>
+                <th scope="col">Mother Name</th>
+                <th scope="col">Gender</th>
+                <th scope="col">Bond Holder Date of Birth (DD/MM/YYYY)</th>
+                <th scope="col">Is Minor (Y/N)?</th>
+                <th scope="col">Details of Birth certificate submitted as per norms</th>
+                <th scope="col">Communication Address 1</th>
+                <th scope="col">Address 2</th>
+                <th scope="col">Address 3</th>
+                <th scope="col">City</th>
+                <th scope="col">State</th>
+                <th scope="col">Pin Code</th>
+                <th scope="col">Phone Number</th>
+                <th scope="col">Mobile Number</th>
+                <th scope="col">Email id</th>
+                <th scope="col">HUF registration / Power of Attorney number</th>
+                <th scope="col">Power of Attorney/Karta Name</th>
+
+                <th scope="col">Coparceners Name</th>
+                <th scope="col">Relationship with Karta</th>
+                <th scope="col">DOB</th>
+
+                <th scope="col">Guardian ID</th>
+                <th scope="col">Guardian First Name</th>
+                <th scope="col">Guardian Middle Name</th>
+                <th scope="col">Guardian Last Name</th>
+                <th scope="col">Relation with Minor</th>
+                <th scope="col">Date of Birth</th>
+                <th scope="col">Communication Address</th>
+                <th scope="col">Mobile No.</th>
+                <th scope="col">Email ID</th>
+                <th scope="col">Date of Death of Guardian (DD/MM/YYYY)</th>
+                <th scope="col">Date of Receipt of Death Certificate (DD/MM/YYYY)</th>
+                <th scope="col">If Request from Current Guardian (Y/N)</th>
+                <th scope="col">Remarks</th>
+
+                <th scope="col">Whether the customer belongs to HDFC?</th>
+                <th scope="col">Operative Account Number</th>
+                <th scope="col">Mode of Interest Payment/ Principal Repayment</th>
+                <th scope="col">Account Type code</th>
+                <th scope="col">DD/PO Account Number</th>
+                <th scope="col">Bank Code</th>
+                <th scope="col">Branch Code</th>
+                <th scope="col">IFSC Code of the Credit Bank</th>
+                <th scope="col">Name of the Payee</th>
+                <th scope="col">Other Bank Name</th>
+                <th scope="col">Other Branch Details</th>
+                <th scope="col">IFC Code</th>
+                <th scope="col">MICR Code</th>
+                <th scope="col">PAN No</th>
+                <th scope="col">Aadhaar</th>
+
+                <th scope="col">WitnessName1</th>
+                <th scope="col">Address</th>
+                <th scope="col">WitnessName2</th>
+                <th scope="col">Address</th>
+
+                <th scope="col">Birth Certificate</th>
+                <th scope="col">Passport</th>
+                <th scope="col">Senior Citizen Card</th>
+                <th scope="col">Voter ID Card</th>
+                <th scope="col">PAN Card</th>
+                <th scope="col">Driving Licence</th>
+                <th scope="col">Ration Card</th>
+                <th scope="col">Others</th>
+                <th scope="col">Detail for Others</th>
+                <th scope="col">Remarks</th>
+
+                <!--Second holder details-->
+                <th scope="col">Bond Ledger Account Number</th>
+                <th scope="col">Bond Holder First name</th>
+                <th scope="col">Bond Holder Middle Name</th>
+                <th scope="col">Bond Holder Last name</th>
+                <th scope="col">Holder Type</th>
+                <th scope="col">Father Name/Spouse Name</th>
+                <th scope="col">Mother Name</th>
+                <th scope="col">Gender</th>
+                <th scope="col">Bond Holder Date of Birth (DD/MM/YYYY)</th>
+                <th scope="col">Is Minor (Y/N)?</th>
+                <th scope="col">Details of Birth certificate submitted as per norms</th>
+                <th scope="col">Communication Address 1</th>
+                <th scope="col">Address 2</th>
+                <th scope="col">Address 3</th>
+                <th scope="col">City</th>
+                <th scope="col">State</th>
+                <th scope="col">Pin Code</th>
+                <th scope="col">Phone Number</th>
+                <th scope="col">Mobile Number</th>
+                <th scope="col">Email id</th>
+                <th scope="col">HUF registration / Power of Attorney number</th>
+                <th scope="col">Power of Attorney/Karta Name</th>
+
+                <th scope="col">Guardian ID</th>
+                <th scope="col">Guardian First Name</th>
+                <th scope="col">Guardian Middle Name</th>
+                <th scope="col">Guardian Last Name</th>
+                <th scope="col">Relation with Minor</th>
+                <th scope="col">Date of Birth</th>
+                <th scope="col">Communication Address</th>
+                <th scope="col">Mobile No.</th>
+                <th scope="col">Email ID</th>
+                <th scope="col">Date of Death of Guardian (DD/MM/YYYY)</th>
+                <th scope="col">Date of Receipt of Death Certificate (DD/MM/YYYY)</th>
+                <th scope="col">If Request from Current Guardian (Y/N)</th>
+                <th scope="col">Remarks</th>
+
+                <th scope="col">Whether the customer belongs to HDFC?</th>
+                <th scope="col">Operative Account Number</th>
+                <th scope="col">IFSC Code</th>
+                <th scope="col">PAN No</th>
+                <th scope="col">Aadhaar No</th>
+
+                <th scope="col">WitnessName1</th>
+                <th scope="col">Address</th>
+                <th scope="col">WitnessName2</th>
+                <th scope="col">Address</th>
+
+                <th scope="col">Birth Certificate</th>
+                <th scope="col">Passport</th>
+                <th scope="col">Senior Citizen Card</th>
+                <th scope="col">Voter ID Card</th>
+                <th scope="col">PAN Card</th>
+                <th scope="col">Driving Licence</th>
+                <th scope="col">Ration Card</th>
+                <th scope="col">Others</th>
+                <th scope="col">Detail for Others</th>
+                <th scope="col">Remarks</th>
+
+                <!-- Third holder details-->
+                <th scope="col">Bond Ledger Account Number</th>
+                <th scope="col">Bond Holder First name</th>
+                <th scope="col">Bond Holder Middle Name</th>
+                <th scope="col">Bond Holder Last name</th>
+                <th scope="col">Holder Type</th>
+                <th scope="col">Father Name/Spouse Name</th>
+                <th scope="col">Mother Name</th>
+                <th scope="col">Gender</th>
+                <th scope="col">Bond Holder Date of Birth (DD/MM/YYYY)</th>
+                <th scope="col">Is Minor (Y/N)?</th>
+                <th scope="col">Details of Birth certificate submitted as per norms</th>
+                <th scope="col">Communication Address 1</th>
+                <th scope="col">Address 2</th>
+                <th scope="col">Address 3</th>
+                <th scope="col">City</th>
+                <th scope="col">State</th>
+                <th scope="col">Pin Code</th>
+                <th scope="col">Phone Number</th>
+                <th scope="col">Mobile Number</th>
+                <th scope="col">Email id</th>
+                <th scope="col">HUF registration / Power of Attorney number</th>
+                <th scope="col">Power of Attorney/Karta Name</th>
+
+                <th scope="col">Guardian ID</th>
+                <th scope="col">Guardian First Name</th>
+                <th scope="col">Guardian Middle Name</th>
+                <th scope="col">Guardian Last Name</th>
+                <th scope="col">Relation with Minor</th>
+                <th scope="col">Date of Birth</th>
+                <th scope="col">Communication Address</th>
+                <th scope="col">Mobile No.</th>
+                <th scope="col">Email ID</th>
+                <th scope="col">Date of Death of Guardian (DD/MM/YYYY)</th>
+                <th scope="col">Date of Receipt of Death Certificate (DD/MM/YYYY)</th>
+                <th scope="col">If Request from Current Guardian (Y/N)</th>
+                <th scope="col">Remarks</th>
+
+                <th scope="col">Whether the customer belongs to HDFC?</th>
+                <th scope="col">Operative Account Number</th>
+                <th scope="col">IFSC Code</th>
+                <th scope="col">PAN No</th>
+                <th scope="col">Aadhaar No</th>
+
+                <th scope="col">WitnessName1</th>
+                <th scope="col">Address</th>
+                <th scope="col">WitnessName2</th>
+                <th scope="col">Address</th>
+
+                <th scope="col">Birth Certificate</th>
+                <th scope="col">Passport</th>
+                <th scope="col">Senior Citizen Card</th>
+                <th scope="col">Voter ID Card</th>
+                <th scope="col">PAN Card</th>
+                <th scope="col">Driving Licence</th>
+                <th scope="col">Ration Card</th>
+                <th scope="col">Others</th>
+                <th scope="col">Detail for Others</th>
+                <th scope="col">Remarks</th>
+              </tr>
+            </thead>
+            <tbody data-ng-if="!vm.noDataFoundInSearch">
+              <tr dir-paginate="x in vm.filteredRecords | itemsPerPage: itemsPerPage" pagination-id="trailRunRep">
+                <td>{{ ($index + 1) + ((vm.pageNo - 1) * vm.pageSize) }}</td>
+                <td>{{vm.schemeName}}</td>
+                <td>{{x.modeOfHolding| getLabelFromValuesArray : vm.convertLabelValue(vm.modeOfHoldingListValues)}}</td>
+                <td>{{x.bondHolderFTSApplicationNumber}}</td>
+                <td>{{x.bondHolderBlaNumber}}</td>
+                <td>{{x.bondHolderFirstName}}</td>
+                <td>{{x.bondHolderMiddleName}}</td>
+                <td>{{x.bondHolderLastName}}</td>
+                <td>{{x.bondHolderHolderType| getLabelFromValuesArray : vm.convertLabelValue(vm.holderTypeListValues)}}</td>
+                <td>{{x.bondHolderFatherName}}</td>
+                <td>{{x.bondHolderMotherName}}</td>
+                <td>{{x.bondHolderGender}}</td>
+                <td>{{x.bondHolderDateOfBirth}}</td>
+                <td>{{x.bondHolderIsMinor}}</td>
+                <td>{{x.bondHolderDetailsOfBirthCertificate}}</td>
+                <td>{{x.bondHolderCommunicationAddress1}}</td>
+                <td>{{x.bondHolderAddress2}}</td>
+                <td>{{x.bondHolderAddress3}}</td>
+                <td>{{x.bondHolderCity}}</td>
+                <td>{{x.bondHolderState | getLabelFromValuesArray : vm.convertLabelValue(vm.stateListValues)}}</td>
+                <td>{{x.bondHolderPinCode}}</td>
+                <td>{{x.bondHolderPhoneNumber}}</td>
+                <td>{{x.bondHolderMobileNumber}}</td>
+                <td>{{x.bondHolderEmailID}}</td>
+                <td>{{x.bondHolderHUF}}</td>
+                <td>{{x.bondHolderPowerOfAttorney}}</td>
+
+                <td>{{x.bondHolderCoName}}</td>
+                <td>{{x.bondHolderCoRelationshipWithKarta}}</td>
+                <td>{{x.bondHolderCoDOB}}</td>
+
+                <td>{{x.bondHolderGID}}</td>
+                <td>{{x.bondHolderGFirstName}}</td>
+                <td>{{x.bondHolderGMiddleName}}</td>
+                <td>{{x.bondHolderGLastName}}</td>
+                <td>{{x.bondHolderGRelationWithMinor| getLabelFromValuesArray : vm.convertLabelValue(vm.relationListValues)}}</td>
+                <td>{{x.bondHolderGDateOfBirth}}</td>
+                <td>{{x.bondHolderGAddress}}</td>
+                <td>{{x.bondHolderGMobile}}</td>
+                <td>{{x.bondHolderGEmailID}}</td>
+                <td>{{x.bondHolderGDateOfDeath}}</td>
+                <td>{{x.bondHolderGDateOfReceipt}}</td>
+                <td>{{x.bondHolderGIfRequestFromCurrentGuardian}}</td>
+                <td>{{x.bondHolderGRemarks}}</td>
+
+                <td>{{x.bondHolderWhetherHDFCCustomer}}</td>
+                <td>{{x.bondHolderOperativeAccountNumber}}</td>
+                <td>{{x.bondHolderModeOfInterestPayment| getLabelFromValuesArray : vm.convertLabelValue(vm.modeOfInterestValues)}}</td>
+                <td>{{x.bondHolderAccountTypeCode}}</td>
+                <td>{{x.bondHolderDDPOAccountNumber}}</td>
+                <td>{{x.bondHolderBankCode}}</td>
+                <td>{{x.bondHolderBranchCode}}</td>
+                <td>{{x.bondHolderIFSCCodeOfCreditBank}}</td>
+                <td>{{x.bondHolderNameOfPayee}}</td>
+                <td>{{x.bondHolderOtherBankName}}</td>
+                <td>{{x.bondHolderOtherBranchDetails}}</td>
+                <td>{{x.bondHolderIFSCCode}}</td>
+                <td>{{x.bondHolderMICR}}</td>
+                <td>{{x.bondHolderPANNo}}</td>
+                <td>{{x.bondHolderAadhaar}}</td>
+
+                <td>{{x.bondHolderWitnessName1}}</td>
+                <td>{{x.bondHolderWitnessAddress1}}</td>
+                <td>{{x.bondHolderWitnessName2}}</td>
+                <td>{{x.bondHolderWitnessAddress2}}</td>
+
+                <td>{{x.bondHolderBirthCertificate}}</td>
+                <td>{{x.bondHolderPassport}}</td>
+                <td>{{x.bondHolderSeniorCitizenCard}}</td>
+                <td>{{x.bondHolderVoterIDCard}}</td>
+                <td>{{x.bondHolderPANCard}}</td>
+                <td>{{x.bondHolderDrivingLicence}}</td>
+                <td>{{x.bondHolderRationCard}}</td>
+                <td>{{x.bondHolderOthers}}</td>
+                <td>{{x.bondHolderDetailForOthers}}</td>
+                <td>{{x.bondHolderRemarks}}</td>
+
+                <td>{{x.secondBlaNumber}}</td>
+                <td>{{x.secondFirstName}}</td>
+                <td>{{x.secondMiddleName}}</td>
+                <td>{{x.secondLastName}}</td>
+                <td>{{x.secondHolderType| getLabelFromValuesArray : vm.convertLabelValue(vm.holderTypeListValues)}}</td>
+                <td>{{x.secondFatherName}}</td>
+                <td>{{x.secondMotherName}}</td>
+                <td>{{x.secondGender}}</td>
+                <td>{{x.secondDateOfBirth}}</td>
+                <td>{{x.secondIsMinor}}</td>
+                <td>{{x.secondDetailsOfBirthCertificate}}</td>
+                <td>{{x.secondAddress1}}</td>
+                <td>{{x.secondAddress2}}</td>
+                <td>{{x.secondAddress3}}</td>
+                <td>{{x.secondCity}}</td>
+                <td>{{x.secondState | getLabelFromValuesArray : vm.convertLabelValue(vm.stateListValues)}}</td>
+                <td>{{x.secondPinCode}}</td>
+                <td>{{x.secondPhoneNumber}}</td>
+                <td>{{x.secondMobileNumber}}</td>
+                <td>{{x.secondEmailID}}</td>
+                <td>{{x.secondHUF}}</td>
+                <td>{{x.secondPowerOfAttorney}}</td>
+
+                <td>{{x.secondGID}}</td>
+                <td>{{x.secondGFirstName}}</td>
+                <td>{{x.secondGMiddleName}}</td>
+                <td>{{x.secondGLastName}}</td>
+                <td>{{x.secondGRelation| getLabelFromValuesArray : vm.convertLabelValue(vm.relationListValues)}}</td>
+                <td>{{x.secondGDateOfBirth}}</td>
+                <td>{{x.secondGAddress}}</td>
+                <td>{{x.secondGMobile}}</td>
+                <td>{{x.secondGEmailID}}</td>
+                <td>{{x.secondGDeathDateOfGuardian}}</td>
+                <td>{{x.secondGDateOfReceipt}}</td>
+                <td>{{x.secondGIfRequestFromGuardian}}</td>
+                <td>{{x.secondGRemarks}}</td>
+
+                <td>{{x.secondWhetherHDFCCustomer}}</td>
+                <td>{{x.secondOperativeAccountNumber}}</td>
+                <td>{{x.secondIFSCCode}}</td>
+                <td>{{x.secondPANNo}}</td>
+                <td>{{x.secondAadhaar}}</td>
+
+                <td>{{x.secondWitnessName1}}</td>
+                <td>{{x.secondWitnessAddress1}}</td>
+                <td>{{x.secondWitnessName2}}</td>
+                <td>{{x.secondWitnessAddress2}}</td>
+
+                <td>{{x.secondBirthCertificate}}</td>
+                <td>{{x.secondPassport}}</td>
+                <td>{{x.secondSeniorCitizenCard}}</td>
+                <td>{{x.secondVoterIDCard}}</td>
+                <td>{{x.secondPANCard}}</td>
+                <td>{{x.secondDrivingLicence}}</td>
+                <td>{{x.secondRationCard}}</td>
+                <td>{{x.secondOthers}}</td>
+                <td>{{x.secondDetailForOthers}}</td>
+                <td>{{x.secondRemarks}}</td>
+
+                <td>{{x.thirdBlaNumber}}</td>
+                <td>{{x.thirdFirstName}}</td>
+                <td>{{x.thirdMiddleName}}</td>
+                <td>{{x.thirdLastName}}</td>
+                <td>{{x.thirdHolderType| getLabelFromValuesArray : vm.convertLabelValue(vm.holderTypeListValues)}}</td>
+                <td>{{x.thirdFatherName}}</td>
+                <td>{{x.thirdMotherName}}</td>
+                <td>{{x.thirdGender}}</td>
+                <td>{{x.thirdDateOfBirth}}</td>
+                <td>{{x.thirdIsMinor}}</td>
+                <td>{{x.thirdDetailsOfBirthCertificate}}</td>
+                <td>{{x.thirdAddress1}}</td>
+                <td>{{x.thirdAddress2}}</td>
+                <td>{{x.thirdAddress3}}</td>
+                <td>{{x.thirdCity}}</td>
+                <td>{{x.thirdState | getLabelFromValuesArray : vm.convertLabelValue(vm.stateListValues)}}</td>
+                <td>{{x.thirdPinCode}}</td>
+                <td>{{x.thirdPhoneNumber}}</td>
+                <td>{{x.thirdMobileNumber}}</td>
+                <td>{{x.thirdEmailID}}</td>
+                <td>{{x.thirdHUF}}</td>
+                <td>{{x.thirdPowerOfAttorney}}</td>
+
+                <td>{{x.thirdGID}}</td>
+                <td>{{x.thirdGFirstName}}</td>
+                <td>{{x.thirdGMiddleName}}</td>
+                <td>{{x.thirdGLastName}}</td>
+                <td>{{x.thirdGRelationWithMinor| getLabelFromValuesArray : vm.convertLabelValue(vm.relationListValues)}}</td>
+                <td>{{x.thirdGDateOfBirth}}</td>
+                <td>{{x.thirdGAddress}}</td>
+                <td>{{x.thirdGMobile}}</td>
+                <td>{{x.thirdGEmailID}}</td>
+                <td>{{x.thirdGDeathDateOfGuardian}}</td>
+                <td>{{x.thirdGDateOfReceipt}}</td>
+                <td>{{x.thirdGIfRequestFromGuardian}}</td>
+                <td>{{x.thirdGRemarks}}</td>
+
+                <td>{{x.thirdWhetherHDFCCustomer}}</td>
+                <td>{{x.thirdOperativeAccountNumber}}</td>
+                <td>{{x.thirdIFSCCode}}</td>
+                <td>{{x.thirdPANNo}}</td>
+                <td>{{x.thirdAadhaar}}</td>
+
+                <td>{{x.thirdWitnessName1}}</td>
+                <td>{{x.thirdWitnessAddress1}}</td>
+                <td>{{x.thirdWitnessName2}}</td>
+                <td>{{x.thirdWitnessAddress2}}</td>
+
+                <td>{{x.thirdBirthCertificate}}</td>
+                <td>{{x.thirdPassport}}</td>
+                <td>{{x.thirdSeniorCitizenCard}}</td>
+                <td>{{x.thirdVoterIDCard}}</td>
+                <td>{{x.thirdPANCard}}</td>
+                <td>{{x.thirdDrivingLicence}}</td>
+                <td>{{x.thirdRationCard}}</td>
+                <td>{{x.thirdOthers}}</td>
+                <td>{{x.thirdDetailForOthers}}</td>
+                <td>{{x.thirdRemarks}}</td>
+              </tr>
+            </tbody>
+            <tbody data-ng-if="vm.noDataFoundInSearch">
+              <tr>
+                <td style="text-align: center">No Records Found</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <table class="table table-bordered table-striped list table-textWrap" aria-label="">
+            <thead data-ng-if="!vm.noDataFoundInSearch">
+              <tr>
+                <th scope="col" rowspan="2">S. No.</th>
+                <th scope="col" colspan="10">BOND HOLDER DETAILS</th>
+                <th scope="col" colspan="13">BOND SUBSCRIPTION DETAILS</th>
+                <th scope="col" colspan="16">TRANSACTION DETAILS</th>
+                <th scope="col" colspan="14">NOMINATION DETAILS</th>
+                <th scope="col" colspan="12">GUARDIAN DETAILS</th>
+              </tr>
+
+              <tr>
+                <th scope="col">Name of the Bond Scheme</th>
+                <th scope="col">Mode Of Holding</th>
+                <th scope="col">First Joint Bond Holder BLA No.</th>
+                <th scope="col">First Joint Bond Holder Name</th>
+                <th scope="col">Second Joint Bond Holder BLA No.</th>
+                <th scope="col">Second Joint Bond Holder Name</th>
+                <th scope="col">Third Joint Bond Holder BLA No.</th>
+                <th scope="col">Third Joint Bond Holder Name</th>
+                <th scope="col">Subscription Id</th>
+                <th scope="col">Application No</th>
+
+                <th scope="col">Broker ID</th>
+                <th scope="col">Subscription Amount</th>
+                <th scope="col">Amount in Words</th>
+                <th scope="col">Segment</th>
+                <th scope="col">Bond Type</th>
+                <th scope="col">Account Open Date (dd/mm/yyyy)</th>
+                <th scope="col">Value Date (dd/mm/yyyy)</th>
+                <th scope="col">Period Of Deposit (months)</th>
+                <th scope="col">Maturity Date (dd/mm/yyyy)</th>
+                <th scope="col">Rate of Interest (%)</th>
+                <th scope="col">Maturity Amount</th>
+                <th scope="col">Branch code- WBO</th>
+                <th scope="col">Branch Name- WBO</th>
+
+                <th scope="col">Transaction Mode</th>
+                <th scope="col">Debit Account Number</th>
+                <th scope="col">Branch ID</th>
+                <th scope="col">Instrument Type</th>
+                <th scope="col">Instrument Number</th>
+                <th scope="col">Instrument Date (dd/mm/yyyy)</th>
+                <th scope="col">Instrument Amount</th>
+                <th scope="col">Tran Code</th>
+                <th scope="col">Zone Code</th>
+                <th scope="col">Zone Date (dd/mm/yyyy)</th>
+                <th scope="col">Bank Code (Non-MICR)</th>
+                <th scope="col">Branch Code (Non-MICR)</th>
+                <th scope="col">Sort Code</th>
+                <th scope="col">Remarks</th>
+                <th scope="col">Do You want to add Nominee?</th>
+                <th scope="col">Rejection Remarks</th>
+
+                <th scope="col">Nominee First Name</th>
+                <th scope="col">Nominee Middle Name</th>
+                <th scope="col">Nominee Last Name</th>
+                <th scope="col">Address1</th>
+                <th scope="col">Address2</th>
+                <th scope="col">Pin Code</th>
+                <th scope="col">State</th>
+                <th scope="col">City</th>
+                <th scope="col">Phone No</th>
+                <th scope="col">Share Percentage</th>
+                <th scope="col">Operative Account No</th>
+                <th scope="col">Is Nominee a Minor</th>
+                <th scope="col">Relation with Holder</th>
+                <th scope="col">Date of Birth Of Minor</th>
+
+                <th scope="col">Guardian First Name</th>
+                <th scope="col">Guardian Middle Name</th>
+                <th scope="col">Guardian Last Name</th>
+                <th scope="col">Gender</th>
+                <th scope="col">Relation with Minor</th>
+                <th scope="col">Address1</th>
+                <th scope="col">Address2</th>
+                <th scope="col">PIN Code</th>
+                <th scope="col">State</th>
+                <th scope="col">City</th>
+                <th scope="col">Mobile No.</th>
+                <th scope="col">Email ID</th>
+              </tr>
+            </thead>
+            <tbody data-ng-if="!vm.noDataFoundInSearch">
+              <tr dir-paginate="x in vm.filteredRecords | itemsPerPage: itemsPerPage" pagination-id="trailRunRep">
+                <td>{{ ($index + 1) + ((vm.pageNo - 1) * vm.pageSize) }}</td>
+                <td>{{vm.schemeName}}</td>
+                <td>{{x.modeOfHolding| getLabelFromValuesArray : vm.convertLabelValue(vm.modeOfHoldingListValues)}}</td>
+                <td>{{x.firstJointBlaNumber}}</td>
+                <td>{{x.firstJointHolderName}}</td>
+                <td>{{x.secondJointBlaNumber}}</td>
+                <td>{{x.secondJointHolderName}}</td>
+                <td>{{x.thirdJointBlaNumber}}</td>
+                <td>{{x.thirdJointHolderName}}</td>
+                <td>{{x.subscriptionID}}</td>
+                <td>{{x.applicationNo}}</td>
+
+                <td>{{x.brokerID}}</td>
+                <td>{{x.subscriptionAmount}}</td>
+                <td>{{x.amountInWords}}</td>
+                <td>{{x.segment}}</td>
+                <td>{{x.bondType}}</td>
+                <td>{{x.accountOpenDate}}</td>
+                <td>{{x.valueDate}}</td>
+                <td>{{x.periodOfDeposit}}</td>
+                <td>{{x.maturityDate}}</td>
+                <td>{{x.rateOfInterest}}</td>
+                <td>{{x.maturityAmount}}</td>
+                <td>{{x.branchCode}}</td>
+                <td>{{x.branchName}}</td>
+
+                <td>{{x.transactionMode}}</td>
+                <td>{{x.debitAccountNumber}}</td>
+                <td>{{x.branchID}}</td>
+                <td>{{x.instrumentType}}</td>
+                <td>{{x.instrumentNumber}}</td>
+                <td>{{x.instrumentDate}}</td>
+                <td>{{x.instrumentAmount}}</td>
+                <td>{{x.tranCode}}</td>
+                <td>{{x.zoneCode}}</td>
+                <td>{{x.zoneDate}}</td>
+                <td>{{x.bankCode}}</td>
+                <td>{{x.branchCodeOfTransactionDetails}}</td>
+                <td>{{x.sortCode}}</td>
+                <td>{{x.remarks}}</td>
+                <td>{{x.doYouWantToAddNominee}}</td>
+                <td>{{x.rejectionRemarks}}</td>
+
+                <td>{{x.nomineeFirstName}}</td>
+                <td>{{x.nomineeMiddleName}}</td>
+                <td>{{x.nomineeLastName}}</td>
+                <td>{{x.nomineeAddress1}}</td>
+                <td>{{x.nomineeAddress2}}</td>
+                <td>{{x.nomineePinCode}}</td>
+                <td>{{x.nomineeState | getLabelFromValuesArray : vm.convertLabelValue(vm.stateListValues)}}</td>
+                <td>{{x.nomineeCity}}</td>
+                <td>{{x.nomineePhoneNo}}</td>
+                <td>{{x.nomineeSharePercentage}}</td>
+                <td>{{x.nomineeOperativeAccountNumber}}</td>
+                <td>{{x.nomineeIsNomineeMinor}}</td>
+                <td>{{x.nomineeRelationWithHolder| getLabelFromValuesArray : vm.convertLabelValue(vm.relationListValues)}}</td>
+                <td>{{x.nomineeDateOfBirth}}</td>
+
+                <td>{{x.nomineeGFirstName}}</td>
+                <td>{{x.nomineeGMiddleName}}</td>
+                <td>{{x.nomineeGLastName}}</td>
+                <td>{{x.nomineeGender}}</td>
+                <td>{{x.nomineeGRelationWithMinor| getLabelFromValuesArray : vm.convertLabelValue(vm.relationListValues)}}</td>
+                <td>{{x.nomineeGAddress1}}</td>
+                <td>{{x.nomineeGAddress2}}</td>
+                <td>{{x.nomineeGPINCode}}</td>
+                <td>{{x.nomineeGState | getLabelFromValuesArray : vm.convertLabelValue(vm.stateListValues)}}</td>
+                <td>{{x.nomineeGCity}}</td>
+                <td>{{x.nomineeGMobileNo}}</td>
+                <td>{{x.nomineeGEmailID}}</td>
+              </tr>
+            </tbody>
+            <tbody data-ng-if="vm.noDataFoundInSearch">
+              <tr>
+                <td style="text-align: center">No Records Found</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <br />
+        <div class="text-center form_submit">
+          <span data-ng-show="vm.showPrevious">
+            <button type="submit" class="btn btn-default" data-ng-click="vm.goPreviousPage()">Prev</button>
+          </span>
+
+          <span>
+            <button type="submit" class="btn btn-default" data-ng-disabled="true" data-ng-init="vm.pageNo=1" data-ng-model="vm.pageNo" data-ng-click="vm.paymentStatus();">{{vm.pageNo}} of {{vm.maxPages}}</button>
+          </span>
+
+          <span data-ng-show="vm.showNext">
+            <button type="submit" class="btn btn-default" data-ng-click="vm.goNextPage();">Next</button>
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container" data-ng-if="vm.noDataFound">
+  <div class="list_wrapper no_records_message">
+    <h4 class="form_heading">BLA/Subscription/Nomination Detailed Report</h4>
+    No records found to display.
+    <div style="text-align: center">
+      <button type="button" class="btn btn-default" onclick="window.location.href= '#!/BLA_Subscription_Nomination_Detailed_Report/action/inquiry';">Back</button>
+    </div>
+  </div>
+</div>

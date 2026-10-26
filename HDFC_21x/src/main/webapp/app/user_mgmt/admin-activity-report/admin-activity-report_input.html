@@ -1,0 +1,89 @@
+<div class="loader-new" ng-if="vm.loader"></div>
+
+<div class="container from_wrapper new_form_wrapper">
+
+    <h4 class="form_heading">Admin Activity Report</h4>
+    <sol-header></sol-header>
+    <form name="blastatusreportFrom" role="form">
+
+        <div class="row">
+            <div class="col-sm-6 col-sm-offset-3">
+                <div class="row">
+                    <div class="form-group required">
+                        <div class="col-sm-6">
+                            <label for="effFromDate" class="control-label">From Date</label>
+                        </div>
+                        <div class="col-sm-4">
+                            <p class="input-group">
+                                <input type="text" class="form-control" id="effFromDate"
+                                       name="effFromDate" ng-model="vm.fromDate"
+                                       uib-datepicker-popup="dd/MM/yyyy" ng-init="vm.fromDate='';vm.dateValidation();"
+                                       datepicker-options="vm.dateOptions" ng-change="vm.dateValidation(); vm.toDate='';"
+                                       is-open="vm.effFromDatePicker.opened" close-text="Close"
+                                       maxlength="10" readonly required>
+                                <span class="input-group-btn">
+                            <button type="button" class="btn btn-secondary"
+                                    ng-click="vm.effFromDatePicker.opened = true"
+                                    id="effFromDateSearcher">
+                                <i class="glyphicon glyphicon-calendar"></i>
+                            </button>
+                        </span>
+                            </p>
+                        </div>
+                        <div class="col-sm-3">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-6 col-sm-offset-3">
+                <div class="row">
+                    <div class="form-group required">
+                        <div class="col-sm-6">
+                            <label for="effToDate" class="control-label">To Date</label>
+                        </div>
+                        <div class="col-sm-4">
+                            <p class="input-group">
+                                <input type="text" class="form-control" id="effToDate"
+                                       name="effToDate" ng-model="vm.toDate"
+                                       uib-datepicker-popup="dd/MM/yyyy" ng-init="vm.toDate=''"
+                                       datepicker-options="vm.dateToOptions"
+                                       is-open="vm.effToDatePicker.opened" close-text="Close"
+                                       maxlength="10" readonly required>
+                                <span class="input-group-btn">
+                            <button type="button" class="btn btn-secondary"
+                                    ng-click="vm.effToDatePicker.opened = true"
+                                    id="effToDateSearcher">
+                                <i class="glyphicon glyphicon-calendar"></i>
+                            </button>
+                        </span>
+                            </p>
+                        </div>
+                        <div class="col-sm-3">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="text-center form_submit">
+            <button type="submit" id="submitbutton" class="btn btn-default"
+                    ui-sref="admin_activity_report.inquiry_details({obj:{
+                            fromDate:vm.fromDate,
+                            toDate:vm.toDate,
+                        }})"
+                    ng-disabled="blastatusreportFrom.$invalid">Submit</button>
+            <button type="button" class="btn btn-cancel" id="cancelButton"
+                    onclick="window.location.href= '#!/report_menu_page';">Cancel
+            </button>
+        </div>
+
+        <div class="text-center">
+            <notice-message-directive></notice-message-directive>
+        </div>
+    </form>
+</div>
+
+

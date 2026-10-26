@@ -1,0 +1,267 @@
+<div class="loader-new" ng-if="vm.loader"></div>
+<div class="container" ng-if="vm.showReport">
+    <div class="text-right form_submit">
+        <button type="submit" class="btn btn-default"
+                onclick="window.location.href ='#!/rbibond_gu_functionality';" id="homeButton">Home</button>
+        <button type="button" id="cancel_Button" class="btn btn-cancel"
+                onclick="window.location.href= '#!/rbibond_appendixVIII_Statement_of_Charges_for_Turnover_Commission/action/inquiry';">Back</button>
+    </div>
+
+    <div class="container from_wrapper new_form_wrapper">
+        <div class="row appendix-report-header">
+            <div class="col-sm-12">
+                <h4 class="form_heading appendix-main-heading">Appendix VIII - Statement of Charges for Turnover Commission</h4>
+            </div>
+        </div>
+
+        <sol-header></sol-header>
+
+        <div class="appendix-section-toolbar-bar">
+            <div class="text-right form_submit appendix-download-options">
+                <button type="button" class="btn btn-default" data-ng-click="vm.printReportSection(vm.activeSectionIndex);">PRINT</button>
+                <button type="button" class="btn btn-default"
+                        ng-show="vm.activeSectionIndex === 0 || vm.activeSectionIndex === 1"
+                        data-ng-click="vm.exportExcelActiveSection();">EXCEL</button>
+                <button type="button" class="btn btn-default" data-ng-click="vm.exportWordActiveSection();">WORD</button>
+            </div>
+            <div class="appendix-section-nav-control">
+                <label for="appendixSectionSelect" class="control-label appendix-section-select-label">Select Section</label>
+                <select id="appendixSectionSelect"
+                        class="form-control appendix-section-select-control"
+                        name="appendixSectionSelect"
+                        ng-model="vm.activeSectionIndex"
+                        ng-change="vm.setActiveSection(vm.activeSectionIndex)"
+                        ng-options="section.index as ((section.index + 1) + '. ' + section.title) for section in vm.reportSections">
+                </select>
+            </div>
+        </div>
+
+        <div class="row appendix-report-layout">
+            <div class="col-sm-12" id="appendix-section-content">
+                <div class="appendix-section-panel" ng-show="vm.activeSectionIndex === 0">
+                    <div id="section-1-print">
+                        <div class="appendix-section-center-title">Quarter Report</div>
+                        <div class="table-responsive" ng-if="vm.model && vm.model.length">
+                            <div style="text-align:center; font-weight:bold; margin-bottom:10px;">
+                                Quarter : {{vm.quarter}}
+                            </div>
+                            <table class="table table-bordered table-striped list nowrap table-textWrap datatable">
+                                <thead>
+                                <tr class="thalign">
+                                    <th>S.No</th>
+                                    <th>
+                                        TOC Claim for the quarter ended {{vm.getQuarterEndText()}} {{vm.getFinancialYear()}}
+                                    </th>
+                                    <th>No of Transactions</th>
+                                    <th>Amount</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr ng-repeat="x in vm.model">
+                                    <td align="center">{{x.sNo}}</td>
+                                    <td align="center"
+                                        ng-if="$index != vm.model.length - 3"
+                                        ng-attr-rowspan="{{$index == vm.model.length - 4 ? 2 : undefined}}"
+                                        ng-style="(($index == 3) || ($index >= vm.model.length - 4)) && {'font-weight':'bold','vertical-align':'middle'}">
+                                        {{x.totalClaim}}
+                                    </td>
+                                    <td align="center"
+                                        ng-style="(($index == 3) || ($index >= vm.model.length - 4)) && {'font-weight':'bold'}">
+                                        {{x.noOfTransections}}
+                                    </td>
+                                    <td align="center"
+                                        ng-style="(($index == 3) || ($index >= vm.model.length - 4)) && {'font-weight':'bold'}">
+                                        {{x.amount}}
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="no_records_message" ng-if="vm.section1NoData">
+                            No records found to display.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="appendix-section-panel" ng-show="vm.activeSectionIndex === 1">
+                    <div id="section-2-print">
+                        <div class="appendix-section-center-title">{{vm.taxRedemptionTitle || 'Tax Redemption'}}</div>
+                        <div class="appendix-tax-redemption-scheme-block"
+                             ng-repeat="scheme in vm.taxRedemptionSchemes track by scheme.key">
+                            <div class="appendix-scheme-title-bar">{{scheme.title}}</div>
+                            <div class="table-responsive">
+                                <table class="table table-bordered table-striped list table-textWrap">
+                                    <thead>
+                                    <tr class="thalign">
+                                        <th>Claim Received date</th>
+                                        <th>Investment Amount</th>
+                                        <th>Count</th>
+                                        <th>Interest Amount</th>
+                                        <th>Count</th>
+                                        <th>Total amount</th>
+                                        <th>Total Records.</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr ng-repeat="rowIndex in vm.getTaxRedemptionRowIndexes(scheme) track by rowIndex"
+                                        ng-init="cells = vm.getTaxRedemptionRowCells(scheme, rowIndex)">
+                                        <td align="center" ng-repeat="cell in cells track by $index">{{cell}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>&nbsp;</td>
+                                        <td>&nbsp;</td>
+                                        <td>&nbsp;</td>
+                                        <td>&nbsp;</td>
+                                        <td>&nbsp;</td>
+                                        <td>&nbsp;</td>
+                                        <td>&nbsp;</td>
+                                    </tr>
+                                    <tr>
+                                        <td align="center"><b>TOTAL</b></td>
+                                        <td>&nbsp;</td>
+                                        <td>&nbsp;</td>
+                                        <td>&nbsp;</td>
+                                        <td>&nbsp;</td>
+                                        <td>&nbsp;</td>
+                                        <td>&nbsp;</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="appendix-section-panel" ng-show="vm.activeSectionIndex === 2">
+                    <div class="appendix-section-preview appendix-annex2a-preview" ng-bind-html="vm.sectionPreviewHtml[2]"></div>
+                </div>
+
+                <div class="appendix-section-panel" ng-show="vm.activeSectionIndex === 3">
+                    <div class="appendix-section-preview" ng-bind-html="vm.sectionPreviewHtml[3]"></div>
+                </div>
+
+                <div class="appendix-section-panel" ng-show="vm.activeSectionIndex === 4">
+                    <div class="appendix-section-preview" ng-bind-html="vm.sectionPreviewHtml[4]"></div>
+                </div>
+
+                <div class="appendix-section-panel" ng-show="vm.activeSectionIndex === 5">
+                    <div class="appendix-section-preview" ng-bind-html="vm.sectionPreviewHtml[5]"></div>
+                </div>
+
+                <div class="appendix-section-panel" ng-show="vm.activeSectionIndex === 6">
+                    <div class="appendix-section-preview table-responsive" ng-bind-html="vm.sectionPreviewHtml[6]"></div>
+                </div>
+
+                <div class="appendix-section-panel" ng-show="vm.activeSectionIndex === 7">
+                    <div class="appendix-section-preview table-responsive" ng-bind-html="vm.sectionPreviewHtml[7]"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .appendix-main-heading {
+        text-align: left !important;
+        margin-bottom: 0;
+    }
+    .appendix-report-header {
+        margin-bottom: 15px;
+    }
+    .appendix-report-layout {
+        margin-top: 10px;
+    }
+    .appendix-section-toolbar-bar {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+        gap: 8px;
+        margin: 12px 0 14px;
+    }
+    .appendix-section-nav-control {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        max-width: 100%;
+    }
+    .appendix-section-select-label {
+        margin: 0;
+        font-weight: bold;
+        font-size: 14px;
+        color: #333;
+        white-space: nowrap;
+    }
+    .appendix-section-select-control {
+        width: 360px;
+        max-width: 52vw;
+    }
+    .appendix-tax-redemption-scheme-block {
+        margin-bottom: 28px;
+    }
+    .appendix-scheme-title-bar {
+        font-weight: bold;
+        font-size: 16px;
+        line-height: 1.4;
+        text-align: left;
+        padding: 8px 10px;
+        margin-bottom: 8px;
+        background: #f2f2f2;
+        border: 1px solid #ccc;
+    }
+    .appendix-section-panel {
+        min-height: 320px;
+    }
+    .appendix-download-options .btn {
+        margin-left: 5px;
+    }
+    .appendix-section-center-title {
+        text-align: center;
+        font-weight: bold;
+        font-size: 14pt;
+        margin: 0 0 16px 0;
+        line-height: 1.4;
+    }
+    .appendix-section-toolbar {
+        margin-bottom: 10px;
+    }
+    .appendix-table-name {
+        font-weight: bold;
+        font-size: 20px;
+        margin: 8px 0 0;
+        text-align: left;
+        line-height: 1.4;
+    }
+    .appendix-section-header-bar {
+        font-weight: bold;
+        font-size: 18px;
+        line-height: 1.4;
+        text-align: left;
+        margin-top: 8px;
+    }
+    .appendix-section-preview {
+        margin-top: 15px;
+        font-size: 12px;
+        line-height: 1.5;
+        overflow-x: auto;
+    }
+    .appendix-annex2a-preview {
+        padding: 12px 16px 24px 16px;
+    }
+    .appendix-annex2a-preview p {
+        margin: 0 0 16px 0;
+    }
+    .appendix-section-preview table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 12px;
+    }
+    .appendix-section-preview th,
+    .appendix-section-preview td {
+        border: 1px solid #333;
+        padding: 6px 8px;
+        vertical-align: middle;
+    }
+    .appendix-section-preview p {
+        margin: 0 0 10px 0;
+    }
+</style>

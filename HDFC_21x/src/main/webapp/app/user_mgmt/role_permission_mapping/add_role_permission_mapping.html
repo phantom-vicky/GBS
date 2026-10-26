@@ -1,0 +1,37 @@
+<user-left-menu></user-left-menu>
+<div class="loader-new" ng-if="vm.loader"></div>
+<div class="container from_wrapper">
+    <h4 class="form_heading  feature-heading">Roles and Permissions - Add</h4>
+    <h4 class="form_heading">Add Role</h4>
+    <form name="managePermissionForm" role="form">
+        <div class="row">
+            <div class="form-group ">
+                <label for="rolename" class="control-label col-sm-2">Role Name<span class="label-required">*</span></label>
+                <div class="col-sm-3">
+                    <input  type="text"  class="form-control" id="rolename" name="rolename"
+                            ng-keypress="vm.validateInput($event,'rolename')" ng-model="vm.role.name"
+                            maxlength="20" tabindex="1"  required leading-space>
+                 </div>
+                <div class="col-sm-1"></div>
+
+                <label for="description" class="control-label col-sm-2">Role Description</label>
+                <div class="col-sm-3">
+                    <textarea  type="text"  class="form-control" id="description" name="description"
+                            ng-keypress="vm.validateInput($event,'description')" ng-model="vm.role.description"
+                            maxlength="100" tabindex="1"  required leading-space></textarea>
+                     </div>
+            </div>
+        </div>
+
+        <h4 class="form_heading">Manage Permissions ({{vm.role.name | uppercase}})</h4>
+        <duallist template-url="app/user_mgmt/common/duallist-template.html" duallist-option="vm.options" leftscope="vm.permissions" rightscope="vm.rolePermissions" is-selection-valid="vm.isSelectionValid"></duallist>
+
+        <div class="col-sm-offset-5 col-sm-8 form_submit">
+            <button type="button" class="btn btn-default" ng-disabled="managePermissionForm.$invalid || !vm.isSelectionValid" ng-click="vm.addPermissionSubmit()">Submit</button>
+            <button type="button" class="btn btn-cancel" ng-click="vm.showCancelConfirmation()">Cancel</button>
+        </div>
+
+        <div class="isa_error" ng-if="vm.errorMsg" ng-bind="vm.errorMsg" style="text-align: center;">
+        </div>
+    </form>
+</div>

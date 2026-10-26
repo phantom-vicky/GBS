@@ -1,0 +1,73 @@
+<div class="container from_wrapper new_form_wrapper">
+
+    <h4 class="form_heading">Holder Type Details</h4>
+    <sol-header></sol-header>
+    <form name="subsAmtForm" role="form">
+        <div class="col-sm-6 col-sm-offset-3">
+
+
+
+            <div class="row">
+                <div class="form-group">
+                    <div class="col-sm-3"></div>
+                    <div class="col-sm-3">
+                        <label class="control-label">Name of the Module</label>
+                    </div>
+                    <div class="col-sm-5">
+                        <label><b>RBI Bond</b></label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row" ng-init="vm.getModuleName();">
+                <div class="form-group required">
+                    <div class="col-sm-6">
+                        <label for="bondScheme" class="control-label">Name of the Bond Scheme</label>
+                    </div>
+                    <div class="col-sm-4">
+                        <select class="form-control" id="bondScheme" name="bondScheme"
+                                ng-model="vm.schemeCode" required>
+                            <option value="">Select</option>
+                            <option ng-repeat="item in vm.schemeList" value="{{item.subCode}}" ng-bind="vm.schemeName=item.subCodeDescription"></option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="row">
+                <div class="form-group required">
+                    <div class="col-sm-6">
+                        <label for="holderType" class="control-label">Holder Type</label>
+                    </div>
+                    <div class="col-sm-4">
+                        <select class="form-control" id="holderType" name="holderType"
+                                ng-model="vm.holderType" required >
+                            <option value="">Select</option>
+                            <option value="ALL">ALL</option>
+                            <option value="INDIVIDUAL">Individual</option>
+                            <option value="POWER OF ATTORNEY">Power of Attorney</option>
+                            <option value="KARTA OF HUF">Karta of HUF</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="text-center form_submit">
+                <button type="submit" class="btn btn-default" id="submitButton"
+                        ui-sref="rbiBond_bond_inquiry_holder_type_det_report.inquiry_detail({obj:{
+								schemeName: vm.schemeName,
+								schemeCode: vm.schemeCode,
+								holderType: vm.holderType
+								}})"
+                        ng-disabled="subsAmtForm.$invalid">Submit</button>
+                <button type="button" class="btn btn-cancel" id="cancelButton"
+                        onclick="window.location.href= '#!/rbiBond_bond_inquiry/action/inquiry'">Cancel</button>
+            </div>
+            <div class="text-center">
+                <notice-message-directive></notice-message-directive>
+            </div>
+        </div>
+    </form>
+</div>

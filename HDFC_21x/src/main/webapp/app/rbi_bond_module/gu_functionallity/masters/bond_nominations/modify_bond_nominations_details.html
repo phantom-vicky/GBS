@@ -1,0 +1,437 @@
+<div class="loader-new" ng-if="vm.loader"></div>
+<dc-left-menu></dc-left-menu>
+<div class="container from_wrapper new_form_wrapper">
+    <h4 class="form_heading">Bond Nominations - Add/Modify</h4>
+    <sol-header></sol-header>
+
+    <form name="vm.bondNominationsForm" role="form">
+        <table class="table table-bordered">
+            <tbody>
+            <tr>
+                <td width="25%">Name of the Bond Scheme</td>
+                <td width="25%">
+                    <label class="data-bind" id="bondScheme">{{vm.schemeName}}</label>
+                </td>
+                <td width="25%">Mode of Holding</td>
+                <td width="25%">
+                    <label class="data-bind" id="modeOfHolding">{{vm.subDetail[0].modeOfHolding}}</label>
+                </td>
+            </tr>
+            <tr>
+                <td width="25%" ng-if="vm.subDetail[0].modeOfHolding1=='MH001' || vm.subDetail[0].modeOfHolding1=='MH004' || vm.subDetail[0].modeOfHolding1=='MH005'">BLA Number</td>
+                <td width="25%"ng-if="vm.subDetail[0].modeOfHolding1=='MH001' || vm.subDetail[0].modeOfHolding1=='MH004' || vm.subDetail[0].modeOfHolding1=='MH005'">
+                    <label class="data-bind" id="blaNo">{{vm.blaNo}}</label>
+                </td>
+                <td width="25%" ng-if="vm.subDetail[0].modeOfHolding1=='MH001' || vm.subDetail[0].modeOfHolding1=='MH004' || vm.subDetail[0].modeOfHolding1=='MH005'">Bond Holder Name</td>
+                <td width="25%" ng-if="vm.subDetail[0].modeOfHolding1=='MH001' || vm.subDetail[0].modeOfHolding1=='MH004' || vm.subDetail[0].modeOfHolding1=='MH005'">
+                    <label class="data-bind" id="holderName">{{vm.bondHolderName}}</label>
+                </td>
+
+            </tr>
+            <tr ng-if="vm.subDetail[0].modeOfHolding1=='MH003' || vm.subDetail[0].modeOfHolding1=='MH002'">
+                <td width="25%">First Joint Bond Holder BLA No</td>
+                <td width="25%">
+                    <label class="data-bind" id="joinBlaNo">{{vm.subDetail[0].blaNo}}</label>
+                </td>
+                <td width="25%">First Joint Bond Holder Name</td>
+                <td width="25%">
+                    <label class="data-bind" id="firstJointHolderName">{{vm.subDetail[0].jointHolderName}}</label>
+                </td>
+            </tr>
+            <tr ng-if="vm.subDetail[0].modeOfHolding1=='MH003' || vm.subDetail[0].modeOfHolding1=='MH002'">
+                <td width="25%">Second Joint Bond Holder BLA No</td>
+                <td width="25%" >
+                    <label class="data-bind" id="secJointHolderBlaNo">{{vm.subDetail[1].blaNo}}</label>
+                </td>
+                <td width="25%">Second Joint Bond Holder Name</td>
+                <td width="25%">
+                    <label class="data-bind" id="secJointHolderName">{{vm.subDetail[1].jointHolderName}}</label>
+                </td>
+            </tr>
+            <tr>
+                <td width="25%">Account Open Date (dd/mm/yyyy)</td>
+                <td width="25%">
+                    <label class="data-bind" id="accountOpenDate">{{vm.accountOpenDate}}</label>
+
+                </td>
+                <td width="25%">Maturity Date (dd/mm/yyyy)</td>
+                <td width="25%">
+                    <label class="data-bind" id="maturityDate">{{vm.maturityDate}}</label>
+                </td>
+            </tr>
+            <tr>
+                <td>Subscription Amount</td>
+                <td><label>{{vm.subscriptionAmount}}</label></td>
+                <td>Total Nominee Sharable Amount (Rs.)</td>
+                <td><label>{{vm.totalNomineeSharableAmount}}</label></td>
+            </tr>
+            </tbody>
+        </table>
+
+        <div class="col-sm-12 text-right form_submit">
+            <div class="row">
+                <a data-href="#" type="button" name="addBtn" class="btn btn-primary" ng-click="vm.addRange()">
+                    <span class="glyphicon glyphicon-plus"></span>&nbsp;ADD
+                </a>
+                <!--                    <a data-href="#" type="button" name="removeBtn" class="btn btn-delete" ng-if="vm.disableDelete" ng-click="vm.removeRange()">-->
+                <!--                        <span class="glyphicon glyphicon-trash"></span>&nbsp;DELETE-->
+                <!--                    </a>-->
+            </div>
+        </div>
+        <table class="table table-bordered table-striped">
+            <tbody ng-repeat="item in vm.nomineeList" ng-init="vm.getTotalSharePer()">
+            <tr>
+                <td colspan="4">
+                    <div class="col-sm-12 text-right form_submit">
+                        <div class="row">
+                            <!--                    <a data-href="#" type="button" name="addBtn" f="btn btn-primary" ng-click="vm.addRange()">-->
+                            <!--                        <span class="glyphicon glyphicon-plus"></span>&nbsp;ADD-->
+                            <!--                    </a>-->
+                            <a data-href="#" type="button" name="removeBtn" class="btn btn-delete" ng-if="vm.enableDelete" ng-click="vm.removeRange(item.ID.oldValue, $index)">
+                                <span class="glyphicon glyphicon-trash"></span>&nbsp;DELETE
+                            </a>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+
+            <tr>
+                <td colspan="4"><h4 class="form_heading">Nomination Details {{$index+1}}</h4></td>
+            </tr>
+            <tr>
+                <td width="25%" class="form-group required">
+                    <label for="nomineeFName[$index]" class="required control-label">Nominee First Name</label></td>
+                <td class="form-group">
+                    <input type="text" class="form-control" id="nomineeFName[$index]"
+                           chars="only-letters" oninput="this.value = this.value.replace(/[^a-zA-Z]/g, '')"
+                           limit-to="50" name="nomineeFName"
+                           ng-model="item.C003.oldValue" required>
+                </td>
+                <td width="25%">Nominee Middle Name</td>
+                <td>
+                    <input type="text" class="form-control" id="nomineeMName[$index]"
+                           chars="only-letters" oninput="this.value = this.value.replace(/[^a-zA-Z]/g, '')"
+                           limit-to="50" name="nomineeMName"
+                           ng-model="item.C004.oldValue">
+                </td>
+
+            </tr>
+
+            <tr>
+                <td width="25%">Nominee Last Name</td>
+                <td>
+                    <input type="text" class="form-control" id="nomineeLName[$index]"
+                           chars="only-letters" oninput="this.value = this.value.replace(/[^a-zA-Z ]/g, '').replace(/\s+/g, ' ')"
+                           limit-to="50" name="nomineeLName"
+                           ng-model="item.C005.oldValue">
+                </td>
+                <td width="25%" class="form-group ">
+                    <label class="control-label">Address1</label></td>
+                <td>
+                    <input type="text" class="form-control" id="address1[$index]"
+
+                           limit-to="250" name="address1"
+                           ng-model="item.C006.oldValue" >
+                </td>
+            </tr>
+            <tr>
+
+                <td width="25%">Address2</td>
+                <td><input type="text" class="form-control" id="address2[$index]"
+
+                           limit-to="250" name="address2"
+                           ng-model="item.C007.oldValue">
+                </td>
+
+                <td width="25%" class="form-group "><label class="control-label">City</label></td>
+                <td>
+                    <input type="text" class="form-control" id="city{{$index}}"
+                           chars="only-letters"
+                           limit-to="35" name="city"
+                           ng-model="item.C008.oldValue" >
+                </td>
+            </tr>
+            <tr>
+                <td width="25%"><label class="control-label">State</label></td>
+                <td width="25%"><select class="form-control" id="state{{$index}}"
+                                        name="state" ng-model="item.C009.oldValue"
+                                        ng-init="vm.getState()" >
+                    <option value="" >Select State</option>
+                    <option ng-repeat="item in vm.stateList" value="{{item.subCode}}">{{item.subCodeDescription}}</option>
+                </select></td>
+                <td width="25%" class="form-group "><label class="control-label">Pin Code</label></td>
+                <td>
+                    <input type="text" class="form-control"
+                           id="pinCode{{$index}}" name="pinCode"
+                           chars="alpha-numeric"
+                           limit-to="10"
+                           ng-model="item.C010.oldValue"
+                           ng-blur="vm.getAddressByPinCode(item.C010.oldValue,$index)"
+                           >
+                </td>
+            </tr>
+            <tr>
+                <td width="25%">Phone No</td>
+                <td>
+                    <input type="text" class="form-control" id="phoneNo[$index]"
+                           chars="only-numbers"
+                           limit-to="10" name="phoneNo"
+                           ng-model="item.C011.oldValue">
+                </td>
+                <td width="25%" class="form-group"><label class="control-label">Operative Account No</label></td>
+                <td>
+                    <input type="text" class="form-control" id="debitBankAccountNo" chars="alpha-numeric"
+                           name="debitBankAccountNo" ng-model="item.C013.oldValue" maxlength="32"
+                           onchange="return ((event.charCode > 64 && event.charCode < 91) || (event.charCode > 96 && event.charCode < 123) || event.charCode == 8 || (event.charCode >= 48 && event.charCode <= 57));"
+                           >
+                    <span class="alert-danger" ng-if="vm.debitBankAccountNoErrMsg" ng-bind="vm.debitBankAccountNoErrMsg"></span>
+                </td>
+            </tr>
+            <tr>
+                <td width="25%" class="form-group required">
+                    <label class="control-label">Nominee Sharable Amount (Rs.)</label>
+                </td>
+                <td>
+                    <input type="text" class="form-control" id="nomineeSharableAmount[$index]"
+                           name="nomineeSharableAmount"
+                           chars="only-numbers"
+                           maxlength="20"
+                           oninput="this.value = this.value.replace(/[^\d]/g, '').slice(0, 20);"
+                           ng-model="item.C031.oldValue"
+                           ng-change="vm.calculateSharePercentage(item, true); vm.validateTotalSharableAmount(true, false)"
+                           ng-blur="vm.validateNomineeSharableAmount(item, true, true)"
+                           required>
+<!--                    <span class="alert-danger" ng-if="vm.nomineeSharableTotalErrMsg" ng-bind="vm.nomineeSharableTotalErrMsg"></span>-->
+                </td>
+                <td width="25%" class="form-group required"><label class="control-label">Share Percentage</label></td>
+                <td>
+                    <input type="text"
+                           inputmode="numeric"
+                           class="form-control"
+                           id="sharePer[$index]"
+                           name="sharePer"
+                           ng-model="item.C012.oldValue"
+                           ng-value="item.C012.oldValue | number:2"
+                           required
+                           readonly >
+
+
+                </td>
+            </tr>
+            <tr>
+                <td width="25%" class="form-group required"><label class="control-label">Is Nominee a Minor</label></td>
+                <td>
+                    <select class="form-control" id="isMinor[$index]" name="isMinor"
+                            ng-model="item.C014.oldValue" required disabled>
+                        <option value="" hidden=true">Select</option>
+                        <option value="Y">Yes</option>
+                        <option value="N">No</option>
+                    </select>
+                </td>
+                <td width="25%" class="form-group required"><label class="control-label">Relation with Holder</label></td>
+                <td>
+                    <select class="form-control" id="relation[$index]" name="relation[$index]"
+                            ng-model="item.C015.oldValue" required>
+                        <option value="">Select</option>
+                        <option ng-repeat="items in vm.guardianDetailsList" value="{{items.SUBCODE}}">{{items.DESCRIPTION}}</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td width="25%" class="form-group required"><label class="control-label">Date Of Birth(DD/MM/YYYY)</label></td>
+                <td><!--ng-change="vm.checkAge(item);" removing-->
+                    <p class="input-group">
+                        <input type="text" class="form-control" id="minorDOB{{$index}}"
+                               name="minorDOB[$index]" ng-model="item.C016.oldValue"
+                               uib-datepicker-popup="dd/MM/yyyy" ng-init="vm.dateValidation();"
+                               datepicker-options="vm.dobCalenderOptionsNewGuardian"
+                               is-open="item.mminorDOBPicker.opened" close-text="Close"
+                               maxlength="10" required
+                               ng-blur="vm.textableDatePicker('minorDOB' + $index,item.C016.oldValue);vm.minorChecking('minorDOB' + $index, item.C016.oldValue,item);"
+                               ng-keyup="vm.autoslashing('minorDOB' + $index)" chars="numbers-slash"
+                        >
+                        <span class="input-group-btn">
+                            <button type="button" class="btn btn-secondary"
+                                    ng-click="item.mminorDOBPicker.opened = true"
+                                    id="minorDOBSearcher">
+                                <i class="glyphicon glyphicon-calendar"></i>
+                            </button>
+                         </span>
+                    </p>
+                </td>
+                <!--                <td width="25%" class="form-group required"><label class="control-label">Status</label></td>-->
+                <!--                <td>-->
+                <!--                    <select class="form-control" id="statusRes{{$index}}" name="status"-->
+                <!--                            ng-model="item.C029.oldValue" required>-->
+                <!--                        <option ng-repeat="items in vm.statusData" value="{{items.value}}" ng-bind="items.label"></option>-->
+                <!--                    </select>-->
+                <!--                </td>-->
+                <td width="25%" class="form-group">
+                    <label class="control-label">Nominee Status</label>
+                </td>
+                <td width="25%">
+                    <select class="form-control" id="nomineeStatus[$index]"
+                            name="nomineeStatus[$index]"
+                            ng-model="item.C029.oldValue" ng-disabled="vm.getDetails.verifiedStatus=='Y'">
+                        <option value="" hidden="true">Select</option>
+                        <option ng-repeat="item in vm.getNomineeStatusMetaData" value="{{item.SUBCODE}}">{{item.DESCRIPTION}}</option>
+                    </select>
+                </td>
+            </tr>
+
+
+
+            <tr>
+                <td colspan="4" ng-if="item.C014.oldValue=='Y'"> <h4 class="form_hea  ding">Guardian Details  (Mandatory if Nominee is a Minor)</h4></td>
+            </tr>
+            <tr ng-if="item.C014.oldValue=='Y'" class="form-group required">
+                <td width="25%"><label class="control-label">Guardian First Name</label></td>
+                <td class="form-group">
+                    <input type="text" class="form-control" id="guardFName[$index]"
+                           chars="only-letters"  oninput="this.value = this.value.replace(/[^a-zA-Z]/g, '')"
+                           limit-to="50" name="guardFName"
+                           ng-model="item.C017.oldValue" required>
+                </td>
+                <td width="25%">Guardian Middle Name</td>
+                <td>
+                    <input type="text" class="form-control" id="guardMName[$index]"
+                           chars="only-letters" oninput="this.value = this.value.replace(/[^a-zA-Z]/g, '')"
+                           limit-to="50" name="guardMName"
+                           ng-model="item.C018.oldValue">
+                </td>
+
+
+            </tr>
+
+            <tr ng-if="item.C014.oldValue=='Y'">
+                <td width="25%">Guardian Last Name</td>
+                <td class="form-group">
+                    <input type="text" class="form-control" id="guardLName[$index]"
+                           chars="only-letters" oninput="this.value = this.value.replace(/[^a-zA-Z]/g, '')"
+                           limit-to="50" name="guardLName"
+                           ng-model="item.C019.oldValue">
+                </td>
+                <td width="25%" class="form-group "><label class="control-label">Address1</label></td>
+                <td>
+                    <input type="text" class="form-control" id="guardAddress1[$index]"
+
+                           limit-to="250" name="guardAddress1"
+                           ng-model="item.C020.oldValue" >
+                </td>
+
+            </tr>
+
+            <tr ng-if="item.C014.oldValue=='Y'">
+
+                <td width="25%">Address 2</td>
+                <td>
+                    <input type="text" class="form-control" id="guardAddress2[$index]"
+                           limit-to="250" name="guardAddress2"
+                           ng-model="item.C021.oldValue">
+                </td>
+                <td width="25%" class="form-group "><label class="control-label">City</label></td>
+                <td>
+                    <input type="text" class="form-control" id="guardCity[$index]"
+                           chars="alpha-numeric"
+                           limit-to="35" name="guardCity"
+                           ng-model="item.C022.oldValue" >
+                </td>
+            </tr>
+
+            <tr ng-if="item.C014.oldValue=='Y'" class="form-group ">
+                <td width="25%">Email ID</td>
+                <td>
+                    <input type="text" class="form-control" id="guardEmail[$index]"
+                           limit-to="50" name="guardEmail"
+                           ng-model="item.C026.oldValue">
+                </td>
+
+                <td width="25%" class="form-group "><label class="control-label">PIN Code</label></td>
+                <td>
+                    <input type="text" class="form-control" id="guardPinCode[$index]"
+                           chars="only-numbers"
+                           limit-to="6" name="guardPinCode" ng-blur="vm.getAddressByGuardPinCode(item.C024.oldValue,$index)"
+                           ng-model="item.C024.oldValue" >
+                </td>
+            </tr>
+
+            <tr ng-if="item.C014.oldValue=='Y'">
+                <td width="25%">Mobile No</td>
+                <td class="form-group">
+                    <input type="text" class="form-control" id="guardMobileNo[$index]"
+                           chars="only-numbers"
+                           limit-to="10" name="guardMobileNo"
+                           ng-model="item.C025.oldValue">
+                </td>
+                <td width="25%"><label class="control-label">State</label></td>
+                <!--                <td class="form-group">-->
+                <!--                    <input type="text" class="form-control" id="guardState[$index]"-->
+                <!--                           chars="alpha-numeric"-->
+                <!--                           limit-to="20" name="guardState"-->
+                <!--                           ng-model="item.C024.oldValue" required>-->
+                <!--                </td>-->
+
+                <td width="25%">
+                    <select class="form-control" id="state" name="state" ng-model="item.C023.oldValue"
+                            ng-init="vm.getState()">
+                        <option value="">Select State</option>
+                        <option ng-repeat="item in vm.stateList" value="{{item.subCode}}">{{item.subCodeDescription}}</option>
+                    </select>
+                </td>
+
+
+            </tr>
+
+            <tr  ng-if="item.C014.oldValue == 'Y'">
+                <td width="25%" class="form-group required">
+                    <label class="control-label">Relation of Guardian with Minor</label></td>
+                <td width="25%">
+                    <select class="form-control" id="relationWithMinor" ng-init=""
+                            name="relationWithMinor" ng-model="item.C030.oldValue"
+                            required>
+                        <option value="" hidden="true">Select</option>
+                        <option ng-repeat="item in vm.guardianDetailsList" value="{{item.SUBCODE}}">{{item.DESCRIPTION}}</option>
+                    </select>
+                </td>
+            </tr>
+            </tbody>
+            <tr ng-if="vm.nomineeList.length>0">
+                <td width="25%" class="form-group required"><label class="control-label">Total (%)</label></td>
+                <td>
+                    <input type="text" class="form-control" id="totalPer[$index]"
+                           limit-to="3" min="1" max="100" name="totalPer"
+                           ng-model="vm.totalPer" required readonly>
+                    <span class="alert-danger" ng-if="vm.shareTotalPerCutOffErrMsg" ng-bind="vm.shareTotalPerCutOffErrMsg"></span>
+
+                </td>
+            </tr>
+
+            <tr>
+                <td width="25%">Rejection Remarks</td>
+
+
+                <td> <input type="text" class="form-control" id="deleteRemark[$index]" name="deleteRemark"
+                            ng-model="vm.deleteRemark" ng-required="vm.deleteRemark" readonly>
+                </td>
+            </tr>
+
+        </table>
+
+        <div class="text-center form_submit">
+            <button type="submit" class="btn btn-default" id="submitButton"
+                    ng-disabled="vm.isModifySubmitDisabled()"
+                    ng-click="vm.modifySubmit()">Modify</button>
+            <button type="button" class="btn btn-cancel" id="cancelButton"
+                    onclick="window.location.href= '#!/bond_nominations/action/inquiry';">Close
+            </button>
+        </div>
+        <div class="text-center">
+            <notice-message-directive></notice-message-directive>
+
+        </div>
+    </form>
+</div>
+
+
+
+

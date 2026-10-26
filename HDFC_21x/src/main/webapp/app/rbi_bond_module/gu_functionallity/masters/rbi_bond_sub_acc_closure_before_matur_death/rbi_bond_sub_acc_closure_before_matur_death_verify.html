@@ -1,0 +1,237 @@
+<div class="loader-new" ng-if="vm.loader"></div>
+<dc-left-menu></dc-left-menu>
+<div class="container from_wrapper new_form_wrapper">
+
+    <h4 class="form_heading">BOND Subscription Account Closure Before Maturity Death - verify</h4>
+    <sol-header></sol-header>
+    <form name="bondSubAccClosureForm" role="form">
+        <div class="col-sm-6 col-sm-offset-3">
+
+
+
+
+
+            <div class="row" ng-init="vm.getModuleName();">
+                <div class="form-group required">
+                    <div class="col-sm-6">
+                        <label for="bondScheme" class="control-label">Name of the Bond Scheme</label>
+                    </div>
+                    <div class="col-sm-4">
+                        <select class="form-control" id="bondScheme" name="bondScheme"
+                                ng-model="vm.moduleId" required>
+                            <option value="">Select</option>
+                            <option ng-repeat="item in vm.schemeList" value="{{item.subCode}}" ng-bind="item.subCodeDescription"></option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="row">
+                <div class="form-group required">
+                    <div class="col-sm-6">
+                        <label for="blaNo" class="control-label">Bond Ledger Account Number</label>
+                    </div>
+                    <div class="col-sm-4">
+                        <input type="text" class="form-control" id="blaNo"
+                               ng-model="vm.blaNo" ng-init="vm.blaNo = '';"
+                               chars="alpha-numeric" minlength="5" maxlength="15" readonly required>
+                    </div>
+                    <div class="col-sm-2" ng-if="vm.moduleId">
+                        <i class="glyphicon glyphicon-search cp" data-bs-toggle="modal"
+                           id="blaNo1"
+                           ng-click="vm.getVerifyDeleteDetails('bla');"></i>
+                        <i
+                                class="glyphicon glyphicon-remove clear cp"
+                                ng-click="vm.blaNo ='';vm.boSubsId;"></i>
+                    </div>
+                </div>
+            </div>
+
+
+
+            <div class="row">
+                <div class="form-group required">
+                    <div class="col-sm-6">
+                        <label for="boSubsId" class="control-label">Bond Subscription ID</label>
+                    </div>
+                    <div class="col-sm-4">
+                        <input type="text" class="form-control" id="boSubsId"
+                               ng-init="vm.boSubsId=''" ng-model="vm.boSubsId" required readonly>
+                    </div>
+                    <div class="col-sm-2"  ng-if="vm.blaNo">
+                        <i class="glyphicon glyphicon-search cp" data-bs-toggle="modal"
+                           id="boSubsId1"
+                           ng-click="vm.getVerifyDeleteDetails('boSubsId')"></i> <i
+                            class="glyphicon glyphicon-remove clear cp"
+                            ng-click="vm.boSubsId = '';"></i>
+                    </div>
+                </div>
+            </div>
+
+
+
+
+            <div class="row">
+                <div class="form-group required">
+                    <div class="col-sm-6">
+                        <label for="closureType" class="control-label">Closure Type</label>
+                    </div>
+
+                    <div class="col-sm-4">
+                        <input type="text" class="form-control" id="closureType"
+                               ng-init="vm.closureType='Due to Death'" ng-model="vm.closureType"  readonly>
+                    </div>
+
+
+                </div>
+            </div>
+
+
+
+
+            <div class="text-center form_submit">
+                <button type="submit" class="btn btn-default" id="submitButton"
+                        ui-sref="rbi_bond_sub_acc_closure_before_matur_death.verify_detail({obj:{
+								blaNo: vm.blaNo,
+								boSubsId : vm.boSubsId,
+								moduleId : vm.moduleId,
+								schemeName : vm.schemeName
+								}})"
+                        ng-disabled="bondSubAccClosureForm.$invalid">Submit</button>
+                <button type="button" class="btn btn-cancel" id="cancelButton"
+                        onclick="window.location.href= '#!/rbibond_gu_functionality'">Cancel</button>
+            </div>
+            <div class="text-center">
+                <notice-message-directive></notice-message-directive>
+            </div>
+        </div>
+    </form>
+</div>
+
+
+
+<div class="modal" id="bondSubsIdSearch" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-bs-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Bond Subscription ID</h4>
+            </div>
+            <div class="modal-body">
+                <div class="loader_popup"></div>
+                <div class="list_wrapper" ng-if="vm.bondSubsList.length>0">
+                    <div class="col-sm-8 form_submit">
+                        <div class="form-group">
+                            <div class="input-group">
+                                <div class="input-group-addon">
+                                    <i class="glyphicon glyphicon-search"></i>
+                                </div>
+                                <input type="text" class="form-control"
+                                       ng-model="vm.modalSearch"
+                                       placeholder="Search">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4 form_submit"></div>
+                    <div class="row">
+
+                        <div class="col-sm-12">
+                            <table class="table table-bordered list scroll sort">
+                                <thead ng-init="reverseOrder=false;sortedColumn = 'boSubsId'">
+                                <tr>
+                                    <th ng-click="(sortedColumn == 'blaNo')?(reverseOrder=(!reverseOrder)): (reverseOrder = false);sortedColumn = 'blaNo';" ng-class="(sortedColumn == 'blaNo')?((reverseOrder)?('arrow-down') : ('arrow-up') ) : ('')">Bond Ledger Account Number</th>
+                                    <th ng-click="(sortedColumn == 'bondHolderName')?(reverseOrder=(!reverseOrder)): (reverseOrder = false);sortedColumn = 'bondHolderName';" ng-class="(sortedColumn == 'bondHolderName')?((reverseOrder)?('arrow-down') : ('arrow-up') ) : ('')">Bond Holder Name</th>
+                                    <th ng-click="(sortedColumn == 'boSubsId')?(reverseOrder=(!reverseOrder)): (reverseOrder = false);sortedColumn = 'boSubsId';" ng-class="(sortedColumn == 'boSubsId')?((reverseOrder)?('arrow-down') : ('arrow-up') ) : ('')">Bond Subscription ID</th>
+                                    <th ng-click="(sortedColumn == 'maturityDate')?(reverseOrder=(!reverseOrder)): (reverseOrder = false);sortedColumn = 'maturityDate';" ng-class="(sortedColumn == 'maturityDate')?((reverseOrder)?('arrow-down') : ('arrow-up') ) : ('')">Maturity Date</th>
+                                    <th ng-click="(sortedColumn == 'gbmTranId')?(reverseOrder=(!reverseOrder)): (reverseOrder = false);sortedColumn = 'gbmTranId';" ng-class="(sortedColumn == 'gbmTranId')?((reverseOrder)?('arrow-down') : ('arrow-up') ) : ('')">GBM Tran ID</th>
+                                    <th ng-click="(sortedColumn == 'verifiedStatus')?(reverseOrder=(!reverseOrder)): (reverseOrder = false);sortedColumn = 'verifiedStatus';" ng-class="(sortedColumn == 'verifiedStatus')?((reverseOrder)?('arrow-down') : ('arrow-up') ) : ('')">Verified status</th>
+
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr class="cp"
+                                    ng-repeat="x in vm.bondSubsList | filter:vm.modalSearch | orderBy:sortedColumn:reverseOrder"
+                                    ng-click="vm.boSubsId = x.boSubsId;" data-bs-dismiss="modal">
+
+                                    <td>{{x.blaNo}}</td>
+                                    <td>{{x.bondHolderName}}</td>
+                                    <td>{{x.boSubsId}}</td>
+                                    <td>{{x.maturityDate}}</td>
+                                    <td>{{x.gbmTranId}}</td>
+                                    <td>{{x.verifiedStatus | getLabelFromValuesArray : vm.commonYesNoMetaData}}</td>
+
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="list_wrapper" ng-if="vm.bondSubsList.length==0">No records found to display.</div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+
+<div class="modal" id="blaModel" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" dat a-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Bond Ledger Account Number List</h4>
+            </div>
+            <div class="modal-body">
+                <div class="loader_popup"></div>
+                <div class="list_wrapper" ng-if="vm.blaDataList.length>0">
+                    <div class="col-sm-8 form_submit">
+                        <div class="form-group">
+                            <div class="input-group">
+                                <div class="input-group-addon">
+                                    <i class="glyphicon glyphicon-search"></i>
+                                </div>
+                                <input type="text" class="form-control"
+                                       ng-model="vm.searchSolId" ng-init="vm.searchSolId = ''"
+                                       placeholder="Search">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4 form_submit"></div>
+                    <div class="row">
+
+                        <div class="col-sm-12">
+                            <table class="table table-bordered list scroll sort">
+                                <thead ng-init="reverseOrder=false;sortedColumn = 'blaNo'">
+                                <tr>
+                                    <th ng-click="(sortedColumn == 'blaNo')?(reverseOrder=(!reverseOrder)): (reverseOrder = false);sortedColumn = 'blaNo';" ng-class="(sortedColumn == 'blaNo')?((reverseOrder)?('arrow-down') : ('arrow-up') ) : ('')">Bond Ledger Account Number</th>
+                                    <th ng-click="(sortedColumn == 'bondHolderName')?(reverseOrder=(!reverseOrder)): (reverseOrder = false);sortedColumn = 'nameOfTheBondHolder';" ng-class="(sortedColumn == 'nameOfTheBondHolder')?((reverseOrder)?('arrow-down') : ('arrow-up') ) : ('')">Name of the Bond Holder</th>
+                                    <!--                                    <th ng-click="(sortedColumn == 'holderType')?(reverseOrder=(!reverseOrder)): (reverseOrder = false);sortedColumn = 'jointHolderType';" ng-class="(sortedColumn == 'jointHolderType')?((reverseOrder)?('arrow-down') : ('arrow-up') ) : ('')">Joint Holder Type</th>-->
+                                    <th ng-click="(sortedColumn == 'modeOfHolding')?(reverseOrder=(!reverseOrder)): (reverseOrder = false);sortedColumn = 'modeOfHolding';" ng-class="(sortedColumn == 'modeOfHolding')?((reverseOrder)?('arrow-down') : ('arrow-up') ) : ('')">Mode of Holding</th>
+<!--                                    <th ng-click="(sortedColumn == 'verifiedStatus')?(reverseOrder=(!reverseOrder)): (reverseOrder = false);sortedColumn = 'verifiedStatus';" ng-class="(sortedColumn == 'verifiedStatus')?((reverseOrder)?('arrow-down') : ('arrow-up') ) : ('')">Verified status</th>-->
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr class="cp"
+                                    ng-repeat="x in vm.blaDataList | filter:vm.searchSolId | orderBy:sortedColumn:reverseOrder"
+                                    ng-click="vm.blaNo= x.blaNo;vm.modeOfHolding = x.modeOfHolding;vm.nameOfTheBondHolder=x.bondHolderName;vm.holderType = x.holderType;vm.modeOfHoldingCode = x.modeOfHoldingCode" data-bs-dismiss="modal">
+                                    <td>{{x.blaNo}}</td>
+                                    <td>{{x.bondHolderName}}</td>
+                                    <!--                                    <td>{{x.holderType}}</td>-->
+                                    <td>{{x.modeOfHolding}}</td>
+<!--                                    <td>{{x.verifiedStatus | getLabelFromValuesArray : vm.commonYesNoMetaData}}</td>-->
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="list_wrapper" ng-if="vm.blaDataList.length==0">No records found to display.</div>
+            </div>
+
+        </div>
+    </div>
+</div>

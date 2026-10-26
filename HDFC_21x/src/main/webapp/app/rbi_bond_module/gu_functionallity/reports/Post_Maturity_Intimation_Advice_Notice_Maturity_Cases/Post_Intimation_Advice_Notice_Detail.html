@@ -1,0 +1,436 @@
+<div class="loader-new" data-ng-if="vm.loader"></div>
+
+<div class="container" data-ng-if="vm.model.length > 0">
+
+  <div class="container from_wrapper new_form_wrapper">
+
+    <div class="text-right form_submit">
+
+      <button type="submit"
+              class="btn btn-default"
+              onclick="window.location.href ='#!/rbibond_gu_functionality';"
+              id="homeButton">
+        Home
+      </button>
+
+      <button type="submit"
+              class="btn btn-default"
+              data-ng-click="vm.printPage($event)">
+        Print
+      </button>
+
+      <button type="button"
+              class="btn btn-cancel"
+              data-ng-click="vm.goBack()">
+        Back
+      </button>
+
+    </div>
+
+    <h4 class="form_heading">
+      Post Maturity Intimation Advice Notice for On Maturity Cases
+    </h4>
+
+    <sol-header></sol-header>
+
+
+    <div data-ng-hide="vm.showLetter">
+
+      <table class="table table-bordered"
+             style="padding: 10px; width: 100%"
+             aria-label="Post Maturity Intimation Advice Notice for On Maturity Cases">
+
+        <tr>
+          <th scope="col">Name of the Bond Scheme</th>
+          <td colspan="3">{{vm.schemeName}}</td>
+        </tr>
+
+        <tr data-ng-if="vm.fromDate">
+          <th scope="col">From Transaction Date</th>
+          <td>{{vm.fromDate | date: 'dd/MM/yyyy'}}</td>
+        </tr>
+
+        <tr data-ng-if="vm.toDate">
+          <th scope="col">To Transaction Date</th>
+          <td>{{vm.toDate | date: 'dd/MM/yyyy'}}</td>
+        </tr>
+
+      </table>
+
+      <div class="row">
+
+        <div class="col-sm-6"
+             style="width:100%;
+                     display:flex;
+                     align-items:center;
+                     justify-content:flex-end">
+
+          <div class="form-group" style="margin-right: 15px;">
+
+            <div class="input-group">
+
+              <div class="input-group-addon">
+                <span class="glyphicon glyphicon-search"></span>
+              </div>
+
+              <input type="text"
+                     id="search"
+                     class="form-control"
+                     data-ng-model="vm.searchText"
+                     placeholder="Search records..." />
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+      <div class="col-sm-12">
+
+        <div class="table-responsive">
+
+          <table class="table table-bordered table-striped list nowrap table-textWrap datatable"
+                 aria-label="Post Maturity Intimation Advice Notice for On Maturity Cases">
+            <thead>
+            <tr>
+              <th scope="col">S. No.</th>
+              <th scope="col">BLA No</th>
+              <th scope="col">Holder Name / First Holder Name</th>
+              <th scope="col">PAN No</th>
+              <th scope="col">Download</th>
+            </tr>
+
+            </thead>
+
+            <tbody>
+
+            <tr data-ng-repeat="x in vm.model | filter: vm.searchText">
+
+              <td>{{$index+1}}</td>
+
+              <td>{{x.blaNumber}}</td>
+
+              <td>{{x.nameOfHolder}}</td>
+
+              <td>{{x.panNumber}}</td>
+              <td>
+
+                <button type="button"
+                        class="btn btn-default"
+                        data-ng-click="vm.download(x.blaNumber, x.panNumber)">
+                  Download
+                </button>
+              </td>
+            </tr>
+            <tr data-ng-if="(vm.model | filter: vm.searchText).length == 0">
+              <td colspan="5"
+                  style="text-align:center;
+                   font-weight:bold;">
+                No Data Found
+              </td>
+            </tr>
+            </tbody>
+
+          </table>
+        </div>
+
+      </div>
+
+    </div>
+
+    <div id="printSection"
+         ng-show="vm.showLetter"
+         style="background:#fff;
+            padding:40px;
+            font-family:'Times New Roman', serif;
+            font-size:16px;
+            line-height:1.6;
+            color:#000;">
+
+      <div ng-repeat="data in vm.printRecords">
+        <div class="print-top-space"></div>
+
+        <table style="width:100%;
+              border:none;
+              margin-bottom:0px;
+              border-collapse:collapse;">
+          <tr>
+
+            <td style="width:50%;
+               border:none;
+               vertical-align:top;">
+              <br>
+              <br>
+
+              <img src="assets/images/HDFC-Logo.png"  alt="HDFC"  style="margin-top: 0px;
+               margin-left: 5px;  width: 250px;height: 50px; display: block;">
+
+              <div  class="date-print" style="font-size:20px;
+                  margin-top:110px;
+                  text-align:left;">
+                Date: {{vm.today | date:'dd/MM/yyyy'}}
+              </div>
+
+            </td>
+
+            <td style="width:30%;
+               border:none;
+               vertical-align:top;
+               text-align:left;
+               font-size:20px;
+               line-height:1.5;">
+              <strong>HDFC Bank Ltd,</strong><br>
+              GOI Bond Operations,<br>
+              No-94, 2nd Floor, Zone 1,<br>
+              GKS Technology Park,<br>
+              SP Estate Bus Stand,<br>
+              Wavin Main Road, Mogappair,<br>
+              Chennai - 600058<br>
+              Tel : 044-69129917<br>
+              E-mail: rrb.chennai@hdfc.bank.in
+            </td>
+
+          </tr>
+        </table>
+
+        <br><br>
+        <div style="margin-bottom:25px; line-height:1.5; font-size:20px;">
+          Mr / Ms. {{data.nameOfHolder || ''}}<br>
+
+          <span ng-if="data.address">{{data.address}}</span>
+          <br ng-if="data.address">
+
+          <span ng-if="data.address1">{{data.address1}}</span>
+          <br ng-if="data.address1">
+
+          <span ng-if="data.city">{{data.city}}</span>
+          <span ng-if="data.state">{{data.state}}</span>
+          <span ng-if="data.pinCode"> - {{data.pinCode}}</span>
+          <br>
+          Mob no : {{data.phoneNumber || ''}}
+        </div>
+
+        <br>
+
+        <div style="margin-bottom:15px; font-size:20px;">
+          Dear Sir/Madam,
+        </div>
+
+        <div style="font-weight:bold; margin-bottom:15px; font-size:20px;">
+          Sub:
+          <span style="text-decoration: underline;">
+            Repayment of {{vm.formattedSchemeName}}
+          </span>
+        </div>
+        <br>
+        <div style="text-align:justify; margin-bottom:20px; font-size:20px;">
+          We are pleased to inform you that your Account No.
+          {{data.accountNo}}
+          with HDFC BANK LTD has been credited on
+          {{data.maturityDate ? (data.maturityDate | date:'dd-MMM-yy') : ''}}
+          with the repayment proceeds of your investment in
+          {{vm.formattedSchemeName}}.
+        </div>
+        <br>
+        <div style="font-weight:bold; margin-bottom:10px; font-size:20px;">
+          Details of the Transaction:
+        </div>
+        <br>
+
+        <table style="width:70%;
+                      border-collapse:collapse;
+                      font-family:'Times New Roman', serif;
+                      font-size:20px;
+                      margin-top:10px;">
+
+          <tr>
+            <td style="border:1px solid #000; padding:6px; font-weight:bold; width:47%;">BLA No</td>
+            <td style="border:1px solid #000; padding:6px;">{{data.blaNumber || '-'}}</td>
+          </tr>
+
+          <tr>
+            <td style="border:1px solid #000; padding:6px; font-weight:bold;">Maturity Date</td>
+            <td style="border:1px solid #000; padding:6px;">{{data.maturityDate | date:'dd-MMM-yy'}}</td>
+          </tr>
+
+          <tr>
+            <td style="border:1px solid #000; padding:6px; font-weight:bold;">Investment Amount</td>
+            <td style="border:1px solid #000; padding:6px;">{{data.investedAmount}}</td>
+          </tr>
+
+          <tr>
+            <td style="border:1px solid #000; padding:6px; font-weight:bold;">Interest Amount</td>
+            <td style="border:1px solid #000; padding:6px;">{{data.interestAmount}}</td>
+          </tr>
+
+          <tr>
+            <td style="border:1px solid #000; padding:6px; font-weight:bold;">TDS Rate</td>
+            <td style="border:1px solid #000; padding:6px;">{{data.tdsRate || '0'}}%</td>
+          </tr>
+
+          <tr>
+            <td style="border:1px solid #000; padding:6px; font-weight:bold;">TDS Amount</td>
+            <td style="border:1px solid #000; padding:6px;">{{data.tdsAmount || '-'}}</td>
+          </tr>
+
+          <tr>
+            <td style="border:1px solid #000; padding:6px; font-weight:bold;">Total Payment Amount</td>
+            <td style="border:1px solid #000; padding:6px;">{{data.totalAmount}}</td>
+          </tr>
+
+        </table>
+
+        <div style="margin-top:30px; font-size:20px;">
+          We assure you the best of our services.
+        </div>
+
+        <div style="margin-top:20px; font-size:20px;">
+          Warm Regards,
+          <br><br>
+          HDFC Bank
+         </div>
+          <br>
+         <div style="margin-top:20px; text-align:center; font-size:20px;">
+          Note: This is computer generated letter and no signature is required
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+
+</div>
+
+<div class="container" data-ng-if="vm.noDataFound">
+  <div class="list_wrapper no_records_message">
+    <h4 class="form_heading">Post Maturity Intimation Advice Notice for On Maturity Cases</h4>
+    No records found to display.
+    <div style="text-align: center">
+      <button type="button"
+              class="btn btn-default"
+              onclick="window.location.href= '#!/Post_Intimation_Advice_Notice_Maturity_Cases/action/inquiry';">
+        Back
+      </button>
+    </div>
+  </div>
+</div>
+
+<style>
+
+  .from_wrapper {
+      width: 100%;
+      background: #eef1f4;
+      padding: 15px;
+      overflow: hidden;
+  }
+
+  .letter-wrapper {
+      width: 100%;
+      background: #eef1f4;
+      padding: 10px 0;
+  }
+
+  .list-table {
+      width: 100%;
+      border-collapse: collapse;
+  }
+
+  table td,
+  table th {
+      vertical-align: top;
+  }
+
+  @media print {
+      body * {
+          visibility: hidden;
+      }
+
+      #printSection,
+      #printSection * {
+          visibility: visible;
+      }
+
+      #printSection {
+          position: absolute;
+          left: 0;
+          top: 0;
+          width: 100%;
+          background: #fff !important;
+          margin: 0 !important;
+          padding: 0 !important;
+      }
+
+      #printSection > div {
+          page-break-after: always;
+          break-after: page;
+          page-break-inside: avoid;
+          break-inside: avoid;
+          box-sizing: border-box;
+          width: 100%;
+          height: 100%;
+          padding: 5mm 10mm !important;
+      }
+.print-top-space {
+    display: block !important;
+    height: 40px !important;
+    margin: 0 !important;
+}
+      #printSection p,
+      #printSection div,
+      #printSection span,
+      #printSection td,
+      #printSection th,
+      #printSection .salutation,
+      #printSection .address-block,
+      #printSection .section-title,
+      #printSection .footer {
+          font-size: 15.5px !important;
+          line-height: 1.3 !important;
+          margin-top: 0 !important;
+          margin-bottom: 8px !important;
+      }
+
+      #printSection table {
+          margin: 8px 0 !important;
+          font-size: 13.5px !important;
+      }
+#printSection table td,
+#printSection table th {
+    padding: 5px 8px !important;
+}
+
+#printSection table td[style*="width:30%"],
+#printSection table td[style*="width: 30%"] {
+    width: 30% !important;
+}
+
+#printSection table td[style*="width:50%"],
+#printSection table td[style*="width: 50%"] {
+    width: 50% !important;
+}
+
+
+
+     #printSection .date-print {
+    margin-top: 60px !important;
+}
+      .footer {
+          margin-top: 15px !important;
+      }
+
+      .form_submit,
+      .form_heading,
+      sol-header,
+      .loader-new {
+          display: none !important;
+      }
+
+      @page {
+          size: A4;
+          margin: 0;
+      }
+  }
+
+</style>

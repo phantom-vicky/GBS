@@ -1,0 +1,301 @@
+<div class="loader-new" ng-if="vm.loader"></div>
+<div class="container" ng-if="vm.filteredRecords.length>0">
+    <div class="container from_wrapper new_form_wrapper">
+        <div class="row">
+            <h4 class="form_heading">PAN Validation Re-trigger</h4>
+        </div>
+        <sol-header></sol-header>
+        <form name="panRetriggerForm" role="form">
+        <table class="table table-bordered">
+            <tbody>
+            <tr>
+                <td width="25%">Name of the Bond Scheme</td>
+                <td width="25%">
+                    <label class="data-bind">{{vm.schemeName}}</label>
+                </td>
+                <td width="25%">PanStatus ValidateDate</td>
+                <td width="25%">
+                    <label class="data-bind">{{vm.panStatusValidateDate | date : 'dd/MM/yyyy'}}</label>
+                </td>
+            </tr>
+            <tr>
+                <td width="25%">File Mode</td>
+                <td width="25%">
+                    <label class="data-bind">
+        <span ng-switch="vm.fileMode">
+            <span ng-switch-when="C">Cash-in</span>
+            <span ng-switch-when="NB">Net Banking</span>
+        </span>
+                    </label>                </td>
+                <td width="25%">File Status</td>
+                <td width="25%">
+        <span ng-switch="vm.fileStatus">
+            <span ng-switch-when="A">ALL</span>
+            <span ng-switch-when="S">SUCCESS</span>
+            <span ng-switch-when="M">MISSMATCH</span>
+        </span>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="table-responsive">
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label>Show
+                                    <select id="pageSize" class="form-control filter-control" ng-model="vm.pageSize" ng-change="vm.updatePageSize()" ng-options="option for option in vm.pageSizeOptions"></select>records per page
+                                </label>
+                            </div>
+                        </div><br><br><br><br><br>
+                        <!--<div class="col-sm-3 pull-right">
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <div class="input-group-addon"><i class="glyphicon glyphicon-search"></i></div>
+                                    <input type="text" id="search" class="form-control" ng-change="vm.updateFilteredRecords();" ng-model="vm.searchText" Placeholder="Search">
+                                </div>
+                            </div>
+                        </div>-->
+                        <div style="max-height:400px; overflow-y:auto;">
+                        <table class="table table-bordered table-striped list table-textWrap align-middle">
+                            <thead>
+                            <tr class="thalign">
+                                <th style="position: sticky; top: 0; background: #fff; z-index: 4;">S.No</th>
+                                <th style="position: sticky; top: 0; background: #fff; z-index: 4;">Name</th>
+                                <th style="position: sticky; top: 0; background: #fff; z-index: 4;">Status</th>
+                                <th style="position: sticky; top: 0; background: #fff; z-index: 4;">New Name</th>
+                                <th style="position: sticky; top: 0; background: #fff; z-index: 4;">DOB</th>
+                                <th style="position: sticky; top: 0; background: #fff; z-index: 4;">Status</th>
+                                <th style="position: sticky; top: 0; background: #fff; z-index: 4;">New DOB</th>
+                                <th style="position: sticky; top: 0; background: #fff; z-index: 4;">Pan No</th>
+                                <th style="position: sticky; top: 0; background: #fff; z-index: 4;">Status</th>
+                                <th style="position: sticky; top: 0; background: #fff; z-index: 4;">New Pan No</th>
+                                <th style="position: sticky; top: 0; background: #fff; z-index: 4;">Process Status</th>
+                                <th style="position: sticky; top: 0; background: #fff; z-index: 4;">Remarks</th>
+                                <th style="position: sticky; top: 0; background: #fff; z-index: 4;">Buttons</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr ng-repeat="x in vm.filteredRecords.slice((vm.currentPage-1)*vm.pageSize, vm.currentPage*vm.pageSize)"
+                            ng-init="absoluteIndex = (vm.currentPage - 1) * vm.pageSize + $index"  ng-if="vm.filteredRecords.length>0">
+                                <form name="panRetriggerFormItr{{$index}}" role="form">
+                                    <td>{{vm.itemsPerPage *(vm.currentPage-1)+$index+1}}</td>
+                                    <td>{{x.name ? x.name : '' }}</td>
+                                    <td>{{x.nameStatus ? x.nameStatus : '' }}</td>
+                                    <td ng-if="x.nameStatus=='Y'">{{x.newName}}</td>
+                                    <td ng-if="x.nameStatus=='N'">
+  <textarea class="form-control"
+            chars="alpha-numeric"
+            id="newName{{$index}}"
+            rows="1"
+            name="newName{{$index}}"
+            required
+            ng-keypress="vm.validationAlphaNumeric($event);"
+            style="resize: none; overflow: hidden; min-width: 250px; width:100%;height:75px;"
+            ng-model="x.newName"
+            maxlength="50"
+            oninput="this.value=this.value.replace(/[^a-zA-Z\s]/g,'').replace(/^\s/,'');
+                     this.style.height='auto';
+                     this.style.height=(this.scrollHeight)+'px';">
+  </textarea>
+                                    </td>
+
+                                    <td>{{ x.dob ? (x.dob | date : 'dd/MM/yyyy') : '' }}</td>
+                                    <td>{{ x.dobStatus ? x.dobStatus : '' }}</td>
+                                    <td ng-if="x.dobStatus === 'N'">
+                                        <div class="row">
+                                            <div class="form-group required">
+                                                <div class="col-sm-6">
+                                                    <div class="input-group" style="min-width:150px;">
+                                                        <input type="text" class="form-control" id="dobInput{{$index}}"
+                                                               name="x.newDob" ng-model="x.newDob" maxlength="10" ng-init="vm.newDobValidation(x);"
+                                                               uib-datepicker-popup="dd/MM/yyyy"
+                                                               is-open="vm.datePickerStates[$index].opened"
+                                                               close-text="Close" ng-blur="vm.textableDatePickerYear('dobInput' + $index,x,$index);vm.futureNotAllowedIndex('newDob', x, $index);"
+                                                               ng-keyup="vm.autoslashing('dobInput' + $index)" chars="numbers-slash"
+                                                               datepicker-options="vm.newDobCalenderOptions"
+                                                               required/>
+                                                        <span class="input-group-btn">
+                                                    <button type="button" class="btn btn-secondary"
+                                                            ng-click="vm.datePickerStates[$index].opened = true"
+                                                            id="x.newDobPicker">
+                                                        <i class="glyphicon glyphicon-calendar"></i>
+                                                    </button>
+                                                </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td ng-if="x.dobStatus=='Y'" class="text-center"><label id="newDob">{{x.newDob | date:'dd/MM/yyyy'}}</label></td>
+                                    <td>{{ x.oldPan ? x.oldPan : '' }}</td>
+                                    <td>{{ x.panStatus ? x.panStatus : '' }}</td>
+                                    <td ng-if="x.panStatus=='Y' || x.panStatus=='E'" class="text-center">{{x.newPan}}</td>
+                                    <td ng-if="x.panStatus=='N'"><input type="text" chars="alpha-numeric" class="form-control" id="newPan{{$index}}"
+                                                                        name="newPan{{$index}}" ng-model="x.newPan" maxlength="10" required ng-pattern="vm.panPattern" ng-keypress="vm.panValidation($event);"/></td>
+                                    <td ng-if="x.processStatus === 'M'|| x.processStatus === 'FM'"><select class="form-control" id="processStatus{{$index}}" name="processStatus{{$index}}"
+                                                                                                           ng-model="x.processStatus" style="width:80%" required>
+                                        <option value="" hidden="true">SELECT</option>
+                                        <option value="M">Mismatch</option>
+                                        <option value="FM">Force Match</option>
+                                    </select></td>
+                                    <td ng-if="x.processStatus === 'F'"><select class="form-control" id="processStatus{{$index}}" name="processStatus{{$index}}"
+                                                                                ng-model="x.processStatus" style="width:80%" required disabled>
+                                        <option value="" hidden="true">SELECT</option>
+                                        <option value="F">Force Match</option>
+                                    </select></td>
+                                    <td ng-if="x.processStatus=='Y'"><select class="form-control" name="processStatus{{$index}}" ng-model="x.processStatus" style="width:80%" required disabled>
+                                        <option value="" hidden="true">SELECT</option>
+                                        <option value="Y">Success</option>
+                                    </select></td>
+                                    <td ng-if="x.processStatus === 'M' || x.processStatus === 'FM'"><input type="text" chars="alpha-numeric" class="form-control" id="remarks{{$index}}" ng-init=""
+                                                                                                          name="remarks{{$index}}" ng-model="x.remarks" required ng-keypress="vm.validationAlphaNumeric($event);" oninput="this.value = this.value.replace(/[^a-zA-Z\s]/g, '').replace(/^\s/, '');" maxlength="200"></td>
+                                    <td ng-if="x.processStatus === 'F'">{{x.remarks}}</td>
+                                    <td ng-if="x.processStatus === 'Y'"></td>
+                                    <td><div class="text-center form_submit">
+                                        <button ng-if="x.processStatus === 'M'" type="button" class="btn btn-default" id="validateButton{{absoluteIndex}}" ng-click="vm.submitValidateForm(x,vm.filteredRecords,absoluteIndex);" ng-disabled="panRetriggerFormItr{{absoluteIndex}}.$invalid" ng-hide="vm.shouldHideButton1[absoluteIndex]">Validate</button>
+                                        <button ng-if="x.processStatus === 'Y' || x.processStatus === 'FM'" type="button" class="btn btn-default" id="verifyButton{{absoluteIndex}}" ng-click="vm.submitVerifyForm(x,vm.filteredRecords);" ng-disabled="panRetriggerFormItr{{absoluteIndex}}.$invalid" ng-hide="vm.shouldHideButton[absoluteIndex]">Submit</button>
+                                    </div></td>
+                                </form>
+                            </tr>
+                            <tr ng-if="vm.filteredRecords.length == 0">
+                                <td colspan="12" class="text-center">No records found to display.</td>
+                            </tr>
+                            </tbody>
+                        </table></div>
+                    </div>
+                    <div class="row">
+                        <div ng-if="vm.filteredRecords.length != 0" class="col-md-12 text-right">
+                            <div class="pagination-container">
+                                <ul class="pagination">
+                                    <li ng-class="{disabled: vm.currentPage === 1}">
+                                        <a href="javascript:void(0)" ng-click="vm.firstPage()">First</a>
+                                    </li>
+                                    <li ng-class="{disabled: vm.currentPage === 1}">
+                                        <a href="javascript:void(0)" ng-click="vm.prevPage()">Prev</a>
+                                    </li>
+                                    <li ng-repeat="page in vm.pages" ng-class="{active: vm.page === vm.currentPage}">
+                                        <a href="javascript:void(0)" ng-click="vm.setPage(page)">{{page}}</a>
+                                    </li>
+                                    <li ng-class="{disabled: vm.currentPage === vm.totalPages}">
+                                        <a href="javascript:void(0)" ng-click="vm.nextPage()">Next</a>
+                                    </li>
+                                    <li ng-class="{disabled: vm.currentPage === vm.totalPages}">
+                                        <a href="javascript:void(0)" ng-click="vm.lastPage()">Last</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        Showing {{(vm.currentPage-1)*vm.pageSize + 1}} to
+                        {{Math.min(vm.currentPage*pageSize, vm.filteredRecords.length)}}
+                        of {{vm.filteredRecords.length}} records
+                    </div>
+                </div>
+            </div></form>
+            <div class="text-center">
+            <button type="button" class="btn btn-cancel" id="cancelButton" onclick="window.location.href= '#!/pan_validation_retrigger/action/inquiry'">Cancel</button>
+            </div>
+    </div>
+</div>
+<div class="container" ng-if="vm.model1.length>0">
+    <div class="container from_wrapper new_form_wrapper">
+        <div class="row">
+            <h4 class="form_heading">PAN Validation Re-trigger</h4>
+        </div>
+        <sol-header></sol-header>
+            <table class="table table-bordered">
+                <tbody>
+                <tr>
+                    <td width="25%">Name of the Bond Scheme</td>
+                    <td width="25%">
+                        <label class="data-bind">{{vm.schemeName}}</label>
+                    </td>
+                    <td width="25%">PanStatus ValidateDate</td>
+                    <td width="25%">
+                        <label class="data-bind">{{vm.panStatusValidateDate | date : 'dd/MM/yyyy'}}</label>
+                    </td>
+                </tr>
+                <tr>
+                    <td width="25%">File Mode</td>
+                    <td width="25%">
+                        <label class="data-bind">
+        <span ng-switch="vm.fileMode">
+            <span ng-switch-when="C">Cash-in</span>
+            <span ng-switch-when="NB">Net Banking</span>
+        </span>
+                        </label>                </td>
+                    <td width="25%">File Status</td>
+                    <td width="25%">
+        <span ng-switch="vm.fileStatus">
+            <span ng-switch-when="A">ALL</span>
+            <span ng-switch-when="S">SUCCESS</span>
+            <span ng-switch-when="M">MISSMATCH</span>
+        </span>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="table-responsive">
+                        <div class="table-responsive" style="max-height:400px; overflow-y:auto;">
+                        <table class="table table-bordered table-striped list nowrap table-textWrap datatable"
+                               ui-jq="dataTable">
+                            <thead>
+                            <tr class="thalign">
+                                <th style="position: sticky; top: 0; background: #fff; z-index: 4;">S.No</th>
+                                <th style="position: sticky; top: 0; background: #fff; z-index: 4;">Name</th>
+                                <th style="position: sticky; top: 0; background: #fff; z-index: 4;">Status</th>
+                                <th style="position: sticky; top: 0; background: #fff; z-index: 4;">New Name</th>
+                                <th style="position: sticky; top: 0; background: #fff; z-index: 4;">DOB</th>
+                                <th style="position: sticky; top: 0; background: #fff; z-index: 4;">Status</th>
+                                <th style="position: sticky; top: 0; background: #fff; z-index: 4;">New DOB</th>
+                                <th style="position: sticky; top: 0; background: #fff; z-index: 4;">Pan No</th>
+                                <th style="position: sticky; top: 0; background: #fff; z-index: 4;">Status</th>
+                                <th style="position: sticky; top: 0; background: #fff; z-index: 4;">New Pan No</th>
+                                <th style="position: sticky; top: 0; background: #fff; z-index: 4;">Process Status</th>
+                                <th style="position: sticky; top: 0; background: #fff; z-index: 4;">Remarks</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr ng-repeat="x in vm.model1">
+                                    <td>{{vm.itemsPerPage *(vm.currentPage-1)+$index+1}}</td>
+                                    <td>{{x.name}}</td>
+                                    <td>{{x.nameStatus}}</td>
+                                    <td>{{x.newName}}</td>
+                                    <td>{{x.dob}}</td>
+                                    <td>{{x.dobStatus}}</td>
+                                    <td>{{x.newDob | date:'dd/MM/yyyy'}}</td>
+                                    <td>{{x.oldPan}}</td>
+                                    <td>{{x.panStatus}}</td>
+                                    <td>{{x.newPan}}</td>
+                                    <td><select class="form-control" ng-model="x.processStatus" style="width:80%" required disabled>
+                                        <option value="" hidden="true">SELECT</option>
+                                        <option value="M">Mismatch</option>
+                                        <option value="F">Force Match</option>
+                                        <option value="Y">Success</option>
+                                    </select></td>
+                                    <td><label>{{x.remarks}}</label></td>
+                            </tr>
+                            </tbody>
+                        </table></div>
+                    </div>
+                </div>
+            </div>
+        <div class="text-center">
+            <button type="button" class="btn btn-cancel" id="cancelButton1" onclick="window.location.href= '#!/pan_validation_retrigger/action/inquiry'">Cancel</button>
+        </div>
+    </div>
+</div>
+<div class="container" ng-if="vm.noDataFound">
+    <div class="list_wrapper no_records_message">
+        <h4 class="form_heading">PAN Validation Retrigger</h4>
+        No records found to display.
+        <center>
+            <button type="button" class="btn btn-default"
+                    onclick="window.location.href= '#!/pan_validation_retrigger.inquiry/action/inquiry';" >Back</button>
+        </center>
+    </div>
+</div>

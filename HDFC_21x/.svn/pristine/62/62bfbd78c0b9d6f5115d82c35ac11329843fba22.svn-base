@@ -1,0 +1,272 @@
+<div class="loader-new" ng-if="vm.loader"></div>
+<dc-left-menu></dc-left-menu>
+<div class="container from_wrapper new_form_wrapper">
+
+    <h4 class="form_heading">Branches of Other Bank - Verify</h4>
+    <sol-header></sol-header>
+    <form name="cbsBranchesOfOtherBankForm" role="form">
+
+        <table class="table table-bordered table-striped list old-new-value-table">
+            <thead>
+            <tr>
+                <th>Particular</th>
+                <th>{{(vm.verifyDeleteLists.previousOperationType == 'M')?('Old Value'): ('Value')}}</th>
+                <th ng-if="vm.verifyDeleteLists.previousOperationType == 'M'">New Value</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>Bank Code</td>
+                <td class="old-value">{{(vm.verifyDeleteLists.cbsBranchesOfOtherBankDetailsOldNewValue && vm.verifyDeleteLists.cbsBranchesOfOtherBankDetailsOldNewValue.C002)?
+                    (vm.verifyDeleteLists.cbsBranchesOfOtherBankDetailsOldNewValue.C002.oldValue) : ('')}}
+                </td>
+                <td ng-if="vm.verifyDeleteLists.previousOperationType == 'M'" class="new-value">{{(vm.verifyDeleteLists.cbsBranchesOfOtherBankDetailsOldNewValue &&
+                    vm.verifyDeleteLists.cbsBranchesOfOtherBankDetailsOldNewValue.C002)? (vm.verifyDeleteLists.cbsBranchesOfOtherBankDetailsOldNewValue.C002.newValue) : ('')}}
+                </td>
+            </tr>
+            <tr>
+                <td>Branch code</td>
+                <td class="old-value">{{(vm.verifyDeleteLists.cbsBranchesOfOtherBankDetailsOldNewValue && vm.verifyDeleteLists.cbsBranchesOfOtherBankDetailsOldNewValue.C001)?
+                    (vm.verifyDeleteLists.cbsBranchesOfOtherBankDetailsOldNewValue.C001.oldValue) : ('')}}
+                </td>
+                <td ng-if="vm.verifyDeleteLists.previousOperationType == 'M'" class="new-value">
+                    {{(vm.verifyDeleteLists.cbsBranchesOfOtherBankDetailsOldNewValue && vm.verifyDeleteLists.cbsBranchesOfOtherBankDetailsOldNewValue.C001)?
+                    (vm.verifyDeleteLists.cbsBranchesOfOtherBankDetailsOldNewValue.C001.newValue) : ('')}}
+                </td>
+            </tr>
+            <tr>
+                <td>MICR Center Code</td>
+                <td class="old-value">{{(vm.verifyDeleteLists.cbsBranchesOfOtherBankDetailsOldNewValue && vm.verifyDeleteLists.cbsBranchesOfOtherBankDetailsOldNewValue.C003)?
+                    (vm.verifyDeleteLists.cbsBranchesOfOtherBankDetailsOldNewValue.C003.oldValue) : ('')}}
+                </td>
+                <td ng-if="vm.verifyDeleteLists.previousOperationType == 'M'" class="new-value">
+                    {{(vm.verifyDeleteLists.cbsBranchesOfOtherBankDetailsOldNewValue && vm.verifyDeleteLists.cbsBranchesOfOtherBankDetailsOldNewValue.C003)?
+                    (vm.verifyDeleteLists.cbsBranchesOfOtherBankDetailsOldNewValue.C003.newValue) : ('')}}
+                </td>
+            </tr>
+            <tr>
+                <td>MICR Bank Code</td>
+                <td class="old-value">{{(vm.verifyDeleteLists.cbsBranchesOfOtherBankDetailsOldNewValue && vm.verifyDeleteLists.cbsBranchesOfOtherBankDetailsOldNewValue.C004)?
+                    (vm.verifyDeleteLists.cbsBranchesOfOtherBankDetailsOldNewValue.C004.oldValue) : ('')}}
+                </td>
+                <td ng-if="vm.verifyDeleteLists.previousOperationType == 'M'" class="new-value">
+                    {{(vm.verifyDeleteLists.cbsBranchesOfOtherBankDetailsOldNewValue && vm.verifyDeleteLists.cbsBranchesOfOtherBankDetailsOldNewValue.C004)?
+                    (vm.verifyDeleteLists.cbsBranchesOfOtherBankDetailsOldNewValue.C004.newValue) : ('')}}
+                </td>
+            </tr>
+            <tr>
+                <td>MICR Branch Code</td>
+                <td class="old-value">{{(vm.verifyDeleteLists.cbsBranchesOfOtherBankDetailsOldNewValue && vm.verifyDeleteLists.cbsBranchesOfOtherBankDetailsOldNewValue.C005)?
+                    (vm.verifyDeleteLists.cbsBranchesOfOtherBankDetailsOldNewValue.C005.oldValue) : ('')}}
+                </td>
+                <td ng-if="vm.verifyDeleteLists.previousOperationType == 'M'" class="new-value">
+                    {{(vm.verifyDeleteLists.cbsBranchesOfOtherBankDetailsOldNewValue && vm.verifyDeleteLists.cbsBranchesOfOtherBankDetailsOldNewValue.C005)?
+                    (vm.verifyDeleteLists.cbsBranchesOfOtherBankDetailsOldNewValue.C005.newValue) : ('')}}
+                </td>
+            </tr>
+            <tr>
+                <td>Branch Name</td>
+                <td class="old-value">{{(vm.verifyDeleteLists.cbsBranchesOfOtherBankDetailsOldNewValue && vm.verifyDeleteLists.cbsBranchesOfOtherBankDetailsOldNewValue.C006)?
+                    (vm.verifyDeleteLists.cbsBranchesOfOtherBankDetailsOldNewValue.C006.oldValue) : ('')}}
+                </td>
+                <td ng-if="vm.verifyDeleteLists.previousOperationType == 'M'" class="new-value">
+                    {{(vm.verifyDeleteLists.cbsBranchesOfOtherBankDetailsOldNewValue && vm.verifyDeleteLists.cbsBranchesOfOtherBankDetailsOldNewValue.C006)?
+                    (vm.verifyDeleteLists.cbsBranchesOfOtherBankDetailsOldNewValue.C006.newValue) : ('')}}
+                </td>
+            </tr>
+            <tr>
+                <td>Branch Address1</td>
+                <td class="old-value">{{(vm.verifyDeleteLists.cbsBranchesOfOtherBankDetailsOldNewValue && vm.verifyDeleteLists.cbsBranchesOfOtherBankDetailsOldNewValue.C007)?
+                    (vm.verifyDeleteLists.cbsBranchesOfOtherBankDetailsOldNewValue.C007.oldValue) : ('')}}
+                </td>
+                <td ng-if="vm.verifyDeleteLists.previousOperationType == 'M'" class="new-value">
+                    {{(vm.verifyDeleteLists.cbsBranchesOfOtherBankDetailsOldNewValue && vm.verifyDeleteLists.cbsBranchesOfOtherBankDetailsOldNewValue.C007)?
+                    (vm.verifyDeleteLists.cbsBranchesOfOtherBankDetailsOldNewValue.C007.newValue) : ('')}}
+                </td>
+            </tr>
+            <tr>
+                <td>Branch Address2</td>
+                <td class="old-value">{{(vm.verifyDeleteLists.cbsBranchesOfOtherBankDetailsOldNewValue && vm.verifyDeleteLists.cbsBranchesOfOtherBankDetailsOldNewValue.C008)?
+                    (vm.verifyDeleteLists.cbsBranchesOfOtherBankDetailsOldNewValue.C008.oldValue) : ('')}}
+                </td>
+                <td ng-if="vm.verifyDeleteLists.previousOperationType == 'M'" class="new-value">
+                    {{(vm.verifyDeleteLists.cbsBranchesOfOtherBankDetailsOldNewValue && vm.verifyDeleteLists.cbsBranchesOfOtherBankDetailsOldNewValue.C008)?
+                    (vm.verifyDeleteLists.cbsBranchesOfOtherBankDetailsOldNewValue.C008.newValue) : ('')}}
+                </td>
+            </tr>
+            <tr>
+                <td>Branch Address3</td>
+                <td class="old-value">{{(vm.verifyDeleteLists.cbsBranchesOfOtherBankDetailsOldNewValue && vm.verifyDeleteLists.cbsBranchesOfOtherBankDetailsOldNewValue.C009)?
+                    (vm.verifyDeleteLists.cbsBranchesOfOtherBankDetailsOldNewValue.C009.oldValue) : ('')}}
+                </td>
+                <td ng-if="vm.verifyDeleteLists.previousOperationType == 'M'" class="new-value">
+                    {{(vm.verifyDeleteLists.cbsBranchesOfOtherBankDetailsOldNewValue && vm.verifyDeleteLists.cbsBranchesOfOtherBankDetailsOldNewValue.C009)?
+                    (vm.verifyDeleteLists.cbsBranchesOfOtherBankDetailsOldNewValue.C009.newValue) : ('')}}
+                </td>
+            </tr>
+            <tr>
+                <td>Branch City Code</td>
+                <td class="old-value">{{(vm.verifyDeleteLists.cbsBranchesOfOtherBankDetailsOldNewValue && vm.verifyDeleteLists.cbsBranchesOfOtherBankDetailsOldNewValue.C010)?
+                    (vm.verifyDeleteLists.cbsBranchesOfOtherBankDetailsOldNewValue.C010.oldValue) : ('')}}
+                </td>
+                <td ng-if="vm.verifyDeleteLists.previousOperationType == 'M'" class="new-value">
+                    {{(vm.verifyDeleteLists.cbsBranchesOfOtherBankDetailsOldNewValue && vm.verifyDeleteLists.cbsBranchesOfOtherBankDetailsOldNewValue.C010)?
+                    (vm.verifyDeleteLists.cbsBranchesOfOtherBankDetailsOldNewValue.C010.newValue) : ('')}}
+                </td>
+            </tr>
+            <tr>
+                <td>Branch State Code</td>
+                <td class="old-value">{{(vm.verifyDeleteLists.cbsBranchesOfOtherBankDetailsOldNewValue && vm.verifyDeleteLists.cbsBranchesOfOtherBankDetailsOldNewValue.C011)?
+                    (vm.verifyDeleteLists.cbsBranchesOfOtherBankDetailsOldNewValue.C011.oldValue) : ('')}}
+                </td>
+                <td ng-if="vm.verifyDeleteLists.previousOperationType == 'M'" class="new-value">
+                    {{(vm.verifyDeleteLists.cbsBranchesOfOtherBankDetailsOldNewValue && vm.verifyDeleteLists.cbsBranchesOfOtherBankDetailsOldNewValue.C011)?
+                    (vm.verifyDeleteLists.cbsBranchesOfOtherBankDetailsOldNewValue.C011.newValue) : ('')}}
+                </td>
+            </tr>
+            <tr>
+                <td>Branch Pin Code</td>
+                <td class="old-value">{{(vm.verifyDeleteLists.cbsBranchesOfOtherBankDetailsOldNewValue && vm.verifyDeleteLists.cbsBranchesOfOtherBankDetailsOldNewValue.C012)?
+                    (vm.verifyDeleteLists.cbsBranchesOfOtherBankDetailsOldNewValue.C012.oldValue) : ('')}}
+                </td>
+                <td ng-if="vm.verifyDeleteLists.previousOperationType == 'M'" class="new-value">
+                    {{(vm.verifyDeleteLists.cbsBranchesOfOtherBankDetailsOldNewValue && vm.verifyDeleteLists.cbsBranchesOfOtherBankDetailsOldNewValue.C012)?
+                    (vm.verifyDeleteLists.cbsBranchesOfOtherBankDetailsOldNewValue.C012.newValue) : ('')}}
+                </td>
+            </tr>
+            <tr>
+                <td>Additional Text1</td>
+                <td class="old-value">{{(vm.verifyDeleteLists.cbsBranchesOfOtherBankDetailsOldNewValue && vm.verifyDeleteLists.cbsBranchesOfOtherBankDetailsOldNewValue.C013)?
+                    (vm.verifyDeleteLists.cbsBranchesOfOtherBankDetailsOldNewValue.C013.oldValue) : ('')}}
+                </td>
+                <td ng-if="vm.verifyDeleteLists.previousOperationType == 'M'" class="new-value">
+                    {{(vm.verifyDeleteLists.cbsBranchesOfOtherBankDetailsOldNewValue && vm.verifyDeleteLists.cbsBranchesOfOtherBankDetailsOldNewValue.C013)?
+                    (vm.verifyDeleteLists.cbsBranchesOfOtherBankDetailsOldNewValue.C013.newValue) : ('')}}
+                </td>
+            </tr>
+            <tr>
+                <td>Additional Text2</td>
+                <td class="old-value">{{(vm.verifyDeleteLists.cbsBranchesOfOtherBankDetailsOldNewValue && vm.verifyDeleteLists.cbsBranchesOfOtherBankDetailsOldNewValue.C014)?
+                    (vm.verifyDeleteLists.cbsBranchesOfOtherBankDetailsOldNewValue.C014.oldValue) : ('')}}
+                </td>
+                <td ng-if="vm.verifyDeleteLists.previousOperationType == 'M'" class="new-value">
+                    {{(vm.verifyDeleteLists.cbsBranchesOfOtherBankDetailsOldNewValue && vm.verifyDeleteLists.cbsBranchesOfOtherBankDetailsOldNewValue.C014)?
+                    (vm.verifyDeleteLists.cbsBranchesOfOtherBankDetailsOldNewValue.C014.newValue) : ('')}}
+                </td>
+            </tr>
+            <tr>
+                <td>Additional Text3</td>
+                <td class="old-value">{{(vm.verifyDeleteLists.cbsBranchesOfOtherBankDetailsOldNewValue && vm.verifyDeleteLists.cbsBranchesOfOtherBankDetailsOldNewValue.C015)?
+                    (vm.verifyDeleteLists.cbsBranchesOfOtherBankDetailsOldNewValue.C015.oldValue) : ('')}}
+                </td>
+                <td ng-if="vm.verifyDeleteLists.previousOperationType == 'M'" class="new-value">
+                    {{(vm.verifyDeleteLists.cbsBranchesOfOtherBankDetailsOldNewValue && vm.verifyDeleteLists.cbsBranchesOfOtherBankDetailsOldNewValue.C015)?
+                    (vm.verifyDeleteLists.cbsBranchesOfOtherBankDetailsOldNewValue.C015.newValue) : ('')}}
+                </td>
+            </tr>
+
+
+            <tr>
+                <td>IFSC Code</td>
+                <td class="old-value">{{(vm.verifyDeleteLists.cbsBranchesOfOtherBankDetailsOldNewValue && vm.verifyDeleteLists.cbsBranchesOfOtherBankDetailsOldNewValue.C017)?
+                    (vm.verifyDeleteLists.cbsBranchesOfOtherBankDetailsOldNewValue.C017.oldValue) : ('')}}
+                </td>
+                <td ng-if="vm.verifyDeleteLists.previousOperationType == 'M'" class="new-value">
+                    {{(vm.verifyDeleteLists.cbsBranchesOfOtherBankDetailsOldNewValue && vm.verifyDeleteLists.cbsBranchesOfOtherBankDetailsOldNewValue.C017)?
+                    (vm.verifyDeleteLists.cbsBranchesOfOtherBankDetailsOldNewValue.C017.newValue) : ('')}}
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <div class="audit-details">
+            <div class="row">
+                <div class="col-md-3">
+                    <span> <b> Created By </b> : {{vm.verifyDeleteLists.createdBy}} </span>
+                </div>
+                <div class="col-md-3">
+                    <span> <b> Last Modified By </b> : {{(vm.verifyDeleteLists.lastModifiedBy) ? (vm.verifyDeleteLists.lastModifiedBy) : ('None')}}</span>
+                </div>
+                <div class="col-md-3">
+                    <span> <b> Last Verified By </b> : {{(vm.verifyDeleteLists.verifiedBy) ? (vm.verifyDeleteLists.verifiedBy) : ('None')}}</span>
+                </div>
+                <div class="col-md-3">
+                    <span> <b> Verify Status </b> : {{vm.verifyDeleteLists.verifiedFlag  | getLabelFromValuesArray : vm.commonYesNoMetaData}}</span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3">
+                    <span> <b> Created On </b> : {{ vm.verifyDeleteLists.creatDate | date : 'dd/MM/yyyy'}}</span>
+                </div>
+                <div class="col-md-3">
+                    <span> <b> Last Modified On</b> : {{ (vm.verifyDeleteLists.modDate) ? (vm.verifyDeleteLists.modDate | date : 'dd/MM/yyyy') : ('None')}}</span>
+                </div>
+                <div class="col-md-3">
+                    <span> <b> Last Verified On </b> : {{(vm.verifyDeleteLists.verDate) ? (vm.verifyDeleteLists.verDate | date : 'dd/MM/yyyy') : ('None')}}</span>
+                </div>
+                <div class="col-md-3">
+                </div>
+            </div>
+        </div>
+
+        <div class="text-center form_submit">
+            <button type="submit" class="btn btn-default" id="submitButton"
+                    ng-disabled="vm.cbsBranchesOfOtherBankForm.$invalid" ng-click="vm.verifySubmit()">Verify</button>
+            <button type="button" class="btn btn-cancel" id="cancelButton"
+                    ng-click="vm.showCancelConfirmation('cbs_branches_of_other_bank.inquiry');">Cancel</button>
+
+            <button type="button" class="btn btn-default" id="cbsReject" ng-click="vm.rejectReason()"  >Reject</button>
+        </div>
+
+        <div class="text-center">
+            <notice-message-directive></notice-message-directive>
+        </div>
+    </form>
+</div>
+
+
+
+<div class="modal" id="permissionMappingDelete" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-bs-dismiss="modal">&times;</button>
+                <h4 class="modal-title"> REJECTION REMARKS</h4>
+            </div>
+            <div class="modal-body">
+                <div class="loader_popup"></div>
+                <div class="list_wrapper">
+                    <form name="permissionDelete" role="form">
+
+                        <div class="row">
+                            <div class="form-group">
+                                <div class="col-sm-2"></div>
+                                <label class="control-label col-sm-3">Remarks</label>
+                                <div class="col-sm-5">
+                                    <select class="form-control list_wrapper" id="remarks[$index]"
+                                            name="remarks[$index]"
+                                            ng-model="vm.remarks" ng-init="vm.getRemarksList();" required>
+                                        <option value="">Select</option>
+                                        <option ng-repeat="item in vm.remarksList"
+                                                name="{{item.subCode + parentIndex}}"
+                                                id="{{item.subCode + parentIndex}}" value="{{item.subCodeDescription}}">
+                                            {{item.subCodeDescription}}
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-offset-5 col-sm-8 form_submit">
+                            <button type="button" class="btn btn-default" data-bs-dismiss="modal"
+                                    ng-disabled="permissionDelete.$invalid"
+                                    ng-click="vm.deleteSubmit(vm.remarks)">
+                                Submit
+                            </button>
+                            <button type="button" class="btn btn-cancel" data-bs-dismiss="modal">Cancel</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

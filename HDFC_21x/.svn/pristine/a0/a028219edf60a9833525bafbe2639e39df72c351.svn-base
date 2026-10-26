@@ -1,0 +1,305 @@
+<div class="loader-new" ng-if="vm.loader"></div>
+<cbs-left-menu></cbs-left-menu>
+<div class="container from_wrapper new_form_wrapper" ng-if="vm.result.verifiedStatus != null">
+	<h4 class="form_heading">Branches Of the Bank -
+		Delete</h4>
+	<sol-header></sol-header>
+
+
+	<table class="table table-bordered table-striped list old-new-value-table">
+		<thead>
+		<tr>
+			<th width="50%">Particular</th>
+			<th width="25%">{{(vm.result.prevOperationType == 'M')?('Old Value'): ('Value')}}</th>
+			<th width="25%" ng-if="vm.result.prevOperationType == 'M'">New Value</th>
+		</tr>
+		</thead>
+		<tbody>
+		<tr>
+			<td>SOL ID</td>
+			<td class="old-value">{{(vm.oldNewValueList && vm.oldNewValueList.C001)?
+				(vm.oldNewValueList.C001.oldValue) : ('')}}
+			</td>
+			<td class="new-value" ng-if="vm.result.prevOperationType == 'M'">{{vm.oldNewValueList &&
+				vm.oldNewValueList.C001? (vm.oldNewValueList.C001.newValue) : ('')}}
+			</td>
+		</tr>
+		<tr>
+			<td>Branch Name Description</td>
+			<td class="old-value">{{(vm.oldNewValueList && vm.oldNewValueList.C002)?
+				(vm.oldNewValueList.C002.oldValue) : ('')}}
+			</td>
+			<td class="new-value" ng-if="vm.result.prevOperationType == 'M'">{{vm.oldNewValueList &&
+				vm.oldNewValueList.C002? (vm.oldNewValueList.C002.newValue) : ('')}}
+			</td>
+		</tr>
+		<tr>
+			<td>Bank Code</td>
+			<td class="old-value">{{(vm.oldNewValueList && vm.oldNewValueList.C003)?
+				(vm.oldNewValueList.C003.oldValue) : ('')}}
+			</td>
+			<td class="new-value" ng-if="vm.result.prevOperationType == 'M'">{{vm.oldNewValueList &&
+				vm.oldNewValueList.C003? (vm.oldNewValueList.C003.newValue) : ('')}}
+			</td>
+		</tr>
+		<tr>
+			<td>Branch Code</td>
+			<td class="old-value">{{(vm.oldNewValueList && vm.oldNewValueList.C004)?
+				(vm.oldNewValueList.C004.oldValue) : ('')}}
+			</td>
+			<td class="new-value" ng-if="vm.result.prevOperationType == 'M'">{{vm.oldNewValueList &&
+				vm.oldNewValueList.C004? (vm.oldNewValueList.C004.newValue) : ('')}}
+			</td>
+		</tr>
+		<tr>
+			<td>MICR Center Code</td>
+			<td class="old-value">{{(vm.oldNewValueList && vm.oldNewValueList.C005)?
+				(vm.oldNewValueList.C005.oldValue) : ('')}}
+			</td>
+			<td class="new-value" ng-if="vm.result.prevOperationType == 'M'">{{vm.oldNewValueList &&
+				vm.oldNewValueList.C005? (vm.oldNewValueList.C005.newValue) : ('')}}
+			</td>
+		</tr>
+		<tr>
+			<td>MICR Bank Code</td>
+			<td class="old-value">{{(vm.oldNewValueList && vm.oldNewValueList.C006)?
+				(vm.oldNewValueList.C006.oldValue) : ('')}}
+			</td>
+			<td class="new-value" ng-if="vm.result.prevOperationType == 'M'">{{vm.oldNewValueList &&
+				vm.oldNewValueList.C006? (vm.oldNewValueList.C006.newValue) : ('')}}
+			</td>
+		</tr>
+		<tr>
+			<td>MICR Branch Code</td>
+			<td class="old-value">{{(vm.oldNewValueList && vm.oldNewValueList.C007)?
+				(vm.oldNewValueList.C007.oldValue) : ('')}}
+			</td>
+			<td class="new-value" ng-if="vm.result.prevOperationType == 'M'">{{vm.oldNewValueList &&
+				vm.oldNewValueList.C007? (vm.oldNewValueList.C007.newValue) : ('')}}
+			</td>
+		</tr>
+		<tr>
+			<td>Address1</td>
+			<td class="old-value">{{(vm.oldNewValueList && vm.oldNewValueList.C008)?
+				(vm.oldNewValueList.C008.oldValue) : ('')}}
+			</td>
+			<td class="new-value" ng-if="vm.result.prevOperationType == 'M'">{{vm.oldNewValueList &&
+				vm.oldNewValueList.C008? (vm.oldNewValueList.C008.newValue) : ('')}}
+			</td>
+		</tr>
+		<tr>
+			<td>Address2</td>
+			<td class="old-value">{{(vm.oldNewValueList && vm.oldNewValueList.C009)?
+				(vm.oldNewValueList.C009.oldValue) : ('')}}
+			</td>
+			<td class="new-value" ng-if="vm.result.prevOperationType == 'M'">{{vm.oldNewValueList &&
+				vm.oldNewValueList.C009? (vm.oldNewValueList.C009.newValue) : ('')}}
+			</td>
+		</tr>
+		<tr>
+			<td>City Name</td>
+			<td class="old-value">{{(vm.oldNewValueList && vm.oldNewValueList.C010)?
+				(vm.oldNewValueList.C010.oldValue) : ('')}}
+			</td>
+			<td class="new-value" ng-if="vm.result.prevOperationType == 'M'">{{vm.oldNewValueList &&
+				vm.oldNewValueList.C010? (vm.oldNewValueList.C010.newValue) : ('')}}
+			</td>
+		</tr>
+		<tr>
+			<td>State Name</td>
+			<td class="old-value">{{(vm.oldNewValueList && vm.oldNewValueList.C011)?
+				(vm.oldNewValueList.C011.oldValue) : ('')}}
+			</td>
+			<td class="new-value" ng-if="vm.result.prevOperationType == 'M'">{{vm.oldNewValueList &&
+				vm.oldNewValueList.C011? (vm.oldNewValueList.C011.newValue) : ('')}}
+			</td>
+		</tr>
+		<tr>
+			<td>Pin Code</td>
+			<td class="old-value">{{(vm.oldNewValueList && vm.oldNewValueList.C012)?
+				(vm.oldNewValueList.C012.oldValue) : ('')}}
+			</td>
+			<td class="new-value" ng-if="vm.result.prevOperationType == 'M'">{{vm.oldNewValueList &&
+				vm.oldNewValueList.C012? (vm.oldNewValueList.C012.newValue) : ('')}}
+			</td>
+		</tr>
+		<tr>
+			<td>PAN No</td>
+			<td class="old-value">{{(vm.oldNewValueList && vm.oldNewValueList.C013)?
+				(vm.oldNewValueList.C013.oldValue) : ('')}}
+			</td>
+			<td class="new-value" ng-if="vm.result.prevOperationType == 'M'">{{vm.oldNewValueList &&
+				vm.oldNewValueList.C013? (vm.oldNewValueList.C013.newValue) : ('')}}
+			</td>
+		</tr>
+
+		<tr>
+			<td>TAN No</td>
+			<td class="old-value">{{(vm.oldNewValueList && vm.oldNewValueList.C014)?
+				(vm.oldNewValueList.C014.oldValue) : ('')}}
+			</td>
+			<td class="new-value" ng-if="vm.result.prevOperationType == 'M'">{{vm.oldNewValueList &&
+				vm.oldNewValueList.C014? (vm.oldNewValueList.C014.newValue) : ('')}}
+			</td>
+		</tr>
+
+		<tr>
+			<td>TDS Circle Name</td>
+			<td class="old-value">{{(vm.oldNewValueList && vm.oldNewValueList.C015)?
+				(vm.oldNewValueList.C015.oldValue) : ('')}}
+			</td>
+			<td class="new-value" ng-if="vm.result.prevOperationType == 'M'">{{vm.oldNewValueList &&
+				vm.oldNewValueList.C015? (vm.oldNewValueList.C015.newValue) : ('')}}
+			</td>
+		</tr>
+
+		<tr>
+			<td>Division Name</td>
+			<td class="old-value">{{(vm.oldNewValueList && vm.oldNewValueList.C016)?
+				(vm.oldNewValueList.C016.oldValue) : ('')}}
+			</td>
+			<td class="new-value" ng-if="vm.result.prevOperationType == 'M'">{{vm.oldNewValueList &&
+				vm.oldNewValueList.C016? (vm.oldNewValueList.C016.newValue) : ('')}}
+			</td>
+		</tr>
+		<tr>
+			<td>Circle Office Name</td>
+			<td class="old-value">{{(vm.oldNewValueList && vm.oldNewValueList.C017)?
+				(vm.oldNewValueList.C017.oldValue) : ('')}}
+			</td>
+			<td class="new-value" ng-if="vm.result.prevOperationType == 'M'">{{vm.oldNewValueList &&
+				vm.oldNewValueList.C017? (vm.oldNewValueList.C017.newValue) : ('')}}
+			</td>
+		</tr>
+		<tr>
+			<td>Uniform Branch Code</td>
+			<td class="old-value">{{(vm.oldNewValueList && vm.oldNewValueList.C018)?
+				(vm.oldNewValueList.C018.oldValue) : ('')}}
+			</td>
+			<td class="new-value" ng-if="vm.result.prevOperationType == 'M'">{{vm.oldNewValueList &&
+				vm.oldNewValueList.C018? (vm.oldNewValueList.C018.newValue) : ('')}}
+			</td>
+		</tr>
+		<tr>
+			<td>Bank Status</td>
+			<td class="old-value">{{(vm.oldNewValueList && vm.oldNewValueList.C023)?
+				(vm.oldNewValueList.C023.oldValue) : ('')}}
+			</td>
+			<td class="new-value" ng-if="vm.result.prevOperationType == 'M'">{{vm.oldNewValueList &&
+				vm.oldNewValueList.C023? (vm.oldNewValueList.C023.newValue) : ('')}}
+			</td>
+		</tr>
+
+		<tr>
+			<td>Additional Text1</td>
+			<td class="old-value">{{(vm.oldNewValueList && vm.oldNewValueList.C020)?
+				(vm.oldNewValueList.C020.oldValue) : ('')}}
+			</td>
+			<td class="new-value" ng-if="vm.result.prevOperationType == 'M'">{{vm.oldNewValueList &&
+				vm.oldNewValueList.C020? (vm.oldNewValueList.C020.newValue) : ('')}}
+			</td>
+		</tr>
+
+		<tr>
+			<td>Additional Text2</td>
+			<td class="old-value">{{(vm.oldNewValueList && vm.oldNewValueList.C021)?
+				(vm.oldNewValueList.C021.oldValue) : ('')}}
+			</td>
+			<td class="new-value" ng-if="vm.result.prevOperationType == 'M'">{{vm.oldNewValueList &&
+				vm.oldNewValueList.C021? (vm.oldNewValueList.C021.newValue) : ('')}}
+			</td>
+		</tr>
+		<tr>
+			<td>Additional Text3</td>
+			<td class="old-value">{{(vm.oldNewValueList && vm.oldNewValueList.C022)?
+				(vm.oldNewValueList.C022.oldValue) : ('')}}
+			</td>
+			<td class="new-value" ng-if="vm.result.prevOperationType == 'M'">{{vm.oldNewValueList &&
+				vm.oldNewValueList.C022? (vm.oldNewValueList.C022.newValue) : ('')}}
+			</td>
+		</tr>
+
+		<tr>
+			<td>Ifsc Code</td>
+			<td class="old-value">{{(vm.oldNewValueList && vm.oldNewValueList.C033)?
+				(vm.oldNewValueList.C033.oldValue) : ('')}}
+			</td>
+			<td class="new-value" ng-if="vm.result.prevOperationType == 'M'">{{vm.oldNewValueList &&
+				vm.oldNewValueList.C033? (vm.oldNewValueList.C033.newValue) : ('')}}
+			</td>
+		</tr>
+
+		</tbody>
+	</table>
+
+	<div class="col-sm-12">
+		<div class="audit-details">
+			<div class="row">
+				<div class="col-md-3">
+						<span>
+							<b> Created By </b> : {{vm.result.createdBy}}
+						</span>
+				</div>
+				<div class="col-md-3">
+						<span>
+							<b> Last Modified By </b> : {{(vm.result.lastModifiedBy) ? (vm.result.lastModifiedBy) : ('None')}}
+						</span>
+				</div>
+				<div class="col-md-3">
+						<span>
+							<b> Last Verified By </b> : {{(vm.result.verifiedBy) ? (vm.result.verifiedBy) : ('None')}}
+						</span>
+				</div>
+				<div class="col-md-3">
+						<span>
+							<b> Verify Status </b> : {{vm.result.verifiedStatus  | getLabelFromValuesArray : vm.commonYesNoMetaData}}
+						</span>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-3">
+						<span>
+							<b> Created On </b> : {{ vm.result.createdDate1 | date : 'dd/MM/yyyy'}}
+						</span>
+				</div>
+				<div class="col-md-3">
+						<span>
+							<b> Last Modified On</b> : {{ (vm.result.modifiedDate1) ? (vm.result.modifiedDate1 | date : 'dd/MM/yyyy') : ('None')}}
+						</span>
+				</div>
+				<div class="col-md-3">
+						<span>
+							<b> Last Verified On </b> : {{(vm.result.verifiedDate1) ? (vm.result.verifiedDate1 | date : 'dd/MM/yyyy') : ('None')}}
+						</span>
+				</div>
+				<div class="col-md-3"></div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-sm-offset-5 col-sm-8 form_submit">
+				<button type="button" class="btn btn-default" id="submitButton"
+						ng-click="vm.deleteDetails()">Delete</button>
+				<button type="button" class="btn btn-cancel" id="cancelButton"
+						ui-sref="cbs_branches_of_the_bank.delete">Cancel</button>
+			</div>
+		</div>
+		</form>
+	</div>
+</div>
+
+
+
+<div class="container list_wrapper" ng-if="vm.noDataFound">
+	<h4 class="feature-heading">Branches Of the Bank -
+		Delete</h4>
+	<div class="no_records_message">No records found to display.</div>
+	<center>
+		<button type="button" class="btn btn-default"
+				onclick="window.location.href = '#!/cbs_branches_of_the_bank/action/delete'">Cancel</button>
+	</center>
+</div>
+
+
+
+
+

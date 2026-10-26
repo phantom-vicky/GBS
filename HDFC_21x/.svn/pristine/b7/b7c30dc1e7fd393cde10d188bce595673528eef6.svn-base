@@ -1,0 +1,70 @@
+<left-menu-directive></left-menu-directive>
+<div class="container from_wrapper">
+	<h4 class="form_heading  feature-heading">Population of SOL Date - {{action}}</h4>
+	<div  ng-if="action == 'modify' || action == 'add'">
+		<notice-message-directive ></notice-message-directive>
+	</div>
+	<form name="cbsPopulationOfSolDateForm" role="form" ng-submit="submitForm(cbsPopulationOfSolDateForm.$valid)" enctype="multipart/form-data" novalidate>
+			<div class="row">
+			<div class="col-sm-4"></div>
+				<div class="form-group" ng-class="requiredClass">
+				  <label for="cbsDate" class ="control-label col-sm-2"> Date From CBS </label>
+			<div class="col-sm-2">
+				<input type="text" class="form-control" id="cbsDate" name="cbsDate" ng-model="cbsPopulationOfSolDate.solDate"  onkeydown="return false;"  ng-show="action == 'modify'" required>
+				<label ng-if="action == 'inquiry'">: {{cbsPopulationOfSolDate.solDate| date: 'dd/MM/y'}}</label>
+			</div>  
+		</div>	
+	</div>
+	
+	<div class="row">
+			<div class="form-group">
+			<div class="col-sm-4"></div>
+				<label for="addlText1" class="control-label col-sm-2">Additional Text1</label>
+				<div class="col-sm-2">
+					<input type="text" class="form-control" name="addlText1" id="addlText1" ng-model="cbsPopulationOfSolDate.addlText1" maxlength="40" ng-if="action == 'modify'" >
+					<label ng-if="action == 'inquiry'">: {{cbsPopulationOfSolDate.addlText1}}</label>
+					
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="form-group">
+			<div class="col-sm-4"></div>
+				<label for="addlText2" class="control-label col-sm-2">Additional Text2</label>
+				<div class="col-sm-2">
+					<input type="text" class="form-control" name="addlText2" id="addlText2" ng-model="cbsPopulationOfSolDate.addlText2" maxlength="40" ng-if="action == 'modify'" >
+					<label ng-if="action == 'inquiry'">: {{cbsPopulationOfSolDate.addlText2}}</label>
+					
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="form-group">
+			<div class="col-sm-4"></div>
+				<label for="addlText3" class="control-label col-sm-2">Additional Text3</label>
+				<div class="col-sm-2">
+					<input type="text" class="form-control" name="addlText3" id="addlText3" ng-model="cbsPopulationOfSolDate.addlText3" maxlength="40" ng-if="action == 'modify'">
+					<label ng-if="action == 'inquiry'">: {{cbsPopulationOfSolDate.addlText3}}</label>
+				</div>
+			</div>
+		</div>
+		
+		<div class="row">
+			<div class="form-group">
+			<div class="col-sm-4"></div>
+				<label for="addlText2"  class="control-label col-sm-2" ng-if="action == 'inquiry'">Modified Date</label>
+				<div class="col-sm-2">
+					<label ng-if="action == 'inquiry'">: {{cbsPopulationOfSolDate.modifiedDate| date: 'dd/MM/y'}}</label>
+					
+				</div>
+			</div>
+		</div>
+	 <div class="col-sm-offset-5 col-sm-8 form_submit">
+		 <button type="submit" class="btn btn-default" id="submitButton" ng-disabled="cbsPopulationOfSolDateForm.$invalid" ng-click="modify()" ng-if="action == 'modify'">Update</button>
+		 <button type="button" class="btn btn-default" id="submitButton" ng-click="moveTo()" ng-disabled="cbsPopulationOfSolDateForm.$invalid" ng-if="action == 'inquiry'">Back</button>
+		 <button type="submit" class="btn btn-cancel" id="cancelButton" onclick="cancelFn()">Cancel</button>
+	   </div>
+	</form>
+</div>
+
+

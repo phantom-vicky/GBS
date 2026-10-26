@@ -1,0 +1,186 @@
+<div class="loader-new" ng-if="vm.loader"></div>
+<div class="container from_wrapper" ng-if="vm.showList==false">
+    <h4 class="form_heading">Report On User Sign On/Sign Off</h4>
+
+    <form name="reportForm" role="form" ng-submit="vm.getUserSignOnSIgnOff()" novalidate>
+        <div class="row">
+            <div class="form-group">
+                <div class="col-sm-4"></div>
+                <div class="col-sm-2">
+                    <label for="solId" class="control-label">Sol ID</label>
+                </div>
+                <div class="col-sm-2">
+                    <input type="text" class="form-control" id="solId" name="solId" ng-model="vm.report.solId" readonly>
+                </div>
+                <div class="col-sm-1">
+                    <i class="glyphicon glyphicon-search cp" id="solIdSearcher" ng-click="vm.getSolID()"></i> <i class="glyphicon glyphicon-remove clear cp" id="solIdClear" ng-click="vm.report.solId = vm.report.solDescription = ''"></i>
+                </div>
+                <div class="col-sm-3">
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group">
+                <div class="col-sm-4"></div>
+                <div class="col-sm-2">
+                    <label for="username" class="control-label">Username</label>
+                </div>
+                <div class="col-sm-2">
+                    <input type="text" class="form-control" id="username" name="username" ng-model="vm.report.username" maxlength='15' chars="alpha-numeric">
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group required">
+                <div class="col-sm-4"></div>
+                <div class="col-sm-2">
+                    <label for="formDate" class="control-label">From Date</label>
+                </div>
+                <div class="col-sm-2">
+                    <p class="input-group">
+                        <input type="text" class="form-control" id="dateFrom" name="dateFrom" ng-model="vm.report.dateFrom" required readonly uib-datepicker-popup="dd/MM/yyyy" ng-init="vm.getFromDatePickerOptions();" is-open="vm.fromDatepicker.opened" close-text="Close" datepicker-options="vm.dateFromOptions" ng-change="vm.getToDatePickerOptions();">
+                        <span class="input-group-btn" id="fromDateIcon">
+							<button type="button" class="btn btn-secondary" id="fromDateIconPicker"
+								ng-click="vm.fromDatepicker.opened = true">
+								<i class="glyphicon glyphicon-calendar"></i>
+							</button>
+						</span>
+                    </p>
+                </div>
+                <div class="col-sm-3">
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group required">
+                <div class="col-sm-4"></div>
+                <div class="col-sm-2">
+                    <label for="toDate" class="control-label">To Date</label>
+                </div>
+                <div class="col-sm-2">
+                    <p class="input-group">
+                        <input type="text" class="form-control" id="dateTo" name="dateTo" ng-model="vm.report.dateTo" required readonly uib-datepicker-popup="dd/MM/yyyy" is-open="vm.toDatepicker.opened" close-text="Close" datepicker-options="vm.dateToOptions">
+                        <span class="input-group-btn" id="toDateIcon" ng-if="vm.report.dateFrom">
+							<button type="button" class="btn btn-secondary" id="toDateIconPicker"
+								ng-click="vm.toDatepicker.opened = true">
+								<i class="glyphicon glyphicon-calendar"></i>
+							</button>
+						</span>
+                    </p>
+                </div>
+                <div class="col-sm-3">
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="text-center form_submit">
+                <button type="submit" id="submit" name="submit" class="btn btn-default" ng-disabled="reportForm.$invalid">Submit</button>
+                <button type="button" id="cancel" name="cancel" class="btn btn-cancel" ui-sref="report_menu_page">Cancel</button>
+                <notice-message-directive></notice-message-directive>
+            </div>
+        </div>
+    </form>
+</div>
+<div ng-if="vm.showList==true">
+    <div class="container list_wrapper" ng-if="vm.reportList.length > 0">
+        <div class="container">
+            <div class="row">
+                <div class="pull-right">
+                    <button type="button" id="cancel" name="cancel" class="btn btn-cancel" ng-click="vm.back()">Back</button>
+                </div>
+            </div>
+        </div>
+        <h4 class="form_heading">Report On User Sign On/Sign Off</h4>
+        <table class="table table-bordered table-striped list table-textWrap datatable"
+               ui-jq="dataTable" ui-options="vm.dataTableOption">
+            <thead>
+                <tr>
+                    <th>S.No</th>
+<!--                    <th ng-click="sortType = 'userId'; sortReverse = !sortReverse" class="sort"> S.No-->
+<!--                        <span ng-show="sortType == 'userId' && !sortReverse" class="glyphicon glyphicon-chevron-down"></span>-->
+<!--                        <span ng-show="sortType == 'userId' && sortReverse" class="glyphicon glyphicon-chevron-up"></span>-->
+<!--                    </th>-->
+                    <th>User ID</th>
+                    <th>Emp Id</th>
+                    <th>Emp Name</th>
+                    <th ng-click="sortType = 'loginDate'; sortReverse = !sortReverse" class="sort"> Date of Login
+                        <span ng-show="sortType == 'loginDate' && !sortReverse" class="glyphicon glyphicon-chevron-down"></span>
+                        <span ng-show="sortType == 'loginDate' && sortReverse" class="glyphicon glyphicon-chevron-up"></span>
+                    </th>
+                    <th> Date of Logout</th>
+                    <th ng-click="sortType = 'ip'; sortReverse = !sortReverse" class="sort"> Local Machine Ip Address
+                        <span ng-show="sortType == 'ip' && !sortReverse" class="glyphicon glyphicon-chevron-down"></span>
+                        <span ng-show="sortType == 'ip' && sortReverse" class="glyphicon glyphicon-chevron-up"></span>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="item in vm.reportList">
+                    <td>{{vm.itemsPerPage *(vm.currentPage-1)+$index+1}}</td>
+                    <td>{{item.username}}</td>
+                    <td>{{item.employeeCode}}</td>
+                    <td>{{(item.firstName ? item.firstName: '') + ' '+ (item.lastName ? item.lastName: '') }}</td>
+                    <td>{{item.loginDate | date:"dd/MM/yyyy hh:mm:ss a"}}</td>
+                    <td>{{item.logoutDate | date:"dd/MM/yyyy hh:mm:ss a"}}</td>
+                    <td>{{item.ip}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="container list_wrapper" ng-if="vm.reportList.length <= 0 ">
+        <div class="row">
+            <div class="col-sm-3 pull-right form_submit">
+                <button type="button" id="cancel" name="cancel" class="btn btn-cancel" ng-click="vm.back()">Back</button>
+            </div>
+        </div>
+        <h4 class="form_heading">Report On User Sign On/Sign Off</h4>
+        <div class="no_records_message">No records found to display.</div>
+    </div>
+</div>
+<!-- Modal SOL ID-->
+<div class="modal" id="solIDModal" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-bs-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Sol ID</h4>
+            </div>
+            <div class="modal-body">
+                <div class="loader"></div>
+                <div class="list_wrapper" ng-if="vm.list.length>0">
+                    <div class="col-sm-8 form_submit">
+                        <div class="form-group">
+                            <div class="input-group">
+                                <div class="input-group-addon">
+                                    <i class="glyphicon glyphicon-search"></i>
+                                </div>
+                                <input type="text" class="form-control" ng-model="searchSolId" placeholder="Search">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4 form_submit"></div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <table class="table table-bordered table-striped list scroll">
+                                <thead>
+                                    <tr>
+                                        <th>Sol ID.</th>
+                                        <th>Description</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr class="cp" ng-repeat="x in vm.list | filter:searchSolId" ng-click="vm.report.solId = x.solId; vm.report.solDescription = x.solDescription;" data-bs-dismiss="modal">
+                                        <td>{{x.solId}}</td>
+                                        <td>{{x.solDescription}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="list_wrapper" ng-if="vm.list.length==0">No records found to display.</div>
+            </div>
+        </div>
+    </div>
+</div>

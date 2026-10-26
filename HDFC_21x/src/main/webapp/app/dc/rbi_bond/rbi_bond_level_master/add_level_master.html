@@ -1,0 +1,106 @@
+<div class="loader-new" ng-if="vm.loader"></div>
+<dc-left-menu></dc-left-menu>
+<div class="container from_wrapper new_form_wrapper">
+
+    <h4 class="form_heading">{{vm.screenModule}} Level Master - Add</h4>
+    <sol-header></sol-header>
+    <form name="levelMasterForm" role="form">
+        <div class="col-sm-6 col-sm-offset-3">
+
+
+            <div class="row">
+                <div class="form-group required">
+                    <div class="col-sm-6">
+                        <label for="moduleName" class="control-label">Module Name</label>
+                    </div>
+                    <div class="col-sm-4">
+                        <label>{{vm.screenModule}}</label>
+                    </div>
+                </div>
+            </div>
+
+<!--            <div class="row">-->
+<!--                <div class="form-group required">-->
+<!--                    <div class="col-sm-6">-->
+<!--                        <label for="moduleName" class="control-label">Name of the Bond Scheme</label>-->
+<!--                    </div>-->
+<!--                    <div class="col-sm-4">-->
+<!--                        <select class="form-control" id="moduleName" name="moduleName"-->
+<!--                                ng-model="vm.moduleId" style="text-transform:none"-->
+<!--                                ng-init="vm.getModuleName(); vm.moduleId='';"-->
+<!--                                required>-->
+<!--                            <option value="">Select</option>-->
+<!--                            <option ng-repeat="item in vm.schemeList" value="{{item.subCode}}">{{item.subCodeDescription}}</option>-->
+<!--                        </select>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+
+            <div class="row" >
+                <div class="form-group required">
+                    <div class="col-sm-6">
+                        <label for="level" class="control-label">No.of Level</label>
+                    </div>
+                    <div class="col-sm-4">
+                        <input type="text" inputmode="numeric" class="form-control" id="level" name="noOfLevel"
+                               ng-model="vm.levelMaster.level" limit-to="1" min="1" max="5" ng-change="vm.getLevelRow(vm.levelMaster.level)" oninput="event.target.value = event.target.value.replace(/[^0-9]*/g,'');" required>
+                        <!--<span class="alert-danger" ng-show="levelMasterForm.noOfLevel.$touched && levelMasterForm.noOfLevel.$invalid">No of Level should not be less than 1 or greater than 5</span>-->
+                        <span class="alert-danger" ng-if="vm.levelCutOffErrMsg" ng-bind="vm.levelCutOffErrMsg"></span>
+
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-9 col-sm-offset-6">
+                    <span class="alert-danger" ng-show="levelMasterForm.noOfLevel.$error.min || levelMasterForm.noOfLevel.$error.max">No of Levels should not be less than 1 or greater than 5</span>
+                </div>
+            </div>
+
+            <div class="row margin-btm" ng-if="vm.heirarchyLevel && vm.displayMsg=='SUCCESS'">
+                <div class="table-responsive map-div">
+                    <table class="table table-bordered table-stripped">
+                        <thead>
+                        <th>Level Code</th>
+                        <th>Level Name</th>
+                        <th>Parent Level Name</th>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="item in vm.heirarchyLevel" ng-init="parentIndex=$index;">
+                            <td ng-bind="item.levelId = $index+1"></td>
+                            <td>
+                                <select class="form-control" id="levelName[$index]" ng-init="item.levelName = ''"
+                                        ng-model="item.levelName" ng-change="vm.setParentLevel($index);vm.makeOptionsInVisible($index)" required>
+                                    <option value="">Select</option>
+                                    <option ng-repeat="item in vm.levelNameList" name="{{item.value + parentIndex}}" id="{{item.value + parentIndex}}" value="{{item.label}}">{{item.label}}</option>
+                                </select>
+                                <!-- <input type="text" class="form-control" id="levelName[$index]" ng-init="item.levelName = ''" chars="only-letters"
+                                        ng-model="item.levelName" ng-blur="vm.setParentLevel($index)" max-length="25" required>-->
+                            </td>
+                            <td>
+                                <input type="text" class="form-control" id="parentLevelName[index]" ng-init="item.parentLevelName = ''"
+                                       ng-model="item.parentLevelName" max-length="25" readonly>
+                                <input type="hidden" class="form-control" id="parentLevelId[index]" ng-init="item.parentLevelId = $index"
+                                       ng-model="item.parentLevelId" max-length="25" readonly>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+
+
+
+            <div class="text-center form_submit">
+                <button type="submit" class="btn btn-default" id="submitButton" ng-click="vm.addLevelMaster('finalSubmit');"
+                        ng-disabled="levelMasterForm.$invalid || vm.levelErrMsg">Submit</button>
+                <button type="button" class="btn btn-cancel" id="cancelButton"
+                        ng-click="vm.goToPreviousState()">Cancel</button>
+            </div>
+            <div class="text-center">
+                <notice-message-directive></notice-message-directive>
+            </div>
+        </div>
+    </form>
+</div>
+

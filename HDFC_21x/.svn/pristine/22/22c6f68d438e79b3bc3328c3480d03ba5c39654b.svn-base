@@ -1,0 +1,102 @@
+<div class="loader-new" ng-if="vm.loader"></div>
+<dc-left-menu></dc-left-menu>
+<div class="container from_wrapper new_form_wrapper">
+    <table class="table table-bordered table-striped list">
+        <thead>
+        <tr>
+            <th colspan="11" class="form_heading feature-heading">
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                    <span style="text-align: center; flex-grow: 1;">BLA Opening Cum Subscription – Dash Board</span>
+                    <button class="btn btn-primary" style="margin-left: auto;"  ng-click="vm.redirectToInputPage('bla_acc_opening_cum_subscription.add_input');">Manual Entry</button>
+                </div>
+            </th>
+        </tr>
+        </thead>
+    </table>
+    <div class="col-sm-3">
+        <div class="form-group">
+            <label>
+                Show
+                <select class="form-control record-filter" ng-model="vm.itemsPerPage">
+                    <option value='5'>5</option>
+                    <option value='10'>10</option>
+                    <option value='25'>25</option>
+                    <option value='50'>50</option>
+                </select>
+                records per page
+            </label>
+        </div>
+    </div>
+    <div class="col-sm-3 pull-right-search">
+        <div class="form-group">
+            <div class="input-group">
+                <div class="input-group-addon"><i class="glyphicon glyphicon-search"></i></div>
+                <input type="text" class="form-control" ng-model="search" placeholder="Search">
+            </div>
+        </div>
+    </div>
+
+    <table class="table table-bordered table-striped list">
+        <thead>
+<!--        <tr>-->
+<!--            <th colspan="11" class="form_heading feature-heading">-->
+<!--                <div style="display: flex; justify-content: space-between; align-items: center;">-->
+<!--                    <span style="text-align: center; flex-grow: 1;">BLA Opening Cum Subscription – Dash Board</span>-->
+<!--                    <button class="btn btn-primary" style="margin-left: auto;"  ng-click="vm.redirectToInputPage('bla_acc_opening_cum_subscription.add_input');">Manual Entry</button>-->
+<!--                </div>-->
+<!--            </th>-->
+
+<!--        </tr>-->
+        <tr>
+            <th>S No</th>
+            <th class="hidden">ID</th>
+            <th>Liquidation Date</th>
+            <th>Appl_Name1</th>
+            <th>Pan_No1</th>
+            <th>Appl_Name2</th>
+            <th>Pan_No2</th>
+            <th>Appl_Name3</th>
+            <th>Pan_No3</th>
+            <th>Minor/Major</th>
+            <th>Mode of Holding</th>
+            <th class="hidden">Mode of Holding</th>
+<!--            <th>BLA Already Exist (Y/N)</th>-->
+            <th>Action Button</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr dir-paginate="vm in vm.netBankingList | filter:search | itemsPerPage:vm.itemsPerPage">
+            <td>{{$index + 1}}</td>
+            <td class="hidden">{{vm.id}}</td>
+            <td>{{vm.liquidationDate}}</td>
+            <td>{{vm.bondHolderName}}</td>
+            <td width="10%">{{vm.pan_No1}}</td>
+            <td>{{vm.secondJointHolderName}}</td>
+            <td width="10%">{{vm.pan_No2}}</td>
+            <td>{{vm.thirdJointHolderName}}</td>
+            <td width="10%">{{vm.pan_No3}}</td>
+            <td width="10%">{{vm.isMinor}}</td>
+            <td>{{vm.moduleCode}}</td>
+            <td class="hidden">{{vm.modeOfHolding}}</td>
+<!--            <td>{{vm.blaExists}}</td>-->
+            <td>
+                <i class="glyphicons-regular glyphicons-user-structure"
+                   style="cursor:pointer;"
+                   ui-sref="bla_acc_opening_cum_subscription.add_input({obj:{ id: vm.id, modeOfHolding: vm.modeOfHolding , moduleCode: vm.moduleCode,flag: true,pan_No1:vm.pan_No1 }})"
+                   title="Manage Roles"></i>
+<!--                <i class="glyphicons-regular glyphicons-user-structure"-->
+<!--                   style="cursor:pointer;"-->
+<!--                   ui-sref="bla_acc_opening_cum_subscription.add_input"-->
+<!--                   ng-init="vm.getDashBoard(vm.id);"-->
+<!--                   title="Manage Roles"></i>-->
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+    <!-- Pagination Controls -->
+    <dir-pagination-controls direction-links="true" boundary-links="true"></dir-pagination-controls>
+
+    <!-- No Records Message -->
+    <div class="list_wrapper no_records_message" ng-if="vm.netBankingList.length <= 0">No records found to display.</div>
+</div>

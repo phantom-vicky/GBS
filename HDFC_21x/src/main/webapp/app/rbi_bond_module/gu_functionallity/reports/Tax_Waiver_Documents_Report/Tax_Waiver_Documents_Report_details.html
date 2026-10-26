@@ -1,0 +1,236 @@
+<!-- Output Screen-->
+
+
+<div class="loader-new" ng-if="vm.loader"></div>
+
+<div class="container" data-ng-if="vm.filteredRecords">
+
+
+    <div class="container from_wrapper new_form_wrapper">
+
+        <div class="text-right form_submit">
+            <button type="submit" class="btn btn-default"
+                    onclick="window.location.href ='#!';" id="homeButton">Home
+            </button>
+
+            <button type="button" id="cancel_Button" class="btn btn-cancel"
+                    onclick="window.location.href= '#!/pan_validation_report/action/inquiry';">Back
+            </button>
+        </div>
+
+
+        <table style="width:100%" class="table table-bordered" aria-label="">
+
+            <tr>
+                <h4 class="form_heading">PAN Validation Report
+                </h4>
+                <sol-header></sol-header>
+
+                <table style="width:100%" class="table table-bordered" style="padding: 10px" aria-label="">
+                    <tr>
+                        <th scope="col">Name of the Bond Scheme</th>
+                        <td>{{vm.schemeName}}</td>
+                        <th scope="" style="width:20%">Total Count</th>
+                        <td style="width:20%">{{vm.total}}</td>
+                    </tr>
+                    <tr>
+                        <th scope="col" style="width: 25%">From Date</th>
+                        <td style="width: 35%">{{vm.fromDate | date:'dd/MM/yyyy'}}</td>
+                        <th scope="col" style="width: 20%">To Date</th>
+                        <td style="width: 20%">{{vm.toDate | date:'dd/MM/yyyy'}}</td>
+                    </tr>
+
+
+                </table>
+
+
+            </tr>
+        </table>
+
+        <div class="row">
+            <div class="col-sm-12">
+
+                <br>
+
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="row" style="display: flex; align-items: center; justify-content: space-between">
+                            <div class="col-sm-3" style="flex: 1">
+                                <div class="form-group">
+                                    <table style="border-spacing: 2" aria-label="BPRR">
+                                        <tr>
+                                            <th scope="col"></th>
+                                        </tr>
+                                        <tr>
+                                            <td>Show&nbsp;</td>
+                                            <td>
+                                                <select
+                                                        class="form-control pageDropDown"
+                                                        id="pageSize"
+                                                        name="pageSize"
+                                                        ng-model="vm.pageSize"
+                                                        ng-init="vm.pageSize='5'"
+                                                        ng-change="vm.pageNo='1'; vm.getCertificateDetail();"
+                                                        data-ng-disabled="vm.noDataFoundInSearch"
+                                                >
+                                                    <option value="5">5 per page</option>
+                                                    <option value="10">10 per page</option>
+                                                    <option value="20">20 per page</option>
+                                                    <option value="50">50 per page</option>
+                                                </select>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-6" style="display: flex; align-items: center; justify-content: flex-end">
+                                <div class="form-group" style="margin-right: 15px">
+                                    <div class="input-group">
+                                        <input type="text" id="search" class="form-control" data-ng-model="vm.searchValue" placeholder="Search" />
+                                        <div class="input-group-addon">
+                                            <span class="glyphicon glyphicon-search" data-ng-click="vm.pageNo = 1; vm.getCertificateDetail()"></span>
+                                        </div>
+                                        <div class="input-group-addon">
+                                            <span class="glyphicon glyphicon-remove clear cp" data-ng-click="vm.searchValue='';vm.pageNo = 1; vm.getCertificateDetail(); "></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <select
+                                            class="form-control"
+                                            id="export"
+                                            name="export"
+                                            data-ng-model="vm.downloadType"
+                                            data-ng-init="vm.downloadType=''"
+                                            data-ng-change="vm.downloadReport()"
+                                            data-ng-disabled="vm.noDataFoundInSearch"
+                                    >
+                                        <option value="">EXPORT</option>
+                                        <option value="excel">EXCEL</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="table-responsive" >
+
+
+
+                            <table class="table table-bordered table-striped list table-textWrap datatable" aria-label=""
+                            >
+                                <thead>
+                                <tr class="thalign">
+                                    <th id="sno">S.No</th>
+                                    <th id="pan-triggered-from">PAN Triggered From</th>
+                                    <th id="triggered-date">Triggered  Date</th>
+                                    <th id="triggered-maker-id">Triggered Maker ID</th>
+                                    <th id="triggered-checker-id">Triggered Checker ID</th>
+                                    <th id="pan-no">Pan_No</th>
+                                    <th id="new-pan-no">New_Pan_No</th>
+                                    <th id="name">Name</th>
+                                    <th id="new-name">New_Name</th>
+                                    <th id="dob">DOB</th>
+                                    <th id="new-dob">New_DOB</th>
+                                    <th id="aadhar-seeding">Aadhar_Seeding</th>
+                                    <th id="is-send-nsdl">Is Send NSDL</th>
+                                    <th id="send-nsdl-date">SendNSDL_Date</th>
+                                    <th id="status">Status</th>
+                                    <th id="dob-status">DOB_Status</th>
+                                    <th id="pan-no-status">Pan_No_Status</th>
+                                    <th id="name-status">Name_Status</th>
+                                    <th id="aadhar-status">Aadhar_Status</th>
+                                    <th id="file-type">File_Type</th>
+                                    <th id="remark">Remark</th>
+                                    <th id="upload-by">UploadBy</th>
+                                    <th id="upload-date">Upload_Date</th>
+                                    <th id="modify-by">Modify_By</th>
+                                    <th id="modify-date">Modify_Date</th>
+                                    <th id="resend-nsdl">Re Send NSDL</th>
+                                    <th id="resend-nsdl-date">ReSendNSDL_Date</th>
+                                    <th id="netbanking-date">NetBanking_Date</th>
+                                    <th id="audit-date">Audit_Date</th>
+                                    <th id="upload-filename">Upload_FileName</th>
+                                </tr>
+                                </thead>
+                                <tbody data-ng-if="!vm.noDataFoundInSearch">
+                                <tr dir-paginate="x in vm.filteredRecords | itemsPerPage: itemsPerPage" pagination-id="trailRunRep">
+                                    <td>{{($index + 1) + ((vm.pageNo - 1) * vm.pageSize)}}</td>
+                                    <td>{{ x.panTriggeredFrom && (x.panTriggeredFrom.replace(' ', 'T') | date:'dd/MM/yyyy') }}</td>
+                                    <td>{{ x.triggedDate && (x.triggedDate.replace(' ', 'T') | date:'dd/MM/yyyy') }}</td>
+                                    <td>{{x.triggedMakerID }}</td>
+                                    <td>{{x.triggedCheckerID }}</td>
+                                    <td>{{x.panNo}}</td>
+                                    <td >{{x.newPANNO}}</td>
+                                    <td>{{x.name}}</td>
+                                    <td>{{x.newName}}</td>
+                                    <td>{{x.dob && (x.dob.replace(' ', 'T') | date:'dd/MM/yyyy')}}</td>
+                                    <td>{{x.newDOB && (x.newDOB.replace(' ', 'T') | date:'dd/MM/yyyy')}}</td>
+                                    <td>{{x.aadharSeeding }}</td>
+                                    <td>{{x.isSendNSDL}}</td>
+                                    <td>{{x.sendNSDLDate && (x.sendNSDLDate.replace(' ', 'T') | date:'dd/MM/yyyy')}}</td>
+                                    <td>{{x.status}}</td>
+                                    <td>{{x.dobstatus}}</td>
+                                    <td>{{x.panNoStatus }}</td>
+                                    <td>{{x.nameStatus }}</td>
+                                    <td>{{x.aadharStatus}}</td>
+                                    <td>{{x.fileType}}</td>
+                                    <td>{{x.remark }}</td>
+                                    <td>{{x.uploadBy}}</td>
+                                    <td>{{x.uploadDate && (x.uploadDate.replace(' ', 'T') | date:'dd/MM/yyyy')}}</td>
+                                    <td>{{x.modifyBy }}</td>
+                                    <td>{{x.modifyDate && (x.modifyDate.replace(' ', 'T') | date:'dd/MM/yyyy')}}</td>
+                                    <td>{{x.reSendNSDL }}</td>
+                                    <td>{{x.reSendNSDLDate && (x.reSendNSDLDate.replace(' ', 'T') | date:'dd/MM/yyyy')}}</td>
+                                    <td>{{x.netBankingDate && (x.netBankingDate.replace(' ', 'T') | date:'dd/MM/yyyy')}}</td>
+                                    <td>{{x.AUDIT_DATE && (x.AUDIT_DATE.replace(' ', 'T') | date:'dd/MM/yyyy')}}</td>
+                                    <td>{{x.uploadFileName}}</td>
+                                </tr>
+
+
+                                </tbody>
+                                <tbody data-ng-if="vm.noDataFoundInSearch">
+                                <tr>
+                                    <td colspan="10" style="text-align: center;">
+                                        No Records Found
+                                    </td>
+                                </tr>
+                                </tbody>
+
+                            </table>
+                        </div>
+                        <br/>
+                        <div class="text-center form_submit">
+              <span ng-show="vm.showPrevious">
+                <button type="submit" class="btn btn-default" ng-click="vm.goPreviousPage()">Prev</button>
+              </span>
+
+                            <span>
+                <button type="submit" class="btn btn-default" ng-disabled="true" ng-init="vm.pageNo=1" ng-model="vm.pageNo" ng-click="vm.paymentStatus();">{{vm.pageNo}} of {{vm.maxPages}}</button>
+              </span>
+
+                            <span ng-show="vm.showNext">
+                <button type="submit" class="btn btn-default" ng-click="vm.goNextPage();">Next</button>
+              </span>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+</div>
+
+<div class="container" ng-if="!vm.filteredRecords">
+    <div class="list_wrapper no_records_message">
+        <h4 class="form_heading">PAN Validation Report</h4>
+        No records found to display.
+        <div style="text-align:center;">
+            <button type="button" class="btn btn-default"
+                    onclick="window.location.href= '#!/pan_validation_report/action/inquiry';">Back
+            </button>
+        </div>
+    </div>
+</div>

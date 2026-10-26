@@ -1,0 +1,111 @@
+<div class="loader-new" ng-if="vm.loader"></div>
+<div class="container from_wrapper new_form_wrapper" ng-if="vm.systemParameters">
+	<dc-left-menu></dc-left-menu>
+	<h4 class="form_heading">System Parameter - Inquiry</h4>
+	<div class="row" ng-init="vm.getCommonList();">
+		<div class="form-group required">
+			<div class="col-sm-2"></div>
+			<div class="col-sm-5">
+				<label for="" class="control-label">Module Name</label>
+			</div>
+			<div class="col-sm-3">
+				<select class="form-control" ng-change="vm.getModuleName()"  id="commonModule" name= "commonModule" ng-model="vm.systemParameterCommon">
+					<option	value="" required>
+						Select
+					</option><option
+						ng-repeat="item in vm.commonList"
+						value="{{item.parameterValues}}"
+						required>
+					{{item.parameterValDesc}}
+				</option>
+				</select>
+			</div>
+		</div>
+	<table class="table table-bordered table-striped list" ng-if="!vm.newValueDispay">
+		<tbody>
+			<tr ng-repeat="systemParameter in vm.systemParameters">
+				<td>
+					<label for="" class="control-label">{{systemParameter.dto.parameterDesc}}</label>	
+				</td>
+				<td>
+					<span ng-if="systemParameter.dto.parameterType == 'N'">
+						<p ng-repeat="item in vm.systemParametersDetails"
+						ng-if="item.parameterId == systemParameter.dto.parameterId && item.parameterValues == systemParameter.dto.parameterValue"
+						value="{{item.parameterValues}}">{{item.parameterValDesc}}</p>
+					</span> 
+					<span ng-if="systemParameter.dto.parameterType == 'Y'">{{vm.systemParameterScope[systemParameter.dto.parameterId]}}</span>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="2">
+					<div class="row" >
+						<div class="col-sm-7"></div>
+						<label  ng-if="vm.newValueDispay == false" class="control-label col-sm-5"><b>Verify Status : Y</b></label>
+						<label  ng-if="vm.newValueDispay == true" class="control-label col-sm-5"><b>Verify Status : N</b></label>
+					</div>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="2" align="center">
+					<div class="form_submit">
+						<button type="button" class="btn btn-cancel" id="cancelButton"
+							onclick="window.location.href = '#!/'">Cancel</button>
+					</div>					
+				</td>
+			</tr>
+		</tbody>
+	</table>
+	<table class="table table-bordered table-striped list" ng-if="vm.newValueDispay">
+		<thead>
+			<tr>
+				<th></th>
+				<th>New Value</th>
+				<th>Old Value</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr ng-repeat="systemParameter in vm.systemParameters">
+				<td>
+					<label for="" class="control-label">{{systemParameter.dto.parameterDesc}}</label>	
+				</td>
+				<td>
+					<span ng-if="systemParameter.dto.parameterType == 'N'">
+						<p ng-repeat="item in vm.systemParametersDetails"
+						ng-if="item.parameterId == systemParameter.dto.parameterId && item.parameterValues == vm.systemParameterNewScope[systemParameter.dto.parameterId]">
+							{{item.parameterValDesc}}
+						</p>
+					</span> 
+					<span ng-if="systemParameter.dto.parameterType == 'Y'">{{vm.systemParameterNewScope[systemParameter.dto.parameterId]}}</span>
+				</td>
+				<td>
+					<span ng-if="systemParameter.dto.parameterType == 'N'">
+						<p ng-repeat="item in vm.systemParametersDetails"
+						ng-if="item.parameterId == systemParameter.dto.parameterId && item.parameterValues == systemParameter.dto.parameterValue"
+						value="{{item.parameterValues}}">{{item.parameterValDesc}}</p>
+					</span> 
+					<span ng-if="systemParameter.dto.parameterType == 'Y'">{{vm.systemParameterScope[systemParameter.dto.parameterId]}}</span>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="3">
+					<div class="row" >
+						<div class="col-sm-7"></div>
+						<label  ng-if="vm.newValueDispay == false" class="control-label col-sm-5"><b>Verify Status : Y</b></label>
+						<label  ng-if="vm.newValueDispay == true" class="control-label col-sm-5"><b>Verify Status : N</b></label>
+					</div>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="3" align="center">
+					<div class="form_submit">
+						<button type="button" class="btn btn-cancel" id="cancelButton"
+							onclick="window.location.href = '#!/'">Cancel</button>
+					</div>					
+				</td>
+			</tr>
+		</tbody>
+	</table>
+
+</div>
+<!-- /.container-fluid -->
+

@@ -1,0 +1,744 @@
+<div class="loader-new" ng-if="vm.loader"></div>
+<dc-left-menu></dc-left-menu>
+<div class="container from_wrapper new_form_wrapper">
+	
+	<h4 class="form_heading">General Scheme Parameter Maintenance(Common) - Inquiry</h4>
+
+	<div class="row">
+		<div class="form-group">
+			<div class="col-sm-2"></div>
+			<label for="schemeType" class="control-label col-sm-5">
+				Scheme Type</label>
+			<div class="col-sm-2">
+				<select class="form-control" id="schemeType" name="schemeType"
+					ng-model="vm.schemeTypeInput" ng-init="vm.getSchemeTypes();vm.schemeTypeInput='';"
+					ng-change="vm.getSchemeDetails();">
+					<option value="">SELECT</option>
+					<option ng-repeat="item in vm.schemeTypeList" value="{{item.subCode}}">{{item.subCodeDescription}}</option>
+				</select>
+			</div>
+		</div>
+	</div>
+
+	<!-- common -->
+	<div id="schemeType" ng-if="vm.schemeTypeInput == '0000'">
+
+		<h4 class="form_heading">Common</h4>
+
+
+		<div class="loader"></div>
+		<table class="table table-bordered table-striped list" ng-if="!vm.newValueDispay">
+			<thead>
+				<tr>
+					<th>Particular</th>
+					<th>Value</th>
+					<th>Description</th>
+
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>
+						<label for="finyrstdate" class="control-label">Financial Year Start Period(DD/MM)</label>
+					</td>
+					<td><label class="data-bind" id="finyrstdate">{{vm.schemeType.finyrstdate}}</label></td>
+					<td></td>
+				</tr>
+				<tr>
+					<td>
+						<label for="finyrenddate" class="control-label">Financial Year End Period(DD/MM)</label>
+					</td>
+					<td><label class="data-bind" id="finyrenddate">{{vm.schemeType.finyrenddate}}</label></td>
+					<td></td>
+				</tr>
+				<tr>
+					<td>
+						<label for="budyrstdate" class="control-label">Budget Year Start Period(DD/MM)</label>
+					</td>
+					<td><label class="data-bind" id="budyrstdate">{{vm.schemeType.budyrstdate}}</label></td>
+					<td></td>
+				</tr>
+				<tr>
+					<td>
+						<label for="budyrenddate" class="control-label">Budget Year End Period(DD/MM)</label>
+					</td>
+					<td><label class="data-bind" id="budyrenddate">{{vm.schemeType.budyrenddate}}</label></td>
+					<td></td>
+				</tr>
+				<tr>
+					<td>
+						<label for="minorage" class="control-label">Minor Age</label>
+					</td>
+					<td><label class="data-bind" id="minorage">{{vm.schemeType.minorage}}</label></td>
+					<td></td>
+				</tr>
+				<tr>
+					<td>
+						<label for="inst_type_validator" class="control-label">Instrument Type for Instrument Validation</label>
+					</td>
+					<td><label class="data-bind" id="inst_type_validator">{{vm.schemeType.inst_type_validator}}</label></td>
+					<td></td>
+				</tr>
+				<tr>
+					<td>
+						<label for="eodcontinue" class="control-label">Can EOD Continue If NFT Verification Is Pending</label>
+					</td>
+					<td>
+						<label class="data-bind" id="eodcontinue" ng-if="vm.schemeType.eodcontinue == 'Y'">YES</label>
+						<label class="data-bind" id="eodcontinue" ng-if="vm.schemeType.eodcontinue == 'N'">NO</label>
+					</td>
+					<td></td>
+				</tr>
+				<tr>
+					<td>
+						<label for="minimaltoamt" class="control-label">Minimum TOC Amount</label>
+					</td>
+					<td><label class="data-bind" id="minimaltoamt">{{vm.schemeType.minimaltoamt}}</label></td>
+					<td></td>
+				</tr>
+				<tr>
+					<td>
+						<label for="tocmode" class="control-label">Turn Over Commission Mode</label>
+					</td>
+					<td>
+						<label class="data-bind" id="tocmode" ng-if="vm.schemeType.tocmode == 'A'">ANNUAL</label>
+						<label class="data-bind" id="tocmode" ng-if="vm.schemeType.tocmode == 'H'">HALF-YEARLY</label>
+						<label class="data-bind" id="tocmode" ng-if="vm.schemeType.tocmode == 'Q'">QUARTERLY</label>
+					</td>
+					<td></td>
+				</tr>
+				<tr>
+					<td>
+						<label for="ph_cashac" class="control-label">Cash Account PlaceHolder</label>
+					</td>
+					<td><label class="data-bind" id="ph_cashac">{{vm.schemeType.ph_cashac}}</label></td>
+					<td><label class="data-bind" id="ph_fplc_Description">{{vm.schemeDescription.ph_cashac}}</label></td>
+				</tr>
+				<tr>
+					<td>
+						<label for="ph_clearingac" class="control-label">Clearing Sundry Account Place Holder</label>
+					</td>
+					<td><label class="data-bind" id="ph_clearingac">{{vm.schemeType.ph_clearingac}}</label></td>
+					<td><label class="data-bind" id="ph_clearingac_Description">{{vm.schemeDescription.ph_clearingac}}</label></td>
+				</tr>
+				<tr>
+					<td>
+						<label for="ph_hoac" class="control-label">RBI Relief Bond LC Consolidation PlaceHolder</label>
+					</td>
+					<td><label class="data-bind" id="ph_hoac">{{vm.schemeType.ph_hoac}}</label></td>
+					<td><label class="data-bind" id="ph_hoac_Description">{{vm.schemeDescription.ph_hoac}}</label></td>
+				</tr>
+				<tr ng-if="vm.bIsValid">
+					<td>
+						<label for="ph_hoaclocal" class="control-label">Head Office Account Place Holder (LOCAL Country)</label>
+					</td>
+					<td><label class="data-bind" id="ph_hoaclocal">{{vm.schemeType.ph_hoaclocal}}</label></td>
+					<td><label class="data-bind" id="ph_hoaclocal_Description">{{vm.schemeDescription.ph_hoaclocal}}</label></td>
+				</tr>
+				<tr>
+					<td>
+						<label for="ph_ddac" class="control-label">DD Account PlaceHolder</label>
+					</td>
+					<td><label class="data-bind" id="ph_ddac">{{vm.schemeType.ph_ddac}}</label></td>
+					<td><label class="data-bind" id="ph_ddac_Description">{{vm.schemeDescription.ph_ddac}}</label></td>
+				</tr>
+				<tr>
+					<td>
+						<label for="ph_poac" class="control-label">Pay Order Account PlaceHolder</label>
+					</td>
+					<td><label class="data-bind" id="ph_poac">{{vm.schemeType.ph_poac}}</label></td>
+					<td><label class="data-bind" id="ph_poac_Description">{{vm.schemeDescription.ph_poac}}</label></td>
+				</tr>
+				<tr>
+					<td>
+						<label for="ph_ecsac" class="control-label">ECS Account PlaceHolder</label>
+					</td>
+					<td><label class="data-bind" id="ph_ecsac">{{vm.schemeType.ph_ecsac}}</label></td>
+					<td><label class="data-bind" id="ph_ecsac_Description">{{vm.schemeDescription.ph_ecsac}}</label></td>
+				</tr>
+				<tr>
+					<td>
+						<label for="ph_tds" class="control-label">TDS A/C PlaceHolder</label>
+					</td>
+					<td><label class="data-bind" id="ph_tds">{{vm.schemeType.ph_tds}}</label></td>
+					<td><label class="data-bind" id="ph_tds_Description">{{vm.schemeDescription.ph_tds}}</label></td>
+				</tr>
+			</tbody>
+		</table>
+		
+		
+		<table class="table table-bordered table-striped list" ng-if="vm.newValueDispay">
+			<thead>
+				<tr>
+					<th>Particular</th>
+					<th>New Value</th>
+					<th>Old Value</th>
+
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>
+						<label for="finyrstdate" class="control-label">Financial Year Start Period(DD/MM)</label>
+					</td>
+					<td><label class="data-bind" id="finyrstdate">{{vm.schemeType.finyrstdate}}</label></td>
+					<td><label class="data-bind" id="finyrstdatenew">{{vm.schemeTypeNew.finyrstdate}}</label></td>
+				</tr>
+				<tr>
+					<td>
+						<label for="finyrenddate" class="control-label">Financial Year End Period(DD/MM)</label>
+					</td>
+					<td><label class="data-bind" id="finyrenddate">{{vm.schemeType.finyrenddate}}</label></td>
+					<td><label class="data-bind" id="finyrenddate">{{vm.schemeTypeNew.finyrenddate}}</label></td>
+				</tr>
+				<tr>
+					<td>
+						<label for="budyrstdate" class="control-label">Budget Year Start Period(DD/MM)</label>
+					</td>
+					<td><label class="data-bind" id="budyrstdate">{{vm.schemeType.budyrstdate}}</label></td>
+					<td><label class="data-bind" id="budyrstdatenew">{{vm.schemeTypeNew.budyrstdate}}</label></td>
+				</tr>
+				<tr>
+					<td>
+						<label for="budyrenddate" class="control-label">Budget Year End Period(DD/MM)</label>
+					</td>
+					<td><label class="data-bind" id="budyrenddate">{{vm.schemeType.budyrenddate}}</label></td>
+					<td><label class="data-bind" id="budyrenddatenew">{{vm.schemeTypeNew.budyrenddate}}</label></td>
+				</tr>
+				<tr>
+					<td>
+						<label for="minorage" class="control-label">Minor Age</label>
+					</td>
+					<td><label class="data-bind" id="minorage">{{vm.schemeType.minorage}}</label></td>
+					<td><label class="data-bind" id="minoragenew">{{vm.schemeTypeNew.minorage}}</label></td>
+				</tr>
+				<tr>
+					<td>
+						<label for="inst_type_validator" class="control-label">Instrument Type for Instrument Validation</label>
+					</td>
+					<td><label class="data-bind" id="inst_type_validator">{{vm.schemeType.inst_type_validator}}</label></td>
+					<td><label class="data-bind" id="inst_type_validator">{{vm.schemeTypeNew.inst_type_validator}}</label></td>
+				</tr>
+				<tr>
+					<td>
+						<label for="eodcontinue" class="control-label">Can EOD Continue If NFT Verification Is Pending</label>
+					</td>
+					<td>
+						<label class="data-bind" id="eodcontinue" ng-if="vm.schemeType.eodcontinue == 'Y'">YES</label>
+						<label class="data-bind" id="eodcontinue" ng-if="vm.schemeType.eodcontinue == 'N'">NO</label>
+					</td>
+					<td>
+					<label class="data-bind" id="eodcontinue" ng-if="vm.schemeTypeNew.eodcontinue == 'Y'">YES</label>
+						<label class="data-bind" id="eodcontinue" ng-if="vm.schemeTypeNew.eodcontinue == 'N'">NO</label>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<label for="minimaltoamt" class="control-label">Minimum TOC Amount</label>
+					</td>
+					<td><label class="data-bind" id="minimaltoamt">{{vm.schemeType.minimaltoamt}}</label></td>
+					<td><label class="data-bind" id="minimaltoamt">{{vm.schemeTypeNew.minimaltoamt}}</label></td>
+				</tr>
+				<tr>
+					<td>
+						<label for="tocmode" class="control-label">Turn Over Commission Mode</label>
+					</td>
+					<td>
+						<label class="data-bind" id="tocmode" ng-if="vm.schemeType.tocmode == 'A'">ANNUAL</label>
+						<label class="data-bind" id="tocmode" ng-if="vm.schemeType.tocmode == 'H'">HALF-YEARLY</label>
+						<label class="data-bind" id="tocmode" ng-if="vm.schemeType.tocmode == 'Q'">QUARTERLY</label>
+					</td>
+					<td>
+					<label class="data-bind" id="tocmode" ng-if="vm.schemeTypeNew.tocmode == 'A'">ANNUAL</label>
+						<label class="data-bind" id="tocmode" ng-if="vm.schemeTypeNew.tocmode == 'H'">HALF-YEARLY</label>
+						<label class="data-bind" id="tocmode" ng-if="vm.schemeTypeNew.tocmode == 'Q'">QUARTERLY</label>
+					
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<label for="ph_cashac" class="control-label">Cash Account PlaceHolder</label>
+					</td>
+					<td><label class="data-bind" id="ph_cashac">{{vm.schemeType.ph_cashac}}</label></td>
+					<td><label class="data-bind" id="ph_fplc_Description">{{vm.schemeTypeNew.ph_cashac}}</label></td>
+				</tr>
+				<tr>
+					<td>
+						<label for="ph_clearingac" class="control-label">Clearing Sundry Account Place Holder</label>
+					</td>
+					<td><label class="data-bind" id="ph_clearingac">{{vm.schemeType.ph_clearingac}}</label></td>
+					<td><label class="data-bind" id="ph_clearingac_Description">{{vm.schemeTypeNew.ph_clearingac}}</label></td>
+				</tr>
+				<tr>
+					<td>
+						<label for="ph_hoac" class="control-label">RBI Relief Bond LC Consolidation PlaceHolder</label>
+					</td>
+					<td><label class="data-bind" id="ph_hoac">{{vm.schemeType.ph_hoac}}</label></td>
+					<td><label class="data-bind" id="ph_hoac_Description">{{vm.schemeTypeNew.ph_hoac}}</label></td>
+				</tr>
+				<tr ng-if="vm.bIsValid">
+					<td>
+						<label for="ph_hoaclocal" class="control-label">Head Office Account Place Holder (LOCAL Country)</label>
+					</td>
+					<td><label class="data-bind" id="ph_hoaclocal">{{vm.schemeType.ph_hoaclocal}}</label></td>
+					<td><label class="data-bind" id="ph_hoaclocal_Description">{{vm.schemeTypeNew.ph_hoaclocal}}</label></td>
+				</tr>
+				<tr>
+					<td>
+						<label for="ph_ddac" class="control-label">DD Account PlaceHolder</label>
+					</td>
+					<td><label class="data-bind" id="ph_ddac">{{vm.schemeType.ph_ddac}}</label></td>
+					<td><label class="data-bind" id="ph_ddac_Description">{{vm.schemeTypeNew.ph_ddac}}</label></td>
+				</tr>
+				<tr>
+					<td>
+						<label for="ph_poac" class="control-label">Pay Order Account PlaceHolder</label>
+					</td>
+					<td><label class="data-bind" id="ph_poac">{{vm.schemeType.ph_poac}}</label></td>
+					<td><label class="data-bind" id="ph_poac_Description">{{vm.schemeTypeNew.ph_poac}}</label></td>
+				</tr>
+				<tr>
+					<td>
+						<label for="ph_ecsac" class="control-label">ECS Account PlaceHolder</label>
+					</td>
+					<td><label class="data-bind" id="ph_ecsac">{{vm.schemeType.ph_ecsac}}</label></td>
+					<td><label class="data-bind" id="ph_ecsac_Description">{{vm.schemeTypeNew.ph_ecsac}}</label></td>
+				</tr>
+				<tr>
+					<td>
+						<label for="ph_tds" class="control-label">TDS A/C PlaceHolder</label>
+					</td>
+					<td><label class="data-bind" id="ph_tds">{{vm.schemeType.ph_tds}}</label></td>
+					<td><label class="data-bind" id="ph_tds_Description">{{vm.schemeTypeNew.ph_tds}}</label></td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+
+	<!-- common -->
+
+
+
+	<!-- CBDT -->
+
+	<div id="schemeType" ng-if="vm.schemeTypeInput == '0004'">
+
+		<h4 class="form_heading">CBDT</h4>
+
+
+		<div class="loader"></div>
+		<table class="table table-bordered table-striped list">
+			<thead>
+				<tr>
+					<th>Particular</th>
+					<th>Value</th>
+					<th>Description</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>
+						<label for="resyrstdate" class="control-label">Residual Year Start Period(DD/MM)</label>
+					</td>
+					<td><label class="data-bind" id="resyrstdate">{{vm.schemeType.resyrstdate}}</label></td>
+					<td></td>
+				</tr>
+				<tr>
+					<td>
+						<label for="resyrenddate" class="control-label">Residual Year End Period(DD/MM)</label>
+					</td>
+					<td><label class="data-bind" id="resyrenddate">{{vm.schemeType.resyrenddate}}</label></td>
+					<td></td>
+				</tr>
+				<tr>
+					<td>
+						<label for="ph_cbdt" class="control-label">CBDT Collection Account PlaceHolder</label>
+					</td>
+					<td><label class="data-bind" id="ph_cbdt">{{vm.schemeType.ph_cbdt}}</label></td>
+					<td><label class="data-bind" id="ph_cbdt_Description">{{vm.schemeDescription.ph_cbdt}}</label></td>
+				</tr>
+				<tr>
+					<td>
+						<label for="ph_cbdtfpconsol" class="control-label">CBDT Focal Point Consolidation Account PlaceHolder</label>
+					</td>
+					<td><label class="data-bind" id="ph_cbdtfpconsol">{{vm.schemeType.ph_cbdtfpconsol}}</label></td>
+					<td><label class="data-bind" id="ph_cbdtfpconsol_Description">{{vm.schemeDescription.ph_cbdtfpconsol}}</label></td>
+				</tr>
+				<tr>
+					<td>
+						<label for="ph_cbdtlcconsol" class="control-label">CBDT Link Cell Consolidation Account PlaceHolder</label>
+					</td>
+					<td><label class="data-bind" id="ph_cbdtlcconsol">{{vm.schemeType.ph_cbdtlcconsol}}</label></td>
+					<td><label class="data-bind" id="ph_cbdtlcconsol_Description">{{vm.schemeDescription.ph_cbdtlcconsol}}</label></td>
+				</tr>
+				<tr>
+					<td>
+						<label for=ph_cbdtincome class="control-label">CBDT Income Account PlaceHolder</label>
+					</td>
+					<td><label class="data-bind" id="ph_cbdtincome">{{vm.schemeType.ph_cbdtincome}}</label></td>
+					<td><label class="data-bind" id="ph_cbdtincome_Description">{{vm.schemeDescription.ph_cbdtincome}}</label></td>
+				</tr>
+				<tr>
+					<td>
+						<label for="ph_cbdtinet" class="control-label">CBDT Internet Parking A/C Place Holder</label>
+					</td>
+					<td><label class="data-bind" id="ph_cbdtinet">{{vm.schemeType.ph_cbdtinet}}</label></td>
+					<td><label class="data-bind" id="ph_cbdtinet_Description">{{vm.schemeDescription.ph_cbdtinet}}</label></td>
+				</tr>
+				<tr>
+					<td>
+						<label for="ismcpallowed" class="control-label">Can MCP be allowed, even if Consolidation is pending for Branches ?</label>
+					</td>
+					<td>
+						<label class="data-bind" id="ismcpallowed" ng-if="vm.schemeType.ismcpallowed == 'Y'">YES</label>
+						<label class="data-bind" id="ismcpallowed" ng-if="vm.schemeType.ismcpallowed == 'N'">NO</label>
+					</td>
+					<td></td>
+				</tr>
+				<tr>
+					<td>
+						<label for="isintersolmcp" class="control-label">Is Funds transfer to LC instead of FP permitted during MCP</label>
+					</td>
+					<td>
+						<label class="data-bind" id="isintersolmcp" ng-if="vm.schemeType.isintersolmcp == 'Y'">YES</label>
+						<label class="data-bind" id="isintersolmcp" ng-if="vm.schemeType.isintersolmcp == 'N'">NO</label>
+					</td>
+					<td></td>
+				</tr>
+				<tr ng-if="vm.schemeType.isintersolmcp == 'Y'">
+					<td>
+						<label for="ph_hoac" class="control-label">Head Office Account PlaceHolder (Up Country)</label>
+					</td>
+					<td><label class="data-bind" id="ph_hoac">{{vm.schemeType.ph_hoac}}</label></td>
+					<td></td>
+				</tr>
+				<tr ng-if="vm.schemeType.isintersolmcp == 'Y'">
+					<td>
+						<label for="ph_tds" class="control-label">Head Office Account PlaceHolder (LOCAL Country)</label>
+					</td>
+					<td><label class="data-bind" id="ph_ecsac">{{vm.schemeType.ph_ecsac}}</label></td>
+					<td></td>
+				</tr>
+				<tr ng-if="vm.schemeType.isintersolmcp == 'N'">
+					<td>
+						<label for="ph_intersolac" class="control-label">Inter-Sol Accounting PlaceHolder</label>
+					</td>
+					<td><label class="data-bind" id="ph_intersolac">{{vm.schemeType.ph_intersolac}}</label></td>
+					<td><label class="data-bind" id="ph_intersolac_Description">{{vm.schemeDescription.ph_intersolac}}</label></td>
+				</tr>
+				<tr>
+					<td>
+						<label for="isretention" class="control-label">Is Retention allowed</label>
+					</td>
+					<td>
+						<label class="data-bind" id="isretention" ng-if="vm.schemeType.isretention == 'Y'">YES</label>
+						<label class="data-bind" id="isretention" ng-if="vm.schemeType.isretention == 'N'">NO</label>
+					</td>
+					<td></td>
+				</tr>
+				<tr>
+					<td>
+						<label for="isrethol" class="control-label">Is Retention inclusive of holidays</label>
+					</td>
+					<td>
+						<label class="data-bind" id="isrethol" ng-if="vm.schemeType.isrethol == 'Y'">YES</label>
+						<label class="data-bind" id="isrethol" ng-if="vm.schemeType.isrethol == 'N'">NO</label>
+					</td>
+					<td></td>
+				</tr>
+				<tr>
+					<td>
+						<label for="isnbcrown" class="control-label">Is CROWN Data file Received - Nodal Branch</label>
+					</td>
+					<td>
+						<label class="data-bind" id="isnbcrown" ng-if="vm.schemeType.isnbcrown == 'Y'">YES</label>
+						<label class="data-bind" id="isnbcrown" ng-if="vm.schemeType.isnbcrown == 'N'">NO</label>
+					</td>
+					<td></td>
+				</tr>
+				<tr>
+					<td>
+						<label for="islccrown" class="control-label">Is CROWN Data file Received - Link Cell</label>
+					</td>
+					<td>
+						<label class="data-bind" id="islccrown" ng-if="vm.schemeType.islccrown == 'Y'">YES</label>
+						<label class="data-bind" id="islccrown" ng-if="vm.schemeType.islccrown == 'N'">NO</label>
+					</td>
+					<td></td>
+				</tr>
+				<tr>
+					<td>
+						<label for="ph_errorac" class="control-label">Error Challan Transaction Place Holder</label>
+					</td>
+					<td><label class="data-bind" id="ph_errorac">{{vm.schemeType.ph_errorac}}</label></td>
+					<td><label class="data-bind" id="ph_errorac_Description">{{vm.schemeDescription.ph_errorac}}</label></td>
+				</tr>
+				<tr>
+					<td>
+						<label for="ph_errorcollac" class="control-label">Error Challan Collection PlaceHolder</label>
+					</td>
+					<td><label class="data-bind" id="ph_errorcollac">{{vm.schemeType.ph_errorcollac}}</label></td>
+					<td><label class="data-bind" id="ph_errorcollac_Description">{{vm.schemeDescription.ph_errorcollac}}</label></td>
+				</tr>
+				<tr>
+					<td>
+						<label for="ph_errnbc" class="control-label">Error Challan Nodal Branch Collection PlaceHolder</label>
+					</td>
+					<td><label class="data-bind" id="ph_errnbc">{{vm.schemeType.ph_errnbc}}</label></td>
+					<td><label class="data-bind" id="ph_errnbc_Description">{{vm.schemeDescription.ph_errnbc}}</label></td>
+				</tr>				
+				<tr>
+					<td>
+						<label for="ph_errlcc" class="control-label">Error Challan Link Cell Collection PlaceHolder</label>
+					</td>
+					<td><label class="data-bind" id="ph_errlcc">{{vm.schemeType.ph_errlcc}}</label></td>
+					<td><label class="data-bind" id="ph_errlcc_Description">{{vm.schemeDescription.ph_errlcc}}</label></td>
+				</tr>
+				<tr>
+					<td>
+						<label for="ph_errsun" class="control-label">Error Challan Place Holder for Drop Challan</label>
+					</td>
+					<td><label class="data-bind" id="ph_errsun">{{vm.schemeType.ph_errsun}}</label></td>
+					<td><label class="data-bind" id="ph_errsun_Description">{{vm.schemeDescription.ph_errsun}}</label></td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+
+	<!-- CBDT -->
+
+	<!-- CBEC -->
+
+	<div id="schemeType" ng-if="vm.schemeTypeInput == '0005'">
+
+		<h4 class="form_heading">CBEC</h4>
+
+
+		<div class="loader"></div>
+		<table class="table table-bordered table-striped list">
+			<thead>
+				<tr>
+					<th>Particular</th>
+					<th>Value</th>
+					<th>Description</th>
+
+				</tr>
+			</thead>
+			<tbody>				
+				<tr>
+					<td>
+						<label for="ph_cbec" class="control-label">CBEC Collection A/C Place Holder</label>
+					</td>
+					<td><label class="data-bind" id="ph_cbec">{{vm.schemeType.ph_cbec}}</label></td>
+					<td><label class="data-bind" id="ph_cbec_Description">{{vm.schemeDescription.ph_cbec}}</label></td>
+				</tr>			
+				<tr>
+					<td>
+						<label for="resyrstdate" class="control-label">Residual Year Start Period(dd/mm)</label>
+					</td>
+					<td><label class="data-bind" id="resyrstdate">{{vm.schemeType.resyrstdate}}</label></td>
+					<td></td>
+				</tr>			
+				<tr>
+					<td>
+						<label for="resyrenddate" class="control-label">Residual Year End Period(dd/mm)</label>
+					</td>
+					<td><label class="data-bind" id="resyrenddate">{{vm.schemeType.resyrenddate}}</label></td>
+					<td></td>
+				</tr>
+				<tr>
+					<td>
+						<label for="ph_cbecfpconsol" class="control-label">CBEC Focal Point Consolidation A/C Place Holder for CENTRAL EXCISE TAX</label>
+					</td>
+					<td><label class="data-bind" id="ph_cbecfpconsol">{{vm.schemeType.ph_cbecfpconsol}}</label></td>
+					<td><label class="data-bind" id="ph_cbecfpconsol_Description">{{vm.schemeDescription.ph_cbecfpconsol}}</label></td>
+				</tr>
+				<tr>
+					<td>
+						<label for="ph_cbeclcconsol" class="control-label">CBEC Link Cell Consolidation A/C Place Holder</label>
+					</td>
+					<td><label class="data-bind" id="ph_cbeclcconsol">{{vm.schemeType.ph_cbeclcconsol}}</label></td>
+					<td><label class="data-bind" id="ph_cbeclcconsol_Description">{{vm.schemeDescription.ph_cbeclcconsol}}</label></td>
+				</tr>
+				<tr>
+					<td>
+						<label for="ph_cbecincome" class="control-label">CBEC Income A/C Place Holder</label>
+					</td>
+					<td><label class="data-bind" id="ph_cbecincome">{{vm.schemeType.ph_cbecincome}}</label></td>
+					<td><label class="data-bind" id="ph_cbecincome_Description">{{vm.schemeDescription.ph_cbecincome}}</label></td>
+				</tr>
+				<!-- IsInternetEnabledForCBEC -->
+				<tr>
+					<td>
+						<label for="ph_cbecinetce" class="control-label">CBEC Internet Parking A/C Place Holder for CENTRAL EXCISE TAX</label>
+					</td>
+					<td><label class="data-bind" id="ph_cbecinetce">{{vm.schemeType.ph_cbecinetce}}</label></td>
+					<td><label class="data-bind" id="ph_cbecinetce_Description">{{vm.schemeDescription.ph_cbecinetce}}</label></td>
+				</tr>
+				<!-- IsInternetEnabledForCBEC -->
+				<tr>
+					<td>
+						<label for="ph_cbecinetst" class="control-label">CBEC Internet Parking A/C Place Holder for SERVICE TAX</label>
+					</td>
+					<td><label class="data-bind" id="ph_cbecinetst">{{vm.schemeType.ph_cbecinetst}}</label></td>
+					<td><label class="data-bind" id="ph_cbecinetst_Description">{{vm.schemeDescription.ph_cbecinetst}}</label></td>
+				</tr>
+				<tr>
+					<td>
+						<label for="isnoncbsconsol" class="control-label">Can Focal Point & Linkcell Consolidation be allowed  for Non CBS Branches ?</label>
+					</td>
+					<td>
+						<label class="data-bind" id="isnoncbsconsol" ng-if="vm.schemeType.isnoncbsconsol == 'Y'">YES</label>
+						<label class="data-bind" id="isnoncbsconsol" ng-if="vm.schemeType.isnoncbsconsol == 'N'">NO</label>
+					</td>
+					<td></td>
+				</tr>
+				<tr>
+					<td>
+						<label for="isscrolgapsallowed" class="control-label">Can Gaps in scroll No be allowed, during consolidation, for CBS Branches ?</label>
+					</td>
+					<td>
+						<label class="data-bind" id="isscrolgapsallowed" ng-if="vm.schemeType.isscrolgapsallowed == 'Y'">YES</label>
+						<label class="data-bind" id="isscrolgapsallowed" ng-if="vm.schemeType.isscrolgapsallowed == 'N'">NO</label>
+					</td>
+					<td></td>
+				</tr>
+				<tr>
+					<td>
+						<label for="ismcpallowed" class="control-label">Can MCP be allowed, even if Consolidation is pending for Branches ?</label>
+					</td>
+					<td>
+						<label class="data-bind" id="ismcpallowed" ng-if="vm.schemeType.ismcpallowed == 'Y'">YES</label>
+						<label class="data-bind" id="ismcpallowed" ng-if="vm.schemeType.ismcpallowed == 'N'">NO</label>
+					</td>
+					<td></td>
+				</tr>
+				<tr>
+					<td>
+						<label for="isintersolmcp" class="control-label">Is Funds transfer to LC instead of FP permitted during MCP</label>
+					</td>
+					<td>
+						<label class="data-bind" id="isintersolmcp" ng-if="vm.schemeType.isintersolmcp == 'Y'">YES</label>
+						<label class="data-bind" id="isintersolmcp" ng-if="vm.schemeType.isintersolmcp == 'N'">NO</label>
+					</td>
+					<td></td>
+				</tr>
+				<tr ng-if="vm.schemeType.isintersolmcp == 'Y'">
+					<td>
+						<label for="ph_hoac" class="control-label">Head Office Account Place Holder (UP Country)</label>
+					</td>
+					<td><label class="data-bind" id="ph_hoac">{{vm.schemeType.ph_hoac}}</label></td>
+					<td><label class="data-bind" id="ph_hoac_Description">{{vm.schemeDescription.ph_hoac}}</label></td>
+				</tr>
+				<tr ng-if="vm.schemeType.isintersolmcp == 'Y'">
+					<td>
+						<label for="ph_hoaclocal" class="control-label">Head Office Account Place Holder (LOCAL Country)</label>
+					</td>
+					<td><label class="data-bind" id="ph_hoaclocal">{{vm.schemeType.ph_hoaclocal}}</label></td>
+					<td><label class="data-bind" id="ph_hoaclocal_Description">{{vm.schemeDescription.ph_hoaclocal}}</label></td>
+				</tr>
+				<tr ng-if="vm.schemeType.isintersolmcp == 'N'">
+					<td>
+						<label for="ph_intersolac" class="control-label">Inter-Sol Accounting Place Holder</label>
+					</td>
+					<td><label class="data-bind" id="ph_intersolac">{{vm.schemeType.ph_intersolac}}</label></td>
+					<td><label class="data-bind" id="ph_intersolac_Description">{{vm.schemeDescription.ph_intersolac}}</label></td>
+				</tr>
+				<tr>
+					<td>
+						<label for="isretention" class="control-label">Is Retention allowed</label>
+					</td>
+					<td>
+						<label class="data-bind" id="isretention" ng-if="vm.schemeType.isretention == 'Y'">YES</label>
+						<label class="data-bind" id="isretention" ng-if="vm.schemeType.isretention == 'N'">NO</label>
+					</td>
+					<td></td>
+				</tr>
+				<tr ng-if="vm.schemeType.isretention == 'Y'">
+					<td>
+						<label for="isrethol" class="control-label">Is Retention inclusive of holidays</label>
+					</td>
+					<td>
+						<label class="data-bind" id="isrethol" ng-if="vm.schemeType.isrethol == 'Y'">YES</label>
+						<label class="data-bind" id="isrethol" ng-if="vm.schemeType.isrethol == 'N'">NO</label>
+					</td>
+					<td></td>
+				</tr>
+				<tr>
+					<td>
+						<label for="isnbcrown" class="control-label">Is CROWN Data file Received - Nodal Branch</label>
+					</td>
+					<td>
+						<label class="data-bind" id="isnbcrown" ng-if="vm.schemeType.isnbcrown == 'Y'">YES</label>
+						<label class="data-bind" id="isnbcrown" ng-if="vm.schemeType.isnbcrown == 'N'">NO</label>
+					</td>
+					<td></td>
+				</tr>
+				<tr>
+					<td>
+						<label for="islccrown" class="control-label">Is CROWN Data file Received - Link Cell</label>
+					</td>
+					<td>
+						<label class="data-bind" id="islccrown" ng-if="vm.schemeType.islccrown == 'Y'">YES</label>
+						<label class="data-bind" id="islccrown" ng-if="vm.schemeType.islccrown == 'N'">NO</label>
+					</td>
+					<td></td>
+				</tr>
+				<tr>
+					<td>
+						<label for="ph_suspenseac" class="control-label">CBEC Focal Point Consolidation Account Place Holder for SERVICE TAX</label>
+					</td>
+					<td><label class="data-bind" id="ph_suspenseac">{{vm.schemeType.ph_suspenseac}}</label></td>
+					<td><label class="data-bind" id="ph_suspenseac_Description">{{vm.schemeDescription.ph_suspenseac}}</label></td>
+				</tr>
+				<tr>
+					<td>
+						<label for="ph_cbecerrorac" class="control-label">Error Challan Transaction Place Holder</label>
+					</td>
+					<td><label class="data-bind" id="ph_cbecerrorac">{{vm.schemeType.ph_cbecerrorac}}</label></td>
+					<td><label class="data-bind" id="ph_cbecerrorac_Description">{{vm.schemeDescription.ph_cbecerrorac}}</label></td>
+				</tr>
+				<tr>
+					<td>
+						<label for="ph_cbecerrorcollac" class="control-label">Error Challan Collection Place Holder</label>
+					</td>
+					<td><label class="data-bind" id="ph_cbecerrorcollac">{{vm.schemeType.ph_cbecerrorcollac}}</label></td>
+					<td><label class="data-bind" id="ph_cbecerrorcollac_Description">{{vm.schemeDescription.ph_cbecerrorcollac}}</label></td>
+				</tr>
+				<tr>
+					<td>
+						<label for="ph_cbecerrnbc" class="control-label">Error Challan Nodal Branch Collection Place Holder</label>
+					</td>
+					<td><label class="data-bind" id="ph_cbecerrnbc">{{vm.schemeType.ph_cbecerrnbc}}</label></td>
+					<td><label class="data-bind" id="ph_cbecerrnbc_Description">{{vm.schemeDescription.ph_cbecerrnbc}}</label></td>
+				</tr>
+				<tr>
+					<td>
+						<label for="ph_cbecerrlcc" class="control-label">Error Challan Link Cell Collection Place Holder</label>
+					</td>
+					<td><label class="data-bind" id="ph_cbecerrlcc">{{vm.schemeType.ph_cbecerrlcc}}</label></td>
+					<td><label class="data-bind" id="ph_cbecerrlcc_Description">{{vm.schemeDescription.ph_cbecerrlcc}}</label></td>
+				</tr>
+				<tr>
+					<td>
+						<label for="ph_cbecerrsun" class="control-label">Error Challan Place Holder for Drop Challan</label>
+					</td>
+					<td><label class="data-bind" id="ph_cbecerrsun">{{vm.schemeType.ph_cbecerrsun}}</label></td>
+					<td><label class="data-bind" id="ph_cbecerrsun_Description">{{vm.schemeDescription.ph_cbecerrsun}}</label></td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+
+<div class="row" >
+				<div class="col-sm-7"></div>
+				<label  ng-if="vm.newValueDispay == false" class="control-label col-sm-5"><b>Verify Status : Y</b></label>
+				<label  ng-if="vm.newValueDispay == true" class="control-label col-sm-5"><b>Verify Status : N</b></label>
+			</div>
+
+	<div class="text-center form_submit">
+		<button type="button" id="cancelButton" class="btn btn-cancel"
+			onclick="window.location.href ='#!/';">Back</button>
+	</div>
+</div>
+

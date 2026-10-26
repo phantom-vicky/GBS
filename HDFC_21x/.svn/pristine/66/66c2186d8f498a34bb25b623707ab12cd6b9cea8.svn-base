@@ -1,0 +1,183 @@
+<user-left-menu></user-left-menu>
+<div class="loader-new" ng-if="vm.loader"></div>
+<div class="container from_wrapper">
+    <h4 class="form_heading  feature-heading">User - {{vm.action}}</h4>
+
+    <ng-form name="userInquiryFrom" role="form">
+        <table class="table table-bordered table-striped list old-new-value-table">
+            <thead>
+            <tr>
+                <th width="30%">Particular</th>
+                <th width="35%">{{(vm.users.preOpr == 'M')?('Old Value'): ('Value')}}</th>
+                <th width="35%" ng-if="vm.users.preOpr == 'M'">New Value</th>
+            </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>First Name</td>
+                    <td class="old-value">
+                        {{(vm.users && vm.users.firstName)? (vm.users.firstName) : ('')}}
+                    </td>
+                    <td class="new-value" ng-if="vm.users.preOpr == 'M'">
+                        {{(vm.users && vm.users.firstNameNew)? (vm.users.firstNameNew) : ('')}}
+                    </td>
+                </tr>
+                <tr>
+                    <td>Last Name</td>
+                    <td class="old-value">
+                        {{(vm.users && vm.users.lastName)? (vm.users.lastName) : ('')}}
+                    </td>
+                    <td class="new-value" ng-if="vm.users.preOpr == 'M'">
+                        {{(vm.users && vm.users.lastNameNew)? (vm.users.lastNameNew) : ('')}}
+                    </td>
+                </tr>
+                <tr>
+                    <td>Sol Id</td>
+                    <td class="old-value">
+                        {{(vm.users && vm.users.solId)? (vm.users.solId) : ('')}}
+                    </td>
+                    <td class="new-value" ng-if="vm.users.preOpr == 'M'">
+                        {{(vm.users && vm.users.solIdNew)? (vm.users.solIdNew) : ('')}}
+                    </td>
+                </tr>
+                <tr>
+                    <td>Employee Code</td>
+                    <td class="old-value">
+                        {{(vm.users && vm.users.employeeCode)? (vm.users.employeeCode) : ('')}}
+                    </td>
+                    <td class="new-value" ng-if="vm.users.preOpr == 'M'">
+                        {{(vm.users && vm.users.employeeCodeNew)? (vm.users.employeeCodeNew) : ('')}}
+                    </td>
+                </tr>
+                <tr>
+                    <td>Application Name</td>
+                    <td class="old-value">
+                        {{(vm.users && vm.users.applicationName)? (vm.users.applicationName) : ('')}}
+                    </td>
+                    <td class="new-value" ng-if="vm.users.preOpr == 'M'">
+                        {{(vm.users && vm.users.applicationNameNew)? (vm.users.applicationNameNew) : ('')}}
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>Department Code</td>
+                    <td class="old-value">
+                        {{(vm.users && vm.users.departmentCode)? (vm.users.departmentCode) : ('')}}
+                    </td>
+                    <td class="new-value" ng-if="vm.users.preOpr == 'M'">
+                        {{(vm.users && vm.users.departmentCodeNew)? (vm.users.departmentCodeNew) : ('')}}
+                    </td>
+                </tr>
+                <tr>
+                    <td>Supervision Code</td>
+                    <td class="old-value">
+                        {{(vm.users && vm.users.supervisorCode)? (vm.users.supervisorCode) : ('')}}
+                    </td>
+                    <td class="new-value" ng-if="vm.users.preOpr == 'M'">
+                        {{(vm.users && vm.users.supervisorCodeNew)? (vm.users.supervisorCodeNew) : ('')}}
+                    </td>
+                </tr>
+                <tr>
+                    <td>Location Code</td>
+                    <td class="old-value">
+                        {{(vm.users && vm.users.locationCode)? (vm.users.locationCode) : ('')}}
+                    </td>
+                    <td class="new-value" ng-if="vm.users.preOpr == 'M'">
+                        {{(vm.users && vm.users.locationCodeNew)? (vm.users.locationCodeNew) : ('')}}
+                    </td>
+                </tr>
+                <tr>
+                    <td>User Type</td>
+                    <td class="old-value">
+                        {{(vm.users && vm.users.userType)? (vm.users.userType | getLabelFromValuesArray : vm.userTypeList) : ('')}}
+                    </td>
+                    <td class="new-value" ng-if="vm.users.preOpr == 'M'">
+                        {{(vm.users && vm.users.userTypeNew)? (vm.users.userTypeNew | getLabelFromValuesArray : vm.userTypeList) : ('')}}
+                    </td>
+                </tr>
+                <tr ng-if="vm.users.userType == 'C'">
+                    <td>User Account Expiry Date</td>
+                    <td class="old-value">
+                        {{(vm.users && vm.users.userExpiryDate)? (vm.users.userExpiryDate) : ('')}}
+                    </td>
+                    <td class="new-value" ng-if="vm.users.preOpr == 'M'">
+                        {{(vm.users && vm.users.userExpiryDateNew)? (vm.users.userExpiryDateNew) : ('')}}
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>Username</td>
+                    <td class="old-value">
+                        {{(vm.users && vm.users.username)? (vm.users.username) : ('')}}
+                    </td>
+                    <td class="new-value" ng-if="vm.users.preOpr == 'M'">
+                        {{(vm.users && vm.users.usernameNew)? (vm.users.usernameNew) : ('')}}
+                    </td>
+                </tr>
+                <tr>
+                    <td>Disable Status</td>
+                    <td class="old-value">
+                        {{(vm.users && vm.users.userDisableStatus)? (vm.users.userDisableStatus) : ('')}}
+                    </td>
+                    <td class="new-value" ng-if="vm.users.preOpr == 'M'">
+                        {{(vm.users && vm.users.userDisableStatusNew)? (vm.users.userDisableStatusNew) : ('')}}
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>Disable Till</td>
+                    <td class="old-value">
+                        {{(vm.users && vm.users.userDisabledTill)? (vm.users.userDisabledTill | date:'dd/MM/yyyy' ) : ('')}}
+                    </td>
+                    <td class="new-value" ng-if="vm.users.preOpr == 'M'">
+                        {{(vm.users && vm.users.userDisabledTillNew)? (vm.users.userDisabledTillNew) : ('')}}
+                    </td>
+                </tr>
+
+            </tbody>
+        </table>
+    </ng-form>
+
+
+    <div class="audit-details">
+        <div class="row">
+            <div class="col-md-3">
+                <span> <b> Created By </b> : {{vm.users.createdByUser}} </span>
+            </div>
+            <div class="col-md-3">
+                <span> <b> Last Modified By </b> : {{(vm.users.modifiedByUser) ? (vm.users.modifiedByUser) : ('None')}}</span>
+            </div>
+            <div class="col-md-3">
+                <span> <b> Last Verified By </b> : {{(vm.users.verifiedByUser) ? (vm.users.verifiedByUser) : ('None')}}</span>
+            </div>
+            <div class="col-md-3">
+                <span> <b> Verify Status </b> : {{vm.users.verifyStatus  | getLabelFromValuesArray : vm.commonYesNoMetaData}}</span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3">
+                <span> <b> Created On </b> : {{ vm.users.createdDate}}</span>
+            </div>
+            <div class="col-md-3">
+                <span> <b> Last Modified On</b> : {{ (vm.users.modifiedDate) ? (vm.users.modifiedDate) : ('None')}}</span>
+            </div>
+            <div class="col-md-3">
+                <span> <b> Last Verified On </b> : {{(vm.users.verifiedDate) ? (vm.users.verifiedDate) : ('None')}}</span>
+            </div>
+            <div class="col-md-3">
+            </div>
+        </div>
+    </div>
+
+
+
+    <div class="text-center form_submit">
+        <button ng-if="vm.action == 'verify'" type="button" id="verifySubmitButton" class="btn btn-primary"
+                ng-click="vm.showVerifyConfirmation(vm.users.id,vm.users.password)">Verify</button>
+        <button ng-if="vm.action == 'delete'" type="button" id="DeleteSubmitButton" class="btn btn-primary"
+                ng-click="vm.showDeleteConfirmation(vm.users.id)">Delete</button>
+        <button type="button" id="cancelButton" class="btn btn-cancel"
+                onclick="window.location.href ='#!/user/action/inquiry';">Cancel</button>
+    </div>
+
+</div>

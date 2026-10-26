@@ -5,7 +5,7 @@ FROM maven:3.9-eclipse-temurin-21 AS builder
 WORKDIR /app
 
 COPY ./HDFC_21x/pom.xml .
-COPY src ./HDFC_21x/src
+COPY ./HDFC_21xsrc ./src
 
 RUN mvn -B clean package
 

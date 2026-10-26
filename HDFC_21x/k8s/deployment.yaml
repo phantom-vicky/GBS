@@ -1,0 +1,63 @@
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: hdfc-java21-tomcat
+  namespace: hdfc-dev
+  labels:
+    app: hdfc-java21-tomcat
+
+spec:
+  replicas: 1
+
+  selector:
+    matchLabels:
+      app: hdfc-java21-tomcat
+
+  strategy:
+    type: RollingUpdate
+
+  template:
+    metadata:
+      labels:
+        app: hdfc-java21-tomcat
+
+    spec:
+      containers:
+        - name: tomcat
+          image: java-tomcat-app:local
+          imagePullPolicy: Never
+
+          ports:
+            - name: http
+              containerPort: 8080
+              protocol: TCP
+
+          env:
+            - name: JAVA_TOOL_OPTIONS
+              value: "-XX:MaxRAMPercentage=75.0"
+
+          resources:
+            requests:
+              memory: "512Mi"
+              cpu: "250m"
+            limits:
+              memory: "1Gi"
+              cpu: "1000m"
+
+          startupProbe:
+            tcpSocket:
+              port: 8080
+            failureThreshold: 24
+            periodSeconds: 5
+
+          readinessProbe:
+            tcpSocket:
+              port: 8080
+            periodSeconds: 10
+
+          livenessProbe:
+            tcpSocket:
+              port: 8080
+            periodSeconds: 20
+
